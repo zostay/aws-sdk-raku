@@ -191,210 +191,188 @@ class AWS::SDK::Service::Lambda20141111 does AWS::SDK::Service {
     }
 
     method list-event-sources(
-    Str :$event-source-arn,
-    FunctionName :$function-name,
-    MaxListItems :$max-items,
-    Str :$marker
+        Str :$event-source-arn,
+        FunctionName :$function-name,
+        MaxListItems :$max-items,
+        Str :$marker
     ) returns ListEventSourcesResponse is service-operation('ListEventSources') {
         my $request-input = ListEventSourcesRequest.new(
-        :$event-source-arn,
-        :$function-name,
-        :$max-items,
-        :$marker
+            :$event-source-arn,
+            :$function-name,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListEventSources>,
-            :return-type(ListEventSourcesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-function-configuration(
-    FunctionName :$function-name!
+        FunctionName :$function-name!
     ) returns FunctionConfiguration is service-operation('GetFunctionConfiguration') {
         my $request-input = GetFunctionConfigurationRequest.new(
-        :$function-name
+            :$function-name
         );
-;
+
         self.perform-operation(
             :api-call<GetFunctionConfiguration>,
-            :return-type(FunctionConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-function-configuration(
-    Timeout :$timeout,
-    RoleArn :$role,
-    FunctionName :$function-name!,
-    Description :$description,
-    Handler :$handler,
-    MemorySize :$memory-size
+        Timeout :$timeout,
+        RoleArn :$role,
+        FunctionName :$function-name!,
+        Description :$description,
+        Handler :$handler,
+        MemorySize :$memory-size
     ) returns FunctionConfiguration is service-operation('UpdateFunctionConfiguration') {
         my $request-input = UpdateFunctionConfigurationRequest.new(
-        :$timeout,
-        :$role,
-        :$function-name,
-        :$description,
-        :$handler,
-        :$memory-size
+            :$timeout,
+            :$role,
+            :$function-name,
+            :$description,
+            :$handler,
+            :$memory-size
         );
-;
+
         self.perform-operation(
             :api-call<UpdateFunctionConfiguration>,
-            :return-type(FunctionConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-function(
-    FunctionName :$function-name!
+        FunctionName :$function-name!
     ) is service-operation('DeleteFunction') {
         my $request-input = DeleteFunctionRequest.new(
-        :$function-name
+            :$function-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFunction>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-functions(
-    MaxListItems :$max-items,
-    Str :$marker
+        MaxListItems :$max-items,
+        Str :$marker
     ) returns ListFunctionsResponse is service-operation('ListFunctions') {
         my $request-input = ListFunctionsRequest.new(
-        :$max-items,
-        :$marker
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListFunctions>,
-            :return-type(ListFunctionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-event-source(
-    RoleArn :$role!,
-    FunctionName :$function-name!,
-    Hash[Str, Str] :$parameters,
-    Str :$event-source!,
-    Int :$batch-size
+        RoleArn :$role!,
+        FunctionName :$function-name!,
+        Hash[Str, Str] :$parameters,
+        Str :$event-source!,
+        Int :$batch-size
     ) returns EventSourceConfiguration is service-operation('AddEventSource') {
         my $request-input = AddEventSourceRequest.new(
-        :$role,
-        :$function-name,
-        :$parameters,
-        :$event-source,
-        :$batch-size
+            :$role,
+            :$function-name,
+            :$parameters,
+            :$event-source,
+            :$batch-size
         );
-;
+
         self.perform-operation(
             :api-call<AddEventSource>,
-            :return-type(EventSourceConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-function(
-    FunctionName :$function-name!
+        FunctionName :$function-name!
     ) returns GetFunctionResponse is service-operation('GetFunction') {
         my $request-input = GetFunctionRequest.new(
-        :$function-name
+            :$function-name
         );
-;
+
         self.perform-operation(
             :api-call<GetFunction>,
-            :return-type(GetFunctionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-event-source(
-    Str :$uuid!
+        Str :$uuid!
     ) is service-operation('RemoveEventSource') {
         my $request-input = RemoveEventSourceRequest.new(
-        :$uuid
+            :$uuid
         );
-;
+
         self.perform-operation(
             :api-call<RemoveEventSource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method upload-function(
-    Timeout :$timeout,
-    RoleArn :$role!,
-    Runtime :$runtime!,
-    FunctionName :$function-name!,
-    Description :$description,
-    Handler :$handler!,
-    Blob :$function-zip!,
-    MemorySize :$memory-size,
-    Mode :$mode!
+        Timeout :$timeout,
+        RoleArn :$role!,
+        Runtime :$runtime!,
+        FunctionName :$function-name!,
+        Description :$description,
+        Handler :$handler!,
+        Blob :$function-zip!,
+        MemorySize :$memory-size,
+        Mode :$mode!
     ) returns FunctionConfiguration is service-operation('UploadFunction') {
         my $request-input = UploadFunctionRequest.new(
-        :$timeout,
-        :$role,
-        :$runtime,
-        :$function-name,
-        :$description,
-        :$handler,
-        :$function-zip,
-        :$memory-size,
-        :$mode
+            :$timeout,
+            :$role,
+            :$runtime,
+            :$function-name,
+            :$description,
+            :$handler,
+            :$function-zip,
+            :$memory-size,
+            :$mode
         );
-;
+
         self.perform-operation(
             :api-call<UploadFunction>,
-            :return-type(FunctionConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-event-source(
-    Str :$uuid!
+        Str :$uuid!
     ) returns EventSourceConfiguration is service-operation('GetEventSource') {
         my $request-input = GetEventSourceRequest.new(
-        :$uuid
+            :$uuid
         );
-;
+
         self.perform-operation(
             :api-call<GetEventSource>,
-            :return-type(EventSourceConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method invoke-async(
-    FunctionName :$function-name!,
-    Blob :$invoke-args!
+        FunctionName :$function-name!,
+        Blob :$invoke-args!
     ) returns InvokeAsyncResponse is service-operation('InvokeAsync') {
         my $request-input = InvokeAsyncRequest.new(
-        :$function-name,
-        :$invoke-args
+            :$function-name,
+            :$invoke-args
         );
-;
+
         self.perform-operation(
             :api-call<InvokeAsync>,
-            :return-type(InvokeAsyncResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -288,260 +288,234 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
     }
 
     method delete-subscriber(
-    Subscriber :$subscriber!,
-    BudgetName :$budget-name!,
-    Notification :$notification!,
-    AccountId :$account-id!
+        Subscriber :$subscriber!,
+        BudgetName :$budget-name!,
+        Notification :$notification!,
+        AccountId :$account-id!
     ) returns DeleteSubscriberResponse is service-operation('DeleteSubscriber') {
         my $request-input = DeleteSubscriberRequest.new(
-        :$subscriber,
-        :$budget-name,
-        :$notification,
-        :$account-id
+            :$subscriber,
+            :$budget-name,
+            :$notification,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSubscriber>,
-            :return-type(DeleteSubscriberResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-subscriber(
-    Subscriber :$subscriber!,
-    BudgetName :$budget-name!,
-    Notification :$notification!,
-    AccountId :$account-id!
+        Subscriber :$subscriber!,
+        BudgetName :$budget-name!,
+        Notification :$notification!,
+        AccountId :$account-id!
     ) returns CreateSubscriberResponse is service-operation('CreateSubscriber') {
         my $request-input = CreateSubscriberRequest.new(
-        :$subscriber,
-        :$budget-name,
-        :$notification,
-        :$account-id
+            :$subscriber,
+            :$budget-name,
+            :$notification,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateSubscriber>,
-            :return-type(CreateSubscriberResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-budget(
-    BudgetName :$budget-name!,
-    AccountId :$account-id!
+        BudgetName :$budget-name!,
+        AccountId :$account-id!
     ) returns DescribeBudgetResponse is service-operation('DescribeBudget') {
         my $request-input = DescribeBudgetRequest.new(
-        :$budget-name,
-        :$account-id
+            :$budget-name,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeBudget>,
-            :return-type(DescribeBudgetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-budget(
-    BudgetName :$budget-name!,
-    AccountId :$account-id!
+        BudgetName :$budget-name!,
+        AccountId :$account-id!
     ) returns DeleteBudgetResponse is service-operation('DeleteBudget') {
         my $request-input = DeleteBudgetRequest.new(
-        :$budget-name,
-        :$account-id
+            :$budget-name,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBudget>,
-            :return-type(DeleteBudgetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-budget(
-    Budget :$budget!,
-    NotificationWithSubscribersList :$notifications-with-subscribers,
-    AccountId :$account-id!
+        Budget :$budget!,
+        NotificationWithSubscribersList :$notifications-with-subscribers,
+        AccountId :$account-id!
     ) returns CreateBudgetResponse is service-operation('CreateBudget') {
         my $request-input = CreateBudgetRequest.new(
-        :$budget,
-        :$notifications-with-subscribers,
-        :$account-id
+            :$budget,
+            :$notifications-with-subscribers,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateBudget>,
-            :return-type(CreateBudgetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-notification(
-    BudgetName :$budget-name!,
-    Notification :$new-notification!,
-    Notification :$old-notification!,
-    AccountId :$account-id!
+        BudgetName :$budget-name!,
+        Notification :$new-notification!,
+        Notification :$old-notification!,
+        AccountId :$account-id!
     ) returns UpdateNotificationResponse is service-operation('UpdateNotification') {
         my $request-input = UpdateNotificationRequest.new(
-        :$budget-name,
-        :$new-notification,
-        :$old-notification,
-        :$account-id
+            :$budget-name,
+            :$new-notification,
+            :$old-notification,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateNotification>,
-            :return-type(UpdateNotificationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-notifications-for-budget(
-    MaxResults :$max-results,
-    BudgetName :$budget-name!,
-    Str :$next-token,
-    AccountId :$account-id!
+        MaxResults :$max-results,
+        BudgetName :$budget-name!,
+        Str :$next-token,
+        AccountId :$account-id!
     ) returns DescribeNotificationsForBudgetResponse is service-operation('DescribeNotificationsForBudget') {
         my $request-input = DescribeNotificationsForBudgetRequest.new(
-        :$max-results,
-        :$budget-name,
-        :$next-token,
-        :$account-id
+            :$max-results,
+            :$budget-name,
+            :$next-token,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeNotificationsForBudget>,
-            :return-type(DescribeNotificationsForBudgetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-notification(
-    BudgetName :$budget-name!,
-    Notification :$notification!,
-    AccountId :$account-id!
+        BudgetName :$budget-name!,
+        Notification :$notification!,
+        AccountId :$account-id!
     ) returns DeleteNotificationResponse is service-operation('DeleteNotification') {
         my $request-input = DeleteNotificationRequest.new(
-        :$budget-name,
-        :$notification,
-        :$account-id
+            :$budget-name,
+            :$notification,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteNotification>,
-            :return-type(DeleteNotificationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-notification(
-    BudgetName :$budget-name!,
-    Notification :$notification!,
-    Subscribers :$subscribers!,
-    AccountId :$account-id!
+        BudgetName :$budget-name!,
+        Notification :$notification!,
+        Subscribers :$subscribers!,
+        AccountId :$account-id!
     ) returns CreateNotificationResponse is service-operation('CreateNotification') {
         my $request-input = CreateNotificationRequest.new(
-        :$budget-name,
-        :$notification,
-        :$subscribers,
-        :$account-id
+            :$budget-name,
+            :$notification,
+            :$subscribers,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateNotification>,
-            :return-type(CreateNotificationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-subscriber(
-    Subscriber :$new-subscriber!,
-    BudgetName :$budget-name!,
-    Subscriber :$old-subscriber!,
-    Notification :$notification!,
-    AccountId :$account-id!
+        Subscriber :$new-subscriber!,
+        BudgetName :$budget-name!,
+        Subscriber :$old-subscriber!,
+        Notification :$notification!,
+        AccountId :$account-id!
     ) returns UpdateSubscriberResponse is service-operation('UpdateSubscriber') {
         my $request-input = UpdateSubscriberRequest.new(
-        :$new-subscriber,
-        :$budget-name,
-        :$old-subscriber,
-        :$notification,
-        :$account-id
+            :$new-subscriber,
+            :$budget-name,
+            :$old-subscriber,
+            :$notification,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSubscriber>,
-            :return-type(UpdateSubscriberResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-budget(
-    AccountId :$account-id!,
-    Budget :$new-budget!
+        AccountId :$account-id!,
+        Budget :$new-budget!
     ) returns UpdateBudgetResponse is service-operation('UpdateBudget') {
         my $request-input = UpdateBudgetRequest.new(
-        :$account-id,
-        :$new-budget
+            :$account-id,
+            :$new-budget
         );
-;
+
         self.perform-operation(
             :api-call<UpdateBudget>,
-            :return-type(UpdateBudgetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-subscribers-for-notification(
-    MaxResults :$max-results,
-    BudgetName :$budget-name!,
-    Notification :$notification!,
-    Str :$next-token,
-    AccountId :$account-id!
+        MaxResults :$max-results,
+        BudgetName :$budget-name!,
+        Notification :$notification!,
+        Str :$next-token,
+        AccountId :$account-id!
     ) returns DescribeSubscribersForNotificationResponse is service-operation('DescribeSubscribersForNotification') {
         my $request-input = DescribeSubscribersForNotificationRequest.new(
-        :$max-results,
-        :$budget-name,
-        :$notification,
-        :$next-token,
-        :$account-id
+            :$max-results,
+            :$budget-name,
+            :$notification,
+            :$next-token,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSubscribersForNotification>,
-            :return-type(DescribeSubscribersForNotificationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-budgets(
-    MaxResults :$max-results,
-    Str :$next-token,
-    AccountId :$account-id!
+        MaxResults :$max-results,
+        Str :$next-token,
+        AccountId :$account-id!
     ) returns DescribeBudgetsResponse is service-operation('DescribeBudgets') {
         my $request-input = DescribeBudgetsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$account-id
+            :$max-results,
+            :$next-token,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeBudgets>,
-            :return-type(DescribeBudgetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

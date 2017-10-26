@@ -1296,124 +1296,110 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     subset Message of Str where .chars <= 1024;
 
     method update-traffic-policy-comment(
-    TrafficPolicyComment :$comment!,
-    TrafficPolicyId :$id!,
-    TrafficPolicyVersion :$version!
+        TrafficPolicyComment :$comment!,
+        TrafficPolicyId :$id!,
+        TrafficPolicyVersion :$version!
     ) returns UpdateTrafficPolicyCommentResponse is service-operation('UpdateTrafficPolicyComment') {
         my $request-input = UpdateTrafficPolicyCommentRequest.new(
-        :$comment,
-        :$id,
-        :$version
+            :$comment,
+            :$id,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTrafficPolicyComment>,
-            :return-type(UpdateTrafficPolicyCommentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-traffic-policy(
-    TrafficPolicyId :$id!,
-    TrafficPolicyVersion :$version!
+        TrafficPolicyId :$id!,
+        TrafficPolicyVersion :$version!
     ) returns DeleteTrafficPolicyResponse is service-operation('DeleteTrafficPolicy') {
         my $request-input = DeleteTrafficPolicyRequest.new(
-        :$id,
-        :$version
+            :$id,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTrafficPolicy>,
-            :return-type(DeleteTrafficPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-vpc-from-hosted-zone(
-    Str :$comment,
-    ResourceId :$hosted-zone-id!,
-    VPC :$vpc!
+        Str :$comment,
+        ResourceId :$hosted-zone-id!,
+        VPC :$vpc!
     ) returns DisassociateVPCFromHostedZoneResponse is service-operation('DisassociateVPCFromHostedZone') {
         my $request-input = DisassociateVPCFromHostedZoneRequest.new(
-        :$comment,
-        :$hosted-zone-id,
-        :$vpc
+            :$comment,
+            :$hosted-zone-id,
+            :$vpc
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateVPCFromHostedZone>,
-            :return-type(DisassociateVPCFromHostedZoneResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-traffic-policy(
-    TrafficPolicyId :$id!,
-    TrafficPolicyVersion :$version!
+        TrafficPolicyId :$id!,
+        TrafficPolicyVersion :$version!
     ) returns GetTrafficPolicyResponse is service-operation('GetTrafficPolicy') {
         my $request-input = GetTrafficPolicyRequest.new(
-        :$id,
-        :$version
+            :$id,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<GetTrafficPolicy>,
-            :return-type(GetTrafficPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-vpc-association-authorizations(
-    Str :$max-results,
-    ResourceId :$hosted-zone-id!,
-    PaginationToken :$next-token
+        Str :$max-results,
+        ResourceId :$hosted-zone-id!,
+        PaginationToken :$next-token
     ) returns ListVPCAssociationAuthorizationsResponse is service-operation('ListVPCAssociationAuthorizations') {
         my $request-input = ListVPCAssociationAuthorizationsRequest.new(
-        :$max-results,
-        :$hosted-zone-id,
-        :$next-token
+            :$max-results,
+            :$hosted-zone-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListVPCAssociationAuthorizations>,
-            :return-type(ListVPCAssociationAuthorizationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-vpc-association-authorization(
-    ResourceId :$hosted-zone-id!,
-    VPC :$vpc!
+        ResourceId :$hosted-zone-id!,
+        VPC :$vpc!
     ) returns CreateVPCAssociationAuthorizationResponse is service-operation('CreateVPCAssociationAuthorization') {
         my $request-input = CreateVPCAssociationAuthorizationRequest.new(
-        :$hosted-zone-id,
-        :$vpc
+            :$hosted-zone-id,
+            :$vpc
         );
-;
+
         self.perform-operation(
             :api-call<CreateVPCAssociationAuthorization>,
-            :return-type(CreateVPCAssociationAuthorizationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-query-logging-config(
-    QueryLoggingConfigId :$id!
+        QueryLoggingConfigId :$id!
     ) returns GetQueryLoggingConfigResponse is service-operation('GetQueryLoggingConfig') {
         my $request-input = GetQueryLoggingConfigRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<GetQueryLoggingConfig>,
-            :return-type(GetQueryLoggingConfigResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1424,77 +1410,67 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         my $request-input = GetTrafficPolicyInstanceCountRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetTrafficPolicyInstanceCount>,
-            :return-type(GetTrafficPolicyInstanceCountResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method change-resource-record-sets(
-    ChangeBatch :$change-batch!,
-    ResourceId :$hosted-zone-id!
+        ChangeBatch :$change-batch!,
+        ResourceId :$hosted-zone-id!
     ) returns ChangeResourceRecordSetsResponse is service-operation('ChangeResourceRecordSets') {
         my $request-input = ChangeResourceRecordSetsRequest.new(
-        :$change-batch,
-        :$hosted-zone-id
+            :$change-batch,
+            :$hosted-zone-id
         );
-;
+
         self.perform-operation(
             :api-call<ChangeResourceRecordSets>,
-            :return-type(ChangeResourceRecordSetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-hosted-zone(
-    ResourceId :$id!
+        ResourceId :$id!
     ) returns DeleteHostedZoneResponse is service-operation('DeleteHostedZone') {
         my $request-input = DeleteHostedZoneRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteHostedZone>,
-            :return-type(DeleteHostedZoneResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-change(
-    ResourceId :$id!
+        ResourceId :$id!
     ) returns GetChangeResponse is service-operation('GetChange') {
         my $request-input = GetChangeRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<GetChange>,
-            :return-type(GetChangeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-geo-location(
-    GeoLocationCountryCode :$country-code,
-    GeoLocationSubdivisionCode :$subdivision-code,
-    GeoLocationContinentCode :$continent-code
+        GeoLocationCountryCode :$country-code,
+        GeoLocationSubdivisionCode :$subdivision-code,
+        GeoLocationContinentCode :$continent-code
     ) returns GetGeoLocationResponse is service-operation('GetGeoLocation') {
         my $request-input = GetGeoLocationRequest.new(
-        :$country-code,
-        :$subdivision-code,
-        :$continent-code
+            :$country-code,
+            :$subdivision-code,
+            :$continent-code
         );
-;
+
         self.perform-operation(
             :api-call<GetGeoLocation>,
-            :return-type(GetGeoLocationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1505,89 +1481,79 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         my $request-input = GetHealthCheckCountRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetHealthCheckCount>,
-            :return-type(GetHealthCheckCountResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-traffic-policy-instance(
-    TTL :$ttl!,
-    TrafficPolicyInstanceId :$id!,
-    TrafficPolicyId :$traffic-policy-id!,
-    TrafficPolicyVersion :$traffic-policy-version!
+        TTL :$ttl!,
+        TrafficPolicyInstanceId :$id!,
+        TrafficPolicyId :$traffic-policy-id!,
+        TrafficPolicyVersion :$traffic-policy-version!
     ) returns UpdateTrafficPolicyInstanceResponse is service-operation('UpdateTrafficPolicyInstance') {
         my $request-input = UpdateTrafficPolicyInstanceRequest.new(
-        :$ttl,
-        :$id,
-        :$traffic-policy-id,
-        :$traffic-policy-version
+            :$ttl,
+            :$id,
+            :$traffic-policy-id,
+            :$traffic-policy-version
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTrafficPolicyInstance>,
-            :return-type(UpdateTrafficPolicyInstanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-reusable-delegation-set(
-    ResourceId :$hosted-zone-id,
-    Nonce :$caller-reference!
+        ResourceId :$hosted-zone-id,
+        Nonce :$caller-reference!
     ) returns CreateReusableDelegationSetResponse is service-operation('CreateReusableDelegationSet') {
         my $request-input = CreateReusableDelegationSetRequest.new(
-        :$hosted-zone-id,
-        :$caller-reference
+            :$hosted-zone-id,
+            :$caller-reference
         );
-;
+
         self.perform-operation(
             :api-call<CreateReusableDelegationSet>,
-            :return-type(CreateReusableDelegationSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-query-logging-config(
-    QueryLoggingConfigId :$id!
+        QueryLoggingConfigId :$id!
     ) returns DeleteQueryLoggingConfigResponse is service-operation('DeleteQueryLoggingConfig') {
         my $request-input = DeleteQueryLoggingConfigRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteQueryLoggingConfig>,
-            :return-type(DeleteQueryLoggingConfigResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method test-dns-answer(
-    DNSName :$record-name!,
-    IPAddress :$resolver-ip,
-    IPAddress :$e-dns0-client-subnet-ip,
-    RRType :$record-type!,
-    ResourceId :$hosted-zone-id!,
-    SubnetMask :$e-dns0-client-subnet-mask
+        DNSName :$record-name!,
+        IPAddress :$resolver-ip,
+        IPAddress :$e-dns0-client-subnet-ip,
+        RRType :$record-type!,
+        ResourceId :$hosted-zone-id!,
+        SubnetMask :$e-dns0-client-subnet-mask
     ) returns TestDNSAnswerResponse is service-operation('TestDNSAnswer') {
         my $request-input = TestDNSAnswerRequest.new(
-        :$record-name,
-        :$resolver-ip,
-        :$e-dns0-client-subnet-ip,
-        :$record-type,
-        :$hosted-zone-id,
-        :$e-dns0-client-subnet-mask
+            :$record-name,
+            :$resolver-ip,
+            :$e-dns0-client-subnet-ip,
+            :$record-type,
+            :$hosted-zone-id,
+            :$e-dns0-client-subnet-mask
         );
-;
+
         self.perform-operation(
             :api-call<TestDNSAnswer>,
-            :return-type(TestDNSAnswerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1598,331 +1564,297 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         my $request-input = GetHostedZoneCountRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetHostedZoneCount>,
-            :return-type(GetHostedZoneCountResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-hosted-zones(
-    Str :$max-items,
-    PageMarker :$marker,
-    ResourceId :$delegation-set-id
+        Str :$max-items,
+        PageMarker :$marker,
+        ResourceId :$delegation-set-id
     ) returns ListHostedZonesResponse is service-operation('ListHostedZones') {
         my $request-input = ListHostedZonesRequest.new(
-        :$max-items,
-        :$marker,
-        :$delegation-set-id
+            :$max-items,
+            :$marker,
+            :$delegation-set-id
         );
-;
+
         self.perform-operation(
             :api-call<ListHostedZones>,
-            :return-type(ListHostedZonesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-health-check(
-    ResettableElementNameList :$reset-elements,
-    HealthThreshold :$health-threshold,
-    AlarmIdentifier :$alarm-identifier,
-    ChildHealthCheckList :$child-health-checks,
-    FailureThreshold :$failure-threshold,
-    HealthCheckVersion :$health-check-version,
-    InsufficientDataHealthStatus :$insufficient-data-health-status,
-    Bool :$enable-sni,
-    SearchString :$search-string,
-    ResourcePath :$resource-path,
-    FullyQualifiedDomainName :$fully-qualified-domain-name,
-    Port :$port,
-    HealthCheckRegionList :$regions,
-    Bool :$inverted,
-    IPAddress :$ip-address,
-    HealthCheckId :$health-check-id!
+        ResettableElementNameList :$reset-elements,
+        HealthThreshold :$health-threshold,
+        AlarmIdentifier :$alarm-identifier,
+        ChildHealthCheckList :$child-health-checks,
+        FailureThreshold :$failure-threshold,
+        HealthCheckVersion :$health-check-version,
+        InsufficientDataHealthStatus :$insufficient-data-health-status,
+        Bool :$enable-sni,
+        SearchString :$search-string,
+        ResourcePath :$resource-path,
+        FullyQualifiedDomainName :$fully-qualified-domain-name,
+        Port :$port,
+        HealthCheckRegionList :$regions,
+        Bool :$inverted,
+        IPAddress :$ip-address,
+        HealthCheckId :$health-check-id!
     ) returns UpdateHealthCheckResponse is service-operation('UpdateHealthCheck') {
         my $request-input = UpdateHealthCheckRequest.new(
-        :$reset-elements,
-        :$health-threshold,
-        :$alarm-identifier,
-        :$child-health-checks,
-        :$failure-threshold,
-        :$health-check-version,
-        :$insufficient-data-health-status,
-        :$enable-sni,
-        :$search-string,
-        :$resource-path,
-        :$fully-qualified-domain-name,
-        :$port,
-        :$regions,
-        :$inverted,
-        :$ip-address,
-        :$health-check-id
+            :$reset-elements,
+            :$health-threshold,
+            :$alarm-identifier,
+            :$child-health-checks,
+            :$failure-threshold,
+            :$health-check-version,
+            :$insufficient-data-health-status,
+            :$enable-sni,
+            :$search-string,
+            :$resource-path,
+            :$fully-qualified-domain-name,
+            :$port,
+            :$regions,
+            :$inverted,
+            :$ip-address,
+            :$health-check-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateHealthCheck>,
-            :return-type(UpdateHealthCheckResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-geo-locations(
-    GeoLocationSubdivisionCode :$start-subdivision-code,
-    GeoLocationContinentCode :$start-continent-code,
-    Str :$max-items,
-    GeoLocationCountryCode :$start-country-code
+        GeoLocationSubdivisionCode :$start-subdivision-code,
+        GeoLocationContinentCode :$start-continent-code,
+        Str :$max-items,
+        GeoLocationCountryCode :$start-country-code
     ) returns ListGeoLocationsResponse is service-operation('ListGeoLocations') {
         my $request-input = ListGeoLocationsRequest.new(
-        :$start-subdivision-code,
-        :$start-continent-code,
-        :$max-items,
-        :$start-country-code
+            :$start-subdivision-code,
+            :$start-continent-code,
+            :$max-items,
+            :$start-country-code
         );
-;
+
         self.perform-operation(
             :api-call<ListGeoLocations>,
-            :return-type(ListGeoLocationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-traffic-policy-versions(
-    TrafficPolicyId :$id!,
-    TrafficPolicyVersionMarker :$traffic-policy-version-marker,
-    Str :$max-items
+        TrafficPolicyId :$id!,
+        TrafficPolicyVersionMarker :$traffic-policy-version-marker,
+        Str :$max-items
     ) returns ListTrafficPolicyVersionsResponse is service-operation('ListTrafficPolicyVersions') {
         my $request-input = ListTrafficPolicyVersionsRequest.new(
-        :$id,
-        :$traffic-policy-version-marker,
-        :$max-items
+            :$id,
+            :$traffic-policy-version-marker,
+            :$max-items
         );
-;
+
         self.perform-operation(
             :api-call<ListTrafficPolicyVersions>,
-            :return-type(ListTrafficPolicyVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-hosted-zone(
-    Nonce :$caller-reference!,
-    DNSName :$name!,
-    VPC :$vpc,
-    ResourceId :$delegation-set-id,
-    HostedZoneConfig :$hosted-zone-config
+        Nonce :$caller-reference!,
+        DNSName :$name!,
+        VPC :$vpc,
+        ResourceId :$delegation-set-id,
+        HostedZoneConfig :$hosted-zone-config
     ) returns CreateHostedZoneResponse is service-operation('CreateHostedZone') {
         my $request-input = CreateHostedZoneRequest.new(
-        :$caller-reference,
-        :$name,
-        :$vpc,
-        :$delegation-set-id,
-        :$hosted-zone-config
+            :$caller-reference,
+            :$name,
+            :$vpc,
+            :$delegation-set-id,
+            :$hosted-zone-config
         );
-;
+
         self.perform-operation(
             :api-call<CreateHostedZone>,
-            :return-type(CreateHostedZoneResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-resource-record-sets(
-    ResourceId :$hosted-zone-id!,
-    Str :$max-items,
-    RRType :$start-record-type,
-    ResourceRecordSetIdentifier :$start-record-identifier,
-    DNSName :$start-record-name
+        ResourceId :$hosted-zone-id!,
+        Str :$max-items,
+        RRType :$start-record-type,
+        ResourceRecordSetIdentifier :$start-record-identifier,
+        DNSName :$start-record-name
     ) returns ListResourceRecordSetsResponse is service-operation('ListResourceRecordSets') {
         my $request-input = ListResourceRecordSetsRequest.new(
-        :$hosted-zone-id,
-        :$max-items,
-        :$start-record-type,
-        :$start-record-identifier,
-        :$start-record-name
+            :$hosted-zone-id,
+            :$max-items,
+            :$start-record-type,
+            :$start-record-identifier,
+            :$start-record-name
         );
-;
+
         self.perform-operation(
             :api-call<ListResourceRecordSets>,
-            :return-type(ListResourceRecordSetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-health-check(
-    HealthCheckNonce :$caller-reference!,
-    HealthCheckConfig :$health-check-config!
+        HealthCheckNonce :$caller-reference!,
+        HealthCheckConfig :$health-check-config!
     ) returns CreateHealthCheckResponse is service-operation('CreateHealthCheck') {
         my $request-input = CreateHealthCheckRequest.new(
-        :$caller-reference,
-        :$health-check-config
+            :$caller-reference,
+            :$health-check-config
         );
-;
+
         self.perform-operation(
             :api-call<CreateHealthCheck>,
-            :return-type(CreateHealthCheckResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-health-check(
-    HealthCheckId :$health-check-id!
+        HealthCheckId :$health-check-id!
     ) returns DeleteHealthCheckResponse is service-operation('DeleteHealthCheck') {
         my $request-input = DeleteHealthCheckRequest.new(
-        :$health-check-id
+            :$health-check-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteHealthCheck>,
-            :return-type(DeleteHealthCheckResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-reusable-delegation-set(
-    ResourceId :$id!
+        ResourceId :$id!
     ) returns DeleteReusableDelegationSetResponse is service-operation('DeleteReusableDelegationSet') {
         my $request-input = DeleteReusableDelegationSetRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteReusableDelegationSet>,
-            :return-type(DeleteReusableDelegationSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-traffic-policy-instance(
-    TrafficPolicyInstanceId :$id!
+        TrafficPolicyInstanceId :$id!
     ) returns DeleteTrafficPolicyInstanceResponse is service-operation('DeleteTrafficPolicyInstance') {
         my $request-input = DeleteTrafficPolicyInstanceRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTrafficPolicyInstance>,
-            :return-type(DeleteTrafficPolicyInstanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-traffic-policy-instance(
-    TTL :$ttl!,
-    ResourceId :$hosted-zone-id!,
-    TrafficPolicyId :$traffic-policy-id!,
-    DNSName :$name!,
-    TrafficPolicyVersion :$traffic-policy-version!
+        TTL :$ttl!,
+        ResourceId :$hosted-zone-id!,
+        TrafficPolicyId :$traffic-policy-id!,
+        DNSName :$name!,
+        TrafficPolicyVersion :$traffic-policy-version!
     ) returns CreateTrafficPolicyInstanceResponse is service-operation('CreateTrafficPolicyInstance') {
         my $request-input = CreateTrafficPolicyInstanceRequest.new(
-        :$ttl,
-        :$hosted-zone-id,
-        :$traffic-policy-id,
-        :$name,
-        :$traffic-policy-version
+            :$ttl,
+            :$hosted-zone-id,
+            :$traffic-policy-id,
+            :$name,
+            :$traffic-policy-version
         );
-;
+
         self.perform-operation(
             :api-call<CreateTrafficPolicyInstance>,
-            :return-type(CreateTrafficPolicyInstanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-health-check(
-    HealthCheckId :$health-check-id!
+        HealthCheckId :$health-check-id!
     ) returns GetHealthCheckResponse is service-operation('GetHealthCheck') {
         my $request-input = GetHealthCheckRequest.new(
-        :$health-check-id
+            :$health-check-id
         );
-;
+
         self.perform-operation(
             :api-call<GetHealthCheck>,
-            :return-type(GetHealthCheckResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-hosted-zone(
-    ResourceId :$id!
+        ResourceId :$id!
     ) returns GetHostedZoneResponse is service-operation('GetHostedZone') {
         my $request-input = GetHostedZoneRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<GetHostedZone>,
-            :return-type(GetHostedZoneResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-hosted-zones-by-name(
-    ResourceId :$hosted-zone-id,
-    DNSName :$dns-name,
-    Str :$max-items
+        ResourceId :$hosted-zone-id,
+        DNSName :$dns-name,
+        Str :$max-items
     ) returns ListHostedZonesByNameResponse is service-operation('ListHostedZonesByName') {
         my $request-input = ListHostedZonesByNameRequest.new(
-        :$hosted-zone-id,
-        :$dns-name,
-        :$max-items
+            :$hosted-zone-id,
+            :$dns-name,
+            :$max-items
         );
-;
+
         self.perform-operation(
             :api-call<ListHostedZonesByName>,
-            :return-type(ListHostedZonesByNameResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-resources(
-    TagResourceType :$resource-type!,
-    TagResourceIdList :$resource-ids!
+        TagResourceType :$resource-type!,
+        TagResourceIdList :$resource-ids!
     ) returns ListTagsForResourcesResponse is service-operation('ListTagsForResources') {
         my $request-input = ListTagsForResourcesRequest.new(
-        :$resource-type,
-        :$resource-ids
+            :$resource-type,
+            :$resource-ids
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResources>,
-            :return-type(ListTagsForResourcesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-traffic-policy-version(
-    TrafficPolicyDocument :$document!,
-    TrafficPolicyComment :$comment,
-    TrafficPolicyId :$id!
+        TrafficPolicyDocument :$document!,
+        TrafficPolicyComment :$comment,
+        TrafficPolicyId :$id!
     ) returns CreateTrafficPolicyVersionResponse is service-operation('CreateTrafficPolicyVersion') {
         my $request-input = CreateTrafficPolicyVersionRequest.new(
-        :$document,
-        :$comment,
-        :$id
+            :$document,
+            :$comment,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<CreateTrafficPolicyVersion>,
-            :return-type(CreateTrafficPolicyVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1933,335 +1865,297 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         my $request-input = GetCheckerIpRangesRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetCheckerIpRanges>,
-            :return-type(GetCheckerIpRangesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-reusable-delegation-set(
-    ResourceId :$id!
+        ResourceId :$id!
     ) returns GetReusableDelegationSetResponse is service-operation('GetReusableDelegationSet') {
         my $request-input = GetReusableDelegationSetRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<GetReusableDelegationSet>,
-            :return-type(GetReusableDelegationSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-traffic-policy-instance(
-    TrafficPolicyInstanceId :$id!
+        TrafficPolicyInstanceId :$id!
     ) returns GetTrafficPolicyInstanceResponse is service-operation('GetTrafficPolicyInstance') {
         my $request-input = GetTrafficPolicyInstanceRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<GetTrafficPolicyInstance>,
-            :return-type(GetTrafficPolicyInstanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-query-logging-configs(
-    Str :$max-results,
-    ResourceId :$hosted-zone-id,
-    PaginationToken :$next-token
+        Str :$max-results,
+        ResourceId :$hosted-zone-id,
+        PaginationToken :$next-token
     ) returns ListQueryLoggingConfigsResponse is service-operation('ListQueryLoggingConfigs') {
         my $request-input = ListQueryLoggingConfigsRequest.new(
-        :$max-results,
-        :$hosted-zone-id,
-        :$next-token
+            :$max-results,
+            :$hosted-zone-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListQueryLoggingConfigs>,
-            :return-type(ListQueryLoggingConfigsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-traffic-policy-instances-by-policy(
-    RRType :$traffic-policy-instance-type-marker,
-    ResourceId :$hosted-zone-id-marker,
-    TrafficPolicyId :$traffic-policy-id!,
-    Str :$max-items,
-    DNSName :$traffic-policy-instance-name-marker,
-    TrafficPolicyVersion :$traffic-policy-version!
+        RRType :$traffic-policy-instance-type-marker,
+        ResourceId :$hosted-zone-id-marker,
+        TrafficPolicyId :$traffic-policy-id!,
+        Str :$max-items,
+        DNSName :$traffic-policy-instance-name-marker,
+        TrafficPolicyVersion :$traffic-policy-version!
     ) returns ListTrafficPolicyInstancesByPolicyResponse is service-operation('ListTrafficPolicyInstancesByPolicy') {
         my $request-input = ListTrafficPolicyInstancesByPolicyRequest.new(
-        :$traffic-policy-instance-type-marker,
-        :$hosted-zone-id-marker,
-        :$traffic-policy-id,
-        :$max-items,
-        :$traffic-policy-instance-name-marker,
-        :$traffic-policy-version
+            :$traffic-policy-instance-type-marker,
+            :$hosted-zone-id-marker,
+            :$traffic-policy-id,
+            :$max-items,
+            :$traffic-policy-instance-name-marker,
+            :$traffic-policy-version
         );
-;
+
         self.perform-operation(
             :api-call<ListTrafficPolicyInstancesByPolicy>,
-            :return-type(ListTrafficPolicyInstancesByPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-traffic-policy(
-    TrafficPolicyDocument :$document!,
-    TrafficPolicyComment :$comment,
-    TrafficPolicyName :$name!
+        TrafficPolicyDocument :$document!,
+        TrafficPolicyComment :$comment,
+        TrafficPolicyName :$name!
     ) returns CreateTrafficPolicyResponse is service-operation('CreateTrafficPolicy') {
         my $request-input = CreateTrafficPolicyRequest.new(
-        :$document,
-        :$comment,
-        :$name
+            :$document,
+            :$comment,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateTrafficPolicy>,
-            :return-type(CreateTrafficPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-health-check-last-failure-reason(
-    HealthCheckId :$health-check-id!
+        HealthCheckId :$health-check-id!
     ) returns GetHealthCheckLastFailureReasonResponse is service-operation('GetHealthCheckLastFailureReason') {
         my $request-input = GetHealthCheckLastFailureReasonRequest.new(
-        :$health-check-id
+            :$health-check-id
         );
-;
+
         self.perform-operation(
             :api-call<GetHealthCheckLastFailureReason>,
-            :return-type(GetHealthCheckLastFailureReasonResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-health-checks(
-    Str :$max-items,
-    PageMarker :$marker
+        Str :$max-items,
+        PageMarker :$marker
     ) returns ListHealthChecksResponse is service-operation('ListHealthChecks') {
         my $request-input = ListHealthChecksRequest.new(
-        :$max-items,
-        :$marker
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListHealthChecks>,
-            :return-type(ListHealthChecksResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method change-tags-for-resource(
-    TagList :$add-tags,
-    TagKeyList :$remove-tag-keys,
-    TagResourceId :$resource-id!,
-    TagResourceType :$resource-type!
+        TagList :$add-tags,
+        TagKeyList :$remove-tag-keys,
+        TagResourceId :$resource-id!,
+        TagResourceType :$resource-type!
     ) returns ChangeTagsForResourceResponse is service-operation('ChangeTagsForResource') {
         my $request-input = ChangeTagsForResourceRequest.new(
-        :$add-tags,
-        :$remove-tag-keys,
-        :$resource-id,
-        :$resource-type
+            :$add-tags,
+            :$remove-tag-keys,
+            :$resource-id,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<ChangeTagsForResource>,
-            :return-type(ChangeTagsForResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-traffic-policy-instances-by-hosted-zone(
-    ResourceId :$hosted-zone-id!,
-    RRType :$traffic-policy-instance-type-marker,
-    Str :$max-items,
-    DNSName :$traffic-policy-instance-name-marker
+        ResourceId :$hosted-zone-id!,
+        RRType :$traffic-policy-instance-type-marker,
+        Str :$max-items,
+        DNSName :$traffic-policy-instance-name-marker
     ) returns ListTrafficPolicyInstancesByHostedZoneResponse is service-operation('ListTrafficPolicyInstancesByHostedZone') {
         my $request-input = ListTrafficPolicyInstancesByHostedZoneRequest.new(
-        :$hosted-zone-id,
-        :$traffic-policy-instance-type-marker,
-        :$max-items,
-        :$traffic-policy-instance-name-marker
+            :$hosted-zone-id,
+            :$traffic-policy-instance-type-marker,
+            :$max-items,
+            :$traffic-policy-instance-name-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListTrafficPolicyInstancesByHostedZone>,
-            :return-type(ListTrafficPolicyInstancesByHostedZoneResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-health-check-status(
-    HealthCheckId :$health-check-id!
+        HealthCheckId :$health-check-id!
     ) returns GetHealthCheckStatusResponse is service-operation('GetHealthCheckStatus') {
         my $request-input = GetHealthCheckStatusRequest.new(
-        :$health-check-id
+            :$health-check-id
         );
-;
+
         self.perform-operation(
             :api-call<GetHealthCheckStatus>,
-            :return-type(GetHealthCheckStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-hosted-zone-comment(
-    ResourceDescription :$comment,
-    ResourceId :$id!
+        ResourceDescription :$comment,
+        ResourceId :$id!
     ) returns UpdateHostedZoneCommentResponse is service-operation('UpdateHostedZoneComment') {
         my $request-input = UpdateHostedZoneCommentRequest.new(
-        :$comment,
-        :$id
+            :$comment,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateHostedZoneComment>,
-            :return-type(UpdateHostedZoneCommentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-resource(
-    TagResourceId :$resource-id!,
-    TagResourceType :$resource-type!
+        TagResourceId :$resource-id!,
+        TagResourceType :$resource-type!
     ) returns ListTagsForResourceResponse is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceRequest.new(
-        :$resource-id,
-        :$resource-type
+            :$resource-id,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResource>,
-            :return-type(ListTagsForResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vpc-association-authorization(
-    ResourceId :$hosted-zone-id!,
-    VPC :$vpc!
+        ResourceId :$hosted-zone-id!,
+        VPC :$vpc!
     ) returns DeleteVPCAssociationAuthorizationResponse is service-operation('DeleteVPCAssociationAuthorization') {
         my $request-input = DeleteVPCAssociationAuthorizationRequest.new(
-        :$hosted-zone-id,
-        :$vpc
+            :$hosted-zone-id,
+            :$vpc
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVPCAssociationAuthorization>,
-            :return-type(DeleteVPCAssociationAuthorizationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-traffic-policies(
-    Str :$max-items,
-    TrafficPolicyId :$traffic-policy-id-marker
+        Str :$max-items,
+        TrafficPolicyId :$traffic-policy-id-marker
     ) returns ListTrafficPoliciesResponse is service-operation('ListTrafficPolicies') {
         my $request-input = ListTrafficPoliciesRequest.new(
-        :$max-items,
-        :$traffic-policy-id-marker
+            :$max-items,
+            :$traffic-policy-id-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListTrafficPolicies>,
-            :return-type(ListTrafficPoliciesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-traffic-policy-instances(
-    RRType :$traffic-policy-instance-type-marker,
-    ResourceId :$hosted-zone-id-marker,
-    Str :$max-items,
-    DNSName :$traffic-policy-instance-name-marker
+        RRType :$traffic-policy-instance-type-marker,
+        ResourceId :$hosted-zone-id-marker,
+        Str :$max-items,
+        DNSName :$traffic-policy-instance-name-marker
     ) returns ListTrafficPolicyInstancesResponse is service-operation('ListTrafficPolicyInstances') {
         my $request-input = ListTrafficPolicyInstancesRequest.new(
-        :$traffic-policy-instance-type-marker,
-        :$hosted-zone-id-marker,
-        :$max-items,
-        :$traffic-policy-instance-name-marker
+            :$traffic-policy-instance-type-marker,
+            :$hosted-zone-id-marker,
+            :$max-items,
+            :$traffic-policy-instance-name-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListTrafficPolicyInstances>,
-            :return-type(ListTrafficPolicyInstancesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-vpc-with-hosted-zone(
-    Str :$comment,
-    ResourceId :$hosted-zone-id!,
-    VPC :$vpc!
+        Str :$comment,
+        ResourceId :$hosted-zone-id!,
+        VPC :$vpc!
     ) returns AssociateVPCWithHostedZoneResponse is service-operation('AssociateVPCWithHostedZone') {
         my $request-input = AssociateVPCWithHostedZoneRequest.new(
-        :$comment,
-        :$hosted-zone-id,
-        :$vpc
+            :$comment,
+            :$hosted-zone-id,
+            :$vpc
         );
-;
+
         self.perform-operation(
             :api-call<AssociateVPCWithHostedZone>,
-            :return-type(AssociateVPCWithHostedZoneResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-query-logging-config(
-    ResourceId :$hosted-zone-id!,
-    Str :$cloud-watch-logs-log-group-arn!
+        ResourceId :$hosted-zone-id!,
+        Str :$cloud-watch-logs-log-group-arn!
     ) returns CreateQueryLoggingConfigResponse is service-operation('CreateQueryLoggingConfig') {
         my $request-input = CreateQueryLoggingConfigRequest.new(
-        :$hosted-zone-id,
-        :$cloud-watch-logs-log-group-arn
+            :$hosted-zone-id,
+            :$cloud-watch-logs-log-group-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateQueryLoggingConfig>,
-            :return-type(CreateQueryLoggingConfigResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-reusable-delegation-sets(
-    Str :$max-items,
-    PageMarker :$marker
+        Str :$max-items,
+        PageMarker :$marker
     ) returns ListReusableDelegationSetsResponse is service-operation('ListReusableDelegationSets') {
         my $request-input = ListReusableDelegationSetsRequest.new(
-        :$max-items,
-        :$marker
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListReusableDelegationSets>,
-            :return-type(ListReusableDelegationSetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

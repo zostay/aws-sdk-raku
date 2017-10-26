@@ -769,577 +769,521 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
     }
 
     method update-ml-model(
-    EntityId :$ml-model-id!,
-    Numeric :$score-threshold,
-    EntityName :$ml-model-name
+        EntityId :$ml-model-id!,
+        Numeric :$score-threshold,
+        EntityName :$ml-model-name
     ) returns UpdateMLModelOutput is service-operation('UpdateMLModel') {
         my $request-input = UpdateMLModelInput.new(
-        :$ml-model-id,
-        :$score-threshold,
-        :$ml-model-name
+            :$ml-model-id,
+            :$score-threshold,
+            :$ml-model-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateMLModel>,
-            :return-type(UpdateMLModelOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-evaluations(
-    PageLimit :$limit,
-    ComparatorValue :$l-e,
-    ComparatorValue :$l-t,
-    ComparatorValue :$g-e,
-    ComparatorValue :$e-q,
-    ComparatorValue :$prefix,
-    EvaluationFilterVariable :$filter-variable,
-    Str :$next-token,
-    SortOrder :$sort-order,
-    ComparatorValue :$n-e,
-    ComparatorValue :$g-t
+        PageLimit :$limit,
+        ComparatorValue :$l-e,
+        ComparatorValue :$l-t,
+        ComparatorValue :$g-e,
+        ComparatorValue :$e-q,
+        ComparatorValue :$prefix,
+        EvaluationFilterVariable :$filter-variable,
+        Str :$next-token,
+        SortOrder :$sort-order,
+        ComparatorValue :$n-e,
+        ComparatorValue :$g-t
     ) returns DescribeEvaluationsOutput is service-operation('DescribeEvaluations') {
         my $request-input = DescribeEvaluationsInput.new(
-        :$limit,
-        :$l-e,
-        :$l-t,
-        :$g-e,
-        :$e-q,
-        :$prefix,
-        :$filter-variable,
-        :$next-token,
-        :$sort-order,
-        :$n-e,
-        :$g-t
+            :$limit,
+            :$l-e,
+            :$l-t,
+            :$g-e,
+            :$e-q,
+            :$prefix,
+            :$filter-variable,
+            :$next-token,
+            :$sort-order,
+            :$n-e,
+            :$g-t
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEvaluations>,
-            :return-type(DescribeEvaluationsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-data-source(
-    EntityId :$data-source-id!
+        EntityId :$data-source-id!
     ) returns DeleteDataSourceOutput is service-operation('DeleteDataSource') {
         my $request-input = DeleteDataSourceInput.new(
-        :$data-source-id
+            :$data-source-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDataSource>,
-            :return-type(DeleteDataSourceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-data-source(
-    EntityId :$data-source-id!,
-    EntityName :$data-source-name!
+        EntityId :$data-source-id!,
+        EntityName :$data-source-name!
     ) returns UpdateDataSourceOutput is service-operation('UpdateDataSource') {
         my $request-input = UpdateDataSourceInput.new(
-        :$data-source-id,
-        :$data-source-name
+            :$data-source-id,
+            :$data-source-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDataSource>,
-            :return-type(UpdateDataSourceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method predict(
-    EntityId :$ml-model-id!,
-    Hash[Str, Str] :$record!,
-    VipURL :$predict-endpoint!
+        EntityId :$ml-model-id!,
+        Hash[Str, Str] :$record!,
+        VipURL :$predict-endpoint!
     ) returns PredictOutput is service-operation('Predict') {
         my $request-input = PredictInput.new(
-        :$ml-model-id,
-        :$record,
-        :$predict-endpoint
+            :$ml-model-id,
+            :$record,
+            :$predict-endpoint
         );
-;
+
         self.perform-operation(
             :api-call<Predict>,
-            :return-type(PredictOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-realtime-endpoint(
-    EntityId :$ml-model-id!
+        EntityId :$ml-model-id!
     ) returns DeleteRealtimeEndpointOutput is service-operation('DeleteRealtimeEndpoint') {
         my $request-input = DeleteRealtimeEndpointInput.new(
-        :$ml-model-id
+            :$ml-model-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRealtimeEndpoint>,
-            :return-type(DeleteRealtimeEndpointOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-ml-model(
-    EntityId :$ml-model-id!
+        EntityId :$ml-model-id!
     ) returns DeleteMLModelOutput is service-operation('DeleteMLModel') {
         my $request-input = DeleteMLModelInput.new(
-        :$ml-model-id
+            :$ml-model-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteMLModel>,
-            :return-type(DeleteMLModelOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-realtime-endpoint(
-    EntityId :$ml-model-id!
+        EntityId :$ml-model-id!
     ) returns CreateRealtimeEndpointOutput is service-operation('CreateRealtimeEndpoint') {
         my $request-input = CreateRealtimeEndpointInput.new(
-        :$ml-model-id
+            :$ml-model-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateRealtimeEndpoint>,
-            :return-type(CreateRealtimeEndpointOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags(
-    EntityId :$resource-id!,
-    TagList :$tags!,
-    TaggableResourceType :$resource-type!
+        EntityId :$resource-id!,
+        TagList :$tags!,
+        TaggableResourceType :$resource-type!
     ) returns AddTagsOutput is service-operation('AddTags') {
         my $request-input = AddTagsInput.new(
-        :$resource-id,
-        :$tags,
-        :$resource-type
+            :$resource-id,
+            :$tags,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<AddTags>,
-            :return-type(AddTagsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-evaluation(
-    EntityId :$evaluation-id!
+        EntityId :$evaluation-id!
     ) returns DeleteEvaluationOutput is service-operation('DeleteEvaluation') {
         my $request-input = DeleteEvaluationInput.new(
-        :$evaluation-id
+            :$evaluation-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEvaluation>,
-            :return-type(DeleteEvaluationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-evaluation(
-    EntityId :$evaluation-data-source-id!,
-    EntityId :$ml-model-id!,
-    EntityId :$evaluation-id!,
-    EntityName :$evaluation-name
+        EntityId :$evaluation-data-source-id!,
+        EntityId :$ml-model-id!,
+        EntityId :$evaluation-id!,
+        EntityName :$evaluation-name
     ) returns CreateEvaluationOutput is service-operation('CreateEvaluation') {
         my $request-input = CreateEvaluationInput.new(
-        :$evaluation-data-source-id,
-        :$ml-model-id,
-        :$evaluation-id,
-        :$evaluation-name
+            :$evaluation-data-source-id,
+            :$ml-model-id,
+            :$evaluation-id,
+            :$evaluation-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateEvaluation>,
-            :return-type(CreateEvaluationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-data-source-from-rds(
-    RoleARN :$role-arn!,
-    EntityId :$data-source-id!,
-    Bool :$compute-statistics,
-    EntityName :$data-source-name,
-    RDSDataSpec :$rds-data!
+        RoleARN :$role-arn!,
+        EntityId :$data-source-id!,
+        Bool :$compute-statistics,
+        EntityName :$data-source-name,
+        RDSDataSpec :$rds-data!
     ) returns CreateDataSourceFromRDSOutput is service-operation('CreateDataSourceFromRDS') {
         my $request-input = CreateDataSourceFromRDSInput.new(
-        :$role-arn,
-        :$data-source-id,
-        :$compute-statistics,
-        :$data-source-name,
-        :$rds-data
+            :$role-arn,
+            :$data-source-id,
+            :$compute-statistics,
+            :$data-source-name,
+            :$rds-data
         );
-;
+
         self.perform-operation(
             :api-call<CreateDataSourceFromRDS>,
-            :return-type(CreateDataSourceFromRDSOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-evaluation(
-    EntityId :$evaluation-id!,
-    EntityName :$evaluation-name!
+        EntityId :$evaluation-id!,
+        EntityName :$evaluation-name!
     ) returns UpdateEvaluationOutput is service-operation('UpdateEvaluation') {
         my $request-input = UpdateEvaluationInput.new(
-        :$evaluation-id,
-        :$evaluation-name
+            :$evaluation-id,
+            :$evaluation-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateEvaluation>,
-            :return-type(UpdateEvaluationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-batch-prediction(
-    EntityName :$batch-prediction-name!,
-    EntityId :$batch-prediction-id!
+        EntityName :$batch-prediction-name!,
+        EntityId :$batch-prediction-id!
     ) returns UpdateBatchPredictionOutput is service-operation('UpdateBatchPrediction') {
         my $request-input = UpdateBatchPredictionInput.new(
-        :$batch-prediction-name,
-        :$batch-prediction-id
+            :$batch-prediction-name,
+            :$batch-prediction-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateBatchPrediction>,
-            :return-type(UpdateBatchPredictionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tags(
-    EntityId :$resource-id!,
-    TaggableResourceType :$resource-type!
+        EntityId :$resource-id!,
+        TaggableResourceType :$resource-type!
     ) returns DescribeTagsOutput is service-operation('DescribeTags') {
         my $request-input = DescribeTagsInput.new(
-        :$resource-id,
-        :$resource-type
+            :$resource-id,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTags>,
-            :return-type(DescribeTagsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-tags(
-    EntityId :$resource-id!,
-    TagKeyList :$tag-keys!,
-    TaggableResourceType :$resource-type!
+        EntityId :$resource-id!,
+        TagKeyList :$tag-keys!,
+        TaggableResourceType :$resource-type!
     ) returns DeleteTagsOutput is service-operation('DeleteTags') {
         my $request-input = DeleteTagsInput.new(
-        :$resource-id,
-        :$tag-keys,
-        :$resource-type
+            :$resource-id,
+            :$tag-keys,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTags>,
-            :return-type(DeleteTagsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-ml-model(
-    MLModelType :$ml-model-type!,
-    EntityId :$ml-model-id!,
-    S3Url :$recipe-uri,
-    Recipe :$recipe,
-    EntityName :$ml-model-name,
-    Hash[Str, Str] :$parameters,
-    EntityId :$training-data-source-id!
+        MLModelType :$ml-model-type!,
+        EntityId :$ml-model-id!,
+        S3Url :$recipe-uri,
+        Recipe :$recipe,
+        EntityName :$ml-model-name,
+        Hash[Str, Str] :$parameters,
+        EntityId :$training-data-source-id!
     ) returns CreateMLModelOutput is service-operation('CreateMLModel') {
         my $request-input = CreateMLModelInput.new(
-        :$ml-model-type,
-        :$ml-model-id,
-        :$recipe-uri,
-        :$recipe,
-        :$ml-model-name,
-        :$parameters,
-        :$training-data-source-id
+            :$ml-model-type,
+            :$ml-model-id,
+            :$recipe-uri,
+            :$recipe,
+            :$ml-model-name,
+            :$parameters,
+            :$training-data-source-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateMLModel>,
-            :return-type(CreateMLModelOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-ml-model(
-    EntityId :$ml-model-id!,
-    Bool :$verbose
+        EntityId :$ml-model-id!,
+        Bool :$verbose
     ) returns GetMLModelOutput is service-operation('GetMLModel') {
         my $request-input = GetMLModelInput.new(
-        :$ml-model-id,
-        :$verbose
+            :$ml-model-id,
+            :$verbose
         );
-;
+
         self.perform-operation(
             :api-call<GetMLModel>,
-            :return-type(GetMLModelOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-evaluation(
-    EntityId :$evaluation-id!
+        EntityId :$evaluation-id!
     ) returns GetEvaluationOutput is service-operation('GetEvaluation') {
         my $request-input = GetEvaluationInput.new(
-        :$evaluation-id
+            :$evaluation-id
         );
-;
+
         self.perform-operation(
             :api-call<GetEvaluation>,
-            :return-type(GetEvaluationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-batch-prediction(
-    EntityId :$batch-prediction-id!
+        EntityId :$batch-prediction-id!
     ) returns GetBatchPredictionOutput is service-operation('GetBatchPrediction') {
         my $request-input = GetBatchPredictionInput.new(
-        :$batch-prediction-id
+            :$batch-prediction-id
         );
-;
+
         self.perform-operation(
             :api-call<GetBatchPrediction>,
-            :return-type(GetBatchPredictionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-data-source-from-s3(
-    S3DataSpec :$data-spec!,
-    EntityId :$data-source-id!,
-    Bool :$compute-statistics,
-    EntityName :$data-source-name
+        S3DataSpec :$data-spec!,
+        EntityId :$data-source-id!,
+        Bool :$compute-statistics,
+        EntityName :$data-source-name
     ) returns CreateDataSourceFromS3Output is service-operation('CreateDataSourceFromS3') {
         my $request-input = CreateDataSourceFromS3Input.new(
-        :$data-spec,
-        :$data-source-id,
-        :$compute-statistics,
-        :$data-source-name
+            :$data-spec,
+            :$data-source-id,
+            :$compute-statistics,
+            :$data-source-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDataSourceFromS3>,
-            :return-type(CreateDataSourceFromS3Output),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-data-source-from-redshift(
-    RoleARN :$role-arn!,
-    RedshiftDataSpec :$data-spec!,
-    EntityId :$data-source-id!,
-    Bool :$compute-statistics,
-    EntityName :$data-source-name
+        RoleARN :$role-arn!,
+        RedshiftDataSpec :$data-spec!,
+        EntityId :$data-source-id!,
+        Bool :$compute-statistics,
+        EntityName :$data-source-name
     ) returns CreateDataSourceFromRedshiftOutput is service-operation('CreateDataSourceFromRedshift') {
         my $request-input = CreateDataSourceFromRedshiftInput.new(
-        :$role-arn,
-        :$data-spec,
-        :$data-source-id,
-        :$compute-statistics,
-        :$data-source-name
+            :$role-arn,
+            :$data-spec,
+            :$data-source-id,
+            :$compute-statistics,
+            :$data-source-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDataSourceFromRedshift>,
-            :return-type(CreateDataSourceFromRedshiftOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-data-source(
-    EntityId :$data-source-id!,
-    Bool :$verbose
+        EntityId :$data-source-id!,
+        Bool :$verbose
     ) returns GetDataSourceOutput is service-operation('GetDataSource') {
         my $request-input = GetDataSourceInput.new(
-        :$data-source-id,
-        :$verbose
+            :$data-source-id,
+            :$verbose
         );
-;
+
         self.perform-operation(
             :api-call<GetDataSource>,
-            :return-type(GetDataSourceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-ml-models(
-    PageLimit :$limit,
-    ComparatorValue :$l-e,
-    ComparatorValue :$l-t,
-    ComparatorValue :$g-e,
-    ComparatorValue :$e-q,
-    ComparatorValue :$prefix,
-    MLModelFilterVariable :$filter-variable,
-    Str :$next-token,
-    SortOrder :$sort-order,
-    ComparatorValue :$n-e,
-    ComparatorValue :$g-t
+        PageLimit :$limit,
+        ComparatorValue :$l-e,
+        ComparatorValue :$l-t,
+        ComparatorValue :$g-e,
+        ComparatorValue :$e-q,
+        ComparatorValue :$prefix,
+        MLModelFilterVariable :$filter-variable,
+        Str :$next-token,
+        SortOrder :$sort-order,
+        ComparatorValue :$n-e,
+        ComparatorValue :$g-t
     ) returns DescribeMLModelsOutput is service-operation('DescribeMLModels') {
         my $request-input = DescribeMLModelsInput.new(
-        :$limit,
-        :$l-e,
-        :$l-t,
-        :$g-e,
-        :$e-q,
-        :$prefix,
-        :$filter-variable,
-        :$next-token,
-        :$sort-order,
-        :$n-e,
-        :$g-t
+            :$limit,
+            :$l-e,
+            :$l-t,
+            :$g-e,
+            :$e-q,
+            :$prefix,
+            :$filter-variable,
+            :$next-token,
+            :$sort-order,
+            :$n-e,
+            :$g-t
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMLModels>,
-            :return-type(DescribeMLModelsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-data-sources(
-    PageLimit :$limit,
-    ComparatorValue :$l-e,
-    ComparatorValue :$l-t,
-    ComparatorValue :$g-e,
-    ComparatorValue :$e-q,
-    ComparatorValue :$prefix,
-    DataSourceFilterVariable :$filter-variable,
-    Str :$next-token,
-    SortOrder :$sort-order,
-    ComparatorValue :$n-e,
-    ComparatorValue :$g-t
+        PageLimit :$limit,
+        ComparatorValue :$l-e,
+        ComparatorValue :$l-t,
+        ComparatorValue :$g-e,
+        ComparatorValue :$e-q,
+        ComparatorValue :$prefix,
+        DataSourceFilterVariable :$filter-variable,
+        Str :$next-token,
+        SortOrder :$sort-order,
+        ComparatorValue :$n-e,
+        ComparatorValue :$g-t
     ) returns DescribeDataSourcesOutput is service-operation('DescribeDataSources') {
         my $request-input = DescribeDataSourcesInput.new(
-        :$limit,
-        :$l-e,
-        :$l-t,
-        :$g-e,
-        :$e-q,
-        :$prefix,
-        :$filter-variable,
-        :$next-token,
-        :$sort-order,
-        :$n-e,
-        :$g-t
+            :$limit,
+            :$l-e,
+            :$l-t,
+            :$g-e,
+            :$e-q,
+            :$prefix,
+            :$filter-variable,
+            :$next-token,
+            :$sort-order,
+            :$n-e,
+            :$g-t
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDataSources>,
-            :return-type(DescribeDataSourcesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-batch-predictions(
-    PageLimit :$limit,
-    ComparatorValue :$l-e,
-    ComparatorValue :$l-t,
-    ComparatorValue :$g-e,
-    ComparatorValue :$e-q,
-    ComparatorValue :$prefix,
-    BatchPredictionFilterVariable :$filter-variable,
-    Str :$next-token,
-    SortOrder :$sort-order,
-    ComparatorValue :$n-e,
-    ComparatorValue :$g-t
+        PageLimit :$limit,
+        ComparatorValue :$l-e,
+        ComparatorValue :$l-t,
+        ComparatorValue :$g-e,
+        ComparatorValue :$e-q,
+        ComparatorValue :$prefix,
+        BatchPredictionFilterVariable :$filter-variable,
+        Str :$next-token,
+        SortOrder :$sort-order,
+        ComparatorValue :$n-e,
+        ComparatorValue :$g-t
     ) returns DescribeBatchPredictionsOutput is service-operation('DescribeBatchPredictions') {
         my $request-input = DescribeBatchPredictionsInput.new(
-        :$limit,
-        :$l-e,
-        :$l-t,
-        :$g-e,
-        :$e-q,
-        :$prefix,
-        :$filter-variable,
-        :$next-token,
-        :$sort-order,
-        :$n-e,
-        :$g-t
+            :$limit,
+            :$l-e,
+            :$l-t,
+            :$g-e,
+            :$e-q,
+            :$prefix,
+            :$filter-variable,
+            :$next-token,
+            :$sort-order,
+            :$n-e,
+            :$g-t
         );
-;
+
         self.perform-operation(
             :api-call<DescribeBatchPredictions>,
-            :return-type(DescribeBatchPredictionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-batch-prediction(
-    EntityId :$batch-prediction-id!
+        EntityId :$batch-prediction-id!
     ) returns DeleteBatchPredictionOutput is service-operation('DeleteBatchPrediction') {
         my $request-input = DeleteBatchPredictionInput.new(
-        :$batch-prediction-id
+            :$batch-prediction-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBatchPrediction>,
-            :return-type(DeleteBatchPredictionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-batch-prediction(
-    S3Url :$output-uri!,
-    EntityId :$batch-prediction-data-source-id!,
-    EntityId :$ml-model-id!,
-    EntityName :$batch-prediction-name,
-    EntityId :$batch-prediction-id!
+        S3Url :$output-uri!,
+        EntityId :$batch-prediction-data-source-id!,
+        EntityId :$ml-model-id!,
+        EntityName :$batch-prediction-name,
+        EntityId :$batch-prediction-id!
     ) returns CreateBatchPredictionOutput is service-operation('CreateBatchPrediction') {
         my $request-input = CreateBatchPredictionInput.new(
-        :$output-uri,
-        :$batch-prediction-data-source-id,
-        :$ml-model-id,
-        :$batch-prediction-name,
-        :$batch-prediction-id
+            :$output-uri,
+            :$batch-prediction-data-source-id,
+            :$ml-model-id,
+            :$batch-prediction-name,
+            :$batch-prediction-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateBatchPrediction>,
-            :return-type(CreateBatchPredictionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

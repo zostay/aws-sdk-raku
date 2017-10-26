@@ -333,100 +333,90 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
     subset NodeName of Str where rx:P5/^[\-\p{Alnum}_:.]+$/;
 
     method describe-backups(
-    MaxResults :$max-results,
-    ServerName :$server-name,
-    Str :$next-token,
-    BackupId :$backup-id
+        MaxResults :$max-results,
+        ServerName :$server-name,
+        Str :$next-token,
+        BackupId :$backup-id
     ) returns DescribeBackupsResponse is service-operation('DescribeBackups') {
         my $request-input = DescribeBackupsRequest.new(
-        :$max-results,
-        :$server-name,
-        :$next-token,
-        :$backup-id
+            :$max-results,
+            :$server-name,
+            :$next-token,
+            :$backup-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeBackups>,
-            :return-type(DescribeBackupsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-server(
-    ServerName :$server-name!,
-    Bool :$disable-automated-backup,
-    TimeWindowDefinition :$preferred-backup-window,
-    Int :$backup-retention-count,
-    TimeWindowDefinition :$preferred-maintenance-window
+        ServerName :$server-name!,
+        Bool :$disable-automated-backup,
+        TimeWindowDefinition :$preferred-backup-window,
+        Int :$backup-retention-count,
+        TimeWindowDefinition :$preferred-maintenance-window
     ) returns UpdateServerResponse is service-operation('UpdateServer') {
         my $request-input = UpdateServerRequest.new(
-        :$server-name,
-        :$disable-automated-backup,
-        :$preferred-backup-window,
-        :$backup-retention-count,
-        :$preferred-maintenance-window
+            :$server-name,
+            :$disable-automated-backup,
+            :$preferred-backup-window,
+            :$backup-retention-count,
+            :$preferred-maintenance-window
         );
-;
+
         self.perform-operation(
             :api-call<UpdateServer>,
-            :return-type(UpdateServerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-node-association-status(
-    ServerName :$server-name!,
-    Str :$node-association-status-token!
+        ServerName :$server-name!,
+        Str :$node-association-status-token!
     ) returns DescribeNodeAssociationStatusResponse is service-operation('DescribeNodeAssociationStatus') {
         my $request-input = DescribeNodeAssociationStatusRequest.new(
-        :$server-name,
-        :$node-association-status-token
+            :$server-name,
+            :$node-association-status-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeNodeAssociationStatus>,
-            :return-type(DescribeNodeAssociationStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-events(
-    MaxResults :$max-results,
-    ServerName :$server-name!,
-    Str :$next-token
+        MaxResults :$max-results,
+        ServerName :$server-name!,
+        Str :$next-token
     ) returns DescribeEventsResponse is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsRequest.new(
-        :$max-results,
-        :$server-name,
-        :$next-token
+            :$max-results,
+            :$server-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEvents>,
-            :return-type(DescribeEventsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-servers(
-    MaxResults :$max-results,
-    ServerName :$server-name,
-    Str :$next-token
+        MaxResults :$max-results,
+        ServerName :$server-name,
+        Str :$next-token
     ) returns DescribeServersResponse is service-operation('DescribeServers') {
         my $request-input = DescribeServersRequest.new(
-        :$max-results,
-        :$server-name,
-        :$next-token
+            :$max-results,
+            :$server-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeServers>,
-            :return-type(DescribeServersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -437,198 +427,178 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         my $request-input = DescribeAccountAttributesRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAccountAttributes>,
-            :return-type(DescribeAccountAttributesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-server(
-    ServerName :$server-name!
+        ServerName :$server-name!
     ) returns DeleteServerResponse is service-operation('DeleteServer') {
         my $request-input = DeleteServerRequest.new(
-        :$server-name
+            :$server-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteServer>,
-            :return-type(DeleteServerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-server-engine-attributes(
-    AttributeName :$attribute-name!,
-    ServerName :$server-name!,
-    Str :$attribute-value
+        AttributeName :$attribute-name!,
+        ServerName :$server-name!,
+        Str :$attribute-value
     ) returns UpdateServerEngineAttributesResponse is service-operation('UpdateServerEngineAttributes') {
         my $request-input = UpdateServerEngineAttributesRequest.new(
-        :$attribute-name,
-        :$server-name,
-        :$attribute-value
+            :$attribute-name,
+            :$server-name,
+            :$attribute-value
         );
-;
+
         self.perform-operation(
             :api-call<UpdateServerEngineAttributes>,
-            :return-type(UpdateServerEngineAttributesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-maintenance(
-    ServerName :$server-name!
+        ServerName :$server-name!
     ) returns StartMaintenanceResponse is service-operation('StartMaintenance') {
         my $request-input = StartMaintenanceRequest.new(
-        :$server-name
+            :$server-name
         );
-;
+
         self.perform-operation(
             :api-call<StartMaintenance>,
-            :return-type(StartMaintenanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-node(
-    ServerName :$server-name!,
-    Array[EngineAttribute] :$engine-attributes,
-    NodeName :$node-name!
+        ServerName :$server-name!,
+        Array[EngineAttribute] :$engine-attributes,
+        NodeName :$node-name!
     ) returns DisassociateNodeResponse is service-operation('DisassociateNode') {
         my $request-input = DisassociateNodeRequest.new(
-        :$server-name,
-        :$engine-attributes,
-        :$node-name
+            :$server-name,
+            :$engine-attributes,
+            :$node-name
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateNode>,
-            :return-type(DisassociateNodeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-backup(
-    BackupId :$backup-id!
+        BackupId :$backup-id!
     ) returns DeleteBackupResponse is service-operation('DeleteBackup') {
         my $request-input = DeleteBackupRequest.new(
-        :$backup-id
+            :$backup-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBackup>,
-            :return-type(DeleteBackupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-server(
-    Array[Str] :$security-group-ids,
-    Str :$key-pair,
-    ServerName :$server-name!,
-    Str :$engine-model,
-    ServiceRoleArn :$service-role-arn!,
-    Bool :$associate-public-ip-address,
-    Array[EngineAttribute] :$engine-attributes,
-    Str :$engine,
-    Bool :$disable-automated-backup,
-    BackupId :$backup-id,
-    TimeWindowDefinition :$preferred-backup-window,
-    Str :$instance-type!,
-    BackupRetentionCountDefinition :$backup-retention-count,
-    Array[Str] :$subnet-ids,
-    TimeWindowDefinition :$preferred-maintenance-window,
-    InstanceProfileArn :$instance-profile-arn!,
-    Str :$engine-version
+        Array[Str] :$security-group-ids,
+        Str :$key-pair,
+        ServerName :$server-name!,
+        Str :$engine-model,
+        ServiceRoleArn :$service-role-arn!,
+        Bool :$associate-public-ip-address,
+        Array[EngineAttribute] :$engine-attributes,
+        Str :$engine,
+        Bool :$disable-automated-backup,
+        BackupId :$backup-id,
+        TimeWindowDefinition :$preferred-backup-window,
+        Str :$instance-type!,
+        BackupRetentionCountDefinition :$backup-retention-count,
+        Array[Str] :$subnet-ids,
+        TimeWindowDefinition :$preferred-maintenance-window,
+        InstanceProfileArn :$instance-profile-arn!,
+        Str :$engine-version
     ) returns CreateServerResponse is service-operation('CreateServer') {
         my $request-input = CreateServerRequest.new(
-        :$security-group-ids,
-        :$key-pair,
-        :$server-name,
-        :$engine-model,
-        :$service-role-arn,
-        :$associate-public-ip-address,
-        :$engine-attributes,
-        :$engine,
-        :$disable-automated-backup,
-        :$backup-id,
-        :$preferred-backup-window,
-        :$instance-type,
-        :$backup-retention-count,
-        :$subnet-ids,
-        :$preferred-maintenance-window,
-        :$instance-profile-arn,
-        :$engine-version
+            :$security-group-ids,
+            :$key-pair,
+            :$server-name,
+            :$engine-model,
+            :$service-role-arn,
+            :$associate-public-ip-address,
+            :$engine-attributes,
+            :$engine,
+            :$disable-automated-backup,
+            :$backup-id,
+            :$preferred-backup-window,
+            :$instance-type,
+            :$backup-retention-count,
+            :$subnet-ids,
+            :$preferred-maintenance-window,
+            :$instance-profile-arn,
+            :$engine-version
         );
-;
+
         self.perform-operation(
             :api-call<CreateServer>,
-            :return-type(CreateServerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-node(
-    ServerName :$server-name!,
-    Array[EngineAttribute] :$engine-attributes!,
-    NodeName :$node-name!
+        ServerName :$server-name!,
+        Array[EngineAttribute] :$engine-attributes!,
+        NodeName :$node-name!
     ) returns AssociateNodeResponse is service-operation('AssociateNode') {
         my $request-input = AssociateNodeRequest.new(
-        :$server-name,
-        :$engine-attributes,
-        :$node-name
+            :$server-name,
+            :$engine-attributes,
+            :$node-name
         );
-;
+
         self.perform-operation(
             :api-call<AssociateNode>,
-            :return-type(AssociateNodeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-backup(
-    ServerName :$server-name!,
-    Str :$description
+        ServerName :$server-name!,
+        Str :$description
     ) returns CreateBackupResponse is service-operation('CreateBackup') {
         my $request-input = CreateBackupRequest.new(
-        :$server-name,
-        :$description
+            :$server-name,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateBackup>,
-            :return-type(CreateBackupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method restore-server(
-    Str :$key-pair,
-    ServerName :$server-name!,
-    Str :$instance-type,
-    BackupId :$backup-id!
+        Str :$key-pair,
+        ServerName :$server-name!,
+        Str :$instance-type,
+        BackupId :$backup-id!
     ) returns RestoreServerResponse is service-operation('RestoreServer') {
         my $request-input = RestoreServerRequest.new(
-        :$key-pair,
-        :$server-name,
-        :$instance-type,
-        :$backup-id
+            :$key-pair,
+            :$server-name,
+            :$instance-type,
+            :$backup-id
         );
-;
+
         self.perform-operation(
             :api-call<RestoreServer>,
-            :return-type(RestoreServerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

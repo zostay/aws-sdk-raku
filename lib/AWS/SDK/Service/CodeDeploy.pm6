@@ -1113,711 +1113,635 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     method list-deployments(
-    ApplicationName :$application-name,
-    Str :$next-token,
-    Array[DeploymentStatus] :$include-only-statuses,
-    TimeRange :$create-time-range,
-    DeploymentGroupName :$deployment-group-name
+        ApplicationName :$application-name,
+        Str :$next-token,
+        Array[DeploymentStatus] :$include-only-statuses,
+        TimeRange :$create-time-range,
+        DeploymentGroupName :$deployment-group-name
     ) returns ListDeploymentsOutput is service-operation('ListDeployments') {
         my $request-input = ListDeploymentsInput.new(
-        :$application-name,
-        :$next-token,
-        :$include-only-statuses,
-        :$create-time-range,
-        :$deployment-group-name
+            :$application-name,
+            :$next-token,
+            :$include-only-statuses,
+            :$create-time-range,
+            :$deployment-group-name
         );
-;
+
         self.perform-operation(
             :api-call<ListDeployments>,
-            :return-type(ListDeploymentsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-deployment-configs(
-    Str :$next-token
+        Str :$next-token
     ) returns ListDeploymentConfigsOutput is service-operation('ListDeploymentConfigs') {
         my $request-input = ListDeploymentConfigsInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDeploymentConfigs>,
-            :return-type(ListDeploymentConfigsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-deployment-group(
-    ApplicationName :$application-name!,
-    DeploymentGroupName :$deployment-group-name!
+        ApplicationName :$application-name!,
+        DeploymentGroupName :$deployment-group-name!
     ) returns GetDeploymentGroupOutput is service-operation('GetDeploymentGroup') {
         my $request-input = GetDeploymentGroupInput.new(
-        :$application-name,
-        :$deployment-group-name
+            :$application-name,
+            :$deployment-group-name
         );
-;
+
         self.perform-operation(
             :api-call<GetDeploymentGroup>,
-            :return-type(GetDeploymentGroupOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-deployment-group(
-    ApplicationName :$application-name!,
-    DeploymentGroupName :$deployment-group-name!
+        ApplicationName :$application-name!,
+        DeploymentGroupName :$deployment-group-name!
     ) returns DeleteDeploymentGroupOutput is service-operation('DeleteDeploymentGroup') {
         my $request-input = DeleteDeploymentGroupInput.new(
-        :$application-name,
-        :$deployment-group-name
+            :$application-name,
+            :$deployment-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDeploymentGroup>,
-            :return-type(DeleteDeploymentGroupOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-application(
-    ApplicationName :$application-name!
+        ApplicationName :$application-name!
     ) returns CreateApplicationOutput is service-operation('CreateApplication') {
         my $request-input = CreateApplicationInput.new(
-        :$application-name
+            :$application-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateApplication>,
-            :return-type(CreateApplicationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-deployment-groups(
-    ApplicationName :$application-name!,
-    Array[DeploymentGroupName] :$deployment-group-names!
+        ApplicationName :$application-name!,
+        Array[DeploymentGroupName] :$deployment-group-names!
     ) returns BatchGetDeploymentGroupsOutput is service-operation('BatchGetDeploymentGroups') {
         my $request-input = BatchGetDeploymentGroupsInput.new(
-        :$application-name,
-        :$deployment-group-names
+            :$application-name,
+            :$deployment-group-names
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetDeploymentGroups>,
-            :return-type(BatchGetDeploymentGroupsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-deployment(
-    Str :$deployment-id!,
-    Bool :$auto-rollback-enabled
+        Str :$deployment-id!,
+        Bool :$auto-rollback-enabled
     ) returns StopDeploymentOutput is service-operation('StopDeployment') {
         my $request-input = StopDeploymentInput.new(
-        :$deployment-id,
-        :$auto-rollback-enabled
+            :$deployment-id,
+            :$auto-rollback-enabled
         );
-;
+
         self.perform-operation(
             :api-call<StopDeployment>,
-            :return-type(StopDeploymentOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-on-premises-instance(
-    Str :$iam-user-arn,
-    Str :$iam-session-arn,
-    Str :$instance-name!
+        Str :$iam-user-arn,
+        Str :$iam-session-arn,
+        Str :$instance-name!
     ) is service-operation('RegisterOnPremisesInstance') {
         my $request-input = RegisterOnPremisesInstanceInput.new(
-        :$iam-user-arn,
-        :$iam-session-arn,
-        :$instance-name
+            :$iam-user-arn,
+            :$iam-session-arn,
+            :$instance-name
         );
-;
+
         self.perform-operation(
             :api-call<RegisterOnPremisesInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-deployment-instances(
-    Str :$deployment-id!,
-    Array[InstanceType] :$instance-type-filter,
-    Array[InstanceStatus] :$instance-status-filter,
-    Str :$next-token
+        Str :$deployment-id!,
+        Array[InstanceType] :$instance-type-filter,
+        Array[InstanceStatus] :$instance-status-filter,
+        Str :$next-token
     ) returns ListDeploymentInstancesOutput is service-operation('ListDeploymentInstances') {
         my $request-input = ListDeploymentInstancesInput.new(
-        :$deployment-id,
-        :$instance-type-filter,
-        :$instance-status-filter,
-        :$next-token
+            :$deployment-id,
+            :$instance-type-filter,
+            :$instance-status-filter,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDeploymentInstances>,
-            :return-type(ListDeploymentInstancesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-on-premises-instance(
-    Str :$instance-name!
+        Str :$instance-name!
     ) is service-operation('DeregisterOnPremisesInstance') {
         my $request-input = DeregisterOnPremisesInstanceInput.new(
-        :$instance-name
+            :$instance-name
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterOnPremisesInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-application(
-    ApplicationName :$application-name!
+        ApplicationName :$application-name!
     ) is service-operation('DeleteApplication') {
         my $request-input = DeleteApplicationInput.new(
-        :$application-name
+            :$application-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApplication>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method continue-deployment(
-    Str :$deployment-id
+        Str :$deployment-id
     ) is service-operation('ContinueDeployment') {
         my $request-input = ContinueDeploymentInput.new(
-        :$deployment-id
+            :$deployment-id
         );
-;
+
         self.perform-operation(
             :api-call<ContinueDeployment>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-application-revisions(
-    Array[RevisionLocation] :$revisions!,
-    ApplicationName :$application-name!
+        Array[RevisionLocation] :$revisions!,
+        ApplicationName :$application-name!
     ) returns BatchGetApplicationRevisionsOutput is service-operation('BatchGetApplicationRevisions') {
         my $request-input = BatchGetApplicationRevisionsInput.new(
-        :$revisions,
-        :$application-name
+            :$revisions,
+            :$application-name
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetApplicationRevisions>,
-            :return-type(BatchGetApplicationRevisionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-deployment-group(
-    LoadBalancerInfo :$load-balancer-info,
-    BlueGreenDeploymentConfiguration :$blue-green-deployment-configuration,
-    Str :$service-role-arn,
-    Array[Str] :$auto-scaling-groups,
-    Array[TagFilter] :$on-premises-instance-tag-filters,
-    ApplicationName :$application-name!,
-    EC2TagSet :$ec2-tag-set,
-    DeploymentGroupName :$new-deployment-group-name,
-    DeploymentStyle :$deployment-style,
-    OnPremisesTagSet :$on-premises-tag-set,
-    AutoRollbackConfiguration :$auto-rollback-configuration,
-    AlarmConfiguration :$alarm-configuration,
-    Array[TriggerConfig] :$trigger-configurations,
-    Array[EC2TagFilter] :$ec2-tag-filters,
-    DeploymentGroupName :$current-deployment-group-name!,
-    DeploymentConfigName :$deployment-config-name
+        LoadBalancerInfo :$load-balancer-info,
+        BlueGreenDeploymentConfiguration :$blue-green-deployment-configuration,
+        Str :$service-role-arn,
+        Array[Str] :$auto-scaling-groups,
+        Array[TagFilter] :$on-premises-instance-tag-filters,
+        ApplicationName :$application-name!,
+        EC2TagSet :$ec2-tag-set,
+        DeploymentGroupName :$new-deployment-group-name,
+        DeploymentStyle :$deployment-style,
+        OnPremisesTagSet :$on-premises-tag-set,
+        AutoRollbackConfiguration :$auto-rollback-configuration,
+        AlarmConfiguration :$alarm-configuration,
+        Array[TriggerConfig] :$trigger-configurations,
+        Array[EC2TagFilter] :$ec2-tag-filters,
+        DeploymentGroupName :$current-deployment-group-name!,
+        DeploymentConfigName :$deployment-config-name
     ) returns UpdateDeploymentGroupOutput is service-operation('UpdateDeploymentGroup') {
         my $request-input = UpdateDeploymentGroupInput.new(
-        :$load-balancer-info,
-        :$blue-green-deployment-configuration,
-        :$service-role-arn,
-        :$auto-scaling-groups,
-        :$on-premises-instance-tag-filters,
-        :$application-name,
-        :$ec2-tag-set,
-        :$new-deployment-group-name,
-        :$deployment-style,
-        :$on-premises-tag-set,
-        :$auto-rollback-configuration,
-        :$alarm-configuration,
-        :$trigger-configurations,
-        :$ec2-tag-filters,
-        :$current-deployment-group-name,
-        :$deployment-config-name
+            :$load-balancer-info,
+            :$blue-green-deployment-configuration,
+            :$service-role-arn,
+            :$auto-scaling-groups,
+            :$on-premises-instance-tag-filters,
+            :$application-name,
+            :$ec2-tag-set,
+            :$new-deployment-group-name,
+            :$deployment-style,
+            :$on-premises-tag-set,
+            :$auto-rollback-configuration,
+            :$alarm-configuration,
+            :$trigger-configurations,
+            :$ec2-tag-filters,
+            :$current-deployment-group-name,
+            :$deployment-config-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDeploymentGroup>,
-            :return-type(UpdateDeploymentGroupOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-deployment-config(
-    DeploymentConfigName :$deployment-config-name!
+        DeploymentConfigName :$deployment-config-name!
     ) returns GetDeploymentConfigOutput is service-operation('GetDeploymentConfig') {
         my $request-input = GetDeploymentConfigInput.new(
-        :$deployment-config-name
+            :$deployment-config-name
         );
-;
+
         self.perform-operation(
             :api-call<GetDeploymentConfig>,
-            :return-type(GetDeploymentConfigOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags-from-on-premises-instances(
-    Array[Str] :$instance-names!,
-    Array[Tag] :$tags!
+        Array[Str] :$instance-names!,
+        Array[Tag] :$tags!
     ) is service-operation('RemoveTagsFromOnPremisesInstances') {
         my $request-input = RemoveTagsFromOnPremisesInstancesInput.new(
-        :$instance-names,
-        :$tags
+            :$instance-names,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTagsFromOnPremisesInstances>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-deployment-groups(
-    ApplicationName :$application-name!,
-    Str :$next-token
+        ApplicationName :$application-name!,
+        Str :$next-token
     ) returns ListDeploymentGroupsOutput is service-operation('ListDeploymentGroups') {
         my $request-input = ListDeploymentGroupsInput.new(
-        :$application-name,
-        :$next-token
+            :$application-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDeploymentGroups>,
-            :return-type(ListDeploymentGroupsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-applications(
-    Str :$next-token
+        Str :$next-token
     ) returns ListApplicationsOutput is service-operation('ListApplications') {
         my $request-input = ListApplicationsInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListApplications>,
-            :return-type(ListApplicationsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-application-revisions(
-    ApplicationName :$application-name!,
-    Str :$next-token,
-    ListStateFilterAction :$deployed,
-    Str :$s3-bucket,
-    SortOrder :$sort-order,
-    Str :$s3-key-prefix,
-    ApplicationRevisionSortBy :$sort-by
+        ApplicationName :$application-name!,
+        Str :$next-token,
+        ListStateFilterAction :$deployed,
+        Str :$s3-bucket,
+        SortOrder :$sort-order,
+        Str :$s3-key-prefix,
+        ApplicationRevisionSortBy :$sort-by
     ) returns ListApplicationRevisionsOutput is service-operation('ListApplicationRevisions') {
         my $request-input = ListApplicationRevisionsInput.new(
-        :$application-name,
-        :$next-token,
-        :$deployed,
-        :$s3-bucket,
-        :$sort-order,
-        :$s3-key-prefix,
-        :$sort-by
+            :$application-name,
+            :$next-token,
+            :$deployed,
+            :$s3-bucket,
+            :$sort-order,
+            :$s3-key-prefix,
+            :$sort-by
         );
-;
+
         self.perform-operation(
             :api-call<ListApplicationRevisions>,
-            :return-type(ListApplicationRevisionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-application(
-    ApplicationName :$application-name!
+        ApplicationName :$application-name!
     ) returns GetApplicationOutput is service-operation('GetApplication') {
         my $request-input = GetApplicationInput.new(
-        :$application-name
+            :$application-name
         );
-;
+
         self.perform-operation(
             :api-call<GetApplication>,
-            :return-type(GetApplicationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-deployment(
-    ApplicationName :$application-name!,
-    TargetInstances :$target-instances,
-    RevisionLocation :$revision,
-    FileExistsBehavior :$file-exists-behavior,
-    Bool :$ignore-application-stop-failures,
-    AutoRollbackConfiguration :$auto-rollback-configuration,
-    DeploymentGroupName :$deployment-group-name,
-    Bool :$update-outdated-instances-only,
-    Str :$description,
-    DeploymentConfigName :$deployment-config-name
+        ApplicationName :$application-name!,
+        TargetInstances :$target-instances,
+        RevisionLocation :$revision,
+        FileExistsBehavior :$file-exists-behavior,
+        Bool :$ignore-application-stop-failures,
+        AutoRollbackConfiguration :$auto-rollback-configuration,
+        DeploymentGroupName :$deployment-group-name,
+        Bool :$update-outdated-instances-only,
+        Str :$description,
+        DeploymentConfigName :$deployment-config-name
     ) returns CreateDeploymentOutput is service-operation('CreateDeployment') {
         my $request-input = CreateDeploymentInput.new(
-        :$application-name,
-        :$target-instances,
-        :$revision,
-        :$file-exists-behavior,
-        :$ignore-application-stop-failures,
-        :$auto-rollback-configuration,
-        :$deployment-group-name,
-        :$update-outdated-instances-only,
-        :$description,
-        :$deployment-config-name
+            :$application-name,
+            :$target-instances,
+            :$revision,
+            :$file-exists-behavior,
+            :$ignore-application-stop-failures,
+            :$auto-rollback-configuration,
+            :$deployment-group-name,
+            :$update-outdated-instances-only,
+            :$description,
+            :$deployment-config-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDeployment>,
-            :return-type(CreateDeploymentOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags-to-on-premises-instances(
-    Array[Str] :$instance-names!,
-    Array[Tag] :$tags!
+        Array[Str] :$instance-names!,
+        Array[Tag] :$tags!
     ) is service-operation('AddTagsToOnPremisesInstances') {
         my $request-input = AddTagsToOnPremisesInstancesInput.new(
-        :$instance-names,
-        :$tags
+            :$instance-names,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<AddTagsToOnPremisesInstances>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-on-premises-instance(
-    Str :$instance-name!
+        Str :$instance-name!
     ) returns GetOnPremisesInstanceOutput is service-operation('GetOnPremisesInstance') {
         my $request-input = GetOnPremisesInstanceInput.new(
-        :$instance-name
+            :$instance-name
         );
-;
+
         self.perform-operation(
             :api-call<GetOnPremisesInstance>,
-            :return-type(GetOnPremisesInstanceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-deployment-instance(
-    Str :$instance-id!,
-    Str :$deployment-id!
+        Str :$instance-id!,
+        Str :$deployment-id!
     ) returns GetDeploymentInstanceOutput is service-operation('GetDeploymentInstance') {
         my $request-input = GetDeploymentInstanceInput.new(
-        :$instance-id,
-        :$deployment-id
+            :$instance-id,
+            :$deployment-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDeploymentInstance>,
-            :return-type(GetDeploymentInstanceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-deployment-config(
-    DeploymentConfigName :$deployment-config-name!
+        DeploymentConfigName :$deployment-config-name!
     ) is service-operation('DeleteDeploymentConfig') {
         my $request-input = DeleteDeploymentConfigInput.new(
-        :$deployment-config-name
+            :$deployment-config-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDeploymentConfig>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-on-premises-instances(
-    Array[Str] :$instance-names
+        Array[Str] :$instance-names
     ) returns BatchGetOnPremisesInstancesOutput is service-operation('BatchGetOnPremisesInstances') {
         my $request-input = BatchGetOnPremisesInstancesInput.new(
-        :$instance-names
+            :$instance-names
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetOnPremisesInstances>,
-            :return-type(BatchGetOnPremisesInstancesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-on-premises-instances(
-    Array[TagFilter] :$tag-filters,
-    Str :$next-token,
-    RegistrationStatus :$registration-status
+        Array[TagFilter] :$tag-filters,
+        Str :$next-token,
+        RegistrationStatus :$registration-status
     ) returns ListOnPremisesInstancesOutput is service-operation('ListOnPremisesInstances') {
         my $request-input = ListOnPremisesInstancesInput.new(
-        :$tag-filters,
-        :$next-token,
-        :$registration-status
+            :$tag-filters,
+            :$next-token,
+            :$registration-status
         );
-;
+
         self.perform-operation(
             :api-call<ListOnPremisesInstances>,
-            :return-type(ListOnPremisesInstancesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-git-hub-account-token-names(
-    Str :$next-token
+        Str :$next-token
     ) returns ListGitHubAccountTokenNamesOutput is service-operation('ListGitHubAccountTokenNames') {
         my $request-input = ListGitHubAccountTokenNamesInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListGitHubAccountTokenNames>,
-            :return-type(ListGitHubAccountTokenNamesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method skip-wait-time-for-instance-termination(
-    Str :$deployment-id
+        Str :$deployment-id
     ) is service-operation('SkipWaitTimeForInstanceTermination') {
         my $request-input = SkipWaitTimeForInstanceTerminationInput.new(
-        :$deployment-id
+            :$deployment-id
         );
-;
+
         self.perform-operation(
             :api-call<SkipWaitTimeForInstanceTermination>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-application-revision(
-    ApplicationName :$application-name!,
-    RevisionLocation :$revision!,
-    Str :$description
+        ApplicationName :$application-name!,
+        RevisionLocation :$revision!,
+        Str :$description
     ) is service-operation('RegisterApplicationRevision') {
         my $request-input = RegisterApplicationRevisionInput.new(
-        :$application-name,
-        :$revision,
-        :$description
+            :$application-name,
+            :$revision,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<RegisterApplicationRevision>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-deployment(
-    Str :$deployment-id!
+        Str :$deployment-id!
     ) returns GetDeploymentOutput is service-operation('GetDeployment') {
         my $request-input = GetDeploymentInput.new(
-        :$deployment-id
+            :$deployment-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDeployment>,
-            :return-type(GetDeploymentOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-deployment-group(
-    LoadBalancerInfo :$load-balancer-info,
-    BlueGreenDeploymentConfiguration :$blue-green-deployment-configuration,
-    Str :$service-role-arn!,
-    Array[Str] :$auto-scaling-groups,
-    Array[TagFilter] :$on-premises-instance-tag-filters,
-    ApplicationName :$application-name!,
-    EC2TagSet :$ec2-tag-set,
-    DeploymentStyle :$deployment-style,
-    OnPremisesTagSet :$on-premises-tag-set,
-    AutoRollbackConfiguration :$auto-rollback-configuration,
-    AlarmConfiguration :$alarm-configuration,
-    Array[TriggerConfig] :$trigger-configurations,
-    Array[EC2TagFilter] :$ec2-tag-filters,
-    DeploymentGroupName :$deployment-group-name!,
-    DeploymentConfigName :$deployment-config-name
+        LoadBalancerInfo :$load-balancer-info,
+        BlueGreenDeploymentConfiguration :$blue-green-deployment-configuration,
+        Str :$service-role-arn!,
+        Array[Str] :$auto-scaling-groups,
+        Array[TagFilter] :$on-premises-instance-tag-filters,
+        ApplicationName :$application-name!,
+        EC2TagSet :$ec2-tag-set,
+        DeploymentStyle :$deployment-style,
+        OnPremisesTagSet :$on-premises-tag-set,
+        AutoRollbackConfiguration :$auto-rollback-configuration,
+        AlarmConfiguration :$alarm-configuration,
+        Array[TriggerConfig] :$trigger-configurations,
+        Array[EC2TagFilter] :$ec2-tag-filters,
+        DeploymentGroupName :$deployment-group-name!,
+        DeploymentConfigName :$deployment-config-name
     ) returns CreateDeploymentGroupOutput is service-operation('CreateDeploymentGroup') {
         my $request-input = CreateDeploymentGroupInput.new(
-        :$load-balancer-info,
-        :$blue-green-deployment-configuration,
-        :$service-role-arn,
-        :$auto-scaling-groups,
-        :$on-premises-instance-tag-filters,
-        :$application-name,
-        :$ec2-tag-set,
-        :$deployment-style,
-        :$on-premises-tag-set,
-        :$auto-rollback-configuration,
-        :$alarm-configuration,
-        :$trigger-configurations,
-        :$ec2-tag-filters,
-        :$deployment-group-name,
-        :$deployment-config-name
+            :$load-balancer-info,
+            :$blue-green-deployment-configuration,
+            :$service-role-arn,
+            :$auto-scaling-groups,
+            :$on-premises-instance-tag-filters,
+            :$application-name,
+            :$ec2-tag-set,
+            :$deployment-style,
+            :$on-premises-tag-set,
+            :$auto-rollback-configuration,
+            :$alarm-configuration,
+            :$trigger-configurations,
+            :$ec2-tag-filters,
+            :$deployment-group-name,
+            :$deployment-config-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDeploymentGroup>,
-            :return-type(CreateDeploymentGroupOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-deployment-config(
-    MinimumHealthyHosts :$minimum-healthy-hosts!,
-    DeploymentConfigName :$deployment-config-name!
+        MinimumHealthyHosts :$minimum-healthy-hosts!,
+        DeploymentConfigName :$deployment-config-name!
     ) returns CreateDeploymentConfigOutput is service-operation('CreateDeploymentConfig') {
         my $request-input = CreateDeploymentConfigInput.new(
-        :$minimum-healthy-hosts,
-        :$deployment-config-name
+            :$minimum-healthy-hosts,
+            :$deployment-config-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDeploymentConfig>,
-            :return-type(CreateDeploymentConfigOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-applications(
-    Array[ApplicationName] :$application-names
+        Array[ApplicationName] :$application-names
     ) returns BatchGetApplicationsOutput is service-operation('BatchGetApplications') {
         my $request-input = BatchGetApplicationsInput.new(
-        :$application-names
+            :$application-names
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetApplications>,
-            :return-type(BatchGetApplicationsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-application(
-    ApplicationName :$application-name,
-    ApplicationName :$new-application-name
+        ApplicationName :$application-name,
+        ApplicationName :$new-application-name
     ) is service-operation('UpdateApplication') {
         my $request-input = UpdateApplicationInput.new(
-        :$application-name,
-        :$new-application-name
+            :$application-name,
+            :$new-application-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApplication>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-application-revision(
-    ApplicationName :$application-name!,
-    RevisionLocation :$revision!
+        ApplicationName :$application-name!,
+        RevisionLocation :$revision!
     ) returns GetApplicationRevisionOutput is service-operation('GetApplicationRevision') {
         my $request-input = GetApplicationRevisionInput.new(
-        :$application-name,
-        :$revision
+            :$application-name,
+            :$revision
         );
-;
+
         self.perform-operation(
             :api-call<GetApplicationRevision>,
-            :return-type(GetApplicationRevisionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-deployments(
-    Array[Str] :$deployment-ids
+        Array[Str] :$deployment-ids
     ) returns BatchGetDeploymentsOutput is service-operation('BatchGetDeployments') {
         my $request-input = BatchGetDeploymentsInput.new(
-        :$deployment-ids
+            :$deployment-ids
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetDeployments>,
-            :return-type(BatchGetDeploymentsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-deployment-instances(
-    Str :$deployment-id!,
-    Array[Str] :$instance-ids!
+        Str :$deployment-id!,
+        Array[Str] :$instance-ids!
     ) returns BatchGetDeploymentInstancesOutput is service-operation('BatchGetDeploymentInstances') {
         my $request-input = BatchGetDeploymentInstancesInput.new(
-        :$deployment-id,
-        :$instance-ids
+            :$deployment-id,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetDeploymentInstances>,
-            :return-type(BatchGetDeploymentInstancesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

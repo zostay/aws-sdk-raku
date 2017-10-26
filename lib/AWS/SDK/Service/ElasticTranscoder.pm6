@@ -738,330 +738,296 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
     }
 
     method update-pipeline(
-    PipelineOutputConfig :$thumbnail-config,
-    Role :$role,
-    BucketName :$input-bucket,
-    Id :$id!,
-    Name :$name,
-    PipelineOutputConfig :$content-config,
-    KeyArn :$aws-kms-key-arn,
-    Notifications :$notifications
+        PipelineOutputConfig :$thumbnail-config,
+        Role :$role,
+        BucketName :$input-bucket,
+        Id :$id!,
+        Name :$name,
+        PipelineOutputConfig :$content-config,
+        KeyArn :$aws-kms-key-arn,
+        Notifications :$notifications
     ) returns UpdatePipelineResponse is service-operation('UpdatePipeline') {
         my $request-input = UpdatePipelineRequest.new(
-        :$thumbnail-config,
-        :$role,
-        :$input-bucket,
-        :$id,
-        :$name,
-        :$content-config,
-        :$aws-kms-key-arn,
-        :$notifications
+            :$thumbnail-config,
+            :$role,
+            :$input-bucket,
+            :$id,
+            :$name,
+            :$content-config,
+            :$aws-kms-key-arn,
+            :$notifications
         );
-;
+
         self.perform-operation(
             :api-call<UpdatePipeline>,
-            :return-type(UpdatePipelineResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method read-preset(
-    Id :$id!
+        Id :$id!
     ) returns ReadPresetResponse is service-operation('ReadPreset') {
         my $request-input = ReadPresetRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<ReadPreset>,
-            :return-type(ReadPresetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method read-job(
-    Id :$id!
+        Id :$id!
     ) returns ReadJobResponse is service-operation('ReadJob') {
         my $request-input = ReadJobRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<ReadJob>,
-            :return-type(ReadJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-preset(
-    Id :$id!
+        Id :$id!
     ) returns DeletePresetResponse is service-operation('DeletePreset') {
         my $request-input = DeletePresetRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeletePreset>,
-            :return-type(DeletePresetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-jobs-by-status(
-    JobStatus :$status!,
-    Id :$page-token,
-    Ascending :$ascending
+        JobStatus :$status!,
+        Id :$page-token,
+        Ascending :$ascending
     ) returns ListJobsByStatusResponse is service-operation('ListJobsByStatus') {
         my $request-input = ListJobsByStatusRequest.new(
-        :$status,
-        :$page-token,
-        :$ascending
+            :$status,
+            :$page-token,
+            :$ascending
         );
-;
+
         self.perform-operation(
             :api-call<ListJobsByStatus>,
-            :return-type(ListJobsByStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-pipeline(
-    PipelineOutputConfig :$thumbnail-config,
-    Role :$role!,
-    BucketName :$output-bucket,
-    BucketName :$input-bucket!,
-    Name :$name!,
-    PipelineOutputConfig :$content-config,
-    KeyArn :$aws-kms-key-arn,
-    Notifications :$notifications
+        PipelineOutputConfig :$thumbnail-config,
+        Role :$role!,
+        BucketName :$output-bucket,
+        BucketName :$input-bucket!,
+        Name :$name!,
+        PipelineOutputConfig :$content-config,
+        KeyArn :$aws-kms-key-arn,
+        Notifications :$notifications
     ) returns CreatePipelineResponse is service-operation('CreatePipeline') {
         my $request-input = CreatePipelineRequest.new(
-        :$thumbnail-config,
-        :$role,
-        :$output-bucket,
-        :$input-bucket,
-        :$name,
-        :$content-config,
-        :$aws-kms-key-arn,
-        :$notifications
+            :$thumbnail-config,
+            :$role,
+            :$output-bucket,
+            :$input-bucket,
+            :$name,
+            :$content-config,
+            :$aws-kms-key-arn,
+            :$notifications
         );
-;
+
         self.perform-operation(
             :api-call<CreatePipeline>,
-            :return-type(CreatePipelineResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-pipeline-status(
-    Id :$id!,
-    PipelineStatus :$status!
+        Id :$id!,
+        PipelineStatus :$status!
     ) returns UpdatePipelineStatusResponse is service-operation('UpdatePipelineStatus') {
         my $request-input = UpdatePipelineStatusRequest.new(
-        :$id,
-        :$status
+            :$id,
+            :$status
         );
-;
+
         self.perform-operation(
             :api-call<UpdatePipelineStatus>,
-            :return-type(UpdatePipelineStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-presets(
-    Id :$page-token,
-    Ascending :$ascending
+        Id :$page-token,
+        Ascending :$ascending
     ) returns ListPresetsResponse is service-operation('ListPresets') {
         my $request-input = ListPresetsRequest.new(
-        :$page-token,
-        :$ascending
+            :$page-token,
+            :$ascending
         );
-;
+
         self.perform-operation(
             :api-call<ListPresets>,
-            :return-type(ListPresetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-jobs-by-pipeline(
-    Id :$page-token,
-    Ascending :$ascending,
-    Id :$pipeline-id!
+        Id :$page-token,
+        Ascending :$ascending,
+        Id :$pipeline-id!
     ) returns ListJobsByPipelineResponse is service-operation('ListJobsByPipeline') {
         my $request-input = ListJobsByPipelineRequest.new(
-        :$page-token,
-        :$ascending,
-        :$pipeline-id
+            :$page-token,
+            :$ascending,
+            :$pipeline-id
         );
-;
+
         self.perform-operation(
             :api-call<ListJobsByPipeline>,
-            :return-type(ListJobsByPipelineResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-pipeline(
-    Id :$id!
+        Id :$id!
     ) returns DeletePipelineResponse is service-operation('DeletePipeline') {
         my $request-input = DeletePipelineRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeletePipeline>,
-            :return-type(DeletePipelineResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-pipeline-notifications(
-    Id :$id!,
-    Notifications :$notifications!
+        Id :$id!,
+        Notifications :$notifications!
     ) returns UpdatePipelineNotificationsResponse is service-operation('UpdatePipelineNotifications') {
         my $request-input = UpdatePipelineNotificationsRequest.new(
-        :$id,
-        :$notifications
+            :$id,
+            :$notifications
         );
-;
+
         self.perform-operation(
             :api-call<UpdatePipelineNotifications>,
-            :return-type(UpdatePipelineNotificationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method test-role(
-    Role :$role!,
-    BucketName :$output-bucket!,
-    SnsTopics :$topics!,
-    BucketName :$input-bucket!
+        Role :$role!,
+        BucketName :$output-bucket!,
+        SnsTopics :$topics!,
+        BucketName :$input-bucket!
     ) returns TestRoleResponse is service-operation('TestRole') {
         my $request-input = TestRoleRequest.new(
-        :$role,
-        :$output-bucket,
-        :$topics,
-        :$input-bucket
+            :$role,
+            :$output-bucket,
+            :$topics,
+            :$input-bucket
         );
-;
+
         self.perform-operation(
             :api-call<TestRole>,
-            :return-type(TestRoleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-pipelines(
-    Id :$page-token,
-    Ascending :$ascending
+        Id :$page-token,
+        Ascending :$ascending
     ) returns ListPipelinesResponse is service-operation('ListPipelines') {
         my $request-input = ListPipelinesRequest.new(
-        :$page-token,
-        :$ascending
+            :$page-token,
+            :$ascending
         );
-;
+
         self.perform-operation(
             :api-call<ListPipelines>,
-            :return-type(ListPipelinesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-job(
-    Id :$id!
+        Id :$id!
     ) returns CancelJobResponse is service-operation('CancelJob') {
         my $request-input = CancelJobRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<CancelJob>,
-            :return-type(CancelJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method read-pipeline(
-    Id :$id!
+        Id :$id!
     ) returns ReadPipelineResponse is service-operation('ReadPipeline') {
         my $request-input = ReadPipelineRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<ReadPipeline>,
-            :return-type(ReadPipelineResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-preset(
-    AudioParameters :$audio,
-    PresetContainer :$container!,
-    Description :$description,
-    Name :$name!,
-    VideoParameters :$video,
-    Thumbnails :$thumbnails
+        AudioParameters :$audio,
+        PresetContainer :$container!,
+        Description :$description,
+        Name :$name!,
+        VideoParameters :$video,
+        Thumbnails :$thumbnails
     ) returns CreatePresetResponse is service-operation('CreatePreset') {
         my $request-input = CreatePresetRequest.new(
-        :$audio,
-        :$container,
-        :$description,
-        :$name,
-        :$video,
-        :$thumbnails
+            :$audio,
+            :$container,
+            :$description,
+            :$name,
+            :$video,
+            :$thumbnails
         );
-;
+
         self.perform-operation(
             :api-call<CreatePreset>,
-            :return-type(CreatePresetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-job(
-    CreateJobPlaylists :$playlists,
-    JobInput :$input,
-    CreateJobOutput :$output,
-    Key :$output-key-prefix,
-    JobInputs :$inputs,
-    Hash[Str, Str] :$user-metadata,
-    CreateJobOutputs :$outputs,
-    Id :$pipeline-id!
+        CreateJobPlaylists :$playlists,
+        JobInput :$input,
+        CreateJobOutput :$output,
+        Key :$output-key-prefix,
+        JobInputs :$inputs,
+        Hash[Str, Str] :$user-metadata,
+        CreateJobOutputs :$outputs,
+        Id :$pipeline-id!
     ) returns CreateJobResponse is service-operation('CreateJob') {
         my $request-input = CreateJobRequest.new(
-        :$playlists,
-        :$input,
-        :$output,
-        :$output-key-prefix,
-        :$inputs,
-        :$user-metadata,
-        :$outputs,
-        :$pipeline-id
+            :$playlists,
+            :$input,
+            :$output,
+            :$output-key-prefix,
+            :$inputs,
+            :$user-metadata,
+            :$outputs,
+            :$pipeline-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateJob>,
-            :return-type(CreateJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

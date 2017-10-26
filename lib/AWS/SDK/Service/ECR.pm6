@@ -443,336 +443,302 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
     subset PartSize of Int where 0 <= *;
 
     method get-download-url-for-layer(
-    LayerDigest :$layer-digest!,
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id
+        LayerDigest :$layer-digest!,
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id
     ) returns GetDownloadUrlForLayerResponse is service-operation('GetDownloadUrlForLayer') {
         my $request-input = GetDownloadUrlForLayerRequest.new(
-        :$layer-digest,
-        :$repository-name,
-        :$registry-id
+            :$layer-digest,
+            :$repository-name,
+            :$registry-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDownloadUrlForLayer>,
-            :return-type(GetDownloadUrlForLayerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-repository-policy(
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id
     ) returns GetRepositoryPolicyResponse is service-operation('GetRepositoryPolicy') {
         my $request-input = GetRepositoryPolicyRequest.new(
-        :$repository-name,
-        :$registry-id
+            :$repository-name,
+            :$registry-id
         );
-;
+
         self.perform-operation(
             :api-call<GetRepositoryPolicy>,
-            :return-type(GetRepositoryPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-image(
-    MediaTypeList :$accepted-media-types,
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id,
-    ImageIdentifierList :$image-ids!
+        MediaTypeList :$accepted-media-types,
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id,
+        ImageIdentifierList :$image-ids!
     ) returns BatchGetImageResponse is service-operation('BatchGetImage') {
         my $request-input = BatchGetImageRequest.new(
-        :$accepted-media-types,
-        :$repository-name,
-        :$registry-id,
-        :$image-ids
+            :$accepted-media-types,
+            :$repository-name,
+            :$registry-id,
+            :$image-ids
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetImage>,
-            :return-type(BatchGetImageResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-repository-policy(
-    Bool :$force,
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id,
-    RepositoryPolicyText :$policy-text!
+        Bool :$force,
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id,
+        RepositoryPolicyText :$policy-text!
     ) returns SetRepositoryPolicyResponse is service-operation('SetRepositoryPolicy') {
         my $request-input = SetRepositoryPolicyRequest.new(
-        :$force,
-        :$repository-name,
-        :$registry-id,
-        :$policy-text
+            :$force,
+            :$repository-name,
+            :$registry-id,
+            :$policy-text
         );
-;
+
         self.perform-operation(
             :api-call<SetRepositoryPolicy>,
-            :return-type(SetRepositoryPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-repository(
-    RepositoryName :$repository-name!
+        RepositoryName :$repository-name!
     ) returns CreateRepositoryResponse is service-operation('CreateRepository') {
         my $request-input = CreateRepositoryRequest.new(
-        :$repository-name
+            :$repository-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateRepository>,
-            :return-type(CreateRepositoryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method initiate-layer-upload(
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id
     ) returns InitiateLayerUploadResponse is service-operation('InitiateLayerUpload') {
         my $request-input = InitiateLayerUploadRequest.new(
-        :$repository-name,
-        :$registry-id
+            :$repository-name,
+            :$registry-id
         );
-;
+
         self.perform-operation(
             :api-call<InitiateLayerUpload>,
-            :return-type(InitiateLayerUploadResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-authorization-token(
-    GetAuthorizationTokenRegistryIdList :$registry-ids
+        GetAuthorizationTokenRegistryIdList :$registry-ids
     ) returns GetAuthorizationTokenResponse is service-operation('GetAuthorizationToken') {
         my $request-input = GetAuthorizationTokenRequest.new(
-        :$registry-ids
+            :$registry-ids
         );
-;
+
         self.perform-operation(
             :api-call<GetAuthorizationToken>,
-            :return-type(GetAuthorizationTokenResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-repositories(
-    MaxResults :$max-results,
-    Str :$next-token,
-    RepositoryNameList :$repository-names,
-    RegistryId :$registry-id
+        MaxResults :$max-results,
+        Str :$next-token,
+        RepositoryNameList :$repository-names,
+        RegistryId :$registry-id
     ) returns DescribeRepositoriesResponse is service-operation('DescribeRepositories') {
         my $request-input = DescribeRepositoriesRequest.new(
-        :$max-results,
-        :$next-token,
-        :$repository-names,
-        :$registry-id
+            :$max-results,
+            :$next-token,
+            :$repository-names,
+            :$registry-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRepositories>,
-            :return-type(DescribeRepositoriesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-delete-image(
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id,
-    ImageIdentifierList :$image-ids!
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id,
+        ImageIdentifierList :$image-ids!
     ) returns BatchDeleteImageResponse is service-operation('BatchDeleteImage') {
         my $request-input = BatchDeleteImageRequest.new(
-        :$repository-name,
-        :$registry-id,
-        :$image-ids
+            :$repository-name,
+            :$registry-id,
+            :$image-ids
         );
-;
+
         self.perform-operation(
             :api-call<BatchDeleteImage>,
-            :return-type(BatchDeleteImageResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-check-layer-availability(
-    BatchedOperationLayerDigestList :$layer-digests!,
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id
+        BatchedOperationLayerDigestList :$layer-digests!,
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id
     ) returns BatchCheckLayerAvailabilityResponse is service-operation('BatchCheckLayerAvailability') {
         my $request-input = BatchCheckLayerAvailabilityRequest.new(
-        :$layer-digests,
-        :$repository-name,
-        :$registry-id
+            :$layer-digests,
+            :$repository-name,
+            :$registry-id
         );
-;
+
         self.perform-operation(
             :api-call<BatchCheckLayerAvailability>,
-            :return-type(BatchCheckLayerAvailabilityResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-images(
-    ListImagesFilter :$filter,
-    MaxResults :$max-results,
-    Str :$next-token,
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id
+        ListImagesFilter :$filter,
+        MaxResults :$max-results,
+        Str :$next-token,
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id
     ) returns ListImagesResponse is service-operation('ListImages') {
         my $request-input = ListImagesRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$repository-name,
-        :$registry-id
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$repository-name,
+            :$registry-id
         );
-;
+
         self.perform-operation(
             :api-call<ListImages>,
-            :return-type(ListImagesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-images(
-    DescribeImagesFilter :$filter,
-    MaxResults :$max-results,
-    Str :$next-token,
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id,
-    ImageIdentifierList :$image-ids
+        DescribeImagesFilter :$filter,
+        MaxResults :$max-results,
+        Str :$next-token,
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id,
+        ImageIdentifierList :$image-ids
     ) returns DescribeImagesResponse is service-operation('DescribeImages') {
         my $request-input = DescribeImagesRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$repository-name,
-        :$registry-id,
-        :$image-ids
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$repository-name,
+            :$registry-id,
+            :$image-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeImages>,
-            :return-type(DescribeImagesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-repository(
-    Bool :$force,
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id
+        Bool :$force,
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id
     ) returns DeleteRepositoryResponse is service-operation('DeleteRepository') {
         my $request-input = DeleteRepositoryRequest.new(
-        :$force,
-        :$repository-name,
-        :$registry-id
+            :$force,
+            :$repository-name,
+            :$registry-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRepository>,
-            :return-type(DeleteRepositoryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-repository-policy(
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id
     ) returns DeleteRepositoryPolicyResponse is service-operation('DeleteRepositoryPolicy') {
         my $request-input = DeleteRepositoryPolicyRequest.new(
-        :$repository-name,
-        :$registry-id
+            :$repository-name,
+            :$registry-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRepositoryPolicy>,
-            :return-type(DeleteRepositoryPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method upload-layer-part(
-    PartSize :$part-first-byte!,
-    Blob :$layer-part-blob!,
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id,
-    PartSize :$part-last-byte!,
-    UploadId :$upload-id!
+        PartSize :$part-first-byte!,
+        Blob :$layer-part-blob!,
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id,
+        PartSize :$part-last-byte!,
+        UploadId :$upload-id!
     ) returns UploadLayerPartResponse is service-operation('UploadLayerPart') {
         my $request-input = UploadLayerPartRequest.new(
-        :$part-first-byte,
-        :$layer-part-blob,
-        :$repository-name,
-        :$registry-id,
-        :$part-last-byte,
-        :$upload-id
+            :$part-first-byte,
+            :$layer-part-blob,
+            :$repository-name,
+            :$registry-id,
+            :$part-last-byte,
+            :$upload-id
         );
-;
+
         self.perform-operation(
             :api-call<UploadLayerPart>,
-            :return-type(UploadLayerPartResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-image(
-    Str :$image-tag,
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id,
-    Str :$image-manifest!
+        Str :$image-tag,
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id,
+        Str :$image-manifest!
     ) returns PutImageResponse is service-operation('PutImage') {
         my $request-input = PutImageRequest.new(
-        :$image-tag,
-        :$repository-name,
-        :$registry-id,
-        :$image-manifest
+            :$image-tag,
+            :$repository-name,
+            :$registry-id,
+            :$image-manifest
         );
-;
+
         self.perform-operation(
             :api-call<PutImage>,
-            :return-type(PutImageResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method complete-layer-upload(
-    LayerDigestList :$layer-digests!,
-    RepositoryName :$repository-name!,
-    RegistryId :$registry-id,
-    UploadId :$upload-id!
+        LayerDigestList :$layer-digests!,
+        RepositoryName :$repository-name!,
+        RegistryId :$registry-id,
+        UploadId :$upload-id!
     ) returns CompleteLayerUploadResponse is service-operation('CompleteLayerUpload') {
         my $request-input = CompleteLayerUploadRequest.new(
-        :$layer-digests,
-        :$repository-name,
-        :$registry-id,
-        :$upload-id
+            :$layer-digests,
+            :$repository-name,
+            :$registry-id,
+            :$upload-id
         );
-;
+
         self.perform-operation(
             :api-call<CompleteLayerUpload>,
-            :return-type(CompleteLayerUploadResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

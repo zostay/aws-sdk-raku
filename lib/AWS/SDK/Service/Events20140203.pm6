@@ -242,209 +242,185 @@ class AWS::SDK::Service::Events20140203 does AWS::SDK::Service {
     subset RuleName of Str where 1 <= .chars <= 64 && rx:P5/[\.\-_A-Za-z0-9]+/;
 
     method put-targets(
-    RuleName :$rule!,
-    Array[Target] :$targets!
+        RuleName :$rule!,
+        Array[Target] :$targets!
     ) returns PutTargetsResponse is service-operation('PutTargets') {
         my $request-input = PutTargetsRequest.new(
-        :$rule,
-        :$targets
+            :$rule,
+            :$targets
         );
-;
+
         self.perform-operation(
             :api-call<PutTargets>,
-            :return-type(PutTargetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-rule(
-    ScheduleExpression :$schedule-expression,
-    RoleArn :$role-arn,
-    RuleDescription :$description,
-    EventPattern :$event-pattern,
-    RuleState :$state,
-    RuleName :$name!
+        ScheduleExpression :$schedule-expression,
+        RoleArn :$role-arn,
+        RuleDescription :$description,
+        EventPattern :$event-pattern,
+        RuleState :$state,
+        RuleName :$name!
     ) returns PutRuleResponse is service-operation('PutRule') {
         my $request-input = PutRuleRequest.new(
-        :$schedule-expression,
-        :$role-arn,
-        :$description,
-        :$event-pattern,
-        :$state,
-        :$name
+            :$schedule-expression,
+            :$role-arn,
+            :$description,
+            :$event-pattern,
+            :$state,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<PutRule>,
-            :return-type(PutRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-targets-by-rule(
-    LimitMax100 :$limit,
-    NextToken :$next-token,
-    RuleName :$rule!
+        LimitMax100 :$limit,
+        NextToken :$next-token,
+        RuleName :$rule!
     ) returns ListTargetsByRuleResponse is service-operation('ListTargetsByRule') {
         my $request-input = ListTargetsByRuleRequest.new(
-        :$limit,
-        :$next-token,
-        :$rule
+            :$limit,
+            :$next-token,
+            :$rule
         );
-;
+
         self.perform-operation(
             :api-call<ListTargetsByRule>,
-            :return-type(ListTargetsByRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-rule(
-    RuleName :$name!
+        RuleName :$name!
     ) is service-operation('DeleteRule') {
         my $request-input = DeleteRuleRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRule>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-rules(
-    LimitMax100 :$limit,
-    NextToken :$next-token,
-    RuleName :$name-prefix
+        LimitMax100 :$limit,
+        NextToken :$next-token,
+        RuleName :$name-prefix
     ) returns ListRulesResponse is service-operation('ListRules') {
         my $request-input = ListRulesRequest.new(
-        :$limit,
-        :$next-token,
-        :$name-prefix
+            :$limit,
+            :$next-token,
+            :$name-prefix
         );
-;
+
         self.perform-operation(
             :api-call<ListRules>,
-            :return-type(ListRulesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-rule-names-by-target(
-    LimitMax100 :$limit,
-    TargetArn :$target-arn!,
-    NextToken :$next-token
+        LimitMax100 :$limit,
+        TargetArn :$target-arn!,
+        NextToken :$next-token
     ) returns ListRuleNamesByTargetResponse is service-operation('ListRuleNamesByTarget') {
         my $request-input = ListRuleNamesByTargetRequest.new(
-        :$limit,
-        :$target-arn,
-        :$next-token
+            :$limit,
+            :$target-arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListRuleNamesByTarget>,
-            :return-type(ListRuleNamesByTargetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-rule(
-    RuleName :$name!
+        RuleName :$name!
     ) returns DescribeRuleResponse is service-operation('DescribeRule') {
         my $request-input = DescribeRuleRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRule>,
-            :return-type(DescribeRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-targets(
-    RuleName :$rule!,
-    TargetIdList :$ids!
+        RuleName :$rule!,
+        TargetIdList :$ids!
     ) returns RemoveTargetsResponse is service-operation('RemoveTargets') {
         my $request-input = RemoveTargetsRequest.new(
-        :$rule,
-        :$ids
+            :$rule,
+            :$ids
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTargets>,
-            :return-type(RemoveTargetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-rule(
-    RuleName :$name!
+        RuleName :$name!
     ) is service-operation('DisableRule') {
         my $request-input = DisableRuleRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DisableRule>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method test-event-pattern(
-    Str :$event!,
-    EventPattern :$event-pattern!
+        Str :$event!,
+        EventPattern :$event-pattern!
     ) returns TestEventPatternResponse is service-operation('TestEventPattern') {
         my $request-input = TestEventPatternRequest.new(
-        :$event,
-        :$event-pattern
+            :$event,
+            :$event-pattern
         );
-;
+
         self.perform-operation(
             :api-call<TestEventPattern>,
-            :return-type(TestEventPatternResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-events(
-    PutEventsRequestEntryList :$entries!
+        PutEventsRequestEntryList :$entries!
     ) returns PutEventsResponse is service-operation('PutEvents') {
         my $request-input = PutEventsRequest.new(
-        :$entries
+            :$entries
         );
-;
+
         self.perform-operation(
             :api-call<PutEvents>,
-            :return-type(PutEventsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-rule(
-    RuleName :$name!
+        RuleName :$name!
     ) is service-operation('EnableRule') {
         my $request-input = EnableRuleRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<EnableRule>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

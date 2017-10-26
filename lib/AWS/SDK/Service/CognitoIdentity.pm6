@@ -369,349 +369,313 @@ class AWS::SDK::Service::CognitoIdentity does AWS::SDK::Service {
     subset MappingRulesList of Array[MappingRule] where 1 <= *.elems <= 25;
 
     method list-identities(
-    QueryLimit :$max-results!,
-    Bool :$hide-disabled,
-    IdentityPoolId :$identity-pool-id!,
-    PaginationKey :$next-token
+        QueryLimit :$max-results!,
+        Bool :$hide-disabled,
+        IdentityPoolId :$identity-pool-id!,
+        PaginationKey :$next-token
     ) returns ListIdentitiesResponse is service-operation('ListIdentities') {
         my $request-input = ListIdentitiesInput.new(
-        :$max-results,
-        :$hide-disabled,
-        :$identity-pool-id,
-        :$next-token
+            :$max-results,
+            :$hide-disabled,
+            :$identity-pool-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListIdentities>,
-            :return-type(ListIdentitiesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-open-id-token(
-    LoginsMap :$logins,
-    IdentityId :$identity-id!
+        LoginsMap :$logins,
+        IdentityId :$identity-id!
     ) returns GetOpenIdTokenResponse is service-operation('GetOpenIdToken') {
         my $request-input = GetOpenIdTokenInput.new(
-        :$logins,
-        :$identity-id
+            :$logins,
+            :$identity-id
         );
-;
+
         self.perform-operation(
             :api-call<GetOpenIdToken>,
-            :return-type(GetOpenIdTokenResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-credentials-for-identity(
-    LoginsMap :$logins,
-    IdentityId :$identity-id!,
-    ARNString :$custom-role-arn
+        LoginsMap :$logins,
+        IdentityId :$identity-id!,
+        ARNString :$custom-role-arn
     ) returns GetCredentialsForIdentityResponse is service-operation('GetCredentialsForIdentity') {
         my $request-input = GetCredentialsForIdentityInput.new(
-        :$logins,
-        :$identity-id,
-        :$custom-role-arn
+            :$logins,
+            :$identity-id,
+            :$custom-role-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetCredentialsForIdentity>,
-            :return-type(GetCredentialsForIdentityResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-id(
-    LoginsMap :$logins,
-    IdentityPoolId :$identity-pool-id!,
-    AccountId :$account-id
+        LoginsMap :$logins,
+        IdentityPoolId :$identity-pool-id!,
+        AccountId :$account-id
     ) returns GetIdResponse is service-operation('GetId') {
         my $request-input = GetIdInput.new(
-        :$logins,
-        :$identity-pool-id,
-        :$account-id
+            :$logins,
+            :$identity-pool-id,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<GetId>,
-            :return-type(GetIdResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-identity-pool(
-    Bool :$allow-unauthenticated-identities!,
-    DeveloperProviderName :$developer-provider-name,
-    Array[ARNString] :$saml-provider-arns,
-    Array[ARNString] :$open-id-connect-provider-arns,
-    IdentityPoolId :$identity-pool-id!,
-    Array[CognitoIdentityProvider] :$cognito-identity-providers,
-    IdentityProviders :$supported-login-providers,
-    IdentityPoolName :$identity-pool-name!
+        Bool :$allow-unauthenticated-identities!,
+        DeveloperProviderName :$developer-provider-name,
+        Array[ARNString] :$saml-provider-arns,
+        Array[ARNString] :$open-id-connect-provider-arns,
+        IdentityPoolId :$identity-pool-id!,
+        Array[CognitoIdentityProvider] :$cognito-identity-providers,
+        IdentityProviders :$supported-login-providers,
+        IdentityPoolName :$identity-pool-name!
     ) returns IdentityPool is service-operation('UpdateIdentityPool') {
         my $request-input = IdentityPool.new(
-        :$allow-unauthenticated-identities,
-        :$developer-provider-name,
-        :$saml-provider-arns,
-        :$open-id-connect-provider-arns,
-        :$identity-pool-id,
-        :$cognito-identity-providers,
-        :$supported-login-providers,
-        :$identity-pool-name
+            :$allow-unauthenticated-identities,
+            :$developer-provider-name,
+            :$saml-provider-arns,
+            :$open-id-connect-provider-arns,
+            :$identity-pool-id,
+            :$cognito-identity-providers,
+            :$supported-login-providers,
+            :$identity-pool-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateIdentityPool>,
-            :return-type(IdentityPool),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method unlink-identity(
-    LoginsMap :$logins!,
-    IdentityId :$identity-id!,
-    Array[IdentityProviderName] :$logins-to-remove!
+        LoginsMap :$logins!,
+        IdentityId :$identity-id!,
+        Array[IdentityProviderName] :$logins-to-remove!
     ) is service-operation('UnlinkIdentity') {
         my $request-input = UnlinkIdentityInput.new(
-        :$logins,
-        :$identity-id,
-        :$logins-to-remove
+            :$logins,
+            :$identity-id,
+            :$logins-to-remove
         );
-;
+
         self.perform-operation(
             :api-call<UnlinkIdentity>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-open-id-token-for-developer-identity(
-    LoginsMap :$logins!,
-    IdentityId :$identity-id,
-    TokenDuration :$token-duration,
-    IdentityPoolId :$identity-pool-id!
+        LoginsMap :$logins!,
+        IdentityId :$identity-id,
+        TokenDuration :$token-duration,
+        IdentityPoolId :$identity-pool-id!
     ) returns GetOpenIdTokenForDeveloperIdentityResponse is service-operation('GetOpenIdTokenForDeveloperIdentity') {
         my $request-input = GetOpenIdTokenForDeveloperIdentityInput.new(
-        :$logins,
-        :$identity-id,
-        :$token-duration,
-        :$identity-pool-id
+            :$logins,
+            :$identity-id,
+            :$token-duration,
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<GetOpenIdTokenForDeveloperIdentity>,
-            :return-type(GetOpenIdTokenForDeveloperIdentityResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-identities(
-    IdentityIdList :$identity-ids-to-delete!
+        IdentityIdList :$identity-ids-to-delete!
     ) returns DeleteIdentitiesResponse is service-operation('DeleteIdentities') {
         my $request-input = DeleteIdentitiesInput.new(
-        :$identity-ids-to-delete
+            :$identity-ids-to-delete
         );
-;
+
         self.perform-operation(
             :api-call<DeleteIdentities>,
-            :return-type(DeleteIdentitiesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-identity-pool(
-    IdentityPoolId :$identity-pool-id!
+        IdentityPoolId :$identity-pool-id!
     ) is service-operation('DeleteIdentityPool') {
         my $request-input = DeleteIdentityPoolInput.new(
-        :$identity-pool-id
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteIdentityPool>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method unlink-developer-identity(
-    DeveloperProviderName :$developer-provider-name!,
-    IdentityId :$identity-id!,
-    IdentityPoolId :$identity-pool-id!,
-    DeveloperUserIdentifier :$developer-user-identifier!
+        DeveloperProviderName :$developer-provider-name!,
+        IdentityId :$identity-id!,
+        IdentityPoolId :$identity-pool-id!,
+        DeveloperUserIdentifier :$developer-user-identifier!
     ) is service-operation('UnlinkDeveloperIdentity') {
         my $request-input = UnlinkDeveloperIdentityInput.new(
-        :$developer-provider-name,
-        :$identity-id,
-        :$identity-pool-id,
-        :$developer-user-identifier
+            :$developer-provider-name,
+            :$identity-id,
+            :$identity-pool-id,
+            :$developer-user-identifier
         );
-;
+
         self.perform-operation(
             :api-call<UnlinkDeveloperIdentity>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-identity-pool-roles(
-    IdentityPoolId :$identity-pool-id!
+        IdentityPoolId :$identity-pool-id!
     ) returns GetIdentityPoolRolesResponse is service-operation('GetIdentityPoolRoles') {
         my $request-input = GetIdentityPoolRolesInput.new(
-        :$identity-pool-id
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<GetIdentityPoolRoles>,
-            :return-type(GetIdentityPoolRolesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-identity(
-    IdentityId :$identity-id!
+        IdentityId :$identity-id!
     ) returns IdentityDescription is service-operation('DescribeIdentity') {
         my $request-input = DescribeIdentityInput.new(
-        :$identity-id
+            :$identity-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeIdentity>,
-            :return-type(IdentityDescription),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-identity-pool(
-    Bool :$allow-unauthenticated-identities!,
-    DeveloperProviderName :$developer-provider-name,
-    Array[ARNString] :$saml-provider-arns,
-    Array[ARNString] :$open-id-connect-provider-arns,
-    Array[CognitoIdentityProvider] :$cognito-identity-providers,
-    IdentityProviders :$supported-login-providers,
-    IdentityPoolName :$identity-pool-name!
+        Bool :$allow-unauthenticated-identities!,
+        DeveloperProviderName :$developer-provider-name,
+        Array[ARNString] :$saml-provider-arns,
+        Array[ARNString] :$open-id-connect-provider-arns,
+        Array[CognitoIdentityProvider] :$cognito-identity-providers,
+        IdentityProviders :$supported-login-providers,
+        IdentityPoolName :$identity-pool-name!
     ) returns IdentityPool is service-operation('CreateIdentityPool') {
         my $request-input = CreateIdentityPoolInput.new(
-        :$allow-unauthenticated-identities,
-        :$developer-provider-name,
-        :$saml-provider-arns,
-        :$open-id-connect-provider-arns,
-        :$cognito-identity-providers,
-        :$supported-login-providers,
-        :$identity-pool-name
+            :$allow-unauthenticated-identities,
+            :$developer-provider-name,
+            :$saml-provider-arns,
+            :$open-id-connect-provider-arns,
+            :$cognito-identity-providers,
+            :$supported-login-providers,
+            :$identity-pool-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateIdentityPool>,
-            :return-type(IdentityPool),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-identity-pool-roles(
-    IdentityPoolId :$identity-pool-id!,
-    RolesMap :$roles!,
-    RoleMappingMap :$role-mappings
+        IdentityPoolId :$identity-pool-id!,
+        RolesMap :$roles!,
+        RoleMappingMap :$role-mappings
     ) is service-operation('SetIdentityPoolRoles') {
         my $request-input = SetIdentityPoolRolesInput.new(
-        :$identity-pool-id,
-        :$roles,
-        :$role-mappings
+            :$identity-pool-id,
+            :$roles,
+            :$role-mappings
         );
-;
+
         self.perform-operation(
             :api-call<SetIdentityPoolRoles>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method merge-developer-identities(
-    DeveloperProviderName :$developer-provider-name!,
-    IdentityPoolId :$identity-pool-id!,
-    DeveloperUserIdentifier :$source-user-identifier!,
-    DeveloperUserIdentifier :$destination-user-identifier!
+        DeveloperProviderName :$developer-provider-name!,
+        IdentityPoolId :$identity-pool-id!,
+        DeveloperUserIdentifier :$source-user-identifier!,
+        DeveloperUserIdentifier :$destination-user-identifier!
     ) returns MergeDeveloperIdentitiesResponse is service-operation('MergeDeveloperIdentities') {
         my $request-input = MergeDeveloperIdentitiesInput.new(
-        :$developer-provider-name,
-        :$identity-pool-id,
-        :$source-user-identifier,
-        :$destination-user-identifier
+            :$developer-provider-name,
+            :$identity-pool-id,
+            :$source-user-identifier,
+            :$destination-user-identifier
         );
-;
+
         self.perform-operation(
             :api-call<MergeDeveloperIdentities>,
-            :return-type(MergeDeveloperIdentitiesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-identity-pool(
-    IdentityPoolId :$identity-pool-id!
+        IdentityPoolId :$identity-pool-id!
     ) returns IdentityPool is service-operation('DescribeIdentityPool') {
         my $request-input = DescribeIdentityPoolInput.new(
-        :$identity-pool-id
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeIdentityPool>,
-            :return-type(IdentityPool),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method lookup-developer-identity(
-    QueryLimit :$max-results,
-    IdentityId :$identity-id,
-    IdentityPoolId :$identity-pool-id!,
-    PaginationKey :$next-token,
-    DeveloperUserIdentifier :$developer-user-identifier
+        QueryLimit :$max-results,
+        IdentityId :$identity-id,
+        IdentityPoolId :$identity-pool-id!,
+        PaginationKey :$next-token,
+        DeveloperUserIdentifier :$developer-user-identifier
     ) returns LookupDeveloperIdentityResponse is service-operation('LookupDeveloperIdentity') {
         my $request-input = LookupDeveloperIdentityInput.new(
-        :$max-results,
-        :$identity-id,
-        :$identity-pool-id,
-        :$next-token,
-        :$developer-user-identifier
+            :$max-results,
+            :$identity-id,
+            :$identity-pool-id,
+            :$next-token,
+            :$developer-user-identifier
         );
-;
+
         self.perform-operation(
             :api-call<LookupDeveloperIdentity>,
-            :return-type(LookupDeveloperIdentityResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-identity-pools(
-    QueryLimit :$max-results!,
-    PaginationKey :$next-token
+        QueryLimit :$max-results!,
+        PaginationKey :$next-token
     ) returns ListIdentityPoolsResponse is service-operation('ListIdentityPools') {
         my $request-input = ListIdentityPoolsInput.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListIdentityPools>,
-            :return-type(ListIdentityPoolsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

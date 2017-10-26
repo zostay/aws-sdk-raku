@@ -1023,311 +1023,275 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
     subset Message of Str where .chars <= 128;
 
     method create-topic-rule(
-    TopicRulePayload :$topic-rule-payload!,
-    RuleName :$rule-name!
+        TopicRulePayload :$topic-rule-payload!,
+        RuleName :$rule-name!
     ) is service-operation('CreateTopicRule') {
         my $request-input = CreateTopicRuleRequest.new(
-        :$topic-rule-payload,
-        :$rule-name
+            :$topic-rule-payload,
+            :$rule-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateTopicRule>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-policy-version(
-    PolicyVersionId :$policy-version-id!,
-    PolicyName :$policy-name!
+        PolicyVersionId :$policy-version-id!,
+        PolicyName :$policy-name!
     ) is service-operation('DeletePolicyVersion') {
         my $request-input = DeletePolicyVersionRequest.new(
-        :$policy-version-id,
-        :$policy-name
+            :$policy-version-id,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<DeletePolicyVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-ca-certificate(
-    CertificateId :$certificate-id!
+        CertificateId :$certificate-id!
     ) returns DescribeCACertificateResponse is service-operation('DescribeCACertificate') {
         my $request-input = DescribeCACertificateRequest.new(
-        :$certificate-id
+            :$certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCACertificate>,
-            :return-type(DescribeCACertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-principal-policy(
-    Str :$principal!,
-    PolicyName :$policy-name!
+        Str :$principal!,
+        PolicyName :$policy-name!
     ) is service-operation('DetachPrincipalPolicy') {
         my $request-input = DetachPrincipalPolicyRequest.new(
-        :$principal,
-        :$policy-name
+            :$principal,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<DetachPrincipalPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-topic-rule(
-    RuleName :$rule-name!
+        RuleName :$rule-name!
     ) is service-operation('EnableTopicRule') {
         my $request-input = EnableTopicRuleRequest.new(
-        :$rule-name
+            :$rule-name
         );
-;
+
         self.perform-operation(
             :api-call<EnableTopicRule>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-certificates-by-ca(
-    Bool :$ascending-order,
-    Str :$marker,
-    PageSize :$page-size,
-    CertificateId :$ca-certificate-id!
+        Bool :$ascending-order,
+        Str :$marker,
+        PageSize :$page-size,
+        CertificateId :$ca-certificate-id!
     ) returns ListCertificatesByCAResponse is service-operation('ListCertificatesByCA') {
         my $request-input = ListCertificatesByCARequest.new(
-        :$ascending-order,
-        :$marker,
-        :$page-size,
-        :$ca-certificate-id
+            :$ascending-order,
+            :$marker,
+            :$page-size,
+            :$ca-certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<ListCertificatesByCA>,
-            :return-type(ListCertificatesByCAResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-keys-and-certificate(
-    Bool :$set-as-active
+        Bool :$set-as-active
     ) returns CreateKeysAndCertificateResponse is service-operation('CreateKeysAndCertificate') {
         my $request-input = CreateKeysAndCertificateRequest.new(
-        :$set-as-active
+            :$set-as-active
         );
-;
+
         self.perform-operation(
             :api-call<CreateKeysAndCertificate>,
-            :return-type(CreateKeysAndCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-policy(
-    Str :$policy-document!,
-    PolicyName :$policy-name!
+        Str :$policy-document!,
+        PolicyName :$policy-name!
     ) returns CreatePolicyResponse is service-operation('CreatePolicy') {
         my $request-input = CreatePolicyRequest.new(
-        :$policy-document,
-        :$policy-name
+            :$policy-document,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<CreatePolicy>,
-            :return-type(CreatePolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-thing(
-    ThingTypeName :$thing-type-name,
-    AttributePayload :$attribute-payload,
-    ThingName :$thing-name!
+        ThingTypeName :$thing-type-name,
+        AttributePayload :$attribute-payload,
+        ThingName :$thing-name!
     ) returns CreateThingResponse is service-operation('CreateThing') {
         my $request-input = CreateThingRequest.new(
-        :$thing-type-name,
-        :$attribute-payload,
-        :$thing-name
+            :$thing-type-name,
+            :$attribute-payload,
+            :$thing-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateThing>,
-            :return-type(CreateThingResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-thing-type(
-    ThingTypeName :$thing-type-name!
+        ThingTypeName :$thing-type-name!
     ) returns DeleteThingTypeResponse is service-operation('DeleteThingType') {
         my $request-input = DeleteThingTypeRequest.new(
-        :$thing-type-name
+            :$thing-type-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteThingType>,
-            :return-type(DeleteThingTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-topic-rule(
-    RuleName :$rule-name!
+        RuleName :$rule-name!
     ) is service-operation('DisableTopicRule') {
         my $request-input = DisableTopicRuleRequest.new(
-        :$rule-name
+            :$rule-name
         );
-;
+
         self.perform-operation(
             :api-call<DisableTopicRule>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-topic-rules(
-    Bool :$rule-disabled,
-    Str :$next-token,
-    MaxResults :$max-results,
-    Str :$topic
+        Bool :$rule-disabled,
+        Str :$next-token,
+        MaxResults :$max-results,
+        Str :$topic
     ) returns ListTopicRulesResponse is service-operation('ListTopicRules') {
         my $request-input = ListTopicRulesRequest.new(
-        :$rule-disabled,
-        :$next-token,
-        :$max-results,
-        :$topic
+            :$rule-disabled,
+            :$next-token,
+            :$max-results,
+            :$topic
         );
-;
+
         self.perform-operation(
             :api-call<ListTopicRules>,
-            :return-type(ListTopicRulesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-ca-certificate(
-    CACertificateStatus :$new-status,
-    AutoRegistrationStatus :$new-auto-registration-status,
-    CertificateId :$certificate-id!
+        CACertificateStatus :$new-status,
+        AutoRegistrationStatus :$new-auto-registration-status,
+        CertificateId :$certificate-id!
     ) is service-operation('UpdateCACertificate') {
         my $request-input = UpdateCACertificateRequest.new(
-        :$new-status,
-        :$new-auto-registration-status,
-        :$certificate-id
+            :$new-status,
+            :$new-auto-registration-status,
+            :$certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateCACertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-certificate-from-csr(
-    Bool :$set-as-active,
-    CertificateSigningRequest :$certificate-signing-request!
+        Bool :$set-as-active,
+        CertificateSigningRequest :$certificate-signing-request!
     ) returns CreateCertificateFromCsrResponse is service-operation('CreateCertificateFromCsr') {
         my $request-input = CreateCertificateFromCsrRequest.new(
-        :$set-as-active,
-        :$certificate-signing-request
+            :$set-as-active,
+            :$certificate-signing-request
         );
-;
+
         self.perform-operation(
             :api-call<CreateCertificateFromCsr>,
-            :return-type(CreateCertificateFromCsrResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deprecate-thing-type(
-    ThingTypeName :$thing-type-name!,
-    Bool :$undo-deprecate
+        ThingTypeName :$thing-type-name!,
+        Bool :$undo-deprecate
     ) returns DeprecateThingTypeResponse is service-operation('DeprecateThingType') {
         my $request-input = DeprecateThingTypeRequest.new(
-        :$thing-type-name,
-        :$undo-deprecate
+            :$thing-type-name,
+            :$undo-deprecate
         );
-;
+
         self.perform-operation(
             :api-call<DeprecateThingType>,
-            :return-type(DeprecateThingTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-thing(
-    ThingName :$thing-name!
+        ThingName :$thing-name!
     ) returns DescribeThingResponse is service-operation('DescribeThing') {
         my $request-input = DescribeThingRequest.new(
-        :$thing-name
+            :$thing-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeThing>,
-            :return-type(DescribeThingResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-principal-things(
-    RegistryMaxResults :$max-results,
-    Str :$next-token,
-    Str :$principal!
+        RegistryMaxResults :$max-results,
+        Str :$next-token,
+        Str :$principal!
     ) returns ListPrincipalThingsResponse is service-operation('ListPrincipalThings') {
         my $request-input = ListPrincipalThingsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$principal
+            :$max-results,
+            :$next-token,
+            :$principal
         );
-;
+
         self.perform-operation(
             :api-call<ListPrincipalThings>,
-            :return-type(ListPrincipalThingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-policy-version(
-    Str :$policy-document!,
-    Bool :$set-as-default,
-    PolicyName :$policy-name!
+        Str :$policy-document!,
+        Bool :$set-as-default,
+        PolicyName :$policy-name!
     ) returns CreatePolicyVersionResponse is service-operation('CreatePolicyVersion') {
         my $request-input = CreatePolicyVersionRequest.new(
-        :$policy-document,
-        :$set-as-default,
-        :$policy-name
+            :$policy-document,
+            :$set-as-default,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<CreatePolicyVersion>,
-            :return-type(CreatePolicyVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1338,450 +1302,398 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         my $request-input = DeleteRegistrationCodeRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRegistrationCode>,
-            :return-type(DeleteRegistrationCodeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-outgoing-certificates(
-    Bool :$ascending-order,
-    Str :$marker,
-    PageSize :$page-size
+        Bool :$ascending-order,
+        Str :$marker,
+        PageSize :$page-size
     ) returns ListOutgoingCertificatesResponse is service-operation('ListOutgoingCertificates') {
         my $request-input = ListOutgoingCertificatesRequest.new(
-        :$ascending-order,
-        :$marker,
-        :$page-size
+            :$ascending-order,
+            :$marker,
+            :$page-size
         );
-;
+
         self.perform-operation(
             :api-call<ListOutgoingCertificates>,
-            :return-type(ListOutgoingCertificatesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method replace-topic-rule(
-    TopicRulePayload :$topic-rule-payload!,
-    RuleName :$rule-name!
+        TopicRulePayload :$topic-rule-payload!,
+        RuleName :$rule-name!
     ) is service-operation('ReplaceTopicRule') {
         my $request-input = ReplaceTopicRuleRequest.new(
-        :$topic-rule-payload,
-        :$rule-name
+            :$topic-rule-payload,
+            :$rule-name
         );
-;
+
         self.perform-operation(
             :api-call<ReplaceTopicRule>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method accept-certificate-transfer(
-    Bool :$set-as-active,
-    CertificateId :$certificate-id!
+        Bool :$set-as-active,
+        CertificateId :$certificate-id!
     ) is service-operation('AcceptCertificateTransfer') {
         my $request-input = AcceptCertificateTransferRequest.new(
-        :$set-as-active,
-        :$certificate-id
+            :$set-as-active,
+            :$certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<AcceptCertificateTransfer>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-thing-type(
-    ThingTypeName :$thing-type-name!,
-    ThingTypeProperties :$thing-type-properties
+        ThingTypeName :$thing-type-name!,
+        ThingTypeProperties :$thing-type-properties
     ) returns CreateThingTypeResponse is service-operation('CreateThingType') {
         my $request-input = CreateThingTypeRequest.new(
-        :$thing-type-name,
-        :$thing-type-properties
+            :$thing-type-name,
+            :$thing-type-properties
         );
-;
+
         self.perform-operation(
             :api-call<CreateThingType>,
-            :return-type(CreateThingTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-topic-rule(
-    RuleName :$rule-name!
+        RuleName :$rule-name!
     ) is service-operation('DeleteTopicRule') {
         my $request-input = DeleteTopicRuleRequest.new(
-        :$rule-name
+            :$rule-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTopicRule>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-policy-version(
-    PolicyVersionId :$policy-version-id!,
-    PolicyName :$policy-name!
+        PolicyVersionId :$policy-version-id!,
+        PolicyName :$policy-name!
     ) returns GetPolicyVersionResponse is service-operation('GetPolicyVersion') {
         my $request-input = GetPolicyVersionRequest.new(
-        :$policy-version-id,
-        :$policy-name
+            :$policy-version-id,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<GetPolicyVersion>,
-            :return-type(GetPolicyVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-policies(
-    Bool :$ascending-order,
-    PageSize :$page-size,
-    Str :$marker
+        Bool :$ascending-order,
+        PageSize :$page-size,
+        Str :$marker
     ) returns ListPoliciesResponse is service-operation('ListPolicies') {
         my $request-input = ListPoliciesRequest.new(
-        :$ascending-order,
-        :$page-size,
-        :$marker
+            :$ascending-order,
+            :$page-size,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListPolicies>,
-            :return-type(ListPoliciesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-policy-principals(
-    Bool :$ascending-order,
-    PageSize :$page-size,
-    Str :$marker,
-    PolicyName :$policy-name!
+        Bool :$ascending-order,
+        PageSize :$page-size,
+        Str :$marker,
+        PolicyName :$policy-name!
     ) returns ListPolicyPrincipalsResponse is service-operation('ListPolicyPrincipals') {
         my $request-input = ListPolicyPrincipalsRequest.new(
-        :$ascending-order,
-        :$page-size,
-        :$marker,
-        :$policy-name
+            :$ascending-order,
+            :$page-size,
+            :$marker,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<ListPolicyPrincipals>,
-            :return-type(ListPolicyPrincipalsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-certificate(
-    CertificatePem :$ca-certificate-pem,
-    CertificatePem :$certificate-pem!,
-    CertificateStatus :$status,
-    Bool :$set-as-active
+        CertificatePem :$ca-certificate-pem,
+        CertificatePem :$certificate-pem!,
+        CertificateStatus :$status,
+        Bool :$set-as-active
     ) returns RegisterCertificateResponse is service-operation('RegisterCertificate') {
         my $request-input = RegisterCertificateRequest.new(
-        :$ca-certificate-pem,
-        :$certificate-pem,
-        :$status,
-        :$set-as-active
+            :$ca-certificate-pem,
+            :$certificate-pem,
+            :$status,
+            :$set-as-active
         );
-;
+
         self.perform-operation(
             :api-call<RegisterCertificate>,
-            :return-type(RegisterCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-thing(
-    ThingTypeName :$thing-type-name,
-    AttributePayload :$attribute-payload,
-    Bool :$remove-thing-type,
-    ThingName :$thing-name!,
-    Int :$expected-version
+        ThingTypeName :$thing-type-name,
+        AttributePayload :$attribute-payload,
+        Bool :$remove-thing-type,
+        ThingName :$thing-name!,
+        Int :$expected-version
     ) returns UpdateThingResponse is service-operation('UpdateThing') {
         my $request-input = UpdateThingRequest.new(
-        :$thing-type-name,
-        :$attribute-payload,
-        :$remove-thing-type,
-        :$thing-name,
-        :$expected-version
+            :$thing-type-name,
+            :$attribute-payload,
+            :$remove-thing-type,
+            :$thing-name,
+            :$expected-version
         );
-;
+
         self.perform-operation(
             :api-call<UpdateThing>,
-            :return-type(UpdateThingResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reject-certificate-transfer(
-    Message :$reject-reason,
-    CertificateId :$certificate-id!
+        Message :$reject-reason,
+        CertificateId :$certificate-id!
     ) is service-operation('RejectCertificateTransfer') {
         my $request-input = RejectCertificateTransferRequest.new(
-        :$reject-reason,
-        :$certificate-id
+            :$reject-reason,
+            :$certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<RejectCertificateTransfer>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-thing(
-    ThingName :$thing-name!,
-    Int :$expected-version
+        ThingName :$thing-name!,
+        Int :$expected-version
     ) returns DeleteThingResponse is service-operation('DeleteThing') {
         my $request-input = DeleteThingRequest.new(
-        :$thing-name,
-        :$expected-version
+            :$thing-name,
+            :$expected-version
         );
-;
+
         self.perform-operation(
             :api-call<DeleteThing>,
-            :return-type(DeleteThingResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-certificate(
-    CertificateStatus :$new-status!,
-    CertificateId :$certificate-id!
+        CertificateStatus :$new-status!,
+        CertificateId :$certificate-id!
     ) is service-operation('UpdateCertificate') {
         my $request-input = UpdateCertificateRequest.new(
-        :$new-status,
-        :$certificate-id
+            :$new-status,
+            :$certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-default-policy-version(
-    PolicyVersionId :$policy-version-id!,
-    PolicyName :$policy-name!
+        PolicyVersionId :$policy-version-id!,
+        PolicyName :$policy-name!
     ) is service-operation('SetDefaultPolicyVersion') {
         my $request-input = SetDefaultPolicyVersionRequest.new(
-        :$policy-version-id,
-        :$policy-name
+            :$policy-version-id,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<SetDefaultPolicyVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-ca-certificate(
-    CertificateId :$certificate-id!
+        CertificateId :$certificate-id!
     ) returns DeleteCACertificateResponse is service-operation('DeleteCACertificate') {
         my $request-input = DeleteCACertificateRequest.new(
-        :$certificate-id
+            :$certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCACertificate>,
-            :return-type(DeleteCACertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-policy(
-    PolicyName :$policy-name!
+        PolicyName :$policy-name!
     ) returns GetPolicyResponse is service-operation('GetPolicy') {
         my $request-input = GetPolicyRequest.new(
-        :$policy-name
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<GetPolicy>,
-            :return-type(GetPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-principal-policies(
-    Bool :$ascending-order,
-    PageSize :$page-size,
-    Str :$marker,
-    Str :$principal!
+        Bool :$ascending-order,
+        PageSize :$page-size,
+        Str :$marker,
+        Str :$principal!
     ) returns ListPrincipalPoliciesResponse is service-operation('ListPrincipalPolicies') {
         my $request-input = ListPrincipalPoliciesRequest.new(
-        :$ascending-order,
-        :$page-size,
-        :$marker,
-        :$principal
+            :$ascending-order,
+            :$page-size,
+            :$marker,
+            :$principal
         );
-;
+
         self.perform-operation(
             :api-call<ListPrincipalPolicies>,
-            :return-type(ListPrincipalPoliciesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-principal-policy(
-    Str :$principal!,
-    PolicyName :$policy-name!
+        Str :$principal!,
+        PolicyName :$policy-name!
     ) is service-operation('AttachPrincipalPolicy') {
         my $request-input = AttachPrincipalPolicyRequest.new(
-        :$principal,
-        :$policy-name
+            :$principal,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<AttachPrincipalPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-logging-options(
-    LoggingOptionsPayload :$logging-options-payload!
+        LoggingOptionsPayload :$logging-options-payload!
     ) is service-operation('SetLoggingOptions') {
         my $request-input = SetLoggingOptionsRequest.new(
-        :$logging-options-payload
+            :$logging-options-payload
         );
-;
+
         self.perform-operation(
             :api-call<SetLoggingOptions>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-policy(
-    PolicyName :$policy-name!
+        PolicyName :$policy-name!
     ) is service-operation('DeletePolicy') {
         my $request-input = DeletePolicyRequest.new(
-        :$policy-name
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<DeletePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method transfer-certificate(
-    Message :$transfer-message,
-    CertificateId :$certificate-id!,
-    AwsAccountId :$target-aws-account!
+        Message :$transfer-message,
+        CertificateId :$certificate-id!,
+        AwsAccountId :$target-aws-account!
     ) returns TransferCertificateResponse is service-operation('TransferCertificate') {
         my $request-input = TransferCertificateRequest.new(
-        :$transfer-message,
-        :$certificate-id,
-        :$target-aws-account
+            :$transfer-message,
+            :$certificate-id,
+            :$target-aws-account
         );
-;
+
         self.perform-operation(
             :api-call<TransferCertificate>,
-            :return-type(TransferCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-certificate(
-    CertificateId :$certificate-id!
+        CertificateId :$certificate-id!
     ) is service-operation('DeleteCertificate') {
         my $request-input = DeleteCertificateRequest.new(
-        :$certificate-id
+            :$certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-certificates(
-    Bool :$ascending-order,
-    Str :$marker,
-    PageSize :$page-size
+        Bool :$ascending-order,
+        Str :$marker,
+        PageSize :$page-size
     ) returns ListCertificatesResponse is service-operation('ListCertificates') {
         my $request-input = ListCertificatesRequest.new(
-        :$ascending-order,
-        :$marker,
-        :$page-size
+            :$ascending-order,
+            :$marker,
+            :$page-size
         );
-;
+
         self.perform-operation(
             :api-call<ListCertificates>,
-            :return-type(ListCertificatesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-thing-types(
-    ThingTypeName :$thing-type-name,
-    RegistryMaxResults :$max-results,
-    Str :$next-token
+        ThingTypeName :$thing-type-name,
+        RegistryMaxResults :$max-results,
+        Str :$next-token
     ) returns ListThingTypesResponse is service-operation('ListThingTypes') {
         my $request-input = ListThingTypesRequest.new(
-        :$thing-type-name,
-        :$max-results,
-        :$next-token
+            :$thing-type-name,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListThingTypes>,
-            :return-type(ListThingTypesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-certificate(
-    CertificateId :$certificate-id!
+        CertificateId :$certificate-id!
     ) returns DescribeCertificateResponse is service-operation('DescribeCertificate') {
         my $request-input = DescribeCertificateRequest.new(
-        :$certificate-id
+            :$certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCertificate>,
-            :return-type(DescribeCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1792,11 +1704,9 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         my $request-input = DescribeEndpointRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEndpoint>,
-            :return-type(DescribeEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1807,160 +1717,140 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         my $request-input = GetRegistrationCodeRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetRegistrationCode>,
-            :return-type(GetRegistrationCodeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-thing-principal(
-    Str :$principal!,
-    ThingName :$thing-name!
+        Str :$principal!,
+        ThingName :$thing-name!
     ) returns AttachThingPrincipalResponse is service-operation('AttachThingPrincipal') {
         my $request-input = AttachThingPrincipalRequest.new(
-        :$principal,
-        :$thing-name
+            :$principal,
+            :$thing-name
         );
-;
+
         self.perform-operation(
             :api-call<AttachThingPrincipal>,
-            :return-type(AttachThingPrincipalResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-certificate-transfer(
-    CertificateId :$certificate-id!
+        CertificateId :$certificate-id!
     ) is service-operation('CancelCertificateTransfer') {
         my $request-input = CancelCertificateTransferRequest.new(
-        :$certificate-id
+            :$certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelCertificateTransfer>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-thing-type(
-    ThingTypeName :$thing-type-name!
+        ThingTypeName :$thing-type-name!
     ) returns DescribeThingTypeResponse is service-operation('DescribeThingType') {
         my $request-input = DescribeThingTypeRequest.new(
-        :$thing-type-name
+            :$thing-type-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeThingType>,
-            :return-type(DescribeThingTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-thing-principals(
-    ThingName :$thing-name!
+        ThingName :$thing-name!
     ) returns ListThingPrincipalsResponse is service-operation('ListThingPrincipals') {
         my $request-input = ListThingPrincipalsRequest.new(
-        :$thing-name
+            :$thing-name
         );
-;
+
         self.perform-operation(
             :api-call<ListThingPrincipals>,
-            :return-type(ListThingPrincipalsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-thing-principal(
-    Str :$principal!,
-    ThingName :$thing-name!
+        Str :$principal!,
+        ThingName :$thing-name!
     ) returns DetachThingPrincipalResponse is service-operation('DetachThingPrincipal') {
         my $request-input = DetachThingPrincipalRequest.new(
-        :$principal,
-        :$thing-name
+            :$principal,
+            :$thing-name
         );
-;
+
         self.perform-operation(
             :api-call<DetachThingPrincipal>,
-            :return-type(DetachThingPrincipalResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-topic-rule(
-    RuleName :$rule-name!
+        RuleName :$rule-name!
     ) returns GetTopicRuleResponse is service-operation('GetTopicRule') {
         my $request-input = GetTopicRuleRequest.new(
-        :$rule-name
+            :$rule-name
         );
-;
+
         self.perform-operation(
             :api-call<GetTopicRule>,
-            :return-type(GetTopicRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-ca-certificates(
-    Bool :$ascending-order,
-    Str :$marker,
-    PageSize :$page-size
+        Bool :$ascending-order,
+        Str :$marker,
+        PageSize :$page-size
     ) returns ListCACertificatesResponse is service-operation('ListCACertificates') {
         my $request-input = ListCACertificatesRequest.new(
-        :$ascending-order,
-        :$marker,
-        :$page-size
+            :$ascending-order,
+            :$marker,
+            :$page-size
         );
-;
+
         self.perform-operation(
             :api-call<ListCACertificates>,
-            :return-type(ListCACertificatesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-policy-versions(
-    PolicyName :$policy-name!
+        PolicyName :$policy-name!
     ) returns ListPolicyVersionsResponse is service-operation('ListPolicyVersions') {
         my $request-input = ListPolicyVersionsRequest.new(
-        :$policy-name
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<ListPolicyVersions>,
-            :return-type(ListPolicyVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-ca-certificate(
-    Bool :$allow-auto-registration,
-    Bool :$set-as-active,
-    CertificatePem :$verification-certificate!,
-    CertificatePem :$ca-certificate!
+        Bool :$allow-auto-registration,
+        Bool :$set-as-active,
+        CertificatePem :$verification-certificate!,
+        CertificatePem :$ca-certificate!
     ) returns RegisterCACertificateResponse is service-operation('RegisterCACertificate') {
         my $request-input = RegisterCACertificateRequest.new(
-        :$allow-auto-registration,
-        :$set-as-active,
-        :$verification-certificate,
-        :$ca-certificate
+            :$allow-auto-registration,
+            :$set-as-active,
+            :$verification-certificate,
+            :$ca-certificate
         );
-;
+
         self.perform-operation(
             :api-call<RegisterCACertificate>,
-            :return-type(RegisterCACertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1971,34 +1861,30 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         my $request-input = GetLoggingOptionsRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetLoggingOptions>,
-            :return-type(GetLoggingOptionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-things(
-    ThingTypeName :$thing-type-name,
-    AttributeValue :$attribute-value,
-    RegistryMaxResults :$max-results,
-    Str :$next-token,
-    AttributeName :$attribute-name
+        ThingTypeName :$thing-type-name,
+        AttributeValue :$attribute-value,
+        RegistryMaxResults :$max-results,
+        Str :$next-token,
+        AttributeName :$attribute-name
     ) returns ListThingsResponse is service-operation('ListThings') {
         my $request-input = ListThingsRequest.new(
-        :$thing-type-name,
-        :$attribute-value,
-        :$max-results,
-        :$next-token,
-        :$attribute-name
+            :$thing-type-name,
+            :$attribute-value,
+            :$max-results,
+            :$next-token,
+            :$attribute-name
         );
-;
+
         self.perform-operation(
             :api-call<ListThings>,
-            :return-type(ListThingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

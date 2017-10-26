@@ -441,355 +441,311 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
     }
 
     method describe-rank-expressions(
-    DomainName :$domain-name!,
-    Array[FieldName] :$rank-names
+        DomainName :$domain-name!,
+        Array[FieldName] :$rank-names
     ) returns DescribeRankExpressionsResponse is service-operation('DescribeRankExpressions') {
         my $request-input = DescribeRankExpressionsRequest.new(
-        :$domain-name,
-        :$rank-names
+            :$domain-name,
+            :$rank-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRankExpressions>,
-            :return-type(DescribeRankExpressionsResponse),
-            :result-wrapper('DescribeRankExpressionsResult'),
             :$request-input,
         );
     }
 
     method describe-index-fields(
-    DomainName :$domain-name!,
-    Array[FieldName] :$field-names
+        DomainName :$domain-name!,
+        Array[FieldName] :$field-names
     ) returns DescribeIndexFieldsResponse is service-operation('DescribeIndexFields') {
         my $request-input = DescribeIndexFieldsRequest.new(
-        :$domain-name,
-        :$field-names
+            :$domain-name,
+            :$field-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeIndexFields>,
-            :return-type(DescribeIndexFieldsResponse),
-            :result-wrapper('DescribeIndexFieldsResult'),
             :$request-input,
         );
     }
 
     method update-stemming-options(
-    DomainName :$domain-name!,
-    Str :$stems!
+        DomainName :$domain-name!,
+        Str :$stems!
     ) returns UpdateStemmingOptionsResponse is service-operation('UpdateStemmingOptions') {
         my $request-input = UpdateStemmingOptionsRequest.new(
-        :$domain-name,
-        :$stems
+            :$domain-name,
+            :$stems
         );
-;
+
         self.perform-operation(
             :api-call<UpdateStemmingOptions>,
-            :return-type(UpdateStemmingOptionsResponse),
-            :result-wrapper('UpdateStemmingOptionsResult'),
             :$request-input,
         );
     }
 
     method update-service-access-policies(
-    DomainName :$domain-name!,
-    Str :$access-policies!
+        DomainName :$domain-name!,
+        Str :$access-policies!
     ) returns UpdateServiceAccessPoliciesResponse is service-operation('UpdateServiceAccessPolicies') {
         my $request-input = UpdateServiceAccessPoliciesRequest.new(
-        :$domain-name,
-        :$access-policies
+            :$domain-name,
+            :$access-policies
         );
-;
+
         self.perform-operation(
             :api-call<UpdateServiceAccessPolicies>,
-            :return-type(UpdateServiceAccessPoliciesResponse),
-            :result-wrapper('UpdateServiceAccessPoliciesResult'),
             :$request-input,
         );
     }
 
     method update-availability-options(
-    DomainName :$domain-name!,
-    Bool :$multi-az!
+        DomainName :$domain-name!,
+        Bool :$multi-az!
     ) returns UpdateAvailabilityOptionsResponse is service-operation('UpdateAvailabilityOptions') {
         my $request-input = UpdateAvailabilityOptionsRequest.new(
-        :$domain-name,
-        :$multi-az
+            :$domain-name,
+            :$multi-az
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAvailabilityOptions>,
-            :return-type(UpdateAvailabilityOptionsResponse),
-            :result-wrapper('UpdateAvailabilityOptionsResult'),
             :$request-input,
         );
     }
 
     method describe-stemming-options(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DescribeStemmingOptionsResponse is service-operation('DescribeStemmingOptions') {
         my $request-input = DescribeStemmingOptionsRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStemmingOptions>,
-            :return-type(DescribeStemmingOptionsResponse),
-            :result-wrapper('DescribeStemmingOptionsResult'),
             :$request-input,
         );
     }
 
     method delete-rank-expression(
-    DomainName :$domain-name!,
-    FieldName :$rank-name!
+        DomainName :$domain-name!,
+        FieldName :$rank-name!
     ) returns DeleteRankExpressionResponse is service-operation('DeleteRankExpression') {
         my $request-input = DeleteRankExpressionRequest.new(
-        :$domain-name,
-        :$rank-name
+            :$domain-name,
+            :$rank-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRankExpression>,
-            :return-type(DeleteRankExpressionResponse),
-            :result-wrapper('DeleteRankExpressionResult'),
             :$request-input,
         );
     }
 
     method delete-domain(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DeleteDomainResponse is service-operation('DeleteDomain') {
         my $request-input = DeleteDomainRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDomain>,
-            :return-type(DeleteDomainResponse),
-            :result-wrapper('DeleteDomainResult'),
             :$request-input,
         );
     }
 
     method create-domain(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns CreateDomainResponse is service-operation('CreateDomain') {
         my $request-input = CreateDomainRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDomain>,
-            :return-type(CreateDomainResponse),
-            :result-wrapper('CreateDomainResult'),
             :$request-input,
         );
     }
 
     method index-documents(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns IndexDocumentsResponse is service-operation('IndexDocuments') {
         my $request-input = IndexDocumentsRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<IndexDocuments>,
-            :return-type(IndexDocumentsResponse),
-            :result-wrapper('IndexDocumentsResult'),
             :$request-input,
         );
     }
 
     method describe-stopword-options(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DescribeStopwordOptionsResponse is service-operation('DescribeStopwordOptions') {
         my $request-input = DescribeStopwordOptionsRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStopwordOptions>,
-            :return-type(DescribeStopwordOptionsResponse),
-            :result-wrapper('DescribeStopwordOptionsResult'),
             :$request-input,
         );
     }
 
     method describe-service-access-policies(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DescribeServiceAccessPoliciesResponse is service-operation('DescribeServiceAccessPolicies') {
         my $request-input = DescribeServiceAccessPoliciesRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeServiceAccessPolicies>,
-            :return-type(DescribeServiceAccessPoliciesResponse),
-            :result-wrapper('DescribeServiceAccessPoliciesResult'),
             :$request-input,
         );
     }
 
     method describe-domains(
-    Array[DomainName] :$domain-names
+        Array[DomainName] :$domain-names
     ) returns DescribeDomainsResponse is service-operation('DescribeDomains') {
         my $request-input = DescribeDomainsRequest.new(
-        :$domain-names
+            :$domain-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDomains>,
-            :return-type(DescribeDomainsResponse),
-            :result-wrapper('DescribeDomainsResult'),
             :$request-input,
         );
     }
 
     method describe-default-search-field(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DescribeDefaultSearchFieldResponse is service-operation('DescribeDefaultSearchField') {
         my $request-input = DescribeDefaultSearchFieldRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDefaultSearchField>,
-            :return-type(DescribeDefaultSearchFieldResponse),
-            :result-wrapper('DescribeDefaultSearchFieldResult'),
             :$request-input,
         );
     }
 
     method define-index-field(
-    DomainName :$domain-name!,
-    IndexField :$index-field!
+        DomainName :$domain-name!,
+        IndexField :$index-field!
     ) returns DefineIndexFieldResponse is service-operation('DefineIndexField') {
         my $request-input = DefineIndexFieldRequest.new(
-        :$domain-name,
-        :$index-field
+            :$domain-name,
+            :$index-field
         );
-;
+
         self.perform-operation(
             :api-call<DefineIndexField>,
-            :return-type(DefineIndexFieldResponse),
-            :result-wrapper('DefineIndexFieldResult'),
             :$request-input,
         );
     }
 
     method describe-availability-options(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DescribeAvailabilityOptionsResponse is service-operation('DescribeAvailabilityOptions') {
         my $request-input = DescribeAvailabilityOptionsRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAvailabilityOptions>,
-            :return-type(DescribeAvailabilityOptionsResponse),
-            :result-wrapper('DescribeAvailabilityOptionsResult'),
             :$request-input,
         );
     }
 
     method delete-index-field(
-    DomainName :$domain-name!,
-    FieldName :$index-field-name!
+        DomainName :$domain-name!,
+        FieldName :$index-field-name!
     ) returns DeleteIndexFieldResponse is service-operation('DeleteIndexField') {
         my $request-input = DeleteIndexFieldRequest.new(
-        :$domain-name,
-        :$index-field-name
+            :$domain-name,
+            :$index-field-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteIndexField>,
-            :return-type(DeleteIndexFieldResponse),
-            :result-wrapper('DeleteIndexFieldResult'),
             :$request-input,
         );
     }
 
     method define-rank-expression(
-    NamedRankExpression :$rank-expression!,
-    DomainName :$domain-name!
+        NamedRankExpression :$rank-expression!,
+        DomainName :$domain-name!
     ) returns DefineRankExpressionResponse is service-operation('DefineRankExpression') {
         my $request-input = DefineRankExpressionRequest.new(
-        :$rank-expression,
-        :$domain-name
+            :$rank-expression,
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DefineRankExpression>,
-            :return-type(DefineRankExpressionResponse),
-            :result-wrapper('DefineRankExpressionResult'),
             :$request-input,
         );
     }
 
     method update-synonym-options(
-    DomainName :$domain-name!,
-    Str :$synonyms!
+        DomainName :$domain-name!,
+        Str :$synonyms!
     ) returns UpdateSynonymOptionsResponse is service-operation('UpdateSynonymOptions') {
         my $request-input = UpdateSynonymOptionsRequest.new(
-        :$domain-name,
-        :$synonyms
+            :$domain-name,
+            :$synonyms
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSynonymOptions>,
-            :return-type(UpdateSynonymOptionsResponse),
-            :result-wrapper('UpdateSynonymOptionsResult'),
             :$request-input,
         );
     }
 
     method update-default-search-field(
-    DomainName :$domain-name!,
-    Str :$default-search-field!
+        DomainName :$domain-name!,
+        Str :$default-search-field!
     ) returns UpdateDefaultSearchFieldResponse is service-operation('UpdateDefaultSearchField') {
         my $request-input = UpdateDefaultSearchFieldRequest.new(
-        :$domain-name,
-        :$default-search-field
+            :$domain-name,
+            :$default-search-field
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDefaultSearchField>,
-            :return-type(UpdateDefaultSearchFieldResponse),
-            :result-wrapper('UpdateDefaultSearchFieldResult'),
             :$request-input,
         );
     }
 
     method describe-synonym-options(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DescribeSynonymOptionsResponse is service-operation('DescribeSynonymOptions') {
         my $request-input = DescribeSynonymOptionsRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSynonymOptions>,
-            :return-type(DescribeSynonymOptionsResponse),
-            :result-wrapper('DescribeSynonymOptionsResult'),
             :$request-input,
         );
     }
 
     method update-stopword-options(
-    DomainName :$domain-name!,
-    Str :$stopwords!
+        DomainName :$domain-name!,
+        Str :$stopwords!
     ) returns UpdateStopwordOptionsResponse is service-operation('UpdateStopwordOptions') {
         my $request-input = UpdateStopwordOptionsRequest.new(
-        :$domain-name,
-        :$stopwords
+            :$domain-name,
+            :$stopwords
         );
-;
+
         self.perform-operation(
             :api-call<UpdateStopwordOptions>,
-            :return-type(UpdateStopwordOptionsResponse),
-            :result-wrapper('UpdateStopwordOptionsResult'),
             :$request-input,
         );
     }

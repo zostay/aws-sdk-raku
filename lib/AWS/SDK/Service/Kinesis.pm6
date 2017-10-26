@@ -397,346 +397,308 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
     }
 
     method put-records(
-    PutRecordsRequestEntryList :$records!,
-    StreamName :$stream-name!
+        PutRecordsRequestEntryList :$records!,
+        StreamName :$stream-name!
     ) returns PutRecordsOutput is service-operation('PutRecords') {
         my $request-input = PutRecordsInput.new(
-        :$records,
-        :$stream-name
+            :$records,
+            :$stream-name
         );
-;
+
         self.perform-operation(
             :api-call<PutRecords>,
-            :return-type(PutRecordsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-enhanced-monitoring(
-    MetricsNameList :$shard-level-metrics!,
-    StreamName :$stream-name!
+        MetricsNameList :$shard-level-metrics!,
+        StreamName :$stream-name!
     ) returns EnhancedMonitoringOutput is service-operation('EnableEnhancedMonitoring') {
         my $request-input = EnableEnhancedMonitoringInput.new(
-        :$shard-level-metrics,
-        :$stream-name
+            :$shard-level-metrics,
+            :$stream-name
         );
-;
+
         self.perform-operation(
             :api-call<EnableEnhancedMonitoring>,
-            :return-type(EnhancedMonitoringOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method decrease-stream-retention-period(
-    StreamName :$stream-name!,
-    PositiveIntegerObject :$retention-period-hours!
+        StreamName :$stream-name!,
+        PositiveIntegerObject :$retention-period-hours!
     ) is service-operation('DecreaseStreamRetentionPeriod') {
         my $request-input = DecreaseStreamRetentionPeriodInput.new(
-        :$stream-name,
-        :$retention-period-hours
+            :$stream-name,
+            :$retention-period-hours
         );
-;
+
         self.perform-operation(
             :api-call<DecreaseStreamRetentionPeriod>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags-to-stream(
-    StreamName :$stream-name!,
-    TagMap :$tags!
+        StreamName :$stream-name!,
+        TagMap :$tags!
     ) is service-operation('AddTagsToStream') {
         my $request-input = AddTagsToStreamInput.new(
-        :$stream-name,
-        :$tags
+            :$stream-name,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<AddTagsToStream>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-stream-encryption(
-    StreamName :$stream-name!,
-    KeyId :$key-id!,
-    EncryptionType :$encryption-type!
+        StreamName :$stream-name!,
+        KeyId :$key-id!,
+        EncryptionType :$encryption-type!
     ) is service-operation('StopStreamEncryption') {
         my $request-input = StopStreamEncryptionInput.new(
-        :$stream-name,
-        :$key-id,
-        :$encryption-type
+            :$stream-name,
+            :$key-id,
+            :$encryption-type
         );
-;
+
         self.perform-operation(
             :api-call<StopStreamEncryption>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags-from-stream(
-    StreamName :$stream-name!,
-    TagKeyList :$tag-keys!
+        StreamName :$stream-name!,
+        TagKeyList :$tag-keys!
     ) is service-operation('RemoveTagsFromStream') {
         my $request-input = RemoveTagsFromStreamInput.new(
-        :$stream-name,
-        :$tag-keys
+            :$stream-name,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTagsFromStream>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method increase-stream-retention-period(
-    StreamName :$stream-name!,
-    PositiveIntegerObject :$retention-period-hours!
+        StreamName :$stream-name!,
+        PositiveIntegerObject :$retention-period-hours!
     ) is service-operation('IncreaseStreamRetentionPeriod') {
         my $request-input = IncreaseStreamRetentionPeriodInput.new(
-        :$stream-name,
-        :$retention-period-hours
+            :$stream-name,
+            :$retention-period-hours
         );
-;
+
         self.perform-operation(
             :api-call<IncreaseStreamRetentionPeriod>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-stream(
-    DescribeStreamInputLimit :$limit,
-    StreamName :$stream-name!,
-    ShardId :$exclusive-start-shard-id
+        DescribeStreamInputLimit :$limit,
+        StreamName :$stream-name!,
+        ShardId :$exclusive-start-shard-id
     ) returns DescribeStreamOutput is service-operation('DescribeStream') {
         my $request-input = DescribeStreamInput.new(
-        :$limit,
-        :$stream-name,
-        :$exclusive-start-shard-id
+            :$limit,
+            :$stream-name,
+            :$exclusive-start-shard-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStream>,
-            :return-type(DescribeStreamOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-stream(
-    StreamName :$stream-name!
+        StreamName :$stream-name!
     ) is service-operation('DeleteStream') {
         my $request-input = DeleteStreamInput.new(
-        :$stream-name
+            :$stream-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteStream>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-shard-count(
-    StreamName :$stream-name!,
-    PositiveIntegerObject :$target-shard-count!,
-    ScalingType :$scaling-type!
+        StreamName :$stream-name!,
+        PositiveIntegerObject :$target-shard-count!,
+        ScalingType :$scaling-type!
     ) returns UpdateShardCountOutput is service-operation('UpdateShardCount') {
         my $request-input = UpdateShardCountInput.new(
-        :$stream-name,
-        :$target-shard-count,
-        :$scaling-type
+            :$stream-name,
+            :$target-shard-count,
+            :$scaling-type
         );
-;
+
         self.perform-operation(
             :api-call<UpdateShardCount>,
-            :return-type(UpdateShardCountOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method split-shard(
-    HashKey :$new-starting-hash-key!,
-    StreamName :$stream-name!,
-    ShardId :$shard-to-split!
+        HashKey :$new-starting-hash-key!,
+        StreamName :$stream-name!,
+        ShardId :$shard-to-split!
     ) is service-operation('SplitShard') {
         my $request-input = SplitShardInput.new(
-        :$new-starting-hash-key,
-        :$stream-name,
-        :$shard-to-split
+            :$new-starting-hash-key,
+            :$stream-name,
+            :$shard-to-split
         );
-;
+
         self.perform-operation(
             :api-call<SplitShard>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-record(
-    HashKey :$explicit-hash-key,
-    Data :$data!,
-    StreamName :$stream-name!,
-    SequenceNumber :$sequence-number-for-ordering,
-    PartitionKey :$partition-key!
+        HashKey :$explicit-hash-key,
+        Data :$data!,
+        StreamName :$stream-name!,
+        SequenceNumber :$sequence-number-for-ordering,
+        PartitionKey :$partition-key!
     ) returns PutRecordOutput is service-operation('PutRecord') {
         my $request-input = PutRecordInput.new(
-        :$explicit-hash-key,
-        :$data,
-        :$stream-name,
-        :$sequence-number-for-ordering,
-        :$partition-key
+            :$explicit-hash-key,
+            :$data,
+            :$stream-name,
+            :$sequence-number-for-ordering,
+            :$partition-key
         );
-;
+
         self.perform-operation(
             :api-call<PutRecord>,
-            :return-type(PutRecordOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-records(
-    GetRecordsInputLimit :$limit,
-    ShardIterator :$shard-iterator!
+        GetRecordsInputLimit :$limit,
+        ShardIterator :$shard-iterator!
     ) returns GetRecordsOutput is service-operation('GetRecords') {
         my $request-input = GetRecordsInput.new(
-        :$limit,
-        :$shard-iterator
+            :$limit,
+            :$shard-iterator
         );
-;
+
         self.perform-operation(
             :api-call<GetRecords>,
-            :return-type(GetRecordsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-stream(
-    StreamName :$stream-name!,
-    PositiveIntegerObject :$shard-count!
+        StreamName :$stream-name!,
+        PositiveIntegerObject :$shard-count!
     ) is service-operation('CreateStream') {
         my $request-input = CreateStreamInput.new(
-        :$stream-name,
-        :$shard-count
+            :$stream-name,
+            :$shard-count
         );
-;
+
         self.perform-operation(
             :api-call<CreateStream>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-stream(
-    ListTagsForStreamInputLimit :$limit,
-    StreamName :$stream-name!,
-    TagKey :$exclusive-start-tag-key
+        ListTagsForStreamInputLimit :$limit,
+        StreamName :$stream-name!,
+        TagKey :$exclusive-start-tag-key
     ) returns ListTagsForStreamOutput is service-operation('ListTagsForStream') {
         my $request-input = ListTagsForStreamInput.new(
-        :$limit,
-        :$stream-name,
-        :$exclusive-start-tag-key
+            :$limit,
+            :$stream-name,
+            :$exclusive-start-tag-key
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForStream>,
-            :return-type(ListTagsForStreamOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-streams(
-    ListStreamsInputLimit :$limit,
-    StreamName :$exclusive-start-stream-name
+        ListStreamsInputLimit :$limit,
+        StreamName :$exclusive-start-stream-name
     ) returns ListStreamsOutput is service-operation('ListStreams') {
         my $request-input = ListStreamsInput.new(
-        :$limit,
-        :$exclusive-start-stream-name
+            :$limit,
+            :$exclusive-start-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<ListStreams>,
-            :return-type(ListStreamsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-shard-iterator(
-    SequenceNumber :$starting-sequence-number,
-    ShardId :$shard-id!,
-    StreamName :$stream-name!,
-    DateTime :$timestamp,
-    ShardIteratorType :$shard-iterator-type!
+        SequenceNumber :$starting-sequence-number,
+        ShardId :$shard-id!,
+        StreamName :$stream-name!,
+        DateTime :$timestamp,
+        ShardIteratorType :$shard-iterator-type!
     ) returns GetShardIteratorOutput is service-operation('GetShardIterator') {
         my $request-input = GetShardIteratorInput.new(
-        :$starting-sequence-number,
-        :$shard-id,
-        :$stream-name,
-        :$timestamp,
-        :$shard-iterator-type
+            :$starting-sequence-number,
+            :$shard-id,
+            :$stream-name,
+            :$timestamp,
+            :$shard-iterator-type
         );
-;
+
         self.perform-operation(
             :api-call<GetShardIterator>,
-            :return-type(GetShardIteratorOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-stream-encryption(
-    StreamName :$stream-name!,
-    KeyId :$key-id!,
-    EncryptionType :$encryption-type!
+        StreamName :$stream-name!,
+        KeyId :$key-id!,
+        EncryptionType :$encryption-type!
     ) is service-operation('StartStreamEncryption') {
         my $request-input = StartStreamEncryptionInput.new(
-        :$stream-name,
-        :$key-id,
-        :$encryption-type
+            :$stream-name,
+            :$key-id,
+            :$encryption-type
         );
-;
+
         self.perform-operation(
             :api-call<StartStreamEncryption>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-enhanced-monitoring(
-    MetricsNameList :$shard-level-metrics!,
-    StreamName :$stream-name!
+        MetricsNameList :$shard-level-metrics!,
+        StreamName :$stream-name!
     ) returns EnhancedMonitoringOutput is service-operation('DisableEnhancedMonitoring') {
         my $request-input = DisableEnhancedMonitoringInput.new(
-        :$shard-level-metrics,
-        :$stream-name
+            :$shard-level-metrics,
+            :$stream-name
         );
-;
+
         self.perform-operation(
             :api-call<DisableEnhancedMonitoring>,
-            :return-type(EnhancedMonitoringOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -747,30 +709,26 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         my $request-input = DescribeLimitsInput.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLimits>,
-            :return-type(DescribeLimitsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method merge-shards(
-    ShardId :$shard-to-merge!,
-    StreamName :$stream-name!,
-    ShardId :$adjacent-shard-to-merge!
+        ShardId :$shard-to-merge!,
+        StreamName :$stream-name!,
+        ShardId :$adjacent-shard-to-merge!
     ) is service-operation('MergeShards') {
         my $request-input = MergeShardsInput.new(
-        :$shard-to-merge,
-        :$stream-name,
-        :$adjacent-shard-to-merge
+            :$shard-to-merge,
+            :$stream-name,
+            :$adjacent-shard-to-merge
         );
-;
+
         self.perform-operation(
             :api-call<MergeShards>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

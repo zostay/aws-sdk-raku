@@ -799,661 +799,593 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
     subset NumericalVersion of Str where 1 <= .chars <= 64 && rx:P5/[0-9]+/;
 
     method get-slot-type(
-    SlotTypeName :$name!,
-    Version :$version!
+        SlotTypeName :$name!,
+        Version :$version!
     ) returns GetSlotTypeResponse is service-operation('GetSlotType') {
         my $request-input = GetSlotTypeRequest.new(
-        :$name,
-        :$version
+            :$name,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<GetSlotType>,
-            :return-type(GetSlotTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-intents(
-    MaxResults :$max-results,
-    Str :$next-token,
-    IntentName :$name-contains
+        MaxResults :$max-results,
+        Str :$next-token,
+        IntentName :$name-contains
     ) returns GetIntentsResponse is service-operation('GetIntents') {
         my $request-input = GetIntentsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$name-contains
+            :$max-results,
+            :$next-token,
+            :$name-contains
         );
-;
+
         self.perform-operation(
             :api-call<GetIntents>,
-            :return-type(GetIntentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-builtin-intent(
-    Str :$signature!
+        Str :$signature!
     ) returns GetBuiltinIntentResponse is service-operation('GetBuiltinIntent') {
         my $request-input = GetBuiltinIntentRequest.new(
-        :$signature
+            :$signature
         );
-;
+
         self.perform-operation(
             :api-call<GetBuiltinIntent>,
-            :return-type(GetBuiltinIntentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bot-channel-association(
-    BotName :$bot-name!,
-    BotChannelName :$name!,
-    AliasName :$bot-alias!
+        BotName :$bot-name!,
+        BotChannelName :$name!,
+        AliasName :$bot-alias!
     ) is service-operation('DeleteBotChannelAssociation') {
         my $request-input = DeleteBotChannelAssociationRequest.new(
-        :$bot-name,
-        :$name,
-        :$bot-alias
+            :$bot-name,
+            :$name,
+            :$bot-alias
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBotChannelAssociation>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bot-alias(
-    BotName :$bot-name!,
-    AliasName :$name!,
-    Str :$checksum,
-    Version :$bot-version!,
-    Description :$description
+        BotName :$bot-name!,
+        AliasName :$name!,
+        Str :$checksum,
+        Version :$bot-version!,
+        Description :$description
     ) returns PutBotAliasResponse is service-operation('PutBotAlias') {
         my $request-input = PutBotAliasRequest.new(
-        :$bot-name,
-        :$name,
-        :$checksum,
-        :$bot-version,
-        :$description
+            :$bot-name,
+            :$name,
+            :$checksum,
+            :$bot-version,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<PutBotAlias>,
-            :return-type(PutBotAliasResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-intent-versions(
-    IntentName :$name!,
-    MaxResults :$max-results,
-    Str :$next-token
+        IntentName :$name!,
+        MaxResults :$max-results,
+        Str :$next-token
     ) returns GetIntentVersionsResponse is service-operation('GetIntentVersions') {
         my $request-input = GetIntentVersionsRequest.new(
-        :$name,
-        :$max-results,
-        :$next-token
+            :$name,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetIntentVersions>,
-            :return-type(GetIntentVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-builtin-slot-types(
-    Str :$signature-contains,
-    MaxResults :$max-results,
-    Str :$next-token,
-    Locale :$locale
+        Str :$signature-contains,
+        MaxResults :$max-results,
+        Str :$next-token,
+        Locale :$locale
     ) returns GetBuiltinSlotTypesResponse is service-operation('GetBuiltinSlotTypes') {
         my $request-input = GetBuiltinSlotTypesRequest.new(
-        :$signature-contains,
-        :$max-results,
-        :$next-token,
-        :$locale
+            :$signature-contains,
+            :$max-results,
+            :$next-token,
+            :$locale
         );
-;
+
         self.perform-operation(
             :api-call<GetBuiltinSlotTypes>,
-            :return-type(GetBuiltinSlotTypesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-utterances(
-    BotName :$bot-name!,
-    UserId :$user-id!
+        BotName :$bot-name!,
+        UserId :$user-id!
     ) is service-operation('DeleteUtterances') {
         my $request-input = DeleteUtterancesRequest.new(
-        :$bot-name,
-        :$user-id
+            :$bot-name,
+            :$user-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteUtterances>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-slot-type(
-    SlotTypeName :$name!
+        SlotTypeName :$name!
     ) is service-operation('DeleteSlotType') {
         my $request-input = DeleteSlotTypeRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSlotType>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-bot-version(
-    BotName :$name!,
-    Str :$checksum
+        BotName :$name!,
+        Str :$checksum
     ) returns CreateBotVersionResponse is service-operation('CreateBotVersion') {
         my $request-input = CreateBotVersionRequest.new(
-        :$name,
-        :$checksum
+            :$name,
+            :$checksum
         );
-;
+
         self.perform-operation(
             :api-call<CreateBotVersion>,
-            :return-type(CreateBotVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-utterances-view(
-    StatusType :$status-type!,
-    BotName :$bot-name!,
-    BotVersions :$bot-versions!
+        StatusType :$status-type!,
+        BotName :$bot-name!,
+        BotVersions :$bot-versions!
     ) returns GetUtterancesViewResponse is service-operation('GetUtterancesView') {
         my $request-input = GetUtterancesViewRequest.new(
-        :$status-type,
-        :$bot-name,
-        :$bot-versions
+            :$status-type,
+            :$bot-name,
+            :$bot-versions
         );
-;
+
         self.perform-operation(
             :api-call<GetUtterancesView>,
-            :return-type(GetUtterancesViewResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-slot-types(
-    MaxResults :$max-results,
-    Str :$next-token,
-    SlotTypeName :$name-contains
+        MaxResults :$max-results,
+        Str :$next-token,
+        SlotTypeName :$name-contains
     ) returns GetSlotTypesResponse is service-operation('GetSlotTypes') {
         my $request-input = GetSlotTypesRequest.new(
-        :$max-results,
-        :$next-token,
-        :$name-contains
+            :$max-results,
+            :$next-token,
+            :$name-contains
         );
-;
+
         self.perform-operation(
             :api-call<GetSlotTypes>,
-            :return-type(GetSlotTypesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bot-channel-association(
-    BotName :$bot-name!,
-    BotChannelName :$name!,
-    AliasName :$bot-alias!
+        BotName :$bot-name!,
+        BotChannelName :$name!,
+        AliasName :$bot-alias!
     ) returns GetBotChannelAssociationResponse is service-operation('GetBotChannelAssociation') {
         my $request-input = GetBotChannelAssociationRequest.new(
-        :$bot-name,
-        :$name,
-        :$bot-alias
+            :$bot-name,
+            :$name,
+            :$bot-alias
         );
-;
+
         self.perform-operation(
             :api-call<GetBotChannelAssociation>,
-            :return-type(GetBotChannelAssociationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-slot-type-version(
-    SlotTypeName :$name!,
-    NumericalVersion :$version!
+        SlotTypeName :$name!,
+        NumericalVersion :$version!
     ) is service-operation('DeleteSlotTypeVersion') {
         my $request-input = DeleteSlotTypeVersionRequest.new(
-        :$name,
-        :$version
+            :$name,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSlotTypeVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bot(
-    BotName :$name!
+        BotName :$name!
     ) is service-operation('DeleteBot') {
         my $request-input = DeleteBotRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBot>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-slot-type-version(
-    SlotTypeName :$name!,
-    Str :$checksum
+        SlotTypeName :$name!,
+        Str :$checksum
     ) returns CreateSlotTypeVersionResponse is service-operation('CreateSlotTypeVersion') {
         my $request-input = CreateSlotTypeVersionRequest.new(
-        :$name,
-        :$checksum
+            :$name,
+            :$checksum
         );
-;
+
         self.perform-operation(
             :api-call<CreateSlotTypeVersion>,
-            :return-type(CreateSlotTypeVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-intent(
-    CodeHook :$dialog-code-hook,
-    Prompt :$confirmation-prompt,
-    IntentName :$name!,
-    Str :$parent-intent-signature,
-    FollowUpPrompt :$follow-up-prompt,
-    Str :$checksum,
-    FulfillmentActivity :$fulfillment-activity,
-    IntentUtteranceList :$sample-utterances,
-    Statement :$conclusion-statement,
-    Statement :$rejection-statement,
-    SlotList :$slots,
-    Description :$description
+        CodeHook :$dialog-code-hook,
+        Prompt :$confirmation-prompt,
+        IntentName :$name!,
+        Str :$parent-intent-signature,
+        FollowUpPrompt :$follow-up-prompt,
+        Str :$checksum,
+        FulfillmentActivity :$fulfillment-activity,
+        IntentUtteranceList :$sample-utterances,
+        Statement :$conclusion-statement,
+        Statement :$rejection-statement,
+        SlotList :$slots,
+        Description :$description
     ) returns PutIntentResponse is service-operation('PutIntent') {
         my $request-input = PutIntentRequest.new(
-        :$dialog-code-hook,
-        :$confirmation-prompt,
-        :$name,
-        :$parent-intent-signature,
-        :$follow-up-prompt,
-        :$checksum,
-        :$fulfillment-activity,
-        :$sample-utterances,
-        :$conclusion-statement,
-        :$rejection-statement,
-        :$slots,
-        :$description
+            :$dialog-code-hook,
+            :$confirmation-prompt,
+            :$name,
+            :$parent-intent-signature,
+            :$follow-up-prompt,
+            :$checksum,
+            :$fulfillment-activity,
+            :$sample-utterances,
+            :$conclusion-statement,
+            :$rejection-statement,
+            :$slots,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<PutIntent>,
-            :return-type(PutIntentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bot(
-    Statement :$abort-statement,
-    BotName :$name!,
-    Bool :$child-directed!,
-    Prompt :$clarification-prompt,
-    Str :$checksum,
-    Str :$voice-id,
-    Array[Intent] :$intents,
-    Locale :$locale!,
-    ProcessBehavior :$process-behavior,
-    SessionTTL :$idle-session-ttl-in-seconds,
-    Description :$description
+        Statement :$abort-statement,
+        BotName :$name!,
+        Bool :$child-directed!,
+        Prompt :$clarification-prompt,
+        Str :$checksum,
+        Str :$voice-id,
+        Array[Intent] :$intents,
+        Locale :$locale!,
+        ProcessBehavior :$process-behavior,
+        SessionTTL :$idle-session-ttl-in-seconds,
+        Description :$description
     ) returns PutBotResponse is service-operation('PutBot') {
         my $request-input = PutBotRequest.new(
-        :$abort-statement,
-        :$name,
-        :$child-directed,
-        :$clarification-prompt,
-        :$checksum,
-        :$voice-id,
-        :$intents,
-        :$locale,
-        :$process-behavior,
-        :$idle-session-ttl-in-seconds,
-        :$description
+            :$abort-statement,
+            :$name,
+            :$child-directed,
+            :$clarification-prompt,
+            :$checksum,
+            :$voice-id,
+            :$intents,
+            :$locale,
+            :$process-behavior,
+            :$idle-session-ttl-in-seconds,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<PutBot>,
-            :return-type(PutBotResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-builtin-intents(
-    Str :$signature-contains,
-    MaxResults :$max-results,
-    Str :$next-token,
-    Locale :$locale
+        Str :$signature-contains,
+        MaxResults :$max-results,
+        Str :$next-token,
+        Locale :$locale
     ) returns GetBuiltinIntentsResponse is service-operation('GetBuiltinIntents') {
         my $request-input = GetBuiltinIntentsRequest.new(
-        :$signature-contains,
-        :$max-results,
-        :$next-token,
-        :$locale
+            :$signature-contains,
+            :$max-results,
+            :$next-token,
+            :$locale
         );
-;
+
         self.perform-operation(
             :api-call<GetBuiltinIntents>,
-            :return-type(GetBuiltinIntentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bot-alias(
-    BotName :$bot-name!,
-    AliasName :$name!
+        BotName :$bot-name!,
+        AliasName :$name!
     ) returns GetBotAliasResponse is service-operation('GetBotAlias') {
         my $request-input = GetBotAliasRequest.new(
-        :$bot-name,
-        :$name
+            :$bot-name,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetBotAlias>,
-            :return-type(GetBotAliasResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bot(
-    BotName :$name!,
-    Str :$version-or-alias!
+        BotName :$name!,
+        Str :$version-or-alias!
     ) returns GetBotResponse is service-operation('GetBot') {
         my $request-input = GetBotRequest.new(
-        :$name,
-        :$version-or-alias
+            :$name,
+            :$version-or-alias
         );
-;
+
         self.perform-operation(
             :api-call<GetBot>,
-            :return-type(GetBotResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-intent-version(
-    IntentName :$name!,
-    NumericalVersion :$version!
+        IntentName :$name!,
+        NumericalVersion :$version!
     ) is service-operation('DeleteIntentVersion') {
         my $request-input = DeleteIntentVersionRequest.new(
-        :$name,
-        :$version
+            :$name,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<DeleteIntentVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-intent(
-    IntentName :$name!
+        IntentName :$name!
     ) is service-operation('DeleteIntent') {
         my $request-input = DeleteIntentRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteIntent>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bot-channel-associations(
-    BotName :$bot-name!,
-    MaxResults :$max-results,
-    Str :$next-token,
-    AliasNameOrListAll :$bot-alias!,
-    BotChannelName :$name-contains
+        BotName :$bot-name!,
+        MaxResults :$max-results,
+        Str :$next-token,
+        AliasNameOrListAll :$bot-alias!,
+        BotChannelName :$name-contains
     ) returns GetBotChannelAssociationsResponse is service-operation('GetBotChannelAssociations') {
         my $request-input = GetBotChannelAssociationsRequest.new(
-        :$bot-name,
-        :$max-results,
-        :$next-token,
-        :$bot-alias,
-        :$name-contains
+            :$bot-name,
+            :$max-results,
+            :$next-token,
+            :$bot-alias,
+            :$name-contains
         );
-;
+
         self.perform-operation(
             :api-call<GetBotChannelAssociations>,
-            :return-type(GetBotChannelAssociationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bot-alias(
-    BotName :$bot-name!,
-    AliasName :$name!
+        BotName :$bot-name!,
+        AliasName :$name!
     ) is service-operation('DeleteBotAlias') {
         my $request-input = DeleteBotAliasRequest.new(
-        :$bot-name,
-        :$name
+            :$bot-name,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBotAlias>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-slot-type(
-    SlotTypeName :$name!,
-    EnumerationValues :$enumeration-values,
-    Str :$checksum,
-    SlotValueSelectionStrategy :$value-selection-strategy,
-    Description :$description
+        SlotTypeName :$name!,
+        EnumerationValues :$enumeration-values,
+        Str :$checksum,
+        SlotValueSelectionStrategy :$value-selection-strategy,
+        Description :$description
     ) returns PutSlotTypeResponse is service-operation('PutSlotType') {
         my $request-input = PutSlotTypeRequest.new(
-        :$name,
-        :$enumeration-values,
-        :$checksum,
-        :$value-selection-strategy,
-        :$description
+            :$name,
+            :$enumeration-values,
+            :$checksum,
+            :$value-selection-strategy,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<PutSlotType>,
-            :return-type(PutSlotTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-slot-type-versions(
-    SlotTypeName :$name!,
-    MaxResults :$max-results,
-    Str :$next-token
+        SlotTypeName :$name!,
+        MaxResults :$max-results,
+        Str :$next-token
     ) returns GetSlotTypeVersionsResponse is service-operation('GetSlotTypeVersions') {
         my $request-input = GetSlotTypeVersionsRequest.new(
-        :$name,
-        :$max-results,
-        :$next-token
+            :$name,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetSlotTypeVersions>,
-            :return-type(GetSlotTypeVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bots(
-    MaxResults :$max-results,
-    Str :$next-token,
-    BotName :$name-contains
+        MaxResults :$max-results,
+        Str :$next-token,
+        BotName :$name-contains
     ) returns GetBotsResponse is service-operation('GetBots') {
         my $request-input = GetBotsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$name-contains
+            :$max-results,
+            :$next-token,
+            :$name-contains
         );
-;
+
         self.perform-operation(
             :api-call<GetBots>,
-            :return-type(GetBotsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bot-versions(
-    BotName :$name!,
-    MaxResults :$max-results,
-    Str :$next-token
+        BotName :$name!,
+        MaxResults :$max-results,
+        Str :$next-token
     ) returns GetBotVersionsResponse is service-operation('GetBotVersions') {
         my $request-input = GetBotVersionsRequest.new(
-        :$name,
-        :$max-results,
-        :$next-token
+            :$name,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetBotVersions>,
-            :return-type(GetBotVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bot-version(
-    BotName :$name!,
-    NumericalVersion :$version!
+        BotName :$name!,
+        NumericalVersion :$version!
     ) is service-operation('DeleteBotVersion') {
         my $request-input = DeleteBotVersionRequest.new(
-        :$name,
-        :$version
+            :$name,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBotVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-intent(
-    IntentName :$name!,
-    Version :$version!
+        IntentName :$name!,
+        Version :$version!
     ) returns GetIntentResponse is service-operation('GetIntent') {
         my $request-input = GetIntentRequest.new(
-        :$name,
-        :$version
+            :$name,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<GetIntent>,
-            :return-type(GetIntentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-export(
-    Name :$name!,
-    ResourceType :$resource-type!,
-    ExportType :$export-type!,
-    NumericalVersion :$version!
+        Name :$name!,
+        ResourceType :$resource-type!,
+        ExportType :$export-type!,
+        NumericalVersion :$version!
     ) returns GetExportResponse is service-operation('GetExport') {
         my $request-input = GetExportRequest.new(
-        :$name,
-        :$resource-type,
-        :$export-type,
-        :$version
+            :$name,
+            :$resource-type,
+            :$export-type,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<GetExport>,
-            :return-type(GetExportResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bot-aliases(
-    BotName :$bot-name!,
-    MaxResults :$max-results,
-    Str :$next-token,
-    AliasName :$name-contains
+        BotName :$bot-name!,
+        MaxResults :$max-results,
+        Str :$next-token,
+        AliasName :$name-contains
     ) returns GetBotAliasesResponse is service-operation('GetBotAliases') {
         my $request-input = GetBotAliasesRequest.new(
-        :$bot-name,
-        :$max-results,
-        :$next-token,
-        :$name-contains
+            :$bot-name,
+            :$max-results,
+            :$next-token,
+            :$name-contains
         );
-;
+
         self.perform-operation(
             :api-call<GetBotAliases>,
-            :return-type(GetBotAliasesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-intent-version(
-    IntentName :$name!,
-    Str :$checksum
+        IntentName :$name!,
+        Str :$checksum
     ) returns CreateIntentVersionResponse is service-operation('CreateIntentVersion') {
         my $request-input = CreateIntentVersionRequest.new(
-        :$name,
-        :$checksum
+            :$name,
+            :$checksum
         );
-;
+
         self.perform-operation(
             :api-call<CreateIntentVersion>,
-            :return-type(CreateIntentVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -800,636 +800,574 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     method submit-task-state-change(
-    Str :$cluster,
-    Str :$status,
-    Str :$task,
-    Str :$reason
+        Str :$cluster,
+        Str :$status,
+        Str :$task,
+        Str :$reason
     ) returns SubmitTaskStateChangeResponse is service-operation('SubmitTaskStateChange') {
         my $request-input = SubmitTaskStateChangeRequest.new(
-        :$cluster,
-        :$status,
-        :$task,
-        :$reason
+            :$cluster,
+            :$status,
+            :$task,
+            :$reason
         );
-;
+
         self.perform-operation(
             :api-call<SubmitTaskStateChange>,
-            :return-type(SubmitTaskStateChangeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-task(
-    Str :$cluster,
-    Str :$task!,
-    Str :$reason
+        Str :$cluster,
+        Str :$task!,
+        Str :$reason
     ) returns StopTaskResponse is service-operation('StopTask') {
         my $request-input = StopTaskRequest.new(
-        :$cluster,
-        :$task,
-        :$reason
+            :$cluster,
+            :$task,
+            :$reason
         );
-;
+
         self.perform-operation(
             :api-call<StopTask>,
-            :return-type(StopTaskResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-attributes(
-    Str :$cluster,
-    Array[Attribute] :$attributes!
+        Str :$cluster,
+        Array[Attribute] :$attributes!
     ) returns PutAttributesResponse is service-operation('PutAttributes') {
         my $request-input = PutAttributesRequest.new(
-        :$cluster,
-        :$attributes
+            :$cluster,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<PutAttributes>,
-            :return-type(PutAttributesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-attributes(
-    Str :$attribute-value,
-    Str :$cluster,
-    Int :$max-results,
-    Str :$next-token,
-    TargetType :$target-type!,
-    Str :$attribute-name
+        Str :$attribute-value,
+        Str :$cluster,
+        Int :$max-results,
+        Str :$next-token,
+        TargetType :$target-type!,
+        Str :$attribute-name
     ) returns ListAttributesResponse is service-operation('ListAttributes') {
         my $request-input = ListAttributesRequest.new(
-        :$attribute-value,
-        :$cluster,
-        :$max-results,
-        :$next-token,
-        :$target-type,
-        :$attribute-name
+            :$attribute-value,
+            :$cluster,
+            :$max-results,
+            :$next-token,
+            :$target-type,
+            :$attribute-name
         );
-;
+
         self.perform-operation(
             :api-call<ListAttributes>,
-            :return-type(ListAttributesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method discover-poll-endpoint(
-    Str :$cluster,
-    Str :$container-instance
+        Str :$cluster,
+        Str :$container-instance
     ) returns DiscoverPollEndpointResponse is service-operation('DiscoverPollEndpoint') {
         my $request-input = DiscoverPollEndpointRequest.new(
-        :$cluster,
-        :$container-instance
+            :$cluster,
+            :$container-instance
         );
-;
+
         self.perform-operation(
             :api-call<DiscoverPollEndpoint>,
-            :return-type(DiscoverPollEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-task-definition(
-    Str :$task-definition!
+        Str :$task-definition!
     ) returns DescribeTaskDefinitionResponse is service-operation('DescribeTaskDefinition') {
         my $request-input = DescribeTaskDefinitionRequest.new(
-        :$task-definition
+            :$task-definition
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTaskDefinition>,
-            :return-type(DescribeTaskDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-services(
-    Str :$cluster,
-    Array[Str] :$services!
+        Str :$cluster,
+        Array[Str] :$services!
     ) returns DescribeServicesResponse is service-operation('DescribeServices') {
         my $request-input = DescribeServicesRequest.new(
-        :$cluster,
-        :$services
+            :$cluster,
+            :$services
         );
-;
+
         self.perform-operation(
             :api-call<DescribeServices>,
-            :return-type(DescribeServicesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-container-instances(
-    Array[Str] :$container-instances!,
-    Str :$cluster
+        Array[Str] :$container-instances!,
+        Str :$cluster
     ) returns DescribeContainerInstancesResponse is service-operation('DescribeContainerInstances') {
         my $request-input = DescribeContainerInstancesRequest.new(
-        :$container-instances,
-        :$cluster
+            :$container-instances,
+            :$cluster
         );
-;
+
         self.perform-operation(
             :api-call<DescribeContainerInstances>,
-            :return-type(DescribeContainerInstancesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-service(
-    Str :$service!,
-    Str :$cluster
+        Str :$service!,
+        Str :$cluster
     ) returns DeleteServiceResponse is service-operation('DeleteService') {
         my $request-input = DeleteServiceRequest.new(
-        :$service,
-        :$cluster
+            :$service,
+            :$cluster
         );
-;
+
         self.perform-operation(
             :api-call<DeleteService>,
-            :return-type(DeleteServiceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-task(
-    Array[Str] :$container-instances!,
-    Str :$cluster,
-    Str :$task-definition!,
-    Str :$group,
-    Str :$started-by,
-    TaskOverride :$overrides
+        Array[Str] :$container-instances!,
+        Str :$cluster,
+        Str :$task-definition!,
+        Str :$group,
+        Str :$started-by,
+        TaskOverride :$overrides
     ) returns StartTaskResponse is service-operation('StartTask') {
         my $request-input = StartTaskRequest.new(
-        :$container-instances,
-        :$cluster,
-        :$task-definition,
-        :$group,
-        :$started-by,
-        :$overrides
+            :$container-instances,
+            :$cluster,
+            :$task-definition,
+            :$group,
+            :$started-by,
+            :$overrides
         );
-;
+
         self.perform-operation(
             :api-call<StartTask>,
-            :return-type(StartTaskResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-container-instance(
-    Str :$cluster,
-    Array[Attribute] :$attributes,
-    Str :$instance-identity-document,
-    Str :$container-instance-arn,
-    VersionInfo :$version-info,
-    Array[Resource] :$total-resources,
-    Str :$instance-identity-document-signature
+        Str :$cluster,
+        Array[Attribute] :$attributes,
+        Str :$instance-identity-document,
+        Str :$container-instance-arn,
+        VersionInfo :$version-info,
+        Array[Resource] :$total-resources,
+        Str :$instance-identity-document-signature
     ) returns RegisterContainerInstanceResponse is service-operation('RegisterContainerInstance') {
         my $request-input = RegisterContainerInstanceRequest.new(
-        :$cluster,
-        :$attributes,
-        :$instance-identity-document,
-        :$container-instance-arn,
-        :$version-info,
-        :$total-resources,
-        :$instance-identity-document-signature
+            :$cluster,
+            :$attributes,
+            :$instance-identity-document,
+            :$container-instance-arn,
+            :$version-info,
+            :$total-resources,
+            :$instance-identity-document-signature
         );
-;
+
         self.perform-operation(
             :api-call<RegisterContainerInstance>,
-            :return-type(RegisterContainerInstanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-cluster(
-    Str :$cluster-name
+        Str :$cluster-name
     ) returns CreateClusterResponse is service-operation('CreateCluster') {
         my $request-input = CreateClusterRequest.new(
-        :$cluster-name
+            :$cluster-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateCluster>,
-            :return-type(CreateClusterResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method submit-container-state-change(
-    Str :$cluster,
-    Str :$status,
-    Str :$container-name,
-    Str :$task,
-    Array[NetworkBinding] :$network-bindings,
-    Int :$exit-code,
-    Str :$reason
+        Str :$cluster,
+        Str :$status,
+        Str :$container-name,
+        Str :$task,
+        Array[NetworkBinding] :$network-bindings,
+        Int :$exit-code,
+        Str :$reason
     ) returns SubmitContainerStateChangeResponse is service-operation('SubmitContainerStateChange') {
         my $request-input = SubmitContainerStateChangeRequest.new(
-        :$cluster,
-        :$status,
-        :$container-name,
-        :$task,
-        :$network-bindings,
-        :$exit-code,
-        :$reason
+            :$cluster,
+            :$status,
+            :$container-name,
+            :$task,
+            :$network-bindings,
+            :$exit-code,
+            :$reason
         );
-;
+
         self.perform-operation(
             :api-call<SubmitContainerStateChange>,
-            :return-type(SubmitContainerStateChangeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-task-definition(
-    Array[Volume] :$volumes,
-    Array[TaskDefinitionPlacementConstraint] :$placement-constraints,
-    NetworkMode :$network-mode,
-    Str :$task-role-arn,
-    Array[ContainerDefinition] :$container-definitions!,
-    Str :$family!
+        Array[Volume] :$volumes,
+        Array[TaskDefinitionPlacementConstraint] :$placement-constraints,
+        NetworkMode :$network-mode,
+        Str :$task-role-arn,
+        Array[ContainerDefinition] :$container-definitions!,
+        Str :$family!
     ) returns RegisterTaskDefinitionResponse is service-operation('RegisterTaskDefinition') {
         my $request-input = RegisterTaskDefinitionRequest.new(
-        :$volumes,
-        :$placement-constraints,
-        :$network-mode,
-        :$task-role-arn,
-        :$container-definitions,
-        :$family
+            :$volumes,
+            :$placement-constraints,
+            :$network-mode,
+            :$task-role-arn,
+            :$container-definitions,
+            :$family
         );
-;
+
         self.perform-operation(
             :api-call<RegisterTaskDefinition>,
-            :return-type(RegisterTaskDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-task-definition(
-    Str :$task-definition!
+        Str :$task-definition!
     ) returns DeregisterTaskDefinitionResponse is service-operation('DeregisterTaskDefinition') {
         my $request-input = DeregisterTaskDefinitionRequest.new(
-        :$task-definition
+            :$task-definition
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterTaskDefinition>,
-            :return-type(DeregisterTaskDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-attributes(
-    Str :$cluster,
-    Array[Attribute] :$attributes!
+        Str :$cluster,
+        Array[Attribute] :$attributes!
     ) returns DeleteAttributesResponse is service-operation('DeleteAttributes') {
         my $request-input = DeleteAttributesRequest.new(
-        :$cluster,
-        :$attributes
+            :$cluster,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAttributes>,
-            :return-type(DeleteAttributesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-task-definition-families(
-    TaskDefinitionFamilyStatus :$status,
-    Int :$max-results,
-    Str :$next-token,
-    Str :$family-prefix
+        TaskDefinitionFamilyStatus :$status,
+        Int :$max-results,
+        Str :$next-token,
+        Str :$family-prefix
     ) returns ListTaskDefinitionFamiliesResponse is service-operation('ListTaskDefinitionFamilies') {
         my $request-input = ListTaskDefinitionFamiliesRequest.new(
-        :$status,
-        :$max-results,
-        :$next-token,
-        :$family-prefix
+            :$status,
+            :$max-results,
+            :$next-token,
+            :$family-prefix
         );
-;
+
         self.perform-operation(
             :api-call<ListTaskDefinitionFamilies>,
-            :return-type(ListTaskDefinitionFamiliesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tasks(
-    Str :$cluster,
-    Array[Str] :$tasks!
+        Str :$cluster,
+        Array[Str] :$tasks!
     ) returns DescribeTasksResponse is service-operation('DescribeTasks') {
         my $request-input = DescribeTasksRequest.new(
-        :$cluster,
-        :$tasks
+            :$cluster,
+            :$tasks
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTasks>,
-            :return-type(DescribeTasksResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-container-instances-state(
-    Array[Str] :$container-instances!,
-    Str :$cluster,
-    ContainerInstanceStatus :$status!
+        Array[Str] :$container-instances!,
+        Str :$cluster,
+        ContainerInstanceStatus :$status!
     ) returns UpdateContainerInstancesStateResponse is service-operation('UpdateContainerInstancesState') {
         my $request-input = UpdateContainerInstancesStateRequest.new(
-        :$container-instances,
-        :$cluster,
-        :$status
+            :$container-instances,
+            :$cluster,
+            :$status
         );
-;
+
         self.perform-operation(
             :api-call<UpdateContainerInstancesState>,
-            :return-type(UpdateContainerInstancesStateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-container-agent(
-    Str :$cluster,
-    Str :$container-instance!
+        Str :$cluster,
+        Str :$container-instance!
     ) returns UpdateContainerAgentResponse is service-operation('UpdateContainerAgent') {
         my $request-input = UpdateContainerAgentRequest.new(
-        :$cluster,
-        :$container-instance
+            :$cluster,
+            :$container-instance
         );
-;
+
         self.perform-operation(
             :api-call<UpdateContainerAgent>,
-            :return-type(UpdateContainerAgentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method run-task(
-    Str :$cluster,
-    Str :$task-definition!,
-    Array[PlacementConstraint] :$placement-constraints,
-    Int :$count,
-    Array[PlacementStrategy] :$placement-strategy,
-    Str :$group,
-    Str :$started-by,
-    TaskOverride :$overrides
+        Str :$cluster,
+        Str :$task-definition!,
+        Array[PlacementConstraint] :$placement-constraints,
+        Int :$count,
+        Array[PlacementStrategy] :$placement-strategy,
+        Str :$group,
+        Str :$started-by,
+        TaskOverride :$overrides
     ) returns RunTaskResponse is service-operation('RunTask') {
         my $request-input = RunTaskRequest.new(
-        :$cluster,
-        :$task-definition,
-        :$placement-constraints,
-        :$count,
-        :$placement-strategy,
-        :$group,
-        :$started-by,
-        :$overrides
+            :$cluster,
+            :$task-definition,
+            :$placement-constraints,
+            :$count,
+            :$placement-strategy,
+            :$group,
+            :$started-by,
+            :$overrides
         );
-;
+
         self.perform-operation(
             :api-call<RunTask>,
-            :return-type(RunTaskResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-services(
-    Str :$cluster,
-    Int :$max-results,
-    Str :$next-token
+        Str :$cluster,
+        Int :$max-results,
+        Str :$next-token
     ) returns ListServicesResponse is service-operation('ListServices') {
         my $request-input = ListServicesRequest.new(
-        :$cluster,
-        :$max-results,
-        :$next-token
+            :$cluster,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListServices>,
-            :return-type(ListServicesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-container-instance(
-    Str :$cluster,
-    Bool :$force,
-    Str :$container-instance!
+        Str :$cluster,
+        Bool :$force,
+        Str :$container-instance!
     ) returns DeregisterContainerInstanceResponse is service-operation('DeregisterContainerInstance') {
         my $request-input = DeregisterContainerInstanceRequest.new(
-        :$cluster,
-        :$force,
-        :$container-instance
+            :$cluster,
+            :$force,
+            :$container-instance
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterContainerInstance>,
-            :return-type(DeregisterContainerInstanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-task-definitions(
-    SortOrder :$sort,
-    TaskDefinitionStatus :$status,
-    Int :$max-results,
-    Str :$next-token,
-    Str :$family-prefix
+        SortOrder :$sort,
+        TaskDefinitionStatus :$status,
+        Int :$max-results,
+        Str :$next-token,
+        Str :$family-prefix
     ) returns ListTaskDefinitionsResponse is service-operation('ListTaskDefinitions') {
         my $request-input = ListTaskDefinitionsRequest.new(
-        :$sort,
-        :$status,
-        :$max-results,
-        :$next-token,
-        :$family-prefix
+            :$sort,
+            :$status,
+            :$max-results,
+            :$next-token,
+            :$family-prefix
         );
-;
+
         self.perform-operation(
             :api-call<ListTaskDefinitions>,
-            :return-type(ListTaskDefinitionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-container-instances(
-    Str :$cluster,
-    ContainerInstanceStatus :$status,
-    Str :$filter,
-    Int :$max-results,
-    Str :$next-token
+        Str :$cluster,
+        ContainerInstanceStatus :$status,
+        Str :$filter,
+        Int :$max-results,
+        Str :$next-token
     ) returns ListContainerInstancesResponse is service-operation('ListContainerInstances') {
         my $request-input = ListContainerInstancesRequest.new(
-        :$cluster,
-        :$status,
-        :$filter,
-        :$max-results,
-        :$next-token
+            :$cluster,
+            :$status,
+            :$filter,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListContainerInstances>,
-            :return-type(ListContainerInstancesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-service(
-    DeploymentConfiguration :$deployment-configuration,
-    Int :$desired-count,
-    Str :$service!,
-    Str :$cluster,
-    Str :$task-definition
+        DeploymentConfiguration :$deployment-configuration,
+        Int :$desired-count,
+        Str :$service!,
+        Str :$cluster,
+        Str :$task-definition
     ) returns UpdateServiceResponse is service-operation('UpdateService') {
         my $request-input = UpdateServiceRequest.new(
-        :$deployment-configuration,
-        :$desired-count,
-        :$service,
-        :$cluster,
-        :$task-definition
+            :$deployment-configuration,
+            :$desired-count,
+            :$service,
+            :$cluster,
+            :$task-definition
         );
-;
+
         self.perform-operation(
             :api-call<UpdateService>,
-            :return-type(UpdateServiceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tasks(
-    Str :$cluster,
-    Str :$service-name,
-    Int :$max-results,
-    Str :$next-token,
-    DesiredStatus :$desired-status,
-    Str :$started-by,
-    Str :$container-instance,
-    Str :$family
+        Str :$cluster,
+        Str :$service-name,
+        Int :$max-results,
+        Str :$next-token,
+        DesiredStatus :$desired-status,
+        Str :$started-by,
+        Str :$container-instance,
+        Str :$family
     ) returns ListTasksResponse is service-operation('ListTasks') {
         my $request-input = ListTasksRequest.new(
-        :$cluster,
-        :$service-name,
-        :$max-results,
-        :$next-token,
-        :$desired-status,
-        :$started-by,
-        :$container-instance,
-        :$family
+            :$cluster,
+            :$service-name,
+            :$max-results,
+            :$next-token,
+            :$desired-status,
+            :$started-by,
+            :$container-instance,
+            :$family
         );
-;
+
         self.perform-operation(
             :api-call<ListTasks>,
-            :return-type(ListTasksResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-clusters(
-    Int :$max-results,
-    Str :$next-token
+        Int :$max-results,
+        Str :$next-token
     ) returns ListClustersResponse is service-operation('ListClusters') {
         my $request-input = ListClustersRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListClusters>,
-            :return-type(ListClustersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-clusters(
-    Array[Str] :$clusters
+        Array[Str] :$clusters
     ) returns DescribeClustersResponse is service-operation('DescribeClusters') {
         my $request-input = DescribeClustersRequest.new(
-        :$clusters
+            :$clusters
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClusters>,
-            :return-type(DescribeClustersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-cluster(
-    Str :$cluster!
+        Str :$cluster!
     ) returns DeleteClusterResponse is service-operation('DeleteCluster') {
         my $request-input = DeleteClusterRequest.new(
-        :$cluster
+            :$cluster
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCluster>,
-            :return-type(DeleteClusterResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-service(
-    DeploymentConfiguration :$deployment-configuration,
-    Int :$desired-count!,
-    Str :$cluster,
-    Str :$client-token,
-    Str :$role,
-    Str :$service-name!,
-    Str :$task-definition!,
-    Array[PlacementConstraint] :$placement-constraints,
-    Array[LoadBalancer] :$load-balancers,
-    Array[PlacementStrategy] :$placement-strategy
+        DeploymentConfiguration :$deployment-configuration,
+        Int :$desired-count!,
+        Str :$cluster,
+        Str :$client-token,
+        Str :$role,
+        Str :$service-name!,
+        Str :$task-definition!,
+        Array[PlacementConstraint] :$placement-constraints,
+        Array[LoadBalancer] :$load-balancers,
+        Array[PlacementStrategy] :$placement-strategy
     ) returns CreateServiceResponse is service-operation('CreateService') {
         my $request-input = CreateServiceRequest.new(
-        :$deployment-configuration,
-        :$desired-count,
-        :$cluster,
-        :$client-token,
-        :$role,
-        :$service-name,
-        :$task-definition,
-        :$placement-constraints,
-        :$load-balancers,
-        :$placement-strategy
+            :$deployment-configuration,
+            :$desired-count,
+            :$cluster,
+            :$client-token,
+            :$role,
+            :$service-name,
+            :$task-definition,
+            :$placement-constraints,
+            :$load-balancers,
+            :$placement-strategy
         );
-;
+
         self.perform-operation(
             :api-call<CreateService>,
-            :return-type(CreateServiceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

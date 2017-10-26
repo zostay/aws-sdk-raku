@@ -523,624 +523,558 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
     }
 
     method remove-tags-from-vault(
-    Str :$account-id!,
-    Array[Str] :$tag-keys,
-    Str :$vault-name!
+        Str :$account-id!,
+        Array[Str] :$tag-keys,
+        Str :$vault-name!
     ) is service-operation('RemoveTagsFromVault') {
         my $request-input = RemoveTagsFromVaultInput.new(
-        :$account-id,
-        :$tag-keys,
-        :$vault-name
+            :$account-id,
+            :$tag-keys,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTagsFromVault>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-vault(
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$vault-name!
     ) returns ListTagsForVaultOutput is service-operation('ListTagsForVault') {
         my $request-input = ListTagsForVaultInput.new(
-        :$account-id,
-        :$vault-name
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForVault>,
-            :return-type(ListTagsForVaultOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-parts(
-    Str :$limit,
-    Str :$marker,
-    Str :$account-id!,
-    Str :$vault-name!,
-    Str :$upload-id!
+        Str :$limit,
+        Str :$marker,
+        Str :$account-id!,
+        Str :$vault-name!,
+        Str :$upload-id!
     ) returns ListPartsOutput is service-operation('ListParts') {
         my $request-input = ListPartsInput.new(
-        :$limit,
-        :$marker,
-        :$account-id,
-        :$vault-name,
-        :$upload-id
+            :$limit,
+            :$marker,
+            :$account-id,
+            :$vault-name,
+            :$upload-id
         );
-;
+
         self.perform-operation(
             :api-call<ListParts>,
-            :return-type(ListPartsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method initiate-vault-lock(
-    Str :$account-id!,
-    Str :$vault-name!,
-    VaultLockPolicy :$policy
+        Str :$account-id!,
+        Str :$vault-name!,
+        VaultLockPolicy :$policy
     ) returns InitiateVaultLockOutput is service-operation('InitiateVaultLock') {
         my $request-input = InitiateVaultLockInput.new(
-        :$account-id,
-        :$vault-name,
-        :$policy
+            :$account-id,
+            :$vault-name,
+            :$policy
         );
-;
+
         self.perform-operation(
             :api-call<InitiateVaultLock>,
-            :return-type(InitiateVaultLockOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vault-access-policy(
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$vault-name!
     ) is service-operation('DeleteVaultAccessPolicy') {
         my $request-input = DeleteVaultAccessPolicyInput.new(
-        :$account-id,
-        :$vault-name
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVaultAccessPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vault(
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$vault-name!
     ) is service-operation('DeleteVault') {
         my $request-input = DeleteVaultInput.new(
-        :$account-id,
-        :$vault-name
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVault>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method abort-multipart-upload(
-    Str :$account-id!,
-    Str :$vault-name!,
-    Str :$upload-id!
+        Str :$account-id!,
+        Str :$vault-name!,
+        Str :$upload-id!
     ) is service-operation('AbortMultipartUpload') {
         my $request-input = AbortMultipartUploadInput.new(
-        :$account-id,
-        :$vault-name,
-        :$upload-id
+            :$account-id,
+            :$vault-name,
+            :$upload-id
         );
-;
+
         self.perform-operation(
             :api-call<AbortMultipartUpload>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method upload-archive(
-    Blob :$body,
-    Str :$archive-description,
-    Str :$checksum,
-    Str :$account-id!,
-    Str :$vault-name!
+        Blob :$body,
+        Str :$archive-description,
+        Str :$checksum,
+        Str :$account-id!,
+        Str :$vault-name!
     ) returns ArchiveCreationOutput is service-operation('UploadArchive') {
         my $request-input = UploadArchiveInput.new(
-        :$body,
-        :$archive-description,
-        :$checksum,
-        :$account-id,
-        :$vault-name
+            :$body,
+            :$archive-description,
+            :$checksum,
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<UploadArchive>,
-            :return-type(ArchiveCreationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-vault-notifications(
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$vault-name!
     ) returns GetVaultNotificationsOutput is service-operation('GetVaultNotifications') {
         my $request-input = GetVaultNotificationsInput.new(
-        :$account-id,
-        :$vault-name
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<GetVaultNotifications>,
-            :return-type(GetVaultNotificationsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method complete-vault-lock(
-    Str :$lock-id!,
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$lock-id!,
+        Str :$account-id!,
+        Str :$vault-name!
     ) is service-operation('CompleteVaultLock') {
         my $request-input = CompleteVaultLockInput.new(
-        :$lock-id,
-        :$account-id,
-        :$vault-name
+            :$lock-id,
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<CompleteVaultLock>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-vaults(
-    Str :$limit,
-    Str :$marker,
-    Str :$account-id!
+        Str :$limit,
+        Str :$marker,
+        Str :$account-id!
     ) returns ListVaultsOutput is service-operation('ListVaults') {
         my $request-input = ListVaultsInput.new(
-        :$limit,
-        :$marker,
-        :$account-id
+            :$limit,
+            :$marker,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<ListVaults>,
-            :return-type(ListVaultsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-provisioned-capacity(
-    Str :$account-id!
+        Str :$account-id!
     ) returns ListProvisionedCapacityOutput is service-operation('ListProvisionedCapacity') {
         my $request-input = ListProvisionedCapacityInput.new(
-        :$account-id
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<ListProvisionedCapacity>,
-            :return-type(ListProvisionedCapacityOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-archive(
-    Str :$account-id!,
-    Str :$vault-name!,
-    Str :$archive-id!
+        Str :$account-id!,
+        Str :$vault-name!,
+        Str :$archive-id!
     ) is service-operation('DeleteArchive') {
         my $request-input = DeleteArchiveInput.new(
-        :$account-id,
-        :$vault-name,
-        :$archive-id
+            :$account-id,
+            :$vault-name,
+            :$archive-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteArchive>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-data-retrieval-policy(
-    Str :$account-id!,
-    DataRetrievalPolicy :$policy
+        Str :$account-id!,
+        DataRetrievalPolicy :$policy
     ) is service-operation('SetDataRetrievalPolicy') {
         my $request-input = SetDataRetrievalPolicyInput.new(
-        :$account-id,
-        :$policy
+            :$account-id,
+            :$policy
         );
-;
+
         self.perform-operation(
             :api-call<SetDataRetrievalPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-vault-access-policy(
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$vault-name!
     ) returns GetVaultAccessPolicyOutput is service-operation('GetVaultAccessPolicy') {
         my $request-input = GetVaultAccessPolicyInput.new(
-        :$account-id,
-        :$vault-name
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<GetVaultAccessPolicy>,
-            :return-type(GetVaultAccessPolicyOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-job-output(
-    Str :$range,
-    Str :$account-id!,
-    Str :$job-id!,
-    Str :$vault-name!
+        Str :$range,
+        Str :$account-id!,
+        Str :$job-id!,
+        Str :$vault-name!
     ) returns GetJobOutputOutput is service-operation('GetJobOutput') {
         my $request-input = GetJobOutputInput.new(
-        :$range,
-        :$account-id,
-        :$job-id,
-        :$vault-name
+            :$range,
+            :$account-id,
+            :$job-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<GetJobOutput>,
-            :return-type(GetJobOutputOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-data-retrieval-policy(
-    Str :$account-id!
+        Str :$account-id!
     ) returns GetDataRetrievalPolicyOutput is service-operation('GetDataRetrievalPolicy') {
         my $request-input = GetDataRetrievalPolicyInput.new(
-        :$account-id
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDataRetrievalPolicy>,
-            :return-type(GetDataRetrievalPolicyOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method upload-multipart-part(
-    Blob :$body,
-    Str :$range,
-    Str :$checksum,
-    Str :$account-id!,
-    Str :$vault-name!,
-    Str :$upload-id!
+        Blob :$body,
+        Str :$range,
+        Str :$checksum,
+        Str :$account-id!,
+        Str :$vault-name!,
+        Str :$upload-id!
     ) returns UploadMultipartPartOutput is service-operation('UploadMultipartPart') {
         my $request-input = UploadMultipartPartInput.new(
-        :$body,
-        :$range,
-        :$checksum,
-        :$account-id,
-        :$vault-name,
-        :$upload-id
+            :$body,
+            :$range,
+            :$checksum,
+            :$account-id,
+            :$vault-name,
+            :$upload-id
         );
-;
+
         self.perform-operation(
             :api-call<UploadMultipartPart>,
-            :return-type(UploadMultipartPartOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-vault-access-policy(
-    Str :$account-id!,
-    Str :$vault-name!,
-    VaultAccessPolicy :$policy
+        Str :$account-id!,
+        Str :$vault-name!,
+        VaultAccessPolicy :$policy
     ) is service-operation('SetVaultAccessPolicy') {
         my $request-input = SetVaultAccessPolicyInput.new(
-        :$account-id,
-        :$vault-name,
-        :$policy
+            :$account-id,
+            :$vault-name,
+            :$policy
         );
-;
+
         self.perform-operation(
             :api-call<SetVaultAccessPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method purchase-provisioned-capacity(
-    Str :$account-id!
+        Str :$account-id!
     ) returns PurchaseProvisionedCapacityOutput is service-operation('PurchaseProvisionedCapacity') {
         my $request-input = PurchaseProvisionedCapacityInput.new(
-        :$account-id
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<PurchaseProvisionedCapacity>,
-            :return-type(PurchaseProvisionedCapacityOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method complete-multipart-upload(
-    Str :$archive-size,
-    Str :$checksum,
-    Str :$account-id!,
-    Str :$vault-name!,
-    Str :$upload-id!
+        Str :$archive-size,
+        Str :$checksum,
+        Str :$account-id!,
+        Str :$vault-name!,
+        Str :$upload-id!
     ) returns ArchiveCreationOutput is service-operation('CompleteMultipartUpload') {
         my $request-input = CompleteMultipartUploadInput.new(
-        :$archive-size,
-        :$checksum,
-        :$account-id,
-        :$vault-name,
-        :$upload-id
+            :$archive-size,
+            :$checksum,
+            :$account-id,
+            :$vault-name,
+            :$upload-id
         );
-;
+
         self.perform-operation(
             :api-call<CompleteMultipartUpload>,
-            :return-type(ArchiveCreationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags-to-vault(
-    Str :$account-id!,
-    Hash[Str, Str] :$tags,
-    Str :$vault-name!
+        Str :$account-id!,
+        Hash[Str, Str] :$tags,
+        Str :$vault-name!
     ) is service-operation('AddTagsToVault') {
         my $request-input = AddTagsToVaultInput.new(
-        :$account-id,
-        :$tags,
-        :$vault-name
+            :$account-id,
+            :$tags,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<AddTagsToVault>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-vault-notifications(
-    Str :$account-id!,
-    Str :$vault-name!,
-    VaultNotificationConfig :$vault-notification-config
+        Str :$account-id!,
+        Str :$vault-name!,
+        VaultNotificationConfig :$vault-notification-config
     ) is service-operation('SetVaultNotifications') {
         my $request-input = SetVaultNotificationsInput.new(
-        :$account-id,
-        :$vault-name,
-        :$vault-notification-config
+            :$account-id,
+            :$vault-name,
+            :$vault-notification-config
         );
-;
+
         self.perform-operation(
             :api-call<SetVaultNotifications>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method initiate-multipart-upload(
-    Str :$archive-description,
-    Str :$account-id!,
-    Str :$vault-name!,
-    Str :$part-size
+        Str :$archive-description,
+        Str :$account-id!,
+        Str :$vault-name!,
+        Str :$part-size
     ) returns InitiateMultipartUploadOutput is service-operation('InitiateMultipartUpload') {
         my $request-input = InitiateMultipartUploadInput.new(
-        :$archive-description,
-        :$account-id,
-        :$vault-name,
-        :$part-size
+            :$archive-description,
+            :$account-id,
+            :$vault-name,
+            :$part-size
         );
-;
+
         self.perform-operation(
             :api-call<InitiateMultipartUpload>,
-            :return-type(InitiateMultipartUploadOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-vault-lock(
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$vault-name!
     ) returns GetVaultLockOutput is service-operation('GetVaultLock') {
         my $request-input = GetVaultLockInput.new(
-        :$account-id,
-        :$vault-name
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<GetVaultLock>,
-            :return-type(GetVaultLockOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-job(
-    Str :$account-id!,
-    Str :$job-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$job-id!,
+        Str :$vault-name!
     ) returns GlacierJobDescription is service-operation('DescribeJob') {
         my $request-input = DescribeJobInput.new(
-        :$account-id,
-        :$job-id,
-        :$vault-name
+            :$account-id,
+            :$job-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeJob>,
-            :return-type(GlacierJobDescription),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vault-notifications(
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$vault-name!
     ) is service-operation('DeleteVaultNotifications') {
         my $request-input = DeleteVaultNotificationsInput.new(
-        :$account-id,
-        :$vault-name
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVaultNotifications>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-vault(
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$vault-name!
     ) returns CreateVaultOutput is service-operation('CreateVault') {
         my $request-input = CreateVaultInput.new(
-        :$account-id,
-        :$vault-name
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateVault>,
-            :return-type(CreateVaultOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-multipart-uploads(
-    Str :$limit,
-    Str :$marker,
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$limit,
+        Str :$marker,
+        Str :$account-id!,
+        Str :$vault-name!
     ) returns ListMultipartUploadsOutput is service-operation('ListMultipartUploads') {
         my $request-input = ListMultipartUploadsInput.new(
-        :$limit,
-        :$marker,
-        :$account-id,
-        :$vault-name
+            :$limit,
+            :$marker,
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<ListMultipartUploads>,
-            :return-type(ListMultipartUploadsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-jobs(
-    Str :$statuscode,
-    Str :$limit,
-    Str :$marker,
-    Str :$account-id!,
-    Str :$completed,
-    Str :$vault-name!
+        Str :$statuscode,
+        Str :$limit,
+        Str :$marker,
+        Str :$account-id!,
+        Str :$completed,
+        Str :$vault-name!
     ) returns ListJobsOutput is service-operation('ListJobs') {
         my $request-input = ListJobsInput.new(
-        :$statuscode,
-        :$limit,
-        :$marker,
-        :$account-id,
-        :$completed,
-        :$vault-name
+            :$statuscode,
+            :$limit,
+            :$marker,
+            :$account-id,
+            :$completed,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<ListJobs>,
-            :return-type(ListJobsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method initiate-job(
-    Str :$account-id!,
-    JobParameters :$job-parameters,
-    Str :$vault-name!
+        Str :$account-id!,
+        JobParameters :$job-parameters,
+        Str :$vault-name!
     ) returns InitiateJobOutput is service-operation('InitiateJob') {
         my $request-input = InitiateJobInput.new(
-        :$account-id,
-        :$job-parameters,
-        :$vault-name
+            :$account-id,
+            :$job-parameters,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<InitiateJob>,
-            :return-type(InitiateJobOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vault(
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$vault-name!
     ) returns DescribeVaultOutput is service-operation('DescribeVault') {
         my $request-input = DescribeVaultInput.new(
-        :$account-id,
-        :$vault-name
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVault>,
-            :return-type(DescribeVaultOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method abort-vault-lock(
-    Str :$account-id!,
-    Str :$vault-name!
+        Str :$account-id!,
+        Str :$vault-name!
     ) is service-operation('AbortVaultLock') {
         my $request-input = AbortVaultLockInput.new(
-        :$account-id,
-        :$vault-name
+            :$account-id,
+            :$vault-name
         );
-;
+
         self.perform-operation(
             :api-call<AbortVaultLock>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

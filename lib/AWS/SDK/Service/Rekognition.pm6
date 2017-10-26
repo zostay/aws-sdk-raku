@@ -457,249 +457,221 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
     }
 
     method search-faces(
-    Percent :$face-match-threshold,
-    MaxFaces :$max-faces,
-    CollectionId :$collection-id!,
-    FaceId :$face-id!
+        Percent :$face-match-threshold,
+        MaxFaces :$max-faces,
+        CollectionId :$collection-id!,
+        FaceId :$face-id!
     ) returns SearchFacesResponse is service-operation('SearchFaces') {
         my $request-input = SearchFacesRequest.new(
-        :$face-match-threshold,
-        :$max-faces,
-        :$collection-id,
-        :$face-id
+            :$face-match-threshold,
+            :$max-faces,
+            :$collection-id,
+            :$face-id
         );
-;
+
         self.perform-operation(
             :api-call<SearchFaces>,
-            :return-type(SearchFacesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method index-faces(
-    Image :$image!,
-    ExternalImageId :$external-image-id,
-    CollectionId :$collection-id!,
-    Array[Attribute] :$detection-attributes
+        Image :$image!,
+        ExternalImageId :$external-image-id,
+        CollectionId :$collection-id!,
+        Array[Attribute] :$detection-attributes
     ) returns IndexFacesResponse is service-operation('IndexFaces') {
         my $request-input = IndexFacesRequest.new(
-        :$image,
-        :$external-image-id,
-        :$collection-id,
-        :$detection-attributes
+            :$image,
+            :$external-image-id,
+            :$collection-id,
+            :$detection-attributes
         );
-;
+
         self.perform-operation(
             :api-call<IndexFaces>,
-            :return-type(IndexFacesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-collection(
-    CollectionId :$collection-id!
+        CollectionId :$collection-id!
     ) returns CreateCollectionResponse is service-operation('CreateCollection') {
         my $request-input = CreateCollectionRequest.new(
-        :$collection-id
+            :$collection-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateCollection>,
-            :return-type(CreateCollectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method search-faces-by-image(
-    Image :$image!,
-    Percent :$face-match-threshold,
-    MaxFaces :$max-faces,
-    CollectionId :$collection-id!
+        Image :$image!,
+        Percent :$face-match-threshold,
+        MaxFaces :$max-faces,
+        CollectionId :$collection-id!
     ) returns SearchFacesByImageResponse is service-operation('SearchFacesByImage') {
         my $request-input = SearchFacesByImageRequest.new(
-        :$image,
-        :$face-match-threshold,
-        :$max-faces,
-        :$collection-id
+            :$image,
+            :$face-match-threshold,
+            :$max-faces,
+            :$collection-id
         );
-;
+
         self.perform-operation(
             :api-call<SearchFacesByImage>,
-            :return-type(SearchFacesByImageResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method recognize-celebrities(
-    Image :$image!
+        Image :$image!
     ) returns RecognizeCelebritiesResponse is service-operation('RecognizeCelebrities') {
         my $request-input = RecognizeCelebritiesRequest.new(
-        :$image
+            :$image
         );
-;
+
         self.perform-operation(
             :api-call<RecognizeCelebrities>,
-            :return-type(RecognizeCelebritiesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detect-moderation-labels(
-    Image :$image!,
-    Percent :$min-confidence
+        Image :$image!,
+        Percent :$min-confidence
     ) returns DetectModerationLabelsResponse is service-operation('DetectModerationLabels') {
         my $request-input = DetectModerationLabelsRequest.new(
-        :$image,
-        :$min-confidence
+            :$image,
+            :$min-confidence
         );
-;
+
         self.perform-operation(
             :api-call<DetectModerationLabels>,
-            :return-type(DetectModerationLabelsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detect-labels(
-    Image :$image!,
-    Percent :$min-confidence,
-    UInteger :$max-labels
+        Image :$image!,
+        Percent :$min-confidence,
+        UInteger :$max-labels
     ) returns DetectLabelsResponse is service-operation('DetectLabels') {
         my $request-input = DetectLabelsRequest.new(
-        :$image,
-        :$min-confidence,
-        :$max-labels
+            :$image,
+            :$min-confidence,
+            :$max-labels
         );
-;
+
         self.perform-operation(
             :api-call<DetectLabels>,
-            :return-type(DetectLabelsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detect-faces(
-    Image :$image!,
-    Array[Attribute] :$attributes
+        Image :$image!,
+        Array[Attribute] :$attributes
     ) returns DetectFacesResponse is service-operation('DetectFaces') {
         my $request-input = DetectFacesRequest.new(
-        :$image,
-        :$attributes
+            :$image,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<DetectFaces>,
-            :return-type(DetectFacesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-faces(
-    PageSize :$max-results,
-    CollectionId :$collection-id!,
-    PaginationToken :$next-token
+        PageSize :$max-results,
+        CollectionId :$collection-id!,
+        PaginationToken :$next-token
     ) returns ListFacesResponse is service-operation('ListFaces') {
         my $request-input = ListFacesRequest.new(
-        :$max-results,
-        :$collection-id,
-        :$next-token
+            :$max-results,
+            :$collection-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListFaces>,
-            :return-type(ListFacesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-celebrity-info(
-    RekognitionUniqueId :$id!
+        RekognitionUniqueId :$id!
     ) returns GetCelebrityInfoResponse is service-operation('GetCelebrityInfo') {
         my $request-input = GetCelebrityInfoRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<GetCelebrityInfo>,
-            :return-type(GetCelebrityInfoResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-collection(
-    CollectionId :$collection-id!
+        CollectionId :$collection-id!
     ) returns DeleteCollectionResponse is service-operation('DeleteCollection') {
         my $request-input = DeleteCollectionRequest.new(
-        :$collection-id
+            :$collection-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCollection>,
-            :return-type(DeleteCollectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-collections(
-    PageSize :$max-results,
-    PaginationToken :$next-token
+        PageSize :$max-results,
+        PaginationToken :$next-token
     ) returns ListCollectionsResponse is service-operation('ListCollections') {
         my $request-input = ListCollectionsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListCollections>,
-            :return-type(ListCollectionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-faces(
-    CollectionId :$collection-id!,
-    FaceIdList :$face-ids!
+        CollectionId :$collection-id!,
+        FaceIdList :$face-ids!
     ) returns DeleteFacesResponse is service-operation('DeleteFaces') {
         my $request-input = DeleteFacesRequest.new(
-        :$collection-id,
-        :$face-ids
+            :$collection-id,
+            :$face-ids
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFaces>,
-            :return-type(DeleteFacesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method compare-faces(
-    Image :$target-image!,
-    Percent :$similarity-threshold,
-    Image :$source-image!
+        Image :$target-image!,
+        Percent :$similarity-threshold,
+        Image :$source-image!
     ) returns CompareFacesResponse is service-operation('CompareFaces') {
         my $request-input = CompareFacesRequest.new(
-        :$target-image,
-        :$similarity-threshold,
-        :$source-image
+            :$target-image,
+            :$similarity-threshold,
+            :$source-image
         );
-;
+
         self.perform-operation(
             :api-call<CompareFaces>,
-            :return-type(CompareFacesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

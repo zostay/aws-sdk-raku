@@ -823,496 +823,442 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     }
 
     method update-pipeline(
-    PipelineDeclaration :$pipeline!
+        PipelineDeclaration :$pipeline!
     ) returns UpdatePipelineOutput is service-operation('UpdatePipeline') {
         my $request-input = UpdatePipelineInput.new(
-        :$pipeline
+            :$pipeline
         );
-;
+
         self.perform-operation(
             :api-call<UpdatePipeline>,
-            :return-type(UpdatePipelineOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method retry-stage-execution(
-    StageRetryMode :$retry-mode!,
-    PipelineExecutionId :$pipeline-execution-id!,
-    StageName :$stage-name!,
-    PipelineName :$pipeline-name!
+        StageRetryMode :$retry-mode!,
+        PipelineExecutionId :$pipeline-execution-id!,
+        StageName :$stage-name!,
+        PipelineName :$pipeline-name!
     ) returns RetryStageExecutionOutput is service-operation('RetryStageExecution') {
         my $request-input = RetryStageExecutionInput.new(
-        :$retry-mode,
-        :$pipeline-execution-id,
-        :$stage-name,
-        :$pipeline-name
+            :$retry-mode,
+            :$pipeline-execution-id,
+            :$stage-name,
+            :$pipeline-name
         );
-;
+
         self.perform-operation(
             :api-call<RetryStageExecution>,
-            :return-type(RetryStageExecutionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-pipeline-state(
-    PipelineName :$name!
+        PipelineName :$name!
     ) returns GetPipelineStateOutput is service-operation('GetPipelineState') {
         my $request-input = GetPipelineStateInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetPipelineState>,
-            :return-type(GetPipelineStateOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-custom-action-type(
-    ActionConfigurationPropertyList :$configuration-properties,
-    ActionTypeSettings :$settings,
-    ActionProvider :$provider!,
-    ActionCategory :$category!,
-    ArtifactDetails :$output-artifact-details!,
-    ArtifactDetails :$input-artifact-details!,
-    Version :$version!
+        ActionConfigurationPropertyList :$configuration-properties,
+        ActionTypeSettings :$settings,
+        ActionProvider :$provider!,
+        ActionCategory :$category!,
+        ArtifactDetails :$output-artifact-details!,
+        ArtifactDetails :$input-artifact-details!,
+        Version :$version!
     ) returns CreateCustomActionTypeOutput is service-operation('CreateCustomActionType') {
         my $request-input = CreateCustomActionTypeInput.new(
-        :$configuration-properties,
-        :$settings,
-        :$provider,
-        :$category,
-        :$output-artifact-details,
-        :$input-artifact-details,
-        :$version
+            :$configuration-properties,
+            :$settings,
+            :$provider,
+            :$category,
+            :$output-artifact-details,
+            :$input-artifact-details,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<CreateCustomActionType>,
-            :return-type(CreateCustomActionTypeOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-third-party-job-failure-result(
-    ClientToken :$client-token!,
-    ThirdPartyJobId :$job-id!,
-    FailureDetails :$failure-details!
+        ClientToken :$client-token!,
+        ThirdPartyJobId :$job-id!,
+        FailureDetails :$failure-details!
     ) is service-operation('PutThirdPartyJobFailureResult') {
         my $request-input = PutThirdPartyJobFailureResultInput.new(
-        :$client-token,
-        :$job-id,
-        :$failure-details
+            :$client-token,
+            :$job-id,
+            :$failure-details
         );
-;
+
         self.perform-operation(
             :api-call<PutThirdPartyJobFailureResult>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-pipeline(
-    PipelineDeclaration :$pipeline!
+        PipelineDeclaration :$pipeline!
     ) returns CreatePipelineOutput is service-operation('CreatePipeline') {
         my $request-input = CreatePipelineInput.new(
-        :$pipeline
+            :$pipeline
         );
-;
+
         self.perform-operation(
             :api-call<CreatePipeline>,
-            :return-type(CreatePipelineOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method poll-for-jobs(
-    ActionTypeId :$action-type-id!,
-    QueryParamMap :$query-param,
-    MaxBatchSize :$max-batch-size
+        ActionTypeId :$action-type-id!,
+        QueryParamMap :$query-param,
+        MaxBatchSize :$max-batch-size
     ) returns PollForJobsOutput is service-operation('PollForJobs') {
         my $request-input = PollForJobsInput.new(
-        :$action-type-id,
-        :$query-param,
-        :$max-batch-size
+            :$action-type-id,
+            :$query-param,
+            :$max-batch-size
         );
-;
+
         self.perform-operation(
             :api-call<PollForJobs>,
-            :return-type(PollForJobsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-action-types(
-    NextToken :$next-token,
-    ActionOwner :$action-owner-filter
+        NextToken :$next-token,
+        ActionOwner :$action-owner-filter
     ) returns ListActionTypesOutput is service-operation('ListActionTypes') {
         my $request-input = ListActionTypesInput.new(
-        :$next-token,
-        :$action-owner-filter
+            :$next-token,
+            :$action-owner-filter
         );
-;
+
         self.perform-operation(
             :api-call<ListActionTypes>,
-            :return-type(ListActionTypesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-stage-transition(
-    StageTransitionType :$transition-type!,
-    StageName :$stage-name!,
-    PipelineName :$pipeline-name!
+        StageTransitionType :$transition-type!,
+        StageName :$stage-name!,
+        PipelineName :$pipeline-name!
     ) is service-operation('EnableStageTransition') {
         my $request-input = EnableStageTransitionInput.new(
-        :$transition-type,
-        :$stage-name,
-        :$pipeline-name
+            :$transition-type,
+            :$stage-name,
+            :$pipeline-name
         );
-;
+
         self.perform-operation(
             :api-call<EnableStageTransition>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-pipeline-execution(
-    PipelineName :$name!
+        PipelineName :$name!
     ) returns StartPipelineExecutionOutput is service-operation('StartPipelineExecution') {
         my $request-input = StartPipelineExecutionInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StartPipelineExecution>,
-            :return-type(StartPipelineExecutionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-third-party-job-success-result(
-    ExecutionDetails :$execution-details,
-    ClientToken :$client-token!,
-    Str :$continuation-token,
-    CurrentRevision :$current-revision,
-    ThirdPartyJobId :$job-id!
+        ExecutionDetails :$execution-details,
+        ClientToken :$client-token!,
+        Str :$continuation-token,
+        CurrentRevision :$current-revision,
+        ThirdPartyJobId :$job-id!
     ) is service-operation('PutThirdPartyJobSuccessResult') {
         my $request-input = PutThirdPartyJobSuccessResultInput.new(
-        :$execution-details,
-        :$client-token,
-        :$continuation-token,
-        :$current-revision,
-        :$job-id
+            :$execution-details,
+            :$client-token,
+            :$continuation-token,
+            :$current-revision,
+            :$job-id
         );
-;
+
         self.perform-operation(
             :api-call<PutThirdPartyJobSuccessResult>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-job-details(
-    JobId :$job-id!
+        JobId :$job-id!
     ) returns GetJobDetailsOutput is service-operation('GetJobDetails') {
         my $request-input = GetJobDetailsInput.new(
-        :$job-id
+            :$job-id
         );
-;
+
         self.perform-operation(
             :api-call<GetJobDetails>,
-            :return-type(GetJobDetailsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-pipeline(
-    PipelineName :$name!
+        PipelineName :$name!
     ) is service-operation('DeletePipeline') {
         my $request-input = DeletePipelineInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeletePipeline>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method acknowledge-job(
-    JobId :$job-id!,
-    Str :$nonce!
+        JobId :$job-id!,
+        Str :$nonce!
     ) returns AcknowledgeJobOutput is service-operation('AcknowledgeJob') {
         my $request-input = AcknowledgeJobInput.new(
-        :$job-id,
-        :$nonce
+            :$job-id,
+            :$nonce
         );
-;
+
         self.perform-operation(
             :api-call<AcknowledgeJob>,
-            :return-type(AcknowledgeJobOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-job-success-result(
-    ExecutionDetails :$execution-details,
-    Str :$continuation-token,
-    CurrentRevision :$current-revision,
-    JobId :$job-id!
+        ExecutionDetails :$execution-details,
+        Str :$continuation-token,
+        CurrentRevision :$current-revision,
+        JobId :$job-id!
     ) is service-operation('PutJobSuccessResult') {
         my $request-input = PutJobSuccessResultInput.new(
-        :$execution-details,
-        :$continuation-token,
-        :$current-revision,
-        :$job-id
+            :$execution-details,
+            :$continuation-token,
+            :$current-revision,
+            :$job-id
         );
-;
+
         self.perform-operation(
             :api-call<PutJobSuccessResult>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-pipeline-executions(
-    NextToken :$next-token,
-    MaxResults :$max-results,
-    PipelineName :$pipeline-name!
+        NextToken :$next-token,
+        MaxResults :$max-results,
+        PipelineName :$pipeline-name!
     ) returns ListPipelineExecutionsOutput is service-operation('ListPipelineExecutions') {
         my $request-input = ListPipelineExecutionsInput.new(
-        :$next-token,
-        :$max-results,
-        :$pipeline-name
+            :$next-token,
+            :$max-results,
+            :$pipeline-name
         );
-;
+
         self.perform-operation(
             :api-call<ListPipelineExecutions>,
-            :return-type(ListPipelineExecutionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-third-party-job-details(
-    ClientToken :$client-token!,
-    ThirdPartyJobId :$job-id!
+        ClientToken :$client-token!,
+        ThirdPartyJobId :$job-id!
     ) returns GetThirdPartyJobDetailsOutput is service-operation('GetThirdPartyJobDetails') {
         my $request-input = GetThirdPartyJobDetailsInput.new(
-        :$client-token,
-        :$job-id
+            :$client-token,
+            :$job-id
         );
-;
+
         self.perform-operation(
             :api-call<GetThirdPartyJobDetails>,
-            :return-type(GetThirdPartyJobDetailsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-pipeline(
-    PipelineName :$name!,
-    PipelineVersion :$version
+        PipelineName :$name!,
+        PipelineVersion :$version
     ) returns GetPipelineOutput is service-operation('GetPipeline') {
         my $request-input = GetPipelineInput.new(
-        :$name,
-        :$version
+            :$name,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<GetPipeline>,
-            :return-type(GetPipelineOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-stage-transition(
-    StageTransitionType :$transition-type!,
-    DisabledReason :$reason!,
-    StageName :$stage-name!,
-    PipelineName :$pipeline-name!
+        StageTransitionType :$transition-type!,
+        DisabledReason :$reason!,
+        StageName :$stage-name!,
+        PipelineName :$pipeline-name!
     ) is service-operation('DisableStageTransition') {
         my $request-input = DisableStageTransitionInput.new(
-        :$transition-type,
-        :$reason,
-        :$stage-name,
-        :$pipeline-name
+            :$transition-type,
+            :$reason,
+            :$stage-name,
+            :$pipeline-name
         );
-;
+
         self.perform-operation(
             :api-call<DisableStageTransition>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-custom-action-type(
-    ActionProvider :$provider!,
-    ActionCategory :$category!,
-    Version :$version!
+        ActionProvider :$provider!,
+        ActionCategory :$category!,
+        Version :$version!
     ) is service-operation('DeleteCustomActionType') {
         my $request-input = DeleteCustomActionTypeInput.new(
-        :$provider,
-        :$category,
-        :$version
+            :$provider,
+            :$category,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCustomActionType>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method acknowledge-third-party-job(
-    ClientToken :$client-token!,
-    ThirdPartyJobId :$job-id!,
-    Str :$nonce!
+        ClientToken :$client-token!,
+        ThirdPartyJobId :$job-id!,
+        Str :$nonce!
     ) returns AcknowledgeThirdPartyJobOutput is service-operation('AcknowledgeThirdPartyJob') {
         my $request-input = AcknowledgeThirdPartyJobInput.new(
-        :$client-token,
-        :$job-id,
-        :$nonce
+            :$client-token,
+            :$job-id,
+            :$nonce
         );
-;
+
         self.perform-operation(
             :api-call<AcknowledgeThirdPartyJob>,
-            :return-type(AcknowledgeThirdPartyJobOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-action-revision(
-    ActionName :$action-name!,
-    ActionRevision :$action-revision!,
-    StageName :$stage-name!,
-    PipelineName :$pipeline-name!
+        ActionName :$action-name!,
+        ActionRevision :$action-revision!,
+        StageName :$stage-name!,
+        PipelineName :$pipeline-name!
     ) returns PutActionRevisionOutput is service-operation('PutActionRevision') {
         my $request-input = PutActionRevisionInput.new(
-        :$action-name,
-        :$action-revision,
-        :$stage-name,
-        :$pipeline-name
+            :$action-name,
+            :$action-revision,
+            :$stage-name,
+            :$pipeline-name
         );
-;
+
         self.perform-operation(
             :api-call<PutActionRevision>,
-            :return-type(PutActionRevisionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method poll-for-third-party-jobs(
-    ActionTypeId :$action-type-id!,
-    MaxBatchSize :$max-batch-size
+        ActionTypeId :$action-type-id!,
+        MaxBatchSize :$max-batch-size
     ) returns PollForThirdPartyJobsOutput is service-operation('PollForThirdPartyJobs') {
         my $request-input = PollForThirdPartyJobsInput.new(
-        :$action-type-id,
-        :$max-batch-size
+            :$action-type-id,
+            :$max-batch-size
         );
-;
+
         self.perform-operation(
             :api-call<PollForThirdPartyJobs>,
-            :return-type(PollForThirdPartyJobsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-pipelines(
-    NextToken :$next-token
+        NextToken :$next-token
     ) returns ListPipelinesOutput is service-operation('ListPipelines') {
         my $request-input = ListPipelinesInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListPipelines>,
-            :return-type(ListPipelinesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-pipeline-execution(
-    PipelineExecutionId :$pipeline-execution-id!,
-    PipelineName :$pipeline-name!
+        PipelineExecutionId :$pipeline-execution-id!,
+        PipelineName :$pipeline-name!
     ) returns GetPipelineExecutionOutput is service-operation('GetPipelineExecution') {
         my $request-input = GetPipelineExecutionInput.new(
-        :$pipeline-execution-id,
-        :$pipeline-name
+            :$pipeline-execution-id,
+            :$pipeline-name
         );
-;
+
         self.perform-operation(
             :api-call<GetPipelineExecution>,
-            :return-type(GetPipelineExecutionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-job-failure-result(
-    JobId :$job-id!,
-    FailureDetails :$failure-details!
+        JobId :$job-id!,
+        FailureDetails :$failure-details!
     ) is service-operation('PutJobFailureResult') {
         my $request-input = PutJobFailureResultInput.new(
-        :$job-id,
-        :$failure-details
+            :$job-id,
+            :$failure-details
         );
-;
+
         self.perform-operation(
             :api-call<PutJobFailureResult>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-approval-result(
-    ActionName :$action-name!,
-    ApprovalResult :$result!,
-    ApprovalToken :$token!,
-    StageName :$stage-name!,
-    PipelineName :$pipeline-name!
+        ActionName :$action-name!,
+        ApprovalResult :$result!,
+        ApprovalToken :$token!,
+        StageName :$stage-name!,
+        PipelineName :$pipeline-name!
     ) returns PutApprovalResultOutput is service-operation('PutApprovalResult') {
         my $request-input = PutApprovalResultInput.new(
-        :$action-name,
-        :$result,
-        :$token,
-        :$stage-name,
-        :$pipeline-name
+            :$action-name,
+            :$result,
+            :$token,
+            :$stage-name,
+            :$pipeline-name
         );
-;
+
         self.perform-operation(
             :api-call<PutApprovalResult>,
-            :return-type(PutApprovalResultOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

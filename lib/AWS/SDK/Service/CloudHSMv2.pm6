@@ -258,185 +258,165 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
     }
 
     method list-tags(
-    MaxSize :$max-results,
-    ClusterId :$resource-id!,
-    NextToken :$next-token
+        MaxSize :$max-results,
+        ClusterId :$resource-id!,
+        NextToken :$next-token
     ) returns ListTagsResponse is service-operation('ListTags') {
         my $request-input = ListTagsRequest.new(
-        :$max-results,
-        :$resource-id,
-        :$next-token
+            :$max-results,
+            :$resource-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListTags>,
-            :return-type(ListTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-backups(
-    MaxSize :$max-results,
-    Hash[Array[Str], Field] :$filters,
-    NextToken :$next-token
+        MaxSize :$max-results,
+        Hash[Array[Str], Field] :$filters,
+        NextToken :$next-token
     ) returns DescribeBackupsResponse is service-operation('DescribeBackups') {
         my $request-input = DescribeBackupsRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeBackups>,
-            :return-type(DescribeBackupsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-resource(
-    TagList :$tag-list!,
-    ClusterId :$resource-id!
+        TagList :$tag-list!,
+        ClusterId :$resource-id!
     ) returns TagResourceResponse is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-        :$tag-list,
-        :$resource-id
+            :$tag-list,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<TagResource>,
-            :return-type(TagResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-cluster(
-    HsmType :$hsm-type!,
-    BackupId :$source-backup-id,
-    SubnetIds :$subnet-ids!
+        HsmType :$hsm-type!,
+        BackupId :$source-backup-id,
+        SubnetIds :$subnet-ids!
     ) returns CreateClusterResponse is service-operation('CreateCluster') {
         my $request-input = CreateClusterRequest.new(
-        :$hsm-type,
-        :$source-backup-id,
-        :$subnet-ids
+            :$hsm-type,
+            :$source-backup-id,
+            :$subnet-ids
         );
-;
+
         self.perform-operation(
             :api-call<CreateCluster>,
-            :return-type(CreateClusterResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-resource(
-    ClusterId :$resource-id!,
-    TagKeyList :$tag-key-list!
+        ClusterId :$resource-id!,
+        TagKeyList :$tag-key-list!
     ) returns UntagResourceResponse is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-        :$resource-id,
-        :$tag-key-list
+            :$resource-id,
+            :$tag-key-list
         );
-;
+
         self.perform-operation(
             :api-call<UntagResource>,
-            :return-type(UntagResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method initialize-cluster(
-    Cert :$signed-cert!,
-    Cert :$trust-anchor!,
-    ClusterId :$cluster-id!
+        Cert :$signed-cert!,
+        Cert :$trust-anchor!,
+        ClusterId :$cluster-id!
     ) returns InitializeClusterResponse is service-operation('InitializeCluster') {
         my $request-input = InitializeClusterRequest.new(
-        :$signed-cert,
-        :$trust-anchor,
-        :$cluster-id
+            :$signed-cert,
+            :$trust-anchor,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<InitializeCluster>,
-            :return-type(InitializeClusterResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-hsm(
-    IpAddress :$ip-address,
-    ExternalAz :$availability-zone!,
-    ClusterId :$cluster-id!
+        IpAddress :$ip-address,
+        ExternalAz :$availability-zone!,
+        ClusterId :$cluster-id!
     ) returns CreateHsmResponse is service-operation('CreateHsm') {
         my $request-input = CreateHsmRequest.new(
-        :$ip-address,
-        :$availability-zone,
-        :$cluster-id
+            :$ip-address,
+            :$availability-zone,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateHsm>,
-            :return-type(CreateHsmResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-hsm(
-    EniId :$eni-id,
-    IpAddress :$eni-ip,
-    HsmId :$hsm-id,
-    ClusterId :$cluster-id!
+        EniId :$eni-id,
+        IpAddress :$eni-ip,
+        HsmId :$hsm-id,
+        ClusterId :$cluster-id!
     ) returns DeleteHsmResponse is service-operation('DeleteHsm') {
         my $request-input = DeleteHsmRequest.new(
-        :$eni-id,
-        :$eni-ip,
-        :$hsm-id,
-        :$cluster-id
+            :$eni-id,
+            :$eni-ip,
+            :$hsm-id,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteHsm>,
-            :return-type(DeleteHsmResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-clusters(
-    MaxSize :$max-results,
-    Hash[Array[Str], Field] :$filters,
-    NextToken :$next-token
+        MaxSize :$max-results,
+        Hash[Array[Str], Field] :$filters,
+        NextToken :$next-token
     ) returns DescribeClustersResponse is service-operation('DescribeClusters') {
         my $request-input = DescribeClustersRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClusters>,
-            :return-type(DescribeClustersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-cluster(
-    ClusterId :$cluster-id!
+        ClusterId :$cluster-id!
     ) returns DeleteClusterResponse is service-operation('DeleteCluster') {
         my $request-input = DeleteClusterRequest.new(
-        :$cluster-id
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCluster>,
-            :return-type(DeleteClusterResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

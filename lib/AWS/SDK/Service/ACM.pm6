@@ -254,175 +254,155 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
     }
 
     method list-tags-for-certificate(
-    Arn :$certificate-arn!
+        Arn :$certificate-arn!
     ) returns ListTagsForCertificateResponse is service-operation('ListTagsForCertificate') {
         my $request-input = ListTagsForCertificateRequest.new(
-        :$certificate-arn
+            :$certificate-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForCertificate>,
-            :return-type(ListTagsForCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags-from-certificate(
-    Arn :$certificate-arn!,
-    TagList :$tags!
+        Arn :$certificate-arn!,
+        TagList :$tags!
     ) is service-operation('RemoveTagsFromCertificate') {
         my $request-input = RemoveTagsFromCertificateRequest.new(
-        :$certificate-arn,
-        :$tags
+            :$certificate-arn,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTagsFromCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-certificates(
-    Array[CertificateStatus] :$certificate-statuses,
-    MaxItems :$max-items,
-    NextToken :$next-token
+        Array[CertificateStatus] :$certificate-statuses,
+        MaxItems :$max-items,
+        NextToken :$next-token
     ) returns ListCertificatesResponse is service-operation('ListCertificates') {
         my $request-input = ListCertificatesRequest.new(
-        :$certificate-statuses,
-        :$max-items,
-        :$next-token
+            :$certificate-statuses,
+            :$max-items,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListCertificates>,
-            :return-type(ListCertificatesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-certificate(
-    Arn :$certificate-arn!
+        Arn :$certificate-arn!
     ) is service-operation('DeleteCertificate') {
         my $request-input = DeleteCertificateRequest.new(
-        :$certificate-arn
+            :$certificate-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method resend-validation-email(
-    DomainNameString :$validation-domain!,
-    DomainNameString :$domain!,
-    Arn :$certificate-arn!
+        DomainNameString :$validation-domain!,
+        DomainNameString :$domain!,
+        Arn :$certificate-arn!
     ) is service-operation('ResendValidationEmail') {
         my $request-input = ResendValidationEmailRequest.new(
-        :$validation-domain,
-        :$domain,
-        :$certificate-arn
+            :$validation-domain,
+            :$domain,
+            :$certificate-arn
         );
-;
+
         self.perform-operation(
             :api-call<ResendValidationEmail>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-certificate(
-    Arn :$certificate-arn!
+        Arn :$certificate-arn!
     ) returns DescribeCertificateResponse is service-operation('DescribeCertificate') {
         my $request-input = DescribeCertificateRequest.new(
-        :$certificate-arn
+            :$certificate-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCertificate>,
-            :return-type(DescribeCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags-to-certificate(
-    Arn :$certificate-arn!,
-    TagList :$tags!
+        Arn :$certificate-arn!,
+        TagList :$tags!
     ) is service-operation('AddTagsToCertificate') {
         my $request-input = AddTagsToCertificateRequest.new(
-        :$certificate-arn,
-        :$tags
+            :$certificate-arn,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<AddTagsToCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method request-certificate(
-    DomainNameString :$domain-name!,
-    DomainValidationOptionList :$domain-validation-options,
-    IdempotencyToken :$idempotency-token,
-    DomainList :$subject-alternative-names
+        DomainNameString :$domain-name!,
+        DomainValidationOptionList :$domain-validation-options,
+        IdempotencyToken :$idempotency-token,
+        DomainList :$subject-alternative-names
     ) returns RequestCertificateResponse is service-operation('RequestCertificate') {
         my $request-input = RequestCertificateRequest.new(
-        :$domain-name,
-        :$domain-validation-options,
-        :$idempotency-token,
-        :$subject-alternative-names
+            :$domain-name,
+            :$domain-validation-options,
+            :$idempotency-token,
+            :$subject-alternative-names
         );
-;
+
         self.perform-operation(
             :api-call<RequestCertificate>,
-            :return-type(RequestCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-certificate(
-    Arn :$certificate-arn!
+        Arn :$certificate-arn!
     ) returns GetCertificateResponse is service-operation('GetCertificate') {
         my $request-input = GetCertificateRequest.new(
-        :$certificate-arn
+            :$certificate-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetCertificate>,
-            :return-type(GetCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-certificate(
-    Arn :$certificate-arn,
-    CertificateChainBlob :$certificate-chain,
-    CertificateBodyBlob :$certificate!,
-    PrivateKeyBlob :$private-key!
+        Arn :$certificate-arn,
+        CertificateChainBlob :$certificate-chain,
+        CertificateBodyBlob :$certificate!,
+        PrivateKeyBlob :$private-key!
     ) returns ImportCertificateResponse is service-operation('ImportCertificate') {
         my $request-input = ImportCertificateRequest.new(
-        :$certificate-arn,
-        :$certificate-chain,
-        :$certificate,
-        :$private-key
+            :$certificate-arn,
+            :$certificate-chain,
+            :$certificate,
+            :$private-key
         );
-;
+
         self.perform-operation(
             :api-call<ImportCertificate>,
-            :return-type(ImportCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

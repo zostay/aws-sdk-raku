@@ -91,8 +91,8 @@ sub generate-service($service, :$past) {
         my ($input, $passthru) = '', '';
         with $op.input {
             $perl6-request-type = .shape-ref.type-name;
-            $input    = .shape-ref.input-parameters.indent(4);
-            $passthru = .shape-ref.passthru-arguments.indent(8);
+            $input    = .shape-ref.input-parameters.indent(8);
+            $passthru = .shape-ref.passthru-arguments.indent(12);
         }
 
         my $construct-request-input =
@@ -111,11 +111,9 @@ sub generate-service($service, :$past) {
             method $perl6-op-name\(
         $input
             )$returns is service-operation('$op-name') \{
-                my \$request-input = $construct-request-input;
+                my \$request-input = $construct-request-input
                 self.perform-operation(
                     :api-call<$op-name>,
-                    :return-type($perl6-return-type),
-                    :result-wrapper($wrapper-name),
                     :\$request-input,
                 );
             }

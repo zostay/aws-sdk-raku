@@ -1046,736 +1046,654 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     subset Message of Str where 0 <= .chars <= 16384;
 
     method renew-offering(
-    Int :$quantity,
-    OfferingIdentifier :$offering-id
+        Int :$quantity,
+        OfferingIdentifier :$offering-id
     ) returns RenewOfferingResult is service-operation('RenewOffering') {
         my $request-input = RenewOfferingRequest.new(
-        :$quantity,
-        :$offering-id
+            :$quantity,
+            :$offering-id
         );
-;
+
         self.perform-operation(
             :api-call<RenewOffering>,
-            :return-type(RenewOfferingResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-offering-promotions(
-    PaginationToken :$next-token
+        PaginationToken :$next-token
     ) returns ListOfferingPromotionsResult is service-operation('ListOfferingPromotions') {
         my $request-input = ListOfferingPromotionsRequest.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListOfferingPromotions>,
-            :return-type(ListOfferingPromotionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-device-pools(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token,
-    DevicePoolType :$type
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token,
+        DevicePoolType :$type
     ) returns ListDevicePoolsResult is service-operation('ListDevicePools') {
         my $request-input = ListDevicePoolsRequest.new(
-        :$arn,
-        :$next-token,
-        :$type
+            :$arn,
+            :$next-token,
+            :$type
         );
-;
+
         self.perform-operation(
             :api-call<ListDevicePools>,
-            :return-type(ListDevicePoolsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-artifacts(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token,
-    ArtifactCategory :$type!
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token,
+        ArtifactCategory :$type!
     ) returns ListArtifactsResult is service-operation('ListArtifacts') {
         my $request-input = ListArtifactsRequest.new(
-        :$arn,
-        :$next-token,
-        :$type
+            :$arn,
+            :$next-token,
+            :$type
         );
-;
+
         self.perform-operation(
             :api-call<ListArtifacts>,
-            :return-type(ListArtifactsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-device-pool-compatibility(
-    ScheduleRunTest :$test,
-    TestType :$test-type,
-    AmazonResourceName :$device-pool-arn!,
-    AmazonResourceName :$app-arn
+        ScheduleRunTest :$test,
+        TestType :$test-type,
+        AmazonResourceName :$device-pool-arn!,
+        AmazonResourceName :$app-arn
     ) returns GetDevicePoolCompatibilityResult is service-operation('GetDevicePoolCompatibility') {
         my $request-input = GetDevicePoolCompatibilityRequest.new(
-        :$test,
-        :$test-type,
-        :$device-pool-arn,
-        :$app-arn
+            :$test,
+            :$test-type,
+            :$device-pool-arn,
+            :$app-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetDevicePoolCompatibility>,
-            :return-type(GetDevicePoolCompatibilityResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-project(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns DeleteProjectResult is service-operation('DeleteProject') {
         my $request-input = DeleteProjectRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteProject>,
-            :return-type(DeleteProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-project(
-    Name :$name!,
-    Int :$default-job-timeout-minutes
+        Name :$name!,
+        Int :$default-job-timeout-minutes
     ) returns CreateProjectResult is service-operation('CreateProject') {
         my $request-input = CreateProjectRequest.new(
-        :$name,
-        :$default-job-timeout-minutes
+            :$name,
+            :$default-job-timeout-minutes
         );
-;
+
         self.perform-operation(
             :api-call<CreateProject>,
-            :return-type(CreateProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-device-pool(
-    Name :$name!,
-    AmazonResourceName :$project-arn!,
-    Array[Rule] :$rules!,
-    Message :$description
+        Name :$name!,
+        AmazonResourceName :$project-arn!,
+        Array[Rule] :$rules!,
+        Message :$description
     ) returns CreateDevicePoolResult is service-operation('CreateDevicePool') {
         my $request-input = CreateDevicePoolRequest.new(
-        :$name,
-        :$project-arn,
-        :$rules,
-        :$description
+            :$name,
+            :$project-arn,
+            :$rules,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateDevicePool>,
-            :return-type(CreateDevicePoolResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-project(
-    Name :$name,
-    AmazonResourceName :$arn!,
-    Int :$default-job-timeout-minutes
+        Name :$name,
+        AmazonResourceName :$arn!,
+        Int :$default-job-timeout-minutes
     ) returns UpdateProjectResult is service-operation('UpdateProject') {
         my $request-input = UpdateProjectRequest.new(
-        :$name,
-        :$arn,
-        :$default-job-timeout-minutes
+            :$name,
+            :$arn,
+            :$default-job-timeout-minutes
         );
-;
+
         self.perform-operation(
             :api-call<UpdateProject>,
-            :return-type(UpdateProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-offering-status(
-    PaginationToken :$next-token
+        PaginationToken :$next-token
     ) returns GetOfferingStatusResult is service-operation('GetOfferingStatus') {
         my $request-input = GetOfferingStatusRequest.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetOfferingStatus>,
-            :return-type(GetOfferingStatusResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-remote-access-sessions(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token
     ) returns ListRemoteAccessSessionsResult is service-operation('ListRemoteAccessSessions') {
         my $request-input = ListRemoteAccessSessionsRequest.new(
-        :$arn,
-        :$next-token
+            :$arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListRemoteAccessSessions>,
-            :return-type(ListRemoteAccessSessionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-offering-transactions(
-    PaginationToken :$next-token
+        PaginationToken :$next-token
     ) returns ListOfferingTransactionsResult is service-operation('ListOfferingTransactions') {
         my $request-input = ListOfferingTransactionsRequest.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListOfferingTransactions>,
-            :return-type(ListOfferingTransactionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-upload(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns DeleteUploadResult is service-operation('DeleteUpload') {
         my $request-input = DeleteUploadRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteUpload>,
-            :return-type(DeleteUploadResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-network-profile(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns DeleteNetworkProfileResult is service-operation('DeleteNetworkProfile') {
         my $request-input = DeleteNetworkProfileRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteNetworkProfile>,
-            :return-type(DeleteNetworkProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-upload(
-    Name :$name!,
-    AmazonResourceName :$project-arn!,
-    UploadType :$type!,
-    ContentType :$content-type
+        Name :$name!,
+        AmazonResourceName :$project-arn!,
+        UploadType :$type!,
+        ContentType :$content-type
     ) returns CreateUploadResult is service-operation('CreateUpload') {
         my $request-input = CreateUploadRequest.new(
-        :$name,
-        :$project-arn,
-        :$type,
-        :$content-type
+            :$name,
+            :$project-arn,
+            :$type,
+            :$content-type
         );
-;
+
         self.perform-operation(
             :api-call<CreateUpload>,
-            :return-type(CreateUploadResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-remote-access-session(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns StopRemoteAccessSessionResult is service-operation('StopRemoteAccessSession') {
         my $request-input = StopRemoteAccessSessionRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<StopRemoteAccessSession>,
-            :return-type(StopRemoteAccessSessionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-unique-problems(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token
     ) returns ListUniqueProblemsResult is service-operation('ListUniqueProblems') {
         my $request-input = ListUniqueProblemsRequest.new(
-        :$arn,
-        :$next-token
+            :$arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListUniqueProblems>,
-            :return-type(ListUniqueProblemsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-suites(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token
     ) returns ListSuitesResult is service-operation('ListSuites') {
         my $request-input = ListSuitesRequest.new(
-        :$arn,
-        :$next-token
+            :$arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListSuites>,
-            :return-type(ListSuitesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-network-profile(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns GetNetworkProfileResult is service-operation('GetNetworkProfile') {
         my $request-input = GetNetworkProfileRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<GetNetworkProfile>,
-            :return-type(GetNetworkProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-device-pool(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns GetDevicePoolResult is service-operation('GetDevicePool') {
         my $request-input = GetDevicePoolRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<GetDevicePool>,
-            :return-type(GetDevicePoolResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-run(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns DeleteRunResult is service-operation('DeleteRun') {
         my $request-input = DeleteRunRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRun>,
-            :return-type(DeleteRunResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-device-pool(
-    Name :$name,
-    AmazonResourceName :$arn!,
-    Array[Rule] :$rules,
-    Message :$description
+        Name :$name,
+        AmazonResourceName :$arn!,
+        Array[Rule] :$rules,
+        Message :$description
     ) returns UpdateDevicePoolResult is service-operation('UpdateDevicePool') {
         my $request-input = UpdateDevicePoolRequest.new(
-        :$name,
-        :$arn,
-        :$rules,
-        :$description
+            :$name,
+            :$arn,
+            :$rules,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDevicePool>,
-            :return-type(UpdateDevicePoolResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-samples(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token
     ) returns ListSamplesResult is service-operation('ListSamples') {
         my $request-input = ListSamplesRequest.new(
-        :$arn,
-        :$next-token
+            :$arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListSamples>,
-            :return-type(ListSamplesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-devices(
-    AmazonResourceName :$arn,
-    PaginationToken :$next-token
+        AmazonResourceName :$arn,
+        PaginationToken :$next-token
     ) returns ListDevicesResult is service-operation('ListDevices') {
         my $request-input = ListDevicesRequest.new(
-        :$arn,
-        :$next-token
+            :$arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDevices>,
-            :return-type(ListDevicesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-upload(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns GetUploadResult is service-operation('GetUpload') {
         my $request-input = GetUploadRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<GetUpload>,
-            :return-type(GetUploadResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-remote-access-session(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns GetRemoteAccessSessionResult is service-operation('GetRemoteAccessSession') {
         my $request-input = GetRemoteAccessSessionRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<GetRemoteAccessSession>,
-            :return-type(GetRemoteAccessSessionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-remote-access-session(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns DeleteRemoteAccessSessionResult is service-operation('DeleteRemoteAccessSession') {
         my $request-input = DeleteRemoteAccessSessionRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRemoteAccessSession>,
-            :return-type(DeleteRemoteAccessSessionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-device-pool(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns DeleteDevicePoolResult is service-operation('DeleteDevicePool') {
         my $request-input = DeleteDevicePoolRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDevicePool>,
-            :return-type(DeleteDevicePoolResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-network-profile(
-    PercentInteger :$downlink-loss-percent,
-    Int :$downlink-jitter-ms,
-    Int :$downlink-delay-ms,
-    Name :$name,
-    AmazonResourceName :$arn!,
-    Int :$downlink-bandwidth-bits,
-    Int :$uplink-bandwidth-bits,
-    NetworkProfileType :$type,
-    Int :$uplink-delay-ms,
-    PercentInteger :$uplink-loss-percent,
-    Int :$uplink-jitter-ms,
-    Message :$description
+        PercentInteger :$downlink-loss-percent,
+        Int :$downlink-jitter-ms,
+        Int :$downlink-delay-ms,
+        Name :$name,
+        AmazonResourceName :$arn!,
+        Int :$downlink-bandwidth-bits,
+        Int :$uplink-bandwidth-bits,
+        NetworkProfileType :$type,
+        Int :$uplink-delay-ms,
+        PercentInteger :$uplink-loss-percent,
+        Int :$uplink-jitter-ms,
+        Message :$description
     ) returns UpdateNetworkProfileResult is service-operation('UpdateNetworkProfile') {
         my $request-input = UpdateNetworkProfileRequest.new(
-        :$downlink-loss-percent,
-        :$downlink-jitter-ms,
-        :$downlink-delay-ms,
-        :$name,
-        :$arn,
-        :$downlink-bandwidth-bits,
-        :$uplink-bandwidth-bits,
-        :$type,
-        :$uplink-delay-ms,
-        :$uplink-loss-percent,
-        :$uplink-jitter-ms,
-        :$description
+            :$downlink-loss-percent,
+            :$downlink-jitter-ms,
+            :$downlink-delay-ms,
+            :$name,
+            :$arn,
+            :$downlink-bandwidth-bits,
+            :$uplink-bandwidth-bits,
+            :$type,
+            :$uplink-delay-ms,
+            :$uplink-loss-percent,
+            :$uplink-jitter-ms,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<UpdateNetworkProfile>,
-            :return-type(UpdateNetworkProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-uploads(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token
     ) returns ListUploadsResult is service-operation('ListUploads') {
         my $request-input = ListUploadsRequest.new(
-        :$arn,
-        :$next-token
+            :$arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListUploads>,
-            :return-type(ListUploadsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-projects(
-    AmazonResourceName :$arn,
-    PaginationToken :$next-token
+        AmazonResourceName :$arn,
+        PaginationToken :$next-token
     ) returns ListProjectsResult is service-operation('ListProjects') {
         my $request-input = ListProjectsRequest.new(
-        :$arn,
-        :$next-token
+            :$arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListProjects>,
-            :return-type(ListProjectsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method install-to-remote-access-session(
-    AmazonResourceName :$remote-access-session-arn!,
-    AmazonResourceName :$app-arn!
+        AmazonResourceName :$remote-access-session-arn!,
+        AmazonResourceName :$app-arn!
     ) returns InstallToRemoteAccessSessionResult is service-operation('InstallToRemoteAccessSession') {
         my $request-input = InstallToRemoteAccessSessionRequest.new(
-        :$remote-access-session-arn,
-        :$app-arn
+            :$remote-access-session-arn,
+            :$app-arn
         );
-;
+
         self.perform-operation(
             :api-call<InstallToRemoteAccessSession>,
-            :return-type(InstallToRemoteAccessSessionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-project(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns GetProjectResult is service-operation('GetProject') {
         my $request-input = GetProjectRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<GetProject>,
-            :return-type(GetProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-job(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns GetJobResult is service-operation('GetJob') {
         my $request-input = GetJobRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<GetJob>,
-            :return-type(GetJobResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-network-profile(
-    PercentInteger :$downlink-loss-percent,
-    Int :$downlink-jitter-ms,
-    Int :$downlink-delay-ms,
-    Name :$name!,
-    AmazonResourceName :$project-arn!,
-    Int :$downlink-bandwidth-bits,
-    Int :$uplink-bandwidth-bits,
-    NetworkProfileType :$type,
-    Int :$uplink-delay-ms,
-    PercentInteger :$uplink-loss-percent,
-    Int :$uplink-jitter-ms,
-    Message :$description
+        PercentInteger :$downlink-loss-percent,
+        Int :$downlink-jitter-ms,
+        Int :$downlink-delay-ms,
+        Name :$name!,
+        AmazonResourceName :$project-arn!,
+        Int :$downlink-bandwidth-bits,
+        Int :$uplink-bandwidth-bits,
+        NetworkProfileType :$type,
+        Int :$uplink-delay-ms,
+        PercentInteger :$uplink-loss-percent,
+        Int :$uplink-jitter-ms,
+        Message :$description
     ) returns CreateNetworkProfileResult is service-operation('CreateNetworkProfile') {
         my $request-input = CreateNetworkProfileRequest.new(
-        :$downlink-loss-percent,
-        :$downlink-jitter-ms,
-        :$downlink-delay-ms,
-        :$name,
-        :$project-arn,
-        :$downlink-bandwidth-bits,
-        :$uplink-bandwidth-bits,
-        :$type,
-        :$uplink-delay-ms,
-        :$uplink-loss-percent,
-        :$uplink-jitter-ms,
-        :$description
+            :$downlink-loss-percent,
+            :$downlink-jitter-ms,
+            :$downlink-delay-ms,
+            :$name,
+            :$project-arn,
+            :$downlink-bandwidth-bits,
+            :$uplink-bandwidth-bits,
+            :$type,
+            :$uplink-delay-ms,
+            :$uplink-loss-percent,
+            :$uplink-jitter-ms,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateNetworkProfile>,
-            :return-type(CreateNetworkProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-run(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns StopRunResult is service-operation('StopRun') {
         my $request-input = StopRunRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<StopRun>,
-            :return-type(StopRunResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method schedule-run(
-    ScheduleRunTest :$test!,
-    Name :$name,
-    AmazonResourceName :$project-arn!,
-    ExecutionConfiguration :$execution-configuration,
-    ScheduleRunConfiguration :$configuration,
-    AmazonResourceName :$device-pool-arn!,
-    AmazonResourceName :$app-arn
+        ScheduleRunTest :$test!,
+        Name :$name,
+        AmazonResourceName :$project-arn!,
+        ExecutionConfiguration :$execution-configuration,
+        ScheduleRunConfiguration :$configuration,
+        AmazonResourceName :$device-pool-arn!,
+        AmazonResourceName :$app-arn
     ) returns ScheduleRunResult is service-operation('ScheduleRun') {
         my $request-input = ScheduleRunRequest.new(
-        :$test,
-        :$name,
-        :$project-arn,
-        :$execution-configuration,
-        :$configuration,
-        :$device-pool-arn,
-        :$app-arn
+            :$test,
+            :$name,
+            :$project-arn,
+            :$execution-configuration,
+            :$configuration,
+            :$device-pool-arn,
+            :$app-arn
         );
-;
+
         self.perform-operation(
             :api-call<ScheduleRun>,
-            :return-type(ScheduleRunResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tests(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token
     ) returns ListTestsResult is service-operation('ListTests') {
         my $request-input = ListTestsRequest.new(
-        :$arn,
-        :$next-token
+            :$arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListTests>,
-            :return-type(ListTestsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-runs(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token
     ) returns ListRunsResult is service-operation('ListRuns') {
         my $request-input = ListRunsRequest.new(
-        :$arn,
-        :$next-token
+            :$arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListRuns>,
-            :return-type(ListRunsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-network-profiles(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token,
-    NetworkProfileType :$type
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token,
+        NetworkProfileType :$type
     ) returns ListNetworkProfilesResult is service-operation('ListNetworkProfiles') {
         my $request-input = ListNetworkProfilesRequest.new(
-        :$arn,
-        :$next-token,
-        :$type
+            :$arn,
+            :$next-token,
+            :$type
         );
-;
+
         self.perform-operation(
             :api-call<ListNetworkProfiles>,
-            :return-type(ListNetworkProfilesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-suite(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns GetSuiteResult is service-operation('GetSuite') {
         my $request-input = GetSuiteRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<GetSuite>,
-            :return-type(GetSuiteResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1786,134 +1704,118 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         my $request-input = GetAccountSettingsRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetAccountSettings>,
-            :return-type(GetAccountSettingsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-remote-access-session(
-    Name :$name,
-    ClientId :$client-id,
-    AmazonResourceName :$project-arn!,
-    CreateRemoteAccessSessionConfiguration :$configuration,
-    SshPublicKey :$ssh-public-key,
-    Bool :$remote-debug-enabled,
-    AmazonResourceName :$device-arn!
+        Name :$name,
+        ClientId :$client-id,
+        AmazonResourceName :$project-arn!,
+        CreateRemoteAccessSessionConfiguration :$configuration,
+        SshPublicKey :$ssh-public-key,
+        Bool :$remote-debug-enabled,
+        AmazonResourceName :$device-arn!
     ) returns CreateRemoteAccessSessionResult is service-operation('CreateRemoteAccessSession') {
         my $request-input = CreateRemoteAccessSessionRequest.new(
-        :$name,
-        :$client-id,
-        :$project-arn,
-        :$configuration,
-        :$ssh-public-key,
-        :$remote-debug-enabled,
-        :$device-arn
+            :$name,
+            :$client-id,
+            :$project-arn,
+            :$configuration,
+            :$ssh-public-key,
+            :$remote-debug-enabled,
+            :$device-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateRemoteAccessSession>,
-            :return-type(CreateRemoteAccessSessionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method purchase-offering(
-    OfferingPromotionIdentifier :$offering-promotion-id,
-    Int :$quantity,
-    OfferingIdentifier :$offering-id
+        OfferingPromotionIdentifier :$offering-promotion-id,
+        Int :$quantity,
+        OfferingIdentifier :$offering-id
     ) returns PurchaseOfferingResult is service-operation('PurchaseOffering') {
         my $request-input = PurchaseOfferingRequest.new(
-        :$offering-promotion-id,
-        :$quantity,
-        :$offering-id
+            :$offering-promotion-id,
+            :$quantity,
+            :$offering-id
         );
-;
+
         self.perform-operation(
             :api-call<PurchaseOffering>,
-            :return-type(PurchaseOfferingResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-offerings(
-    PaginationToken :$next-token
+        PaginationToken :$next-token
     ) returns ListOfferingsResult is service-operation('ListOfferings') {
         my $request-input = ListOfferingsRequest.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListOfferings>,
-            :return-type(ListOfferingsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-jobs(
-    AmazonResourceName :$arn!,
-    PaginationToken :$next-token
+        AmazonResourceName :$arn!,
+        PaginationToken :$next-token
     ) returns ListJobsResult is service-operation('ListJobs') {
         my $request-input = ListJobsRequest.new(
-        :$arn,
-        :$next-token
+            :$arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListJobs>,
-            :return-type(ListJobsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-test(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns GetTestResult is service-operation('GetTest') {
         my $request-input = GetTestRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<GetTest>,
-            :return-type(GetTestResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-run(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns GetRunResult is service-operation('GetRun') {
         my $request-input = GetRunRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<GetRun>,
-            :return-type(GetRunResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-device(
-    AmazonResourceName :$arn!
+        AmazonResourceName :$arn!
     ) returns GetDeviceResult is service-operation('GetDevice') {
         my $request-input = GetDeviceRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<GetDevice>,
-            :return-type(GetDeviceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -156,55 +156,51 @@ class AWS::SDK::Service::LexRuntime does AWS::SDK::Service {
     }
 
     method post-content(
-    Str :$request-attributes,
-    Str :$bot-name!,
-    Str :$bot-alias!,
-    Str :$accept,
-    UserId :$user-id!,
-    Str :$session-attributes,
-    Blob :$input-stream!,
-    Str :$content-type!
+        Str :$request-attributes,
+        Str :$bot-name!,
+        Str :$bot-alias!,
+        Str :$accept,
+        UserId :$user-id!,
+        Str :$session-attributes,
+        Blob :$input-stream!,
+        Str :$content-type!
     ) returns PostContentResponse is service-operation('PostContent') {
         my $request-input = PostContentRequest.new(
-        :$request-attributes,
-        :$bot-name,
-        :$bot-alias,
-        :$accept,
-        :$user-id,
-        :$session-attributes,
-        :$input-stream,
-        :$content-type
+            :$request-attributes,
+            :$bot-name,
+            :$bot-alias,
+            :$accept,
+            :$user-id,
+            :$session-attributes,
+            :$input-stream,
+            :$content-type
         );
-;
+
         self.perform-operation(
             :api-call<PostContent>,
-            :return-type(PostContentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method post-text(
-    Hash[Str, Str] :$request-attributes,
-    Str :$bot-name!,
-    Str :$bot-alias!,
-    UserId :$user-id!,
-    Text :$input-text!,
-    Hash[Str, Str] :$session-attributes
+        Hash[Str, Str] :$request-attributes,
+        Str :$bot-name!,
+        Str :$bot-alias!,
+        UserId :$user-id!,
+        Text :$input-text!,
+        Hash[Str, Str] :$session-attributes
     ) returns PostTextResponse is service-operation('PostText') {
         my $request-input = PostTextRequest.new(
-        :$request-attributes,
-        :$bot-name,
-        :$bot-alias,
-        :$user-id,
-        :$input-text,
-        :$session-attributes
+            :$request-attributes,
+            :$bot-name,
+            :$bot-alias,
+            :$user-id,
+            :$input-text,
+            :$session-attributes
         );
-;
+
         self.perform-operation(
             :api-call<PostText>,
-            :return-type(PostTextResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

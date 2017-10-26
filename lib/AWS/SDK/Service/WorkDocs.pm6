@@ -888,844 +888,766 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     subset IdType of Str where 1 <= .chars <= 256 && rx:P5/[&\w+-.@]+/;
 
     method get-document(
-    AuthenticationHeaderType :$authentication-token,
-    ResourceIdType :$document-id!,
-    Bool :$include-custom-metadata
+        AuthenticationHeaderType :$authentication-token,
+        ResourceIdType :$document-id!,
+        Bool :$include-custom-metadata
     ) returns GetDocumentResponse is service-operation('GetDocument') {
         my $request-input = GetDocumentRequest.new(
-        :$authentication-token,
-        :$document-id,
-        :$include-custom-metadata
+            :$authentication-token,
+            :$document-id,
+            :$include-custom-metadata
         );
-;
+
         self.perform-operation(
             :api-call<GetDocument>,
-            :return-type(GetDocumentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-document-versions(
-    FieldNamesType :$fields,
-    AuthenticationHeaderType :$authentication-token,
-    LimitType :$limit,
-    FieldNamesType :$include,
-    PageMarkerType :$marker,
-    ResourceIdType :$document-id!
+        FieldNamesType :$fields,
+        AuthenticationHeaderType :$authentication-token,
+        LimitType :$limit,
+        FieldNamesType :$include,
+        PageMarkerType :$marker,
+        ResourceIdType :$document-id!
     ) returns DescribeDocumentVersionsResponse is service-operation('DescribeDocumentVersions') {
         my $request-input = DescribeDocumentVersionsRequest.new(
-        :$fields,
-        :$authentication-token,
-        :$limit,
-        :$include,
-        :$marker,
-        :$document-id
+            :$fields,
+            :$authentication-token,
+            :$limit,
+            :$include,
+            :$marker,
+            :$document-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDocumentVersions>,
-            :return-type(DescribeDocumentVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-user(
-    AuthenticationHeaderType :$authentication-token,
-    IdType :$user-id!
+        AuthenticationHeaderType :$authentication-token,
+        IdType :$user-id!
     ) is service-operation('DeleteUser') {
         my $request-input = DeleteUserRequest.new(
-        :$authentication-token,
-        :$user-id
+            :$authentication-token,
+            :$user-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteUser>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-notification-subscription(
-    IdType :$organization-id!,
-    IdType :$subscription-id!
+        IdType :$organization-id!,
+        IdType :$subscription-id!
     ) is service-operation('DeleteNotificationSubscription') {
         my $request-input = DeleteNotificationSubscriptionRequest.new(
-        :$organization-id,
-        :$subscription-id
+            :$organization-id,
+            :$subscription-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteNotificationSubscription>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method activate-user(
-    AuthenticationHeaderType :$authentication-token,
-    IdType :$user-id!
+        AuthenticationHeaderType :$authentication-token,
+        IdType :$user-id!
     ) returns ActivateUserResponse is service-operation('ActivateUser') {
         my $request-input = ActivateUserRequest.new(
-        :$authentication-token,
-        :$user-id
+            :$authentication-token,
+            :$user-id
         );
-;
+
         self.perform-operation(
             :api-call<ActivateUser>,
-            :return-type(ActivateUserResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-user(
-    TimeZoneIdType :$time-zone-id,
-    UserAttributeValueType :$given-name,
-    AuthenticationHeaderType :$authentication-token,
-    UserAttributeValueType :$surname,
-    UserType :$type,
-    IdType :$user-id!,
-    LocaleType :$locale,
-    StorageRuleType :$storage-rule
+        TimeZoneIdType :$time-zone-id,
+        UserAttributeValueType :$given-name,
+        AuthenticationHeaderType :$authentication-token,
+        UserAttributeValueType :$surname,
+        UserType :$type,
+        IdType :$user-id!,
+        LocaleType :$locale,
+        StorageRuleType :$storage-rule
     ) returns UpdateUserResponse is service-operation('UpdateUser') {
         my $request-input = UpdateUserRequest.new(
-        :$time-zone-id,
-        :$given-name,
-        :$authentication-token,
-        :$surname,
-        :$type,
-        :$user-id,
-        :$locale,
-        :$storage-rule
+            :$time-zone-id,
+            :$given-name,
+            :$authentication-token,
+            :$surname,
+            :$type,
+            :$user-id,
+            :$locale,
+            :$storage-rule
         );
-;
+
         self.perform-operation(
             :api-call<UpdateUser>,
-            :return-type(UpdateUserResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-folder-path(
-    FieldNamesType :$fields,
-    AuthenticationHeaderType :$authentication-token,
-    LimitType :$limit,
-    IdType :$folder-id!,
-    PageMarkerType :$marker
+        FieldNamesType :$fields,
+        AuthenticationHeaderType :$authentication-token,
+        LimitType :$limit,
+        IdType :$folder-id!,
+        PageMarkerType :$marker
     ) returns GetFolderPathResponse is service-operation('GetFolderPath') {
         my $request-input = GetFolderPathRequest.new(
-        :$fields,
-        :$authentication-token,
-        :$limit,
-        :$folder-id,
-        :$marker
+            :$fields,
+            :$authentication-token,
+            :$limit,
+            :$folder-id,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<GetFolderPath>,
-            :return-type(GetFolderPathResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-document-path(
-    FieldNamesType :$fields,
-    AuthenticationHeaderType :$authentication-token,
-    LimitType :$limit,
-    PageMarkerType :$marker,
-    IdType :$document-id!
+        FieldNamesType :$fields,
+        AuthenticationHeaderType :$authentication-token,
+        LimitType :$limit,
+        PageMarkerType :$marker,
+        IdType :$document-id!
     ) returns GetDocumentPathResponse is service-operation('GetDocumentPath') {
         my $request-input = GetDocumentPathRequest.new(
-        :$fields,
-        :$authentication-token,
-        :$limit,
-        :$marker,
-        :$document-id
+            :$fields,
+            :$authentication-token,
+            :$limit,
+            :$marker,
+            :$document-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDocumentPath>,
-            :return-type(GetDocumentPathResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-resource-permission(
-    AuthenticationHeaderType :$authentication-token,
-    IdType :$principal-id!,
-    ResourceIdType :$resource-id!,
-    PrincipalType :$principal-type
+        AuthenticationHeaderType :$authentication-token,
+        IdType :$principal-id!,
+        ResourceIdType :$resource-id!,
+        PrincipalType :$principal-type
     ) is service-operation('RemoveResourcePermission') {
         my $request-input = RemoveResourcePermissionRequest.new(
-        :$authentication-token,
-        :$principal-id,
-        :$resource-id,
-        :$principal-type
+            :$authentication-token,
+            :$principal-id,
+            :$resource-id,
+            :$principal-type
         );
-;
+
         self.perform-operation(
             :api-call<RemoveResourcePermission>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-root-folders(
-    AuthenticationHeaderType :$authentication-token!,
-    LimitType :$limit,
-    PageMarkerType :$marker
+        AuthenticationHeaderType :$authentication-token!,
+        LimitType :$limit,
+        PageMarkerType :$marker
     ) returns DescribeRootFoldersResponse is service-operation('DescribeRootFolders') {
         my $request-input = DescribeRootFoldersRequest.new(
-        :$authentication-token,
-        :$limit,
-        :$marker
+            :$authentication-token,
+            :$limit,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRootFolders>,
-            :return-type(DescribeRootFoldersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-comment(
-    AuthenticationHeaderType :$authentication-token,
-    DocumentVersionIdType :$version-id!,
-    ResourceIdType :$document-id!,
-    CommentIdType :$comment-id!
+        AuthenticationHeaderType :$authentication-token,
+        DocumentVersionIdType :$version-id!,
+        ResourceIdType :$document-id!,
+        CommentIdType :$comment-id!
     ) is service-operation('DeleteComment') {
         my $request-input = DeleteCommentRequest.new(
-        :$authentication-token,
-        :$version-id,
-        :$document-id,
-        :$comment-id
+            :$authentication-token,
+            :$version-id,
+            :$document-id,
+            :$comment-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteComment>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-notification-subscription(
-    IdType :$organization-id!,
-    SubscriptionType :$subscription-type!,
-    SubscriptionEndPointType :$endpoint!,
-    SubscriptionProtocolType :$protocol!
+        IdType :$organization-id!,
+        SubscriptionType :$subscription-type!,
+        SubscriptionEndPointType :$endpoint!,
+        SubscriptionProtocolType :$protocol!
     ) returns CreateNotificationSubscriptionResponse is service-operation('CreateNotificationSubscription') {
         my $request-input = CreateNotificationSubscriptionRequest.new(
-        :$organization-id,
-        :$subscription-type,
-        :$endpoint,
-        :$protocol
+            :$organization-id,
+            :$subscription-type,
+            :$endpoint,
+            :$protocol
         );
-;
+
         self.perform-operation(
             :api-call<CreateNotificationSubscription>,
-            :return-type(CreateNotificationSubscriptionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-labels(
-    AuthenticationHeaderType :$authentication-token,
-    Labels :$labels!,
-    ResourceIdType :$resource-id!
+        AuthenticationHeaderType :$authentication-token,
+        Labels :$labels!,
+        ResourceIdType :$resource-id!
     ) returns CreateLabelsResponse is service-operation('CreateLabels') {
         my $request-input = CreateLabelsRequest.new(
-        :$authentication-token,
-        :$labels,
-        :$resource-id
+            :$authentication-token,
+            :$labels,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateLabels>,
-            :return-type(CreateLabelsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-folder(
-    ResourceStateType :$resource-state,
-    AuthenticationHeaderType :$authentication-token,
-    ResourceIdType :$folder-id!,
-    ResourceIdType :$parent-folder-id,
-    ResourceNameType :$name
+        ResourceStateType :$resource-state,
+        AuthenticationHeaderType :$authentication-token,
+        ResourceIdType :$folder-id!,
+        ResourceIdType :$parent-folder-id,
+        ResourceNameType :$name
     ) is service-operation('UpdateFolder') {
         my $request-input = UpdateFolderRequest.new(
-        :$resource-state,
-        :$authentication-token,
-        :$folder-id,
-        :$parent-folder-id,
-        :$name
+            :$resource-state,
+            :$authentication-token,
+            :$folder-id,
+            :$parent-folder-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateFolder>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-users(
-    FieldNamesType :$fields,
-    UserIdsType :$user-ids,
-    IdType :$organization-id,
-    AuthenticationHeaderType :$authentication-token,
-    LimitType :$limit,
-    UserSortType :$sort,
-    UserFilterType :$include,
-    PageMarkerType :$marker,
-    OrderType :$order,
-    SearchQueryType :$query
+        FieldNamesType :$fields,
+        UserIdsType :$user-ids,
+        IdType :$organization-id,
+        AuthenticationHeaderType :$authentication-token,
+        LimitType :$limit,
+        UserSortType :$sort,
+        UserFilterType :$include,
+        PageMarkerType :$marker,
+        OrderType :$order,
+        SearchQueryType :$query
     ) returns DescribeUsersResponse is service-operation('DescribeUsers') {
         my $request-input = DescribeUsersRequest.new(
-        :$fields,
-        :$user-ids,
-        :$organization-id,
-        :$authentication-token,
-        :$limit,
-        :$sort,
-        :$include,
-        :$marker,
-        :$order,
-        :$query
+            :$fields,
+            :$user-ids,
+            :$organization-id,
+            :$authentication-token,
+            :$limit,
+            :$sort,
+            :$include,
+            :$marker,
+            :$order,
+            :$query
         );
-;
+
         self.perform-operation(
             :api-call<DescribeUsers>,
-            :return-type(DescribeUsersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-activities(
-    IdType :$organization-id,
-    DateTime :$end-time,
-    AuthenticationHeaderType :$authentication-token,
-    LimitType :$limit,
-    DateTime :$start-time,
-    IdType :$user-id,
-    MarkerType :$marker
+        IdType :$organization-id,
+        DateTime :$end-time,
+        AuthenticationHeaderType :$authentication-token,
+        LimitType :$limit,
+        DateTime :$start-time,
+        IdType :$user-id,
+        MarkerType :$marker
     ) returns DescribeActivitiesResponse is service-operation('DescribeActivities') {
         my $request-input = DescribeActivitiesRequest.new(
-        :$organization-id,
-        :$end-time,
-        :$authentication-token,
-        :$limit,
-        :$start-time,
-        :$user-id,
-        :$marker
+            :$organization-id,
+            :$end-time,
+            :$authentication-token,
+            :$limit,
+            :$start-time,
+            :$user-id,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeActivities>,
-            :return-type(DescribeActivitiesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-labels(
-    AuthenticationHeaderType :$authentication-token,
-    Labels :$labels,
-    ResourceIdType :$resource-id!,
-    Bool :$delete-all
+        AuthenticationHeaderType :$authentication-token,
+        Labels :$labels,
+        ResourceIdType :$resource-id!,
+        Bool :$delete-all
     ) returns DeleteLabelsResponse is service-operation('DeleteLabels') {
         my $request-input = DeleteLabelsRequest.new(
-        :$authentication-token,
-        :$labels,
-        :$resource-id,
-        :$delete-all
+            :$authentication-token,
+            :$labels,
+            :$resource-id,
+            :$delete-all
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLabels>,
-            :return-type(DeleteLabelsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-folder-contents(
-    AuthenticationHeaderType :$authentication-token,
-    ResourceIdType :$folder-id!
+        AuthenticationHeaderType :$authentication-token,
+        ResourceIdType :$folder-id!
     ) is service-operation('DeleteFolderContents') {
         my $request-input = DeleteFolderContentsRequest.new(
-        :$authentication-token,
-        :$folder-id
+            :$authentication-token,
+            :$folder-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFolderContents>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-document(
-    AuthenticationHeaderType :$authentication-token,
-    ResourceIdType :$document-id!
+        AuthenticationHeaderType :$authentication-token,
+        ResourceIdType :$document-id!
     ) is service-operation('DeleteDocument') {
         my $request-input = DeleteDocumentRequest.new(
-        :$authentication-token,
-        :$document-id
+            :$authentication-token,
+            :$document-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDocument>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-user(
-    AuthenticationHeaderType :$authentication-token,
-    TimeZoneIdType :$time-zone-id,
-    PasswordType :$password!,
-    UserAttributeValueType :$given-name!,
-    IdType :$organization-id,
-    UserAttributeValueType :$surname!,
-    UsernameType :$username!,
-    StorageRuleType :$storage-rule,
-    EmailAddressType :$email-address
+        AuthenticationHeaderType :$authentication-token,
+        TimeZoneIdType :$time-zone-id,
+        PasswordType :$password!,
+        UserAttributeValueType :$given-name!,
+        IdType :$organization-id,
+        UserAttributeValueType :$surname!,
+        UsernameType :$username!,
+        StorageRuleType :$storage-rule,
+        EmailAddressType :$email-address
     ) returns CreateUserResponse is service-operation('CreateUser') {
         my $request-input = CreateUserRequest.new(
-        :$authentication-token,
-        :$time-zone-id,
-        :$password,
-        :$given-name,
-        :$organization-id,
-        :$surname,
-        :$username,
-        :$storage-rule,
-        :$email-address
+            :$authentication-token,
+            :$time-zone-id,
+            :$password,
+            :$given-name,
+            :$organization-id,
+            :$surname,
+            :$username,
+            :$storage-rule,
+            :$email-address
         );
-;
+
         self.perform-operation(
             :api-call<CreateUser>,
-            :return-type(CreateUserResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-comment(
-    CommentIdType :$thread-id,
-    AuthenticationHeaderType :$authentication-token,
-    Bool :$notify-collaborators,
-    CommentTextType :$text!,
-    CommentVisibilityType :$visibility,
-    CommentIdType :$parent-id,
-    DocumentVersionIdType :$version-id!,
-    ResourceIdType :$document-id!
+        CommentIdType :$thread-id,
+        AuthenticationHeaderType :$authentication-token,
+        Bool :$notify-collaborators,
+        CommentTextType :$text!,
+        CommentVisibilityType :$visibility,
+        CommentIdType :$parent-id,
+        DocumentVersionIdType :$version-id!,
+        ResourceIdType :$document-id!
     ) returns CreateCommentResponse is service-operation('CreateComment') {
         my $request-input = CreateCommentRequest.new(
-        :$thread-id,
-        :$authentication-token,
-        :$notify-collaborators,
-        :$text,
-        :$visibility,
-        :$parent-id,
-        :$version-id,
-        :$document-id
+            :$thread-id,
+            :$authentication-token,
+            :$notify-collaborators,
+            :$text,
+            :$visibility,
+            :$parent-id,
+            :$version-id,
+            :$document-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateComment>,
-            :return-type(CreateCommentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method abort-document-version-upload(
-    AuthenticationHeaderType :$authentication-token,
-    DocumentVersionIdType :$version-id!,
-    ResourceIdType :$document-id!
+        AuthenticationHeaderType :$authentication-token,
+        DocumentVersionIdType :$version-id!,
+        ResourceIdType :$document-id!
     ) is service-operation('AbortDocumentVersionUpload') {
         my $request-input = AbortDocumentVersionUploadRequest.new(
-        :$authentication-token,
-        :$version-id,
-        :$document-id
+            :$authentication-token,
+            :$version-id,
+            :$document-id
         );
-;
+
         self.perform-operation(
             :api-call<AbortDocumentVersionUpload>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-current-user(
-    AuthenticationHeaderType :$authentication-token!
+        AuthenticationHeaderType :$authentication-token!
     ) returns GetCurrentUserResponse is service-operation('GetCurrentUser') {
         my $request-input = GetCurrentUserRequest.new(
-        :$authentication-token
+            :$authentication-token
         );
-;
+
         self.perform-operation(
             :api-call<GetCurrentUser>,
-            :return-type(GetCurrentUserResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deactivate-user(
-    AuthenticationHeaderType :$authentication-token,
-    IdType :$user-id!
+        AuthenticationHeaderType :$authentication-token,
+        IdType :$user-id!
     ) is service-operation('DeactivateUser') {
         my $request-input = DeactivateUserRequest.new(
-        :$authentication-token,
-        :$user-id
+            :$authentication-token,
+            :$user-id
         );
-;
+
         self.perform-operation(
             :api-call<DeactivateUser>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-document(
-    ResourceStateType :$resource-state,
-    AuthenticationHeaderType :$authentication-token,
-    ResourceIdType :$parent-folder-id,
-    ResourceNameType :$name,
-    ResourceIdType :$document-id!
+        ResourceStateType :$resource-state,
+        AuthenticationHeaderType :$authentication-token,
+        ResourceIdType :$parent-folder-id,
+        ResourceNameType :$name,
+        ResourceIdType :$document-id!
     ) is service-operation('UpdateDocument') {
         my $request-input = UpdateDocumentRequest.new(
-        :$resource-state,
-        :$authentication-token,
-        :$parent-folder-id,
-        :$name,
-        :$document-id
+            :$resource-state,
+            :$authentication-token,
+            :$parent-folder-id,
+            :$name,
+            :$document-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDocument>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-all-resource-permissions(
-    AuthenticationHeaderType :$authentication-token,
-    ResourceIdType :$resource-id!
+        AuthenticationHeaderType :$authentication-token,
+        ResourceIdType :$resource-id!
     ) is service-operation('RemoveAllResourcePermissions') {
         my $request-input = RemoveAllResourcePermissionsRequest.new(
-        :$authentication-token,
-        :$resource-id
+            :$authentication-token,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<RemoveAllResourcePermissions>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-resource-permissions(
-    AuthenticationHeaderType :$authentication-token,
-    LimitType :$limit,
-    ResourceIdType :$resource-id!,
-    PageMarkerType :$marker
+        AuthenticationHeaderType :$authentication-token,
+        LimitType :$limit,
+        ResourceIdType :$resource-id!,
+        PageMarkerType :$marker
     ) returns DescribeResourcePermissionsResponse is service-operation('DescribeResourcePermissions') {
         my $request-input = DescribeResourcePermissionsRequest.new(
-        :$authentication-token,
-        :$limit,
-        :$resource-id,
-        :$marker
+            :$authentication-token,
+            :$limit,
+            :$resource-id,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeResourcePermissions>,
-            :return-type(DescribeResourcePermissionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-folder-contents(
-    AuthenticationHeaderType :$authentication-token,
-    LimitType :$limit,
-    ResourceSortType :$sort,
-    ResourceIdType :$folder-id!,
-    FieldNamesType :$include,
-    FolderContentType :$type,
-    PageMarkerType :$marker,
-    OrderType :$order
+        AuthenticationHeaderType :$authentication-token,
+        LimitType :$limit,
+        ResourceSortType :$sort,
+        ResourceIdType :$folder-id!,
+        FieldNamesType :$include,
+        FolderContentType :$type,
+        PageMarkerType :$marker,
+        OrderType :$order
     ) returns DescribeFolderContentsResponse is service-operation('DescribeFolderContents') {
         my $request-input = DescribeFolderContentsRequest.new(
-        :$authentication-token,
-        :$limit,
-        :$sort,
-        :$folder-id,
-        :$include,
-        :$type,
-        :$marker,
-        :$order
+            :$authentication-token,
+            :$limit,
+            :$sort,
+            :$folder-id,
+            :$include,
+            :$type,
+            :$marker,
+            :$order
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFolderContents>,
-            :return-type(DescribeFolderContentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-comments(
-    AuthenticationHeaderType :$authentication-token,
-    LimitType :$limit,
-    DocumentVersionIdType :$version-id!,
-    MarkerType :$marker,
-    ResourceIdType :$document-id!
+        AuthenticationHeaderType :$authentication-token,
+        LimitType :$limit,
+        DocumentVersionIdType :$version-id!,
+        MarkerType :$marker,
+        ResourceIdType :$document-id!
     ) returns DescribeCommentsResponse is service-operation('DescribeComments') {
         my $request-input = DescribeCommentsRequest.new(
-        :$authentication-token,
-        :$limit,
-        :$version-id,
-        :$marker,
-        :$document-id
+            :$authentication-token,
+            :$limit,
+            :$version-id,
+            :$marker,
+            :$document-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeComments>,
-            :return-type(DescribeCommentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-folder(
-    AuthenticationHeaderType :$authentication-token,
-    ResourceIdType :$folder-id!
+        AuthenticationHeaderType :$authentication-token,
+        ResourceIdType :$folder-id!
     ) is service-operation('DeleteFolder') {
         my $request-input = DeleteFolderRequest.new(
-        :$authentication-token,
-        :$folder-id
+            :$authentication-token,
+            :$folder-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFolder>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-custom-metadata(
-    AuthenticationHeaderType :$authentication-token,
-    ResourceIdType :$resource-id!,
-    DocumentVersionIdType :$version-id,
-    CustomMetadataKeyList :$keys,
-    Bool :$delete-all
+        AuthenticationHeaderType :$authentication-token,
+        ResourceIdType :$resource-id!,
+        DocumentVersionIdType :$version-id,
+        CustomMetadataKeyList :$keys,
+        Bool :$delete-all
     ) returns DeleteCustomMetadataResponse is service-operation('DeleteCustomMetadata') {
         my $request-input = DeleteCustomMetadataRequest.new(
-        :$authentication-token,
-        :$resource-id,
-        :$version-id,
-        :$keys,
-        :$delete-all
+            :$authentication-token,
+            :$resource-id,
+            :$version-id,
+            :$keys,
+            :$delete-all
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCustomMetadata>,
-            :return-type(DeleteCustomMetadataResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-document-version(
-    AuthenticationHeaderType :$authentication-token,
-    DocumentVersionStatus :$version-status,
-    DocumentVersionIdType :$version-id!,
-    ResourceIdType :$document-id!
+        AuthenticationHeaderType :$authentication-token,
+        DocumentVersionStatus :$version-status,
+        DocumentVersionIdType :$version-id!,
+        ResourceIdType :$document-id!
     ) is service-operation('UpdateDocumentVersion') {
         my $request-input = UpdateDocumentVersionRequest.new(
-        :$authentication-token,
-        :$version-status,
-        :$version-id,
-        :$document-id
+            :$authentication-token,
+            :$version-status,
+            :$version-id,
+            :$document-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDocumentVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method initiate-document-version-upload(
-    AuthenticationHeaderType :$authentication-token,
-    DateTime :$content-created-timestamp,
-    Int :$document-size-in-bytes,
-    DocumentContentType :$content-type,
-    DateTime :$content-modified-timestamp,
-    ResourceIdType :$id,
-    ResourceIdType :$parent-folder-id!,
-    ResourceNameType :$name
+        AuthenticationHeaderType :$authentication-token,
+        DateTime :$content-created-timestamp,
+        Int :$document-size-in-bytes,
+        DocumentContentType :$content-type,
+        DateTime :$content-modified-timestamp,
+        ResourceIdType :$id,
+        ResourceIdType :$parent-folder-id!,
+        ResourceNameType :$name
     ) returns InitiateDocumentVersionUploadResponse is service-operation('InitiateDocumentVersionUpload') {
         my $request-input = InitiateDocumentVersionUploadRequest.new(
-        :$authentication-token,
-        :$content-created-timestamp,
-        :$document-size-in-bytes,
-        :$content-type,
-        :$content-modified-timestamp,
-        :$id,
-        :$parent-folder-id,
-        :$name
+            :$authentication-token,
+            :$content-created-timestamp,
+            :$document-size-in-bytes,
+            :$content-type,
+            :$content-modified-timestamp,
+            :$id,
+            :$parent-folder-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<InitiateDocumentVersionUpload>,
-            :return-type(InitiateDocumentVersionUploadResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-folder(
-    AuthenticationHeaderType :$authentication-token,
-    ResourceIdType :$folder-id!,
-    Bool :$include-custom-metadata
+        AuthenticationHeaderType :$authentication-token,
+        ResourceIdType :$folder-id!,
+        Bool :$include-custom-metadata
     ) returns GetFolderResponse is service-operation('GetFolder') {
         my $request-input = GetFolderRequest.new(
-        :$authentication-token,
-        :$folder-id,
-        :$include-custom-metadata
+            :$authentication-token,
+            :$folder-id,
+            :$include-custom-metadata
         );
-;
+
         self.perform-operation(
             :api-call<GetFolder>,
-            :return-type(GetFolderResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-custom-metadata(
-    AuthenticationHeaderType :$authentication-token,
-    CustomMetadataMap :$custom-metadata!,
-    ResourceIdType :$resource-id!,
-    DocumentVersionIdType :$version-id
+        AuthenticationHeaderType :$authentication-token,
+        CustomMetadataMap :$custom-metadata!,
+        ResourceIdType :$resource-id!,
+        DocumentVersionIdType :$version-id
     ) returns CreateCustomMetadataResponse is service-operation('CreateCustomMetadata') {
         my $request-input = CreateCustomMetadataRequest.new(
-        :$authentication-token,
-        :$custom-metadata,
-        :$resource-id,
-        :$version-id
+            :$authentication-token,
+            :$custom-metadata,
+            :$resource-id,
+            :$version-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateCustomMetadata>,
-            :return-type(CreateCustomMetadataResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-document-version(
-    FieldNamesType :$fields,
-    AuthenticationHeaderType :$authentication-token,
-    DocumentVersionIdType :$version-id!,
-    ResourceIdType :$document-id!,
-    Bool :$include-custom-metadata
+        FieldNamesType :$fields,
+        AuthenticationHeaderType :$authentication-token,
+        DocumentVersionIdType :$version-id!,
+        ResourceIdType :$document-id!,
+        Bool :$include-custom-metadata
     ) returns GetDocumentVersionResponse is service-operation('GetDocumentVersion') {
         my $request-input = GetDocumentVersionRequest.new(
-        :$fields,
-        :$authentication-token,
-        :$version-id,
-        :$document-id,
-        :$include-custom-metadata
+            :$fields,
+            :$authentication-token,
+            :$version-id,
+            :$document-id,
+            :$include-custom-metadata
         );
-;
+
         self.perform-operation(
             :api-call<GetDocumentVersion>,
-            :return-type(GetDocumentVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-notification-subscriptions(
-    IdType :$organization-id!,
-    LimitType :$limit,
-    PageMarkerType :$marker
+        IdType :$organization-id!,
+        LimitType :$limit,
+        PageMarkerType :$marker
     ) returns DescribeNotificationSubscriptionsResponse is service-operation('DescribeNotificationSubscriptions') {
         my $request-input = DescribeNotificationSubscriptionsRequest.new(
-        :$organization-id,
-        :$limit,
-        :$marker
+            :$organization-id,
+            :$limit,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeNotificationSubscriptions>,
-            :return-type(DescribeNotificationSubscriptionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-folder(
-    AuthenticationHeaderType :$authentication-token,
-    ResourceIdType :$parent-folder-id!,
-    ResourceNameType :$name
+        AuthenticationHeaderType :$authentication-token,
+        ResourceIdType :$parent-folder-id!,
+        ResourceNameType :$name
     ) returns CreateFolderResponse is service-operation('CreateFolder') {
         my $request-input = CreateFolderRequest.new(
-        :$authentication-token,
-        :$parent-folder-id,
-        :$name
+            :$authentication-token,
+            :$parent-folder-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateFolder>,
-            :return-type(CreateFolderResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-resource-permissions(
-    AuthenticationHeaderType :$authentication-token,
-    Array[SharePrincipal] :$principals!,
-    ResourceIdType :$resource-id!
+        AuthenticationHeaderType :$authentication-token,
+        Array[SharePrincipal] :$principals!,
+        ResourceIdType :$resource-id!
     ) returns AddResourcePermissionsResponse is service-operation('AddResourcePermissions') {
         my $request-input = AddResourcePermissionsRequest.new(
-        :$authentication-token,
-        :$principals,
-        :$resource-id
+            :$authentication-token,
+            :$principals,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<AddResourcePermissions>,
-            :return-type(AddResourcePermissionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

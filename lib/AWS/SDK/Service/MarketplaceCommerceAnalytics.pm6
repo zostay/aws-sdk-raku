@@ -65,55 +65,51 @@ class AWS::SDK::Service::MarketplaceCommerceAnalytics does AWS::SDK::Service {
     }
 
     method start-support-data-export(
-    Str :$destination-s3-prefix,
-    DestinationS3BucketName :$destination-s3-bucket-name!,
-    CustomerDefinedValues :$customer-defined-values,
-    RoleNameArn :$role-name-arn!,
-    DateTime :$from-date!,
-    SupportDataSetType :$data-set-type!,
-    SnsTopicArn :$sns-topic-arn!
+        Str :$destination-s3-prefix,
+        DestinationS3BucketName :$destination-s3-bucket-name!,
+        CustomerDefinedValues :$customer-defined-values,
+        RoleNameArn :$role-name-arn!,
+        DateTime :$from-date!,
+        SupportDataSetType :$data-set-type!,
+        SnsTopicArn :$sns-topic-arn!
     ) returns StartSupportDataExportResult is service-operation('StartSupportDataExport') {
         my $request-input = StartSupportDataExportRequest.new(
-        :$destination-s3-prefix,
-        :$destination-s3-bucket-name,
-        :$customer-defined-values,
-        :$role-name-arn,
-        :$from-date,
-        :$data-set-type,
-        :$sns-topic-arn
+            :$destination-s3-prefix,
+            :$destination-s3-bucket-name,
+            :$customer-defined-values,
+            :$role-name-arn,
+            :$from-date,
+            :$data-set-type,
+            :$sns-topic-arn
         );
-;
+
         self.perform-operation(
             :api-call<StartSupportDataExport>,
-            :return-type(StartSupportDataExportResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method generate-data-set(
-    Str :$destination-s3-prefix,
-    DestinationS3BucketName :$destination-s3-bucket-name!,
-    CustomerDefinedValues :$customer-defined-values,
-    RoleNameArn :$role-name-arn!,
-    DateTime :$data-set-publication-date!,
-    DataSetType :$data-set-type!,
-    SnsTopicArn :$sns-topic-arn!
+        Str :$destination-s3-prefix,
+        DestinationS3BucketName :$destination-s3-bucket-name!,
+        CustomerDefinedValues :$customer-defined-values,
+        RoleNameArn :$role-name-arn!,
+        DateTime :$data-set-publication-date!,
+        DataSetType :$data-set-type!,
+        SnsTopicArn :$sns-topic-arn!
     ) returns GenerateDataSetResult is service-operation('GenerateDataSet') {
         my $request-input = GenerateDataSetRequest.new(
-        :$destination-s3-prefix,
-        :$destination-s3-bucket-name,
-        :$customer-defined-values,
-        :$role-name-arn,
-        :$data-set-publication-date,
-        :$data-set-type,
-        :$sns-topic-arn
+            :$destination-s3-prefix,
+            :$destination-s3-bucket-name,
+            :$customer-defined-values,
+            :$role-name-arn,
+            :$data-set-publication-date,
+            :$data-set-type,
+            :$sns-topic-arn
         );
-;
+
         self.perform-operation(
             :api-call<GenerateDataSet>,
-            :return-type(GenerateDataSetResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

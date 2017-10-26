@@ -128,56 +128,50 @@ class AWS::SDK::Service::MeteringMarketplace does AWS::SDK::Service {
     }
 
     method resolve-customer(
-    NonEmptyString :$registration-token!
+        NonEmptyString :$registration-token!
     ) returns ResolveCustomerResult is service-operation('ResolveCustomer') {
         my $request-input = ResolveCustomerRequest.new(
-        :$registration-token
+            :$registration-token
         );
-;
+
         self.perform-operation(
             :api-call<ResolveCustomer>,
-            :return-type(ResolveCustomerResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-meter-usage(
-    ProductCode :$product-code!,
-    UsageRecordList :$usage-records!
+        ProductCode :$product-code!,
+        UsageRecordList :$usage-records!
     ) returns BatchMeterUsageResult is service-operation('BatchMeterUsage') {
         my $request-input = BatchMeterUsageRequest.new(
-        :$product-code,
-        :$usage-records
+            :$product-code,
+            :$usage-records
         );
-;
+
         self.perform-operation(
             :api-call<BatchMeterUsage>,
-            :return-type(BatchMeterUsageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method meter-usage(
-    Bool :$dry-run!,
-    ProductCode :$product-code!,
-    UsageQuantity :$usage-quantity!,
-    UsageDimension :$usage-dimension!,
-    DateTime :$timestamp!
+        Bool :$dry-run!,
+        ProductCode :$product-code!,
+        UsageQuantity :$usage-quantity!,
+        UsageDimension :$usage-dimension!,
+        DateTime :$timestamp!
     ) returns MeterUsageResult is service-operation('MeterUsage') {
         my $request-input = MeterUsageRequest.new(
-        :$dry-run,
-        :$product-code,
-        :$usage-quantity,
-        :$usage-dimension,
-        :$timestamp
+            :$dry-run,
+            :$product-code,
+            :$usage-quantity,
+            :$usage-dimension,
+            :$timestamp
         );
-;
+
         self.perform-operation(
             :api-call<MeterUsage>,
-            :return-type(MeterUsageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

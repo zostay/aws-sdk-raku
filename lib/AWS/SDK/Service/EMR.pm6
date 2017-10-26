@@ -1018,514 +1018,460 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     method list-instances(
-    Str :$instance-group-id,
-    Array[InstanceState] :$instance-states,
-    Array[InstanceGroupType] :$instance-group-types,
-    InstanceFleetType :$instance-fleet-type,
-    Str :$marker,
-    Str :$instance-fleet-id,
-    Str :$cluster-id!
+        Str :$instance-group-id,
+        Array[InstanceState] :$instance-states,
+        Array[InstanceGroupType] :$instance-group-types,
+        InstanceFleetType :$instance-fleet-type,
+        Str :$marker,
+        Str :$instance-fleet-id,
+        Str :$cluster-id!
     ) returns ListInstancesOutput is service-operation('ListInstances') {
         my $request-input = ListInstancesInput.new(
-        :$instance-group-id,
-        :$instance-states,
-        :$instance-group-types,
-        :$instance-fleet-type,
-        :$marker,
-        :$instance-fleet-id,
-        :$cluster-id
+            :$instance-group-id,
+            :$instance-states,
+            :$instance-group-types,
+            :$instance-fleet-type,
+            :$marker,
+            :$instance-fleet-id,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<ListInstances>,
-            :return-type(ListInstancesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-auto-scaling-policy(
-    Str :$instance-group-id!,
-    Str :$cluster-id!
+        Str :$instance-group-id!,
+        Str :$cluster-id!
     ) returns RemoveAutoScalingPolicyOutput is service-operation('RemoveAutoScalingPolicy') {
         my $request-input = RemoveAutoScalingPolicyInput.new(
-        :$instance-group-id,
-        :$cluster-id
+            :$instance-group-id,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<RemoveAutoScalingPolicy>,
-            :return-type(RemoveAutoScalingPolicyOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-cluster(
-    Str :$cluster-id!
+        Str :$cluster-id!
     ) returns DescribeClusterOutput is service-operation('DescribeCluster') {
         my $request-input = DescribeClusterInput.new(
-        :$cluster-id
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCluster>,
-            :return-type(DescribeClusterOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags(
-    Array[Tag] :$tags!,
-    Str :$resource-id!
+        Array[Tag] :$tags!,
+        Str :$resource-id!
     ) returns AddTagsOutput is service-operation('AddTags') {
         my $request-input = AddTagsInput.new(
-        :$tags,
-        :$resource-id
+            :$tags,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<AddTags>,
-            :return-type(AddTagsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-steps(
-    Array[StepState] :$step-states,
-    Array[XmlString] :$step-ids,
-    Str :$marker,
-    Str :$cluster-id!
+        Array[StepState] :$step-states,
+        Array[XmlString] :$step-ids,
+        Str :$marker,
+        Str :$cluster-id!
     ) returns ListStepsOutput is service-operation('ListSteps') {
         my $request-input = ListStepsInput.new(
-        :$step-states,
-        :$step-ids,
-        :$marker,
-        :$cluster-id
+            :$step-states,
+            :$step-ids,
+            :$marker,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<ListSteps>,
-            :return-type(ListStepsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-instance-groups(
-    Str :$marker,
-    Str :$cluster-id!
+        Str :$marker,
+        Str :$cluster-id!
     ) returns ListInstanceGroupsOutput is service-operation('ListInstanceGroups') {
         my $request-input = ListInstanceGroupsInput.new(
-        :$marker,
-        :$cluster-id
+            :$marker,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<ListInstanceGroups>,
-            :return-type(ListInstanceGroupsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-instance-groups(
-    Array[InstanceGroupConfig] :$instance-groups!,
-    XmlStringMaxLen256 :$job-flow-id!
+        Array[InstanceGroupConfig] :$instance-groups!,
+        XmlStringMaxLen256 :$job-flow-id!
     ) returns AddInstanceGroupsOutput is service-operation('AddInstanceGroups') {
         my $request-input = AddInstanceGroupsInput.new(
-        :$instance-groups,
-        :$job-flow-id
+            :$instance-groups,
+            :$job-flow-id
         );
-;
+
         self.perform-operation(
             :api-call<AddInstanceGroups>,
-            :return-type(AddInstanceGroupsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-security-configurations(
-    Str :$marker
+        Str :$marker
     ) returns ListSecurityConfigurationsOutput is service-operation('ListSecurityConfigurations') {
         my $request-input = ListSecurityConfigurationsInput.new(
-        :$marker
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListSecurityConfigurations>,
-            :return-type(ListSecurityConfigurationsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-bootstrap-actions(
-    Str :$marker,
-    Str :$cluster-id!
+        Str :$marker,
+        Str :$cluster-id!
     ) returns ListBootstrapActionsOutput is service-operation('ListBootstrapActions') {
         my $request-input = ListBootstrapActionsInput.new(
-        :$marker,
-        :$cluster-id
+            :$marker,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<ListBootstrapActions>,
-            :return-type(ListBootstrapActionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-security-configuration(
-    Str :$security-configuration!,
-    XmlString :$name!
+        Str :$security-configuration!,
+        XmlString :$name!
     ) returns CreateSecurityConfigurationOutput is service-operation('CreateSecurityConfiguration') {
         my $request-input = CreateSecurityConfigurationInput.new(
-        :$security-configuration,
-        :$name
+            :$security-configuration,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateSecurityConfiguration>,
-            :return-type(CreateSecurityConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-steps(
-    Array[XmlStringMaxLen256] :$step-ids,
-    XmlStringMaxLen256 :$cluster-id
+        Array[XmlStringMaxLen256] :$step-ids,
+        XmlStringMaxLen256 :$cluster-id
     ) returns CancelStepsOutput is service-operation('CancelSteps') {
         my $request-input = CancelStepsInput.new(
-        :$step-ids,
-        :$cluster-id
+            :$step-ids,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelSteps>,
-            :return-type(CancelStepsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-visible-to-all-users(
-    Bool :$visible-to-all-users!,
-    Array[XmlString] :$job-flow-ids!
+        Bool :$visible-to-all-users!,
+        Array[XmlString] :$job-flow-ids!
     ) is service-operation('SetVisibleToAllUsers') {
         my $request-input = SetVisibleToAllUsersInput.new(
-        :$visible-to-all-users,
-        :$job-flow-ids
+            :$visible-to-all-users,
+            :$job-flow-ids
         );
-;
+
         self.perform-operation(
             :api-call<SetVisibleToAllUsers>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-step(
-    Str :$step-id!,
-    Str :$cluster-id!
+        Str :$step-id!,
+        Str :$cluster-id!
     ) returns DescribeStepOutput is service-operation('DescribeStep') {
         my $request-input = DescribeStepInput.new(
-        :$step-id,
-        :$cluster-id
+            :$step-id,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStep>,
-            :return-type(DescribeStepOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-job-flow-steps(
-    Array[StepConfig] :$steps!,
-    XmlStringMaxLen256 :$job-flow-id!
+        Array[StepConfig] :$steps!,
+        XmlStringMaxLen256 :$job-flow-id!
     ) returns AddJobFlowStepsOutput is service-operation('AddJobFlowSteps') {
         my $request-input = AddJobFlowStepsInput.new(
-        :$steps,
-        :$job-flow-id
+            :$steps,
+            :$job-flow-id
         );
-;
+
         self.perform-operation(
             :api-call<AddJobFlowSteps>,
-            :return-type(AddJobFlowStepsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-instance-fleet(
-    InstanceFleetConfig :$instance-fleet!,
-    XmlStringMaxLen256 :$cluster-id!
+        InstanceFleetConfig :$instance-fleet!,
+        XmlStringMaxLen256 :$cluster-id!
     ) returns AddInstanceFleetOutput is service-operation('AddInstanceFleet') {
         my $request-input = AddInstanceFleetInput.new(
-        :$instance-fleet,
-        :$cluster-id
+            :$instance-fleet,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<AddInstanceFleet>,
-            :return-type(AddInstanceFleetOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags(
-    Array[Str] :$tag-keys!,
-    Str :$resource-id!
+        Array[Str] :$tag-keys!,
+        Str :$resource-id!
     ) returns RemoveTagsOutput is service-operation('RemoveTags') {
         my $request-input = RemoveTagsInput.new(
-        :$tag-keys,
-        :$resource-id
+            :$tag-keys,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTags>,
-            :return-type(RemoveTagsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-instance-groups(
-    Array[InstanceGroupModifyConfig] :$instance-groups,
-    Str :$cluster-id
+        Array[InstanceGroupModifyConfig] :$instance-groups,
+        Str :$cluster-id
     ) is service-operation('ModifyInstanceGroups') {
         my $request-input = ModifyInstanceGroupsInput.new(
-        :$instance-groups,
-        :$cluster-id
+            :$instance-groups,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<ModifyInstanceGroups>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-security-configuration(
-    XmlString :$name!
+        XmlString :$name!
     ) returns DescribeSecurityConfigurationOutput is service-operation('DescribeSecurityConfiguration') {
         my $request-input = DescribeSecurityConfigurationInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSecurityConfiguration>,
-            :return-type(DescribeSecurityConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-termination-protection(
-    Bool :$termination-protected!,
-    Array[XmlString] :$job-flow-ids!
+        Bool :$termination-protected!,
+        Array[XmlString] :$job-flow-ids!
     ) is service-operation('SetTerminationProtection') {
         my $request-input = SetTerminationProtectionInput.new(
-        :$termination-protected,
-        :$job-flow-ids
+            :$termination-protected,
+            :$job-flow-ids
         );
-;
+
         self.perform-operation(
             :api-call<SetTerminationProtection>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-auto-scaling-policy(
-    Str :$instance-group-id!,
-    AutoScalingPolicy :$auto-scaling-policy!,
-    Str :$cluster-id!
+        Str :$instance-group-id!,
+        AutoScalingPolicy :$auto-scaling-policy!,
+        Str :$cluster-id!
     ) returns PutAutoScalingPolicyOutput is service-operation('PutAutoScalingPolicy') {
         my $request-input = PutAutoScalingPolicyInput.new(
-        :$instance-group-id,
-        :$auto-scaling-policy,
-        :$cluster-id
+            :$instance-group-id,
+            :$auto-scaling-policy,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<PutAutoScalingPolicy>,
-            :return-type(PutAutoScalingPolicyOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-instance-fleet(
-    InstanceFleetModifyConfig :$instance-fleet!,
-    Str :$cluster-id!
+        InstanceFleetModifyConfig :$instance-fleet!,
+        Str :$cluster-id!
     ) is service-operation('ModifyInstanceFleet') {
         my $request-input = ModifyInstanceFleetInput.new(
-        :$instance-fleet,
-        :$cluster-id
+            :$instance-fleet,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<ModifyInstanceFleet>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-security-configuration(
-    XmlString :$name!
+        XmlString :$name!
     ) returns DeleteSecurityConfigurationOutput is service-operation('DeleteSecurityConfiguration') {
         my $request-input = DeleteSecurityConfigurationInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSecurityConfiguration>,
-            :return-type(DeleteSecurityConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method terminate-job-flows(
-    Array[XmlString] :$job-flow-ids!
+        Array[XmlString] :$job-flow-ids!
     ) is service-operation('TerminateJobFlows') {
         my $request-input = TerminateJobFlowsInput.new(
-        :$job-flow-ids
+            :$job-flow-ids
         );
-;
+
         self.perform-operation(
             :api-call<TerminateJobFlows>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method run-job-flow(
-    XmlString :$security-configuration,
-    Array[Configuration] :$configurations,
-    XmlStringMaxLen256 :$ami-version,
-    Bool :$visible-to-all-users,
-    Array[Application] :$applications,
-    XmlStringMaxLen256 :$release-label,
-    XmlString :$job-flow-role,
-    JobFlowInstancesConfig :$instances!,
-    XmlString :$additional-info,
-    Int :$ebs-root-volume-size,
-    Array[Tag] :$tags,
-    Array[XmlStringMaxLen256] :$supported-products,
-    Array[BootstrapActionConfig] :$bootstrap-actions,
-    XmlString :$log-uri,
-    XmlStringMaxLen256 :$name!,
-    Array[StepConfig] :$steps,
-    XmlStringMaxLen256 :$custom-ami-id,
-    ScaleDownBehavior :$scale-down-behavior,
-    XmlString :$auto-scaling-role,
-    XmlString :$service-role,
-    Array[SupportedProductConfig] :$new-supported-products,
-    RepoUpgradeOnBoot :$repo-upgrade-on-boot
+        XmlString :$security-configuration,
+        Array[Configuration] :$configurations,
+        XmlStringMaxLen256 :$ami-version,
+        Bool :$visible-to-all-users,
+        Array[Application] :$applications,
+        XmlStringMaxLen256 :$release-label,
+        XmlString :$job-flow-role,
+        JobFlowInstancesConfig :$instances!,
+        XmlString :$additional-info,
+        Int :$ebs-root-volume-size,
+        Array[Tag] :$tags,
+        Array[XmlStringMaxLen256] :$supported-products,
+        Array[BootstrapActionConfig] :$bootstrap-actions,
+        XmlString :$log-uri,
+        XmlStringMaxLen256 :$name!,
+        Array[StepConfig] :$steps,
+        XmlStringMaxLen256 :$custom-ami-id,
+        ScaleDownBehavior :$scale-down-behavior,
+        XmlString :$auto-scaling-role,
+        XmlString :$service-role,
+        Array[SupportedProductConfig] :$new-supported-products,
+        RepoUpgradeOnBoot :$repo-upgrade-on-boot
     ) returns RunJobFlowOutput is service-operation('RunJobFlow') {
         my $request-input = RunJobFlowInput.new(
-        :$security-configuration,
-        :$configurations,
-        :$ami-version,
-        :$visible-to-all-users,
-        :$applications,
-        :$release-label,
-        :$job-flow-role,
-        :$instances,
-        :$additional-info,
-        :$ebs-root-volume-size,
-        :$tags,
-        :$supported-products,
-        :$bootstrap-actions,
-        :$log-uri,
-        :$name,
-        :$steps,
-        :$custom-ami-id,
-        :$scale-down-behavior,
-        :$auto-scaling-role,
-        :$service-role,
-        :$new-supported-products,
-        :$repo-upgrade-on-boot
+            :$security-configuration,
+            :$configurations,
+            :$ami-version,
+            :$visible-to-all-users,
+            :$applications,
+            :$release-label,
+            :$job-flow-role,
+            :$instances,
+            :$additional-info,
+            :$ebs-root-volume-size,
+            :$tags,
+            :$supported-products,
+            :$bootstrap-actions,
+            :$log-uri,
+            :$name,
+            :$steps,
+            :$custom-ami-id,
+            :$scale-down-behavior,
+            :$auto-scaling-role,
+            :$service-role,
+            :$new-supported-products,
+            :$repo-upgrade-on-boot
         );
-;
+
         self.perform-operation(
             :api-call<RunJobFlow>,
-            :return-type(RunJobFlowOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-instance-fleets(
-    Str :$marker,
-    Str :$cluster-id!
+        Str :$marker,
+        Str :$cluster-id!
     ) returns ListInstanceFleetsOutput is service-operation('ListInstanceFleets') {
         my $request-input = ListInstanceFleetsInput.new(
-        :$marker,
-        :$cluster-id
+            :$marker,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<ListInstanceFleets>,
-            :return-type(ListInstanceFleetsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-clusters(
-    Str :$marker,
-    Array[ClusterState] :$cluster-states,
-    DateTime :$created-before,
-    DateTime :$created-after
+        Str :$marker,
+        Array[ClusterState] :$cluster-states,
+        DateTime :$created-before,
+        DateTime :$created-after
     ) returns ListClustersOutput is service-operation('ListClusters') {
         my $request-input = ListClustersInput.new(
-        :$marker,
-        :$cluster-states,
-        :$created-before,
-        :$created-after
+            :$marker,
+            :$cluster-states,
+            :$created-before,
+            :$created-after
         );
-;
+
         self.perform-operation(
             :api-call<ListClusters>,
-            :return-type(ListClustersOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-job-flows(
-    Array[JobFlowExecutionState] :$job-flow-states,
-    DateTime :$created-before,
-    DateTime :$created-after,
-    Array[XmlString] :$job-flow-ids
+        Array[JobFlowExecutionState] :$job-flow-states,
+        DateTime :$created-before,
+        DateTime :$created-after,
+        Array[XmlString] :$job-flow-ids
     ) returns DescribeJobFlowsOutput is service-operation('DescribeJobFlows') {
         my $request-input = DescribeJobFlowsInput.new(
-        :$job-flow-states,
-        :$created-before,
-        :$created-after,
-        :$job-flow-ids
+            :$job-flow-states,
+            :$created-before,
+            :$created-after,
+            :$job-flow-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeJobFlows>,
-            :return-type(DescribeJobFlowsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

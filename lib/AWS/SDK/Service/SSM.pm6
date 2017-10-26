@@ -3051,1941 +3051,1749 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     method describe-activations(
-    MaxResults :$max-results,
-    Array[DescribeActivationsFilter] :$filters,
-    Str :$next-token
+        MaxResults :$max-results,
+        Array[DescribeActivationsFilter] :$filters,
+        Str :$next-token
     ) returns DescribeActivationsResult is service-operation('DescribeActivations') {
         my $request-input = DescribeActivationsRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeActivations>,
-            :return-type(DescribeActivationsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-instance-information(
-    MaxResultsEC2Compatible :$max-results,
-    InstanceInformationFilterList :$instance-information-filter-list,
-    InstanceInformationStringFilterList :$filters,
-    Str :$next-token
+        MaxResultsEC2Compatible :$max-results,
+        InstanceInformationFilterList :$instance-information-filter-list,
+        InstanceInformationStringFilterList :$filters,
+        Str :$next-token
     ) returns DescribeInstanceInformationResult is service-operation('DescribeInstanceInformation') {
         my $request-input = DescribeInstanceInformationRequest.new(
-        :$max-results,
-        :$instance-information-filter-list,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$instance-information-filter-list,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstanceInformation>,
-            :return-type(DescribeInstanceInformationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-maintenance-window-execution-tasks(
-    MaintenanceWindowMaxResults :$max-results,
-    MaintenanceWindowExecutionId :$window-execution-id!,
-    MaintenanceWindowFilterList :$filters,
-    Str :$next-token
+        MaintenanceWindowMaxResults :$max-results,
+        MaintenanceWindowExecutionId :$window-execution-id!,
+        MaintenanceWindowFilterList :$filters,
+        Str :$next-token
     ) returns DescribeMaintenanceWindowExecutionTasksResult is service-operation('DescribeMaintenanceWindowExecutionTasks') {
         my $request-input = DescribeMaintenanceWindowExecutionTasksRequest.new(
-        :$max-results,
-        :$window-execution-id,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$window-execution-id,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMaintenanceWindowExecutionTasks>,
-            :return-type(DescribeMaintenanceWindowExecutionTasksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-maintenance-window-targets(
-    MaintenanceWindowMaxResults :$max-results,
-    MaintenanceWindowFilterList :$filters,
-    Str :$next-token,
-    MaintenanceWindowId :$window-id!
+        MaintenanceWindowMaxResults :$max-results,
+        MaintenanceWindowFilterList :$filters,
+        Str :$next-token,
+        MaintenanceWindowId :$window-id!
     ) returns DescribeMaintenanceWindowTargetsResult is service-operation('DescribeMaintenanceWindowTargets') {
         my $request-input = DescribeMaintenanceWindowTargetsRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token,
-        :$window-id
+            :$max-results,
+            :$filters,
+            :$next-token,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMaintenanceWindowTargets>,
-            :return-type(DescribeMaintenanceWindowTargetsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-managed-instance-role(
-    IamRole :$iam-role!,
-    ManagedInstanceId :$instance-id!
+        IamRole :$iam-role!,
+        ManagedInstanceId :$instance-id!
     ) returns UpdateManagedInstanceRoleResult is service-operation('UpdateManagedInstanceRole') {
         my $request-input = UpdateManagedInstanceRoleRequest.new(
-        :$iam-role,
-        :$instance-id
+            :$iam-role,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateManagedInstanceRole>,
-            :return-type(UpdateManagedInstanceRoleResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-document-default-version(
-    DocumentVersionNumber :$document-version!,
-    DocumentName :$name!
+        DocumentVersionNumber :$document-version!,
+        DocumentName :$name!
     ) returns UpdateDocumentDefaultVersionResult is service-operation('UpdateDocumentDefaultVersion') {
         my $request-input = UpdateDocumentDefaultVersionRequest.new(
-        :$document-version,
-        :$name
+            :$document-version,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDocumentDefaultVersion>,
-            :return-type(UpdateDocumentDefaultVersionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-document-versions(
-    MaxResults :$max-results,
-    DocumentName :$name!,
-    Str :$next-token
+        MaxResults :$max-results,
+        DocumentName :$name!,
+        Str :$next-token
     ) returns ListDocumentVersionsResult is service-operation('ListDocumentVersions') {
         my $request-input = ListDocumentVersionsRequest.new(
-        :$max-results,
-        :$name,
-        :$next-token
+            :$max-results,
+            :$name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDocumentVersions>,
-            :return-type(ListDocumentVersionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-parameters-by-path(
-    GetParametersByPathMaxResults :$max-results,
-    Array[ParameterStringFilter] :$parameter-filters,
-    Bool :$recursive,
-    PSParameterName :$path!,
-    Bool :$with-decryption,
-    Str :$next-token
+        GetParametersByPathMaxResults :$max-results,
+        Array[ParameterStringFilter] :$parameter-filters,
+        Bool :$recursive,
+        PSParameterName :$path!,
+        Bool :$with-decryption,
+        Str :$next-token
     ) returns GetParametersByPathResult is service-operation('GetParametersByPath') {
         my $request-input = GetParametersByPathRequest.new(
-        :$max-results,
-        :$parameter-filters,
-        :$recursive,
-        :$path,
-        :$with-decryption,
-        :$next-token
+            :$max-results,
+            :$parameter-filters,
+            :$recursive,
+            :$path,
+            :$with-decryption,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetParametersByPath>,
-            :return-type(GetParametersByPathResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags-to-resource(
-    Array[Tag] :$tags!,
-    Str :$resource-id!,
-    ResourceTypeForTagging :$resource-type!
+        Array[Tag] :$tags!,
+        Str :$resource-id!,
+        ResourceTypeForTagging :$resource-type!
     ) returns AddTagsToResourceResult is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceRequest.new(
-        :$tags,
-        :$resource-id,
-        :$resource-type
+            :$tags,
+            :$resource-id,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<AddTagsToResource>,
-            :return-type(AddTagsToResourceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-association(
-    AssociationName :$association-name,
-    InstanceAssociationOutputLocation :$output-location,
-    ScheduleExpression :$schedule-expression,
-    DocumentVersion :$document-version,
-    Hash[Array[Str], Str] :$parameters,
-    DocumentName :$name!,
-    InstanceId :$instance-id,
-    Targets :$targets
+        AssociationName :$association-name,
+        InstanceAssociationOutputLocation :$output-location,
+        ScheduleExpression :$schedule-expression,
+        DocumentVersion :$document-version,
+        Hash[Array[Str], Str] :$parameters,
+        DocumentName :$name!,
+        InstanceId :$instance-id,
+        Targets :$targets
     ) returns CreateAssociationResult is service-operation('CreateAssociation') {
         my $request-input = CreateAssociationRequest.new(
-        :$association-name,
-        :$output-location,
-        :$schedule-expression,
-        :$document-version,
-        :$parameters,
-        :$name,
-        :$instance-id,
-        :$targets
+            :$association-name,
+            :$output-location,
+            :$schedule-expression,
+            :$document-version,
+            :$parameters,
+            :$name,
+            :$instance-id,
+            :$targets
         );
-;
+
         self.perform-operation(
             :api-call<CreateAssociation>,
-            :return-type(CreateAssociationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-patch-baseline(
-    PatchIdList :$approved-patches,
-    PatchIdList :$rejected-patches,
-    ClientToken :$client-token,
-    BaselineDescription :$description,
-    PatchRuleGroup :$approval-rules,
-    PatchFilterGroup :$global-filters,
-    BaselineName :$name!,
-    OperatingSystem :$operating-system,
-    PatchComplianceLevel :$approved-patches-compliance-level
+        PatchIdList :$approved-patches,
+        PatchIdList :$rejected-patches,
+        ClientToken :$client-token,
+        BaselineDescription :$description,
+        PatchRuleGroup :$approval-rules,
+        PatchFilterGroup :$global-filters,
+        BaselineName :$name!,
+        OperatingSystem :$operating-system,
+        PatchComplianceLevel :$approved-patches-compliance-level
     ) returns CreatePatchBaselineResult is service-operation('CreatePatchBaseline') {
         my $request-input = CreatePatchBaselineRequest.new(
-        :$approved-patches,
-        :$rejected-patches,
-        :$client-token,
-        :$description,
-        :$approval-rules,
-        :$global-filters,
-        :$name,
-        :$operating-system,
-        :$approved-patches-compliance-level
+            :$approved-patches,
+            :$rejected-patches,
+            :$client-token,
+            :$description,
+            :$approval-rules,
+            :$global-filters,
+            :$name,
+            :$operating-system,
+            :$approved-patches-compliance-level
         );
-;
+
         self.perform-operation(
             :api-call<CreatePatchBaseline>,
-            :return-type(CreatePatchBaselineResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-resource-data-sync(
-    ResourceDataSyncName :$sync-name!
+        ResourceDataSyncName :$sync-name!
     ) returns DeleteResourceDataSyncResult is service-operation('DeleteResourceDataSync') {
         my $request-input = DeleteResourceDataSyncRequest.new(
-        :$sync-name
+            :$sync-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteResourceDataSync>,
-            :return-type(DeleteResourceDataSyncResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-maintenance-window(
-    MaintenanceWindowId :$window-id!
+        MaintenanceWindowId :$window-id!
     ) returns GetMaintenanceWindowResult is service-operation('GetMaintenanceWindow') {
         my $request-input = GetMaintenanceWindowRequest.new(
-        :$window-id
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<GetMaintenanceWindow>,
-            :return-type(GetMaintenanceWindowResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-automation-execution(
-    AutomationExecutionId :$automation-execution-id!
+        AutomationExecutionId :$automation-execution-id!
     ) returns StopAutomationExecutionResult is service-operation('StopAutomationExecution') {
         my $request-input = StopAutomationExecutionRequest.new(
-        :$automation-execution-id
+            :$automation-execution-id
         );
-;
+
         self.perform-operation(
             :api-call<StopAutomationExecution>,
-            :return-type(StopAutomationExecutionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method send-automation-signal(
-    SignalType :$signal-type!,
-    AutomationExecutionId :$automation-execution-id!,
-    AutomationParameterMap :$payload
+        SignalType :$signal-type!,
+        AutomationExecutionId :$automation-execution-id!,
+        AutomationParameterMap :$payload
     ) returns SendAutomationSignalResult is service-operation('SendAutomationSignal') {
         my $request-input = SendAutomationSignalRequest.new(
-        :$signal-type,
-        :$automation-execution-id,
-        :$payload
+            :$signal-type,
+            :$automation-execution-id,
+            :$payload
         );
-;
+
         self.perform-operation(
             :api-call<SendAutomationSignal>,
-            :return-type(SendAutomationSignalResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags-from-resource(
-    Array[TagKey] :$tag-keys!,
-    Str :$resource-id!,
-    ResourceTypeForTagging :$resource-type!
+        Array[TagKey] :$tag-keys!,
+        Str :$resource-id!,
+        ResourceTypeForTagging :$resource-type!
     ) returns RemoveTagsFromResourceResult is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceRequest.new(
-        :$tag-keys,
-        :$resource-id,
-        :$resource-type
+            :$tag-keys,
+            :$resource-id,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
-            :return-type(RemoveTagsFromResourceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-default-patch-baseline(
-    BaselineId :$baseline-id!
+        BaselineId :$baseline-id!
     ) returns RegisterDefaultPatchBaselineResult is service-operation('RegisterDefaultPatchBaseline') {
         my $request-input = RegisterDefaultPatchBaselineRequest.new(
-        :$baseline-id
+            :$baseline-id
         );
-;
+
         self.perform-operation(
             :api-call<RegisterDefaultPatchBaseline>,
-            :return-type(RegisterDefaultPatchBaselineResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-association-versions(
-    MaxResults :$max-results,
-    AssociationId :$association-id!,
-    Str :$next-token
+        MaxResults :$max-results,
+        AssociationId :$association-id!,
+        Str :$next-token
     ) returns ListAssociationVersionsResult is service-operation('ListAssociationVersions') {
         my $request-input = ListAssociationVersionsRequest.new(
-        :$max-results,
-        :$association-id,
-        :$next-token
+            :$max-results,
+            :$association-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListAssociationVersions>,
-            :return-type(ListAssociationVersionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-default-patch-baseline(
-    OperatingSystem :$operating-system
+        OperatingSystem :$operating-system
     ) returns GetDefaultPatchBaselineResult is service-operation('GetDefaultPatchBaseline') {
         my $request-input = GetDefaultPatchBaselineRequest.new(
-        :$operating-system
+            :$operating-system
         );
-;
+
         self.perform-operation(
             :api-call<GetDefaultPatchBaseline>,
-            :return-type(GetDefaultPatchBaselineResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-inventory(
-    MaxResults :$max-results,
-    InventoryFilterList :$filters,
-    Str :$next-token,
-    ResultAttributeList :$result-attributes
+        MaxResults :$max-results,
+        InventoryFilterList :$filters,
+        Str :$next-token,
+        ResultAttributeList :$result-attributes
     ) returns GetInventoryResult is service-operation('GetInventory') {
         my $request-input = GetInventoryRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token,
-        :$result-attributes
+            :$max-results,
+            :$filters,
+            :$next-token,
+            :$result-attributes
         );
-;
+
         self.perform-operation(
             :api-call<GetInventory>,
-            :return-type(GetInventoryResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-patch-baseline(
-    PatchIdList :$approved-patches,
-    BaselineId :$baseline-id!,
-    PatchIdList :$rejected-patches,
-    BaselineDescription :$description,
-    PatchRuleGroup :$approval-rules,
-    PatchFilterGroup :$global-filters,
-    BaselineName :$name,
-    PatchComplianceLevel :$approved-patches-compliance-level
+        PatchIdList :$approved-patches,
+        BaselineId :$baseline-id!,
+        PatchIdList :$rejected-patches,
+        BaselineDescription :$description,
+        PatchRuleGroup :$approval-rules,
+        PatchFilterGroup :$global-filters,
+        BaselineName :$name,
+        PatchComplianceLevel :$approved-patches-compliance-level
     ) returns UpdatePatchBaselineResult is service-operation('UpdatePatchBaseline') {
         my $request-input = UpdatePatchBaselineRequest.new(
-        :$approved-patches,
-        :$baseline-id,
-        :$rejected-patches,
-        :$description,
-        :$approval-rules,
-        :$global-filters,
-        :$name,
-        :$approved-patches-compliance-level
+            :$approved-patches,
+            :$baseline-id,
+            :$rejected-patches,
+            :$description,
+            :$approval-rules,
+            :$global-filters,
+            :$name,
+            :$approved-patches-compliance-level
         );
-;
+
         self.perform-operation(
             :api-call<UpdatePatchBaseline>,
-            :return-type(UpdatePatchBaselineResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-maintenance-window(
-    MaintenanceWindowDurationHours :$duration,
-    Bool :$replace,
-    Bool :$allow-unassociated-targets,
-    MaintenanceWindowSchedule :$schedule,
-    MaintenanceWindowDescription :$description,
-    Bool :$enabled,
-    MaintenanceWindowCutoff :$cutoff,
-    MaintenanceWindowName :$name,
-    MaintenanceWindowId :$window-id!
+        MaintenanceWindowDurationHours :$duration,
+        Bool :$replace,
+        Bool :$allow-unassociated-targets,
+        MaintenanceWindowSchedule :$schedule,
+        MaintenanceWindowDescription :$description,
+        Bool :$enabled,
+        MaintenanceWindowCutoff :$cutoff,
+        MaintenanceWindowName :$name,
+        MaintenanceWindowId :$window-id!
     ) returns UpdateMaintenanceWindowResult is service-operation('UpdateMaintenanceWindow') {
         my $request-input = UpdateMaintenanceWindowRequest.new(
-        :$duration,
-        :$replace,
-        :$allow-unassociated-targets,
-        :$schedule,
-        :$description,
-        :$enabled,
-        :$cutoff,
-        :$name,
-        :$window-id
+            :$duration,
+            :$replace,
+            :$allow-unassociated-targets,
+            :$schedule,
+            :$description,
+            :$enabled,
+            :$cutoff,
+            :$name,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateMaintenanceWindow>,
-            :return-type(UpdateMaintenanceWindowResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-patch-baseline-for-patch-group(
-    BaselineId :$baseline-id!,
-    PatchGroup :$patch-group!
+        BaselineId :$baseline-id!,
+        PatchGroup :$patch-group!
     ) returns RegisterPatchBaselineForPatchGroupResult is service-operation('RegisterPatchBaselineForPatchGroup') {
         my $request-input = RegisterPatchBaselineForPatchGroupRequest.new(
-        :$baseline-id,
-        :$patch-group
+            :$baseline-id,
+            :$patch-group
         );
-;
+
         self.perform-operation(
             :api-call<RegisterPatchBaselineForPatchGroup>,
-            :return-type(RegisterPatchBaselineForPatchGroupResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-resource-data-sync(
-    ResourceDataSyncName :$sync-name!,
-    ResourceDataSyncS3Destination :$s3-destination!
+        ResourceDataSyncName :$sync-name!,
+        ResourceDataSyncS3Destination :$s3-destination!
     ) returns CreateResourceDataSyncResult is service-operation('CreateResourceDataSync') {
         my $request-input = CreateResourceDataSyncRequest.new(
-        :$sync-name,
-        :$s3-destination
+            :$sync-name,
+            :$s3-destination
         );
-;
+
         self.perform-operation(
             :api-call<CreateResourceDataSync>,
-            :return-type(CreateResourceDataSyncResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-parameter(
-    ParameterDescription :$description,
-    PSParameterName :$name!,
-    AllowedPattern :$allowed-pattern,
-    ParameterKeyId :$key-id,
-    ParameterType :$type!,
-    PSParameterValue :$value!,
-    Bool :$overwrite
+        ParameterDescription :$description,
+        PSParameterName :$name!,
+        AllowedPattern :$allowed-pattern,
+        ParameterKeyId :$key-id,
+        ParameterType :$type!,
+        PSParameterValue :$value!,
+        Bool :$overwrite
     ) returns PutParameterResult is service-operation('PutParameter') {
         my $request-input = PutParameterRequest.new(
-        :$description,
-        :$name,
-        :$allowed-pattern,
-        :$key-id,
-        :$type,
-        :$value,
-        :$overwrite
+            :$description,
+            :$name,
+            :$allowed-pattern,
+            :$key-id,
+            :$type,
+            :$value,
+            :$overwrite
         );
-;
+
         self.perform-operation(
             :api-call<PutParameter>,
-            :return-type(PutParameterResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-patch-baseline(
-    BaselineId :$baseline-id!
+        BaselineId :$baseline-id!
     ) returns GetPatchBaselineResult is service-operation('GetPatchBaseline') {
         my $request-input = GetPatchBaselineRequest.new(
-        :$baseline-id
+            :$baseline-id
         );
-;
+
         self.perform-operation(
             :api-call<GetPatchBaseline>,
-            :return-type(GetPatchBaselineResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-task-from-maintenance-window(
-    MaintenanceWindowTaskId :$window-task-id!,
-    MaintenanceWindowId :$window-id!
+        MaintenanceWindowTaskId :$window-task-id!,
+        MaintenanceWindowId :$window-id!
     ) returns DeregisterTaskFromMaintenanceWindowResult is service-operation('DeregisterTaskFromMaintenanceWindow') {
         my $request-input = DeregisterTaskFromMaintenanceWindowRequest.new(
-        :$window-task-id,
-        :$window-id
+            :$window-task-id,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterTaskFromMaintenanceWindow>,
-            :return-type(DeregisterTaskFromMaintenanceWindowResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-document-permission(
-    DocumentName :$name!,
-    DocumentPermissionType :$permission-type!
+        DocumentName :$name!,
+        DocumentPermissionType :$permission-type!
     ) returns DescribeDocumentPermissionResponse is service-operation('DescribeDocumentPermission') {
         my $request-input = DescribeDocumentPermissionRequest.new(
-        :$name,
-        :$permission-type
+            :$name,
+            :$permission-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDocumentPermission>,
-            :return-type(DescribeDocumentPermissionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-document(
-    DocumentVersion :$document-version,
-    DocumentContent :$content!,
-    DocumentName :$name!
+        DocumentVersion :$document-version,
+        DocumentContent :$content!,
+        DocumentName :$name!
     ) returns UpdateDocumentResult is service-operation('UpdateDocument') {
         my $request-input = UpdateDocumentRequest.new(
-        :$document-version,
-        :$content,
-        :$name
+            :$document-version,
+            :$content,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDocument>,
-            :return-type(UpdateDocumentResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-inventory(
-    InventoryItemList :$items!,
-    InstanceId :$instance-id!
+        InventoryItemList :$items!,
+        InstanceId :$instance-id!
     ) returns PutInventoryResult is service-operation('PutInventory') {
         my $request-input = PutInventoryRequest.new(
-        :$items,
-        :$instance-id
+            :$items,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<PutInventory>,
-            :return-type(PutInventoryResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-compliance-summaries(
-    MaxResults :$max-results,
-    Array[ComplianceStringFilter] :$filters,
-    Str :$next-token
+        MaxResults :$max-results,
+        Array[ComplianceStringFilter] :$filters,
+        Str :$next-token
     ) returns ListComplianceSummariesResult is service-operation('ListComplianceSummaries') {
         my $request-input = ListComplianceSummariesRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListComplianceSummaries>,
-            :return-type(ListComplianceSummariesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-instance-patch-states-for-patch-group(
-    PatchComplianceMaxResults :$max-results,
-    InstancePatchStateFilterList :$filters,
-    Str :$next-token,
-    PatchGroup :$patch-group!
+        PatchComplianceMaxResults :$max-results,
+        InstancePatchStateFilterList :$filters,
+        Str :$next-token,
+        PatchGroup :$patch-group!
     ) returns DescribeInstancePatchStatesForPatchGroupResult is service-operation('DescribeInstancePatchStatesForPatchGroup') {
         my $request-input = DescribeInstancePatchStatesForPatchGroupRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token,
-        :$patch-group
+            :$max-results,
+            :$filters,
+            :$next-token,
+            :$patch-group
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstancePatchStatesForPatchGroup>,
-            :return-type(DescribeInstancePatchStatesForPatchGroupResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-maintenance-window-tasks(
-    MaintenanceWindowMaxResults :$max-results,
-    MaintenanceWindowFilterList :$filters,
-    Str :$next-token,
-    MaintenanceWindowId :$window-id!
+        MaintenanceWindowMaxResults :$max-results,
+        MaintenanceWindowFilterList :$filters,
+        Str :$next-token,
+        MaintenanceWindowId :$window-id!
     ) returns DescribeMaintenanceWindowTasksResult is service-operation('DescribeMaintenanceWindowTasks') {
         my $request-input = DescribeMaintenanceWindowTasksRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token,
-        :$window-id
+            :$max-results,
+            :$filters,
+            :$next-token,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMaintenanceWindowTasks>,
-            :return-type(DescribeMaintenanceWindowTasksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-task-with-maintenance-window(
-    MaxConcurrency :$max-concurrency!,
-    MaintenanceWindowTaskType :$task-type!,
-    MaintenanceWindowTaskArn :$task-arn!,
-    ClientToken :$client-token,
-    MaintenanceWindowDescription :$description,
-    Str :$service-role-arn!,
-    MaintenanceWindowTaskInvocationParameters :$task-invocation-parameters,
-    MaintenanceWindowName :$name,
-    LoggingInfo :$logging-info,
-    Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] :$task-parameters,
-    MaxErrors :$max-errors!,
-    MaintenanceWindowTaskPriority :$priority,
-    Targets :$targets!,
-    MaintenanceWindowId :$window-id!
+        MaxConcurrency :$max-concurrency!,
+        MaintenanceWindowTaskType :$task-type!,
+        MaintenanceWindowTaskArn :$task-arn!,
+        ClientToken :$client-token,
+        MaintenanceWindowDescription :$description,
+        Str :$service-role-arn!,
+        MaintenanceWindowTaskInvocationParameters :$task-invocation-parameters,
+        MaintenanceWindowName :$name,
+        LoggingInfo :$logging-info,
+        Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] :$task-parameters,
+        MaxErrors :$max-errors!,
+        MaintenanceWindowTaskPriority :$priority,
+        Targets :$targets!,
+        MaintenanceWindowId :$window-id!
     ) returns RegisterTaskWithMaintenanceWindowResult is service-operation('RegisterTaskWithMaintenanceWindow') {
         my $request-input = RegisterTaskWithMaintenanceWindowRequest.new(
-        :$max-concurrency,
-        :$task-type,
-        :$task-arn,
-        :$client-token,
-        :$description,
-        :$service-role-arn,
-        :$task-invocation-parameters,
-        :$name,
-        :$logging-info,
-        :$task-parameters,
-        :$max-errors,
-        :$priority,
-        :$targets,
-        :$window-id
+            :$max-concurrency,
+            :$task-type,
+            :$task-arn,
+            :$client-token,
+            :$description,
+            :$service-role-arn,
+            :$task-invocation-parameters,
+            :$name,
+            :$logging-info,
+            :$task-parameters,
+            :$max-errors,
+            :$priority,
+            :$targets,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<RegisterTaskWithMaintenanceWindow>,
-            :return-type(RegisterTaskWithMaintenanceWindowResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-resource-data-sync(
-    MaxResults :$max-results,
-    Str :$next-token
+        MaxResults :$max-results,
+        Str :$next-token
     ) returns ListResourceDataSyncResult is service-operation('ListResourceDataSync') {
         my $request-input = ListResourceDataSyncRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListResourceDataSync>,
-            :return-type(ListResourceDataSyncResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-patch-baseline-for-patch-group(
-    OperatingSystem :$operating-system,
-    PatchGroup :$patch-group!
+        OperatingSystem :$operating-system,
+        PatchGroup :$patch-group!
     ) returns GetPatchBaselineForPatchGroupResult is service-operation('GetPatchBaselineForPatchGroup') {
         my $request-input = GetPatchBaselineForPatchGroupRequest.new(
-        :$operating-system,
-        :$patch-group
+            :$operating-system,
+            :$patch-group
         );
-;
+
         self.perform-operation(
             :api-call<GetPatchBaselineForPatchGroup>,
-            :return-type(GetPatchBaselineForPatchGroupResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-association-batch(
-    CreateAssociationBatchRequestEntries :$entries!
+        CreateAssociationBatchRequestEntries :$entries!
     ) returns CreateAssociationBatchResult is service-operation('CreateAssociationBatch') {
         my $request-input = CreateAssociationBatchRequest.new(
-        :$entries
+            :$entries
         );
-;
+
         self.perform-operation(
             :api-call<CreateAssociationBatch>,
-            :return-type(CreateAssociationBatchResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-managed-instance(
-    ManagedInstanceId :$instance-id!
+        ManagedInstanceId :$instance-id!
     ) returns DeregisterManagedInstanceResult is service-operation('DeregisterManagedInstance') {
         my $request-input = DeregisterManagedInstanceRequest.new(
-        :$instance-id
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterManagedInstance>,
-            :return-type(DeregisterManagedInstanceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-document(
-    DocumentVersion :$document-version,
-    DocumentARN :$name!
+        DocumentVersion :$document-version,
+        DocumentARN :$name!
     ) returns DescribeDocumentResult is service-operation('DescribeDocument') {
         my $request-input = DescribeDocumentRequest.new(
-        :$document-version,
-        :$name
+            :$document-version,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDocument>,
-            :return-type(DescribeDocumentResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-deployable-patch-snapshot-for-instance(
-    SnapshotId :$snapshot-id!,
-    InstanceId :$instance-id!
+        SnapshotId :$snapshot-id!,
+        InstanceId :$instance-id!
     ) returns GetDeployablePatchSnapshotForInstanceResult is service-operation('GetDeployablePatchSnapshotForInstance') {
         my $request-input = GetDeployablePatchSnapshotForInstanceRequest.new(
-        :$snapshot-id,
-        :$instance-id
+            :$snapshot-id,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDeployablePatchSnapshotForInstance>,
-            :return-type(GetDeployablePatchSnapshotForInstanceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-effective-patches-for-patch-baseline(
-    PatchBaselineMaxResults :$max-results,
-    BaselineId :$baseline-id!,
-    Str :$next-token
+        PatchBaselineMaxResults :$max-results,
+        BaselineId :$baseline-id!,
+        Str :$next-token
     ) returns DescribeEffectivePatchesForPatchBaselineResult is service-operation('DescribeEffectivePatchesForPatchBaseline') {
         my $request-input = DescribeEffectivePatchesForPatchBaselineRequest.new(
-        :$max-results,
-        :$baseline-id,
-        :$next-token
+            :$max-results,
+            :$baseline-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEffectivePatchesForPatchBaseline>,
-            :return-type(DescribeEffectivePatchesForPatchBaselineResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-parameters(
-    MaxResults :$max-results,
-    Array[ParameterStringFilter] :$parameter-filters,
-    Array[ParametersFilter] :$filters,
-    Str :$next-token
+        MaxResults :$max-results,
+        Array[ParameterStringFilter] :$parameter-filters,
+        Array[ParametersFilter] :$filters,
+        Str :$next-token
     ) returns DescribeParametersResult is service-operation('DescribeParameters') {
         my $request-input = DescribeParametersRequest.new(
-        :$max-results,
-        :$parameter-filters,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$parameter-filters,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeParameters>,
-            :return-type(DescribeParametersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-patch-baselines(
-    PatchBaselineMaxResults :$max-results,
-    PatchOrchestratorFilterList :$filters,
-    Str :$next-token
+        PatchBaselineMaxResults :$max-results,
+        PatchOrchestratorFilterList :$filters,
+        Str :$next-token
     ) returns DescribePatchBaselinesResult is service-operation('DescribePatchBaselines') {
         my $request-input = DescribePatchBaselinesRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribePatchBaselines>,
-            :return-type(DescribePatchBaselinesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-maintenance-window-execution(
-    MaintenanceWindowExecutionId :$window-execution-id!
+        MaintenanceWindowExecutionId :$window-execution-id!
     ) returns GetMaintenanceWindowExecutionResult is service-operation('GetMaintenanceWindowExecution') {
         my $request-input = GetMaintenanceWindowExecutionRequest.new(
-        :$window-execution-id
+            :$window-execution-id
         );
-;
+
         self.perform-operation(
             :api-call<GetMaintenanceWindowExecution>,
-            :return-type(GetMaintenanceWindowExecutionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-parameter-history(
-    MaxResults :$max-results,
-    Bool :$with-decryption,
-    PSParameterName :$name!,
-    Str :$next-token
+        MaxResults :$max-results,
+        Bool :$with-decryption,
+        PSParameterName :$name!,
+        Str :$next-token
     ) returns GetParameterHistoryResult is service-operation('GetParameterHistory') {
         my $request-input = GetParameterHistoryRequest.new(
-        :$max-results,
-        :$with-decryption,
-        :$name,
-        :$next-token
+            :$max-results,
+            :$with-decryption,
+            :$name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetParameterHistory>,
-            :return-type(GetParameterHistoryResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-parameters(
-    Bool :$with-decryption,
-    ParameterNameList :$names!
+        Bool :$with-decryption,
+        ParameterNameList :$names!
     ) returns GetParametersResult is service-operation('GetParameters') {
         my $request-input = GetParametersRequest.new(
-        :$with-decryption,
-        :$names
+            :$with-decryption,
+            :$names
         );
-;
+
         self.perform-operation(
             :api-call<GetParameters>,
-            :return-type(GetParametersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-documents(
-    MaxResults :$max-results,
-    Str :$next-token,
-    DocumentFilterList :$document-filter-list
+        MaxResults :$max-results,
+        Str :$next-token,
+        DocumentFilterList :$document-filter-list
     ) returns ListDocumentsResult is service-operation('ListDocuments') {
         my $request-input = ListDocumentsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$document-filter-list
+            :$max-results,
+            :$next-token,
+            :$document-filter-list
         );
-;
+
         self.perform-operation(
             :api-call<ListDocuments>,
-            :return-type(ListDocumentsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-inventory-entries(
-    MaxResults :$max-results,
-    InventoryFilterList :$filters,
-    Str :$next-token,
-    InventoryItemTypeName :$type-name!,
-    InstanceId :$instance-id!
+        MaxResults :$max-results,
+        InventoryFilterList :$filters,
+        Str :$next-token,
+        InventoryItemTypeName :$type-name!,
+        InstanceId :$instance-id!
     ) returns ListInventoryEntriesResult is service-operation('ListInventoryEntries') {
         my $request-input = ListInventoryEntriesRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token,
-        :$type-name,
-        :$instance-id
+            :$max-results,
+            :$filters,
+            :$next-token,
+            :$type-name,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<ListInventoryEntries>,
-            :return-type(ListInventoryEntriesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-document-permission(
-    DocumentName :$name!,
-    AccountIdList :$account-ids-to-remove,
-    AccountIdList :$account-ids-to-add,
-    DocumentPermissionType :$permission-type!
+        DocumentName :$name!,
+        AccountIdList :$account-ids-to-remove,
+        AccountIdList :$account-ids-to-add,
+        DocumentPermissionType :$permission-type!
     ) returns ModifyDocumentPermissionResponse is service-operation('ModifyDocumentPermission') {
         my $request-input = ModifyDocumentPermissionRequest.new(
-        :$name,
-        :$account-ids-to-remove,
-        :$account-ids-to-add,
-        :$permission-type
+            :$name,
+            :$account-ids-to-remove,
+            :$account-ids-to-add,
+            :$permission-type
         );
-;
+
         self.perform-operation(
             :api-call<ModifyDocumentPermission>,
-            :return-type(ModifyDocumentPermissionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-target-with-maintenance-window(
-    ClientToken :$client-token,
-    MaintenanceWindowDescription :$description,
-    MaintenanceWindowName :$name,
-    OwnerInformation :$owner-information,
-    MaintenanceWindowResourceType :$resource-type!,
-    Targets :$targets!,
-    MaintenanceWindowId :$window-id!
+        ClientToken :$client-token,
+        MaintenanceWindowDescription :$description,
+        MaintenanceWindowName :$name,
+        OwnerInformation :$owner-information,
+        MaintenanceWindowResourceType :$resource-type!,
+        Targets :$targets!,
+        MaintenanceWindowId :$window-id!
     ) returns RegisterTargetWithMaintenanceWindowResult is service-operation('RegisterTargetWithMaintenanceWindow') {
         my $request-input = RegisterTargetWithMaintenanceWindowRequest.new(
-        :$client-token,
-        :$description,
-        :$name,
-        :$owner-information,
-        :$resource-type,
-        :$targets,
-        :$window-id
+            :$client-token,
+            :$description,
+            :$name,
+            :$owner-information,
+            :$resource-type,
+            :$targets,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<RegisterTargetWithMaintenanceWindow>,
-            :return-type(RegisterTargetWithMaintenanceWindowResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-maintenance-window-task(
-    MaintenanceWindowTaskId :$window-task-id!,
-    MaintenanceWindowId :$window-id!
+        MaintenanceWindowTaskId :$window-task-id!,
+        MaintenanceWindowId :$window-id!
     ) returns GetMaintenanceWindowTaskResult is service-operation('GetMaintenanceWindowTask') {
         my $request-input = GetMaintenanceWindowTaskRequest.new(
-        :$window-task-id,
-        :$window-id
+            :$window-task-id,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<GetMaintenanceWindowTask>,
-            :return-type(GetMaintenanceWindowTaskResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-document(
-    DocumentVersion :$document-version,
-    DocumentARN :$name!
+        DocumentVersion :$document-version,
+        DocumentARN :$name!
     ) returns GetDocumentResult is service-operation('GetDocument') {
         my $request-input = GetDocumentRequest.new(
-        :$document-version,
-        :$name
+            :$document-version,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetDocument>,
-            :return-type(GetDocumentResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-maintenance-windows(
-    MaintenanceWindowMaxResults :$max-results,
-    MaintenanceWindowFilterList :$filters,
-    Str :$next-token
+        MaintenanceWindowMaxResults :$max-results,
+        MaintenanceWindowFilterList :$filters,
+        Str :$next-token
     ) returns DescribeMaintenanceWindowsResult is service-operation('DescribeMaintenanceWindows') {
         my $request-input = DescribeMaintenanceWindowsRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMaintenanceWindows>,
-            :return-type(DescribeMaintenanceWindowsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-target-from-maintenance-window(
-    MaintenanceWindowTargetId :$window-target-id!,
-    Bool :$safe,
-    MaintenanceWindowId :$window-id!
+        MaintenanceWindowTargetId :$window-target-id!,
+        Bool :$safe,
+        MaintenanceWindowId :$window-id!
     ) returns DeregisterTargetFromMaintenanceWindowResult is service-operation('DeregisterTargetFromMaintenanceWindow') {
         my $request-input = DeregisterTargetFromMaintenanceWindowRequest.new(
-        :$window-target-id,
-        :$safe,
-        :$window-id
+            :$window-target-id,
+            :$safe,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterTargetFromMaintenanceWindow>,
-            :return-type(DeregisterTargetFromMaintenanceWindowResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-parameters(
-    ParameterNameList :$names!
+        ParameterNameList :$names!
     ) returns DeleteParametersResult is service-operation('DeleteParameters') {
         my $request-input = DeleteParametersRequest.new(
-        :$names
+            :$names
         );
-;
+
         self.perform-operation(
             :api-call<DeleteParameters>,
-            :return-type(DeleteParametersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-document(
-    DocumentContent :$content!,
-    DocumentName :$name!,
-    DocumentType :$document-type
+        DocumentContent :$content!,
+        DocumentName :$name!,
+        DocumentType :$document-type
     ) returns CreateDocumentResult is service-operation('CreateDocument') {
         my $request-input = CreateDocumentRequest.new(
-        :$content,
-        :$name,
-        :$document-type
+            :$content,
+            :$name,
+            :$document-type
         );
-;
+
         self.perform-operation(
             :api-call<CreateDocument>,
-            :return-type(CreateDocumentResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-maintenance-window(
-    MaintenanceWindowId :$window-id!
+        MaintenanceWindowId :$window-id!
     ) returns DeleteMaintenanceWindowResult is service-operation('DeleteMaintenanceWindow') {
         my $request-input = DeleteMaintenanceWindowRequest.new(
-        :$window-id
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteMaintenanceWindow>,
-            :return-type(DeleteMaintenanceWindowResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-parameter(
-    PSParameterName :$name!
+        PSParameterName :$name!
     ) returns DeleteParameterResult is service-operation('DeleteParameter') {
         my $request-input = DeleteParameterRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteParameter>,
-            :return-type(DeleteParameterResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-available-patches(
-    PatchBaselineMaxResults :$max-results,
-    PatchOrchestratorFilterList :$filters,
-    Str :$next-token
+        PatchBaselineMaxResults :$max-results,
+        PatchOrchestratorFilterList :$filters,
+        Str :$next-token
     ) returns DescribeAvailablePatchesResult is service-operation('DescribeAvailablePatches') {
         my $request-input = DescribeAvailablePatchesRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAvailablePatches>,
-            :return-type(DescribeAvailablePatchesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-maintenance-window-task(
-    MaxConcurrency :$max-concurrency,
-    MaintenanceWindowTaskArn :$task-arn,
-    Bool :$replace,
-    MaintenanceWindowTaskId :$window-task-id!,
-    MaintenanceWindowDescription :$description,
-    Str :$service-role-arn,
-    MaintenanceWindowTaskInvocationParameters :$task-invocation-parameters,
-    MaintenanceWindowName :$name,
-    LoggingInfo :$logging-info,
-    Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] :$task-parameters,
-    MaxErrors :$max-errors,
-    MaintenanceWindowTaskPriority :$priority,
-    Targets :$targets,
-    MaintenanceWindowId :$window-id!
+        MaxConcurrency :$max-concurrency,
+        MaintenanceWindowTaskArn :$task-arn,
+        Bool :$replace,
+        MaintenanceWindowTaskId :$window-task-id!,
+        MaintenanceWindowDescription :$description,
+        Str :$service-role-arn,
+        MaintenanceWindowTaskInvocationParameters :$task-invocation-parameters,
+        MaintenanceWindowName :$name,
+        LoggingInfo :$logging-info,
+        Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] :$task-parameters,
+        MaxErrors :$max-errors,
+        MaintenanceWindowTaskPriority :$priority,
+        Targets :$targets,
+        MaintenanceWindowId :$window-id!
     ) returns UpdateMaintenanceWindowTaskResult is service-operation('UpdateMaintenanceWindowTask') {
         my $request-input = UpdateMaintenanceWindowTaskRequest.new(
-        :$max-concurrency,
-        :$task-arn,
-        :$replace,
-        :$window-task-id,
-        :$description,
-        :$service-role-arn,
-        :$task-invocation-parameters,
-        :$name,
-        :$logging-info,
-        :$task-parameters,
-        :$max-errors,
-        :$priority,
-        :$targets,
-        :$window-id
+            :$max-concurrency,
+            :$task-arn,
+            :$replace,
+            :$window-task-id,
+            :$description,
+            :$service-role-arn,
+            :$task-invocation-parameters,
+            :$name,
+            :$logging-info,
+            :$task-parameters,
+            :$max-errors,
+            :$priority,
+            :$targets,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateMaintenanceWindowTask>,
-            :return-type(UpdateMaintenanceWindowTaskResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-automation-execution(
-    DocumentVersion :$document-version,
-    IdempotencyToken :$client-token,
-    AutomationParameterMap :$parameters,
-    DocumentARN :$document-name!
+        DocumentVersion :$document-version,
+        IdempotencyToken :$client-token,
+        AutomationParameterMap :$parameters,
+        DocumentARN :$document-name!
     ) returns StartAutomationExecutionResult is service-operation('StartAutomationExecution') {
         my $request-input = StartAutomationExecutionRequest.new(
-        :$document-version,
-        :$client-token,
-        :$parameters,
-        :$document-name
+            :$document-version,
+            :$client-token,
+            :$parameters,
+            :$document-name
         );
-;
+
         self.perform-operation(
             :api-call<StartAutomationExecution>,
-            :return-type(StartAutomationExecutionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method send-command(
-    MaxConcurrency :$max-concurrency,
-    Str :$service-role-arn,
-    S3BucketName :$output-s3-bucket-name,
-    Hash[Array[Str], Str] :$parameters,
-    Comment :$comment,
-    DocumentARN :$document-name!,
-    DocumentHash :$document-hash,
-    NotificationConfig :$notification-config,
-    S3KeyPrefix :$output-s3-key-prefix,
-    MaxErrors :$max-errors,
-    S3Region :$output-s3-region,
-    TimeoutSeconds :$timeout-seconds,
-    DocumentHashType :$document-hash-type,
-    Targets :$targets,
-    InstanceIdList :$instance-ids
+        MaxConcurrency :$max-concurrency,
+        Str :$service-role-arn,
+        S3BucketName :$output-s3-bucket-name,
+        Hash[Array[Str], Str] :$parameters,
+        Comment :$comment,
+        DocumentARN :$document-name!,
+        DocumentHash :$document-hash,
+        NotificationConfig :$notification-config,
+        S3KeyPrefix :$output-s3-key-prefix,
+        MaxErrors :$max-errors,
+        S3Region :$output-s3-region,
+        TimeoutSeconds :$timeout-seconds,
+        DocumentHashType :$document-hash-type,
+        Targets :$targets,
+        InstanceIdList :$instance-ids
     ) returns SendCommandResult is service-operation('SendCommand') {
         my $request-input = SendCommandRequest.new(
-        :$max-concurrency,
-        :$service-role-arn,
-        :$output-s3-bucket-name,
-        :$parameters,
-        :$comment,
-        :$document-name,
-        :$document-hash,
-        :$notification-config,
-        :$output-s3-key-prefix,
-        :$max-errors,
-        :$output-s3-region,
-        :$timeout-seconds,
-        :$document-hash-type,
-        :$targets,
-        :$instance-ids
+            :$max-concurrency,
+            :$service-role-arn,
+            :$output-s3-bucket-name,
+            :$parameters,
+            :$comment,
+            :$document-name,
+            :$document-hash,
+            :$notification-config,
+            :$output-s3-key-prefix,
+            :$max-errors,
+            :$output-s3-region,
+            :$timeout-seconds,
+            :$document-hash-type,
+            :$targets,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<SendCommand>,
-            :return-type(SendCommandResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-effective-instance-associations(
-    EffectiveInstanceAssociationMaxResults :$max-results,
-    Str :$next-token,
-    InstanceId :$instance-id!
+        EffectiveInstanceAssociationMaxResults :$max-results,
+        Str :$next-token,
+        InstanceId :$instance-id!
     ) returns DescribeEffectiveInstanceAssociationsResult is service-operation('DescribeEffectiveInstanceAssociations') {
         my $request-input = DescribeEffectiveInstanceAssociationsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$instance-id
+            :$max-results,
+            :$next-token,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEffectiveInstanceAssociations>,
-            :return-type(DescribeEffectiveInstanceAssociationsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-maintenance-window-execution-task-invocation(
-    MaintenanceWindowExecutionId :$window-execution-id!,
-    MaintenanceWindowExecutionTaskInvocationId :$invocation-id!,
-    MaintenanceWindowExecutionTaskId :$task-id!
+        MaintenanceWindowExecutionId :$window-execution-id!,
+        MaintenanceWindowExecutionTaskInvocationId :$invocation-id!,
+        MaintenanceWindowExecutionTaskId :$task-id!
     ) returns GetMaintenanceWindowExecutionTaskInvocationResult is service-operation('GetMaintenanceWindowExecutionTaskInvocation') {
         my $request-input = GetMaintenanceWindowExecutionTaskInvocationRequest.new(
-        :$window-execution-id,
-        :$invocation-id,
-        :$task-id
+            :$window-execution-id,
+            :$invocation-id,
+            :$task-id
         );
-;
+
         self.perform-operation(
             :api-call<GetMaintenanceWindowExecutionTaskInvocation>,
-            :return-type(GetMaintenanceWindowExecutionTaskInvocationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-parameter(
-    Bool :$with-decryption,
-    PSParameterName :$name!
+        Bool :$with-decryption,
+        PSParameterName :$name!
     ) returns GetParameterResult is service-operation('GetParameter') {
         my $request-input = GetParameterRequest.new(
-        :$with-decryption,
-        :$name
+            :$with-decryption,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetParameter>,
-            :return-type(GetParameterResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-document(
-    DocumentName :$name!
+        DocumentName :$name!
     ) returns DeleteDocumentResult is service-operation('DeleteDocument') {
         my $request-input = DeleteDocumentRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDocument>,
-            :return-type(DeleteDocumentResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-instance-associations-status(
-    MaxResults :$max-results,
-    Str :$next-token,
-    InstanceId :$instance-id!
+        MaxResults :$max-results,
+        Str :$next-token,
+        InstanceId :$instance-id!
     ) returns DescribeInstanceAssociationsStatusResult is service-operation('DescribeInstanceAssociationsStatus') {
         my $request-input = DescribeInstanceAssociationsStatusRequest.new(
-        :$max-results,
-        :$next-token,
-        :$instance-id
+            :$max-results,
+            :$next-token,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstanceAssociationsStatus>,
-            :return-type(DescribeInstanceAssociationsStatusResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-instance-patch-states(
-    PatchComplianceMaxResults :$max-results,
-    Str :$next-token,
-    InstanceIdList :$instance-ids!
+        PatchComplianceMaxResults :$max-results,
+        Str :$next-token,
+        InstanceIdList :$instance-ids!
     ) returns DescribeInstancePatchStatesResult is service-operation('DescribeInstancePatchStates') {
         my $request-input = DescribeInstancePatchStatesRequest.new(
-        :$max-results,
-        :$next-token,
-        :$instance-ids
+            :$max-results,
+            :$next-token,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstancePatchStates>,
-            :return-type(DescribeInstancePatchStatesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-maintenance-window-executions(
-    MaintenanceWindowMaxResults :$max-results,
-    MaintenanceWindowFilterList :$filters,
-    Str :$next-token,
-    MaintenanceWindowId :$window-id!
+        MaintenanceWindowMaxResults :$max-results,
+        MaintenanceWindowFilterList :$filters,
+        Str :$next-token,
+        MaintenanceWindowId :$window-id!
     ) returns DescribeMaintenanceWindowExecutionsResult is service-operation('DescribeMaintenanceWindowExecutions') {
         my $request-input = DescribeMaintenanceWindowExecutionsRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token,
-        :$window-id
+            :$max-results,
+            :$filters,
+            :$next-token,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMaintenanceWindowExecutions>,
-            :return-type(DescribeMaintenanceWindowExecutionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-patch-group-state(
-    PatchGroup :$patch-group!
+        PatchGroup :$patch-group!
     ) returns DescribePatchGroupStateResult is service-operation('DescribePatchGroupState') {
         my $request-input = DescribePatchGroupStateRequest.new(
-        :$patch-group
+            :$patch-group
         );
-;
+
         self.perform-operation(
             :api-call<DescribePatchGroupState>,
-            :return-type(DescribePatchGroupStateResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-command-invocation(
-    CommandId :$command-id!,
-    CommandPluginName :$plugin-name,
-    InstanceId :$instance-id!
+        CommandId :$command-id!,
+        CommandPluginName :$plugin-name,
+        InstanceId :$instance-id!
     ) returns GetCommandInvocationResult is service-operation('GetCommandInvocation') {
         my $request-input = GetCommandInvocationRequest.new(
-        :$command-id,
-        :$plugin-name,
-        :$instance-id
+            :$command-id,
+            :$plugin-name,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<GetCommandInvocation>,
-            :return-type(GetCommandInvocationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-inventory-schema(
-    GetInventorySchemaMaxResults :$max-results,
-    Bool :$sub-type,
-    Str :$next-token,
-    InventoryItemTypeNameFilter :$type-name
+        GetInventorySchemaMaxResults :$max-results,
+        Bool :$sub-type,
+        Str :$next-token,
+        InventoryItemTypeNameFilter :$type-name
     ) returns GetInventorySchemaResult is service-operation('GetInventorySchema') {
         my $request-input = GetInventorySchemaRequest.new(
-        :$max-results,
-        :$sub-type,
-        :$next-token,
-        :$type-name
+            :$max-results,
+            :$sub-type,
+            :$next-token,
+            :$type-name
         );
-;
+
         self.perform-operation(
             :api-call<GetInventorySchema>,
-            :return-type(GetInventorySchemaResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-association-status(
-    AssociationStatus :$association-status!,
-    DocumentName :$name!,
-    InstanceId :$instance-id!
+        AssociationStatus :$association-status!,
+        DocumentName :$name!,
+        InstanceId :$instance-id!
     ) returns UpdateAssociationStatusResult is service-operation('UpdateAssociationStatus') {
         my $request-input = UpdateAssociationStatusRequest.new(
-        :$association-status,
-        :$name,
-        :$instance-id
+            :$association-status,
+            :$name,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAssociationStatus>,
-            :return-type(UpdateAssociationStatusResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-commands(
-    CommandMaxResults :$max-results,
-    CommandFilterList :$filters,
-    CommandId :$command-id,
-    Str :$next-token,
-    InstanceId :$instance-id
+        CommandMaxResults :$max-results,
+        CommandFilterList :$filters,
+        CommandId :$command-id,
+        Str :$next-token,
+        InstanceId :$instance-id
     ) returns ListCommandsResult is service-operation('ListCommands') {
         my $request-input = ListCommandsRequest.new(
-        :$max-results,
-        :$filters,
-        :$command-id,
-        :$next-token,
-        :$instance-id
+            :$max-results,
+            :$filters,
+            :$command-id,
+            :$next-token,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<ListCommands>,
-            :return-type(ListCommandsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-activation(
-    ActivationId :$activation-id!
+        ActivationId :$activation-id!
     ) returns DeleteActivationResult is service-operation('DeleteActivation') {
         my $request-input = DeleteActivationRequest.new(
-        :$activation-id
+            :$activation-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteActivation>,
-            :return-type(DeleteActivationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-association(
-    AssociationId :$association-id,
-    DocumentName :$name,
-    InstanceId :$instance-id
+        AssociationId :$association-id,
+        DocumentName :$name,
+        InstanceId :$instance-id
     ) returns DeleteAssociationResult is service-operation('DeleteAssociation') {
         my $request-input = DeleteAssociationRequest.new(
-        :$association-id,
-        :$name,
-        :$instance-id
+            :$association-id,
+            :$name,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAssociation>,
-            :return-type(DeleteAssociationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-patch-baseline(
-    BaselineId :$baseline-id!
+        BaselineId :$baseline-id!
     ) returns DeletePatchBaselineResult is service-operation('DeletePatchBaseline') {
         my $request-input = DeletePatchBaselineRequest.new(
-        :$baseline-id
+            :$baseline-id
         );
-;
+
         self.perform-operation(
             :api-call<DeletePatchBaseline>,
-            :return-type(DeletePatchBaselineResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-automation-executions(
-    MaxResults :$max-results,
-    AutomationExecutionFilterList :$filters,
-    Str :$next-token
+        MaxResults :$max-results,
+        AutomationExecutionFilterList :$filters,
+        Str :$next-token
     ) returns DescribeAutomationExecutionsResult is service-operation('DescribeAutomationExecutions') {
         my $request-input = DescribeAutomationExecutionsRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAutomationExecutions>,
-            :return-type(DescribeAutomationExecutionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-resource(
-    Str :$resource-id!,
-    ResourceTypeForTagging :$resource-type!
+        Str :$resource-id!,
+        ResourceTypeForTagging :$resource-type!
     ) returns ListTagsForResourceResult is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceRequest.new(
-        :$resource-id,
-        :$resource-type
+            :$resource-id,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResource>,
-            :return-type(ListTagsForResourceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-command-invocations(
-    CommandMaxResults :$max-results,
-    CommandFilterList :$filters,
-    CommandId :$command-id,
-    Str :$next-token,
-    InstanceId :$instance-id,
-    Bool :$details
+        CommandMaxResults :$max-results,
+        CommandFilterList :$filters,
+        CommandId :$command-id,
+        Str :$next-token,
+        InstanceId :$instance-id,
+        Bool :$details
     ) returns ListCommandInvocationsResult is service-operation('ListCommandInvocations') {
         my $request-input = ListCommandInvocationsRequest.new(
-        :$max-results,
-        :$filters,
-        :$command-id,
-        :$next-token,
-        :$instance-id,
-        :$details
+            :$max-results,
+            :$filters,
+            :$command-id,
+            :$next-token,
+            :$instance-id,
+            :$details
         );
-;
+
         self.perform-operation(
             :api-call<ListCommandInvocations>,
-            :return-type(ListCommandInvocationsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-associations(
-    MaxResults :$max-results,
-    Str :$next-token,
-    AssociationFilterList :$association-filter-list
+        MaxResults :$max-results,
+        Str :$next-token,
+        AssociationFilterList :$association-filter-list
     ) returns ListAssociationsResult is service-operation('ListAssociations') {
         my $request-input = ListAssociationsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$association-filter-list
+            :$max-results,
+            :$next-token,
+            :$association-filter-list
         );
-;
+
         self.perform-operation(
             :api-call<ListAssociations>,
-            :return-type(ListAssociationsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-command(
-    CommandId :$command-id!,
-    InstanceIdList :$instance-ids
+        CommandId :$command-id!,
+        InstanceIdList :$instance-ids
     ) returns CancelCommandResult is service-operation('CancelCommand') {
         my $request-input = CancelCommandRequest.new(
-        :$command-id,
-        :$instance-ids
+            :$command-id,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<CancelCommand>,
-            :return-type(CancelCommandResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-activation(
-    DateTime :$expiration-date,
-    RegistrationLimit :$registration-limit,
-    ActivationDescription :$description,
-    IamRole :$iam-role!,
-    DefaultInstanceName :$default-instance-name
+        DateTime :$expiration-date,
+        RegistrationLimit :$registration-limit,
+        ActivationDescription :$description,
+        IamRole :$iam-role!,
+        DefaultInstanceName :$default-instance-name
     ) returns CreateActivationResult is service-operation('CreateActivation') {
         my $request-input = CreateActivationRequest.new(
-        :$expiration-date,
-        :$registration-limit,
-        :$description,
-        :$iam-role,
-        :$default-instance-name
+            :$expiration-date,
+            :$registration-limit,
+            :$description,
+            :$iam-role,
+            :$default-instance-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateActivation>,
-            :return-type(CreateActivationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-maintenance-window-target(
-    Bool :$replace,
-    MaintenanceWindowTargetId :$window-target-id!,
-    MaintenanceWindowDescription :$description,
-    MaintenanceWindowName :$name,
-    OwnerInformation :$owner-information,
-    Targets :$targets,
-    MaintenanceWindowId :$window-id!
+        Bool :$replace,
+        MaintenanceWindowTargetId :$window-target-id!,
+        MaintenanceWindowDescription :$description,
+        MaintenanceWindowName :$name,
+        OwnerInformation :$owner-information,
+        Targets :$targets,
+        MaintenanceWindowId :$window-id!
     ) returns UpdateMaintenanceWindowTargetResult is service-operation('UpdateMaintenanceWindowTarget') {
         my $request-input = UpdateMaintenanceWindowTargetRequest.new(
-        :$replace,
-        :$window-target-id,
-        :$description,
-        :$name,
-        :$owner-information,
-        :$targets,
-        :$window-id
+            :$replace,
+            :$window-target-id,
+            :$description,
+            :$name,
+            :$owner-information,
+            :$targets,
+            :$window-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateMaintenanceWindowTarget>,
-            :return-type(UpdateMaintenanceWindowTargetResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-association(
-    AssociationName :$association-name,
-    InstanceAssociationOutputLocation :$output-location,
-    ScheduleExpression :$schedule-expression,
-    DocumentVersion :$document-version,
-    AssociationId :$association-id!,
-    Hash[Array[Str], Str] :$parameters,
-    AssociationVersion :$association-version,
-    DocumentName :$name,
-    Targets :$targets
+        AssociationName :$association-name,
+        InstanceAssociationOutputLocation :$output-location,
+        ScheduleExpression :$schedule-expression,
+        DocumentVersion :$document-version,
+        AssociationId :$association-id!,
+        Hash[Array[Str], Str] :$parameters,
+        AssociationVersion :$association-version,
+        DocumentName :$name,
+        Targets :$targets
     ) returns UpdateAssociationResult is service-operation('UpdateAssociation') {
         my $request-input = UpdateAssociationRequest.new(
-        :$association-name,
-        :$output-location,
-        :$schedule-expression,
-        :$document-version,
-        :$association-id,
-        :$parameters,
-        :$association-version,
-        :$name,
-        :$targets
+            :$association-name,
+            :$output-location,
+            :$schedule-expression,
+            :$document-version,
+            :$association-id,
+            :$parameters,
+            :$association-version,
+            :$name,
+            :$targets
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAssociation>,
-            :return-type(UpdateAssociationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-compliance-items(
-    ComplianceItemContentHash :$item-content-hash,
-    ComplianceTypeName :$compliance-type!,
-    ComplianceExecutionSummary :$execution-summary!,
-    ComplianceResourceId :$resource-id!,
-    ComplianceItemEntryList :$items!,
-    ComplianceResourceType :$resource-type!
+        ComplianceItemContentHash :$item-content-hash,
+        ComplianceTypeName :$compliance-type!,
+        ComplianceExecutionSummary :$execution-summary!,
+        ComplianceResourceId :$resource-id!,
+        ComplianceItemEntryList :$items!,
+        ComplianceResourceType :$resource-type!
     ) returns PutComplianceItemsResult is service-operation('PutComplianceItems') {
         my $request-input = PutComplianceItemsRequest.new(
-        :$item-content-hash,
-        :$compliance-type,
-        :$execution-summary,
-        :$resource-id,
-        :$items,
-        :$resource-type
+            :$item-content-hash,
+            :$compliance-type,
+            :$execution-summary,
+            :$resource-id,
+            :$items,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<PutComplianceItems>,
-            :return-type(PutComplianceItemsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-resource-compliance-summaries(
-    MaxResults :$max-results,
-    Array[ComplianceStringFilter] :$filters,
-    Str :$next-token
+        MaxResults :$max-results,
+        Array[ComplianceStringFilter] :$filters,
+        Str :$next-token
     ) returns ListResourceComplianceSummariesResult is service-operation('ListResourceComplianceSummaries') {
         my $request-input = ListResourceComplianceSummariesRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListResourceComplianceSummaries>,
-            :return-type(ListResourceComplianceSummariesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-association(
-    AssociationId :$association-id,
-    AssociationVersion :$association-version,
-    DocumentName :$name,
-    InstanceId :$instance-id
+        AssociationId :$association-id,
+        AssociationVersion :$association-version,
+        DocumentName :$name,
+        InstanceId :$instance-id
     ) returns DescribeAssociationResult is service-operation('DescribeAssociation') {
         my $request-input = DescribeAssociationRequest.new(
-        :$association-id,
-        :$association-version,
-        :$name,
-        :$instance-id
+            :$association-id,
+            :$association-version,
+            :$name,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAssociation>,
-            :return-type(DescribeAssociationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-maintenance-window-execution-task-invocations(
-    MaintenanceWindowMaxResults :$max-results,
-    MaintenanceWindowExecutionId :$window-execution-id!,
-    MaintenanceWindowFilterList :$filters,
-    MaintenanceWindowExecutionTaskId :$task-id!,
-    Str :$next-token
+        MaintenanceWindowMaxResults :$max-results,
+        MaintenanceWindowExecutionId :$window-execution-id!,
+        MaintenanceWindowFilterList :$filters,
+        MaintenanceWindowExecutionTaskId :$task-id!,
+        Str :$next-token
     ) returns DescribeMaintenanceWindowExecutionTaskInvocationsResult is service-operation('DescribeMaintenanceWindowExecutionTaskInvocations') {
         my $request-input = DescribeMaintenanceWindowExecutionTaskInvocationsRequest.new(
-        :$max-results,
-        :$window-execution-id,
-        :$filters,
-        :$task-id,
-        :$next-token
+            :$max-results,
+            :$window-execution-id,
+            :$filters,
+            :$task-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMaintenanceWindowExecutionTaskInvocations>,
-            :return-type(DescribeMaintenanceWindowExecutionTaskInvocationsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-automation-execution(
-    AutomationExecutionId :$automation-execution-id!
+        AutomationExecutionId :$automation-execution-id!
     ) returns GetAutomationExecutionResult is service-operation('GetAutomationExecution') {
         my $request-input = GetAutomationExecutionRequest.new(
-        :$automation-execution-id
+            :$automation-execution-id
         );
-;
+
         self.perform-operation(
             :api-call<GetAutomationExecution>,
-            :return-type(GetAutomationExecutionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-compliance-items(
-    MaxResults :$max-results,
-    Array[ComplianceStringFilter] :$filters,
-    ComplianceResourceTypeList :$resource-types,
-    Str :$next-token,
-    ComplianceResourceIdList :$resource-ids
+        MaxResults :$max-results,
+        Array[ComplianceStringFilter] :$filters,
+        ComplianceResourceTypeList :$resource-types,
+        Str :$next-token,
+        ComplianceResourceIdList :$resource-ids
     ) returns ListComplianceItemsResult is service-operation('ListComplianceItems') {
         my $request-input = ListComplianceItemsRequest.new(
-        :$max-results,
-        :$filters,
-        :$resource-types,
-        :$next-token,
-        :$resource-ids
+            :$max-results,
+            :$filters,
+            :$resource-types,
+            :$next-token,
+            :$resource-ids
         );
-;
+
         self.perform-operation(
             :api-call<ListComplianceItems>,
-            :return-type(ListComplianceItemsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-maintenance-window(
-    MaintenanceWindowDurationHours :$duration!,
-    Bool :$allow-unassociated-targets!,
-    MaintenanceWindowSchedule :$schedule!,
-    ClientToken :$client-token,
-    MaintenanceWindowDescription :$description,
-    MaintenanceWindowCutoff :$cutoff!,
-    MaintenanceWindowName :$name!
+        MaintenanceWindowDurationHours :$duration!,
+        Bool :$allow-unassociated-targets!,
+        MaintenanceWindowSchedule :$schedule!,
+        ClientToken :$client-token,
+        MaintenanceWindowDescription :$description,
+        MaintenanceWindowCutoff :$cutoff!,
+        MaintenanceWindowName :$name!
     ) returns CreateMaintenanceWindowResult is service-operation('CreateMaintenanceWindow') {
         my $request-input = CreateMaintenanceWindowRequest.new(
-        :$duration,
-        :$allow-unassociated-targets,
-        :$schedule,
-        :$client-token,
-        :$description,
-        :$cutoff,
-        :$name
+            :$duration,
+            :$allow-unassociated-targets,
+            :$schedule,
+            :$client-token,
+            :$description,
+            :$cutoff,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateMaintenanceWindow>,
-            :return-type(CreateMaintenanceWindowResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-patch-baseline-for-patch-group(
-    BaselineId :$baseline-id!,
-    PatchGroup :$patch-group!
+        BaselineId :$baseline-id!,
+        PatchGroup :$patch-group!
     ) returns DeregisterPatchBaselineForPatchGroupResult is service-operation('DeregisterPatchBaselineForPatchGroup') {
         my $request-input = DeregisterPatchBaselineForPatchGroupRequest.new(
-        :$baseline-id,
-        :$patch-group
+            :$baseline-id,
+            :$patch-group
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterPatchBaselineForPatchGroup>,
-            :return-type(DeregisterPatchBaselineForPatchGroupResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-instance-patches(
-    PatchComplianceMaxResults :$max-results,
-    PatchOrchestratorFilterList :$filters,
-    Str :$next-token,
-    InstanceId :$instance-id!
+        PatchComplianceMaxResults :$max-results,
+        PatchOrchestratorFilterList :$filters,
+        Str :$next-token,
+        InstanceId :$instance-id!
     ) returns DescribeInstancePatchesResult is service-operation('DescribeInstancePatches') {
         my $request-input = DescribeInstancePatchesRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token,
-        :$instance-id
+            :$max-results,
+            :$filters,
+            :$next-token,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstancePatches>,
-            :return-type(DescribeInstancePatchesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-patch-groups(
-    PatchBaselineMaxResults :$max-results,
-    PatchOrchestratorFilterList :$filters,
-    Str :$next-token
+        PatchBaselineMaxResults :$max-results,
+        PatchOrchestratorFilterList :$filters,
+        Str :$next-token
     ) returns DescribePatchGroupsResult is service-operation('DescribePatchGroups') {
         my $request-input = DescribePatchGroupsRequest.new(
-        :$max-results,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribePatchGroups>,
-            :return-type(DescribePatchGroupsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-maintenance-window-execution-task(
-    MaintenanceWindowExecutionId :$window-execution-id!,
-    MaintenanceWindowExecutionTaskId :$task-id!
+        MaintenanceWindowExecutionId :$window-execution-id!,
+        MaintenanceWindowExecutionTaskId :$task-id!
     ) returns GetMaintenanceWindowExecutionTaskResult is service-operation('GetMaintenanceWindowExecutionTask') {
         my $request-input = GetMaintenanceWindowExecutionTaskRequest.new(
-        :$window-execution-id,
-        :$task-id
+            :$window-execution-id,
+            :$task-id
         );
-;
+
         self.perform-operation(
             :api-call<GetMaintenanceWindowExecutionTask>,
-            :return-type(GetMaintenanceWindowExecutionTaskResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

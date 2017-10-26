@@ -150,78 +150,72 @@ class AWS::SDK::Service::CloudSearchDomain does AWS::SDK::Service {
     }
 
     method upload-documents(
-    Blob :$documents!,
-    ContentType :$content-type!
+        Blob :$documents!,
+        ContentType :$content-type!
     ) returns UploadDocumentsResponse is service-operation('UploadDocuments') {
         my $request-input = UploadDocumentsRequest.new(
-        :$documents,
-        :$content-type
+            :$documents,
+            :$content-type
         );
-;
+
         self.perform-operation(
             :api-call<UploadDocuments>,
-            :return-type(UploadDocumentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method search(
-    Str :$sort,
-    Str :$filter-query,
-    QueryParser :$query-parser,
-    Str :$query-options,
-    Int :$start,
-    Int :$size,
-    Str :$query!,
-    Bool :$partial,
-    Str :$expr,
-    Str :$facet,
-    Str :$cursor,
-    Str :$stats,
-    Str :$return,
-    Str :$highlight
+        Str :$sort,
+        Str :$filter-query,
+        QueryParser :$query-parser,
+        Str :$query-options,
+        Int :$start,
+        Int :$size,
+        Str :$query!,
+        Bool :$partial,
+        Str :$expr,
+        Str :$facet,
+        Str :$cursor,
+        Str :$stats,
+        Str :$return,
+        Str :$highlight
     ) returns SearchResponse is service-operation('Search') {
         my $request-input = SearchRequest.new(
-        :$sort,
-        :$filter-query,
-        :$query-parser,
-        :$query-options,
-        :$start,
-        :$size,
-        :$query,
-        :$partial,
-        :$expr,
-        :$facet,
-        :$cursor,
-        :$stats,
-        :$return,
-        :$highlight
+            :$sort,
+            :$filter-query,
+            :$query-parser,
+            :$query-options,
+            :$start,
+            :$size,
+            :$query,
+            :$partial,
+            :$expr,
+            :$facet,
+            :$cursor,
+            :$stats,
+            :$return,
+            :$highlight
         );
-;
+
         self.perform-operation(
             :api-call<Search>,
-            :return-type(SearchResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method suggest(
-    Int :$size,
-    Str :$query!,
-    Str :$suggester!
+        Int :$size,
+        Str :$query!,
+        Str :$suggester!
     ) returns SuggestResponse is service-operation('Suggest') {
         my $request-input = SuggestRequest.new(
-        :$size,
-        :$query,
-        :$suggester
+            :$size,
+            :$query,
+            :$suggester
         );
-;
+
         self.perform-operation(
             :api-call<Suggest>,
-            :return-type(SuggestResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

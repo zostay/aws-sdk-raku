@@ -1009,841 +1009,761 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     }
 
     method validate-template(
-    TemplateBody :$template-body,
-    TemplateURL :$template-url
+        TemplateBody :$template-body,
+        TemplateURL :$template-url
     ) returns ValidateTemplateOutput is service-operation('ValidateTemplate') {
         my $request-input = ValidateTemplateInput.new(
-        :$template-body,
-        :$template-url
+            :$template-body,
+            :$template-url
         );
-;
+
         self.perform-operation(
             :api-call<ValidateTemplate>,
-            :return-type(ValidateTemplateOutput),
-            :result-wrapper('ValidateTemplateResult'),
             :$request-input,
         );
     }
 
     method get-stack-policy(
-    Str :$stack-name!
+        Str :$stack-name!
     ) returns GetStackPolicyOutput is service-operation('GetStackPolicy') {
         my $request-input = GetStackPolicyInput.new(
-        :$stack-name
+            :$stack-name
         );
-;
+
         self.perform-operation(
             :api-call<GetStackPolicy>,
-            :return-type(GetStackPolicyOutput),
-            :result-wrapper('GetStackPolicyResult'),
             :$request-input,
         );
     }
 
     method update-termination-protection(
-    StackNameOrId :$stack-name!,
-    Bool :$enable-termination-protection!
+        StackNameOrId :$stack-name!,
+        Bool :$enable-termination-protection!
     ) returns UpdateTerminationProtectionOutput is service-operation('UpdateTerminationProtection') {
         my $request-input = UpdateTerminationProtectionInput.new(
-        :$stack-name,
-        :$enable-termination-protection
+            :$stack-name,
+            :$enable-termination-protection
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTerminationProtection>,
-            :return-type(UpdateTerminationProtectionOutput),
-            :result-wrapper('UpdateTerminationProtectionResult'),
             :$request-input,
         );
     }
 
     method describe-change-set(
-    StackNameOrId :$stack-name,
-    ChangeSetNameOrId :$change-set-name!,
-    NextToken :$next-token
+        StackNameOrId :$stack-name,
+        ChangeSetNameOrId :$change-set-name!,
+        NextToken :$next-token
     ) returns DescribeChangeSetOutput is service-operation('DescribeChangeSet') {
         my $request-input = DescribeChangeSetInput.new(
-        :$stack-name,
-        :$change-set-name,
-        :$next-token
+            :$stack-name,
+            :$change-set-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeChangeSet>,
-            :return-type(DescribeChangeSetOutput),
-            :result-wrapper('DescribeChangeSetResult'),
             :$request-input,
         );
     }
 
     method describe-account-limits(
-    NextToken :$next-token
+        NextToken :$next-token
     ) returns DescribeAccountLimitsOutput is service-operation('DescribeAccountLimits') {
         my $request-input = DescribeAccountLimitsInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAccountLimits>,
-            :return-type(DescribeAccountLimitsOutput),
-            :result-wrapper('DescribeAccountLimitsResult'),
             :$request-input,
         );
     }
 
     method delete-stack-set(
-    Str :$stack-set-name!
+        Str :$stack-set-name!
     ) returns DeleteStackSetOutput is service-operation('DeleteStackSet') {
         my $request-input = DeleteStackSetInput.new(
-        :$stack-set-name
+            :$stack-set-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteStackSet>,
-            :return-type(DeleteStackSetOutput),
-            :result-wrapper('DeleteStackSetResult'),
             :$request-input,
         );
     }
 
     method delete-change-set(
-    StackNameOrId :$stack-name,
-    ChangeSetNameOrId :$change-set-name!
+        StackNameOrId :$stack-name,
+        ChangeSetNameOrId :$change-set-name!
     ) returns DeleteChangeSetOutput is service-operation('DeleteChangeSet') {
         my $request-input = DeleteChangeSetInput.new(
-        :$stack-name,
-        :$change-set-name
+            :$stack-name,
+            :$change-set-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteChangeSet>,
-            :return-type(DeleteChangeSetOutput),
-            :result-wrapper('DeleteChangeSetResult'),
             :$request-input,
         );
     }
 
     method create-stack(
-    ClientRequestToken :$client-request-token,
-    NotificationARNs :$notification-arns,
-    TimeoutMinutes :$timeout-in-minutes,
-    Str :$stack-name!,
-    OnFailure :$on-failure,
-    RoleARN :$role-arn,
-    Bool :$enable-termination-protection,
-    StackPolicyBody :$stack-policy-body,
-    Bool :$disable-rollback,
-    StackPolicyURL :$stack-policy-url,
-    RollbackConfiguration :$rollback-configuration,
-    Array[Parameter] :$parameters,
-    TemplateBody :$template-body,
-    Tags :$tags,
-    Array[ResourceType] :$resource-types,
-    Array[Capability] :$capabilities,
-    TemplateURL :$template-url
+        ClientRequestToken :$client-request-token,
+        NotificationARNs :$notification-arns,
+        TimeoutMinutes :$timeout-in-minutes,
+        Str :$stack-name!,
+        OnFailure :$on-failure,
+        RoleARN :$role-arn,
+        Bool :$enable-termination-protection,
+        StackPolicyBody :$stack-policy-body,
+        Bool :$disable-rollback,
+        StackPolicyURL :$stack-policy-url,
+        RollbackConfiguration :$rollback-configuration,
+        Array[Parameter] :$parameters,
+        TemplateBody :$template-body,
+        Tags :$tags,
+        Array[ResourceType] :$resource-types,
+        Array[Capability] :$capabilities,
+        TemplateURL :$template-url
     ) returns CreateStackOutput is service-operation('CreateStack') {
         my $request-input = CreateStackInput.new(
-        :$client-request-token,
-        :$notification-arns,
-        :$timeout-in-minutes,
-        :$stack-name,
-        :$on-failure,
-        :$role-arn,
-        :$enable-termination-protection,
-        :$stack-policy-body,
-        :$disable-rollback,
-        :$stack-policy-url,
-        :$rollback-configuration,
-        :$parameters,
-        :$template-body,
-        :$tags,
-        :$resource-types,
-        :$capabilities,
-        :$template-url
+            :$client-request-token,
+            :$notification-arns,
+            :$timeout-in-minutes,
+            :$stack-name,
+            :$on-failure,
+            :$role-arn,
+            :$enable-termination-protection,
+            :$stack-policy-body,
+            :$disable-rollback,
+            :$stack-policy-url,
+            :$rollback-configuration,
+            :$parameters,
+            :$template-body,
+            :$tags,
+            :$resource-types,
+            :$capabilities,
+            :$template-url
         );
-;
+
         self.perform-operation(
             :api-call<CreateStack>,
-            :return-type(CreateStackOutput),
-            :result-wrapper('CreateStackResult'),
             :$request-input,
         );
     }
 
     method cancel-update-stack(
-    ClientRequestToken :$client-request-token,
-    Str :$stack-name!
+        ClientRequestToken :$client-request-token,
+        Str :$stack-name!
     ) is service-operation('CancelUpdateStack') {
         my $request-input = CancelUpdateStackInput.new(
-        :$client-request-token,
-        :$stack-name
+            :$client-request-token,
+            :$stack-name
         );
-;
+
         self.perform-operation(
             :api-call<CancelUpdateStack>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-stack(
-    ClientRequestToken :$client-request-token,
-    NotificationARNs :$notification-arns,
-    Str :$stack-name!,
-    RoleARN :$role-arn,
-    Bool :$use-previous-template,
-    StackPolicyBody :$stack-policy-body,
-    StackPolicyURL :$stack-policy-url,
-    RollbackConfiguration :$rollback-configuration,
-    Array[Parameter] :$parameters,
-    StackPolicyDuringUpdateURL :$stack-policy-during-update-url,
-    TemplateBody :$template-body,
-    Tags :$tags,
-    Array[ResourceType] :$resource-types,
-    StackPolicyDuringUpdateBody :$stack-policy-during-update-body,
-    Array[Capability] :$capabilities,
-    TemplateURL :$template-url
+        ClientRequestToken :$client-request-token,
+        NotificationARNs :$notification-arns,
+        Str :$stack-name!,
+        RoleARN :$role-arn,
+        Bool :$use-previous-template,
+        StackPolicyBody :$stack-policy-body,
+        StackPolicyURL :$stack-policy-url,
+        RollbackConfiguration :$rollback-configuration,
+        Array[Parameter] :$parameters,
+        StackPolicyDuringUpdateURL :$stack-policy-during-update-url,
+        TemplateBody :$template-body,
+        Tags :$tags,
+        Array[ResourceType] :$resource-types,
+        StackPolicyDuringUpdateBody :$stack-policy-during-update-body,
+        Array[Capability] :$capabilities,
+        TemplateURL :$template-url
     ) returns UpdateStackOutput is service-operation('UpdateStack') {
         my $request-input = UpdateStackInput.new(
-        :$client-request-token,
-        :$notification-arns,
-        :$stack-name,
-        :$role-arn,
-        :$use-previous-template,
-        :$stack-policy-body,
-        :$stack-policy-url,
-        :$rollback-configuration,
-        :$parameters,
-        :$stack-policy-during-update-url,
-        :$template-body,
-        :$tags,
-        :$resource-types,
-        :$stack-policy-during-update-body,
-        :$capabilities,
-        :$template-url
+            :$client-request-token,
+            :$notification-arns,
+            :$stack-name,
+            :$role-arn,
+            :$use-previous-template,
+            :$stack-policy-body,
+            :$stack-policy-url,
+            :$rollback-configuration,
+            :$parameters,
+            :$stack-policy-during-update-url,
+            :$template-body,
+            :$tags,
+            :$resource-types,
+            :$stack-policy-during-update-body,
+            :$capabilities,
+            :$template-url
         );
-;
+
         self.perform-operation(
             :api-call<UpdateStack>,
-            :return-type(UpdateStackOutput),
-            :result-wrapper('UpdateStackResult'),
             :$request-input,
         );
     }
 
     method stop-stack-set-operation(
-    Str :$stack-set-name!,
-    ClientRequestToken :$operation-id!
+        Str :$stack-set-name!,
+        ClientRequestToken :$operation-id!
     ) returns StopStackSetOperationOutput is service-operation('StopStackSetOperation') {
         my $request-input = StopStackSetOperationInput.new(
-        :$stack-set-name,
-        :$operation-id
+            :$stack-set-name,
+            :$operation-id
         );
-;
+
         self.perform-operation(
             :api-call<StopStackSetOperation>,
-            :return-type(StopStackSetOperationOutput),
-            :result-wrapper('StopStackSetOperationResult'),
             :$request-input,
         );
     }
 
     method list-stacks(
-    Array[StackStatus] :$stack-status-filter,
-    NextToken :$next-token
+        Array[StackStatus] :$stack-status-filter,
+        NextToken :$next-token
     ) returns ListStacksOutput is service-operation('ListStacks') {
         my $request-input = ListStacksInput.new(
-        :$stack-status-filter,
-        :$next-token
+            :$stack-status-filter,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListStacks>,
-            :return-type(ListStacksOutput),
-            :result-wrapper('ListStacksResult'),
             :$request-input,
         );
     }
 
     method list-stack-resources(
-    Str :$stack-name!,
-    NextToken :$next-token
+        Str :$stack-name!,
+        NextToken :$next-token
     ) returns ListStackResourcesOutput is service-operation('ListStackResources') {
         my $request-input = ListStackResourcesInput.new(
-        :$stack-name,
-        :$next-token
+            :$stack-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListStackResources>,
-            :return-type(ListStackResourcesOutput),
-            :result-wrapper('ListStackResourcesResult'),
             :$request-input,
         );
     }
 
     method list-imports(
-    Str :$export-name!,
-    NextToken :$next-token
+        Str :$export-name!,
+        NextToken :$next-token
     ) returns ListImportsOutput is service-operation('ListImports') {
         my $request-input = ListImportsInput.new(
-        :$export-name,
-        :$next-token
+            :$export-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListImports>,
-            :return-type(ListImportsOutput),
-            :result-wrapper('ListImportsResult'),
             :$request-input,
         );
     }
 
     method get-template-summary(
-    StackNameOrId :$stack-name,
-    StackSetNameOrId :$stack-set-name,
-    TemplateBody :$template-body,
-    TemplateURL :$template-url
+        StackNameOrId :$stack-name,
+        StackSetNameOrId :$stack-set-name,
+        TemplateBody :$template-body,
+        TemplateURL :$template-url
     ) returns GetTemplateSummaryOutput is service-operation('GetTemplateSummary') {
         my $request-input = GetTemplateSummaryInput.new(
-        :$stack-name,
-        :$stack-set-name,
-        :$template-body,
-        :$template-url
+            :$stack-name,
+            :$stack-set-name,
+            :$template-body,
+            :$template-url
         );
-;
+
         self.perform-operation(
             :api-call<GetTemplateSummary>,
-            :return-type(GetTemplateSummaryOutput),
-            :result-wrapper('GetTemplateSummaryResult'),
             :$request-input,
         );
     }
 
     method describe-stack-resources(
-    Str :$stack-name,
-    Str :$physical-resource-id,
-    Str :$logical-resource-id
+        Str :$stack-name,
+        Str :$physical-resource-id,
+        Str :$logical-resource-id
     ) returns DescribeStackResourcesOutput is service-operation('DescribeStackResources') {
         my $request-input = DescribeStackResourcesInput.new(
-        :$stack-name,
-        :$physical-resource-id,
-        :$logical-resource-id
+            :$stack-name,
+            :$physical-resource-id,
+            :$logical-resource-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStackResources>,
-            :return-type(DescribeStackResourcesOutput),
-            :result-wrapper('DescribeStackResourcesResult'),
             :$request-input,
         );
     }
 
     method list-stack-set-operations(
-    MaxResults :$max-results,
-    Str :$stack-set-name!,
-    NextToken :$next-token
+        MaxResults :$max-results,
+        Str :$stack-set-name!,
+        NextToken :$next-token
     ) returns ListStackSetOperationsOutput is service-operation('ListStackSetOperations') {
         my $request-input = ListStackSetOperationsInput.new(
-        :$max-results,
-        :$stack-set-name,
-        :$next-token
+            :$max-results,
+            :$stack-set-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListStackSetOperations>,
-            :return-type(ListStackSetOperationsOutput),
-            :result-wrapper('ListStackSetOperationsResult'),
             :$request-input,
         );
     }
 
     method describe-stack-set(
-    Str :$stack-set-name!
+        Str :$stack-set-name!
     ) returns DescribeStackSetOutput is service-operation('DescribeStackSet') {
         my $request-input = DescribeStackSetInput.new(
-        :$stack-set-name
+            :$stack-set-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStackSet>,
-            :return-type(DescribeStackSetOutput),
-            :result-wrapper('DescribeStackSetResult'),
             :$request-input,
         );
     }
 
     method describe-stack-events(
-    Str :$stack-name,
-    NextToken :$next-token
+        Str :$stack-name,
+        NextToken :$next-token
     ) returns DescribeStackEventsOutput is service-operation('DescribeStackEvents') {
         my $request-input = DescribeStackEventsInput.new(
-        :$stack-name,
-        :$next-token
+            :$stack-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStackEvents>,
-            :return-type(DescribeStackEventsOutput),
-            :result-wrapper('DescribeStackEventsResult'),
             :$request-input,
         );
     }
 
     method create-stack-instances(
-    StackSetOperationPreferences :$operation-preferences,
-    Str :$stack-set-name!,
-    ClientRequestToken :$operation-id,
-    Array[Account] :$accounts!,
-    Array[Str] :$regions!
+        StackSetOperationPreferences :$operation-preferences,
+        Str :$stack-set-name!,
+        ClientRequestToken :$operation-id,
+        Array[Account] :$accounts!,
+        Array[Str] :$regions!
     ) returns CreateStackInstancesOutput is service-operation('CreateStackInstances') {
         my $request-input = CreateStackInstancesInput.new(
-        :$operation-preferences,
-        :$stack-set-name,
-        :$operation-id,
-        :$accounts,
-        :$regions
+            :$operation-preferences,
+            :$stack-set-name,
+            :$operation-id,
+            :$accounts,
+            :$regions
         );
-;
+
         self.perform-operation(
             :api-call<CreateStackInstances>,
-            :return-type(CreateStackInstancesOutput),
-            :result-wrapper('CreateStackInstancesResult'),
             :$request-input,
         );
     }
 
     method continue-update-rollback(
-    ClientRequestToken :$client-request-token,
-    StackNameOrId :$stack-name!,
-    RoleARN :$role-arn,
-    Array[ResourceToSkip] :$resources-to-skip
+        ClientRequestToken :$client-request-token,
+        StackNameOrId :$stack-name!,
+        RoleARN :$role-arn,
+        Array[ResourceToSkip] :$resources-to-skip
     ) returns ContinueUpdateRollbackOutput is service-operation('ContinueUpdateRollback') {
         my $request-input = ContinueUpdateRollbackInput.new(
-        :$client-request-token,
-        :$stack-name,
-        :$role-arn,
-        :$resources-to-skip
+            :$client-request-token,
+            :$stack-name,
+            :$role-arn,
+            :$resources-to-skip
         );
-;
+
         self.perform-operation(
             :api-call<ContinueUpdateRollback>,
-            :return-type(ContinueUpdateRollbackOutput),
-            :result-wrapper('ContinueUpdateRollbackResult'),
             :$request-input,
         );
     }
 
     method list-stack-sets(
-    MaxResults :$max-results,
-    StackSetStatus :$status,
-    NextToken :$next-token
+        MaxResults :$max-results,
+        StackSetStatus :$status,
+        NextToken :$next-token
     ) returns ListStackSetsOutput is service-operation('ListStackSets') {
         my $request-input = ListStackSetsInput.new(
-        :$max-results,
-        :$status,
-        :$next-token
+            :$max-results,
+            :$status,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListStackSets>,
-            :return-type(ListStackSetsOutput),
-            :result-wrapper('ListStackSetsResult'),
             :$request-input,
         );
     }
 
     method list-stack-instances(
-    MaxResults :$max-results,
-    Str :$stack-set-name!,
-    Account :$stack-instance-account,
-    NextToken :$next-token,
-    Str :$stack-instance-region
+        MaxResults :$max-results,
+        Str :$stack-set-name!,
+        Account :$stack-instance-account,
+        NextToken :$next-token,
+        Str :$stack-instance-region
     ) returns ListStackInstancesOutput is service-operation('ListStackInstances') {
         my $request-input = ListStackInstancesInput.new(
-        :$max-results,
-        :$stack-set-name,
-        :$stack-instance-account,
-        :$next-token,
-        :$stack-instance-region
+            :$max-results,
+            :$stack-set-name,
+            :$stack-instance-account,
+            :$next-token,
+            :$stack-instance-region
         );
-;
+
         self.perform-operation(
             :api-call<ListStackInstances>,
-            :return-type(ListStackInstancesOutput),
-            :result-wrapper('ListStackInstancesResult'),
             :$request-input,
         );
     }
 
     method execute-change-set(
-    ClientRequestToken :$client-request-token,
-    StackNameOrId :$stack-name,
-    ChangeSetNameOrId :$change-set-name!
+        ClientRequestToken :$client-request-token,
+        StackNameOrId :$stack-name,
+        ChangeSetNameOrId :$change-set-name!
     ) returns ExecuteChangeSetOutput is service-operation('ExecuteChangeSet') {
         my $request-input = ExecuteChangeSetInput.new(
-        :$client-request-token,
-        :$stack-name,
-        :$change-set-name
+            :$client-request-token,
+            :$stack-name,
+            :$change-set-name
         );
-;
+
         self.perform-operation(
             :api-call<ExecuteChangeSet>,
-            :return-type(ExecuteChangeSetOutput),
-            :result-wrapper('ExecuteChangeSetResult'),
             :$request-input,
         );
     }
 
     method describe-stack-instance(
-    Str :$stack-set-name!,
-    Account :$stack-instance-account!,
-    Str :$stack-instance-region!
+        Str :$stack-set-name!,
+        Account :$stack-instance-account!,
+        Str :$stack-instance-region!
     ) returns DescribeStackInstanceOutput is service-operation('DescribeStackInstance') {
         my $request-input = DescribeStackInstanceInput.new(
-        :$stack-set-name,
-        :$stack-instance-account,
-        :$stack-instance-region
+            :$stack-set-name,
+            :$stack-instance-account,
+            :$stack-instance-region
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStackInstance>,
-            :return-type(DescribeStackInstanceOutput),
-            :result-wrapper('DescribeStackInstanceResult'),
             :$request-input,
         );
     }
 
     method delete-stack-instances(
-    StackSetOperationPreferences :$operation-preferences,
-    Str :$stack-set-name!,
-    ClientRequestToken :$operation-id,
-    Array[Account] :$accounts!,
-    Bool :$retain-stacks!,
-    Array[Str] :$regions!
+        StackSetOperationPreferences :$operation-preferences,
+        Str :$stack-set-name!,
+        ClientRequestToken :$operation-id,
+        Array[Account] :$accounts!,
+        Bool :$retain-stacks!,
+        Array[Str] :$regions!
     ) returns DeleteStackInstancesOutput is service-operation('DeleteStackInstances') {
         my $request-input = DeleteStackInstancesInput.new(
-        :$operation-preferences,
-        :$stack-set-name,
-        :$operation-id,
-        :$accounts,
-        :$retain-stacks,
-        :$regions
+            :$operation-preferences,
+            :$stack-set-name,
+            :$operation-id,
+            :$accounts,
+            :$retain-stacks,
+            :$regions
         );
-;
+
         self.perform-operation(
             :api-call<DeleteStackInstances>,
-            :return-type(DeleteStackInstancesOutput),
-            :result-wrapper('DeleteStackInstancesResult'),
             :$request-input,
         );
     }
 
     method create-stack-set(
-    ClientRequestToken :$client-request-token,
-    Str :$stack-set-name!,
-    Description :$description,
-    Array[Parameter] :$parameters,
-    TemplateBody :$template-body,
-    Tags :$tags,
-    Array[Capability] :$capabilities,
-    TemplateURL :$template-url
+        ClientRequestToken :$client-request-token,
+        Str :$stack-set-name!,
+        Description :$description,
+        Array[Parameter] :$parameters,
+        TemplateBody :$template-body,
+        Tags :$tags,
+        Array[Capability] :$capabilities,
+        TemplateURL :$template-url
     ) returns CreateStackSetOutput is service-operation('CreateStackSet') {
         my $request-input = CreateStackSetInput.new(
-        :$client-request-token,
-        :$stack-set-name,
-        :$description,
-        :$parameters,
-        :$template-body,
-        :$tags,
-        :$capabilities,
-        :$template-url
+            :$client-request-token,
+            :$stack-set-name,
+            :$description,
+            :$parameters,
+            :$template-body,
+            :$tags,
+            :$capabilities,
+            :$template-url
         );
-;
+
         self.perform-operation(
             :api-call<CreateStackSet>,
-            :return-type(CreateStackSetOutput),
-            :result-wrapper('CreateStackSetResult'),
             :$request-input,
         );
     }
 
     method update-stack-set(
-    StackSetOperationPreferences :$operation-preferences,
-    Bool :$use-previous-template,
-    Str :$stack-set-name!,
-    Description :$description,
-    ClientRequestToken :$operation-id,
-    Array[Parameter] :$parameters,
-    TemplateBody :$template-body,
-    Tags :$tags,
-    Array[Capability] :$capabilities,
-    TemplateURL :$template-url
+        StackSetOperationPreferences :$operation-preferences,
+        Bool :$use-previous-template,
+        Str :$stack-set-name!,
+        Description :$description,
+        ClientRequestToken :$operation-id,
+        Array[Parameter] :$parameters,
+        TemplateBody :$template-body,
+        Tags :$tags,
+        Array[Capability] :$capabilities,
+        TemplateURL :$template-url
     ) returns UpdateStackSetOutput is service-operation('UpdateStackSet') {
         my $request-input = UpdateStackSetInput.new(
-        :$operation-preferences,
-        :$use-previous-template,
-        :$stack-set-name,
-        :$description,
-        :$operation-id,
-        :$parameters,
-        :$template-body,
-        :$tags,
-        :$capabilities,
-        :$template-url
+            :$operation-preferences,
+            :$use-previous-template,
+            :$stack-set-name,
+            :$description,
+            :$operation-id,
+            :$parameters,
+            :$template-body,
+            :$tags,
+            :$capabilities,
+            :$template-url
         );
-;
+
         self.perform-operation(
             :api-call<UpdateStackSet>,
-            :return-type(UpdateStackSetOutput),
-            :result-wrapper('UpdateStackSetResult'),
             :$request-input,
         );
     }
 
     method signal-resource(
-    StackNameOrId :$stack-name!,
-    ResourceSignalStatus :$status!,
-    Str :$logical-resource-id!,
-    ResourceSignalUniqueId :$unique-id!
+        StackNameOrId :$stack-name!,
+        ResourceSignalStatus :$status!,
+        Str :$logical-resource-id!,
+        ResourceSignalUniqueId :$unique-id!
     ) is service-operation('SignalResource') {
         my $request-input = SignalResourceInput.new(
-        :$stack-name,
-        :$status,
-        :$logical-resource-id,
-        :$unique-id
+            :$stack-name,
+            :$status,
+            :$logical-resource-id,
+            :$unique-id
         );
-;
+
         self.perform-operation(
             :api-call<SignalResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-stack-policy(
-    Str :$stack-name!,
-    StackPolicyBody :$stack-policy-body,
-    StackPolicyURL :$stack-policy-url
+        Str :$stack-name!,
+        StackPolicyBody :$stack-policy-body,
+        StackPolicyURL :$stack-policy-url
     ) is service-operation('SetStackPolicy') {
         my $request-input = SetStackPolicyInput.new(
-        :$stack-name,
-        :$stack-policy-body,
-        :$stack-policy-url
+            :$stack-name,
+            :$stack-policy-body,
+            :$stack-policy-url
         );
-;
+
         self.perform-operation(
             :api-call<SetStackPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-stack-set-operation(
-    Str :$stack-set-name!,
-    ClientRequestToken :$operation-id!
+        Str :$stack-set-name!,
+        ClientRequestToken :$operation-id!
     ) returns DescribeStackSetOperationOutput is service-operation('DescribeStackSetOperation') {
         my $request-input = DescribeStackSetOperationInput.new(
-        :$stack-set-name,
-        :$operation-id
+            :$stack-set-name,
+            :$operation-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStackSetOperation>,
-            :return-type(DescribeStackSetOperationOutput),
-            :result-wrapper('DescribeStackSetOperationResult'),
             :$request-input,
         );
     }
 
     method delete-stack(
-    ClientRequestToken :$client-request-token,
-    Str :$stack-name!,
-    RoleARN :$role-arn,
-    Array[Str] :$retain-resources
+        ClientRequestToken :$client-request-token,
+        Str :$stack-name!,
+        RoleARN :$role-arn,
+        Array[Str] :$retain-resources
     ) is service-operation('DeleteStack') {
         my $request-input = DeleteStackInput.new(
-        :$client-request-token,
-        :$stack-name,
-        :$role-arn,
-        :$retain-resources
+            :$client-request-token,
+            :$stack-name,
+            :$role-arn,
+            :$retain-resources
         );
-;
+
         self.perform-operation(
             :api-call<DeleteStack>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-change-sets(
-    StackNameOrId :$stack-name!,
-    NextToken :$next-token
+        StackNameOrId :$stack-name!,
+        NextToken :$next-token
     ) returns ListChangeSetsOutput is service-operation('ListChangeSets') {
         my $request-input = ListChangeSetsInput.new(
-        :$stack-name,
-        :$next-token
+            :$stack-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListChangeSets>,
-            :return-type(ListChangeSetsOutput),
-            :result-wrapper('ListChangeSetsResult'),
             :$request-input,
         );
     }
 
     method describe-stack-resource(
-    Str :$stack-name!,
-    Str :$logical-resource-id!
+        Str :$stack-name!,
+        Str :$logical-resource-id!
     ) returns DescribeStackResourceOutput is service-operation('DescribeStackResource') {
         my $request-input = DescribeStackResourceInput.new(
-        :$stack-name,
-        :$logical-resource-id
+            :$stack-name,
+            :$logical-resource-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStackResource>,
-            :return-type(DescribeStackResourceOutput),
-            :result-wrapper('DescribeStackResourceResult'),
             :$request-input,
         );
     }
 
     method create-change-set(
-    NotificationARNs :$notification-arns,
-    StackNameOrId :$stack-name!,
-    ChangeSetName :$change-set-name!,
-    RoleARN :$role-arn,
-    Bool :$use-previous-template,
-    Description :$description,
-    ClientToken :$client-token,
-    RollbackConfiguration :$rollback-configuration,
-    Array[Parameter] :$parameters,
-    TemplateBody :$template-body,
-    Tags :$tags,
-    Array[ResourceType] :$resource-types,
-    ChangeSetType :$change-set-type,
-    Array[Capability] :$capabilities,
-    TemplateURL :$template-url
+        NotificationARNs :$notification-arns,
+        StackNameOrId :$stack-name!,
+        ChangeSetName :$change-set-name!,
+        RoleARN :$role-arn,
+        Bool :$use-previous-template,
+        Description :$description,
+        ClientToken :$client-token,
+        RollbackConfiguration :$rollback-configuration,
+        Array[Parameter] :$parameters,
+        TemplateBody :$template-body,
+        Tags :$tags,
+        Array[ResourceType] :$resource-types,
+        ChangeSetType :$change-set-type,
+        Array[Capability] :$capabilities,
+        TemplateURL :$template-url
     ) returns CreateChangeSetOutput is service-operation('CreateChangeSet') {
         my $request-input = CreateChangeSetInput.new(
-        :$notification-arns,
-        :$stack-name,
-        :$change-set-name,
-        :$role-arn,
-        :$use-previous-template,
-        :$description,
-        :$client-token,
-        :$rollback-configuration,
-        :$parameters,
-        :$template-body,
-        :$tags,
-        :$resource-types,
-        :$change-set-type,
-        :$capabilities,
-        :$template-url
+            :$notification-arns,
+            :$stack-name,
+            :$change-set-name,
+            :$role-arn,
+            :$use-previous-template,
+            :$description,
+            :$client-token,
+            :$rollback-configuration,
+            :$parameters,
+            :$template-body,
+            :$tags,
+            :$resource-types,
+            :$change-set-type,
+            :$capabilities,
+            :$template-url
         );
-;
+
         self.perform-operation(
             :api-call<CreateChangeSet>,
-            :return-type(CreateChangeSetOutput),
-            :result-wrapper('CreateChangeSetResult'),
             :$request-input,
         );
     }
 
     method list-stack-set-operation-results(
-    MaxResults :$max-results,
-    Str :$stack-set-name!,
-    ClientRequestToken :$operation-id!,
-    NextToken :$next-token
+        MaxResults :$max-results,
+        Str :$stack-set-name!,
+        ClientRequestToken :$operation-id!,
+        NextToken :$next-token
     ) returns ListStackSetOperationResultsOutput is service-operation('ListStackSetOperationResults') {
         my $request-input = ListStackSetOperationResultsInput.new(
-        :$max-results,
-        :$stack-set-name,
-        :$operation-id,
-        :$next-token
+            :$max-results,
+            :$stack-set-name,
+            :$operation-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListStackSetOperationResults>,
-            :return-type(ListStackSetOperationResultsOutput),
-            :result-wrapper('ListStackSetOperationResultsResult'),
             :$request-input,
         );
     }
 
     method list-exports(
-    NextToken :$next-token
+        NextToken :$next-token
     ) returns ListExportsOutput is service-operation('ListExports') {
         my $request-input = ListExportsInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListExports>,
-            :return-type(ListExportsOutput),
-            :result-wrapper('ListExportsResult'),
             :$request-input,
         );
     }
 
     method get-template(
-    Str :$stack-name,
-    ChangeSetNameOrId :$change-set-name,
-    TemplateStage :$template-stage
+        Str :$stack-name,
+        ChangeSetNameOrId :$change-set-name,
+        TemplateStage :$template-stage
     ) returns GetTemplateOutput is service-operation('GetTemplate') {
         my $request-input = GetTemplateInput.new(
-        :$stack-name,
-        :$change-set-name,
-        :$template-stage
+            :$stack-name,
+            :$change-set-name,
+            :$template-stage
         );
-;
+
         self.perform-operation(
             :api-call<GetTemplate>,
-            :return-type(GetTemplateOutput),
-            :result-wrapper('GetTemplateResult'),
             :$request-input,
         );
     }
 
     method estimate-template-cost(
-    Array[Parameter] :$parameters,
-    TemplateBody :$template-body,
-    TemplateURL :$template-url
+        Array[Parameter] :$parameters,
+        TemplateBody :$template-body,
+        TemplateURL :$template-url
     ) returns EstimateTemplateCostOutput is service-operation('EstimateTemplateCost') {
         my $request-input = EstimateTemplateCostInput.new(
-        :$parameters,
-        :$template-body,
-        :$template-url
+            :$parameters,
+            :$template-body,
+            :$template-url
         );
-;
+
         self.perform-operation(
             :api-call<EstimateTemplateCost>,
-            :return-type(EstimateTemplateCostOutput),
-            :result-wrapper('EstimateTemplateCostResult'),
             :$request-input,
         );
     }
 
     method describe-stacks(
-    Str :$stack-name,
-    NextToken :$next-token
+        Str :$stack-name,
+        NextToken :$next-token
     ) returns DescribeStacksOutput is service-operation('DescribeStacks') {
         my $request-input = DescribeStacksInput.new(
-        :$stack-name,
-        :$next-token
+            :$stack-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStacks>,
-            :return-type(DescribeStacksOutput),
-            :result-wrapper('DescribeStacksResult'),
             :$request-input,
         );
     }

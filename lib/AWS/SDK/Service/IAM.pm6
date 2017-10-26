@@ -1767,401 +1767,357 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     method delete-user(
-    existingUserNameType :$user-name!
+        existingUserNameType :$user-name!
     ) is service-operation('DeleteUser') {
         my $request-input = DeleteUserRequest.new(
-        :$user-name
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteUser>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-policy-version(
-    policyVersionIdType :$version-id!,
-    arnType :$policy-arn!
+        policyVersionIdType :$version-id!,
+        arnType :$policy-arn!
     ) is service-operation('DeletePolicyVersion') {
         my $request-input = DeletePolicyVersionRequest.new(
-        :$version-id,
-        :$policy-arn
+            :$version-id,
+            :$policy-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeletePolicyVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-group-policy(
-    policyNameType :$policy-name!,
-    groupNameType :$group-name!
+        policyNameType :$policy-name!,
+        groupNameType :$group-name!
     ) is service-operation('DeleteGroupPolicy') {
         my $request-input = DeleteGroupPolicyRequest.new(
-        :$policy-name,
-        :$group-name
+            :$policy-name,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteGroupPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-user(
-    userNameType :$new-user-name,
-    pathType :$new-path,
-    existingUserNameType :$user-name!
+        userNameType :$new-user-name,
+        pathType :$new-path,
+        existingUserNameType :$user-name!
     ) is service-operation('UpdateUser') {
         my $request-input = UpdateUserRequest.new(
-        :$new-user-name,
-        :$new-path,
-        :$user-name
+            :$new-user-name,
+            :$new-path,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateUser>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-login-profile(
-    userNameType :$user-name!
+        userNameType :$user-name!
     ) is service-operation('DeleteLoginProfile') {
         my $request-input = DeleteLoginProfileRequest.new(
-        :$user-name
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLoginProfile>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-account-alias(
-    accountAliasType :$account-alias!
+        accountAliasType :$account-alias!
     ) is service-operation('DeleteAccountAlias') {
         my $request-input = DeleteAccountAliasRequest.new(
-        :$account-alias
+            :$account-alias
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAccountAlias>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-policy(
-    policyDescriptionType :$description,
-    policyPathType :$path,
-    policyDocumentType :$policy-document!,
-    policyNameType :$policy-name!
+        policyDescriptionType :$description,
+        policyPathType :$path,
+        policyDocumentType :$policy-document!,
+        policyNameType :$policy-name!
     ) returns CreatePolicyResponse is service-operation('CreatePolicy') {
         my $request-input = CreatePolicyRequest.new(
-        :$description,
-        :$path,
-        :$policy-document,
-        :$policy-name
+            :$description,
+            :$path,
+            :$policy-document,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<CreatePolicy>,
-            :return-type(CreatePolicyResponse),
-            :result-wrapper('CreatePolicyResult'),
             :$request-input,
         );
     }
 
     method list-role-policies(
-    maxItemsType :$max-items,
-    markerType :$marker,
-    roleNameType :$role-name!
+        maxItemsType :$max-items,
+        markerType :$marker,
+        roleNameType :$role-name!
     ) returns ListRolePoliciesResponse is service-operation('ListRolePolicies') {
         my $request-input = ListRolePoliciesRequest.new(
-        :$max-items,
-        :$marker,
-        :$role-name
+            :$max-items,
+            :$marker,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<ListRolePolicies>,
-            :return-type(ListRolePoliciesResponse),
-            :result-wrapper('ListRolePoliciesResult'),
             :$request-input,
         );
     }
 
     method list-signing-certificates(
-    existingUserNameType :$user-name,
-    maxItemsType :$max-items,
-    markerType :$marker
+        existingUserNameType :$user-name,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListSigningCertificatesResponse is service-operation('ListSigningCertificates') {
         my $request-input = ListSigningCertificatesRequest.new(
-        :$user-name,
-        :$max-items,
-        :$marker
+            :$user-name,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListSigningCertificates>,
-            :return-type(ListSigningCertificatesResponse),
-            :result-wrapper('ListSigningCertificatesResult'),
             :$request-input,
         );
     }
 
     method remove-client-id-from-open-id-connect-provider(
-    arnType :$open-id-connect-provider-arn!,
-    clientIDType :$client-id!
+        arnType :$open-id-connect-provider-arn!,
+        clientIDType :$client-id!
     ) is service-operation('RemoveClientIDFromOpenIDConnectProvider') {
         my $request-input = RemoveClientIDFromOpenIDConnectProviderRequest.new(
-        :$open-id-connect-provider-arn,
-        :$client-id
+            :$open-id-connect-provider-arn,
+            :$client-id
         );
-;
+
         self.perform-operation(
             :api-call<RemoveClientIDFromOpenIDConnectProvider>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-service-specific-credential(
-    userNameType :$user-name,
-    serviceSpecificCredentialId :$service-specific-credential-id!
+        userNameType :$user-name,
+        serviceSpecificCredentialId :$service-specific-credential-id!
     ) is service-operation('DeleteServiceSpecificCredential') {
         my $request-input = DeleteServiceSpecificCredentialRequest.new(
-        :$user-name,
-        :$service-specific-credential-id
+            :$user-name,
+            :$service-specific-credential-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteServiceSpecificCredential>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-role-policy(
-    arnType :$policy-arn!,
-    roleNameType :$role-name!
+        arnType :$policy-arn!,
+        roleNameType :$role-name!
     ) is service-operation('AttachRolePolicy') {
         my $request-input = AttachRolePolicyRequest.new(
-        :$policy-arn,
-        :$role-name
+            :$policy-arn,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<AttachRolePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-instance-profiles(
-    pathPrefixType :$path-prefix,
-    maxItemsType :$max-items,
-    markerType :$marker
+        pathPrefixType :$path-prefix,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListInstanceProfilesResponse is service-operation('ListInstanceProfiles') {
         my $request-input = ListInstanceProfilesRequest.new(
-        :$path-prefix,
-        :$max-items,
-        :$marker
+            :$path-prefix,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListInstanceProfiles>,
-            :return-type(ListInstanceProfilesResponse),
-            :result-wrapper('ListInstanceProfilesResult'),
             :$request-input,
         );
     }
 
     method remove-role-from-instance-profile(
-    instanceProfileNameType :$instance-profile-name!,
-    roleNameType :$role-name!
+        instanceProfileNameType :$instance-profile-name!,
+        roleNameType :$role-name!
     ) is service-operation('RemoveRoleFromInstanceProfile') {
         my $request-input = RemoveRoleFromInstanceProfileRequest.new(
-        :$instance-profile-name,
-        :$role-name
+            :$instance-profile-name,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<RemoveRoleFromInstanceProfile>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method simulate-principal-policy(
-    Array[ResourceNameType] :$resource-arns,
-    arnType :$policy-source-arn!,
-    Array[ActionNameType] :$action-names!,
-    Array[policyDocumentType] :$policy-input-list,
-    ResourceNameType :$resource-owner,
-    maxItemsType :$max-items,
-    ResourceHandlingOptionType :$resource-handling-option,
-    ResourceNameType :$caller-arn,
-    policyDocumentType :$resource-policy,
-    markerType :$marker,
-    Array[ContextEntry] :$context-entries
+        Array[ResourceNameType] :$resource-arns,
+        arnType :$policy-source-arn!,
+        Array[ActionNameType] :$action-names!,
+        Array[policyDocumentType] :$policy-input-list,
+        ResourceNameType :$resource-owner,
+        maxItemsType :$max-items,
+        ResourceHandlingOptionType :$resource-handling-option,
+        ResourceNameType :$caller-arn,
+        policyDocumentType :$resource-policy,
+        markerType :$marker,
+        Array[ContextEntry] :$context-entries
     ) returns SimulatePolicyResponse is service-operation('SimulatePrincipalPolicy') {
         my $request-input = SimulatePrincipalPolicyRequest.new(
-        :$resource-arns,
-        :$policy-source-arn,
-        :$action-names,
-        :$policy-input-list,
-        :$resource-owner,
-        :$max-items,
-        :$resource-handling-option,
-        :$caller-arn,
-        :$resource-policy,
-        :$marker,
-        :$context-entries
+            :$resource-arns,
+            :$policy-source-arn,
+            :$action-names,
+            :$policy-input-list,
+            :$resource-owner,
+            :$max-items,
+            :$resource-handling-option,
+            :$caller-arn,
+            :$resource-policy,
+            :$marker,
+            :$context-entries
         );
-;
+
         self.perform-operation(
             :api-call<SimulatePrincipalPolicy>,
-            :return-type(SimulatePolicyResponse),
-            :result-wrapper('SimulatePrincipalPolicyResult'),
             :$request-input,
         );
     }
 
     method update-ssh-public-key(
-    publicKeyIdType :$ssh-public-key-id!,
-    userNameType :$user-name!,
-    statusType :$status!
+        publicKeyIdType :$ssh-public-key-id!,
+        userNameType :$user-name!,
+        statusType :$status!
     ) is service-operation('UpdateSSHPublicKey') {
         my $request-input = UpdateSSHPublicKeyRequest.new(
-        :$ssh-public-key-id,
-        :$user-name,
-        :$status
+            :$ssh-public-key-id,
+            :$user-name,
+            :$status
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSSHPublicKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-open-id-connect-provider(
-    arnType :$open-id-connect-provider-arn!
+        arnType :$open-id-connect-provider-arn!
     ) returns GetOpenIDConnectProviderResponse is service-operation('GetOpenIDConnectProvider') {
         my $request-input = GetOpenIDConnectProviderRequest.new(
-        :$open-id-connect-provider-arn
+            :$open-id-connect-provider-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetOpenIDConnectProvider>,
-            :return-type(GetOpenIDConnectProviderResponse),
-            :result-wrapper('GetOpenIDConnectProviderResult'),
             :$request-input,
         );
     }
 
     method create-policy-version(
-    Bool :$set-as-default,
-    policyDocumentType :$policy-document!,
-    arnType :$policy-arn!
+        Bool :$set-as-default,
+        policyDocumentType :$policy-document!,
+        arnType :$policy-arn!
     ) returns CreatePolicyVersionResponse is service-operation('CreatePolicyVersion') {
         my $request-input = CreatePolicyVersionRequest.new(
-        :$set-as-default,
-        :$policy-document,
-        :$policy-arn
+            :$set-as-default,
+            :$policy-document,
+            :$policy-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreatePolicyVersion>,
-            :return-type(CreatePolicyVersionResponse),
-            :result-wrapper('CreatePolicyVersionResult'),
             :$request-input,
         );
     }
 
     method get-user(
-    existingUserNameType :$user-name
+        existingUserNameType :$user-name
     ) returns GetUserResponse is service-operation('GetUser') {
         my $request-input = GetUserRequest.new(
-        :$user-name
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<GetUser>,
-            :return-type(GetUserResponse),
-            :result-wrapper('GetUserResult'),
             :$request-input,
         );
     }
 
     method get-context-keys-for-principal-policy(
-    arnType :$policy-source-arn!,
-    Array[policyDocumentType] :$policy-input-list
+        arnType :$policy-source-arn!,
+        Array[policyDocumentType] :$policy-input-list
     ) returns GetContextKeysForPolicyResponse is service-operation('GetContextKeysForPrincipalPolicy') {
         my $request-input = GetContextKeysForPrincipalPolicyRequest.new(
-        :$policy-source-arn,
-        :$policy-input-list
+            :$policy-source-arn,
+            :$policy-input-list
         );
-;
+
         self.perform-operation(
             :api-call<GetContextKeysForPrincipalPolicy>,
-            :return-type(GetContextKeysForPolicyResponse),
-            :result-wrapper('GetContextKeysForPrincipalPolicyResult'),
             :$request-input,
         );
     }
 
     method add-role-to-instance-profile(
-    instanceProfileNameType :$instance-profile-name!,
-    roleNameType :$role-name!
+        instanceProfileNameType :$instance-profile-name!,
+        roleNameType :$role-name!
     ) is service-operation('AddRoleToInstanceProfile') {
         my $request-input = AddRoleToInstanceProfileRequest.new(
-        :$instance-profile-name,
-        :$role-name
+            :$instance-profile-name,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<AddRoleToInstanceProfile>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-mfa-devices(
-    existingUserNameType :$user-name,
-    maxItemsType :$max-items,
-    markerType :$marker
+        existingUserNameType :$user-name,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListMFADevicesResponse is service-operation('ListMFADevices') {
         my $request-input = ListMFADevicesRequest.new(
-        :$user-name,
-        :$max-items,
-        :$marker
+            :$user-name,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListMFADevices>,
-            :return-type(ListMFADevicesResponse),
-            :result-wrapper('ListMFADevicesResult'),
             :$request-input,
         );
     }
@@ -2169,96 +2125,84 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     method get-account-password-policy(
 
     ) returns GetAccountPasswordPolicyResponse is service-operation('GetAccountPasswordPolicy') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<GetAccountPasswordPolicy>,
-            :return-type(GetAccountPasswordPolicyResponse),
-            :result-wrapper('GetAccountPasswordPolicyResult'),
             :$request-input,
         );
     }
 
     method delete-access-key(
-    accessKeyIdType :$access-key-id!,
-    existingUserNameType :$user-name
+        accessKeyIdType :$access-key-id!,
+        existingUserNameType :$user-name
     ) is service-operation('DeleteAccessKey') {
         my $request-input = DeleteAccessKeyRequest.new(
-        :$access-key-id,
-        :$user-name
+            :$access-key-id,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAccessKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-service-linked-role-deletion-status(
-    DeletionTaskIdType :$deletion-task-id!
+        DeletionTaskIdType :$deletion-task-id!
     ) returns GetServiceLinkedRoleDeletionStatusResponse is service-operation('GetServiceLinkedRoleDeletionStatus') {
         my $request-input = GetServiceLinkedRoleDeletionStatusRequest.new(
-        :$deletion-task-id
+            :$deletion-task-id
         );
-;
+
         self.perform-operation(
             :api-call<GetServiceLinkedRoleDeletionStatus>,
-            :return-type(GetServiceLinkedRoleDeletionStatusResponse),
-            :result-wrapper('GetServiceLinkedRoleDeletionStatusResult'),
             :$request-input,
         );
     }
 
     method delete-role(
-    roleNameType :$role-name!
+        roleNameType :$role-name!
     ) is service-operation('DeleteRole') {
         my $request-input = DeleteRoleRequest.new(
-        :$role-name
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRole>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-attached-role-policies(
-    policyPathType :$path-prefix,
-    maxItemsType :$max-items,
-    markerType :$marker,
-    roleNameType :$role-name!
+        policyPathType :$path-prefix,
+        maxItemsType :$max-items,
+        markerType :$marker,
+        roleNameType :$role-name!
     ) returns ListAttachedRolePoliciesResponse is service-operation('ListAttachedRolePolicies') {
         my $request-input = ListAttachedRolePoliciesRequest.new(
-        :$path-prefix,
-        :$max-items,
-        :$marker,
-        :$role-name
+            :$path-prefix,
+            :$max-items,
+            :$marker,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<ListAttachedRolePolicies>,
-            :return-type(ListAttachedRolePoliciesResponse),
-            :result-wrapper('ListAttachedRolePoliciesResult'),
             :$request-input,
         );
     }
 
     method update-assume-role-policy(
-    policyDocumentType :$policy-document!,
-    roleNameType :$role-name!
+        policyDocumentType :$policy-document!,
+        roleNameType :$role-name!
     ) is service-operation('UpdateAssumeRolePolicy') {
         my $request-input = UpdateAssumeRolePolicyRequest.new(
-        :$policy-document,
-        :$role-name
+            :$policy-document,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAssumeRolePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2266,647 +2210,573 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     method get-credential-report(
 
     ) returns GetCredentialReportResponse is service-operation('GetCredentialReport') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<GetCredentialReport>,
-            :return-type(GetCredentialReportResponse),
-            :result-wrapper('GetCredentialReportResult'),
             :$request-input,
         );
     }
 
     method set-default-policy-version(
-    policyVersionIdType :$version-id!,
-    arnType :$policy-arn!
+        policyVersionIdType :$version-id!,
+        arnType :$policy-arn!
     ) is service-operation('SetDefaultPolicyVersion') {
         my $request-input = SetDefaultPolicyVersionRequest.new(
-        :$version-id,
-        :$policy-arn
+            :$version-id,
+            :$policy-arn
         );
-;
+
         self.perform-operation(
             :api-call<SetDefaultPolicyVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-role-policy(
-    arnType :$policy-arn!,
-    roleNameType :$role-name!
+        arnType :$policy-arn!,
+        roleNameType :$role-name!
     ) is service-operation('DetachRolePolicy') {
         my $request-input = DetachRolePolicyRequest.new(
-        :$policy-arn,
-        :$role-name
+            :$policy-arn,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<DetachRolePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-ssh-public-keys(
-    userNameType :$user-name,
-    maxItemsType :$max-items,
-    markerType :$marker
+        userNameType :$user-name,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListSSHPublicKeysResponse is service-operation('ListSSHPublicKeys') {
         my $request-input = ListSSHPublicKeysRequest.new(
-        :$user-name,
-        :$max-items,
-        :$marker
+            :$user-name,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListSSHPublicKeys>,
-            :return-type(ListSSHPublicKeysResponse),
-            :result-wrapper('ListSSHPublicKeysResult'),
             :$request-input,
         );
     }
 
     method put-role-policy(
-    policyDocumentType :$policy-document!,
-    policyNameType :$policy-name!,
-    roleNameType :$role-name!
+        policyDocumentType :$policy-document!,
+        policyNameType :$policy-name!,
+        roleNameType :$role-name!
     ) is service-operation('PutRolePolicy') {
         my $request-input = PutRolePolicyRequest.new(
-        :$policy-document,
-        :$policy-name,
-        :$role-name
+            :$policy-document,
+            :$policy-name,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<PutRolePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-role-description(
-    roleDescriptionType :$description!,
-    roleNameType :$role-name!
+        roleDescriptionType :$description!,
+        roleNameType :$role-name!
     ) returns UpdateRoleDescriptionResponse is service-operation('UpdateRoleDescription') {
         my $request-input = UpdateRoleDescriptionRequest.new(
-        :$description,
-        :$role-name
+            :$description,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRoleDescription>,
-            :return-type(UpdateRoleDescriptionResponse),
-            :result-wrapper('UpdateRoleDescriptionResult'),
             :$request-input,
         );
     }
 
     method update-saml-provider(
-    arnType :$saml-provider-arn!,
-    SAMLMetadataDocumentType :$saml-metadata-document!
+        arnType :$saml-provider-arn!,
+        SAMLMetadataDocumentType :$saml-metadata-document!
     ) returns UpdateSAMLProviderResponse is service-operation('UpdateSAMLProvider') {
         my $request-input = UpdateSAMLProviderRequest.new(
-        :$saml-provider-arn,
-        :$saml-metadata-document
+            :$saml-provider-arn,
+            :$saml-metadata-document
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSAMLProvider>,
-            :return-type(UpdateSAMLProviderResponse),
-            :result-wrapper('UpdateSAMLProviderResult'),
             :$request-input,
         );
     }
 
     method detach-user-policy(
-    userNameType :$user-name!,
-    arnType :$policy-arn!
+        userNameType :$user-name!,
+        arnType :$policy-arn!
     ) is service-operation('DetachUserPolicy') {
         my $request-input = DetachUserPolicyRequest.new(
-        :$user-name,
-        :$policy-arn
+            :$user-name,
+            :$policy-arn
         );
-;
+
         self.perform-operation(
             :api-call<DetachUserPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-service-specific-credential(
-    Str :$service-name!,
-    userNameType :$user-name!
+        Str :$service-name!,
+        userNameType :$user-name!
     ) returns CreateServiceSpecificCredentialResponse is service-operation('CreateServiceSpecificCredential') {
         my $request-input = CreateServiceSpecificCredentialRequest.new(
-        :$service-name,
-        :$user-name
+            :$service-name,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateServiceSpecificCredential>,
-            :return-type(CreateServiceSpecificCredentialResponse),
-            :result-wrapper('CreateServiceSpecificCredentialResult'),
             :$request-input,
         );
     }
 
     method get-server-certificate(
-    serverCertificateNameType :$server-certificate-name!
+        serverCertificateNameType :$server-certificate-name!
     ) returns GetServerCertificateResponse is service-operation('GetServerCertificate') {
         my $request-input = GetServerCertificateRequest.new(
-        :$server-certificate-name
+            :$server-certificate-name
         );
-;
+
         self.perform-operation(
             :api-call<GetServerCertificate>,
-            :return-type(GetServerCertificateResponse),
-            :result-wrapper('GetServerCertificateResult'),
             :$request-input,
         );
     }
 
     method delete-policy(
-    arnType :$policy-arn!
+        arnType :$policy-arn!
     ) is service-operation('DeletePolicy') {
         my $request-input = DeletePolicyRequest.new(
-        :$policy-arn
+            :$policy-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeletePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-group(
-    pathType :$path,
-    groupNameType :$group-name!
+        pathType :$path,
+        groupNameType :$group-name!
     ) returns CreateGroupResponse is service-operation('CreateGroup') {
         my $request-input = CreateGroupRequest.new(
-        :$path,
-        :$group-name
+            :$path,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateGroup>,
-            :return-type(CreateGroupResponse),
-            :result-wrapper('CreateGroupResult'),
             :$request-input,
         );
     }
 
     method add-user-to-group(
-    existingUserNameType :$user-name!,
-    groupNameType :$group-name!
+        existingUserNameType :$user-name!,
+        groupNameType :$group-name!
     ) is service-operation('AddUserToGroup') {
         my $request-input = AddUserToGroupRequest.new(
-        :$user-name,
-        :$group-name
+            :$user-name,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<AddUserToGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-groups-for-user(
-    existingUserNameType :$user-name!,
-    maxItemsType :$max-items,
-    markerType :$marker
+        existingUserNameType :$user-name!,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListGroupsForUserResponse is service-operation('ListGroupsForUser') {
         my $request-input = ListGroupsForUserRequest.new(
-        :$user-name,
-        :$max-items,
-        :$marker
+            :$user-name,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListGroupsForUser>,
-            :return-type(ListGroupsForUserResponse),
-            :result-wrapper('ListGroupsForUserResult'),
             :$request-input,
         );
     }
 
     method get-login-profile(
-    userNameType :$user-name!
+        userNameType :$user-name!
     ) returns GetLoginProfileResponse is service-operation('GetLoginProfile') {
         my $request-input = GetLoginProfileRequest.new(
-        :$user-name
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<GetLoginProfile>,
-            :return-type(GetLoginProfileResponse),
-            :result-wrapper('GetLoginProfileResult'),
             :$request-input,
         );
     }
 
     method create-user(
-    pathType :$path,
-    userNameType :$user-name!
+        pathType :$path,
+        userNameType :$user-name!
     ) returns CreateUserResponse is service-operation('CreateUser') {
         my $request-input = CreateUserRequest.new(
-        :$path,
-        :$user-name
+            :$path,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateUser>,
-            :return-type(CreateUserResponse),
-            :result-wrapper('CreateUserResult'),
             :$request-input,
         );
     }
 
     method update-login-profile(
-    Bool :$password-reset-required,
-    passwordType :$password,
-    userNameType :$user-name!
+        Bool :$password-reset-required,
+        passwordType :$password,
+        userNameType :$user-name!
     ) is service-operation('UpdateLoginProfile') {
         my $request-input = UpdateLoginProfileRequest.new(
-        :$password-reset-required,
-        :$password,
-        :$user-name
+            :$password-reset-required,
+            :$password,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateLoginProfile>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method upload-ssh-public-key(
-    userNameType :$user-name!,
-    publicKeyMaterialType :$ssh-public-key-body!
+        userNameType :$user-name!,
+        publicKeyMaterialType :$ssh-public-key-body!
     ) returns UploadSSHPublicKeyResponse is service-operation('UploadSSHPublicKey') {
         my $request-input = UploadSSHPublicKeyRequest.new(
-        :$user-name,
-        :$ssh-public-key-body
+            :$user-name,
+            :$ssh-public-key-body
         );
-;
+
         self.perform-operation(
             :api-call<UploadSSHPublicKey>,
-            :return-type(UploadSSHPublicKeyResponse),
-            :result-wrapper('UploadSSHPublicKeyResult'),
             :$request-input,
         );
     }
 
     method get-instance-profile(
-    instanceProfileNameType :$instance-profile-name!
+        instanceProfileNameType :$instance-profile-name!
     ) returns GetInstanceProfileResponse is service-operation('GetInstanceProfile') {
         my $request-input = GetInstanceProfileRequest.new(
-        :$instance-profile-name
+            :$instance-profile-name
         );
-;
+
         self.perform-operation(
             :api-call<GetInstanceProfile>,
-            :return-type(GetInstanceProfileResponse),
-            :result-wrapper('GetInstanceProfileResult'),
             :$request-input,
         );
     }
 
     method create-service-linked-role(
-    customSuffixType :$custom-suffix,
-    roleDescriptionType :$description,
-    groupNameType :$aws-service-name!
+        customSuffixType :$custom-suffix,
+        roleDescriptionType :$description,
+        groupNameType :$aws-service-name!
     ) returns CreateServiceLinkedRoleResponse is service-operation('CreateServiceLinkedRole') {
         my $request-input = CreateServiceLinkedRoleRequest.new(
-        :$custom-suffix,
-        :$description,
-        :$aws-service-name
+            :$custom-suffix,
+            :$description,
+            :$aws-service-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateServiceLinkedRole>,
-            :return-type(CreateServiceLinkedRoleResponse),
-            :result-wrapper('CreateServiceLinkedRoleResult'),
             :$request-input,
         );
     }
 
     method update-group(
-    pathType :$new-path,
-    groupNameType :$new-group-name,
-    groupNameType :$group-name!
+        pathType :$new-path,
+        groupNameType :$new-group-name,
+        groupNameType :$group-name!
     ) is service-operation('UpdateGroup') {
         my $request-input = UpdateGroupRequest.new(
-        :$new-path,
-        :$new-group-name,
-        :$group-name
+            :$new-path,
+            :$new-group-name,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-signing-certificate(
-    certificateIdType :$certificate-id!,
-    existingUserNameType :$user-name
+        certificateIdType :$certificate-id!,
+        existingUserNameType :$user-name
     ) is service-operation('DeleteSigningCertificate') {
         my $request-input = DeleteSigningCertificateRequest.new(
-        :$certificate-id,
-        :$user-name
+            :$certificate-id,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSigningCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method change-password(
-    passwordType :$old-password!,
-    passwordType :$new-password!
+        passwordType :$old-password!,
+        passwordType :$new-password!
     ) is service-operation('ChangePassword') {
         my $request-input = ChangePasswordRequest.new(
-        :$old-password,
-        :$new-password
+            :$old-password,
+            :$new-password
         );
-;
+
         self.perform-operation(
             :api-call<ChangePassword>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-account-aliases(
-    maxItemsType :$max-items,
-    markerType :$marker
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListAccountAliasesResponse is service-operation('ListAccountAliases') {
         my $request-input = ListAccountAliasesRequest.new(
-        :$max-items,
-        :$marker
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListAccountAliases>,
-            :return-type(ListAccountAliasesResponse),
-            :result-wrapper('ListAccountAliasesResult'),
             :$request-input,
         );
     }
 
     method list-users(
-    pathPrefixType :$path-prefix,
-    maxItemsType :$max-items,
-    markerType :$marker
+        pathPrefixType :$path-prefix,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListUsersResponse is service-operation('ListUsers') {
         my $request-input = ListUsersRequest.new(
-        :$path-prefix,
-        :$max-items,
-        :$marker
+            :$path-prefix,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListUsers>,
-            :return-type(ListUsersResponse),
-            :result-wrapper('ListUsersResult'),
             :$request-input,
         );
     }
 
     method list-virtual-mfa-devices(
-    assignmentStatusType :$assignment-status,
-    maxItemsType :$max-items,
-    markerType :$marker
+        assignmentStatusType :$assignment-status,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListVirtualMFADevicesResponse is service-operation('ListVirtualMFADevices') {
         my $request-input = ListVirtualMFADevicesRequest.new(
-        :$assignment-status,
-        :$max-items,
-        :$marker
+            :$assignment-status,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListVirtualMFADevices>,
-            :return-type(ListVirtualMFADevicesResponse),
-            :result-wrapper('ListVirtualMFADevicesResult'),
             :$request-input,
         );
     }
 
     method update-server-certificate(
-    pathType :$new-path,
-    serverCertificateNameType :$server-certificate-name!,
-    serverCertificateNameType :$new-server-certificate-name
+        pathType :$new-path,
+        serverCertificateNameType :$server-certificate-name!,
+        serverCertificateNameType :$new-server-certificate-name
     ) is service-operation('UpdateServerCertificate') {
         my $request-input = UpdateServerCertificateRequest.new(
-        :$new-path,
-        :$server-certificate-name,
-        :$new-server-certificate-name
+            :$new-path,
+            :$server-certificate-name,
+            :$new-server-certificate-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateServerCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-context-keys-for-custom-policy(
-    Array[policyDocumentType] :$policy-input-list!
+        Array[policyDocumentType] :$policy-input-list!
     ) returns GetContextKeysForPolicyResponse is service-operation('GetContextKeysForCustomPolicy') {
         my $request-input = GetContextKeysForCustomPolicyRequest.new(
-        :$policy-input-list
+            :$policy-input-list
         );
-;
+
         self.perform-operation(
             :api-call<GetContextKeysForCustomPolicy>,
-            :return-type(GetContextKeysForPolicyResponse),
-            :result-wrapper('GetContextKeysForCustomPolicyResult'),
             :$request-input,
         );
     }
 
     method detach-group-policy(
-    arnType :$policy-arn!,
-    groupNameType :$group-name!
+        arnType :$policy-arn!,
+        groupNameType :$group-name!
     ) is service-operation('DetachGroupPolicy') {
         my $request-input = DetachGroupPolicyRequest.new(
-        :$policy-arn,
-        :$group-name
+            :$policy-arn,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<DetachGroupPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-saml-provider(
-    SAMLMetadataDocumentType :$saml-metadata-document!,
-    SAMLProviderNameType :$name!
+        SAMLMetadataDocumentType :$saml-metadata-document!,
+        SAMLProviderNameType :$name!
     ) returns CreateSAMLProviderResponse is service-operation('CreateSAMLProvider') {
         my $request-input = CreateSAMLProviderRequest.new(
-        :$saml-metadata-document,
-        :$name
+            :$saml-metadata-document,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateSAMLProvider>,
-            :return-type(CreateSAMLProviderResponse),
-            :result-wrapper('CreateSAMLProviderResult'),
             :$request-input,
         );
     }
 
     method attach-user-policy(
-    userNameType :$user-name!,
-    arnType :$policy-arn!
+        userNameType :$user-name!,
+        arnType :$policy-arn!
     ) is service-operation('AttachUserPolicy') {
         my $request-input = AttachUserPolicyRequest.new(
-        :$user-name,
-        :$policy-arn
+            :$user-name,
+            :$policy-arn
         );
-;
+
         self.perform-operation(
             :api-call<AttachUserPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-group-policy(
-    arnType :$policy-arn!,
-    groupNameType :$group-name!
+        arnType :$policy-arn!,
+        groupNameType :$group-name!
     ) is service-operation('AttachGroupPolicy') {
         my $request-input = AttachGroupPolicyRequest.new(
-        :$policy-arn,
-        :$group-name
+            :$policy-arn,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<AttachGroupPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-user-policy(
-    existingUserNameType :$user-name!,
-    policyNameType :$policy-name!
+        existingUserNameType :$user-name!,
+        policyNameType :$policy-name!
     ) returns GetUserPolicyResponse is service-operation('GetUserPolicy') {
         my $request-input = GetUserPolicyRequest.new(
-        :$user-name,
-        :$policy-name
+            :$user-name,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<GetUserPolicy>,
-            :return-type(GetUserPolicyResponse),
-            :result-wrapper('GetUserPolicyResult'),
             :$request-input,
         );
     }
 
     method list-policy-versions(
-    maxItemsType :$max-items,
-    arnType :$policy-arn!,
-    markerType :$marker
+        maxItemsType :$max-items,
+        arnType :$policy-arn!,
+        markerType :$marker
     ) returns ListPolicyVersionsResponse is service-operation('ListPolicyVersions') {
         my $request-input = ListPolicyVersionsRequest.new(
-        :$max-items,
-        :$policy-arn,
-        :$marker
+            :$max-items,
+            :$policy-arn,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListPolicyVersions>,
-            :return-type(ListPolicyVersionsResponse),
-            :result-wrapper('ListPolicyVersionsResult'),
             :$request-input,
         );
     }
 
     method upload-signing-certificate(
-    existingUserNameType :$user-name,
-    certificateBodyType :$certificate-body!
+        existingUserNameType :$user-name,
+        certificateBodyType :$certificate-body!
     ) returns UploadSigningCertificateResponse is service-operation('UploadSigningCertificate') {
         my $request-input = UploadSigningCertificateRequest.new(
-        :$user-name,
-        :$certificate-body
+            :$user-name,
+            :$certificate-body
         );
-;
+
         self.perform-operation(
             :api-call<UploadSigningCertificate>,
-            :return-type(UploadSigningCertificateResponse),
-            :result-wrapper('UploadSigningCertificateResult'),
             :$request-input,
         );
     }
 
     method update-account-password-policy(
-    maxPasswordAgeType :$max-password-age,
-    minimumPasswordLengthType :$minimum-password-length,
-    Bool :$require-numbers,
-    passwordReusePreventionType :$password-reuse-prevention,
-    Bool :$allow-users-to-change-password,
-    Bool :$require-lowercase-characters,
-    Bool :$require-uppercase-characters,
-    Bool :$require-symbols,
-    Bool :$hard-expiry
+        maxPasswordAgeType :$max-password-age,
+        minimumPasswordLengthType :$minimum-password-length,
+        Bool :$require-numbers,
+        passwordReusePreventionType :$password-reuse-prevention,
+        Bool :$allow-users-to-change-password,
+        Bool :$require-lowercase-characters,
+        Bool :$require-uppercase-characters,
+        Bool :$require-symbols,
+        Bool :$hard-expiry
     ) is service-operation('UpdateAccountPasswordPolicy') {
         my $request-input = UpdateAccountPasswordPolicyRequest.new(
-        :$max-password-age,
-        :$minimum-password-length,
-        :$require-numbers,
-        :$password-reuse-prevention,
-        :$allow-users-to-change-password,
-        :$require-lowercase-characters,
-        :$require-uppercase-characters,
-        :$require-symbols,
-        :$hard-expiry
+            :$max-password-age,
+            :$minimum-password-length,
+            :$require-numbers,
+            :$password-reuse-prevention,
+            :$allow-users-to-change-password,
+            :$require-lowercase-characters,
+            :$require-uppercase-characters,
+            :$require-symbols,
+            :$hard-expiry
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAccountPasswordPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deactivate-mfa-device(
-    serialNumberType :$serial-number!,
-    existingUserNameType :$user-name!
+        serialNumberType :$serial-number!,
+        existingUserNameType :$user-name!
     ) is service-operation('DeactivateMFADevice') {
         my $request-input = DeactivateMFADeviceRequest.new(
-        :$serial-number,
-        :$user-name
+            :$serial-number,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<DeactivateMFADevice>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2917,138 +2787,122 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         my $request-input = ListOpenIDConnectProvidersRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<ListOpenIDConnectProviders>,
-            :return-type(ListOpenIDConnectProvidersResponse),
-            :result-wrapper('ListOpenIDConnectProvidersResult'),
             :$request-input,
         );
     }
 
     method create-instance-profile(
-    pathType :$path,
-    instanceProfileNameType :$instance-profile-name!
+        pathType :$path,
+        instanceProfileNameType :$instance-profile-name!
     ) returns CreateInstanceProfileResponse is service-operation('CreateInstanceProfile') {
         my $request-input = CreateInstanceProfileRequest.new(
-        :$path,
-        :$instance-profile-name
+            :$path,
+            :$instance-profile-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateInstanceProfile>,
-            :return-type(CreateInstanceProfileResponse),
-            :result-wrapper('CreateInstanceProfileResult'),
             :$request-input,
         );
     }
 
     method upload-server-certificate(
-    pathType :$path,
-    certificateChainType :$certificate-chain,
-    privateKeyType :$private-key!,
-    certificateBodyType :$certificate-body!,
-    serverCertificateNameType :$server-certificate-name!
+        pathType :$path,
+        certificateChainType :$certificate-chain,
+        privateKeyType :$private-key!,
+        certificateBodyType :$certificate-body!,
+        serverCertificateNameType :$server-certificate-name!
     ) returns UploadServerCertificateResponse is service-operation('UploadServerCertificate') {
         my $request-input = UploadServerCertificateRequest.new(
-        :$path,
-        :$certificate-chain,
-        :$private-key,
-        :$certificate-body,
-        :$server-certificate-name
+            :$path,
+            :$certificate-chain,
+            :$private-key,
+            :$certificate-body,
+            :$server-certificate-name
         );
-;
+
         self.perform-operation(
             :api-call<UploadServerCertificate>,
-            :return-type(UploadServerCertificateResponse),
-            :result-wrapper('UploadServerCertificateResult'),
             :$request-input,
         );
     }
 
     method list-instance-profiles-for-role(
-    maxItemsType :$max-items,
-    markerType :$marker,
-    roleNameType :$role-name!
+        maxItemsType :$max-items,
+        markerType :$marker,
+        roleNameType :$role-name!
     ) returns ListInstanceProfilesForRoleResponse is service-operation('ListInstanceProfilesForRole') {
         my $request-input = ListInstanceProfilesForRoleRequest.new(
-        :$max-items,
-        :$marker,
-        :$role-name
+            :$max-items,
+            :$marker,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<ListInstanceProfilesForRole>,
-            :return-type(ListInstanceProfilesForRoleResponse),
-            :result-wrapper('ListInstanceProfilesForRoleResult'),
             :$request-input,
         );
     }
 
     method list-service-specific-credentials(
-    Str :$service-name,
-    userNameType :$user-name
+        Str :$service-name,
+        userNameType :$user-name
     ) returns ListServiceSpecificCredentialsResponse is service-operation('ListServiceSpecificCredentials') {
         my $request-input = ListServiceSpecificCredentialsRequest.new(
-        :$service-name,
-        :$user-name
+            :$service-name,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<ListServiceSpecificCredentials>,
-            :return-type(ListServiceSpecificCredentialsResponse),
-            :result-wrapper('ListServiceSpecificCredentialsResult'),
             :$request-input,
         );
     }
 
     method get-role-policy(
-    policyNameType :$policy-name!,
-    roleNameType :$role-name!
+        policyNameType :$policy-name!,
+        roleNameType :$role-name!
     ) returns GetRolePolicyResponse is service-operation('GetRolePolicy') {
         my $request-input = GetRolePolicyRequest.new(
-        :$policy-name,
-        :$role-name
+            :$policy-name,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<GetRolePolicy>,
-            :return-type(GetRolePolicyResponse),
-            :result-wrapper('GetRolePolicyResult'),
             :$request-input,
         );
     }
 
     method delete-service-linked-role(
-    roleNameType :$role-name!
+        roleNameType :$role-name!
     ) returns DeleteServiceLinkedRoleResponse is service-operation('DeleteServiceLinkedRole') {
         my $request-input = DeleteServiceLinkedRoleRequest.new(
-        :$role-name
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteServiceLinkedRole>,
-            :return-type(DeleteServiceLinkedRoleResponse),
-            :result-wrapper('DeleteServiceLinkedRoleResult'),
             :$request-input,
         );
     }
 
     method list-roles(
-    pathPrefixType :$path-prefix,
-    maxItemsType :$max-items,
-    markerType :$marker
+        pathPrefixType :$path-prefix,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListRolesResponse is service-operation('ListRoles') {
         my $request-input = ListRolesRequest.new(
-        :$path-prefix,
-        :$max-items,
-        :$marker
+            :$path-prefix,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListRoles>,
-            :return-type(ListRolesResponse),
-            :result-wrapper('ListRolesResult'),
             :$request-input,
         );
     }
@@ -3059,47 +2913,41 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         my $request-input = ListSAMLProvidersRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<ListSAMLProviders>,
-            :return-type(ListSAMLProvidersResponse),
-            :result-wrapper('ListSAMLProvidersResult'),
             :$request-input,
         );
     }
 
     method update-access-key(
-    accessKeyIdType :$access-key-id!,
-    existingUserNameType :$user-name,
-    statusType :$status!
+        accessKeyIdType :$access-key-id!,
+        existingUserNameType :$user-name,
+        statusType :$status!
     ) is service-operation('UpdateAccessKey') {
         my $request-input = UpdateAccessKeyRequest.new(
-        :$access-key-id,
-        :$user-name,
-        :$status
+            :$access-key-id,
+            :$user-name,
+            :$status
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAccessKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-policy-version(
-    policyVersionIdType :$version-id!,
-    arnType :$policy-arn!
+        policyVersionIdType :$version-id!,
+        arnType :$policy-arn!
     ) returns GetPolicyVersionResponse is service-operation('GetPolicyVersion') {
         my $request-input = GetPolicyVersionRequest.new(
-        :$version-id,
-        :$policy-arn
+            :$version-id,
+            :$policy-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetPolicyVersion>,
-            :return-type(GetPolicyVersionResponse),
-            :result-wrapper('GetPolicyVersionResult'),
             :$request-input,
         );
     }
@@ -3107,445 +2955,395 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     method get-account-summary(
 
     ) returns GetAccountSummaryResponse is service-operation('GetAccountSummary') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<GetAccountSummary>,
-            :return-type(GetAccountSummaryResponse),
-            :result-wrapper('GetAccountSummaryResult'),
             :$request-input,
         );
     }
 
     method delete-virtual-mfa-device(
-    serialNumberType :$serial-number!
+        serialNumberType :$serial-number!
     ) is service-operation('DeleteVirtualMFADevice') {
         my $request-input = DeleteVirtualMFADeviceRequest.new(
-        :$serial-number
+            :$serial-number
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVirtualMFADevice>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-group-policies(
-    maxItemsType :$max-items,
-    markerType :$marker,
-    groupNameType :$group-name!
+        maxItemsType :$max-items,
+        markerType :$marker,
+        groupNameType :$group-name!
     ) returns ListGroupPoliciesResponse is service-operation('ListGroupPolicies') {
         my $request-input = ListGroupPoliciesRequest.new(
-        :$max-items,
-        :$marker,
-        :$group-name
+            :$max-items,
+            :$marker,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<ListGroupPolicies>,
-            :return-type(ListGroupPoliciesResponse),
-            :result-wrapper('ListGroupPoliciesResult'),
             :$request-input,
         );
     }
 
     method list-policies(
-    policyScopeType :$scope,
-    policyPathType :$path-prefix,
-    maxItemsType :$max-items,
-    Bool :$only-attached,
-    markerType :$marker
+        policyScopeType :$scope,
+        policyPathType :$path-prefix,
+        maxItemsType :$max-items,
+        Bool :$only-attached,
+        markerType :$marker
     ) returns ListPoliciesResponse is service-operation('ListPolicies') {
         my $request-input = ListPoliciesRequest.new(
-        :$scope,
-        :$path-prefix,
-        :$max-items,
-        :$only-attached,
-        :$marker
+            :$scope,
+            :$path-prefix,
+            :$max-items,
+            :$only-attached,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListPolicies>,
-            :return-type(ListPoliciesResponse),
-            :result-wrapper('ListPoliciesResult'),
             :$request-input,
         );
     }
 
     method resync-mfa-device(
-    authenticationCodeType :$authentication-code2!,
-    serialNumberType :$serial-number!,
-    existingUserNameType :$user-name!,
-    authenticationCodeType :$authentication-code1!
+        authenticationCodeType :$authentication-code2!,
+        serialNumberType :$serial-number!,
+        existingUserNameType :$user-name!,
+        authenticationCodeType :$authentication-code1!
     ) is service-operation('ResyncMFADevice') {
         my $request-input = ResyncMFADeviceRequest.new(
-        :$authentication-code2,
-        :$serial-number,
-        :$user-name,
-        :$authentication-code1
+            :$authentication-code2,
+            :$serial-number,
+            :$user-name,
+            :$authentication-code1
         );
-;
+
         self.perform-operation(
             :api-call<ResyncMFADevice>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-saml-provider(
-    arnType :$saml-provider-arn!
+        arnType :$saml-provider-arn!
     ) returns GetSAMLProviderResponse is service-operation('GetSAMLProvider') {
         my $request-input = GetSAMLProviderRequest.new(
-        :$saml-provider-arn
+            :$saml-provider-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetSAMLProvider>,
-            :return-type(GetSAMLProviderResponse),
-            :result-wrapper('GetSAMLProviderResult'),
             :$request-input,
         );
     }
 
     method delete-user-policy(
-    existingUserNameType :$user-name!,
-    policyNameType :$policy-name!
+        existingUserNameType :$user-name!,
+        policyNameType :$policy-name!
     ) is service-operation('DeleteUserPolicy') {
         my $request-input = DeleteUserPolicyRequest.new(
-        :$user-name,
-        :$policy-name
+            :$user-name,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteUserPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-access-keys(
-    existingUserNameType :$user-name,
-    maxItemsType :$max-items,
-    markerType :$marker
+        existingUserNameType :$user-name,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListAccessKeysResponse is service-operation('ListAccessKeys') {
         my $request-input = ListAccessKeysRequest.new(
-        :$user-name,
-        :$max-items,
-        :$marker
+            :$user-name,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListAccessKeys>,
-            :return-type(ListAccessKeysResponse),
-            :result-wrapper('ListAccessKeysResult'),
             :$request-input,
         );
     }
 
     method put-user-policy(
-    existingUserNameType :$user-name!,
-    policyDocumentType :$policy-document!,
-    policyNameType :$policy-name!
+        existingUserNameType :$user-name!,
+        policyDocumentType :$policy-document!,
+        policyNameType :$policy-name!
     ) is service-operation('PutUserPolicy') {
         my $request-input = PutUserPolicyRequest.new(
-        :$user-name,
-        :$policy-document,
-        :$policy-name
+            :$user-name,
+            :$policy-document,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<PutUserPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-groups(
-    pathPrefixType :$path-prefix,
-    maxItemsType :$max-items,
-    markerType :$marker
+        pathPrefixType :$path-prefix,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListGroupsResponse is service-operation('ListGroups') {
         my $request-input = ListGroupsRequest.new(
-        :$path-prefix,
-        :$max-items,
-        :$marker
+            :$path-prefix,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListGroups>,
-            :return-type(ListGroupsResponse),
-            :result-wrapper('ListGroupsResult'),
             :$request-input,
         );
     }
 
     method remove-user-from-group(
-    existingUserNameType :$user-name!,
-    groupNameType :$group-name!
+        existingUserNameType :$user-name!,
+        groupNameType :$group-name!
     ) is service-operation('RemoveUserFromGroup') {
         my $request-input = RemoveUserFromGroupRequest.new(
-        :$user-name,
-        :$group-name
+            :$user-name,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<RemoveUserFromGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-service-specific-credential(
-    userNameType :$user-name,
-    serviceSpecificCredentialId :$service-specific-credential-id!,
-    statusType :$status!
+        userNameType :$user-name,
+        serviceSpecificCredentialId :$service-specific-credential-id!,
+        statusType :$status!
     ) is service-operation('UpdateServiceSpecificCredential') {
         my $request-input = UpdateServiceSpecificCredentialRequest.new(
-        :$user-name,
-        :$service-specific-credential-id,
-        :$status
+            :$user-name,
+            :$service-specific-credential-id,
+            :$status
         );
-;
+
         self.perform-operation(
             :api-call<UpdateServiceSpecificCredential>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-ssh-public-key(
-    encodingType :$encoding!,
-    publicKeyIdType :$ssh-public-key-id!,
-    userNameType :$user-name!
+        encodingType :$encoding!,
+        publicKeyIdType :$ssh-public-key-id!,
+        userNameType :$user-name!
     ) returns GetSSHPublicKeyResponse is service-operation('GetSSHPublicKey') {
         my $request-input = GetSSHPublicKeyRequest.new(
-        :$encoding,
-        :$ssh-public-key-id,
-        :$user-name
+            :$encoding,
+            :$ssh-public-key-id,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<GetSSHPublicKey>,
-            :return-type(GetSSHPublicKeyResponse),
-            :result-wrapper('GetSSHPublicKeyResult'),
             :$request-input,
         );
     }
 
     method get-role(
-    roleNameType :$role-name!
+        roleNameType :$role-name!
     ) returns GetRoleResponse is service-operation('GetRole') {
         my $request-input = GetRoleRequest.new(
-        :$role-name
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<GetRole>,
-            :return-type(GetRoleResponse),
-            :result-wrapper('GetRoleResult'),
             :$request-input,
         );
     }
 
     method get-policy(
-    arnType :$policy-arn!
+        arnType :$policy-arn!
     ) returns GetPolicyResponse is service-operation('GetPolicy') {
         my $request-input = GetPolicyRequest.new(
-        :$policy-arn
+            :$policy-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetPolicy>,
-            :return-type(GetPolicyResponse),
-            :result-wrapper('GetPolicyResult'),
             :$request-input,
         );
     }
 
     method get-access-key-last-used(
-    accessKeyIdType :$access-key-id!
+        accessKeyIdType :$access-key-id!
     ) returns GetAccessKeyLastUsedResponse is service-operation('GetAccessKeyLastUsed') {
         my $request-input = GetAccessKeyLastUsedRequest.new(
-        :$access-key-id
+            :$access-key-id
         );
-;
+
         self.perform-operation(
             :api-call<GetAccessKeyLastUsed>,
-            :return-type(GetAccessKeyLastUsedResponse),
-            :result-wrapper('GetAccessKeyLastUsedResult'),
             :$request-input,
         );
     }
 
     method create-role(
-    roleDescriptionType :$description,
-    pathType :$path,
-    policyDocumentType :$assume-role-policy-document!,
-    roleNameType :$role-name!
+        roleDescriptionType :$description,
+        pathType :$path,
+        policyDocumentType :$assume-role-policy-document!,
+        roleNameType :$role-name!
     ) returns CreateRoleResponse is service-operation('CreateRole') {
         my $request-input = CreateRoleRequest.new(
-        :$description,
-        :$path,
-        :$assume-role-policy-document,
-        :$role-name
+            :$description,
+            :$path,
+            :$assume-role-policy-document,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateRole>,
-            :return-type(CreateRoleResponse),
-            :result-wrapper('CreateRoleResult'),
             :$request-input,
         );
     }
 
     method delete-server-certificate(
-    serverCertificateNameType :$server-certificate-name!
+        serverCertificateNameType :$server-certificate-name!
     ) is service-operation('DeleteServerCertificate') {
         my $request-input = DeleteServerCertificateRequest.new(
-        :$server-certificate-name
+            :$server-certificate-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteServerCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-open-id-connect-provider(
-    arnType :$open-id-connect-provider-arn!
+        arnType :$open-id-connect-provider-arn!
     ) is service-operation('DeleteOpenIDConnectProvider') {
         my $request-input = DeleteOpenIDConnectProviderRequest.new(
-        :$open-id-connect-provider-arn
+            :$open-id-connect-provider-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteOpenIDConnectProvider>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-open-id-connect-provider(
-    Array[clientIDType] :$client-id-list,
-    Array[thumbprintType] :$thumbprint-list!,
-    OpenIDConnectProviderUrlType :$url!
+        Array[clientIDType] :$client-id-list,
+        Array[thumbprintType] :$thumbprint-list!,
+        OpenIDConnectProviderUrlType :$url!
     ) returns CreateOpenIDConnectProviderResponse is service-operation('CreateOpenIDConnectProvider') {
         my $request-input = CreateOpenIDConnectProviderRequest.new(
-        :$client-id-list,
-        :$thumbprint-list,
-        :$url
+            :$client-id-list,
+            :$thumbprint-list,
+            :$url
         );
-;
+
         self.perform-operation(
             :api-call<CreateOpenIDConnectProvider>,
-            :return-type(CreateOpenIDConnectProviderResponse),
-            :result-wrapper('CreateOpenIDConnectProviderResult'),
             :$request-input,
         );
     }
 
     method add-client-id-to-open-id-connect-provider(
-    arnType :$open-id-connect-provider-arn!,
-    clientIDType :$client-id!
+        arnType :$open-id-connect-provider-arn!,
+        clientIDType :$client-id!
     ) is service-operation('AddClientIDToOpenIDConnectProvider') {
         my $request-input = AddClientIDToOpenIDConnectProviderRequest.new(
-        :$open-id-connect-provider-arn,
-        :$client-id
+            :$open-id-connect-provider-arn,
+            :$client-id
         );
-;
+
         self.perform-operation(
             :api-call<AddClientIDToOpenIDConnectProvider>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method simulate-custom-policy(
-    Array[ResourceNameType] :$resource-arns,
-    Array[ActionNameType] :$action-names!,
-    Array[policyDocumentType] :$policy-input-list!,
-    ResourceNameType :$resource-owner,
-    maxItemsType :$max-items,
-    ResourceHandlingOptionType :$resource-handling-option,
-    ResourceNameType :$caller-arn,
-    policyDocumentType :$resource-policy,
-    markerType :$marker,
-    Array[ContextEntry] :$context-entries
+        Array[ResourceNameType] :$resource-arns,
+        Array[ActionNameType] :$action-names!,
+        Array[policyDocumentType] :$policy-input-list!,
+        ResourceNameType :$resource-owner,
+        maxItemsType :$max-items,
+        ResourceHandlingOptionType :$resource-handling-option,
+        ResourceNameType :$caller-arn,
+        policyDocumentType :$resource-policy,
+        markerType :$marker,
+        Array[ContextEntry] :$context-entries
     ) returns SimulatePolicyResponse is service-operation('SimulateCustomPolicy') {
         my $request-input = SimulateCustomPolicyRequest.new(
-        :$resource-arns,
-        :$action-names,
-        :$policy-input-list,
-        :$resource-owner,
-        :$max-items,
-        :$resource-handling-option,
-        :$caller-arn,
-        :$resource-policy,
-        :$marker,
-        :$context-entries
+            :$resource-arns,
+            :$action-names,
+            :$policy-input-list,
+            :$resource-owner,
+            :$max-items,
+            :$resource-handling-option,
+            :$caller-arn,
+            :$resource-policy,
+            :$marker,
+            :$context-entries
         );
-;
+
         self.perform-operation(
             :api-call<SimulateCustomPolicy>,
-            :return-type(SimulatePolicyResponse),
-            :result-wrapper('SimulateCustomPolicyResult'),
             :$request-input,
         );
     }
 
     method delete-instance-profile(
-    instanceProfileNameType :$instance-profile-name!
+        instanceProfileNameType :$instance-profile-name!
     ) is service-operation('DeleteInstanceProfile') {
         my $request-input = DeleteInstanceProfileRequest.new(
-        :$instance-profile-name
+            :$instance-profile-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteInstanceProfile>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-group(
-    groupNameType :$group-name!
+        groupNameType :$group-name!
     ) is service-operation('DeleteGroup') {
         my $request-input = DeleteGroupRequest.new(
-        :$group-name
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-group-policy(
-    policyNameType :$policy-name!,
-    groupNameType :$group-name!
+        policyNameType :$policy-name!,
+        groupNameType :$group-name!
     ) returns GetGroupPolicyResponse is service-operation('GetGroupPolicy') {
         my $request-input = GetGroupPolicyRequest.new(
-        :$policy-name,
-        :$group-name
+            :$policy-name,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<GetGroupPolicy>,
-            :return-type(GetGroupPolicyResponse),
-            :result-wrapper('GetGroupPolicyResult'),
             :$request-input,
         );
     }
@@ -3553,85 +3351,75 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     method generate-credential-report(
 
     ) returns GenerateCredentialReportResponse is service-operation('GenerateCredentialReport') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<GenerateCredentialReport>,
-            :return-type(GenerateCredentialReportResponse),
-            :result-wrapper('GenerateCredentialReportResult'),
             :$request-input,
         );
     }
 
     method create-access-key(
-    existingUserNameType :$user-name
+        existingUserNameType :$user-name
     ) returns CreateAccessKeyResponse is service-operation('CreateAccessKey') {
         my $request-input = CreateAccessKeyRequest.new(
-        :$user-name
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateAccessKey>,
-            :return-type(CreateAccessKeyResponse),
-            :result-wrapper('CreateAccessKeyResult'),
             :$request-input,
         );
     }
 
     method list-attached-group-policies(
-    policyPathType :$path-prefix,
-    maxItemsType :$max-items,
-    markerType :$marker,
-    groupNameType :$group-name!
+        policyPathType :$path-prefix,
+        maxItemsType :$max-items,
+        markerType :$marker,
+        groupNameType :$group-name!
     ) returns ListAttachedGroupPoliciesResponse is service-operation('ListAttachedGroupPolicies') {
         my $request-input = ListAttachedGroupPoliciesRequest.new(
-        :$path-prefix,
-        :$max-items,
-        :$marker,
-        :$group-name
+            :$path-prefix,
+            :$max-items,
+            :$marker,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<ListAttachedGroupPolicies>,
-            :return-type(ListAttachedGroupPoliciesResponse),
-            :result-wrapper('ListAttachedGroupPoliciesResult'),
             :$request-input,
         );
     }
 
     method list-user-policies(
-    existingUserNameType :$user-name!,
-    maxItemsType :$max-items,
-    markerType :$marker
+        existingUserNameType :$user-name!,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListUserPoliciesResponse is service-operation('ListUserPolicies') {
         my $request-input = ListUserPoliciesRequest.new(
-        :$user-name,
-        :$max-items,
-        :$marker
+            :$user-name,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListUserPolicies>,
-            :return-type(ListUserPoliciesResponse),
-            :result-wrapper('ListUserPoliciesResult'),
             :$request-input,
         );
     }
 
     method get-group(
-    maxItemsType :$max-items,
-    markerType :$marker,
-    groupNameType :$group-name!
+        maxItemsType :$max-items,
+        markerType :$marker,
+        groupNameType :$group-name!
     ) returns GetGroupResponse is service-operation('GetGroup') {
         my $request-input = GetGroupRequest.new(
-        :$max-items,
-        :$marker,
-        :$group-name
+            :$max-items,
+            :$marker,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<GetGroup>,
-            :return-type(GetGroupResponse),
-            :result-wrapper('GetGroupResult'),
             :$request-input,
         );
     }
@@ -3639,286 +3427,254 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     method delete-account-password-policy(
 
     ) is service-operation('DeleteAccountPasswordPolicy') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DeleteAccountPasswordPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-account-alias(
-    accountAliasType :$account-alias!
+        accountAliasType :$account-alias!
     ) is service-operation('CreateAccountAlias') {
         my $request-input = CreateAccountAliasRequest.new(
-        :$account-alias
+            :$account-alias
         );
-;
+
         self.perform-operation(
             :api-call<CreateAccountAlias>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reset-service-specific-credential(
-    userNameType :$user-name,
-    serviceSpecificCredentialId :$service-specific-credential-id!
+        userNameType :$user-name,
+        serviceSpecificCredentialId :$service-specific-credential-id!
     ) returns ResetServiceSpecificCredentialResponse is service-operation('ResetServiceSpecificCredential') {
         my $request-input = ResetServiceSpecificCredentialRequest.new(
-        :$user-name,
-        :$service-specific-credential-id
+            :$user-name,
+            :$service-specific-credential-id
         );
-;
+
         self.perform-operation(
             :api-call<ResetServiceSpecificCredential>,
-            :return-type(ResetServiceSpecificCredentialResponse),
-            :result-wrapper('ResetServiceSpecificCredentialResult'),
             :$request-input,
         );
     }
 
     method delete-saml-provider(
-    arnType :$saml-provider-arn!
+        arnType :$saml-provider-arn!
     ) is service-operation('DeleteSAMLProvider') {
         my $request-input = DeleteSAMLProviderRequest.new(
-        :$saml-provider-arn
+            :$saml-provider-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSAMLProvider>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-role-policy(
-    policyNameType :$policy-name!,
-    roleNameType :$role-name!
+        policyNameType :$policy-name!,
+        roleNameType :$role-name!
     ) is service-operation('DeleteRolePolicy') {
         my $request-input = DeleteRolePolicyRequest.new(
-        :$policy-name,
-        :$role-name
+            :$policy-name,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRolePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-virtual-mfa-device(
-    virtualMFADeviceName :$virtual-mfa-device-name!,
-    pathType :$path
+        virtualMFADeviceName :$virtual-mfa-device-name!,
+        pathType :$path
     ) returns CreateVirtualMFADeviceResponse is service-operation('CreateVirtualMFADevice') {
         my $request-input = CreateVirtualMFADeviceRequest.new(
-        :$virtual-mfa-device-name,
-        :$path
+            :$virtual-mfa-device-name,
+            :$path
         );
-;
+
         self.perform-operation(
             :api-call<CreateVirtualMFADevice>,
-            :return-type(CreateVirtualMFADeviceResponse),
-            :result-wrapper('CreateVirtualMFADeviceResult'),
             :$request-input,
         );
     }
 
     method create-login-profile(
-    Bool :$password-reset-required,
-    passwordType :$password!,
-    userNameType :$user-name!
+        Bool :$password-reset-required,
+        passwordType :$password!,
+        userNameType :$user-name!
     ) returns CreateLoginProfileResponse is service-operation('CreateLoginProfile') {
         my $request-input = CreateLoginProfileRequest.new(
-        :$password-reset-required,
-        :$password,
-        :$user-name
+            :$password-reset-required,
+            :$password,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateLoginProfile>,
-            :return-type(CreateLoginProfileResponse),
-            :result-wrapper('CreateLoginProfileResult'),
             :$request-input,
         );
     }
 
     method list-attached-user-policies(
-    userNameType :$user-name!,
-    policyPathType :$path-prefix,
-    maxItemsType :$max-items,
-    markerType :$marker
+        userNameType :$user-name!,
+        policyPathType :$path-prefix,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListAttachedUserPoliciesResponse is service-operation('ListAttachedUserPolicies') {
         my $request-input = ListAttachedUserPoliciesRequest.new(
-        :$user-name,
-        :$path-prefix,
-        :$max-items,
-        :$marker
+            :$user-name,
+            :$path-prefix,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListAttachedUserPolicies>,
-            :return-type(ListAttachedUserPoliciesResponse),
-            :result-wrapper('ListAttachedUserPoliciesResult'),
             :$request-input,
         );
     }
 
     method enable-mfa-device(
-    authenticationCodeType :$authentication-code2!,
-    serialNumberType :$serial-number!,
-    existingUserNameType :$user-name!,
-    authenticationCodeType :$authentication-code1!
+        authenticationCodeType :$authentication-code2!,
+        serialNumberType :$serial-number!,
+        existingUserNameType :$user-name!,
+        authenticationCodeType :$authentication-code1!
     ) is service-operation('EnableMFADevice') {
         my $request-input = EnableMFADeviceRequest.new(
-        :$authentication-code2,
-        :$serial-number,
-        :$user-name,
-        :$authentication-code1
+            :$authentication-code2,
+            :$serial-number,
+            :$user-name,
+            :$authentication-code1
         );
-;
+
         self.perform-operation(
             :api-call<EnableMFADevice>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-signing-certificate(
-    certificateIdType :$certificate-id!,
-    existingUserNameType :$user-name,
-    statusType :$status!
+        certificateIdType :$certificate-id!,
+        existingUserNameType :$user-name,
+        statusType :$status!
     ) is service-operation('UpdateSigningCertificate') {
         my $request-input = UpdateSigningCertificateRequest.new(
-        :$certificate-id,
-        :$user-name,
-        :$status
+            :$certificate-id,
+            :$user-name,
+            :$status
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSigningCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-entities-for-policy(
-    pathType :$path-prefix,
-    EntityType :$entity-filter,
-    maxItemsType :$max-items,
-    arnType :$policy-arn!,
-    markerType :$marker
+        pathType :$path-prefix,
+        EntityType :$entity-filter,
+        maxItemsType :$max-items,
+        arnType :$policy-arn!,
+        markerType :$marker
     ) returns ListEntitiesForPolicyResponse is service-operation('ListEntitiesForPolicy') {
         my $request-input = ListEntitiesForPolicyRequest.new(
-        :$path-prefix,
-        :$entity-filter,
-        :$max-items,
-        :$policy-arn,
-        :$marker
+            :$path-prefix,
+            :$entity-filter,
+            :$max-items,
+            :$policy-arn,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListEntitiesForPolicy>,
-            :return-type(ListEntitiesForPolicyResponse),
-            :result-wrapper('ListEntitiesForPolicyResult'),
             :$request-input,
         );
     }
 
     method update-open-id-connect-provider-thumbprint(
-    arnType :$open-id-connect-provider-arn!,
-    Array[thumbprintType] :$thumbprint-list!
+        arnType :$open-id-connect-provider-arn!,
+        Array[thumbprintType] :$thumbprint-list!
     ) is service-operation('UpdateOpenIDConnectProviderThumbprint') {
         my $request-input = UpdateOpenIDConnectProviderThumbprintRequest.new(
-        :$open-id-connect-provider-arn,
-        :$thumbprint-list
+            :$open-id-connect-provider-arn,
+            :$thumbprint-list
         );
-;
+
         self.perform-operation(
             :api-call<UpdateOpenIDConnectProviderThumbprint>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-group-policy(
-    policyDocumentType :$policy-document!,
-    policyNameType :$policy-name!,
-    groupNameType :$group-name!
+        policyDocumentType :$policy-document!,
+        policyNameType :$policy-name!,
+        groupNameType :$group-name!
     ) is service-operation('PutGroupPolicy') {
         my $request-input = PutGroupPolicyRequest.new(
-        :$policy-document,
-        :$policy-name,
-        :$group-name
+            :$policy-document,
+            :$policy-name,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<PutGroupPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-account-authorization-details(
-    Array[EntityType] :$filter,
-    maxItemsType :$max-items,
-    markerType :$marker
+        Array[EntityType] :$filter,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns GetAccountAuthorizationDetailsResponse is service-operation('GetAccountAuthorizationDetails') {
         my $request-input = GetAccountAuthorizationDetailsRequest.new(
-        :$filter,
-        :$max-items,
-        :$marker
+            :$filter,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<GetAccountAuthorizationDetails>,
-            :return-type(GetAccountAuthorizationDetailsResponse),
-            :result-wrapper('GetAccountAuthorizationDetailsResult'),
             :$request-input,
         );
     }
 
     method delete-ssh-public-key(
-    publicKeyIdType :$ssh-public-key-id!,
-    userNameType :$user-name!
+        publicKeyIdType :$ssh-public-key-id!,
+        userNameType :$user-name!
     ) is service-operation('DeleteSSHPublicKey') {
         my $request-input = DeleteSSHPublicKeyRequest.new(
-        :$ssh-public-key-id,
-        :$user-name
+            :$ssh-public-key-id,
+            :$user-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSSHPublicKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-server-certificates(
-    pathPrefixType :$path-prefix,
-    maxItemsType :$max-items,
-    markerType :$marker
+        pathPrefixType :$path-prefix,
+        maxItemsType :$max-items,
+        markerType :$marker
     ) returns ListServerCertificatesResponse is service-operation('ListServerCertificates') {
         my $request-input = ListServerCertificatesRequest.new(
-        :$path-prefix,
-        :$max-items,
-        :$marker
+            :$path-prefix,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListServerCertificates>,
-            :return-type(ListServerCertificatesResponse),
-            :result-wrapper('ListServerCertificatesResult'),
             :$request-input,
         );
     }

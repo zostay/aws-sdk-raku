@@ -202,107 +202,95 @@ class AWS::SDK::Service::Polly does AWS::SDK::Service {
     }
 
     method put-lexicon(
-    Str :$content!,
-    LexiconName :$name!
+        Str :$content!,
+        LexiconName :$name!
     ) returns PutLexiconOutput is service-operation('PutLexicon') {
         my $request-input = PutLexiconInput.new(
-        :$content,
-        :$name
+            :$content,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<PutLexicon>,
-            :return-type(PutLexiconOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-lexicon(
-    LexiconName :$name!
+        LexiconName :$name!
     ) returns DeleteLexiconOutput is service-operation('DeleteLexicon') {
         my $request-input = DeleteLexiconInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLexicon>,
-            :return-type(DeleteLexiconOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-voices(
-    Str :$next-token,
-    LanguageCode :$language-code
+        Str :$next-token,
+        LanguageCode :$language-code
     ) returns DescribeVoicesOutput is service-operation('DescribeVoices') {
         my $request-input = DescribeVoicesInput.new(
-        :$next-token,
-        :$language-code
+            :$next-token,
+            :$language-code
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVoices>,
-            :return-type(DescribeVoicesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-lexicons(
-    Str :$next-token
+        Str :$next-token
     ) returns ListLexiconsOutput is service-operation('ListLexicons') {
         my $request-input = ListLexiconsInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListLexicons>,
-            :return-type(ListLexiconsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method synthesize-speech(
-    SpeechMarkTypeList :$speech-mark-types,
-    OutputFormat :$output-format!,
-    LexiconNameList :$lexicon-names,
-    Str :$text!,
-    VoiceId :$voice-id!,
-    TextType :$text-type,
-    Str :$sample-rate
+        SpeechMarkTypeList :$speech-mark-types,
+        OutputFormat :$output-format!,
+        LexiconNameList :$lexicon-names,
+        Str :$text!,
+        VoiceId :$voice-id!,
+        TextType :$text-type,
+        Str :$sample-rate
     ) returns SynthesizeSpeechOutput is service-operation('SynthesizeSpeech') {
         my $request-input = SynthesizeSpeechInput.new(
-        :$speech-mark-types,
-        :$output-format,
-        :$lexicon-names,
-        :$text,
-        :$voice-id,
-        :$text-type,
-        :$sample-rate
+            :$speech-mark-types,
+            :$output-format,
+            :$lexicon-names,
+            :$text,
+            :$voice-id,
+            :$text-type,
+            :$sample-rate
         );
-;
+
         self.perform-operation(
             :api-call<SynthesizeSpeech>,
-            :return-type(SynthesizeSpeechOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-lexicon(
-    LexiconName :$name!
+        LexiconName :$name!
     ) returns GetLexiconOutput is service-operation('GetLexicon') {
         my $request-input = GetLexiconInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetLexicon>,
-            :return-type(GetLexiconOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

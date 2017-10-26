@@ -630,512 +630,454 @@ class AWS::SDK::Service::ELB does AWS::SDK::Service {
     }
 
     method set-load-balancer-policies-of-listener(
-    Array[Str] :$policy-names!,
-    Int :$load-balancer-port!,
-    Str :$load-balancer-name!
+        Array[Str] :$policy-names!,
+        Int :$load-balancer-port!,
+        Str :$load-balancer-name!
     ) returns SetLoadBalancerPoliciesOfListenerOutput is service-operation('SetLoadBalancerPoliciesOfListener') {
         my $request-input = SetLoadBalancerPoliciesOfListenerInput.new(
-        :$policy-names,
-        :$load-balancer-port,
-        :$load-balancer-name
+            :$policy-names,
+            :$load-balancer-port,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<SetLoadBalancerPoliciesOfListener>,
-            :return-type(SetLoadBalancerPoliciesOfListenerOutput),
-            :result-wrapper('SetLoadBalancerPoliciesOfListenerResult'),
             :$request-input,
         );
     }
 
     method detach-load-balancer-from-subnets(
-    Array[Str] :$subnets!,
-    Str :$load-balancer-name!
+        Array[Str] :$subnets!,
+        Str :$load-balancer-name!
     ) returns DetachLoadBalancerFromSubnetsOutput is service-operation('DetachLoadBalancerFromSubnets') {
         my $request-input = DetachLoadBalancerFromSubnetsInput.new(
-        :$subnets,
-        :$load-balancer-name
+            :$subnets,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<DetachLoadBalancerFromSubnets>,
-            :return-type(DetachLoadBalancerFromSubnetsOutput),
-            :result-wrapper('DetachLoadBalancerFromSubnetsResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancers(
-    Array[Str] :$load-balancer-names,
-    PageSize :$page-size,
-    Str :$marker
+        Array[Str] :$load-balancer-names,
+        PageSize :$page-size,
+        Str :$marker
     ) returns DescribeAccessPointsOutput is service-operation('DescribeLoadBalancers') {
         my $request-input = DescribeAccessPointsInput.new(
-        :$load-balancer-names,
-        :$page-size,
-        :$marker
+            :$load-balancer-names,
+            :$page-size,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoadBalancers>,
-            :return-type(DescribeAccessPointsOutput),
-            :result-wrapper('DescribeLoadBalancersResult'),
             :$request-input,
         );
     }
 
     method deregister-instances-from-load-balancer(
-    Array[Instance] :$instances!,
-    Str :$load-balancer-name!
+        Array[Instance] :$instances!,
+        Str :$load-balancer-name!
     ) returns DeregisterEndPointsOutput is service-operation('DeregisterInstancesFromLoadBalancer') {
         my $request-input = DeregisterEndPointsInput.new(
-        :$instances,
-        :$load-balancer-name
+            :$instances,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterInstancesFromLoadBalancer>,
-            :return-type(DeregisterEndPointsOutput),
-            :result-wrapper('DeregisterInstancesFromLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method create-load-balancer-policy(
-    Str :$policy-type-name!,
-    Array[PolicyAttribute] :$policy-attributes,
-    Str :$policy-name!,
-    Str :$load-balancer-name!
+        Str :$policy-type-name!,
+        Array[PolicyAttribute] :$policy-attributes,
+        Str :$policy-name!,
+        Str :$load-balancer-name!
     ) returns CreateLoadBalancerPolicyOutput is service-operation('CreateLoadBalancerPolicy') {
         my $request-input = CreateLoadBalancerPolicyInput.new(
-        :$policy-type-name,
-        :$policy-attributes,
-        :$policy-name,
-        :$load-balancer-name
+            :$policy-type-name,
+            :$policy-attributes,
+            :$policy-name,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateLoadBalancerPolicy>,
-            :return-type(CreateLoadBalancerPolicyOutput),
-            :result-wrapper('CreateLoadBalancerPolicyResult'),
             :$request-input,
         );
     }
 
     method create-load-balancer-listeners(
-    Array[Listener] :$listeners!,
-    Str :$load-balancer-name!
+        Array[Listener] :$listeners!,
+        Str :$load-balancer-name!
     ) returns CreateLoadBalancerListenerOutput is service-operation('CreateLoadBalancerListeners') {
         my $request-input = CreateLoadBalancerListenerInput.new(
-        :$listeners,
-        :$load-balancer-name
+            :$listeners,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateLoadBalancerListeners>,
-            :return-type(CreateLoadBalancerListenerOutput),
-            :result-wrapper('CreateLoadBalancerListenersResult'),
             :$request-input,
         );
     }
 
     method set-load-balancer-listener-ssl-certificate(
-    Int :$load-balancer-port!,
-    Str :$load-balancer-name!,
-    Str :$ssl-certificate-id!
+        Int :$load-balancer-port!,
+        Str :$load-balancer-name!,
+        Str :$ssl-certificate-id!
     ) returns SetLoadBalancerListenerSSLCertificateOutput is service-operation('SetLoadBalancerListenerSSLCertificate') {
         my $request-input = SetLoadBalancerListenerSSLCertificateInput.new(
-        :$load-balancer-port,
-        :$load-balancer-name,
-        :$ssl-certificate-id
+            :$load-balancer-port,
+            :$load-balancer-name,
+            :$ssl-certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<SetLoadBalancerListenerSSLCertificate>,
-            :return-type(SetLoadBalancerListenerSSLCertificateOutput),
-            :result-wrapper('SetLoadBalancerListenerSSLCertificateResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancer-policies(
-    Array[Str] :$policy-names,
-    Str :$load-balancer-name
+        Array[Str] :$policy-names,
+        Str :$load-balancer-name
     ) returns DescribeLoadBalancerPoliciesOutput is service-operation('DescribeLoadBalancerPolicies') {
         my $request-input = DescribeLoadBalancerPoliciesInput.new(
-        :$policy-names,
-        :$load-balancer-name
+            :$policy-names,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoadBalancerPolicies>,
-            :return-type(DescribeLoadBalancerPoliciesOutput),
-            :result-wrapper('DescribeLoadBalancerPoliciesResult'),
             :$request-input,
         );
     }
 
     method describe-account-limits(
-    PageSize :$page-size,
-    Str :$marker
+        PageSize :$page-size,
+        Str :$marker
     ) returns DescribeAccountLimitsOutput is service-operation('DescribeAccountLimits') {
         my $request-input = DescribeAccountLimitsInput.new(
-        :$page-size,
-        :$marker
+            :$page-size,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAccountLimits>,
-            :return-type(DescribeAccountLimitsOutput),
-            :result-wrapper('DescribeAccountLimitsResult'),
             :$request-input,
         );
     }
 
     method delete-load-balancer-policy(
-    Str :$policy-name!,
-    Str :$load-balancer-name!
+        Str :$policy-name!,
+        Str :$load-balancer-name!
     ) returns DeleteLoadBalancerPolicyOutput is service-operation('DeleteLoadBalancerPolicy') {
         my $request-input = DeleteLoadBalancerPolicyInput.new(
-        :$policy-name,
-        :$load-balancer-name
+            :$policy-name,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLoadBalancerPolicy>,
-            :return-type(DeleteLoadBalancerPolicyOutput),
-            :result-wrapper('DeleteLoadBalancerPolicyResult'),
             :$request-input,
         );
     }
 
     method add-tags(
-    TagList :$tags!,
-    Array[Str] :$load-balancer-names!
+        TagList :$tags!,
+        Array[Str] :$load-balancer-names!
     ) returns AddTagsOutput is service-operation('AddTags') {
         my $request-input = AddTagsInput.new(
-        :$tags,
-        :$load-balancer-names
+            :$tags,
+            :$load-balancer-names
         );
-;
+
         self.perform-operation(
             :api-call<AddTags>,
-            :return-type(AddTagsOutput),
-            :result-wrapper('AddTagsResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancer-attributes(
-    Str :$load-balancer-name!
+        Str :$load-balancer-name!
     ) returns DescribeLoadBalancerAttributesOutput is service-operation('DescribeLoadBalancerAttributes') {
         my $request-input = DescribeLoadBalancerAttributesInput.new(
-        :$load-balancer-name
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoadBalancerAttributes>,
-            :return-type(DescribeLoadBalancerAttributesOutput),
-            :result-wrapper('DescribeLoadBalancerAttributesResult'),
             :$request-input,
         );
     }
 
     method enable-availability-zones-for-load-balancer(
-    Array[Str] :$availability-zones!,
-    Str :$load-balancer-name!
+        Array[Str] :$availability-zones!,
+        Str :$load-balancer-name!
     ) returns AddAvailabilityZonesOutput is service-operation('EnableAvailabilityZonesForLoadBalancer') {
         my $request-input = AddAvailabilityZonesInput.new(
-        :$availability-zones,
-        :$load-balancer-name
+            :$availability-zones,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<EnableAvailabilityZonesForLoadBalancer>,
-            :return-type(AddAvailabilityZonesOutput),
-            :result-wrapper('EnableAvailabilityZonesForLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method delete-load-balancer-listeners(
-    Array[Int] :$load-balancer-ports!,
-    Str :$load-balancer-name!
+        Array[Int] :$load-balancer-ports!,
+        Str :$load-balancer-name!
     ) returns DeleteLoadBalancerListenerOutput is service-operation('DeleteLoadBalancerListeners') {
         my $request-input = DeleteLoadBalancerListenerInput.new(
-        :$load-balancer-ports,
-        :$load-balancer-name
+            :$load-balancer-ports,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLoadBalancerListeners>,
-            :return-type(DeleteLoadBalancerListenerOutput),
-            :result-wrapper('DeleteLoadBalancerListenersResult'),
             :$request-input,
         );
     }
 
     method create-app-cookie-stickiness-policy(
-    Str :$cookie-name!,
-    Str :$policy-name!,
-    Str :$load-balancer-name!
+        Str :$cookie-name!,
+        Str :$policy-name!,
+        Str :$load-balancer-name!
     ) returns CreateAppCookieStickinessPolicyOutput is service-operation('CreateAppCookieStickinessPolicy') {
         my $request-input = CreateAppCookieStickinessPolicyInput.new(
-        :$cookie-name,
-        :$policy-name,
-        :$load-balancer-name
+            :$cookie-name,
+            :$policy-name,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateAppCookieStickinessPolicy>,
-            :return-type(CreateAppCookieStickinessPolicyOutput),
-            :result-wrapper('CreateAppCookieStickinessPolicyResult'),
             :$request-input,
         );
     }
 
     method set-load-balancer-policies-for-backend-server(
-    Int :$instance-port!,
-    Array[Str] :$policy-names!,
-    Str :$load-balancer-name!
+        Int :$instance-port!,
+        Array[Str] :$policy-names!,
+        Str :$load-balancer-name!
     ) returns SetLoadBalancerPoliciesForBackendServerOutput is service-operation('SetLoadBalancerPoliciesForBackendServer') {
         my $request-input = SetLoadBalancerPoliciesForBackendServerInput.new(
-        :$instance-port,
-        :$policy-names,
-        :$load-balancer-name
+            :$instance-port,
+            :$policy-names,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<SetLoadBalancerPoliciesForBackendServer>,
-            :return-type(SetLoadBalancerPoliciesForBackendServerOutput),
-            :result-wrapper('SetLoadBalancerPoliciesForBackendServerResult'),
             :$request-input,
         );
     }
 
     method register-instances-with-load-balancer(
-    Array[Instance] :$instances!,
-    Str :$load-balancer-name!
+        Array[Instance] :$instances!,
+        Str :$load-balancer-name!
     ) returns RegisterEndPointsOutput is service-operation('RegisterInstancesWithLoadBalancer') {
         my $request-input = RegisterEndPointsInput.new(
-        :$instances,
-        :$load-balancer-name
+            :$instances,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<RegisterInstancesWithLoadBalancer>,
-            :return-type(RegisterEndPointsOutput),
-            :result-wrapper('RegisterInstancesWithLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method create-load-balancer(
-    Str :$scheme,
-    Array[Str] :$security-groups,
-    Array[Str] :$subnets,
-    Array[Listener] :$listeners!,
-    Array[Str] :$availability-zones,
-    TagList :$tags,
-    Str :$load-balancer-name!
+        Str :$scheme,
+        Array[Str] :$security-groups,
+        Array[Str] :$subnets,
+        Array[Listener] :$listeners!,
+        Array[Str] :$availability-zones,
+        TagList :$tags,
+        Str :$load-balancer-name!
     ) returns CreateAccessPointOutput is service-operation('CreateLoadBalancer') {
         my $request-input = CreateAccessPointInput.new(
-        :$scheme,
-        :$security-groups,
-        :$subnets,
-        :$listeners,
-        :$availability-zones,
-        :$tags,
-        :$load-balancer-name
+            :$scheme,
+            :$security-groups,
+            :$subnets,
+            :$listeners,
+            :$availability-zones,
+            :$tags,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateLoadBalancer>,
-            :return-type(CreateAccessPointOutput),
-            :result-wrapper('CreateLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method remove-tags(
-    TagKeyList :$tags!,
-    Array[Str] :$load-balancer-names!
+        TagKeyList :$tags!,
+        Array[Str] :$load-balancer-names!
     ) returns RemoveTagsOutput is service-operation('RemoveTags') {
         my $request-input = RemoveTagsInput.new(
-        :$tags,
-        :$load-balancer-names
+            :$tags,
+            :$load-balancer-names
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTags>,
-            :return-type(RemoveTagsOutput),
-            :result-wrapper('RemoveTagsResult'),
             :$request-input,
         );
     }
 
     method describe-tags(
-    LoadBalancerNamesMax20 :$load-balancer-names!
+        LoadBalancerNamesMax20 :$load-balancer-names!
     ) returns DescribeTagsOutput is service-operation('DescribeTags') {
         my $request-input = DescribeTagsInput.new(
-        :$load-balancer-names
+            :$load-balancer-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTags>,
-            :return-type(DescribeTagsOutput),
-            :result-wrapper('DescribeTagsResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancer-policy-types(
-    Array[Str] :$policy-type-names
+        Array[Str] :$policy-type-names
     ) returns DescribeLoadBalancerPolicyTypesOutput is service-operation('DescribeLoadBalancerPolicyTypes') {
         my $request-input = DescribeLoadBalancerPolicyTypesInput.new(
-        :$policy-type-names
+            :$policy-type-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoadBalancerPolicyTypes>,
-            :return-type(DescribeLoadBalancerPolicyTypesOutput),
-            :result-wrapper('DescribeLoadBalancerPolicyTypesResult'),
             :$request-input,
         );
     }
 
     method describe-instance-health(
-    Array[Instance] :$instances,
-    Str :$load-balancer-name!
+        Array[Instance] :$instances,
+        Str :$load-balancer-name!
     ) returns DescribeEndPointStateOutput is service-operation('DescribeInstanceHealth') {
         my $request-input = DescribeEndPointStateInput.new(
-        :$instances,
-        :$load-balancer-name
+            :$instances,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstanceHealth>,
-            :return-type(DescribeEndPointStateOutput),
-            :result-wrapper('DescribeInstanceHealthResult'),
             :$request-input,
         );
     }
 
     method create-lb-cookie-stickiness-policy(
-    Str :$policy-name!,
-    Str :$load-balancer-name!,
-    Int :$cookie-expiration-period
+        Str :$policy-name!,
+        Str :$load-balancer-name!,
+        Int :$cookie-expiration-period
     ) returns CreateLBCookieStickinessPolicyOutput is service-operation('CreateLBCookieStickinessPolicy') {
         my $request-input = CreateLBCookieStickinessPolicyInput.new(
-        :$policy-name,
-        :$load-balancer-name,
-        :$cookie-expiration-period
+            :$policy-name,
+            :$load-balancer-name,
+            :$cookie-expiration-period
         );
-;
+
         self.perform-operation(
             :api-call<CreateLBCookieStickinessPolicy>,
-            :return-type(CreateLBCookieStickinessPolicyOutput),
-            :result-wrapper('CreateLBCookieStickinessPolicyResult'),
             :$request-input,
         );
     }
 
     method attach-load-balancer-to-subnets(
-    Array[Str] :$subnets!,
-    Str :$load-balancer-name!
+        Array[Str] :$subnets!,
+        Str :$load-balancer-name!
     ) returns AttachLoadBalancerToSubnetsOutput is service-operation('AttachLoadBalancerToSubnets') {
         my $request-input = AttachLoadBalancerToSubnetsInput.new(
-        :$subnets,
-        :$load-balancer-name
+            :$subnets,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<AttachLoadBalancerToSubnets>,
-            :return-type(AttachLoadBalancerToSubnetsOutput),
-            :result-wrapper('AttachLoadBalancerToSubnetsResult'),
             :$request-input,
         );
     }
 
     method modify-load-balancer-attributes(
-    LoadBalancerAttributes :$load-balancer-attributes!,
-    Str :$load-balancer-name!
+        LoadBalancerAttributes :$load-balancer-attributes!,
+        Str :$load-balancer-name!
     ) returns ModifyLoadBalancerAttributesOutput is service-operation('ModifyLoadBalancerAttributes') {
         my $request-input = ModifyLoadBalancerAttributesInput.new(
-        :$load-balancer-attributes,
-        :$load-balancer-name
+            :$load-balancer-attributes,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<ModifyLoadBalancerAttributes>,
-            :return-type(ModifyLoadBalancerAttributesOutput),
-            :result-wrapper('ModifyLoadBalancerAttributesResult'),
             :$request-input,
         );
     }
 
     method disable-availability-zones-for-load-balancer(
-    Array[Str] :$availability-zones!,
-    Str :$load-balancer-name!
+        Array[Str] :$availability-zones!,
+        Str :$load-balancer-name!
     ) returns RemoveAvailabilityZonesOutput is service-operation('DisableAvailabilityZonesForLoadBalancer') {
         my $request-input = RemoveAvailabilityZonesInput.new(
-        :$availability-zones,
-        :$load-balancer-name
+            :$availability-zones,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<DisableAvailabilityZonesForLoadBalancer>,
-            :return-type(RemoveAvailabilityZonesOutput),
-            :result-wrapper('DisableAvailabilityZonesForLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method apply-security-groups-to-load-balancer(
-    Array[Str] :$security-groups!,
-    Str :$load-balancer-name!
+        Array[Str] :$security-groups!,
+        Str :$load-balancer-name!
     ) returns ApplySecurityGroupsToLoadBalancerOutput is service-operation('ApplySecurityGroupsToLoadBalancer') {
         my $request-input = ApplySecurityGroupsToLoadBalancerInput.new(
-        :$security-groups,
-        :$load-balancer-name
+            :$security-groups,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<ApplySecurityGroupsToLoadBalancer>,
-            :return-type(ApplySecurityGroupsToLoadBalancerOutput),
-            :result-wrapper('ApplySecurityGroupsToLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method delete-load-balancer(
-    Str :$load-balancer-name!
+        Str :$load-balancer-name!
     ) returns DeleteAccessPointOutput is service-operation('DeleteLoadBalancer') {
         my $request-input = DeleteAccessPointInput.new(
-        :$load-balancer-name
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLoadBalancer>,
-            :return-type(DeleteAccessPointOutput),
-            :result-wrapper('DeleteLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method configure-health-check(
-    HealthCheck :$health-check!,
-    Str :$load-balancer-name!
+        HealthCheck :$health-check!,
+        Str :$load-balancer-name!
     ) returns ConfigureHealthCheckOutput is service-operation('ConfigureHealthCheck') {
         my $request-input = ConfigureHealthCheckInput.new(
-        :$health-check,
-        :$load-balancer-name
+            :$health-check,
+            :$load-balancer-name
         );
-;
+
         self.perform-operation(
             :api-call<ConfigureHealthCheck>,
-            :return-type(ConfigureHealthCheckOutput),
-            :result-wrapper('ConfigureHealthCheckResult'),
             :$request-input,
         );
     }

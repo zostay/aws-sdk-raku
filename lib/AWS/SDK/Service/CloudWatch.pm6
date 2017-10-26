@@ -408,326 +408,296 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
     }
 
     method list-metrics(
-    MetricName :$metric-name,
-    NextToken :$next-token,
-    DimensionFilters :$dimensions,
-    Namespace :$namespace
+        MetricName :$metric-name,
+        NextToken :$next-token,
+        DimensionFilters :$dimensions,
+        Namespace :$namespace
     ) returns ListMetricsOutput is service-operation('ListMetrics') {
         my $request-input = ListMetricsInput.new(
-        :$metric-name,
-        :$next-token,
-        :$dimensions,
-        :$namespace
+            :$metric-name,
+            :$next-token,
+            :$dimensions,
+            :$namespace
         );
-;
+
         self.perform-operation(
             :api-call<ListMetrics>,
-            :return-type(ListMetricsOutput),
-            :result-wrapper('ListMetricsResult'),
             :$request-input,
         );
     }
 
     method enable-alarm-actions(
-    AlarmNames :$alarm-names!
+        AlarmNames :$alarm-names!
     ) is service-operation('EnableAlarmActions') {
         my $request-input = EnableAlarmActionsInput.new(
-        :$alarm-names
+            :$alarm-names
         );
-;
+
         self.perform-operation(
             :api-call<EnableAlarmActions>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-alarm-actions(
-    AlarmNames :$alarm-names!
+        AlarmNames :$alarm-names!
     ) is service-operation('DisableAlarmActions') {
         my $request-input = DisableAlarmActionsInput.new(
-        :$alarm-names
+            :$alarm-names
         );
-;
+
         self.perform-operation(
             :api-call<DisableAlarmActions>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-alarm-history(
-    DateTime :$start-date,
-    DateTime :$end-date,
-    HistoryItemType :$history-item-type,
-    NextToken :$next-token,
-    AlarmName :$alarm-name,
-    MaxRecords :$max-records
+        DateTime :$start-date,
+        DateTime :$end-date,
+        HistoryItemType :$history-item-type,
+        NextToken :$next-token,
+        AlarmName :$alarm-name,
+        MaxRecords :$max-records
     ) returns DescribeAlarmHistoryOutput is service-operation('DescribeAlarmHistory') {
         my $request-input = DescribeAlarmHistoryInput.new(
-        :$start-date,
-        :$end-date,
-        :$history-item-type,
-        :$next-token,
-        :$alarm-name,
-        :$max-records
+            :$start-date,
+            :$end-date,
+            :$history-item-type,
+            :$next-token,
+            :$alarm-name,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAlarmHistory>,
-            :return-type(DescribeAlarmHistoryOutput),
-            :result-wrapper('DescribeAlarmHistoryResult'),
             :$request-input,
         );
     }
 
     method describe-alarms(
-    ActionPrefix :$action-prefix,
-    AlarmNamePrefix :$alarm-name-prefix,
-    NextToken :$next-token,
-    AlarmNames :$alarm-names,
-    MaxRecords :$max-records,
-    StateValue :$state-value
+        ActionPrefix :$action-prefix,
+        AlarmNamePrefix :$alarm-name-prefix,
+        NextToken :$next-token,
+        AlarmNames :$alarm-names,
+        MaxRecords :$max-records,
+        StateValue :$state-value
     ) returns DescribeAlarmsOutput is service-operation('DescribeAlarms') {
         my $request-input = DescribeAlarmsInput.new(
-        :$action-prefix,
-        :$alarm-name-prefix,
-        :$next-token,
-        :$alarm-names,
-        :$max-records,
-        :$state-value
+            :$action-prefix,
+            :$alarm-name-prefix,
+            :$next-token,
+            :$alarm-names,
+            :$max-records,
+            :$state-value
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAlarms>,
-            :return-type(DescribeAlarmsOutput),
-            :result-wrapper('DescribeAlarmsResult'),
             :$request-input,
         );
     }
 
     method delete-dashboards(
-    Array[Str] :$dashboard-names
+        Array[Str] :$dashboard-names
     ) returns DeleteDashboardsOutput is service-operation('DeleteDashboards') {
         my $request-input = DeleteDashboardsInput.new(
-        :$dashboard-names
+            :$dashboard-names
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDashboards>,
-            :return-type(DeleteDashboardsOutput),
-            :result-wrapper('DeleteDashboardsResult'),
             :$request-input,
         );
     }
 
     method delete-alarms(
-    AlarmNames :$alarm-names!
+        AlarmNames :$alarm-names!
     ) is service-operation('DeleteAlarms') {
         my $request-input = DeleteAlarmsInput.new(
-        :$alarm-names
+            :$alarm-names
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAlarms>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-alarm-state(
-    StateReasonData :$state-reason-data,
-    AlarmName :$alarm-name!,
-    StateReason :$state-reason!,
-    StateValue :$state-value!
+        StateReasonData :$state-reason-data,
+        AlarmName :$alarm-name!,
+        StateReason :$state-reason!,
+        StateValue :$state-value!
     ) is service-operation('SetAlarmState') {
         my $request-input = SetAlarmStateInput.new(
-        :$state-reason-data,
-        :$alarm-name,
-        :$state-reason,
-        :$state-value
+            :$state-reason-data,
+            :$alarm-name,
+            :$state-reason,
+            :$state-value
         );
-;
+
         self.perform-operation(
             :api-call<SetAlarmState>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-metric-data(
-    Namespace :$namespace!,
-    Array[MetricDatum] :$metric-data!
+        Namespace :$namespace!,
+        Array[MetricDatum] :$metric-data!
     ) is service-operation('PutMetricData') {
         my $request-input = PutMetricDataInput.new(
-        :$namespace,
-        :$metric-data
+            :$namespace,
+            :$metric-data
         );
-;
+
         self.perform-operation(
             :api-call<PutMetricData>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-dashboard(
-    Str :$dashboard-name,
-    Str :$dashboard-body
+        Str :$dashboard-name,
+        Str :$dashboard-body
     ) returns PutDashboardOutput is service-operation('PutDashboard') {
         my $request-input = PutDashboardInput.new(
-        :$dashboard-name,
-        :$dashboard-body
+            :$dashboard-name,
+            :$dashboard-body
         );
-;
+
         self.perform-operation(
             :api-call<PutDashboard>,
-            :return-type(PutDashboardOutput),
-            :result-wrapper('PutDashboardResult'),
             :$request-input,
         );
     }
 
     method list-dashboards(
-    Str :$dashboard-name-prefix,
-    NextToken :$next-token
+        Str :$dashboard-name-prefix,
+        NextToken :$next-token
     ) returns ListDashboardsOutput is service-operation('ListDashboards') {
         my $request-input = ListDashboardsInput.new(
-        :$dashboard-name-prefix,
-        :$next-token
+            :$dashboard-name-prefix,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDashboards>,
-            :return-type(ListDashboardsOutput),
-            :result-wrapper('ListDashboardsResult'),
             :$request-input,
         );
     }
 
     method put-metric-alarm(
-    EvaluationPeriods :$evaluation-periods!,
-    StandardUnit :$unit,
-    Statistic :$statistic,
-    Numeric :$threshold!,
-    Period :$period!,
-    EvaluateLowSampleCountPercentile :$evaluate-low-sample-count-percentile,
-    MetricName :$metric-name!,
-    ResourceList :$alarm-actions,
-    Bool :$actions-enabled,
-    TreatMissingData :$treat-missing-data,
-    ResourceList :$insufficient-data-actions,
-    AlarmDescription :$alarm-description,
-    AlarmName :$alarm-name!,
-    ComparisonOperator :$comparison-operator!,
-    Dimensions :$dimensions,
-    ExtendedStatistic :$extended-statistic,
-    Namespace :$namespace!,
-    ResourceList :$ok-actions
+        EvaluationPeriods :$evaluation-periods!,
+        StandardUnit :$unit,
+        Statistic :$statistic,
+        Numeric :$threshold!,
+        Period :$period!,
+        EvaluateLowSampleCountPercentile :$evaluate-low-sample-count-percentile,
+        MetricName :$metric-name!,
+        ResourceList :$alarm-actions,
+        Bool :$actions-enabled,
+        TreatMissingData :$treat-missing-data,
+        ResourceList :$insufficient-data-actions,
+        AlarmDescription :$alarm-description,
+        AlarmName :$alarm-name!,
+        ComparisonOperator :$comparison-operator!,
+        Dimensions :$dimensions,
+        ExtendedStatistic :$extended-statistic,
+        Namespace :$namespace!,
+        ResourceList :$ok-actions
     ) is service-operation('PutMetricAlarm') {
         my $request-input = PutMetricAlarmInput.new(
-        :$evaluation-periods,
-        :$unit,
-        :$statistic,
-        :$threshold,
-        :$period,
-        :$evaluate-low-sample-count-percentile,
-        :$metric-name,
-        :$alarm-actions,
-        :$actions-enabled,
-        :$treat-missing-data,
-        :$insufficient-data-actions,
-        :$alarm-description,
-        :$alarm-name,
-        :$comparison-operator,
-        :$dimensions,
-        :$extended-statistic,
-        :$namespace,
-        :$ok-actions
+            :$evaluation-periods,
+            :$unit,
+            :$statistic,
+            :$threshold,
+            :$period,
+            :$evaluate-low-sample-count-percentile,
+            :$metric-name,
+            :$alarm-actions,
+            :$actions-enabled,
+            :$treat-missing-data,
+            :$insufficient-data-actions,
+            :$alarm-description,
+            :$alarm-name,
+            :$comparison-operator,
+            :$dimensions,
+            :$extended-statistic,
+            :$namespace,
+            :$ok-actions
         );
-;
+
         self.perform-operation(
             :api-call<PutMetricAlarm>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-dashboard(
-    Str :$dashboard-name
+        Str :$dashboard-name
     ) returns GetDashboardOutput is service-operation('GetDashboard') {
         my $request-input = GetDashboardInput.new(
-        :$dashboard-name
+            :$dashboard-name
         );
-;
+
         self.perform-operation(
             :api-call<GetDashboard>,
-            :return-type(GetDashboardOutput),
-            :result-wrapper('GetDashboardResult'),
             :$request-input,
         );
     }
 
     method get-metric-statistics(
-    StandardUnit :$unit,
-    ExtendedStatistics :$extended-statistics,
-    DateTime :$end-time!,
-    Period :$period!,
-    MetricName :$metric-name!,
-    Statistics :$statistics,
-    DateTime :$start-time!,
-    Dimensions :$dimensions,
-    Namespace :$namespace!
+        StandardUnit :$unit,
+        ExtendedStatistics :$extended-statistics,
+        DateTime :$end-time!,
+        Period :$period!,
+        MetricName :$metric-name!,
+        Statistics :$statistics,
+        DateTime :$start-time!,
+        Dimensions :$dimensions,
+        Namespace :$namespace!
     ) returns GetMetricStatisticsOutput is service-operation('GetMetricStatistics') {
         my $request-input = GetMetricStatisticsInput.new(
-        :$unit,
-        :$extended-statistics,
-        :$end-time,
-        :$period,
-        :$metric-name,
-        :$statistics,
-        :$start-time,
-        :$dimensions,
-        :$namespace
+            :$unit,
+            :$extended-statistics,
+            :$end-time,
+            :$period,
+            :$metric-name,
+            :$statistics,
+            :$start-time,
+            :$dimensions,
+            :$namespace
         );
-;
+
         self.perform-operation(
             :api-call<GetMetricStatistics>,
-            :return-type(GetMetricStatisticsOutput),
-            :result-wrapper('GetMetricStatisticsResult'),
             :$request-input,
         );
     }
 
     method describe-alarms-for-metric(
-    StandardUnit :$unit,
-    Statistic :$statistic,
-    Period :$period,
-    MetricName :$metric-name!,
-    Dimensions :$dimensions,
-    ExtendedStatistic :$extended-statistic,
-    Namespace :$namespace!
+        StandardUnit :$unit,
+        Statistic :$statistic,
+        Period :$period,
+        MetricName :$metric-name!,
+        Dimensions :$dimensions,
+        ExtendedStatistic :$extended-statistic,
+        Namespace :$namespace!
     ) returns DescribeAlarmsForMetricOutput is service-operation('DescribeAlarmsForMetric') {
         my $request-input = DescribeAlarmsForMetricInput.new(
-        :$unit,
-        :$statistic,
-        :$period,
-        :$metric-name,
-        :$dimensions,
-        :$extended-statistic,
-        :$namespace
+            :$unit,
+            :$statistic,
+            :$period,
+            :$metric-name,
+            :$dimensions,
+            :$extended-statistic,
+            :$namespace
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAlarmsForMetric>,
-            :return-type(DescribeAlarmsForMetricOutput),
-            :result-wrapper('DescribeAlarmsForMetricResult'),
             :$request-input,
         );
     }

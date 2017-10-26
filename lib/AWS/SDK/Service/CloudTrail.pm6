@@ -435,269 +435,241 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     subset LookupAttributeKey of Str where $_ ~~ any('EventId', 'EventName', 'Username', 'ResourceType', 'ResourceName', 'EventSource');
 
     method list-tags(
-    Array[Str] :$resource-id-list!,
-    Str :$next-token
+        Array[Str] :$resource-id-list!,
+        Str :$next-token
     ) returns ListTagsResponse is service-operation('ListTags') {
         my $request-input = ListTagsRequest.new(
-        :$resource-id-list,
-        :$next-token
+            :$resource-id-list,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListTags>,
-            :return-type(ListTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-event-selectors(
-    Str :$trail-name!
+        Str :$trail-name!
     ) returns GetEventSelectorsResponse is service-operation('GetEventSelectors') {
         my $request-input = GetEventSelectorsRequest.new(
-        :$trail-name
+            :$trail-name
         );
-;
+
         self.perform-operation(
             :api-call<GetEventSelectors>,
-            :return-type(GetEventSelectorsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-logging(
-    Str :$name!
+        Str :$name!
     ) returns StartLoggingResponse is service-operation('StartLogging') {
         my $request-input = StartLoggingRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StartLogging>,
-            :return-type(StartLoggingResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-public-keys(
-    DateTime :$end-time,
-    DateTime :$start-time,
-    Str :$next-token
+        DateTime :$end-time,
+        DateTime :$start-time,
+        Str :$next-token
     ) returns ListPublicKeysResponse is service-operation('ListPublicKeys') {
         my $request-input = ListPublicKeysRequest.new(
-        :$end-time,
-        :$start-time,
-        :$next-token
+            :$end-time,
+            :$start-time,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListPublicKeys>,
-            :return-type(ListPublicKeysResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-trails(
-    Bool :$include-shadow-trails,
-    Array[Str] :$trail-name-list
+        Bool :$include-shadow-trails,
+        Array[Str] :$trail-name-list
     ) returns DescribeTrailsResponse is service-operation('DescribeTrails') {
         my $request-input = DescribeTrailsRequest.new(
-        :$include-shadow-trails,
-        :$trail-name-list
+            :$include-shadow-trails,
+            :$trail-name-list
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTrails>,
-            :return-type(DescribeTrailsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-trail(
-    Str :$name!
+        Str :$name!
     ) returns DeleteTrailResponse is service-operation('DeleteTrail') {
         my $request-input = DeleteTrailRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTrail>,
-            :return-type(DeleteTrailResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-trail(
-    Str :$kms-key-id,
-    Str :$sns-topic-name,
-    Str :$s3-bucket-name!,
-    Bool :$enable-log-file-validation,
-    Bool :$include-global-service-events,
-    Str :$name!,
-    Str :$cloud-watch-logs-role-arn,
-    Str :$cloud-watch-logs-log-group-arn,
-    Bool :$is-multi-region-trail,
-    Str :$s3-key-prefix
+        Str :$kms-key-id,
+        Str :$sns-topic-name,
+        Str :$s3-bucket-name!,
+        Bool :$enable-log-file-validation,
+        Bool :$include-global-service-events,
+        Str :$name!,
+        Str :$cloud-watch-logs-role-arn,
+        Str :$cloud-watch-logs-log-group-arn,
+        Bool :$is-multi-region-trail,
+        Str :$s3-key-prefix
     ) returns CreateTrailResponse is service-operation('CreateTrail') {
         my $request-input = CreateTrailRequest.new(
-        :$kms-key-id,
-        :$sns-topic-name,
-        :$s3-bucket-name,
-        :$enable-log-file-validation,
-        :$include-global-service-events,
-        :$name,
-        :$cloud-watch-logs-role-arn,
-        :$cloud-watch-logs-log-group-arn,
-        :$is-multi-region-trail,
-        :$s3-key-prefix
+            :$kms-key-id,
+            :$sns-topic-name,
+            :$s3-bucket-name,
+            :$enable-log-file-validation,
+            :$include-global-service-events,
+            :$name,
+            :$cloud-watch-logs-role-arn,
+            :$cloud-watch-logs-log-group-arn,
+            :$is-multi-region-trail,
+            :$s3-key-prefix
         );
-;
+
         self.perform-operation(
             :api-call<CreateTrail>,
-            :return-type(CreateTrailResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags(
-    Array[Tag] :$tags-list,
-    Str :$resource-id!
+        Array[Tag] :$tags-list,
+        Str :$resource-id!
     ) returns AddTagsResponse is service-operation('AddTags') {
         my $request-input = AddTagsRequest.new(
-        :$tags-list,
-        :$resource-id
+            :$tags-list,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<AddTags>,
-            :return-type(AddTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-trail-status(
-    Str :$name!
+        Str :$name!
     ) returns GetTrailStatusResponse is service-operation('GetTrailStatus') {
         my $request-input = GetTrailStatusRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetTrailStatus>,
-            :return-type(GetTrailStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-trail(
-    Str :$kms-key-id,
-    Str :$sns-topic-name,
-    Str :$s3-bucket-name,
-    Bool :$enable-log-file-validation,
-    Bool :$include-global-service-events,
-    Str :$name!,
-    Str :$cloud-watch-logs-role-arn,
-    Str :$cloud-watch-logs-log-group-arn,
-    Bool :$is-multi-region-trail,
-    Str :$s3-key-prefix
+        Str :$kms-key-id,
+        Str :$sns-topic-name,
+        Str :$s3-bucket-name,
+        Bool :$enable-log-file-validation,
+        Bool :$include-global-service-events,
+        Str :$name!,
+        Str :$cloud-watch-logs-role-arn,
+        Str :$cloud-watch-logs-log-group-arn,
+        Bool :$is-multi-region-trail,
+        Str :$s3-key-prefix
     ) returns UpdateTrailResponse is service-operation('UpdateTrail') {
         my $request-input = UpdateTrailRequest.new(
-        :$kms-key-id,
-        :$sns-topic-name,
-        :$s3-bucket-name,
-        :$enable-log-file-validation,
-        :$include-global-service-events,
-        :$name,
-        :$cloud-watch-logs-role-arn,
-        :$cloud-watch-logs-log-group-arn,
-        :$is-multi-region-trail,
-        :$s3-key-prefix
+            :$kms-key-id,
+            :$sns-topic-name,
+            :$s3-bucket-name,
+            :$enable-log-file-validation,
+            :$include-global-service-events,
+            :$name,
+            :$cloud-watch-logs-role-arn,
+            :$cloud-watch-logs-log-group-arn,
+            :$is-multi-region-trail,
+            :$s3-key-prefix
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTrail>,
-            :return-type(UpdateTrailResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags(
-    Array[Tag] :$tags-list,
-    Str :$resource-id!
+        Array[Tag] :$tags-list,
+        Str :$resource-id!
     ) returns RemoveTagsResponse is service-operation('RemoveTags') {
         my $request-input = RemoveTagsRequest.new(
-        :$tags-list,
-        :$resource-id
+            :$tags-list,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTags>,
-            :return-type(RemoveTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method lookup-events(
-    MaxResults :$max-results,
-    DateTime :$end-time,
-    DateTime :$start-time,
-    Str :$next-token,
-    Array[LookupAttribute] :$lookup-attributes
+        MaxResults :$max-results,
+        DateTime :$end-time,
+        DateTime :$start-time,
+        Str :$next-token,
+        Array[LookupAttribute] :$lookup-attributes
     ) returns LookupEventsResponse is service-operation('LookupEvents') {
         my $request-input = LookupEventsRequest.new(
-        :$max-results,
-        :$end-time,
-        :$start-time,
-        :$next-token,
-        :$lookup-attributes
+            :$max-results,
+            :$end-time,
+            :$start-time,
+            :$next-token,
+            :$lookup-attributes
         );
-;
+
         self.perform-operation(
             :api-call<LookupEvents>,
-            :return-type(LookupEventsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-logging(
-    Str :$name!
+        Str :$name!
     ) returns StopLoggingResponse is service-operation('StopLogging') {
         my $request-input = StopLoggingRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StopLogging>,
-            :return-type(StopLoggingResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-event-selectors(
-    Str :$trail-name!,
-    Array[EventSelector] :$event-selectors!
+        Str :$trail-name!,
+        Array[EventSelector] :$event-selectors!
     ) returns PutEventSelectorsResponse is service-operation('PutEventSelectors') {
         my $request-input = PutEventSelectorsRequest.new(
-        :$trail-name,
-        :$event-selectors
+            :$trail-name,
+            :$event-selectors
         );
-;
+
         self.perform-operation(
             :api-call<PutEventSelectors>,
-            :return-type(PutEventSelectorsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

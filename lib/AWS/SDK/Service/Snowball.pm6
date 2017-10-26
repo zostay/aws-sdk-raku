@@ -432,60 +432,54 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
     subset JobState of Str where $_ ~~ any('New', 'PreparingAppliance', 'PreparingShipment', 'InTransitToCustomer', 'WithCustomer', 'InTransitToAWS', 'WithAWS', 'InProgress', 'Complete', 'Cancelled', 'Listing', 'Pending');
 
     method get-job-unlock-code(
-    JobId :$job-id!
+        JobId :$job-id!
     ) returns GetJobUnlockCodeResult is service-operation('GetJobUnlockCode') {
         my $request-input = GetJobUnlockCodeRequest.new(
-        :$job-id
+            :$job-id
         );
-;
+
         self.perform-operation(
             :api-call<GetJobUnlockCode>,
-            :return-type(GetJobUnlockCodeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-cluster(
-    ClusterId :$cluster-id!
+        ClusterId :$cluster-id!
     ) returns DescribeClusterResult is service-operation('DescribeCluster') {
         my $request-input = DescribeClusterRequest.new(
-        :$cluster-id
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCluster>,
-            :return-type(DescribeClusterResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-cluster(
-    JobResource :$resources,
-    RoleARN :$role-arn,
-    Notification :$notification,
-    ShippingOption :$shipping-option,
-    AddressId :$address-id,
-    String :$description,
-    AddressId :$forwarding-address-id,
-    ClusterId :$cluster-id!
+        JobResource :$resources,
+        RoleARN :$role-arn,
+        Notification :$notification,
+        ShippingOption :$shipping-option,
+        AddressId :$address-id,
+        String :$description,
+        AddressId :$forwarding-address-id,
+        ClusterId :$cluster-id!
     ) returns UpdateClusterResult is service-operation('UpdateCluster') {
         my $request-input = UpdateClusterRequest.new(
-        :$resources,
-        :$role-arn,
-        :$notification,
-        :$shipping-option,
-        :$address-id,
-        :$description,
-        :$forwarding-address-id,
-        :$cluster-id
+            :$resources,
+            :$role-arn,
+            :$notification,
+            :$shipping-option,
+            :$address-id,
+            :$description,
+            :$forwarding-address-id,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateCluster>,
-            :return-type(UpdateClusterResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -496,272 +490,244 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
         my $request-input = GetSnowballUsageRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetSnowballUsage>,
-            :return-type(GetSnowballUsageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-cluster(
-    JobResource :$resources!,
-    JobType :$job-type!,
-    RoleARN :$role-arn!,
-    KmsKeyARN :$kms-key-arn,
-    Notification :$notification,
-    ShippingOption :$shipping-option!,
-    AddressId :$address-id!,
-    String :$description,
-    SnowballType :$snowball-type,
-    AddressId :$forwarding-address-id
+        JobResource :$resources!,
+        JobType :$job-type!,
+        RoleARN :$role-arn!,
+        KmsKeyARN :$kms-key-arn,
+        Notification :$notification,
+        ShippingOption :$shipping-option!,
+        AddressId :$address-id!,
+        String :$description,
+        SnowballType :$snowball-type,
+        AddressId :$forwarding-address-id
     ) returns CreateClusterResult is service-operation('CreateCluster') {
         my $request-input = CreateClusterRequest.new(
-        :$resources,
-        :$job-type,
-        :$role-arn,
-        :$kms-key-arn,
-        :$notification,
-        :$shipping-option,
-        :$address-id,
-        :$description,
-        :$snowball-type,
-        :$forwarding-address-id
+            :$resources,
+            :$job-type,
+            :$role-arn,
+            :$kms-key-arn,
+            :$notification,
+            :$shipping-option,
+            :$address-id,
+            :$description,
+            :$snowball-type,
+            :$forwarding-address-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateCluster>,
-            :return-type(CreateClusterResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-cluster-jobs(
-    ListLimit :$max-results,
-    String :$next-token,
-    ClusterId :$cluster-id!
+        ListLimit :$max-results,
+        String :$next-token,
+        ClusterId :$cluster-id!
     ) returns ListClusterJobsResult is service-operation('ListClusterJobs') {
         my $request-input = ListClusterJobsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$cluster-id
+            :$max-results,
+            :$next-token,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<ListClusterJobs>,
-            :return-type(ListClusterJobsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-addresses(
-    ListLimit :$max-results,
-    String :$next-token
+        ListLimit :$max-results,
+        String :$next-token
     ) returns DescribeAddressesResult is service-operation('DescribeAddresses') {
         my $request-input = DescribeAddressesRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAddresses>,
-            :return-type(DescribeAddressesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-job(
-    JobId :$job-id!
+        JobId :$job-id!
     ) returns DescribeJobResult is service-operation('DescribeJob') {
         my $request-input = DescribeJobRequest.new(
-        :$job-id
+            :$job-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeJob>,
-            :return-type(DescribeJobResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-job(
-    JobId :$job-id!
+        JobId :$job-id!
     ) returns CancelJobResult is service-operation('CancelJob') {
         my $request-input = CancelJobRequest.new(
-        :$job-id
+            :$job-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelJob>,
-            :return-type(CancelJobResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-cluster(
-    ClusterId :$cluster-id!
+        ClusterId :$cluster-id!
     ) returns CancelClusterResult is service-operation('CancelCluster') {
         my $request-input = CancelClusterRequest.new(
-        :$cluster-id
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelCluster>,
-            :return-type(CancelClusterResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-job(
-    JobResource :$resources,
-    RoleARN :$role-arn,
-    String :$description,
-    ShippingOption :$shipping-option,
-    AddressId :$address-id,
-    Notification :$notification,
-    JobId :$job-id!,
-    SnowballCapacity :$snowball-capacity-preference,
-    AddressId :$forwarding-address-id
+        JobResource :$resources,
+        RoleARN :$role-arn,
+        String :$description,
+        ShippingOption :$shipping-option,
+        AddressId :$address-id,
+        Notification :$notification,
+        JobId :$job-id!,
+        SnowballCapacity :$snowball-capacity-preference,
+        AddressId :$forwarding-address-id
     ) returns UpdateJobResult is service-operation('UpdateJob') {
         my $request-input = UpdateJobRequest.new(
-        :$resources,
-        :$role-arn,
-        :$description,
-        :$shipping-option,
-        :$address-id,
-        :$notification,
-        :$job-id,
-        :$snowball-capacity-preference,
-        :$forwarding-address-id
+            :$resources,
+            :$role-arn,
+            :$description,
+            :$shipping-option,
+            :$address-id,
+            :$notification,
+            :$job-id,
+            :$snowball-capacity-preference,
+            :$forwarding-address-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateJob>,
-            :return-type(UpdateJobResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-jobs(
-    ListLimit :$max-results,
-    String :$next-token
+        ListLimit :$max-results,
+        String :$next-token
     ) returns ListJobsResult is service-operation('ListJobs') {
         my $request-input = ListJobsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListJobs>,
-            :return-type(ListJobsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-clusters(
-    ListLimit :$max-results,
-    String :$next-token
+        ListLimit :$max-results,
+        String :$next-token
     ) returns ListClustersResult is service-operation('ListClusters') {
         my $request-input = ListClustersRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListClusters>,
-            :return-type(ListClustersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-job-manifest(
-    JobId :$job-id!
+        JobId :$job-id!
     ) returns GetJobManifestResult is service-operation('GetJobManifest') {
         my $request-input = GetJobManifestRequest.new(
-        :$job-id
+            :$job-id
         );
-;
+
         self.perform-operation(
             :api-call<GetJobManifest>,
-            :return-type(GetJobManifestResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-address(
-    AddressId :$address-id!
+        AddressId :$address-id!
     ) returns DescribeAddressResult is service-operation('DescribeAddress') {
         my $request-input = DescribeAddressRequest.new(
-        :$address-id
+            :$address-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAddress>,
-            :return-type(DescribeAddressResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-job(
-    JobResource :$resources,
-    JobType :$job-type,
-    RoleARN :$role-arn,
-    KmsKeyARN :$kms-key-arn,
-    Notification :$notification,
-    ShippingOption :$shipping-option,
-    AddressId :$address-id,
-    String :$description,
-    SnowballCapacity :$snowball-capacity-preference,
-    SnowballType :$snowball-type,
-    AddressId :$forwarding-address-id,
-    ClusterId :$cluster-id
+        JobResource :$resources,
+        JobType :$job-type,
+        RoleARN :$role-arn,
+        KmsKeyARN :$kms-key-arn,
+        Notification :$notification,
+        ShippingOption :$shipping-option,
+        AddressId :$address-id,
+        String :$description,
+        SnowballCapacity :$snowball-capacity-preference,
+        SnowballType :$snowball-type,
+        AddressId :$forwarding-address-id,
+        ClusterId :$cluster-id
     ) returns CreateJobResult is service-operation('CreateJob') {
         my $request-input = CreateJobRequest.new(
-        :$resources,
-        :$job-type,
-        :$role-arn,
-        :$kms-key-arn,
-        :$notification,
-        :$shipping-option,
-        :$address-id,
-        :$description,
-        :$snowball-capacity-preference,
-        :$snowball-type,
-        :$forwarding-address-id,
-        :$cluster-id
+            :$resources,
+            :$job-type,
+            :$role-arn,
+            :$kms-key-arn,
+            :$notification,
+            :$shipping-option,
+            :$address-id,
+            :$description,
+            :$snowball-capacity-preference,
+            :$snowball-type,
+            :$forwarding-address-id,
+            :$cluster-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateJob>,
-            :return-type(CreateJobResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-address(
-    Address :$address!
+        Address :$address!
     ) returns CreateAddressResult is service-operation('CreateAddress') {
         my $request-input = CreateAddressRequest.new(
-        :$address
+            :$address
         );
-;
+
         self.perform-operation(
             :api-call<CreateAddress>,
-            :return-type(CreateAddressResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

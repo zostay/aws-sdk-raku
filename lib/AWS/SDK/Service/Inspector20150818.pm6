@@ -613,186 +613,164 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     method update-assessment(
-    Str :$assessment-arn!,
-    Str :$assessment-name!,
-    Int :$duration-in-seconds!
+        Str :$assessment-arn!,
+        Str :$assessment-name!,
+        Int :$duration-in-seconds!
     ) returns UpdateAssessmentResponse is service-operation('UpdateAssessment') {
         my $request-input = UpdateAssessmentRequest.new(
-        :$assessment-arn,
-        :$assessment-name,
-        :$duration-in-seconds
+            :$assessment-arn,
+            :$assessment-name,
+            :$duration-in-seconds
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAssessment>,
-            :return-type(UpdateAssessmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method preview-agents-for-resource-group(
-    Int :$max-results,
-    Str :$next-token,
-    Str :$resource-group-arn!
+        Int :$max-results,
+        Str :$next-token,
+        Str :$resource-group-arn!
     ) returns PreviewAgentsForResourceGroupResponse is service-operation('PreviewAgentsForResourceGroup') {
         my $request-input = PreviewAgentsForResourceGroupRequest.new(
-        :$max-results,
-        :$next-token,
-        :$resource-group-arn
+            :$max-results,
+            :$next-token,
+            :$resource-group-arn
         );
-;
+
         self.perform-operation(
             :api-call<PreviewAgentsForResourceGroup>,
-            :return-type(PreviewAgentsForResourceGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-run(
-    Str :$run-arn!
+        Str :$run-arn!
     ) returns DescribeRunResponse is service-operation('DescribeRun') {
         my $request-input = DescribeRunRequest.new(
-        :$run-arn
+            :$run-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRun>,
-            :return-type(DescribeRunResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-finding(
-    Str :$finding-arn!
+        Str :$finding-arn!
     ) returns DescribeFindingResponse is service-operation('DescribeFinding') {
         my $request-input = DescribeFindingRequest.new(
-        :$finding-arn
+            :$finding-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFinding>,
-            :return-type(DescribeFindingResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-application(
-    Str :$application-name!,
-    Str :$resource-group-arn!
+        Str :$application-name!,
+        Str :$resource-group-arn!
     ) returns CreateApplicationResponse is service-operation('CreateApplication') {
         my $request-input = CreateApplicationRequest.new(
-        :$application-name,
-        :$resource-group-arn
+            :$application-name,
+            :$resource-group-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateApplication>,
-            :return-type(CreateApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-rules-packages(
-    Int :$max-results,
-    Str :$next-token
+        Int :$max-results,
+        Str :$next-token
     ) returns ListRulesPackagesResponse is service-operation('ListRulesPackages') {
         my $request-input = ListRulesPackagesRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListRulesPackages>,
-            :return-type(ListRulesPackagesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-attached-rules-packages(
-    Str :$assessment-arn!,
-    Int :$max-results,
-    Str :$next-token
+        Str :$assessment-arn!,
+        Int :$max-results,
+        Str :$next-token
     ) returns ListAttachedRulesPackagesResponse is service-operation('ListAttachedRulesPackages') {
         my $request-input = ListAttachedRulesPackagesRequest.new(
-        :$assessment-arn,
-        :$max-results,
-        :$next-token
+            :$assessment-arn,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListAttachedRulesPackages>,
-            :return-type(ListAttachedRulesPackagesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-assessment(
-    Str :$assessment-arn!
+        Str :$assessment-arn!
     ) returns DescribeAssessmentResponse is service-operation('DescribeAssessment') {
         my $request-input = DescribeAssessmentRequest.new(
-        :$assessment-arn
+            :$assessment-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAssessment>,
-            :return-type(DescribeAssessmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-application(
-    Str :$application-arn!
+        Str :$application-arn!
     ) returns DeleteApplicationResponse is service-operation('DeleteApplication') {
         my $request-input = DeleteApplicationRequest.new(
-        :$application-arn
+            :$application-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApplication>,
-            :return-type(DeleteApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-tags-for-resource(
-    Array[Tag] :$tags,
-    Str :$resource-arn!
+        Array[Tag] :$tags,
+        Str :$resource-arn!
     ) returns SetTagsForResourceResponse is service-operation('SetTagsForResource') {
         my $request-input = SetTagsForResourceRequest.new(
-        :$tags,
-        :$resource-arn
+            :$tags,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<SetTagsForResource>,
-            :return-type(SetTagsForResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method run-assessment(
-    Str :$assessment-arn!,
-    Str :$run-name!
+        Str :$assessment-arn!,
+        Str :$run-name!
     ) returns RunAssessmentResponse is service-operation('RunAssessment') {
         my $request-input = RunAssessmentRequest.new(
-        :$assessment-arn,
-        :$run-name
+            :$assessment-arn,
+            :$run-name
         );
-;
+
         self.perform-operation(
             :api-call<RunAssessment>,
-            :return-type(RunAssessmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -800,425 +778,375 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     method describe-cross-account-access-role(
 
     ) returns DescribeCrossAccountAccessRoleResponse is service-operation('DescribeCrossAccountAccessRole') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeCrossAccountAccessRole>,
-            :return-type(DescribeCrossAccountAccessRoleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-resource-group(
-    Str :$resource-group-tags!
+        Str :$resource-group-tags!
     ) returns CreateResourceGroupResponse is service-operation('CreateResourceGroup') {
         my $request-input = CreateResourceGroupRequest.new(
-        :$resource-group-tags
+            :$resource-group-tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateResourceGroup>,
-            :return-type(CreateResourceGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-data-collection(
-    Str :$assessment-arn!
+        Str :$assessment-arn!
     ) returns StartDataCollectionResponse is service-operation('StartDataCollection') {
         my $request-input = StartDataCollectionRequest.new(
-        :$assessment-arn
+            :$assessment-arn
         );
-;
+
         self.perform-operation(
             :api-call<StartDataCollection>,
-            :return-type(StartDataCollectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-cross-account-access-role(
-    Str :$role-arn!
+        Str :$role-arn!
     ) returns RegisterCrossAccountAccessRoleResponse is service-operation('RegisterCrossAccountAccessRole') {
         my $request-input = RegisterCrossAccountAccessRoleRequest.new(
-        :$role-arn
+            :$role-arn
         );
-;
+
         self.perform-operation(
             :api-call<RegisterCrossAccountAccessRole>,
-            :return-type(RegisterCrossAccountAccessRoleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-assessments(
-    AssessmentsFilter :$filter,
-    Int :$max-results,
-    Str :$next-token,
-    Array[Str] :$application-arns
+        AssessmentsFilter :$filter,
+        Int :$max-results,
+        Str :$next-token,
+        Array[Str] :$application-arns
     ) returns ListAssessmentsResponse is service-operation('ListAssessments') {
         my $request-input = ListAssessmentsRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$application-arns
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$application-arns
         );
-;
+
         self.perform-operation(
             :api-call<ListAssessments>,
-            :return-type(ListAssessmentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-applications(
-    ApplicationsFilter :$filter,
-    Int :$max-results,
-    Str :$next-token
+        ApplicationsFilter :$filter,
+        Int :$max-results,
+        Str :$next-token
     ) returns ListApplicationsResponse is service-operation('ListApplications') {
         my $request-input = ListApplicationsRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token
+            :$filter,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListApplications>,
-            :return-type(ListApplicationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-assessment-and-rules-package(
-    Str :$assessment-arn!,
-    Str :$rules-package-arn!
+        Str :$assessment-arn!,
+        Str :$rules-package-arn!
     ) returns DetachAssessmentAndRulesPackageResponse is service-operation('DetachAssessmentAndRulesPackage') {
         my $request-input = DetachAssessmentAndRulesPackageRequest.new(
-        :$assessment-arn,
-        :$rules-package-arn
+            :$assessment-arn,
+            :$rules-package-arn
         );
-;
+
         self.perform-operation(
             :api-call<DetachAssessmentAndRulesPackage>,
-            :return-type(DetachAssessmentAndRulesPackageResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-run(
-    Str :$run-arn!
+        Str :$run-arn!
     ) returns DeleteRunResponse is service-operation('DeleteRun') {
         my $request-input = DeleteRunRequest.new(
-        :$run-arn
+            :$run-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRun>,
-            :return-type(DeleteRunResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-assessment(
-    Str :$assessment-arn!
+        Str :$assessment-arn!
     ) returns DeleteAssessmentResponse is service-operation('DeleteAssessment') {
         my $request-input = DeleteAssessmentRequest.new(
-        :$assessment-arn
+            :$assessment-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAssessment>,
-            :return-type(DeleteAssessmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-attached-assessments(
-    AssessmentsFilter :$filter,
-    Int :$max-results,
-    Str :$next-token,
-    Str :$rules-package-arn!
+        AssessmentsFilter :$filter,
+        Int :$max-results,
+        Str :$next-token,
+        Str :$rules-package-arn!
     ) returns ListAttachedAssessmentsResponse is service-operation('ListAttachedAssessments') {
         my $request-input = ListAttachedAssessmentsRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$rules-package-arn
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$rules-package-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListAttachedAssessments>,
-            :return-type(ListAttachedAssessmentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-resource-group(
-    Str :$resource-group-arn!
+        Str :$resource-group-arn!
     ) returns DescribeResourceGroupResponse is service-operation('DescribeResourceGroup') {
         my $request-input = DescribeResourceGroupRequest.new(
-        :$resource-group-arn
+            :$resource-group-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeResourceGroup>,
-            :return-type(DescribeResourceGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-attributes-to-findings(
-    Array[Attribute] :$attributes!,
-    Array[Str] :$finding-arns!
+        Array[Attribute] :$attributes!,
+        Array[Str] :$finding-arns!
     ) returns AddAttributesToFindingsResponse is service-operation('AddAttributesToFindings') {
         my $request-input = AddAttributesToFindingsRequest.new(
-        :$attributes,
-        :$finding-arns
+            :$attributes,
+            :$finding-arns
         );
-;
+
         self.perform-operation(
             :api-call<AddAttributesToFindings>,
-            :return-type(AddAttributesToFindingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-resource(
-    Str :$resource-arn!
+        Str :$resource-arn!
     ) returns ListTagsForResourceResponse is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceRequest.new(
-        :$resource-arn
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResource>,
-            :return-type(ListTagsForResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-findings(
-    FindingsFilter :$filter,
-    Int :$max-results,
-    Str :$next-token,
-    Array[Str] :$run-arns
+        FindingsFilter :$filter,
+        Int :$max-results,
+        Str :$next-token,
+        Array[Str] :$run-arns
     ) returns ListFindingsResponse is service-operation('ListFindings') {
         my $request-input = ListFindingsRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$run-arns
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$run-arns
         );
-;
+
         self.perform-operation(
             :api-call<ListFindings>,
-            :return-type(ListFindingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-assessment(
-    Str :$assessment-name!,
-    Str :$application-arn!,
-    Array[Attribute] :$user-attributes-for-findings,
-    Int :$duration-in-seconds!
+        Str :$assessment-name!,
+        Str :$application-arn!,
+        Array[Attribute] :$user-attributes-for-findings,
+        Int :$duration-in-seconds!
     ) returns CreateAssessmentResponse is service-operation('CreateAssessment') {
         my $request-input = CreateAssessmentRequest.new(
-        :$assessment-name,
-        :$application-arn,
-        :$user-attributes-for-findings,
-        :$duration-in-seconds
+            :$assessment-name,
+            :$application-arn,
+            :$user-attributes-for-findings,
+            :$duration-in-seconds
         );
-;
+
         self.perform-operation(
             :api-call<CreateAssessment>,
-            :return-type(CreateAssessmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-data-collection(
-    Str :$assessment-arn!
+        Str :$assessment-arn!
     ) returns StopDataCollectionResponse is service-operation('StopDataCollection') {
         my $request-input = StopDataCollectionRequest.new(
-        :$assessment-arn
+            :$assessment-arn
         );
-;
+
         self.perform-operation(
             :api-call<StopDataCollection>,
-            :return-type(StopDataCollectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-attributes-from-findings(
-    Array[Str] :$finding-arns!,
-    Array[Str] :$attribute-keys!
+        Array[Str] :$finding-arns!,
+        Array[Str] :$attribute-keys!
     ) returns RemoveAttributesFromFindingsResponse is service-operation('RemoveAttributesFromFindings') {
         my $request-input = RemoveAttributesFromFindingsRequest.new(
-        :$finding-arns,
-        :$attribute-keys
+            :$finding-arns,
+            :$attribute-keys
         );
-;
+
         self.perform-operation(
             :api-call<RemoveAttributesFromFindings>,
-            :return-type(RemoveAttributesFromFindingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method localize-text(
-    Array[LocalizedText] :$localized-texts!,
-    Str :$locale!
+        Array[LocalizedText] :$localized-texts!,
+        Str :$locale!
     ) returns LocalizeTextResponse is service-operation('LocalizeText') {
         my $request-input = LocalizeTextRequest.new(
-        :$localized-texts,
-        :$locale
+            :$localized-texts,
+            :$locale
         );
-;
+
         self.perform-operation(
             :api-call<LocalizeText>,
-            :return-type(LocalizeTextResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-runs(
-    RunsFilter :$filter,
-    Int :$max-results,
-    Str :$next-token,
-    Array[Str] :$assessment-arns
+        RunsFilter :$filter,
+        Int :$max-results,
+        Str :$next-token,
+        Array[Str] :$assessment-arns
     ) returns ListRunsResponse is service-operation('ListRuns') {
         my $request-input = ListRunsRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$assessment-arns
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$assessment-arns
         );
-;
+
         self.perform-operation(
             :api-call<ListRuns>,
-            :return-type(ListRunsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-rules-package(
-    Str :$rules-package-arn!
+        Str :$rules-package-arn!
     ) returns DescribeRulesPackageResponse is service-operation('DescribeRulesPackage') {
         my $request-input = DescribeRulesPackageRequest.new(
-        :$rules-package-arn
+            :$rules-package-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRulesPackage>,
-            :return-type(DescribeRulesPackageResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-application(
-    Str :$application-name!,
-    Str :$application-arn!,
-    Str :$resource-group-arn!
+        Str :$application-name!,
+        Str :$application-arn!,
+        Str :$resource-group-arn!
     ) returns UpdateApplicationResponse is service-operation('UpdateApplication') {
         my $request-input = UpdateApplicationRequest.new(
-        :$application-name,
-        :$application-arn,
-        :$resource-group-arn
+            :$application-name,
+            :$application-arn,
+            :$resource-group-arn
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApplication>,
-            :return-type(UpdateApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-assessment-agents(
-    Str :$assessment-arn!,
-    AgentsFilter :$filter,
-    Int :$max-results,
-    Str :$next-token
+        Str :$assessment-arn!,
+        AgentsFilter :$filter,
+        Int :$max-results,
+        Str :$next-token
     ) returns ListAssessmentAgentsResponse is service-operation('ListAssessmentAgents') {
         my $request-input = ListAssessmentAgentsRequest.new(
-        :$assessment-arn,
-        :$filter,
-        :$max-results,
-        :$next-token
+            :$assessment-arn,
+            :$filter,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListAssessmentAgents>,
-            :return-type(ListAssessmentAgentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-assessment-telemetry(
-    Str :$assessment-arn!
+        Str :$assessment-arn!
     ) returns GetAssessmentTelemetryResponse is service-operation('GetAssessmentTelemetry') {
         my $request-input = GetAssessmentTelemetryRequest.new(
-        :$assessment-arn
+            :$assessment-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetAssessmentTelemetry>,
-            :return-type(GetAssessmentTelemetryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-application(
-    Str :$application-arn!
+        Str :$application-arn!
     ) returns DescribeApplicationResponse is service-operation('DescribeApplication') {
         my $request-input = DescribeApplicationRequest.new(
-        :$application-arn
+            :$application-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeApplication>,
-            :return-type(DescribeApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-assessment-and-rules-package(
-    Str :$assessment-arn!,
-    Str :$rules-package-arn!
+        Str :$assessment-arn!,
+        Str :$rules-package-arn!
     ) returns AttachAssessmentAndRulesPackageResponse is service-operation('AttachAssessmentAndRulesPackage') {
         my $request-input = AttachAssessmentAndRulesPackageRequest.new(
-        :$assessment-arn,
-        :$rules-package-arn
+            :$assessment-arn,
+            :$rules-package-arn
         );
-;
+
         self.perform-operation(
             :api-call<AttachAssessmentAndRulesPackage>,
-            :return-type(AttachAssessmentAndRulesPackageResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -582,642 +582,572 @@ class AWS::SDK::Service::KMS does AWS::SDK::Service {
     subset KeyManagerType of Str where $_ ~~ any('AWS', 'CUSTOMER');
 
     method update-alias(
-    AliasNameType :$alias-name!,
-    KeyIdType :$target-key-id!
+        AliasNameType :$alias-name!,
+        KeyIdType :$target-key-id!
     ) is service-operation('UpdateAlias') {
         my $request-input = UpdateAliasRequest.new(
-        :$alias-name,
-        :$target-key-id
+            :$alias-name,
+            :$target-key-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAlias>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method schedule-key-deletion(
-    PendingWindowInDaysType :$pending-window-in-days,
-    KeyIdType :$key-id!
+        PendingWindowInDaysType :$pending-window-in-days,
+        KeyIdType :$key-id!
     ) returns ScheduleKeyDeletionResponse is service-operation('ScheduleKeyDeletion') {
         my $request-input = ScheduleKeyDeletionRequest.new(
-        :$pending-window-in-days,
-        :$key-id
+            :$pending-window-in-days,
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<ScheduleKeyDeletion>,
-            :return-type(ScheduleKeyDeletionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-keys(
-    LimitType :$limit,
-    MarkerType :$marker
+        LimitType :$limit,
+        MarkerType :$marker
     ) returns ListKeysResponse is service-operation('ListKeys') {
         my $request-input = ListKeysRequest.new(
-        :$limit,
-        :$marker
+            :$limit,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListKeys>,
-            :return-type(ListKeysResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-key-policy(
-    KeyIdType :$key-id!,
-    PolicyNameType :$policy-name!
+        KeyIdType :$key-id!,
+        PolicyNameType :$policy-name!
     ) returns GetKeyPolicyResponse is service-operation('GetKeyPolicy') {
         my $request-input = GetKeyPolicyRequest.new(
-        :$key-id,
-        :$policy-name
+            :$key-id,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<GetKeyPolicy>,
-            :return-type(GetKeyPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method generate-data-key-without-plaintext(
-    DataKeySpec :$key-spec,
-    GrantTokenList :$grant-tokens,
-    KeyIdType :$key-id!,
-    NumberOfBytesType :$number-of-bytes,
-    Hash[Str, Str] :$encryption-context
+        DataKeySpec :$key-spec,
+        GrantTokenList :$grant-tokens,
+        KeyIdType :$key-id!,
+        NumberOfBytesType :$number-of-bytes,
+        Hash[Str, Str] :$encryption-context
     ) returns GenerateDataKeyWithoutPlaintextResponse is service-operation('GenerateDataKeyWithoutPlaintext') {
         my $request-input = GenerateDataKeyWithoutPlaintextRequest.new(
-        :$key-spec,
-        :$grant-tokens,
-        :$key-id,
-        :$number-of-bytes,
-        :$encryption-context
+            :$key-spec,
+            :$grant-tokens,
+            :$key-id,
+            :$number-of-bytes,
+            :$encryption-context
         );
-;
+
         self.perform-operation(
             :api-call<GenerateDataKeyWithoutPlaintext>,
-            :return-type(GenerateDataKeyWithoutPlaintextResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-key(
-    KeyIdType :$key-id!
+        KeyIdType :$key-id!
     ) is service-operation('EnableKey') {
         my $request-input = EnableKeyRequest.new(
-        :$key-id
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<EnableKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-key(
-    GrantTokenList :$grant-tokens,
-    KeyIdType :$key-id!
+        GrantTokenList :$grant-tokens,
+        KeyIdType :$key-id!
     ) returns DescribeKeyResponse is service-operation('DescribeKey') {
         my $request-input = DescribeKeyRequest.new(
-        :$grant-tokens,
-        :$key-id
+            :$grant-tokens,
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeKey>,
-            :return-type(DescribeKeyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-alias(
-    AliasNameType :$alias-name!
+        AliasNameType :$alias-name!
     ) is service-operation('DeleteAlias') {
         my $request-input = DeleteAliasRequest.new(
-        :$alias-name
+            :$alias-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAlias>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method retire-grant(
-    GrantIdType :$grant-id,
-    KeyIdType :$key-id,
-    GrantTokenType :$grant-token
+        GrantIdType :$grant-id,
+        KeyIdType :$key-id,
+        GrantTokenType :$grant-token
     ) is service-operation('RetireGrant') {
         my $request-input = RetireGrantRequest.new(
-        :$grant-id,
-        :$key-id,
-        :$grant-token
+            :$grant-id,
+            :$key-id,
+            :$grant-token
         );
-;
+
         self.perform-operation(
             :api-call<RetireGrant>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-aliases(
-    LimitType :$limit,
-    MarkerType :$marker
+        LimitType :$limit,
+        MarkerType :$marker
     ) returns ListAliasesResponse is service-operation('ListAliases') {
         my $request-input = ListAliasesRequest.new(
-        :$limit,
-        :$marker
+            :$limit,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListAliases>,
-            :return-type(ListAliasesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-key-rotation-status(
-    KeyIdType :$key-id!
+        KeyIdType :$key-id!
     ) returns GetKeyRotationStatusResponse is service-operation('GetKeyRotationStatus') {
         my $request-input = GetKeyRotationStatusRequest.new(
-        :$key-id
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<GetKeyRotationStatus>,
-            :return-type(GetKeyRotationStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method encrypt(
-    PlaintextType :$plaintext!,
-    GrantTokenList :$grant-tokens,
-    KeyIdType :$key-id!,
-    Hash[Str, Str] :$encryption-context
+        PlaintextType :$plaintext!,
+        GrantTokenList :$grant-tokens,
+        KeyIdType :$key-id!,
+        Hash[Str, Str] :$encryption-context
     ) returns EncryptResponse is service-operation('Encrypt') {
         my $request-input = EncryptRequest.new(
-        :$plaintext,
-        :$grant-tokens,
-        :$key-id,
-        :$encryption-context
+            :$plaintext,
+            :$grant-tokens,
+            :$key-id,
+            :$encryption-context
         );
-;
+
         self.perform-operation(
             :api-call<Encrypt>,
-            :return-type(EncryptResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-key-rotation(
-    KeyIdType :$key-id!
+        KeyIdType :$key-id!
     ) is service-operation('EnableKeyRotation') {
         my $request-input = EnableKeyRotationRequest.new(
-        :$key-id
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<EnableKeyRotation>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-key-rotation(
-    KeyIdType :$key-id!
+        KeyIdType :$key-id!
     ) is service-operation('DisableKeyRotation') {
         my $request-input = DisableKeyRotationRequest.new(
-        :$key-id
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<DisableKeyRotation>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method decrypt(
-    GrantTokenList :$grant-tokens,
-    CiphertextType :$ciphertext-blob!,
-    Hash[Str, Str] :$encryption-context
+        GrantTokenList :$grant-tokens,
+        CiphertextType :$ciphertext-blob!,
+        Hash[Str, Str] :$encryption-context
     ) returns DecryptResponse is service-operation('Decrypt') {
         my $request-input = DecryptRequest.new(
-        :$grant-tokens,
-        :$ciphertext-blob,
-        :$encryption-context
+            :$grant-tokens,
+            :$ciphertext-blob,
+            :$encryption-context
         );
-;
+
         self.perform-operation(
             :api-call<Decrypt>,
-            :return-type(DecryptResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-alias(
-    AliasNameType :$alias-name!,
-    KeyIdType :$target-key-id!
+        AliasNameType :$alias-name!,
+        KeyIdType :$target-key-id!
     ) is service-operation('CreateAlias') {
         my $request-input = CreateAliasRequest.new(
-        :$alias-name,
-        :$target-key-id
+            :$alias-name,
+            :$target-key-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateAlias>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-resource(
-    Array[Tag] :$tags!,
-    KeyIdType :$key-id!
+        Array[Tag] :$tags!,
+        KeyIdType :$key-id!
     ) is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-        :$tags,
-        :$key-id
+            :$tags,
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<TagResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-key-policies(
-    LimitType :$limit,
-    KeyIdType :$key-id!,
-    MarkerType :$marker
+        LimitType :$limit,
+        KeyIdType :$key-id!,
+        MarkerType :$marker
     ) returns ListKeyPoliciesResponse is service-operation('ListKeyPolicies') {
         my $request-input = ListKeyPoliciesRequest.new(
-        :$limit,
-        :$key-id,
-        :$marker
+            :$limit,
+            :$key-id,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListKeyPolicies>,
-            :return-type(ListKeyPoliciesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-parameters-for-import(
-    AlgorithmSpec :$wrapping-algorithm!,
-    WrappingKeySpec :$wrapping-key-spec!,
-    KeyIdType :$key-id!
+        AlgorithmSpec :$wrapping-algorithm!,
+        WrappingKeySpec :$wrapping-key-spec!,
+        KeyIdType :$key-id!
     ) returns GetParametersForImportResponse is service-operation('GetParametersForImport') {
         my $request-input = GetParametersForImportRequest.new(
-        :$wrapping-algorithm,
-        :$wrapping-key-spec,
-        :$key-id
+            :$wrapping-algorithm,
+            :$wrapping-key-spec,
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<GetParametersForImport>,
-            :return-type(GetParametersForImportResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-grants(
-    LimitType :$limit,
-    KeyIdType :$key-id!,
-    MarkerType :$marker
+        LimitType :$limit,
+        KeyIdType :$key-id!,
+        MarkerType :$marker
     ) returns ListGrantsResponse is service-operation('ListGrants') {
         my $request-input = ListGrantsRequest.new(
-        :$limit,
-        :$key-id,
-        :$marker
+            :$limit,
+            :$key-id,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListGrants>,
-            :return-type(ListGrantsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-key(
-    KeyIdType :$key-id!
+        KeyIdType :$key-id!
     ) is service-operation('DisableKey') {
         my $request-input = DisableKeyRequest.new(
-        :$key-id
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<DisableKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-resource(
-    Array[TagKeyType] :$tag-keys!,
-    KeyIdType :$key-id!
+        Array[TagKeyType] :$tag-keys!,
+        KeyIdType :$key-id!
     ) is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-        :$tag-keys,
-        :$key-id
+            :$tag-keys,
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<UntagResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method re-encrypt(
-    Hash[Str, Str] :$source-encryption-context,
-    GrantTokenList :$grant-tokens,
-    CiphertextType :$ciphertext-blob!,
-    Hash[Str, Str] :$destination-encryption-context,
-    KeyIdType :$destination-key-id!
+        Hash[Str, Str] :$source-encryption-context,
+        GrantTokenList :$grant-tokens,
+        CiphertextType :$ciphertext-blob!,
+        Hash[Str, Str] :$destination-encryption-context,
+        KeyIdType :$destination-key-id!
     ) returns ReEncryptResponse is service-operation('ReEncrypt') {
         my $request-input = ReEncryptRequest.new(
-        :$source-encryption-context,
-        :$grant-tokens,
-        :$ciphertext-blob,
-        :$destination-encryption-context,
-        :$destination-key-id
+            :$source-encryption-context,
+            :$grant-tokens,
+            :$ciphertext-blob,
+            :$destination-encryption-context,
+            :$destination-key-id
         );
-;
+
         self.perform-operation(
             :api-call<ReEncrypt>,
-            :return-type(ReEncryptResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method generate-random(
-    NumberOfBytesType :$number-of-bytes
+        NumberOfBytesType :$number-of-bytes
     ) returns GenerateRandomResponse is service-operation('GenerateRandom') {
         my $request-input = GenerateRandomRequest.new(
-        :$number-of-bytes
+            :$number-of-bytes
         );
-;
+
         self.perform-operation(
             :api-call<GenerateRandom>,
-            :return-type(GenerateRandomResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-key-deletion(
-    KeyIdType :$key-id!
+        KeyIdType :$key-id!
     ) returns CancelKeyDeletionResponse is service-operation('CancelKeyDeletion') {
         my $request-input = CancelKeyDeletionRequest.new(
-        :$key-id
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelKeyDeletion>,
-            :return-type(CancelKeyDeletionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method revoke-grant(
-    GrantIdType :$grant-id!,
-    KeyIdType :$key-id!
+        GrantIdType :$grant-id!,
+        KeyIdType :$key-id!
     ) is service-operation('RevokeGrant') {
         my $request-input = RevokeGrantRequest.new(
-        :$grant-id,
-        :$key-id
+            :$grant-id,
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<RevokeGrant>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-key-policy(
-    Bool :$bypass-policy-lockout-safety-check,
-    KeyIdType :$key-id!,
-    PolicyNameType :$policy-name!,
-    PolicyType :$policy!
+        Bool :$bypass-policy-lockout-safety-check,
+        KeyIdType :$key-id!,
+        PolicyNameType :$policy-name!,
+        PolicyType :$policy!
     ) is service-operation('PutKeyPolicy') {
         my $request-input = PutKeyPolicyRequest.new(
-        :$bypass-policy-lockout-safety-check,
-        :$key-id,
-        :$policy-name,
-        :$policy
+            :$bypass-policy-lockout-safety-check,
+            :$key-id,
+            :$policy-name,
+            :$policy
         );
-;
+
         self.perform-operation(
             :api-call<PutKeyPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-resource-tags(
-    LimitType :$limit,
-    KeyIdType :$key-id!,
-    MarkerType :$marker
+        LimitType :$limit,
+        KeyIdType :$key-id!,
+        MarkerType :$marker
     ) returns ListResourceTagsResponse is service-operation('ListResourceTags') {
         my $request-input = ListResourceTagsRequest.new(
-        :$limit,
-        :$key-id,
-        :$marker
+            :$limit,
+            :$key-id,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListResourceTags>,
-            :return-type(ListResourceTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-key-material(
-    ExpirationModelType :$expiration-model,
-    CiphertextType :$encrypted-key-material!,
-    CiphertextType :$import-token!,
-    KeyIdType :$key-id!,
-    DateTime :$valid-to
+        ExpirationModelType :$expiration-model,
+        CiphertextType :$encrypted-key-material!,
+        CiphertextType :$import-token!,
+        KeyIdType :$key-id!,
+        DateTime :$valid-to
     ) returns ImportKeyMaterialResponse is service-operation('ImportKeyMaterial') {
         my $request-input = ImportKeyMaterialRequest.new(
-        :$expiration-model,
-        :$encrypted-key-material,
-        :$import-token,
-        :$key-id,
-        :$valid-to
+            :$expiration-model,
+            :$encrypted-key-material,
+            :$import-token,
+            :$key-id,
+            :$valid-to
         );
-;
+
         self.perform-operation(
             :api-call<ImportKeyMaterial>,
-            :return-type(ImportKeyMaterialResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method generate-data-key(
-    DataKeySpec :$key-spec,
-    GrantTokenList :$grant-tokens,
-    KeyIdType :$key-id!,
-    NumberOfBytesType :$number-of-bytes,
-    Hash[Str, Str] :$encryption-context
+        DataKeySpec :$key-spec,
+        GrantTokenList :$grant-tokens,
+        KeyIdType :$key-id!,
+        NumberOfBytesType :$number-of-bytes,
+        Hash[Str, Str] :$encryption-context
     ) returns GenerateDataKeyResponse is service-operation('GenerateDataKey') {
         my $request-input = GenerateDataKeyRequest.new(
-        :$key-spec,
-        :$grant-tokens,
-        :$key-id,
-        :$number-of-bytes,
-        :$encryption-context
+            :$key-spec,
+            :$grant-tokens,
+            :$key-id,
+            :$number-of-bytes,
+            :$encryption-context
         );
-;
+
         self.perform-operation(
             :api-call<GenerateDataKey>,
-            :return-type(GenerateDataKeyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-key(
-    Bool :$bypass-policy-lockout-safety-check,
-    DescriptionType :$description,
-    Array[Tag] :$tags,
-    KeyUsageType :$key-usage,
-    OriginType :$origin,
-    PolicyType :$policy
+        Bool :$bypass-policy-lockout-safety-check,
+        DescriptionType :$description,
+        Array[Tag] :$tags,
+        KeyUsageType :$key-usage,
+        OriginType :$origin,
+        PolicyType :$policy
     ) returns CreateKeyResponse is service-operation('CreateKey') {
         my $request-input = CreateKeyRequest.new(
-        :$bypass-policy-lockout-safety-check,
-        :$description,
-        :$tags,
-        :$key-usage,
-        :$origin,
-        :$policy
+            :$bypass-policy-lockout-safety-check,
+            :$description,
+            :$tags,
+            :$key-usage,
+            :$origin,
+            :$policy
         );
-;
+
         self.perform-operation(
             :api-call<CreateKey>,
-            :return-type(CreateKeyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-grant(
-    Array[GrantOperation] :$operations,
-    PrincipalIdType :$grantee-principal!,
-    GrantNameType :$name,
-    GrantTokenList :$grant-tokens,
-    KeyIdType :$key-id!,
-    PrincipalIdType :$retiring-principal,
-    GrantConstraints :$constraints
+        Array[GrantOperation] :$operations,
+        PrincipalIdType :$grantee-principal!,
+        GrantNameType :$name,
+        GrantTokenList :$grant-tokens,
+        KeyIdType :$key-id!,
+        PrincipalIdType :$retiring-principal,
+        GrantConstraints :$constraints
     ) returns CreateGrantResponse is service-operation('CreateGrant') {
         my $request-input = CreateGrantRequest.new(
-        :$operations,
-        :$grantee-principal,
-        :$name,
-        :$grant-tokens,
-        :$key-id,
-        :$retiring-principal,
-        :$constraints
+            :$operations,
+            :$grantee-principal,
+            :$name,
+            :$grant-tokens,
+            :$key-id,
+            :$retiring-principal,
+            :$constraints
         );
-;
+
         self.perform-operation(
             :api-call<CreateGrant>,
-            :return-type(CreateGrantResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-key-description(
-    DescriptionType :$description!,
-    KeyIdType :$key-id!
+        DescriptionType :$description!,
+        KeyIdType :$key-id!
     ) is service-operation('UpdateKeyDescription') {
         my $request-input = UpdateKeyDescriptionRequest.new(
-        :$description,
-        :$key-id
+            :$description,
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateKeyDescription>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-retirable-grants(
-    LimitType :$limit,
-    PrincipalIdType :$retiring-principal!,
-    MarkerType :$marker
+        LimitType :$limit,
+        PrincipalIdType :$retiring-principal!,
+        MarkerType :$marker
     ) returns ListGrantsResponse is service-operation('ListRetirableGrants') {
         my $request-input = ListRetirableGrantsRequest.new(
-        :$limit,
-        :$retiring-principal,
-        :$marker
+            :$limit,
+            :$retiring-principal,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListRetirableGrants>,
-            :return-type(ListGrantsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-imported-key-material(
-    KeyIdType :$key-id!
+        KeyIdType :$key-id!
     ) is service-operation('DeleteImportedKeyMaterial') {
         my $request-input = DeleteImportedKeyMaterialRequest.new(
-        :$key-id
+            :$key-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteImportedKeyMaterial>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

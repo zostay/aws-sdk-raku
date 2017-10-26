@@ -1345,20 +1345,18 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method update-usage(
-    Str :$key-id!,
-    Array[PatchOperation] :$patch-operations,
-    Str :$usage-plan-id!
+        Str :$key-id!,
+        Array[PatchOperation] :$patch-operations,
+        Str :$usage-plan-id!
     ) returns Usage is service-operation('UpdateUsage') {
         my $request-input = UpdateUsageRequest.new(
-        :$key-id,
-        :$patch-operations,
-        :$usage-plan-id
+            :$key-id,
+            :$patch-operations,
+            :$usage-plan-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateUsage>,
-            :return-type(Usage),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1369,2175 +1367,1953 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         my $request-input = GetAccountRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetAccount>,
-            :return-type(Account),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-base-path-mappings(
-    Int :$limit,
-    Str :$domain-name!,
-    Str :$position
+        Int :$limit,
+        Str :$domain-name!,
+        Str :$position
     ) returns BasePathMappings is service-operation('GetBasePathMappings') {
         my $request-input = GetBasePathMappingsRequest.new(
-        :$limit,
-        :$domain-name,
-        :$position
+            :$limit,
+            :$domain-name,
+            :$position
         );
-;
+
         self.perform-operation(
             :api-call<GetBasePathMappings>,
-            :return-type(BasePathMappings),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-stage(
-    Str :$rest-api-id!,
-    Array[PatchOperation] :$patch-operations,
-    Str :$stage-name!
+        Str :$rest-api-id!,
+        Array[PatchOperation] :$patch-operations,
+        Str :$stage-name!
     ) returns Stage is service-operation('UpdateStage') {
         my $request-input = UpdateStageRequest.new(
-        :$rest-api-id,
-        :$patch-operations,
-        :$stage-name
+            :$rest-api-id,
+            :$patch-operations,
+            :$stage-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateStage>,
-            :return-type(Stage),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-model(
-    Str :$rest-api-id!,
-    Str :$model-name!,
-    Array[PatchOperation] :$patch-operations
+        Str :$rest-api-id!,
+        Str :$model-name!,
+        Array[PatchOperation] :$patch-operations
     ) returns Model is service-operation('UpdateModel') {
         my $request-input = UpdateModelRequest.new(
-        :$rest-api-id,
-        :$model-name,
-        :$patch-operations
+            :$rest-api-id,
+            :$model-name,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateModel>,
-            :return-type(Model),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-integration(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Str :$http-method!
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Str :$http-method!
     ) is service-operation('DeleteIntegration') {
         my $request-input = DeleteIntegrationRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$http-method
+            :$resource-id,
+            :$rest-api-id,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<DeleteIntegration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-deployments(
-    Int :$limit,
-    Str :$position,
-    Str :$rest-api-id!
+        Int :$limit,
+        Str :$position,
+        Str :$rest-api-id!
     ) returns Deployments is service-operation('GetDeployments') {
         my $request-input = GetDeploymentsRequest.new(
-        :$limit,
-        :$position,
-        :$rest-api-id
+            :$limit,
+            :$position,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDeployments>,
-            :return-type(Deployments),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-deployment(
-    Str :$deployment-id!,
-    Str :$rest-api-id!,
-    Array[PatchOperation] :$patch-operations
+        Str :$deployment-id!,
+        Str :$rest-api-id!,
+        Array[PatchOperation] :$patch-operations
     ) returns Deployment is service-operation('UpdateDeployment') {
         my $request-input = UpdateDeploymentRequest.new(
-        :$deployment-id,
-        :$rest-api-id,
-        :$patch-operations
+            :$deployment-id,
+            :$rest-api-id,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDeployment>,
-            :return-type(Deployment),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-stage(
-    Str :$rest-api-id!,
-    Str :$stage-name!
+        Str :$rest-api-id!,
+        Str :$stage-name!
     ) returns Stage is service-operation('GetStage') {
         my $request-input = GetStageRequest.new(
-        :$rest-api-id,
-        :$stage-name
+            :$rest-api-id,
+            :$stage-name
         );
-;
+
         self.perform-operation(
             :api-call<GetStage>,
-            :return-type(Stage),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-method-response(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    StatusCode :$status-code!,
-    Str :$http-method!
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        StatusCode :$status-code!,
+        Str :$http-method!
     ) returns MethodResponse is service-operation('GetMethodResponse') {
         my $request-input = GetMethodResponseRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$status-code,
-        :$http-method
+            :$resource-id,
+            :$rest-api-id,
+            :$status-code,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<GetMethodResponse>,
-            :return-type(MethodResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-documentation-part(
-    Str :$properties!,
-    Str :$rest-api-id!,
-    DocumentationPartLocation :$location!
+        Str :$properties!,
+        Str :$rest-api-id!,
+        DocumentationPartLocation :$location!
     ) returns DocumentationPart is service-operation('CreateDocumentationPart') {
         my $request-input = CreateDocumentationPartRequest.new(
-        :$properties,
-        :$rest-api-id,
-        :$location
+            :$properties,
+            :$rest-api-id,
+            :$location
         );
-;
+
         self.perform-operation(
             :api-call<CreateDocumentationPart>,
-            :return-type(DocumentationPart),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-resource(
-    Str :$parent-id!,
-    Str :$path-part!,
-    Str :$rest-api-id!
+        Str :$parent-id!,
+        Str :$path-part!,
+        Str :$rest-api-id!
     ) returns Resource is service-operation('CreateResource') {
         my $request-input = CreateResourceRequest.new(
-        :$parent-id,
-        :$path-part,
-        :$rest-api-id
+            :$parent-id,
+            :$path-part,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateResource>,
-            :return-type(Resource),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-request-validator(
-    Str :$request-validator-id!,
-    Str :$rest-api-id!
+        Str :$request-validator-id!,
+        Str :$rest-api-id!
     ) is service-operation('DeleteRequestValidator') {
         my $request-input = DeleteRequestValidatorRequest.new(
-        :$request-validator-id,
-        :$rest-api-id
+            :$request-validator-id,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRequestValidator>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-stage(
-    Str :$rest-api-id!,
-    Str :$stage-name!
+        Str :$rest-api-id!,
+        Str :$stage-name!
     ) is service-operation('DeleteStage') {
         my $request-input = DeleteStageRequest.new(
-        :$rest-api-id,
-        :$stage-name
+            :$rest-api-id,
+            :$stage-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteStage>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-authorizers(
-    Int :$limit,
-    Str :$position,
-    Str :$rest-api-id!
+        Int :$limit,
+        Str :$position,
+        Str :$rest-api-id!
     ) returns Authorizers is service-operation('GetAuthorizers') {
         my $request-input = GetAuthorizersRequest.new(
-        :$limit,
-        :$position,
-        :$rest-api-id
+            :$limit,
+            :$position,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetAuthorizers>,
-            :return-type(Authorizers),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-rest-api(
-    Str :$rest-api-id!
+        Str :$rest-api-id!
     ) is service-operation('DeleteRestApi') {
         my $request-input = DeleteRestApiRequest.new(
-        :$rest-api-id
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRestApi>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method flush-stage-authorizers-cache(
-    Str :$rest-api-id!,
-    Str :$stage-name!
+        Str :$rest-api-id!,
+        Str :$stage-name!
     ) is service-operation('FlushStageAuthorizersCache') {
         my $request-input = FlushStageAuthorizersCacheRequest.new(
-        :$rest-api-id,
-        :$stage-name
+            :$rest-api-id,
+            :$stage-name
         );
-;
+
         self.perform-operation(
             :api-call<FlushStageAuthorizersCache>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-documentation-version(
-    Str :$documentation-version!,
-    Str :$rest-api-id!
+        Str :$documentation-version!,
+        Str :$rest-api-id!
     ) is service-operation('DeleteDocumentationVersion') {
         my $request-input = DeleteDocumentationVersionRequest.new(
-        :$documentation-version,
-        :$rest-api-id
+            :$documentation-version,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDocumentationVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-client-certificate(
-    Str :$client-certificate-id!
+        Str :$client-certificate-id!
     ) is service-operation('DeleteClientCertificate') {
         my $request-input = DeleteClientCertificateRequest.new(
-        :$client-certificate-id
+            :$client-certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteClientCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-usage-plan(
-    Str :$usage-plan-id!
+        Str :$usage-plan-id!
     ) returns UsagePlan is service-operation('GetUsagePlan') {
         my $request-input = GetUsagePlanRequest.new(
-        :$usage-plan-id
+            :$usage-plan-id
         );
-;
+
         self.perform-operation(
             :api-call<GetUsagePlan>,
-            :return-type(UsagePlan),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-domain-name(
-    Str :$domain-name!,
-    Array[PatchOperation] :$patch-operations
+        Str :$domain-name!,
+        Array[PatchOperation] :$patch-operations
     ) returns DomainName is service-operation('UpdateDomainName') {
         my $request-input = UpdateDomainNameRequest.new(
-        :$domain-name,
-        :$patch-operations
+            :$domain-name,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDomainName>,
-            :return-type(DomainName),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-client-certificates(
-    Int :$limit,
-    Str :$position
+        Int :$limit,
+        Str :$position
     ) returns ClientCertificates is service-operation('GetClientCertificates') {
         my $request-input = GetClientCertificatesRequest.new(
-        :$limit,
-        :$position
+            :$limit,
+            :$position
         );
-;
+
         self.perform-operation(
             :api-call<GetClientCertificates>,
-            :return-type(ClientCertificates),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-client-certificate(
-    Str :$client-certificate-id!
+        Str :$client-certificate-id!
     ) returns ClientCertificate is service-operation('GetClientCertificate') {
         my $request-input = GetClientCertificateRequest.new(
-        :$client-certificate-id
+            :$client-certificate-id
         );
-;
+
         self.perform-operation(
             :api-call<GetClientCertificate>,
-            :return-type(ClientCertificate),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-method-response(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    StatusCode :$status-code!,
-    Str :$http-method!
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        StatusCode :$status-code!,
+        Str :$http-method!
     ) is service-operation('DeleteMethodResponse') {
         my $request-input = DeleteMethodResponseRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$status-code,
-        :$http-method
+            :$resource-id,
+            :$rest-api-id,
+            :$status-code,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<DeleteMethodResponse>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-integration-response(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    StatusCode :$status-code!,
-    Str :$http-method!,
-    Array[PatchOperation] :$patch-operations
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        StatusCode :$status-code!,
+        Str :$http-method!,
+        Array[PatchOperation] :$patch-operations
     ) returns IntegrationResponse is service-operation('UpdateIntegrationResponse') {
         my $request-input = UpdateIntegrationResponseRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$status-code,
-        :$http-method,
-        :$patch-operations
+            :$resource-id,
+            :$rest-api-id,
+            :$status-code,
+            :$http-method,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateIntegrationResponse>,
-            :return-type(IntegrationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-gateway-responses(
-    Int :$limit,
-    Str :$position,
-    Str :$rest-api-id!
+        Int :$limit,
+        Str :$position,
+        Str :$rest-api-id!
     ) returns GatewayResponses is service-operation('GetGatewayResponses') {
         my $request-input = GetGatewayResponsesRequest.new(
-        :$limit,
-        :$position,
-        :$rest-api-id
+            :$limit,
+            :$position,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetGatewayResponses>,
-            :return-type(GatewayResponses),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-base-path-mapping(
-    Str :$base-path!,
-    Str :$domain-name!
+        Str :$base-path!,
+        Str :$domain-name!
     ) returns BasePathMapping is service-operation('GetBasePathMapping') {
         my $request-input = GetBasePathMappingRequest.new(
-        :$base-path,
-        :$domain-name
+            :$base-path,
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<GetBasePathMapping>,
-            :return-type(BasePathMapping),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-domain-name(
-    Str :$domain-name!,
-    Str :$certificate-arn,
-    Str :$certificate-private-key,
-    Str :$certificate-name,
-    Str :$certificate-chain,
-    Str :$certificate-body
+        Str :$domain-name!,
+        Str :$certificate-arn,
+        Str :$certificate-private-key,
+        Str :$certificate-name,
+        Str :$certificate-chain,
+        Str :$certificate-body
     ) returns DomainName is service-operation('CreateDomainName') {
         my $request-input = CreateDomainNameRequest.new(
-        :$domain-name,
-        :$certificate-arn,
-        :$certificate-private-key,
-        :$certificate-name,
-        :$certificate-chain,
-        :$certificate-body
+            :$domain-name,
+            :$certificate-arn,
+            :$certificate-private-key,
+            :$certificate-name,
+            :$certificate-chain,
+            :$certificate-body
         );
-;
+
         self.perform-operation(
             :api-call<CreateDomainName>,
-            :return-type(DomainName),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-api-key(
-    Str :$name,
-    Array[StageKey] :$stage-keys,
-    Str :$value,
-    Str :$customer-id,
-    Bool :$generate-distinct-id,
-    Bool :$enabled,
-    Str :$description
+        Str :$name,
+        Array[StageKey] :$stage-keys,
+        Str :$value,
+        Str :$customer-id,
+        Bool :$generate-distinct-id,
+        Bool :$enabled,
+        Str :$description
     ) returns ApiKey is service-operation('CreateApiKey') {
         my $request-input = CreateApiKeyRequest.new(
-        :$name,
-        :$stage-keys,
-        :$value,
-        :$customer-id,
-        :$generate-distinct-id,
-        :$enabled,
-        :$description
+            :$name,
+            :$stage-keys,
+            :$value,
+            :$customer-id,
+            :$generate-distinct-id,
+            :$enabled,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateApiKey>,
-            :return-type(ApiKey),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method test-invoke-authorizer(
-    Hash[Str, Str] :$stage-variables,
-    Str :$body,
-    Hash[Str, Str] :$headers,
-    Hash[Str, Str] :$additional-context,
-    Str :$path-with-query-string,
-    Str :$authorizer-id!,
-    Str :$rest-api-id!
+        Hash[Str, Str] :$stage-variables,
+        Str :$body,
+        Hash[Str, Str] :$headers,
+        Hash[Str, Str] :$additional-context,
+        Str :$path-with-query-string,
+        Str :$authorizer-id!,
+        Str :$rest-api-id!
     ) returns TestInvokeAuthorizerResponse is service-operation('TestInvokeAuthorizer') {
         my $request-input = TestInvokeAuthorizerRequest.new(
-        :$stage-variables,
-        :$body,
-        :$headers,
-        :$additional-context,
-        :$path-with-query-string,
-        :$authorizer-id,
-        :$rest-api-id
+            :$stage-variables,
+            :$body,
+            :$headers,
+            :$additional-context,
+            :$path-with-query-string,
+            :$authorizer-id,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<TestInvokeAuthorizer>,
-            :return-type(TestInvokeAuthorizerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-api-key(
-    Str :$api-key!,
-    Array[PatchOperation] :$patch-operations
+        Str :$api-key!,
+        Array[PatchOperation] :$patch-operations
     ) returns ApiKey is service-operation('UpdateApiKey') {
         my $request-input = UpdateApiKeyRequest.new(
-        :$api-key,
-        :$patch-operations
+            :$api-key,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApiKey>,
-            :return-type(ApiKey),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-client-certificate(
-    Str :$client-certificate-id!,
-    Array[PatchOperation] :$patch-operations
+        Str :$client-certificate-id!,
+        Array[PatchOperation] :$patch-operations
     ) returns ClientCertificate is service-operation('UpdateClientCertificate') {
         my $request-input = UpdateClientCertificateRequest.new(
-        :$client-certificate-id,
-        :$patch-operations
+            :$client-certificate-id,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateClientCertificate>,
-            :return-type(ClientCertificate),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-base-path-mapping(
-    Str :$base-path!,
-    Str :$domain-name!
+        Str :$base-path!,
+        Str :$domain-name!
     ) is service-operation('DeleteBasePathMapping') {
         my $request-input = DeleteBasePathMappingRequest.new(
-        :$base-path,
-        :$domain-name
+            :$base-path,
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBasePathMapping>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-usage-plan(
-    Str :$usage-plan-id!
+        Str :$usage-plan-id!
     ) is service-operation('DeleteUsagePlan') {
         my $request-input = DeleteUsagePlanRequest.new(
-        :$usage-plan-id
+            :$usage-plan-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteUsagePlan>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-rest-api(
-    Str :$rest-api-id!,
-    Array[PatchOperation] :$patch-operations
+        Str :$rest-api-id!,
+        Array[PatchOperation] :$patch-operations
     ) returns RestApi is service-operation('UpdateRestApi') {
         my $request-input = UpdateRestApiRequest.new(
-        :$rest-api-id,
-        :$patch-operations
+            :$rest-api-id,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRestApi>,
-            :return-type(RestApi),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-usage-plan-key(
-    Str :$key-id!,
-    Str :$key-type!,
-    Str :$usage-plan-id!
+        Str :$key-id!,
+        Str :$key-type!,
+        Str :$usage-plan-id!
     ) returns UsagePlanKey is service-operation('CreateUsagePlanKey') {
         my $request-input = CreateUsagePlanKeyRequest.new(
-        :$key-id,
-        :$key-type,
-        :$usage-plan-id
+            :$key-id,
+            :$key-type,
+            :$usage-plan-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateUsagePlanKey>,
-            :return-type(UsagePlanKey),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-integration(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Str :$http-method!,
-    Array[PatchOperation] :$patch-operations
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Str :$http-method!,
+        Array[PatchOperation] :$patch-operations
     ) returns Integration is service-operation('UpdateIntegration') {
         my $request-input = UpdateIntegrationRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$http-method,
-        :$patch-operations
+            :$resource-id,
+            :$rest-api-id,
+            :$http-method,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateIntegration>,
-            :return-type(Integration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-documentation-parts(
-    Blob :$body!,
-    Bool :$fail-on-warnings,
-    PutMode :$mode,
-    Str :$rest-api-id!
+        Blob :$body!,
+        Bool :$fail-on-warnings,
+        PutMode :$mode,
+        Str :$rest-api-id!
     ) returns DocumentationPartIds is service-operation('ImportDocumentationParts') {
         my $request-input = ImportDocumentationPartsRequest.new(
-        :$body,
-        :$fail-on-warnings,
-        :$mode,
-        :$rest-api-id
+            :$body,
+            :$fail-on-warnings,
+            :$mode,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<ImportDocumentationParts>,
-            :return-type(DocumentationPartIds),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-method(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Str :$http-method!,
-    Array[PatchOperation] :$patch-operations
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Str :$http-method!,
+        Array[PatchOperation] :$patch-operations
     ) returns Method is service-operation('UpdateMethod') {
         my $request-input = UpdateMethodRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$http-method,
-        :$patch-operations
+            :$resource-id,
+            :$rest-api-id,
+            :$http-method,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateMethod>,
-            :return-type(Method),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-rest-api(
-    Str :$rest-api-id!
+        Str :$rest-api-id!
     ) returns RestApi is service-operation('GetRestApi') {
         my $request-input = GetRestApiRequest.new(
-        :$rest-api-id
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetRestApi>,
-            :return-type(RestApi),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-usage-plan-key(
-    Str :$key-id!,
-    Str :$usage-plan-id!
+        Str :$key-id!,
+        Str :$usage-plan-id!
     ) is service-operation('DeleteUsagePlanKey') {
         my $request-input = DeleteUsagePlanKeyRequest.new(
-        :$key-id,
-        :$usage-plan-id
+            :$key-id,
+            :$usage-plan-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteUsagePlanKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-domain-name(
-    Str :$domain-name!
+        Str :$domain-name!
     ) is service-operation('DeleteDomainName') {
         my $request-input = DeleteDomainNameRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDomainName>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-documentation-part(
-    Str :$rest-api-id!,
-    Str :$documentation-part-id!
+        Str :$rest-api-id!,
+        Str :$documentation-part-id!
     ) is service-operation('DeleteDocumentationPart') {
         my $request-input = DeleteDocumentationPartRequest.new(
-        :$rest-api-id,
-        :$documentation-part-id
+            :$rest-api-id,
+            :$documentation-part-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDocumentationPart>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-deployment(
-    Str :$deployment-id!,
-    Str :$rest-api-id!
+        Str :$deployment-id!,
+        Str :$rest-api-id!
     ) is service-operation('DeleteDeployment') {
         my $request-input = DeleteDeploymentRequest.new(
-        :$deployment-id,
-        :$rest-api-id
+            :$deployment-id,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDeployment>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-api-key(
-    Str :$api-key!
+        Str :$api-key!
     ) is service-operation('DeleteApiKey') {
         my $request-input = DeleteApiKeyRequest.new(
-        :$api-key
+            :$api-key
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApiKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-sdk-type(
-    Str :$id!
+        Str :$id!
     ) returns SdkType is service-operation('GetSdkType') {
         my $request-input = GetSdkTypeRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<GetSdkType>,
-            :return-type(SdkType),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-sdk-types(
-    Int :$limit,
-    Str :$position
+        Int :$limit,
+        Str :$position
     ) returns SdkTypes is service-operation('GetSdkTypes') {
         my $request-input = GetSdkTypesRequest.new(
-        :$limit,
-        :$position
+            :$limit,
+            :$position
         );
-;
+
         self.perform-operation(
             :api-call<GetSdkTypes>,
-            :return-type(SdkTypes),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-request-validator(
-    Str :$request-validator-id!,
-    Str :$rest-api-id!,
-    Array[PatchOperation] :$patch-operations
+        Str :$request-validator-id!,
+        Str :$rest-api-id!,
+        Array[PatchOperation] :$patch-operations
     ) returns RequestValidator is service-operation('UpdateRequestValidator') {
         my $request-input = UpdateRequestValidatorRequest.new(
-        :$request-validator-id,
-        :$rest-api-id,
-        :$patch-operations
+            :$request-validator-id,
+            :$rest-api-id,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRequestValidator>,
-            :return-type(RequestValidator),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-authorizer(
-    Str :$authorizer-id!,
-    Str :$rest-api-id!
+        Str :$authorizer-id!,
+        Str :$rest-api-id!
     ) returns Authorizer is service-operation('GetAuthorizer') {
         my $request-input = GetAuthorizerRequest.new(
-        :$authorizer-id,
-        :$rest-api-id
+            :$authorizer-id,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetAuthorizer>,
-            :return-type(Authorizer),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-model(
-    Bool :$flatten,
-    Str :$rest-api-id!,
-    Str :$model-name!
+        Bool :$flatten,
+        Str :$rest-api-id!,
+        Str :$model-name!
     ) returns Model is service-operation('GetModel') {
         my $request-input = GetModelRequest.new(
-        :$flatten,
-        :$rest-api-id,
-        :$model-name
+            :$flatten,
+            :$rest-api-id,
+            :$model-name
         );
-;
+
         self.perform-operation(
             :api-call<GetModel>,
-            :return-type(Model),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-base-path-mapping(
-    Str :$base-path!,
-    Str :$domain-name!,
-    Array[PatchOperation] :$patch-operations
+        Str :$base-path!,
+        Str :$domain-name!,
+        Array[PatchOperation] :$patch-operations
     ) returns BasePathMapping is service-operation('UpdateBasePathMapping') {
         my $request-input = UpdateBasePathMappingRequest.new(
-        :$base-path,
-        :$domain-name,
-        :$patch-operations
+            :$base-path,
+            :$domain-name,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateBasePathMapping>,
-            :return-type(BasePathMapping),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-documentation-version(
-    Str :$documentation-version!,
-    Str :$rest-api-id!,
-    Array[PatchOperation] :$patch-operations
+        Str :$documentation-version!,
+        Str :$rest-api-id!,
+        Array[PatchOperation] :$patch-operations
     ) returns DocumentationVersion is service-operation('UpdateDocumentationVersion') {
         my $request-input = UpdateDocumentationVersionRequest.new(
-        :$documentation-version,
-        :$rest-api-id,
-        :$patch-operations
+            :$documentation-version,
+            :$rest-api-id,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDocumentationVersion>,
-            :return-type(DocumentationVersion),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-method(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Str :$http-method!
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Str :$http-method!
     ) is service-operation('DeleteMethod') {
         my $request-input = DeleteMethodRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$http-method
+            :$resource-id,
+            :$rest-api-id,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<DeleteMethod>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-authorizer(
-    Int :$authorizer-result-ttl-in-seconds,
-    Str :$name!,
-    Str :$authorizer-credentials,
-    Str :$identity-source,
-    Str :$identity-validation-expression,
-    Str :$rest-api-id!,
-    Str :$auth-type,
-    AuthorizerType :$type!,
-    Str :$authorizer-uri,
-    Array[Str] :$provider-arns
+        Int :$authorizer-result-ttl-in-seconds,
+        Str :$name!,
+        Str :$authorizer-credentials,
+        Str :$identity-source,
+        Str :$identity-validation-expression,
+        Str :$rest-api-id!,
+        Str :$auth-type,
+        AuthorizerType :$type!,
+        Str :$authorizer-uri,
+        Array[Str] :$provider-arns
     ) returns Authorizer is service-operation('CreateAuthorizer') {
         my $request-input = CreateAuthorizerRequest.new(
-        :$authorizer-result-ttl-in-seconds,
-        :$name,
-        :$authorizer-credentials,
-        :$identity-source,
-        :$identity-validation-expression,
-        :$rest-api-id,
-        :$auth-type,
-        :$type,
-        :$authorizer-uri,
-        :$provider-arns
+            :$authorizer-result-ttl-in-seconds,
+            :$name,
+            :$authorizer-credentials,
+            :$identity-source,
+            :$identity-validation-expression,
+            :$rest-api-id,
+            :$auth-type,
+            :$type,
+            :$authorizer-uri,
+            :$provider-arns
         );
-;
+
         self.perform-operation(
             :api-call<CreateAuthorizer>,
-            :return-type(Authorizer),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-model-template(
-    Str :$rest-api-id!,
-    Str :$model-name!
+        Str :$rest-api-id!,
+        Str :$model-name!
     ) returns Template is service-operation('GetModelTemplate') {
         my $request-input = GetModelTemplateRequest.new(
-        :$rest-api-id,
-        :$model-name
+            :$rest-api-id,
+            :$model-name
         );
-;
+
         self.perform-operation(
             :api-call<GetModelTemplate>,
-            :return-type(Template),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-domain-names(
-    Int :$limit,
-    Str :$position
+        Int :$limit,
+        Str :$position
     ) returns DomainNames is service-operation('GetDomainNames') {
         my $request-input = GetDomainNamesRequest.new(
-        :$limit,
-        :$position
+            :$limit,
+            :$position
         );
-;
+
         self.perform-operation(
             :api-call<GetDomainNames>,
-            :return-type(DomainNames),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-deployment(
-    Str :$deployment-id!,
-    Array[Str] :$embed,
-    Str :$rest-api-id!
+        Str :$deployment-id!,
+        Array[Str] :$embed,
+        Str :$rest-api-id!
     ) returns Deployment is service-operation('GetDeployment') {
         my $request-input = GetDeploymentRequest.new(
-        :$deployment-id,
-        :$embed,
-        :$rest-api-id
+            :$deployment-id,
+            :$embed,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDeployment>,
-            :return-type(Deployment),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-gateway-response(
-    GatewayResponseType :$response-type!,
-    Hash[Str, Str] :$response-parameters,
-    Str :$rest-api-id!,
-    StatusCode :$status-code,
-    Hash[Str, Str] :$response-templates
+        GatewayResponseType :$response-type!,
+        Hash[Str, Str] :$response-parameters,
+        Str :$rest-api-id!,
+        StatusCode :$status-code,
+        Hash[Str, Str] :$response-templates
     ) returns GatewayResponse is service-operation('PutGatewayResponse') {
         my $request-input = PutGatewayResponseRequest.new(
-        :$response-type,
-        :$response-parameters,
-        :$rest-api-id,
-        :$status-code,
-        :$response-templates
+            :$response-type,
+            :$response-parameters,
+            :$rest-api-id,
+            :$status-code,
+            :$response-templates
         );
-;
+
         self.perform-operation(
             :api-call<PutGatewayResponse>,
-            :return-type(GatewayResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-export(
-    Str :$accepts,
-    Str :$rest-api-id!,
-    Hash[Str, Str] :$parameters,
-    Str :$export-type!,
-    Str :$stage-name!
+        Str :$accepts,
+        Str :$rest-api-id!,
+        Hash[Str, Str] :$parameters,
+        Str :$export-type!,
+        Str :$stage-name!
     ) returns ExportResponse is service-operation('GetExport') {
         my $request-input = GetExportRequest.new(
-        :$accepts,
-        :$rest-api-id,
-        :$parameters,
-        :$export-type,
-        :$stage-name
+            :$accepts,
+            :$rest-api-id,
+            :$parameters,
+            :$export-type,
+            :$stage-name
         );
-;
+
         self.perform-operation(
             :api-call<GetExport>,
-            :return-type(ExportResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method generate-client-certificate(
-    Str :$description
+        Str :$description
     ) returns ClientCertificate is service-operation('GenerateClientCertificate') {
         my $request-input = GenerateClientCertificateRequest.new(
-        :$description
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<GenerateClientCertificate>,
-            :return-type(ClientCertificate),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-authorizer(
-    Str :$authorizer-id!,
-    Str :$rest-api-id!
+        Str :$authorizer-id!,
+        Str :$rest-api-id!
     ) is service-operation('DeleteAuthorizer') {
         my $request-input = DeleteAuthorizerRequest.new(
-        :$authorizer-id,
-        :$rest-api-id
+            :$authorizer-id,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAuthorizer>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-request-validators(
-    Int :$limit,
-    Str :$position,
-    Str :$rest-api-id!
+        Int :$limit,
+        Str :$position,
+        Str :$rest-api-id!
     ) returns RequestValidators is service-operation('GetRequestValidators') {
         my $request-input = GetRequestValidatorsRequest.new(
-        :$limit,
-        :$position,
-        :$rest-api-id
+            :$limit,
+            :$position,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetRequestValidators>,
-            :return-type(RequestValidators),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-integration(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Str :$http-method!
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Str :$http-method!
     ) returns Integration is service-operation('GetIntegration') {
         my $request-input = GetIntegrationRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$http-method
+            :$resource-id,
+            :$rest-api-id,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<GetIntegration>,
-            :return-type(Integration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-resources(
-    Int :$limit,
-    Array[Str] :$embed,
-    Str :$position,
-    Str :$rest-api-id!
+        Int :$limit,
+        Array[Str] :$embed,
+        Str :$position,
+        Str :$rest-api-id!
     ) returns Resources is service-operation('GetResources') {
         my $request-input = GetResourcesRequest.new(
-        :$limit,
-        :$embed,
-        :$position,
-        :$rest-api-id
+            :$limit,
+            :$embed,
+            :$position,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetResources>,
-            :return-type(Resources),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-usage-plan-key(
-    Str :$key-id!,
-    Str :$usage-plan-id!
+        Str :$key-id!,
+        Str :$usage-plan-id!
     ) returns UsagePlanKey is service-operation('GetUsagePlanKey') {
         my $request-input = GetUsagePlanKeyRequest.new(
-        :$key-id,
-        :$usage-plan-id
+            :$key-id,
+            :$usage-plan-id
         );
-;
+
         self.perform-operation(
             :api-call<GetUsagePlanKey>,
-            :return-type(UsagePlanKey),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-method(
-    Hash[Str, Str] :$request-models,
-    Hash[Bool, Str] :$request-parameters,
-    Bool :$api-key-required,
-    Str :$request-validator-id,
-    Str :$authorization-type!,
-    Str :$operation-name,
-    Str :$authorizer-id,
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Str :$http-method!
+        Hash[Str, Str] :$request-models,
+        Hash[Bool, Str] :$request-parameters,
+        Bool :$api-key-required,
+        Str :$request-validator-id,
+        Str :$authorization-type!,
+        Str :$operation-name,
+        Str :$authorizer-id,
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Str :$http-method!
     ) returns Method is service-operation('PutMethod') {
         my $request-input = PutMethodRequest.new(
-        :$request-models,
-        :$request-parameters,
-        :$api-key-required,
-        :$request-validator-id,
-        :$authorization-type,
-        :$operation-name,
-        :$authorizer-id,
-        :$resource-id,
-        :$rest-api-id,
-        :$http-method
+            :$request-models,
+            :$request-parameters,
+            :$api-key-required,
+            :$request-validator-id,
+            :$authorization-type,
+            :$operation-name,
+            :$authorizer-id,
+            :$resource-id,
+            :$rest-api-id,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<PutMethod>,
-            :return-type(Method),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method test-invoke-method(
-    Hash[Str, Str] :$stage-variables,
-    Hash[Str, Str] :$headers,
-    Str :$body,
-    Str :$client-certificate-id,
-    Str :$path-with-query-string,
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Str :$http-method!
+        Hash[Str, Str] :$stage-variables,
+        Hash[Str, Str] :$headers,
+        Str :$body,
+        Str :$client-certificate-id,
+        Str :$path-with-query-string,
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Str :$http-method!
     ) returns TestInvokeMethodResponse is service-operation('TestInvokeMethod') {
         my $request-input = TestInvokeMethodRequest.new(
-        :$stage-variables,
-        :$headers,
-        :$body,
-        :$client-certificate-id,
-        :$path-with-query-string,
-        :$resource-id,
-        :$rest-api-id,
-        :$http-method
+            :$stage-variables,
+            :$headers,
+            :$body,
+            :$client-certificate-id,
+            :$path-with-query-string,
+            :$resource-id,
+            :$rest-api-id,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<TestInvokeMethod>,
-            :return-type(TestInvokeMethodResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-documentation-version(
-    Str :$documentation-version!,
-    Str :$rest-api-id!
+        Str :$documentation-version!,
+        Str :$rest-api-id!
     ) returns DocumentationVersion is service-operation('GetDocumentationVersion') {
         my $request-input = GetDocumentationVersionRequest.new(
-        :$documentation-version,
-        :$rest-api-id
+            :$documentation-version,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDocumentationVersion>,
-            :return-type(DocumentationVersion),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-integration-response(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    StatusCode :$status-code!,
-    Str :$http-method!
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        StatusCode :$status-code!,
+        Str :$http-method!
     ) is service-operation('DeleteIntegrationResponse') {
         my $request-input = DeleteIntegrationResponseRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$status-code,
-        :$http-method
+            :$resource-id,
+            :$rest-api-id,
+            :$status-code,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<DeleteIntegrationResponse>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-rest-apis(
-    Int :$limit,
-    Str :$position
+        Int :$limit,
+        Str :$position
     ) returns RestApis is service-operation('GetRestApis') {
         my $request-input = GetRestApisRequest.new(
-        :$limit,
-        :$position
+            :$limit,
+            :$position
         );
-;
+
         self.perform-operation(
             :api-call<GetRestApis>,
-            :return-type(RestApis),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-request-validator(
-    Str :$request-validator-id!,
-    Str :$rest-api-id!
+        Str :$request-validator-id!,
+        Str :$rest-api-id!
     ) returns RequestValidator is service-operation('GetRequestValidator') {
         my $request-input = GetRequestValidatorRequest.new(
-        :$request-validator-id,
-        :$rest-api-id
+            :$request-validator-id,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetRequestValidator>,
-            :return-type(RequestValidator),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-deployment(
-    CacheClusterSize :$cache-cluster-size,
-    Str :$stage-description,
-    Hash[Str, Str] :$variables,
-    Str :$rest-api-id!,
-    Bool :$cache-cluster-enabled,
-    Str :$description,
-    Str :$stage-name
+        CacheClusterSize :$cache-cluster-size,
+        Str :$stage-description,
+        Hash[Str, Str] :$variables,
+        Str :$rest-api-id!,
+        Bool :$cache-cluster-enabled,
+        Str :$description,
+        Str :$stage-name
     ) returns Deployment is service-operation('CreateDeployment') {
         my $request-input = CreateDeploymentRequest.new(
-        :$cache-cluster-size,
-        :$stage-description,
-        :$variables,
-        :$rest-api-id,
-        :$cache-cluster-enabled,
-        :$description,
-        :$stage-name
+            :$cache-cluster-size,
+            :$stage-description,
+            :$variables,
+            :$rest-api-id,
+            :$cache-cluster-enabled,
+            :$description,
+            :$stage-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDeployment>,
-            :return-type(Deployment),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-model(
-    Str :$name!,
-    Str :$schema,
-    Str :$rest-api-id!,
-    Str :$content-type!,
-    Str :$description
+        Str :$name!,
+        Str :$schema,
+        Str :$rest-api-id!,
+        Str :$content-type!,
+        Str :$description
     ) returns Model is service-operation('CreateModel') {
         my $request-input = CreateModelRequest.new(
-        :$name,
-        :$schema,
-        :$rest-api-id,
-        :$content-type,
-        :$description
+            :$name,
+            :$schema,
+            :$rest-api-id,
+            :$content-type,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateModel>,
-            :return-type(Model),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-resource(
-    Str :$resource-id!,
-    Str :$rest-api-id!
+        Str :$resource-id!,
+        Str :$rest-api-id!
     ) is service-operation('DeleteResource') {
         my $request-input = DeleteResourceRequest.new(
-        :$resource-id,
-        :$rest-api-id
+            :$resource-id,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-resource(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Array[PatchOperation] :$patch-operations
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Array[PatchOperation] :$patch-operations
     ) returns Resource is service-operation('UpdateResource') {
         my $request-input = UpdateResourceRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$patch-operations
+            :$resource-id,
+            :$rest-api-id,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateResource>,
-            :return-type(Resource),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-method-response(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    StatusCode :$status-code!,
-    Str :$http-method!,
-    Array[PatchOperation] :$patch-operations
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        StatusCode :$status-code!,
+        Str :$http-method!,
+        Array[PatchOperation] :$patch-operations
     ) returns MethodResponse is service-operation('UpdateMethodResponse') {
         my $request-input = UpdateMethodResponseRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$status-code,
-        :$http-method,
-        :$patch-operations
+            :$resource-id,
+            :$rest-api-id,
+            :$status-code,
+            :$http-method,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateMethodResponse>,
-            :return-type(MethodResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-base-path-mapping(
-    Str :$base-path,
-    Str :$domain-name!,
-    Str :$stage,
-    Str :$rest-api-id!
+        Str :$base-path,
+        Str :$domain-name!,
+        Str :$stage,
+        Str :$rest-api-id!
     ) returns BasePathMapping is service-operation('CreateBasePathMapping') {
         my $request-input = CreateBasePathMappingRequest.new(
-        :$base-path,
-        :$domain-name,
-        :$stage,
-        :$rest-api-id
+            :$base-path,
+            :$domain-name,
+            :$stage,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateBasePathMapping>,
-            :return-type(BasePathMapping),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method flush-stage-cache(
-    Str :$rest-api-id!,
-    Str :$stage-name!
+        Str :$rest-api-id!,
+        Str :$stage-name!
     ) is service-operation('FlushStageCache') {
         my $request-input = FlushStageCacheRequest.new(
-        :$rest-api-id,
-        :$stage-name
+            :$rest-api-id,
+            :$stage-name
         );
-;
+
         self.perform-operation(
             :api-call<FlushStageCache>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-documentation-versions(
-    Int :$limit,
-    Str :$position,
-    Str :$rest-api-id!
+        Int :$limit,
+        Str :$position,
+        Str :$rest-api-id!
     ) returns DocumentationVersions is service-operation('GetDocumentationVersions') {
         my $request-input = GetDocumentationVersionsRequest.new(
-        :$limit,
-        :$position,
-        :$rest-api-id
+            :$limit,
+            :$position,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDocumentationVersions>,
-            :return-type(DocumentationVersions),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-gateway-response(
-    GatewayResponseType :$response-type!,
-    Str :$rest-api-id!,
-    Array[PatchOperation] :$patch-operations
+        GatewayResponseType :$response-type!,
+        Str :$rest-api-id!,
+        Array[PatchOperation] :$patch-operations
     ) returns GatewayResponse is service-operation('UpdateGatewayResponse') {
         my $request-input = UpdateGatewayResponseRequest.new(
-        :$response-type,
-        :$rest-api-id,
-        :$patch-operations
+            :$response-type,
+            :$rest-api-id,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateGatewayResponse>,
-            :return-type(GatewayResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-rest-api(
-    Blob :$body!,
-    Bool :$fail-on-warnings,
-    PutMode :$mode,
-    Str :$rest-api-id!,
-    Hash[Str, Str] :$parameters
+        Blob :$body!,
+        Bool :$fail-on-warnings,
+        PutMode :$mode,
+        Str :$rest-api-id!,
+        Hash[Str, Str] :$parameters
     ) returns RestApi is service-operation('PutRestApi') {
         my $request-input = PutRestApiRequest.new(
-        :$body,
-        :$fail-on-warnings,
-        :$mode,
-        :$rest-api-id,
-        :$parameters
+            :$body,
+            :$fail-on-warnings,
+            :$mode,
+            :$rest-api-id,
+            :$parameters
         );
-;
+
         self.perform-operation(
             :api-call<PutRestApi>,
-            :return-type(RestApi),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-model(
-    Str :$rest-api-id!,
-    Str :$model-name!
+        Str :$rest-api-id!,
+        Str :$model-name!
     ) is service-operation('DeleteModel') {
         my $request-input = DeleteModelRequest.new(
-        :$rest-api-id,
-        :$model-name
+            :$rest-api-id,
+            :$model-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteModel>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-usage-plan(
-    Array[ApiStage] :$api-stages,
-    Str :$name!,
-    ThrottleSettings :$throttle,
-    QuotaSettings :$quota,
-    Str :$description
+        Array[ApiStage] :$api-stages,
+        Str :$name!,
+        ThrottleSettings :$throttle,
+        QuotaSettings :$quota,
+        Str :$description
     ) returns UsagePlan is service-operation('CreateUsagePlan') {
         my $request-input = CreateUsagePlanRequest.new(
-        :$api-stages,
-        :$name,
-        :$throttle,
-        :$quota,
-        :$description
+            :$api-stages,
+            :$name,
+            :$throttle,
+            :$quota,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateUsagePlan>,
-            :return-type(UsagePlan),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-method-response(
-    Hash[Str, Str] :$response-models,
-    Hash[Bool, Str] :$response-parameters,
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    StatusCode :$status-code!,
-    Str :$http-method!
+        Hash[Str, Str] :$response-models,
+        Hash[Bool, Str] :$response-parameters,
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        StatusCode :$status-code!,
+        Str :$http-method!
     ) returns MethodResponse is service-operation('PutMethodResponse') {
         my $request-input = PutMethodResponseRequest.new(
-        :$response-models,
-        :$response-parameters,
-        :$resource-id,
-        :$rest-api-id,
-        :$status-code,
-        :$http-method
+            :$response-models,
+            :$response-parameters,
+            :$resource-id,
+            :$rest-api-id,
+            :$status-code,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<PutMethodResponse>,
-            :return-type(MethodResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-documentation-part(
-    Str :$rest-api-id!,
-    Str :$documentation-part-id!
+        Str :$rest-api-id!,
+        Str :$documentation-part-id!
     ) returns DocumentationPart is service-operation('GetDocumentationPart') {
         my $request-input = GetDocumentationPartRequest.new(
-        :$rest-api-id,
-        :$documentation-part-id
+            :$rest-api-id,
+            :$documentation-part-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDocumentationPart>,
-            :return-type(DocumentationPart),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-domain-name(
-    Str :$domain-name!
+        Str :$domain-name!
     ) returns DomainName is service-operation('GetDomainName') {
         my $request-input = GetDomainNameRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<GetDomainName>,
-            :return-type(DomainName),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-usage(
-    Str :$key-id,
-    Int :$limit,
-    Str :$start-date!,
-    Str :$position,
-    Str :$end-date!,
-    Str :$usage-plan-id!
+        Str :$key-id,
+        Int :$limit,
+        Str :$start-date!,
+        Str :$position,
+        Str :$end-date!,
+        Str :$usage-plan-id!
     ) returns Usage is service-operation('GetUsage') {
         my $request-input = GetUsageRequest.new(
-        :$key-id,
-        :$limit,
-        :$start-date,
-        :$position,
-        :$end-date,
-        :$usage-plan-id
+            :$key-id,
+            :$limit,
+            :$start-date,
+            :$position,
+            :$end-date,
+            :$usage-plan-id
         );
-;
+
         self.perform-operation(
             :api-call<GetUsage>,
-            :return-type(Usage),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-gateway-response(
-    GatewayResponseType :$response-type!,
-    Str :$rest-api-id!
+        GatewayResponseType :$response-type!,
+        Str :$rest-api-id!
     ) returns GatewayResponse is service-operation('GetGatewayResponse') {
         my $request-input = GetGatewayResponseRequest.new(
-        :$response-type,
-        :$rest-api-id
+            :$response-type,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetGatewayResponse>,
-            :return-type(GatewayResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-documentation-parts(
-    Int :$limit,
-    Str :$path,
-    Str :$position,
-    Str :$rest-api-id!,
-    DocumentationPartType :$type,
-    Str :$name-query
+        Int :$limit,
+        Str :$path,
+        Str :$position,
+        Str :$rest-api-id!,
+        DocumentationPartType :$type,
+        Str :$name-query
     ) returns DocumentationParts is service-operation('GetDocumentationParts') {
         my $request-input = GetDocumentationPartsRequest.new(
-        :$limit,
-        :$path,
-        :$position,
-        :$rest-api-id,
-        :$type,
-        :$name-query
+            :$limit,
+            :$path,
+            :$position,
+            :$rest-api-id,
+            :$type,
+            :$name-query
         );
-;
+
         self.perform-operation(
             :api-call<GetDocumentationParts>,
-            :return-type(DocumentationParts),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-usage-plan-keys(
-    Int :$limit,
-    Str :$position,
-    Str :$usage-plan-id!,
-    Str :$name-query
+        Int :$limit,
+        Str :$position,
+        Str :$usage-plan-id!,
+        Str :$name-query
     ) returns UsagePlanKeys is service-operation('GetUsagePlanKeys') {
         my $request-input = GetUsagePlanKeysRequest.new(
-        :$limit,
-        :$position,
-        :$usage-plan-id,
-        :$name-query
+            :$limit,
+            :$position,
+            :$usage-plan-id,
+            :$name-query
         );
-;
+
         self.perform-operation(
             :api-call<GetUsagePlanKeys>,
-            :return-type(UsagePlanKeys),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-usage-plan(
-    Array[PatchOperation] :$patch-operations,
-    Str :$usage-plan-id!
+        Array[PatchOperation] :$patch-operations,
+        Str :$usage-plan-id!
     ) returns UsagePlan is service-operation('UpdateUsagePlan') {
         my $request-input = UpdateUsagePlanRequest.new(
-        :$patch-operations,
-        :$usage-plan-id
+            :$patch-operations,
+            :$usage-plan-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateUsagePlan>,
-            :return-type(UsagePlan),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-integration-response(
-    Hash[Str, Str] :$response-parameters,
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Str :$selection-pattern,
-    StatusCode :$status-code!,
-    Str :$http-method!,
-    ContentHandlingStrategy :$content-handling,
-    Hash[Str, Str] :$response-templates
+        Hash[Str, Str] :$response-parameters,
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Str :$selection-pattern,
+        StatusCode :$status-code!,
+        Str :$http-method!,
+        ContentHandlingStrategy :$content-handling,
+        Hash[Str, Str] :$response-templates
     ) returns IntegrationResponse is service-operation('PutIntegrationResponse') {
         my $request-input = PutIntegrationResponseRequest.new(
-        :$response-parameters,
-        :$resource-id,
-        :$rest-api-id,
-        :$selection-pattern,
-        :$status-code,
-        :$http-method,
-        :$content-handling,
-        :$response-templates
+            :$response-parameters,
+            :$resource-id,
+            :$rest-api-id,
+            :$selection-pattern,
+            :$status-code,
+            :$http-method,
+            :$content-handling,
+            :$response-templates
         );
-;
+
         self.perform-operation(
             :api-call<PutIntegrationResponse>,
-            :return-type(IntegrationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-stages(
-    Str :$deployment-id,
-    Str :$rest-api-id!
+        Str :$deployment-id,
+        Str :$rest-api-id!
     ) returns Stages is service-operation('GetStages') {
         my $request-input = GetStagesRequest.new(
-        :$deployment-id,
-        :$rest-api-id
+            :$deployment-id,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetStages>,
-            :return-type(Stages),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-gateway-response(
-    GatewayResponseType :$response-type!,
-    Str :$rest-api-id!
+        GatewayResponseType :$response-type!,
+        Str :$rest-api-id!
     ) is service-operation('DeleteGatewayResponse') {
         my $request-input = DeleteGatewayResponseRequest.new(
-        :$response-type,
-        :$rest-api-id
+            :$response-type,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteGatewayResponse>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-stage(
-    CacheClusterSize :$cache-cluster-size,
-    Str :$deployment-id!,
-    Str :$documentation-version,
-    Hash[Str, Str] :$variables,
-    Str :$rest-api-id!,
-    Bool :$cache-cluster-enabled,
-    Str :$description,
-    Str :$stage-name!
+        CacheClusterSize :$cache-cluster-size,
+        Str :$deployment-id!,
+        Str :$documentation-version,
+        Hash[Str, Str] :$variables,
+        Str :$rest-api-id!,
+        Bool :$cache-cluster-enabled,
+        Str :$description,
+        Str :$stage-name!
     ) returns Stage is service-operation('CreateStage') {
         my $request-input = CreateStageRequest.new(
-        :$cache-cluster-size,
-        :$deployment-id,
-        :$documentation-version,
-        :$variables,
-        :$rest-api-id,
-        :$cache-cluster-enabled,
-        :$description,
-        :$stage-name
+            :$cache-cluster-size,
+            :$deployment-id,
+            :$documentation-version,
+            :$variables,
+            :$rest-api-id,
+            :$cache-cluster-enabled,
+            :$description,
+            :$stage-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateStage>,
-            :return-type(Stage),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-usage-plans(
-    Str :$key-id,
-    Int :$limit,
-    Str :$position
+        Str :$key-id,
+        Int :$limit,
+        Str :$position
     ) returns UsagePlans is service-operation('GetUsagePlans') {
         my $request-input = GetUsagePlansRequest.new(
-        :$key-id,
-        :$limit,
-        :$position
+            :$key-id,
+            :$limit,
+            :$position
         );
-;
+
         self.perform-operation(
             :api-call<GetUsagePlans>,
-            :return-type(UsagePlans),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-sdk(
-    Str :$sdk-type!,
-    Str :$rest-api-id!,
-    Hash[Str, Str] :$parameters,
-    Str :$stage-name!
+        Str :$sdk-type!,
+        Str :$rest-api-id!,
+        Hash[Str, Str] :$parameters,
+        Str :$stage-name!
     ) returns SdkResponse is service-operation('GetSdk') {
         my $request-input = GetSdkRequest.new(
-        :$sdk-type,
-        :$rest-api-id,
-        :$parameters,
-        :$stage-name
+            :$sdk-type,
+            :$rest-api-id,
+            :$parameters,
+            :$stage-name
         );
-;
+
         self.perform-operation(
             :api-call<GetSdk>,
-            :return-type(SdkResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-request-validator(
-    Str :$name,
-    Bool :$validate-request-body,
-    Bool :$validate-request-parameters,
-    Str :$rest-api-id!
+        Str :$name,
+        Bool :$validate-request-body,
+        Bool :$validate-request-parameters,
+        Str :$rest-api-id!
     ) returns RequestValidator is service-operation('CreateRequestValidator') {
         my $request-input = CreateRequestValidatorRequest.new(
-        :$name,
-        :$validate-request-body,
-        :$validate-request-parameters,
-        :$rest-api-id
+            :$name,
+            :$validate-request-body,
+            :$validate-request-parameters,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateRequestValidator>,
-            :return-type(RequestValidator),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-integration(
-    Hash[Str, Str] :$request-parameters,
-    Str :$uri,
-    Str :$cache-namespace,
-    Str :$credentials,
-    Str :$integration-http-method,
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Array[Str] :$cache-key-parameters,
-    Str :$passthrough-behavior,
-    Hash[Str, Str] :$request-templates,
-    IntegrationType :$type!,
-    Str :$http-method!,
-    ContentHandlingStrategy :$content-handling
+        Hash[Str, Str] :$request-parameters,
+        Str :$uri,
+        Str :$cache-namespace,
+        Str :$credentials,
+        Str :$integration-http-method,
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Array[Str] :$cache-key-parameters,
+        Str :$passthrough-behavior,
+        Hash[Str, Str] :$request-templates,
+        IntegrationType :$type!,
+        Str :$http-method!,
+        ContentHandlingStrategy :$content-handling
     ) returns Integration is service-operation('PutIntegration') {
         my $request-input = PutIntegrationRequest.new(
-        :$request-parameters,
-        :$uri,
-        :$cache-namespace,
-        :$credentials,
-        :$integration-http-method,
-        :$resource-id,
-        :$rest-api-id,
-        :$cache-key-parameters,
-        :$passthrough-behavior,
-        :$request-templates,
-        :$type,
-        :$http-method,
-        :$content-handling
+            :$request-parameters,
+            :$uri,
+            :$cache-namespace,
+            :$credentials,
+            :$integration-http-method,
+            :$resource-id,
+            :$rest-api-id,
+            :$cache-key-parameters,
+            :$passthrough-behavior,
+            :$request-templates,
+            :$type,
+            :$http-method,
+            :$content-handling
         );
-;
+
         self.perform-operation(
             :api-call<PutIntegration>,
-            :return-type(Integration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-models(
-    Int :$limit,
-    Str :$position,
-    Str :$rest-api-id!
+        Int :$limit,
+        Str :$position,
+        Str :$rest-api-id!
     ) returns Models is service-operation('GetModels') {
         my $request-input = GetModelsRequest.new(
-        :$limit,
-        :$position,
-        :$rest-api-id
+            :$limit,
+            :$position,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetModels>,
-            :return-type(Models),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-documentation-part(
-    Str :$rest-api-id!,
-    Str :$documentation-part-id!,
-    Array[PatchOperation] :$patch-operations
+        Str :$rest-api-id!,
+        Str :$documentation-part-id!,
+        Array[PatchOperation] :$patch-operations
     ) returns DocumentationPart is service-operation('UpdateDocumentationPart') {
         my $request-input = UpdateDocumentationPartRequest.new(
-        :$rest-api-id,
-        :$documentation-part-id,
-        :$patch-operations
+            :$rest-api-id,
+            :$documentation-part-id,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDocumentationPart>,
-            :return-type(DocumentationPart),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-authorizer(
-    Str :$authorizer-id!,
-    Str :$rest-api-id!,
-    Array[PatchOperation] :$patch-operations
+        Str :$authorizer-id!,
+        Str :$rest-api-id!,
+        Array[PatchOperation] :$patch-operations
     ) returns Authorizer is service-operation('UpdateAuthorizer') {
         my $request-input = UpdateAuthorizerRequest.new(
-        :$authorizer-id,
-        :$rest-api-id,
-        :$patch-operations
+            :$authorizer-id,
+            :$rest-api-id,
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAuthorizer>,
-            :return-type(Authorizer),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-documentation-version(
-    Str :$documentation-version!,
-    Str :$rest-api-id!,
-    Str :$description,
-    Str :$stage-name
+        Str :$documentation-version!,
+        Str :$rest-api-id!,
+        Str :$description,
+        Str :$stage-name
     ) returns DocumentationVersion is service-operation('CreateDocumentationVersion') {
         my $request-input = CreateDocumentationVersionRequest.new(
-        :$documentation-version,
-        :$rest-api-id,
-        :$description,
-        :$stage-name
+            :$documentation-version,
+            :$rest-api-id,
+            :$description,
+            :$stage-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDocumentationVersion>,
-            :return-type(DocumentationVersion),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-rest-api(
-    Str :$name!,
-    Str :$clone-from,
-    Array[Str] :$binary-media-types,
-    Str :$version,
-    Str :$description
+        Str :$name!,
+        Str :$clone-from,
+        Array[Str] :$binary-media-types,
+        Str :$version,
+        Str :$description
     ) returns RestApi is service-operation('CreateRestApi') {
         my $request-input = CreateRestApiRequest.new(
-        :$name,
-        :$clone-from,
-        :$binary-media-types,
-        :$version,
-        :$description
+            :$name,
+            :$clone-from,
+            :$binary-media-types,
+            :$version,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateRestApi>,
-            :return-type(RestApi),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-method(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    Str :$http-method!
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        Str :$http-method!
     ) returns Method is service-operation('GetMethod') {
         my $request-input = GetMethodRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$http-method
+            :$resource-id,
+            :$rest-api-id,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<GetMethod>,
-            :return-type(Method),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-account(
-    Array[PatchOperation] :$patch-operations
+        Array[PatchOperation] :$patch-operations
     ) returns Account is service-operation('UpdateAccount') {
         my $request-input = UpdateAccountRequest.new(
-        :$patch-operations
+            :$patch-operations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAccount>,
-            :return-type(Account),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-rest-api(
-    Blob :$body!,
-    Bool :$fail-on-warnings,
-    Hash[Str, Str] :$parameters
+        Blob :$body!,
+        Bool :$fail-on-warnings,
+        Hash[Str, Str] :$parameters
     ) returns RestApi is service-operation('ImportRestApi') {
         my $request-input = ImportRestApiRequest.new(
-        :$body,
-        :$fail-on-warnings,
-        :$parameters
+            :$body,
+            :$fail-on-warnings,
+            :$parameters
         );
-;
+
         self.perform-operation(
             :api-call<ImportRestApi>,
-            :return-type(RestApi),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-api-keys(
-    Blob :$body!,
-    Bool :$fail-on-warnings,
-    ApiKeysFormat :$format!
+        Blob :$body!,
+        Bool :$fail-on-warnings,
+        ApiKeysFormat :$format!
     ) returns ApiKeyIds is service-operation('ImportApiKeys') {
         my $request-input = ImportApiKeysRequest.new(
-        :$body,
-        :$fail-on-warnings,
-        :$format
+            :$body,
+            :$fail-on-warnings,
+            :$format
         );
-;
+
         self.perform-operation(
             :api-call<ImportApiKeys>,
-            :return-type(ApiKeyIds),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-resource(
-    Array[Str] :$embed,
-    Str :$resource-id!,
-    Str :$rest-api-id!
+        Array[Str] :$embed,
+        Str :$resource-id!,
+        Str :$rest-api-id!
     ) returns Resource is service-operation('GetResource') {
         my $request-input = GetResourceRequest.new(
-        :$embed,
-        :$resource-id,
-        :$rest-api-id
+            :$embed,
+            :$resource-id,
+            :$rest-api-id
         );
-;
+
         self.perform-operation(
             :api-call<GetResource>,
-            :return-type(Resource),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-api-key(
-    Bool :$include-value,
-    Str :$api-key!
+        Bool :$include-value,
+        Str :$api-key!
     ) returns ApiKey is service-operation('GetApiKey') {
         my $request-input = GetApiKeyRequest.new(
-        :$include-value,
-        :$api-key
+            :$include-value,
+            :$api-key
         );
-;
+
         self.perform-operation(
             :api-call<GetApiKey>,
-            :return-type(ApiKey),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-api-keys(
-    Bool :$include-values,
-    Int :$limit,
-    Str :$position,
-    Str :$customer-id,
-    Str :$name-query
+        Bool :$include-values,
+        Int :$limit,
+        Str :$position,
+        Str :$customer-id,
+        Str :$name-query
     ) returns ApiKeys is service-operation('GetApiKeys') {
         my $request-input = GetApiKeysRequest.new(
-        :$include-values,
-        :$limit,
-        :$position,
-        :$customer-id,
-        :$name-query
+            :$include-values,
+            :$limit,
+            :$position,
+            :$customer-id,
+            :$name-query
         );
-;
+
         self.perform-operation(
             :api-call<GetApiKeys>,
-            :return-type(ApiKeys),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-integration-response(
-    Str :$resource-id!,
-    Str :$rest-api-id!,
-    StatusCode :$status-code!,
-    Str :$http-method!
+        Str :$resource-id!,
+        Str :$rest-api-id!,
+        StatusCode :$status-code!,
+        Str :$http-method!
     ) returns IntegrationResponse is service-operation('GetIntegrationResponse') {
         my $request-input = GetIntegrationResponseRequest.new(
-        :$resource-id,
-        :$rest-api-id,
-        :$status-code,
-        :$http-method
+            :$resource-id,
+            :$rest-api-id,
+            :$status-code,
+            :$http-method
         );
-;
+
         self.perform-operation(
             :api-call<GetIntegrationResponse>,
-            :return-type(IntegrationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

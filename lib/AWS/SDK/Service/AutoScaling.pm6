@@ -898,88 +898,78 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method attach-instances(
-    ResourceName :$auto-scaling-group-name!,
-    Array[XmlStringMaxLen19] :$instance-ids
+        ResourceName :$auto-scaling-group-name!,
+        Array[XmlStringMaxLen19] :$instance-ids
     ) is service-operation('AttachInstances') {
         my $request-input = AttachInstancesQuery.new(
-        :$auto-scaling-group-name,
-        :$instance-ids
+            :$auto-scaling-group-name,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<AttachInstances>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-load-balancers(
-    Array[XmlStringMaxLen255] :$load-balancer-names!,
-    ResourceName :$auto-scaling-group-name!
+        Array[XmlStringMaxLen255] :$load-balancer-names!,
+        ResourceName :$auto-scaling-group-name!
     ) returns AttachLoadBalancersResultType is service-operation('AttachLoadBalancers') {
         my $request-input = AttachLoadBalancersType.new(
-        :$load-balancer-names,
-        :$auto-scaling-group-name
+            :$load-balancer-names,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<AttachLoadBalancers>,
-            :return-type(AttachLoadBalancersResultType),
-            :result-wrapper('AttachLoadBalancersResult'),
             :$request-input,
         );
     }
 
     method create-or-update-tags(
-    Array[Tag] :$tags!
+        Array[Tag] :$tags!
     ) is service-operation('CreateOrUpdateTags') {
         my $request-input = CreateOrUpdateTagsType.new(
-        :$tags
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateOrUpdateTags>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-auto-scaling-groups(
-    Array[ResourceName] :$auto-scaling-group-names,
-    XmlString :$next-token,
-    Int :$max-records
+        Array[ResourceName] :$auto-scaling-group-names,
+        XmlString :$next-token,
+        Int :$max-records
     ) returns AutoScalingGroupsType is service-operation('DescribeAutoScalingGroups') {
         my $request-input = AutoScalingGroupNamesType.new(
-        :$auto-scaling-group-names,
-        :$next-token,
-        :$max-records
+            :$auto-scaling-group-names,
+            :$next-token,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAutoScalingGroups>,
-            :return-type(AutoScalingGroupsType),
-            :result-wrapper('DescribeAutoScalingGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancers(
-    XmlString :$next-token,
-    ResourceName :$auto-scaling-group-name!,
-    Int :$max-records
+        XmlString :$next-token,
+        ResourceName :$auto-scaling-group-name!,
+        Int :$max-records
     ) returns DescribeLoadBalancersResponse is service-operation('DescribeLoadBalancers') {
         my $request-input = DescribeLoadBalancersRequest.new(
-        :$next-token,
-        :$auto-scaling-group-name,
-        :$max-records
+            :$next-token,
+            :$auto-scaling-group-name,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoadBalancers>,
-            :return-type(DescribeLoadBalancersResponse),
-            :result-wrapper('DescribeLoadBalancersResult'),
             :$request-input,
         );
     }
@@ -987,11 +977,9 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method describe-account-limits(
 
     ) returns DescribeAccountLimitsAnswer is service-operation('DescribeAccountLimits') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeAccountLimits>,
-            :return-type(DescribeAccountLimitsAnswer),
-            :result-wrapper('DescribeAccountLimitsResult'),
             :$request-input,
         );
     }
@@ -999,230 +987,210 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method describe-auto-scaling-notification-types(
 
     ) returns DescribeAutoScalingNotificationTypesAnswer is service-operation('DescribeAutoScalingNotificationTypes') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeAutoScalingNotificationTypes>,
-            :return-type(DescribeAutoScalingNotificationTypesAnswer),
-            :result-wrapper('DescribeAutoScalingNotificationTypesResult'),
             :$request-input,
         );
     }
 
     method enter-standby(
-    Bool :$should-decrement-desired-capacity!,
-    ResourceName :$auto-scaling-group-name!,
-    Array[XmlStringMaxLen19] :$instance-ids
+        Bool :$should-decrement-desired-capacity!,
+        ResourceName :$auto-scaling-group-name!,
+        Array[XmlStringMaxLen19] :$instance-ids
     ) returns EnterStandbyAnswer is service-operation('EnterStandby') {
         my $request-input = EnterStandbyQuery.new(
-        :$should-decrement-desired-capacity,
-        :$auto-scaling-group-name,
-        :$instance-ids
+            :$should-decrement-desired-capacity,
+            :$auto-scaling-group-name,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<EnterStandby>,
-            :return-type(EnterStandbyAnswer),
-            :result-wrapper('EnterStandbyResult'),
             :$request-input,
         );
     }
 
     method put-scheduled-update-group-action(
-    Int :$max-size,
-    DateTime :$end-time,
-    DateTime :$time,
-    DateTime :$start-time,
-    XmlStringMaxLen255 :$scheduled-action-name!,
-    Int :$min-size,
-    ResourceName :$auto-scaling-group-name!,
-    XmlStringMaxLen255 :$recurrence,
-    Int :$desired-capacity
+        Int :$max-size,
+        DateTime :$end-time,
+        DateTime :$time,
+        DateTime :$start-time,
+        XmlStringMaxLen255 :$scheduled-action-name!,
+        Int :$min-size,
+        ResourceName :$auto-scaling-group-name!,
+        XmlStringMaxLen255 :$recurrence,
+        Int :$desired-capacity
     ) is service-operation('PutScheduledUpdateGroupAction') {
         my $request-input = PutScheduledUpdateGroupActionType.new(
-        :$max-size,
-        :$end-time,
-        :$time,
-        :$start-time,
-        :$scheduled-action-name,
-        :$min-size,
-        :$auto-scaling-group-name,
-        :$recurrence,
-        :$desired-capacity
+            :$max-size,
+            :$end-time,
+            :$time,
+            :$start-time,
+            :$scheduled-action-name,
+            :$min-size,
+            :$auto-scaling-group-name,
+            :$recurrence,
+            :$desired-capacity
         );
-;
+
         self.perform-operation(
             :api-call<PutScheduledUpdateGroupAction>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-scaling-activities(
-    XmlString :$next-token,
-    ResourceName :$auto-scaling-group-name,
-    Array[XmlString] :$activity-ids,
-    Int :$max-records
+        XmlString :$next-token,
+        ResourceName :$auto-scaling-group-name,
+        Array[XmlString] :$activity-ids,
+        Int :$max-records
     ) returns ActivitiesType is service-operation('DescribeScalingActivities') {
         my $request-input = DescribeScalingActivitiesType.new(
-        :$next-token,
-        :$auto-scaling-group-name,
-        :$activity-ids,
-        :$max-records
+            :$next-token,
+            :$auto-scaling-group-name,
+            :$activity-ids,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeScalingActivities>,
-            :return-type(ActivitiesType),
-            :result-wrapper('DescribeScalingActivitiesResult'),
             :$request-input,
         );
     }
 
     method exit-standby(
-    ResourceName :$auto-scaling-group-name!,
-    Array[XmlStringMaxLen19] :$instance-ids
+        ResourceName :$auto-scaling-group-name!,
+        Array[XmlStringMaxLen19] :$instance-ids
     ) returns ExitStandbyAnswer is service-operation('ExitStandby') {
         my $request-input = ExitStandbyQuery.new(
-        :$auto-scaling-group-name,
-        :$instance-ids
+            :$auto-scaling-group-name,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<ExitStandby>,
-            :return-type(ExitStandbyAnswer),
-            :result-wrapper('ExitStandbyResult'),
             :$request-input,
         );
     }
 
     method resume-processes(
-    Array[XmlStringMaxLen255] :$scaling-processes,
-    ResourceName :$auto-scaling-group-name!
+        Array[XmlStringMaxLen255] :$scaling-processes,
+        ResourceName :$auto-scaling-group-name!
     ) is service-operation('ResumeProcesses') {
         my $request-input = ScalingProcessQuery.new(
-        :$scaling-processes,
-        :$auto-scaling-group-name
+            :$scaling-processes,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<ResumeProcesses>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-load-balancer-target-groups(
-    Array[XmlStringMaxLen511] :$target-group-arns!,
-    ResourceName :$auto-scaling-group-name!
+        Array[XmlStringMaxLen511] :$target-group-arns!,
+        ResourceName :$auto-scaling-group-name!
     ) returns AttachLoadBalancerTargetGroupsResultType is service-operation('AttachLoadBalancerTargetGroups') {
         my $request-input = AttachLoadBalancerTargetGroupsType.new(
-        :$target-group-arns,
-        :$auto-scaling-group-name
+            :$target-group-arns,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<AttachLoadBalancerTargetGroups>,
-            :return-type(AttachLoadBalancerTargetGroupsResultType),
-            :result-wrapper('AttachLoadBalancerTargetGroupsResult'),
             :$request-input,
         );
     }
 
     method create-launch-configuration(
-    Array[BlockDeviceMapping] :$block-device-mappings,
-    XmlStringMaxLen255 :$ramdisk-id,
-    XmlStringUserData :$user-data,
-    Array[XmlStringMaxLen255] :$classic-link-vpc-security-groups,
-    Array[XmlString] :$security-groups,
-    XmlStringMaxLen255 :$image-id,
-    Bool :$associate-public-ip-address,
-    InstanceMonitoring :$instance-monitoring,
-    XmlStringMaxLen255 :$launch-configuration-name!,
-    Bool :$ebs-optimized,
-    SpotPrice :$spot-price,
-    XmlStringMaxLen64 :$placement-tenancy,
-    XmlStringMaxLen255 :$kernel-id,
-    XmlStringMaxLen255 :$instance-type,
-    XmlStringMaxLen1600 :$iam-instance-profile,
-    XmlStringMaxLen19 :$instance-id,
-    XmlStringMaxLen255 :$classic-link-vpc-id,
-    XmlStringMaxLen255 :$key-name
+        Array[BlockDeviceMapping] :$block-device-mappings,
+        XmlStringMaxLen255 :$ramdisk-id,
+        XmlStringUserData :$user-data,
+        Array[XmlStringMaxLen255] :$classic-link-vpc-security-groups,
+        Array[XmlString] :$security-groups,
+        XmlStringMaxLen255 :$image-id,
+        Bool :$associate-public-ip-address,
+        InstanceMonitoring :$instance-monitoring,
+        XmlStringMaxLen255 :$launch-configuration-name!,
+        Bool :$ebs-optimized,
+        SpotPrice :$spot-price,
+        XmlStringMaxLen64 :$placement-tenancy,
+        XmlStringMaxLen255 :$kernel-id,
+        XmlStringMaxLen255 :$instance-type,
+        XmlStringMaxLen1600 :$iam-instance-profile,
+        XmlStringMaxLen19 :$instance-id,
+        XmlStringMaxLen255 :$classic-link-vpc-id,
+        XmlStringMaxLen255 :$key-name
     ) is service-operation('CreateLaunchConfiguration') {
         my $request-input = CreateLaunchConfigurationType.new(
-        :$block-device-mappings,
-        :$ramdisk-id,
-        :$user-data,
-        :$classic-link-vpc-security-groups,
-        :$security-groups,
-        :$image-id,
-        :$associate-public-ip-address,
-        :$instance-monitoring,
-        :$launch-configuration-name,
-        :$ebs-optimized,
-        :$spot-price,
-        :$placement-tenancy,
-        :$kernel-id,
-        :$instance-type,
-        :$iam-instance-profile,
-        :$instance-id,
-        :$classic-link-vpc-id,
-        :$key-name
+            :$block-device-mappings,
+            :$ramdisk-id,
+            :$user-data,
+            :$classic-link-vpc-security-groups,
+            :$security-groups,
+            :$image-id,
+            :$associate-public-ip-address,
+            :$instance-monitoring,
+            :$launch-configuration-name,
+            :$ebs-optimized,
+            :$spot-price,
+            :$placement-tenancy,
+            :$kernel-id,
+            :$instance-type,
+            :$iam-instance-profile,
+            :$instance-id,
+            :$classic-link-vpc-id,
+            :$key-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateLaunchConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-lifecycle-hook(
-    ResourceName :$role-arn,
-    NotificationTargetResourceName :$notification-target-arn,
-    Str :$default-result,
-    Int :$heartbeat-timeout,
-    Str :$lifecycle-transition,
-    ResourceName :$auto-scaling-group-name!,
-    XmlStringMaxLen1023 :$notification-metadata,
-    AsciiStringMaxLen255 :$lifecycle-hook-name!
+        ResourceName :$role-arn,
+        NotificationTargetResourceName :$notification-target-arn,
+        Str :$default-result,
+        Int :$heartbeat-timeout,
+        Str :$lifecycle-transition,
+        ResourceName :$auto-scaling-group-name!,
+        XmlStringMaxLen1023 :$notification-metadata,
+        AsciiStringMaxLen255 :$lifecycle-hook-name!
     ) returns PutLifecycleHookAnswer is service-operation('PutLifecycleHook') {
         my $request-input = PutLifecycleHookType.new(
-        :$role-arn,
-        :$notification-target-arn,
-        :$default-result,
-        :$heartbeat-timeout,
-        :$lifecycle-transition,
-        :$auto-scaling-group-name,
-        :$notification-metadata,
-        :$lifecycle-hook-name
+            :$role-arn,
+            :$notification-target-arn,
+            :$default-result,
+            :$heartbeat-timeout,
+            :$lifecycle-transition,
+            :$auto-scaling-group-name,
+            :$notification-metadata,
+            :$lifecycle-hook-name
         );
-;
+
         self.perform-operation(
             :api-call<PutLifecycleHook>,
-            :return-type(PutLifecycleHookAnswer),
-            :result-wrapper('PutLifecycleHookResult'),
             :$request-input,
         );
     }
 
     method describe-auto-scaling-instances(
-    XmlString :$next-token,
-    Int :$max-records,
-    Array[XmlStringMaxLen19] :$instance-ids
+        XmlString :$next-token,
+        Int :$max-records,
+        Array[XmlStringMaxLen19] :$instance-ids
     ) returns AutoScalingInstancesType is service-operation('DescribeAutoScalingInstances') {
         my $request-input = DescribeAutoScalingInstancesType.new(
-        :$next-token,
-        :$max-records,
-        :$instance-ids
+            :$next-token,
+            :$max-records,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAutoScalingInstances>,
-            :return-type(AutoScalingInstancesType),
-            :result-wrapper('DescribeAutoScalingInstancesResult'),
             :$request-input,
         );
     }
@@ -1230,11 +1198,9 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method describe-metric-collection-types(
 
     ) returns DescribeMetricCollectionTypesAnswer is service-operation('DescribeMetricCollectionTypes') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeMetricCollectionTypes>,
-            :return-type(DescribeMetricCollectionTypesAnswer),
-            :result-wrapper('DescribeMetricCollectionTypesResult'),
             :$request-input,
         );
     }
@@ -1242,86 +1208,78 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method describe-scaling-process-types(
 
     ) returns ProcessesType is service-operation('DescribeScalingProcessTypes') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeScalingProcessTypes>,
-            :return-type(ProcessesType),
-            :result-wrapper('DescribeScalingProcessTypesResult'),
             :$request-input,
         );
     }
 
     method detach-load-balancer-target-groups(
-    Array[XmlStringMaxLen511] :$target-group-arns!,
-    ResourceName :$auto-scaling-group-name!
+        Array[XmlStringMaxLen511] :$target-group-arns!,
+        ResourceName :$auto-scaling-group-name!
     ) returns DetachLoadBalancerTargetGroupsResultType is service-operation('DetachLoadBalancerTargetGroups') {
         my $request-input = DetachLoadBalancerTargetGroupsType.new(
-        :$target-group-arns,
-        :$auto-scaling-group-name
+            :$target-group-arns,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DetachLoadBalancerTargetGroups>,
-            :return-type(DetachLoadBalancerTargetGroupsResultType),
-            :result-wrapper('DetachLoadBalancerTargetGroupsResult'),
             :$request-input,
         );
     }
 
     method put-scaling-policy(
-    Int :$scaling-adjustment,
-    Array[StepAdjustment] :$step-adjustments,
-    XmlStringMaxLen32 :$metric-aggregation-type,
-    Int :$min-adjustment-magnitude,
-    Int :$estimated-instance-warmup,
-    ResourceName :$auto-scaling-group-name!,
-    XmlStringMaxLen255 :$adjustment-type,
-    XmlStringMaxLen64 :$policy-type,
-    XmlStringMaxLen255 :$policy-name!,
-    TargetTrackingConfiguration :$target-tracking-configuration,
-    Int :$cooldown,
-    Int :$min-adjustment-step
+        Int :$scaling-adjustment,
+        Array[StepAdjustment] :$step-adjustments,
+        XmlStringMaxLen32 :$metric-aggregation-type,
+        Int :$min-adjustment-magnitude,
+        Int :$estimated-instance-warmup,
+        ResourceName :$auto-scaling-group-name!,
+        XmlStringMaxLen255 :$adjustment-type,
+        XmlStringMaxLen64 :$policy-type,
+        XmlStringMaxLen255 :$policy-name!,
+        TargetTrackingConfiguration :$target-tracking-configuration,
+        Int :$cooldown,
+        Int :$min-adjustment-step
     ) returns PolicyARNType is service-operation('PutScalingPolicy') {
         my $request-input = PutScalingPolicyType.new(
-        :$scaling-adjustment,
-        :$step-adjustments,
-        :$metric-aggregation-type,
-        :$min-adjustment-magnitude,
-        :$estimated-instance-warmup,
-        :$auto-scaling-group-name,
-        :$adjustment-type,
-        :$policy-type,
-        :$policy-name,
-        :$target-tracking-configuration,
-        :$cooldown,
-        :$min-adjustment-step
+            :$scaling-adjustment,
+            :$step-adjustments,
+            :$metric-aggregation-type,
+            :$min-adjustment-magnitude,
+            :$estimated-instance-warmup,
+            :$auto-scaling-group-name,
+            :$adjustment-type,
+            :$policy-type,
+            :$policy-name,
+            :$target-tracking-configuration,
+            :$cooldown,
+            :$min-adjustment-step
         );
-;
+
         self.perform-operation(
             :api-call<PutScalingPolicy>,
-            :return-type(PolicyARNType),
-            :result-wrapper('PutScalingPolicyResult'),
             :$request-input,
         );
     }
 
     method record-lifecycle-action-heartbeat(
-    LifecycleActionToken :$lifecycle-action-token,
-    ResourceName :$auto-scaling-group-name!,
-    XmlStringMaxLen19 :$instance-id,
-    AsciiStringMaxLen255 :$lifecycle-hook-name!
+        LifecycleActionToken :$lifecycle-action-token,
+        ResourceName :$auto-scaling-group-name!,
+        XmlStringMaxLen19 :$instance-id,
+        AsciiStringMaxLen255 :$lifecycle-hook-name!
     ) returns RecordLifecycleActionHeartbeatAnswer is service-operation('RecordLifecycleActionHeartbeat') {
         my $request-input = RecordLifecycleActionHeartbeatType.new(
-        :$lifecycle-action-token,
-        :$auto-scaling-group-name,
-        :$instance-id,
-        :$lifecycle-hook-name
+            :$lifecycle-action-token,
+            :$auto-scaling-group-name,
+            :$instance-id,
+            :$lifecycle-hook-name
         );
-;
+
         self.perform-operation(
             :api-call<RecordLifecycleActionHeartbeat>,
-            :return-type(RecordLifecycleActionHeartbeatAnswer),
-            :result-wrapper('RecordLifecycleActionHeartbeatResult'),
             :$request-input,
         );
     }
@@ -1329,240 +1287,216 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method describe-lifecycle-hook-types(
 
     ) returns DescribeLifecycleHookTypesAnswer is service-operation('DescribeLifecycleHookTypes') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeLifecycleHookTypes>,
-            :return-type(DescribeLifecycleHookTypesAnswer),
-            :result-wrapper('DescribeLifecycleHookTypesResult'),
             :$request-input,
         );
     }
 
     method describe-notification-configurations(
-    Array[ResourceName] :$auto-scaling-group-names,
-    XmlString :$next-token,
-    Int :$max-records
+        Array[ResourceName] :$auto-scaling-group-names,
+        XmlString :$next-token,
+        Int :$max-records
     ) returns DescribeNotificationConfigurationsAnswer is service-operation('DescribeNotificationConfigurations') {
         my $request-input = DescribeNotificationConfigurationsType.new(
-        :$auto-scaling-group-names,
-        :$next-token,
-        :$max-records
+            :$auto-scaling-group-names,
+            :$next-token,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeNotificationConfigurations>,
-            :return-type(DescribeNotificationConfigurationsAnswer),
-            :result-wrapper('DescribeNotificationConfigurationsResult'),
             :$request-input,
         );
     }
 
     method disable-metrics-collection(
-    Array[XmlStringMaxLen255] :$metrics,
-    ResourceName :$auto-scaling-group-name!
+        Array[XmlStringMaxLen255] :$metrics,
+        ResourceName :$auto-scaling-group-name!
     ) is service-operation('DisableMetricsCollection') {
         my $request-input = DisableMetricsCollectionQuery.new(
-        :$metrics,
-        :$auto-scaling-group-name
+            :$metrics,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DisableMetricsCollection>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method complete-lifecycle-action(
-    LifecycleActionToken :$lifecycle-action-token,
-    Str :$lifecycle-action-result!,
-    ResourceName :$auto-scaling-group-name!,
-    XmlStringMaxLen19 :$instance-id,
-    AsciiStringMaxLen255 :$lifecycle-hook-name!
+        LifecycleActionToken :$lifecycle-action-token,
+        Str :$lifecycle-action-result!,
+        ResourceName :$auto-scaling-group-name!,
+        XmlStringMaxLen19 :$instance-id,
+        AsciiStringMaxLen255 :$lifecycle-hook-name!
     ) returns CompleteLifecycleActionAnswer is service-operation('CompleteLifecycleAction') {
         my $request-input = CompleteLifecycleActionType.new(
-        :$lifecycle-action-token,
-        :$lifecycle-action-result,
-        :$auto-scaling-group-name,
-        :$instance-id,
-        :$lifecycle-hook-name
+            :$lifecycle-action-token,
+            :$lifecycle-action-result,
+            :$auto-scaling-group-name,
+            :$instance-id,
+            :$lifecycle-hook-name
         );
-;
+
         self.perform-operation(
             :api-call<CompleteLifecycleAction>,
-            :return-type(CompleteLifecycleActionAnswer),
-            :result-wrapper('CompleteLifecycleActionResult'),
             :$request-input,
         );
     }
 
     method delete-auto-scaling-group(
-    Bool :$force-delete,
-    ResourceName :$auto-scaling-group-name!
+        Bool :$force-delete,
+        ResourceName :$auto-scaling-group-name!
     ) is service-operation('DeleteAutoScalingGroup') {
         my $request-input = DeleteAutoScalingGroupType.new(
-        :$force-delete,
-        :$auto-scaling-group-name
+            :$force-delete,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAutoScalingGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-auto-scaling-group(
-    Int :$health-check-grace-period,
-    Int :$default-cooldown,
-    Int :$max-size,
-    Array[XmlStringMaxLen1600] :$termination-policies,
-    XmlStringMaxLen255 :$placement-group,
-    Bool :$new-instances-protected-from-scale-in,
-    XmlStringMaxLen32 :$health-check-type,
-    AvailabilityZones :$availability-zones,
-    ResourceName :$launch-configuration-name,
-    XmlStringMaxLen2047 :$vpc-zone-identifier,
-    Int :$min-size,
-    ResourceName :$auto-scaling-group-name!,
-    Int :$desired-capacity
+        Int :$health-check-grace-period,
+        Int :$default-cooldown,
+        Int :$max-size,
+        Array[XmlStringMaxLen1600] :$termination-policies,
+        XmlStringMaxLen255 :$placement-group,
+        Bool :$new-instances-protected-from-scale-in,
+        XmlStringMaxLen32 :$health-check-type,
+        AvailabilityZones :$availability-zones,
+        ResourceName :$launch-configuration-name,
+        XmlStringMaxLen2047 :$vpc-zone-identifier,
+        Int :$min-size,
+        ResourceName :$auto-scaling-group-name!,
+        Int :$desired-capacity
     ) is service-operation('UpdateAutoScalingGroup') {
         my $request-input = UpdateAutoScalingGroupType.new(
-        :$health-check-grace-period,
-        :$default-cooldown,
-        :$max-size,
-        :$termination-policies,
-        :$placement-group,
-        :$new-instances-protected-from-scale-in,
-        :$health-check-type,
-        :$availability-zones,
-        :$launch-configuration-name,
-        :$vpc-zone-identifier,
-        :$min-size,
-        :$auto-scaling-group-name,
-        :$desired-capacity
+            :$health-check-grace-period,
+            :$default-cooldown,
+            :$max-size,
+            :$termination-policies,
+            :$placement-group,
+            :$new-instances-protected-from-scale-in,
+            :$health-check-type,
+            :$availability-zones,
+            :$launch-configuration-name,
+            :$vpc-zone-identifier,
+            :$min-size,
+            :$auto-scaling-group-name,
+            :$desired-capacity
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAutoScalingGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-instances(
-    Bool :$should-decrement-desired-capacity!,
-    ResourceName :$auto-scaling-group-name!,
-    Array[XmlStringMaxLen19] :$instance-ids
+        Bool :$should-decrement-desired-capacity!,
+        ResourceName :$auto-scaling-group-name!,
+        Array[XmlStringMaxLen19] :$instance-ids
     ) returns DetachInstancesAnswer is service-operation('DetachInstances') {
         my $request-input = DetachInstancesQuery.new(
-        :$should-decrement-desired-capacity,
-        :$auto-scaling-group-name,
-        :$instance-ids
+            :$should-decrement-desired-capacity,
+            :$auto-scaling-group-name,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<DetachInstances>,
-            :return-type(DetachInstancesAnswer),
-            :result-wrapper('DetachInstancesResult'),
             :$request-input,
         );
     }
 
     method execute-policy(
-    Bool :$honor-cooldown,
-    Numeric :$metric-value,
-    Numeric :$breach-threshold,
-    ResourceName :$auto-scaling-group-name,
-    ResourceName :$policy-name!
+        Bool :$honor-cooldown,
+        Numeric :$metric-value,
+        Numeric :$breach-threshold,
+        ResourceName :$auto-scaling-group-name,
+        ResourceName :$policy-name!
     ) is service-operation('ExecutePolicy') {
         my $request-input = ExecutePolicyType.new(
-        :$honor-cooldown,
-        :$metric-value,
-        :$breach-threshold,
-        :$auto-scaling-group-name,
-        :$policy-name
+            :$honor-cooldown,
+            :$metric-value,
+            :$breach-threshold,
+            :$auto-scaling-group-name,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<ExecutePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-desired-capacity(
-    Bool :$honor-cooldown,
-    ResourceName :$auto-scaling-group-name!,
-    Int :$desired-capacity!
+        Bool :$honor-cooldown,
+        ResourceName :$auto-scaling-group-name!,
+        Int :$desired-capacity!
     ) is service-operation('SetDesiredCapacity') {
         my $request-input = SetDesiredCapacityType.new(
-        :$honor-cooldown,
-        :$auto-scaling-group-name,
-        :$desired-capacity
+            :$honor-cooldown,
+            :$auto-scaling-group-name,
+            :$desired-capacity
         );
-;
+
         self.perform-operation(
             :api-call<SetDesiredCapacity>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-instance-protection(
-    Bool :$protected-from-scale-in!,
-    ResourceName :$auto-scaling-group-name!,
-    Array[XmlStringMaxLen19] :$instance-ids!
+        Bool :$protected-from-scale-in!,
+        ResourceName :$auto-scaling-group-name!,
+        Array[XmlStringMaxLen19] :$instance-ids!
     ) returns SetInstanceProtectionAnswer is service-operation('SetInstanceProtection') {
         my $request-input = SetInstanceProtectionQuery.new(
-        :$protected-from-scale-in,
-        :$auto-scaling-group-name,
-        :$instance-ids
+            :$protected-from-scale-in,
+            :$auto-scaling-group-name,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<SetInstanceProtection>,
-            :return-type(SetInstanceProtectionAnswer),
-            :result-wrapper('SetInstanceProtectionResult'),
             :$request-input,
         );
     }
 
     method terminate-instance-in-auto-scaling-group(
-    Bool :$should-decrement-desired-capacity!,
-    XmlStringMaxLen19 :$instance-id!
+        Bool :$should-decrement-desired-capacity!,
+        XmlStringMaxLen19 :$instance-id!
     ) returns ActivityType is service-operation('TerminateInstanceInAutoScalingGroup') {
         my $request-input = TerminateInstanceInAutoScalingGroupType.new(
-        :$should-decrement-desired-capacity,
-        :$instance-id
+            :$should-decrement-desired-capacity,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<TerminateInstanceInAutoScalingGroup>,
-            :return-type(ActivityType),
-            :result-wrapper('TerminateInstanceInAutoScalingGroupResult'),
             :$request-input,
         );
     }
 
     method delete-lifecycle-hook(
-    ResourceName :$auto-scaling-group-name!,
-    AsciiStringMaxLen255 :$lifecycle-hook-name!
+        ResourceName :$auto-scaling-group-name!,
+        AsciiStringMaxLen255 :$lifecycle-hook-name!
     ) returns DeleteLifecycleHookAnswer is service-operation('DeleteLifecycleHook') {
         my $request-input = DeleteLifecycleHookType.new(
-        :$auto-scaling-group-name,
-        :$lifecycle-hook-name
+            :$auto-scaling-group-name,
+            :$lifecycle-hook-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLifecycleHook>,
-            :return-type(DeleteLifecycleHookAnswer),
-            :result-wrapper('DeleteLifecycleHookResult'),
             :$request-input,
         );
     }
@@ -1570,113 +1504,103 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method describe-adjustment-types(
 
     ) returns DescribeAdjustmentTypesAnswer is service-operation('DescribeAdjustmentTypes') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeAdjustmentTypes>,
-            :return-type(DescribeAdjustmentTypesAnswer),
-            :result-wrapper('DescribeAdjustmentTypesResult'),
             :$request-input,
         );
     }
 
     method detach-load-balancers(
-    Array[XmlStringMaxLen255] :$load-balancer-names!,
-    ResourceName :$auto-scaling-group-name!
+        Array[XmlStringMaxLen255] :$load-balancer-names!,
+        ResourceName :$auto-scaling-group-name!
     ) returns DetachLoadBalancersResultType is service-operation('DetachLoadBalancers') {
         my $request-input = DetachLoadBalancersType.new(
-        :$load-balancer-names,
-        :$auto-scaling-group-name
+            :$load-balancer-names,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DetachLoadBalancers>,
-            :return-type(DetachLoadBalancersResultType),
-            :result-wrapper('DetachLoadBalancersResult'),
             :$request-input,
         );
     }
 
     method enable-metrics-collection(
-    XmlStringMaxLen255 :$granularity!,
-    Array[XmlStringMaxLen255] :$metrics,
-    ResourceName :$auto-scaling-group-name!
+        XmlStringMaxLen255 :$granularity!,
+        Array[XmlStringMaxLen255] :$metrics,
+        ResourceName :$auto-scaling-group-name!
     ) is service-operation('EnableMetricsCollection') {
         my $request-input = EnableMetricsCollectionQuery.new(
-        :$granularity,
-        :$metrics,
-        :$auto-scaling-group-name
+            :$granularity,
+            :$metrics,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<EnableMetricsCollection>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-auto-scaling-group(
-    Int :$health-check-grace-period,
-    Array[XmlStringMaxLen511] :$target-group-arns,
-    Int :$default-cooldown,
-    Int :$max-size!,
-    Array[XmlStringMaxLen1600] :$termination-policies,
-    XmlStringMaxLen255 :$placement-group,
-    Array[LifecycleHookSpecification] :$lifecycle-hook-specification-list,
-    Bool :$new-instances-protected-from-scale-in,
-    XmlStringMaxLen32 :$health-check-type,
-    AvailabilityZones :$availability-zones,
-    ResourceName :$launch-configuration-name,
-    Array[Tag] :$tags,
-    Array[XmlStringMaxLen255] :$load-balancer-names,
-    XmlStringMaxLen2047 :$vpc-zone-identifier,
-    Int :$min-size!,
-    XmlStringMaxLen255 :$auto-scaling-group-name!,
-    XmlStringMaxLen19 :$instance-id,
-    Int :$desired-capacity
+        Int :$health-check-grace-period,
+        Array[XmlStringMaxLen511] :$target-group-arns,
+        Int :$default-cooldown,
+        Int :$max-size!,
+        Array[XmlStringMaxLen1600] :$termination-policies,
+        XmlStringMaxLen255 :$placement-group,
+        Array[LifecycleHookSpecification] :$lifecycle-hook-specification-list,
+        Bool :$new-instances-protected-from-scale-in,
+        XmlStringMaxLen32 :$health-check-type,
+        AvailabilityZones :$availability-zones,
+        ResourceName :$launch-configuration-name,
+        Array[Tag] :$tags,
+        Array[XmlStringMaxLen255] :$load-balancer-names,
+        XmlStringMaxLen2047 :$vpc-zone-identifier,
+        Int :$min-size!,
+        XmlStringMaxLen255 :$auto-scaling-group-name!,
+        XmlStringMaxLen19 :$instance-id,
+        Int :$desired-capacity
     ) is service-operation('CreateAutoScalingGroup') {
         my $request-input = CreateAutoScalingGroupType.new(
-        :$health-check-grace-period,
-        :$target-group-arns,
-        :$default-cooldown,
-        :$max-size,
-        :$termination-policies,
-        :$placement-group,
-        :$lifecycle-hook-specification-list,
-        :$new-instances-protected-from-scale-in,
-        :$health-check-type,
-        :$availability-zones,
-        :$launch-configuration-name,
-        :$tags,
-        :$load-balancer-names,
-        :$vpc-zone-identifier,
-        :$min-size,
-        :$auto-scaling-group-name,
-        :$instance-id,
-        :$desired-capacity
+            :$health-check-grace-period,
+            :$target-group-arns,
+            :$default-cooldown,
+            :$max-size,
+            :$termination-policies,
+            :$placement-group,
+            :$lifecycle-hook-specification-list,
+            :$new-instances-protected-from-scale-in,
+            :$health-check-type,
+            :$availability-zones,
+            :$launch-configuration-name,
+            :$tags,
+            :$load-balancer-names,
+            :$vpc-zone-identifier,
+            :$min-size,
+            :$auto-scaling-group-name,
+            :$instance-id,
+            :$desired-capacity
         );
-;
+
         self.perform-operation(
             :api-call<CreateAutoScalingGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-policy(
-    ResourceName :$auto-scaling-group-name,
-    ResourceName :$policy-name!
+        ResourceName :$auto-scaling-group-name,
+        ResourceName :$policy-name!
     ) is service-operation('DeletePolicy') {
         my $request-input = DeletePolicyType.new(
-        :$auto-scaling-group-name,
-        :$policy-name
+            :$auto-scaling-group-name,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<DeletePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1684,252 +1608,224 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method describe-termination-policy-types(
 
     ) returns DescribeTerminationPolicyTypesAnswer is service-operation('DescribeTerminationPolicyTypes') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeTerminationPolicyTypes>,
-            :return-type(DescribeTerminationPolicyTypesAnswer),
-            :result-wrapper('DescribeTerminationPolicyTypesResult'),
             :$request-input,
         );
     }
 
     method put-notification-configuration(
-    ResourceName :$topic-arn!,
-    ResourceName :$auto-scaling-group-name!,
-    Array[XmlStringMaxLen255] :$notification-types!
+        ResourceName :$topic-arn!,
+        ResourceName :$auto-scaling-group-name!,
+        Array[XmlStringMaxLen255] :$notification-types!
     ) is service-operation('PutNotificationConfiguration') {
         my $request-input = PutNotificationConfigurationType.new(
-        :$topic-arn,
-        :$auto-scaling-group-name,
-        :$notification-types
+            :$topic-arn,
+            :$auto-scaling-group-name,
+            :$notification-types
         );
-;
+
         self.perform-operation(
             :api-call<PutNotificationConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-instance-health(
-    XmlStringMaxLen32 :$health-status!,
-    Bool :$should-respect-grace-period,
-    XmlStringMaxLen19 :$instance-id!
+        XmlStringMaxLen32 :$health-status!,
+        Bool :$should-respect-grace-period,
+        XmlStringMaxLen19 :$instance-id!
     ) is service-operation('SetInstanceHealth') {
         my $request-input = SetInstanceHealthQuery.new(
-        :$health-status,
-        :$should-respect-grace-period,
-        :$instance-id
+            :$health-status,
+            :$should-respect-grace-period,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<SetInstanceHealth>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-launch-configurations(
-    Array[ResourceName] :$launch-configuration-names,
-    XmlString :$next-token,
-    Int :$max-records
+        Array[ResourceName] :$launch-configuration-names,
+        XmlString :$next-token,
+        Int :$max-records
     ) returns LaunchConfigurationsType is service-operation('DescribeLaunchConfigurations') {
         my $request-input = LaunchConfigurationNamesType.new(
-        :$launch-configuration-names,
-        :$next-token,
-        :$max-records
+            :$launch-configuration-names,
+            :$next-token,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLaunchConfigurations>,
-            :return-type(LaunchConfigurationsType),
-            :result-wrapper('DescribeLaunchConfigurationsResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancer-target-groups(
-    XmlString :$next-token,
-    ResourceName :$auto-scaling-group-name!,
-    Int :$max-records
+        XmlString :$next-token,
+        ResourceName :$auto-scaling-group-name!,
+        Int :$max-records
     ) returns DescribeLoadBalancerTargetGroupsResponse is service-operation('DescribeLoadBalancerTargetGroups') {
         my $request-input = DescribeLoadBalancerTargetGroupsRequest.new(
-        :$next-token,
-        :$auto-scaling-group-name,
-        :$max-records
+            :$next-token,
+            :$auto-scaling-group-name,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoadBalancerTargetGroups>,
-            :return-type(DescribeLoadBalancerTargetGroupsResponse),
-            :result-wrapper('DescribeLoadBalancerTargetGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-scheduled-actions(
-    DateTime :$end-time,
-    Array[ResourceName] :$scheduled-action-names,
-    DateTime :$start-time,
-    XmlString :$next-token,
-    ResourceName :$auto-scaling-group-name,
-    Int :$max-records
+        DateTime :$end-time,
+        Array[ResourceName] :$scheduled-action-names,
+        DateTime :$start-time,
+        XmlString :$next-token,
+        ResourceName :$auto-scaling-group-name,
+        Int :$max-records
     ) returns ScheduledActionsType is service-operation('DescribeScheduledActions') {
         my $request-input = DescribeScheduledActionsType.new(
-        :$end-time,
-        :$scheduled-action-names,
-        :$start-time,
-        :$next-token,
-        :$auto-scaling-group-name,
-        :$max-records
+            :$end-time,
+            :$scheduled-action-names,
+            :$start-time,
+            :$next-token,
+            :$auto-scaling-group-name,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeScheduledActions>,
-            :return-type(ScheduledActionsType),
-            :result-wrapper('DescribeScheduledActionsResult'),
             :$request-input,
         );
     }
 
     method delete-launch-configuration(
-    ResourceName :$launch-configuration-name!
+        ResourceName :$launch-configuration-name!
     ) is service-operation('DeleteLaunchConfiguration') {
         my $request-input = LaunchConfigurationNameType.new(
-        :$launch-configuration-name
+            :$launch-configuration-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLaunchConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-tags(
-    Array[Tag] :$tags!
+        Array[Tag] :$tags!
     ) is service-operation('DeleteTags') {
         my $request-input = DeleteTagsType.new(
-        :$tags
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTags>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-lifecycle-hooks(
-    LifecycleHookNames :$lifecycle-hook-names,
-    ResourceName :$auto-scaling-group-name!
+        LifecycleHookNames :$lifecycle-hook-names,
+        ResourceName :$auto-scaling-group-name!
     ) returns DescribeLifecycleHooksAnswer is service-operation('DescribeLifecycleHooks') {
         my $request-input = DescribeLifecycleHooksType.new(
-        :$lifecycle-hook-names,
-        :$auto-scaling-group-name
+            :$lifecycle-hook-names,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLifecycleHooks>,
-            :return-type(DescribeLifecycleHooksAnswer),
-            :result-wrapper('DescribeLifecycleHooksResult'),
             :$request-input,
         );
     }
 
     method describe-tags(
-    Array[Filter] :$filters,
-    XmlString :$next-token,
-    Int :$max-records
+        Array[Filter] :$filters,
+        XmlString :$next-token,
+        Int :$max-records
     ) returns TagsType is service-operation('DescribeTags') {
         my $request-input = DescribeTagsType.new(
-        :$filters,
-        :$next-token,
-        :$max-records
+            :$filters,
+            :$next-token,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTags>,
-            :return-type(TagsType),
-            :result-wrapper('DescribeTagsResult'),
             :$request-input,
         );
     }
 
     method delete-notification-configuration(
-    ResourceName :$topic-arn!,
-    ResourceName :$auto-scaling-group-name!
+        ResourceName :$topic-arn!,
+        ResourceName :$auto-scaling-group-name!
     ) is service-operation('DeleteNotificationConfiguration') {
         my $request-input = DeleteNotificationConfigurationType.new(
-        :$topic-arn,
-        :$auto-scaling-group-name
+            :$topic-arn,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteNotificationConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-scheduled-action(
-    ResourceName :$scheduled-action-name!,
-    ResourceName :$auto-scaling-group-name!
+        ResourceName :$scheduled-action-name!,
+        ResourceName :$auto-scaling-group-name!
     ) is service-operation('DeleteScheduledAction') {
         my $request-input = DeleteScheduledActionType.new(
-        :$scheduled-action-name,
-        :$auto-scaling-group-name
+            :$scheduled-action-name,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteScheduledAction>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method suspend-processes(
-    Array[XmlStringMaxLen255] :$scaling-processes,
-    ResourceName :$auto-scaling-group-name!
+        Array[XmlStringMaxLen255] :$scaling-processes,
+        ResourceName :$auto-scaling-group-name!
     ) is service-operation('SuspendProcesses') {
         my $request-input = ScalingProcessQuery.new(
-        :$scaling-processes,
-        :$auto-scaling-group-name
+            :$scaling-processes,
+            :$auto-scaling-group-name
         );
-;
+
         self.perform-operation(
             :api-call<SuspendProcesses>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-policies(
-    Array[XmlStringMaxLen64] :$policy-types,
-    Array[ResourceName] :$policy-names,
-    XmlString :$next-token,
-    ResourceName :$auto-scaling-group-name,
-    Int :$max-records
+        Array[XmlStringMaxLen64] :$policy-types,
+        Array[ResourceName] :$policy-names,
+        XmlString :$next-token,
+        ResourceName :$auto-scaling-group-name,
+        Int :$max-records
     ) returns PoliciesType is service-operation('DescribePolicies') {
         my $request-input = DescribePoliciesType.new(
-        :$policy-types,
-        :$policy-names,
-        :$next-token,
-        :$auto-scaling-group-name,
-        :$max-records
+            :$policy-types,
+            :$policy-names,
+            :$next-token,
+            :$auto-scaling-group-name,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribePolicies>,
-            :return-type(PoliciesType),
-            :result-wrapper('DescribePoliciesResult'),
             :$request-input,
         );
     }

@@ -804,58 +804,52 @@ class AWS::SDK::Service::Organizations does AWS::SDK::Service {
     subset HandshakeId of Str where rx:P5/^h-[0-9a-z]{8,32}$/;
 
     method create-organizational-unit(
-    OrganizationalUnitName :$name!,
-    ParentId :$parent-id!
+        OrganizationalUnitName :$name!,
+        ParentId :$parent-id!
     ) returns CreateOrganizationalUnitResponse is service-operation('CreateOrganizationalUnit') {
         my $request-input = CreateOrganizationalUnitRequest.new(
-        :$name,
-        :$parent-id
+            :$name,
+            :$parent-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateOrganizationalUnit>,
-            :return-type(CreateOrganizationalUnitResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-accounts-for-parent(
-    MaxResults :$max-results,
-    Str :$next-token,
-    ParentId :$parent-id!
+        MaxResults :$max-results,
+        Str :$next-token,
+        ParentId :$parent-id!
     ) returns ListAccountsForParentResponse is service-operation('ListAccountsForParent') {
         my $request-input = ListAccountsForParentRequest.new(
-        :$max-results,
-        :$next-token,
-        :$parent-id
+            :$max-results,
+            :$next-token,
+            :$parent-id
         );
-;
+
         self.perform-operation(
             :api-call<ListAccountsForParent>,
-            :return-type(ListAccountsForParentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-policy(
-    PolicyDescription :$description!,
-    PolicyContent :$content!,
-    PolicyName :$name!,
-    PolicyType :$type!
+        PolicyDescription :$description!,
+        PolicyContent :$content!,
+        PolicyName :$name!,
+        PolicyType :$type!
     ) returns CreatePolicyResponse is service-operation('CreatePolicy') {
         my $request-input = CreatePolicyRequest.new(
-        :$description,
-        :$content,
-        :$name,
-        :$type
+            :$description,
+            :$content,
+            :$name,
+            :$type
         );
-;
+
         self.perform-operation(
             :api-call<CreatePolicy>,
-            :return-type(CreatePolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -863,60 +857,52 @@ class AWS::SDK::Service::Organizations does AWS::SDK::Service {
     method delete-organization(
 
     ) is service-operation('DeleteOrganization') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DeleteOrganization>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method invite-account-to-organization(
-    HandshakeNotes :$notes,
-    HandshakeParty :$target!
+        HandshakeNotes :$notes,
+        HandshakeParty :$target!
     ) returns InviteAccountToOrganizationResponse is service-operation('InviteAccountToOrganization') {
         my $request-input = InviteAccountToOrganizationRequest.new(
-        :$notes,
-        :$target
+            :$notes,
+            :$target
         );
-;
+
         self.perform-operation(
             :api-call<InviteAccountToOrganization>,
-            :return-type(InviteAccountToOrganizationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-policy-type(
-    PolicyType :$policy-type!,
-    RootId :$root-id!
+        PolicyType :$policy-type!,
+        RootId :$root-id!
     ) returns DisablePolicyTypeResponse is service-operation('DisablePolicyType') {
         my $request-input = DisablePolicyTypeRequest.new(
-        :$policy-type,
-        :$root-id
+            :$policy-type,
+            :$root-id
         );
-;
+
         self.perform-operation(
             :api-call<DisablePolicyType>,
-            :return-type(DisablePolicyTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-account(
-    AccountId :$account-id!
+        AccountId :$account-id!
     ) returns DescribeAccountResponse is service-operation('DescribeAccount') {
         my $request-input = DescribeAccountRequest.new(
-        :$account-id
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAccount>,
-            :return-type(DescribeAccountResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -924,183 +910,161 @@ class AWS::SDK::Service::Organizations does AWS::SDK::Service {
     method describe-organization(
 
     ) returns DescribeOrganizationResponse is service-operation('DescribeOrganization') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeOrganization>,
-            :return-type(DescribeOrganizationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-accounts(
-    MaxResults :$max-results,
-    Str :$next-token
+        MaxResults :$max-results,
+        Str :$next-token
     ) returns ListAccountsResponse is service-operation('ListAccounts') {
         my $request-input = ListAccountsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListAccounts>,
-            :return-type(ListAccountsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-policies(
-    MaxResults :$max-results,
-    PolicyType :$filter!,
-    Str :$next-token
+        MaxResults :$max-results,
+        PolicyType :$filter!,
+        Str :$next-token
     ) returns ListPoliciesResponse is service-operation('ListPolicies') {
         my $request-input = ListPoliciesRequest.new(
-        :$max-results,
-        :$filter,
-        :$next-token
+            :$max-results,
+            :$filter,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListPolicies>,
-            :return-type(ListPoliciesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method accept-handshake(
-    HandshakeId :$handshake-id!
+        HandshakeId :$handshake-id!
     ) returns AcceptHandshakeResponse is service-operation('AcceptHandshake') {
         my $request-input = AcceptHandshakeRequest.new(
-        :$handshake-id
+            :$handshake-id
         );
-;
+
         self.perform-operation(
             :api-call<AcceptHandshake>,
-            :return-type(AcceptHandshakeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-account(
-    Email :$email!,
-    IAMUserAccessToBilling :$iam-user-access-to-billing,
-    AccountName :$account-name!,
-    RoleName :$role-name
+        Email :$email!,
+        IAMUserAccessToBilling :$iam-user-access-to-billing,
+        AccountName :$account-name!,
+        RoleName :$role-name
     ) returns CreateAccountResponse is service-operation('CreateAccount') {
         my $request-input = CreateAccountRequest.new(
-        :$email,
-        :$iam-user-access-to-billing,
-        :$account-name,
-        :$role-name
+            :$email,
+            :$iam-user-access-to-billing,
+            :$account-name,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateAccount>,
-            :return-type(CreateAccountResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-organizational-units-for-parent(
-    MaxResults :$max-results,
-    Str :$next-token,
-    ParentId :$parent-id!
+        MaxResults :$max-results,
+        Str :$next-token,
+        ParentId :$parent-id!
     ) returns ListOrganizationalUnitsForParentResponse is service-operation('ListOrganizationalUnitsForParent') {
         my $request-input = ListOrganizationalUnitsForParentRequest.new(
-        :$max-results,
-        :$next-token,
-        :$parent-id
+            :$max-results,
+            :$next-token,
+            :$parent-id
         );
-;
+
         self.perform-operation(
             :api-call<ListOrganizationalUnitsForParent>,
-            :return-type(ListOrganizationalUnitsForParentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-organization(
-    OrganizationFeatureSet :$feature-set
+        OrganizationFeatureSet :$feature-set
     ) returns CreateOrganizationResponse is service-operation('CreateOrganization') {
         my $request-input = CreateOrganizationRequest.new(
-        :$feature-set
+            :$feature-set
         );
-;
+
         self.perform-operation(
             :api-call<CreateOrganization>,
-            :return-type(CreateOrganizationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-organizational-unit(
-    OrganizationalUnitId :$organizational-unit-id!
+        OrganizationalUnitId :$organizational-unit-id!
     ) is service-operation('DeleteOrganizationalUnit') {
         my $request-input = DeleteOrganizationalUnitRequest.new(
-        :$organizational-unit-id
+            :$organizational-unit-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteOrganizationalUnit>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-account-from-organization(
-    AccountId :$account-id!
+        AccountId :$account-id!
     ) is service-operation('RemoveAccountFromOrganization') {
         my $request-input = RemoveAccountFromOrganizationRequest.new(
-        :$account-id
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<RemoveAccountFromOrganization>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-organizational-unit(
-    OrganizationalUnitName :$name,
-    OrganizationalUnitId :$organizational-unit-id!
+        OrganizationalUnitName :$name,
+        OrganizationalUnitId :$organizational-unit-id!
     ) returns UpdateOrganizationalUnitResponse is service-operation('UpdateOrganizationalUnit') {
         my $request-input = UpdateOrganizationalUnitRequest.new(
-        :$name,
-        :$organizational-unit-id
+            :$name,
+            :$organizational-unit-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateOrganizationalUnit>,
-            :return-type(UpdateOrganizationalUnitResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-handshakes-for-organization(
-    MaxResults :$max-results,
-    HandshakeFilter :$filter,
-    Str :$next-token
+        MaxResults :$max-results,
+        HandshakeFilter :$filter,
+        Str :$next-token
     ) returns ListHandshakesForOrganizationResponse is service-operation('ListHandshakesForOrganization') {
         my $request-input = ListHandshakesForOrganizationRequest.new(
-        :$max-results,
-        :$filter,
-        :$next-token
+            :$max-results,
+            :$filter,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListHandshakesForOrganization>,
-            :return-type(ListHandshakesForOrganizationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1108,266 +1072,234 @@ class AWS::SDK::Service::Organizations does AWS::SDK::Service {
     method leave-organization(
 
     ) is service-operation('LeaveOrganization') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<LeaveOrganization>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method move-account(
-    ParentId :$source-parent-id!,
-    ParentId :$destination-parent-id!,
-    AccountId :$account-id!
+        ParentId :$source-parent-id!,
+        ParentId :$destination-parent-id!,
+        AccountId :$account-id!
     ) is service-operation('MoveAccount') {
         my $request-input = MoveAccountRequest.new(
-        :$source-parent-id,
-        :$destination-parent-id,
-        :$account-id
+            :$source-parent-id,
+            :$destination-parent-id,
+            :$account-id
         );
-;
+
         self.perform-operation(
             :api-call<MoveAccount>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-handshake(
-    HandshakeId :$handshake-id!
+        HandshakeId :$handshake-id!
     ) returns CancelHandshakeResponse is service-operation('CancelHandshake') {
         my $request-input = CancelHandshakeRequest.new(
-        :$handshake-id
+            :$handshake-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelHandshake>,
-            :return-type(CancelHandshakeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method decline-handshake(
-    HandshakeId :$handshake-id!
+        HandshakeId :$handshake-id!
     ) returns DeclineHandshakeResponse is service-operation('DeclineHandshake') {
         my $request-input = DeclineHandshakeRequest.new(
-        :$handshake-id
+            :$handshake-id
         );
-;
+
         self.perform-operation(
             :api-call<DeclineHandshake>,
-            :return-type(DeclineHandshakeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-policy(
-    PolicyId :$policy-id!
+        PolicyId :$policy-id!
     ) is service-operation('DeletePolicy') {
         my $request-input = DeletePolicyRequest.new(
-        :$policy-id
+            :$policy-id
         );
-;
+
         self.perform-operation(
             :api-call<DeletePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-organizational-unit(
-    OrganizationalUnitId :$organizational-unit-id!
+        OrganizationalUnitId :$organizational-unit-id!
     ) returns DescribeOrganizationalUnitResponse is service-operation('DescribeOrganizationalUnit') {
         my $request-input = DescribeOrganizationalUnitRequest.new(
-        :$organizational-unit-id
+            :$organizational-unit-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeOrganizationalUnit>,
-            :return-type(DescribeOrganizationalUnitResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-policy-type(
-    PolicyType :$policy-type!,
-    RootId :$root-id!
+        PolicyType :$policy-type!,
+        RootId :$root-id!
     ) returns EnablePolicyTypeResponse is service-operation('EnablePolicyType') {
         my $request-input = EnablePolicyTypeRequest.new(
-        :$policy-type,
-        :$root-id
+            :$policy-type,
+            :$root-id
         );
-;
+
         self.perform-operation(
             :api-call<EnablePolicyType>,
-            :return-type(EnablePolicyTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-policy(
-    PolicyContent :$content,
-    PolicyDescription :$description,
-    PolicyId :$policy-id!,
-    PolicyName :$name
+        PolicyContent :$content,
+        PolicyDescription :$description,
+        PolicyId :$policy-id!,
+        PolicyName :$name
     ) returns UpdatePolicyResponse is service-operation('UpdatePolicy') {
         my $request-input = UpdatePolicyRequest.new(
-        :$content,
-        :$description,
-        :$policy-id,
-        :$name
+            :$content,
+            :$description,
+            :$policy-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdatePolicy>,
-            :return-type(UpdatePolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-policy(
-    PolicyTargetId :$target-id!,
-    PolicyId :$policy-id!
+        PolicyTargetId :$target-id!,
+        PolicyId :$policy-id!
     ) is service-operation('AttachPolicy') {
         my $request-input = AttachPolicyRequest.new(
-        :$target-id,
-        :$policy-id
+            :$target-id,
+            :$policy-id
         );
-;
+
         self.perform-operation(
             :api-call<AttachPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-policy(
-    PolicyTargetId :$target-id!,
-    PolicyId :$policy-id!
+        PolicyTargetId :$target-id!,
+        PolicyId :$policy-id!
     ) is service-operation('DetachPolicy') {
         my $request-input = DetachPolicyRequest.new(
-        :$target-id,
-        :$policy-id
+            :$target-id,
+            :$policy-id
         );
-;
+
         self.perform-operation(
             :api-call<DetachPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-create-account-status(
-    MaxResults :$max-results,
-    Array[CreateAccountState] :$states,
-    Str :$next-token
+        MaxResults :$max-results,
+        Array[CreateAccountState] :$states,
+        Str :$next-token
     ) returns ListCreateAccountStatusResponse is service-operation('ListCreateAccountStatus') {
         my $request-input = ListCreateAccountStatusRequest.new(
-        :$max-results,
-        :$states,
-        :$next-token
+            :$max-results,
+            :$states,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListCreateAccountStatus>,
-            :return-type(ListCreateAccountStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-handshakes-for-account(
-    MaxResults :$max-results,
-    HandshakeFilter :$filter,
-    Str :$next-token
+        MaxResults :$max-results,
+        HandshakeFilter :$filter,
+        Str :$next-token
     ) returns ListHandshakesForAccountResponse is service-operation('ListHandshakesForAccount') {
         my $request-input = ListHandshakesForAccountRequest.new(
-        :$max-results,
-        :$filter,
-        :$next-token
+            :$max-results,
+            :$filter,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListHandshakesForAccount>,
-            :return-type(ListHandshakesForAccountResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-policies-for-target(
-    MaxResults :$max-results,
-    PolicyType :$filter!,
-    PolicyTargetId :$target-id!,
-    Str :$next-token
+        MaxResults :$max-results,
+        PolicyType :$filter!,
+        PolicyTargetId :$target-id!,
+        Str :$next-token
     ) returns ListPoliciesForTargetResponse is service-operation('ListPoliciesForTarget') {
         my $request-input = ListPoliciesForTargetRequest.new(
-        :$max-results,
-        :$filter,
-        :$target-id,
-        :$next-token
+            :$max-results,
+            :$filter,
+            :$target-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListPoliciesForTarget>,
-            :return-type(ListPoliciesForTargetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-create-account-status(
-    CreateAccountRequestId :$create-account-request-id!
+        CreateAccountRequestId :$create-account-request-id!
     ) returns DescribeCreateAccountStatusResponse is service-operation('DescribeCreateAccountStatus') {
         my $request-input = DescribeCreateAccountStatusRequest.new(
-        :$create-account-request-id
+            :$create-account-request-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCreateAccountStatus>,
-            :return-type(DescribeCreateAccountStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-handshake(
-    HandshakeId :$handshake-id!
+        HandshakeId :$handshake-id!
     ) returns DescribeHandshakeResponse is service-operation('DescribeHandshake') {
         my $request-input = DescribeHandshakeRequest.new(
-        :$handshake-id
+            :$handshake-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeHandshake>,
-            :return-type(DescribeHandshakeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-policy(
-    PolicyId :$policy-id!
+        PolicyId :$policy-id!
     ) returns DescribePolicyResponse is service-operation('DescribePolicy') {
         my $request-input = DescribePolicyRequest.new(
-        :$policy-id
+            :$policy-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribePolicy>,
-            :return-type(DescribePolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1378,87 +1310,77 @@ class AWS::SDK::Service::Organizations does AWS::SDK::Service {
         my $request-input = EnableAllFeaturesRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<EnableAllFeatures>,
-            :return-type(EnableAllFeaturesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-children(
-    MaxResults :$max-results,
-    ChildType :$child-type!,
-    Str :$next-token,
-    ParentId :$parent-id!
+        MaxResults :$max-results,
+        ChildType :$child-type!,
+        Str :$next-token,
+        ParentId :$parent-id!
     ) returns ListChildrenResponse is service-operation('ListChildren') {
         my $request-input = ListChildrenRequest.new(
-        :$max-results,
-        :$child-type,
-        :$next-token,
-        :$parent-id
+            :$max-results,
+            :$child-type,
+            :$next-token,
+            :$parent-id
         );
-;
+
         self.perform-operation(
             :api-call<ListChildren>,
-            :return-type(ListChildrenResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-parents(
-    MaxResults :$max-results,
-    Str :$next-token,
-    ChildId :$child-id!
+        MaxResults :$max-results,
+        Str :$next-token,
+        ChildId :$child-id!
     ) returns ListParentsResponse is service-operation('ListParents') {
         my $request-input = ListParentsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$child-id
+            :$max-results,
+            :$next-token,
+            :$child-id
         );
-;
+
         self.perform-operation(
             :api-call<ListParents>,
-            :return-type(ListParentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-roots(
-    MaxResults :$max-results,
-    Str :$next-token
+        MaxResults :$max-results,
+        Str :$next-token
     ) returns ListRootsResponse is service-operation('ListRoots') {
         my $request-input = ListRootsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListRoots>,
-            :return-type(ListRootsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-targets-for-policy(
-    MaxResults :$max-results,
-    PolicyId :$policy-id!,
-    Str :$next-token
+        MaxResults :$max-results,
+        PolicyId :$policy-id!,
+        Str :$next-token
     ) returns ListTargetsForPolicyResponse is service-operation('ListTargetsForPolicy') {
         my $request-input = ListTargetsForPolicyRequest.new(
-        :$max-results,
-        :$policy-id,
-        :$next-token
+            :$max-results,
+            :$policy-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListTargetsForPolicy>,
-            :return-type(ListTargetsForPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

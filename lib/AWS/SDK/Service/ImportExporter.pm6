@@ -235,137 +235,125 @@ class AWS::SDK::Service::ImportExporter does AWS::SDK::Service {
     }
 
     method get-status(
-    Str :$job-id!,
-    Str :$api-version
+        Str :$job-id!,
+        Str :$api-version
     ) returns GetStatusOutput is service-operation('GetStatus') {
         my $request-input = GetStatusInput.new(
-        :$job-id,
-        :$api-version
+            :$job-id,
+            :$api-version
         );
-;
+
         self.perform-operation(
             :api-call<GetStatus>,
-            :return-type(GetStatusOutput),
-            :result-wrapper('GetStatusResult'),
             :$request-input,
         );
     }
 
     method get-shipping-label(
-    Str :$state-or-province,
-    Str :$name,
-    Str :$country,
-    Str :$phone-number,
-    Str :$city,
-    Str :$postal-code,
-    Array[Str] :$job-ids!,
-    Str :$street3,
-    Str :$api-version,
-    Str :$street2,
-    Str :$street1,
-    Str :$company
+        Str :$state-or-province,
+        Str :$name,
+        Str :$country,
+        Str :$phone-number,
+        Str :$city,
+        Str :$postal-code,
+        Array[Str] :$job-ids!,
+        Str :$street3,
+        Str :$api-version,
+        Str :$street2,
+        Str :$street1,
+        Str :$company
     ) returns GetShippingLabelOutput is service-operation('GetShippingLabel') {
         my $request-input = GetShippingLabelInput.new(
-        :$state-or-province,
-        :$name,
-        :$country,
-        :$phone-number,
-        :$city,
-        :$postal-code,
-        :$job-ids,
-        :$street3,
-        :$api-version,
-        :$street2,
-        :$street1,
-        :$company
+            :$state-or-province,
+            :$name,
+            :$country,
+            :$phone-number,
+            :$city,
+            :$postal-code,
+            :$job-ids,
+            :$street3,
+            :$api-version,
+            :$street2,
+            :$street1,
+            :$company
         );
-;
+
         self.perform-operation(
             :api-call<GetShippingLabel>,
-            :return-type(GetShippingLabelOutput),
-            :result-wrapper('GetShippingLabelResult'),
             :$request-input,
         );
     }
 
     method cancel-job(
-    Str :$job-id!,
-    Str :$api-version
+        Str :$job-id!,
+        Str :$api-version
     ) returns CancelJobOutput is service-operation('CancelJob') {
         my $request-input = CancelJobInput.new(
-        :$job-id,
-        :$api-version
+            :$job-id,
+            :$api-version
         );
-;
+
         self.perform-operation(
             :api-call<CancelJob>,
-            :return-type(CancelJobOutput),
-            :result-wrapper('CancelJobResult'),
             :$request-input,
         );
     }
 
     method update-job(
-    JobType :$job-type!,
-    Bool :$validate-only!,
-    Str :$manifest!,
-    Str :$job-id!,
-    Str :$api-version
+        JobType :$job-type!,
+        Bool :$validate-only!,
+        Str :$manifest!,
+        Str :$job-id!,
+        Str :$api-version
     ) returns UpdateJobOutput is service-operation('UpdateJob') {
         my $request-input = UpdateJobInput.new(
-        :$job-type,
-        :$validate-only,
-        :$manifest,
-        :$job-id,
-        :$api-version
+            :$job-type,
+            :$validate-only,
+            :$manifest,
+            :$job-id,
+            :$api-version
         );
-;
+
         self.perform-operation(
             :api-call<UpdateJob>,
-            :return-type(UpdateJobOutput),
-            :result-wrapper('UpdateJobResult'),
             :$request-input,
         );
     }
 
     method list-jobs(
-    Int :$max-jobs,
-    Str :$api-version,
-    Str :$marker
+        Int :$max-jobs,
+        Str :$api-version,
+        Str :$marker
     ) returns ListJobsOutput is service-operation('ListJobs') {
         my $request-input = ListJobsInput.new(
-        :$max-jobs,
-        :$api-version,
-        :$marker
+            :$max-jobs,
+            :$api-version,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListJobs>,
-            :return-type(ListJobsOutput),
-            :result-wrapper('ListJobsResult'),
             :$request-input,
         );
     }
 
     method create-job(
-    JobType :$job-type!,
-    Bool :$validate-only!,
-    Str :$manifest!,
-    Str :$api-version,
-    Str :$manifest-addendum
+        JobType :$job-type!,
+        Bool :$validate-only!,
+        Str :$manifest!,
+        Str :$api-version,
+        Str :$manifest-addendum
     ) returns CreateJobOutput is service-operation('CreateJob') {
         my $request-input = CreateJobInput.new(
-        :$job-type,
-        :$validate-only,
-        :$manifest,
-        :$api-version,
-        :$manifest-addendum
+            :$job-type,
+            :$validate-only,
+            :$manifest,
+            :$api-version,
+            :$manifest-addendum
         );
-;
+
         self.perform-operation(
             :api-call<CreateJob>,
-            :return-type(CreateJobOutput),
-            :result-wrapper('CreateJobResult'),
             :$request-input,
         );
     }

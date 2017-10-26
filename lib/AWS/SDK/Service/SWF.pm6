@@ -1282,676 +1282,614 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
     }
 
     method start-workflow-execution(
-    ChildPolicy :$child-policy,
-    DurationInSecondsOptional :$execution-start-to-close-timeout,
-    TaskList :$task-list,
-    DurationInSecondsOptional :$task-start-to-close-timeout,
-    TagList :$tag-list,
-    WorkflowId :$workflow-id!,
-    Arn :$lambda-role,
-    Data :$input,
-    Str :$task-priority,
-    DomainName :$domain!,
-    WorkflowType :$workflow-type!
+        ChildPolicy :$child-policy,
+        DurationInSecondsOptional :$execution-start-to-close-timeout,
+        TaskList :$task-list,
+        DurationInSecondsOptional :$task-start-to-close-timeout,
+        TagList :$tag-list,
+        WorkflowId :$workflow-id!,
+        Arn :$lambda-role,
+        Data :$input,
+        Str :$task-priority,
+        DomainName :$domain!,
+        WorkflowType :$workflow-type!
     ) returns Run is service-operation('StartWorkflowExecution') {
         my $request-input = StartWorkflowExecutionInput.new(
-        :$child-policy,
-        :$execution-start-to-close-timeout,
-        :$task-list,
-        :$task-start-to-close-timeout,
-        :$tag-list,
-        :$workflow-id,
-        :$lambda-role,
-        :$input,
-        :$task-priority,
-        :$domain,
-        :$workflow-type
+            :$child-policy,
+            :$execution-start-to-close-timeout,
+            :$task-list,
+            :$task-start-to-close-timeout,
+            :$tag-list,
+            :$workflow-id,
+            :$lambda-role,
+            :$input,
+            :$task-priority,
+            :$domain,
+            :$workflow-type
         );
-;
+
         self.perform-operation(
             :api-call<StartWorkflowExecution>,
-            :return-type(Run),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-workflow-execution-history(
-    Bool :$reverse-order,
-    PageToken :$next-page-token,
-    WorkflowExecution :$execution!,
-    PageSize :$maximum-page-size,
-    DomainName :$domain!
+        Bool :$reverse-order,
+        PageToken :$next-page-token,
+        WorkflowExecution :$execution!,
+        PageSize :$maximum-page-size,
+        DomainName :$domain!
     ) returns History is service-operation('GetWorkflowExecutionHistory') {
         my $request-input = GetWorkflowExecutionHistoryInput.new(
-        :$reverse-order,
-        :$next-page-token,
-        :$execution,
-        :$maximum-page-size,
-        :$domain
+            :$reverse-order,
+            :$next-page-token,
+            :$execution,
+            :$maximum-page-size,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<GetWorkflowExecutionHistory>,
-            :return-type(History),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-workflow-type(
-    DomainName :$domain!,
-    WorkflowType :$workflow-type!
+        DomainName :$domain!,
+        WorkflowType :$workflow-type!
     ) returns WorkflowTypeDetail is service-operation('DescribeWorkflowType') {
         my $request-input = DescribeWorkflowTypeInput.new(
-        :$domain,
-        :$workflow-type
+            :$domain,
+            :$workflow-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeWorkflowType>,
-            :return-type(WorkflowTypeDetail),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-workflow-execution(
-    WorkflowExecution :$execution!,
-    DomainName :$domain!
+        WorkflowExecution :$execution!,
+        DomainName :$domain!
     ) returns WorkflowExecutionDetail is service-operation('DescribeWorkflowExecution') {
         my $request-input = DescribeWorkflowExecutionInput.new(
-        :$execution,
-        :$domain
+            :$execution,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<DescribeWorkflowExecution>,
-            :return-type(WorkflowExecutionDetail),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-activity-type(
-    ActivityType :$activity-type!,
-    DomainName :$domain!
+        ActivityType :$activity-type!,
+        DomainName :$domain!
     ) returns ActivityTypeDetail is service-operation('DescribeActivityType') {
         my $request-input = DescribeActivityTypeInput.new(
-        :$activity-type,
-        :$domain
+            :$activity-type,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<DescribeActivityType>,
-            :return-type(ActivityTypeDetail),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deprecate-domain(
-    DomainName :$name!
+        DomainName :$name!
     ) is service-operation('DeprecateDomain') {
         my $request-input = DeprecateDomainInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeprecateDomain>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deprecate-activity-type(
-    ActivityType :$activity-type!,
-    DomainName :$domain!
+        ActivityType :$activity-type!,
+        DomainName :$domain!
     ) is service-operation('DeprecateActivityType') {
         my $request-input = DeprecateActivityTypeInput.new(
-        :$activity-type,
-        :$domain
+            :$activity-type,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<DeprecateActivityType>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method count-pending-decision-tasks(
-    TaskList :$task-list!,
-    DomainName :$domain!
+        TaskList :$task-list!,
+        DomainName :$domain!
     ) returns PendingTaskCount is service-operation('CountPendingDecisionTasks') {
         my $request-input = CountPendingDecisionTasksInput.new(
-        :$task-list,
-        :$domain
+            :$task-list,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<CountPendingDecisionTasks>,
-            :return-type(PendingTaskCount),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method terminate-workflow-execution(
-    WorkflowRunIdOptional :$run-id,
-    ChildPolicy :$child-policy,
-    Data :$details,
-    WorkflowId :$workflow-id!,
-    TerminateReason :$reason,
-    DomainName :$domain!
+        WorkflowRunIdOptional :$run-id,
+        ChildPolicy :$child-policy,
+        Data :$details,
+        WorkflowId :$workflow-id!,
+        TerminateReason :$reason,
+        DomainName :$domain!
     ) is service-operation('TerminateWorkflowExecution') {
         my $request-input = TerminateWorkflowExecutionInput.new(
-        :$run-id,
-        :$child-policy,
-        :$details,
-        :$workflow-id,
-        :$reason,
-        :$domain
+            :$run-id,
+            :$child-policy,
+            :$details,
+            :$workflow-id,
+            :$reason,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<TerminateWorkflowExecution>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-workflow-type(
-    Name :$name!,
-    DurationInSecondsOptional :$default-task-start-to-close-timeout,
-    Str :$default-task-priority,
-    Arn :$default-lambda-role,
-    ChildPolicy :$default-child-policy,
-    TaskList :$default-task-list,
-    DurationInSecondsOptional :$default-execution-start-to-close-timeout,
-    Version :$version!,
-    DomainName :$domain!,
-    Description :$description
+        Name :$name!,
+        DurationInSecondsOptional :$default-task-start-to-close-timeout,
+        Str :$default-task-priority,
+        Arn :$default-lambda-role,
+        ChildPolicy :$default-child-policy,
+        TaskList :$default-task-list,
+        DurationInSecondsOptional :$default-execution-start-to-close-timeout,
+        Version :$version!,
+        DomainName :$domain!,
+        Description :$description
     ) is service-operation('RegisterWorkflowType') {
         my $request-input = RegisterWorkflowTypeInput.new(
-        :$name,
-        :$default-task-start-to-close-timeout,
-        :$default-task-priority,
-        :$default-lambda-role,
-        :$default-child-policy,
-        :$default-task-list,
-        :$default-execution-start-to-close-timeout,
-        :$version,
-        :$domain,
-        :$description
+            :$name,
+            :$default-task-start-to-close-timeout,
+            :$default-task-priority,
+            :$default-lambda-role,
+            :$default-child-policy,
+            :$default-task-list,
+            :$default-execution-start-to-close-timeout,
+            :$version,
+            :$domain,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<RegisterWorkflowType>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-activity-type(
-    DurationInSecondsOptional :$default-task-schedule-to-close-timeout,
-    Name :$name!,
-    DurationInSecondsOptional :$default-task-start-to-close-timeout,
-    DurationInSecondsOptional :$default-task-heartbeat-timeout,
-    DurationInSecondsOptional :$default-task-schedule-to-start-timeout,
-    Str :$default-task-priority,
-    TaskList :$default-task-list,
-    Version :$version!,
-    DomainName :$domain!,
-    Description :$description
+        DurationInSecondsOptional :$default-task-schedule-to-close-timeout,
+        Name :$name!,
+        DurationInSecondsOptional :$default-task-start-to-close-timeout,
+        DurationInSecondsOptional :$default-task-heartbeat-timeout,
+        DurationInSecondsOptional :$default-task-schedule-to-start-timeout,
+        Str :$default-task-priority,
+        TaskList :$default-task-list,
+        Version :$version!,
+        DomainName :$domain!,
+        Description :$description
     ) is service-operation('RegisterActivityType') {
         my $request-input = RegisterActivityTypeInput.new(
-        :$default-task-schedule-to-close-timeout,
-        :$name,
-        :$default-task-start-to-close-timeout,
-        :$default-task-heartbeat-timeout,
-        :$default-task-schedule-to-start-timeout,
-        :$default-task-priority,
-        :$default-task-list,
-        :$version,
-        :$domain,
-        :$description
+            :$default-task-schedule-to-close-timeout,
+            :$name,
+            :$default-task-start-to-close-timeout,
+            :$default-task-heartbeat-timeout,
+            :$default-task-schedule-to-start-timeout,
+            :$default-task-priority,
+            :$default-task-list,
+            :$version,
+            :$domain,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<RegisterActivityType>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-closed-workflow-executions(
-    Bool :$reverse-order,
-    PageToken :$next-page-token,
-    WorkflowTypeFilter :$type-filter,
-    WorkflowExecutionFilter :$execution-filter,
-    ExecutionTimeFilter :$close-time-filter,
-    PageSize :$maximum-page-size,
-    TagFilter :$tag-filter,
-    ExecutionTimeFilter :$start-time-filter,
-    DomainName :$domain!,
-    CloseStatusFilter :$close-status-filter
+        Bool :$reverse-order,
+        PageToken :$next-page-token,
+        WorkflowTypeFilter :$type-filter,
+        WorkflowExecutionFilter :$execution-filter,
+        ExecutionTimeFilter :$close-time-filter,
+        PageSize :$maximum-page-size,
+        TagFilter :$tag-filter,
+        ExecutionTimeFilter :$start-time-filter,
+        DomainName :$domain!,
+        CloseStatusFilter :$close-status-filter
     ) returns WorkflowExecutionInfos is service-operation('ListClosedWorkflowExecutions') {
         my $request-input = ListClosedWorkflowExecutionsInput.new(
-        :$reverse-order,
-        :$next-page-token,
-        :$type-filter,
-        :$execution-filter,
-        :$close-time-filter,
-        :$maximum-page-size,
-        :$tag-filter,
-        :$start-time-filter,
-        :$domain,
-        :$close-status-filter
+            :$reverse-order,
+            :$next-page-token,
+            :$type-filter,
+            :$execution-filter,
+            :$close-time-filter,
+            :$maximum-page-size,
+            :$tag-filter,
+            :$start-time-filter,
+            :$domain,
+            :$close-status-filter
         );
-;
+
         self.perform-operation(
             :api-call<ListClosedWorkflowExecutions>,
-            :return-type(WorkflowExecutionInfos),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-activity-types(
-    Bool :$reverse-order,
-    PageToken :$next-page-token,
-    Name :$name,
-    RegistrationStatus :$registration-status!,
-    PageSize :$maximum-page-size,
-    DomainName :$domain!
+        Bool :$reverse-order,
+        PageToken :$next-page-token,
+        Name :$name,
+        RegistrationStatus :$registration-status!,
+        PageSize :$maximum-page-size,
+        DomainName :$domain!
     ) returns ActivityTypeInfos is service-operation('ListActivityTypes') {
         my $request-input = ListActivityTypesInput.new(
-        :$reverse-order,
-        :$next-page-token,
-        :$name,
-        :$registration-status,
-        :$maximum-page-size,
-        :$domain
+            :$reverse-order,
+            :$next-page-token,
+            :$name,
+            :$registration-status,
+            :$maximum-page-size,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<ListActivityTypes>,
-            :return-type(ActivityTypeInfos),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deprecate-workflow-type(
-    DomainName :$domain!,
-    WorkflowType :$workflow-type!
+        DomainName :$domain!,
+        WorkflowType :$workflow-type!
     ) is service-operation('DeprecateWorkflowType') {
         my $request-input = DeprecateWorkflowTypeInput.new(
-        :$domain,
-        :$workflow-type
+            :$domain,
+            :$workflow-type
         );
-;
+
         self.perform-operation(
             :api-call<DeprecateWorkflowType>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method signal-workflow-execution(
-    WorkflowRunIdOptional :$run-id,
-    WorkflowId :$workflow-id!,
-    SignalName :$signal-name!,
-    Data :$input,
-    DomainName :$domain!
+        WorkflowRunIdOptional :$run-id,
+        WorkflowId :$workflow-id!,
+        SignalName :$signal-name!,
+        Data :$input,
+        DomainName :$domain!
     ) is service-operation('SignalWorkflowExecution') {
         my $request-input = SignalWorkflowExecutionInput.new(
-        :$run-id,
-        :$workflow-id,
-        :$signal-name,
-        :$input,
-        :$domain
+            :$run-id,
+            :$workflow-id,
+            :$signal-name,
+            :$input,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<SignalWorkflowExecution>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method respond-decision-task-completed(
-    Array[Decision] :$decisions,
-    TaskToken :$task-token!,
-    Data :$execution-context
+        Array[Decision] :$decisions,
+        TaskToken :$task-token!,
+        Data :$execution-context
     ) is service-operation('RespondDecisionTaskCompleted') {
         my $request-input = RespondDecisionTaskCompletedInput.new(
-        :$decisions,
-        :$task-token,
-        :$execution-context
+            :$decisions,
+            :$task-token,
+            :$execution-context
         );
-;
+
         self.perform-operation(
             :api-call<RespondDecisionTaskCompleted>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method respond-activity-task-canceled(
-    Data :$details,
-    TaskToken :$task-token!
+        Data :$details,
+        TaskToken :$task-token!
     ) is service-operation('RespondActivityTaskCanceled') {
         my $request-input = RespondActivityTaskCanceledInput.new(
-        :$details,
-        :$task-token
+            :$details,
+            :$task-token
         );
-;
+
         self.perform-operation(
             :api-call<RespondActivityTaskCanceled>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-domains(
-    Bool :$reverse-order,
-    PageToken :$next-page-token,
-    RegistrationStatus :$registration-status!,
-    PageSize :$maximum-page-size
+        Bool :$reverse-order,
+        PageToken :$next-page-token,
+        RegistrationStatus :$registration-status!,
+        PageSize :$maximum-page-size
     ) returns DomainInfos is service-operation('ListDomains') {
         my $request-input = ListDomainsInput.new(
-        :$reverse-order,
-        :$next-page-token,
-        :$registration-status,
-        :$maximum-page-size
+            :$reverse-order,
+            :$next-page-token,
+            :$registration-status,
+            :$maximum-page-size
         );
-;
+
         self.perform-operation(
             :api-call<ListDomains>,
-            :return-type(DomainInfos),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-domain(
-    DomainName :$name!
+        DomainName :$name!
     ) returns DomainDetail is service-operation('DescribeDomain') {
         my $request-input = DescribeDomainInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDomain>,
-            :return-type(DomainDetail),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method respond-activity-task-failed(
-    Data :$details,
-    TaskToken :$task-token!,
-    FailureReason :$reason
+        Data :$details,
+        TaskToken :$task-token!,
+        FailureReason :$reason
     ) is service-operation('RespondActivityTaskFailed') {
         my $request-input = RespondActivityTaskFailedInput.new(
-        :$details,
-        :$task-token,
-        :$reason
+            :$details,
+            :$task-token,
+            :$reason
         );
-;
+
         self.perform-operation(
             :api-call<RespondActivityTaskFailed>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method respond-activity-task-completed(
-    TaskToken :$task-token!,
-    Data :$result
+        TaskToken :$task-token!,
+        Data :$result
     ) is service-operation('RespondActivityTaskCompleted') {
         my $request-input = RespondActivityTaskCompletedInput.new(
-        :$task-token,
-        :$result
+            :$task-token,
+            :$result
         );
-;
+
         self.perform-operation(
             :api-call<RespondActivityTaskCompleted>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method record-activity-task-heartbeat(
-    LimitedData :$details,
-    TaskToken :$task-token!
+        LimitedData :$details,
+        TaskToken :$task-token!
     ) returns ActivityTaskStatus is service-operation('RecordActivityTaskHeartbeat') {
         my $request-input = RecordActivityTaskHeartbeatInput.new(
-        :$details,
-        :$task-token
+            :$details,
+            :$task-token
         );
-;
+
         self.perform-operation(
             :api-call<RecordActivityTaskHeartbeat>,
-            :return-type(ActivityTaskStatus),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method poll-for-activity-task(
-    Identity :$identity,
-    TaskList :$task-list!,
-    DomainName :$domain!
+        Identity :$identity,
+        TaskList :$task-list!,
+        DomainName :$domain!
     ) returns ActivityTask is service-operation('PollForActivityTask') {
         my $request-input = PollForActivityTaskInput.new(
-        :$identity,
-        :$task-list,
-        :$domain
+            :$identity,
+            :$task-list,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<PollForActivityTask>,
-            :return-type(ActivityTask),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-workflow-types(
-    Bool :$reverse-order,
-    PageToken :$next-page-token,
-    Name :$name,
-    RegistrationStatus :$registration-status!,
-    PageSize :$maximum-page-size,
-    DomainName :$domain!
+        Bool :$reverse-order,
+        PageToken :$next-page-token,
+        Name :$name,
+        RegistrationStatus :$registration-status!,
+        PageSize :$maximum-page-size,
+        DomainName :$domain!
     ) returns WorkflowTypeInfos is service-operation('ListWorkflowTypes') {
         my $request-input = ListWorkflowTypesInput.new(
-        :$reverse-order,
-        :$next-page-token,
-        :$name,
-        :$registration-status,
-        :$maximum-page-size,
-        :$domain
+            :$reverse-order,
+            :$next-page-token,
+            :$name,
+            :$registration-status,
+            :$maximum-page-size,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<ListWorkflowTypes>,
-            :return-type(WorkflowTypeInfos),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-open-workflow-executions(
-    Bool :$reverse-order,
-    PageToken :$next-page-token,
-    WorkflowTypeFilter :$type-filter,
-    WorkflowExecutionFilter :$execution-filter,
-    PageSize :$maximum-page-size,
-    TagFilter :$tag-filter,
-    ExecutionTimeFilter :$start-time-filter!,
-    DomainName :$domain!
+        Bool :$reverse-order,
+        PageToken :$next-page-token,
+        WorkflowTypeFilter :$type-filter,
+        WorkflowExecutionFilter :$execution-filter,
+        PageSize :$maximum-page-size,
+        TagFilter :$tag-filter,
+        ExecutionTimeFilter :$start-time-filter!,
+        DomainName :$domain!
     ) returns WorkflowExecutionInfos is service-operation('ListOpenWorkflowExecutions') {
         my $request-input = ListOpenWorkflowExecutionsInput.new(
-        :$reverse-order,
-        :$next-page-token,
-        :$type-filter,
-        :$execution-filter,
-        :$maximum-page-size,
-        :$tag-filter,
-        :$start-time-filter,
-        :$domain
+            :$reverse-order,
+            :$next-page-token,
+            :$type-filter,
+            :$execution-filter,
+            :$maximum-page-size,
+            :$tag-filter,
+            :$start-time-filter,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<ListOpenWorkflowExecutions>,
-            :return-type(WorkflowExecutionInfos),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method count-closed-workflow-executions(
-    WorkflowTypeFilter :$type-filter,
-    WorkflowExecutionFilter :$execution-filter,
-    ExecutionTimeFilter :$close-time-filter,
-    TagFilter :$tag-filter,
-    ExecutionTimeFilter :$start-time-filter,
-    DomainName :$domain!,
-    CloseStatusFilter :$close-status-filter
+        WorkflowTypeFilter :$type-filter,
+        WorkflowExecutionFilter :$execution-filter,
+        ExecutionTimeFilter :$close-time-filter,
+        TagFilter :$tag-filter,
+        ExecutionTimeFilter :$start-time-filter,
+        DomainName :$domain!,
+        CloseStatusFilter :$close-status-filter
     ) returns WorkflowExecutionCount is service-operation('CountClosedWorkflowExecutions') {
         my $request-input = CountClosedWorkflowExecutionsInput.new(
-        :$type-filter,
-        :$execution-filter,
-        :$close-time-filter,
-        :$tag-filter,
-        :$start-time-filter,
-        :$domain,
-        :$close-status-filter
+            :$type-filter,
+            :$execution-filter,
+            :$close-time-filter,
+            :$tag-filter,
+            :$start-time-filter,
+            :$domain,
+            :$close-status-filter
         );
-;
+
         self.perform-operation(
             :api-call<CountClosedWorkflowExecutions>,
-            :return-type(WorkflowExecutionCount),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method request-cancel-workflow-execution(
-    WorkflowRunIdOptional :$run-id,
-    WorkflowId :$workflow-id!,
-    DomainName :$domain!
+        WorkflowRunIdOptional :$run-id,
+        WorkflowId :$workflow-id!,
+        DomainName :$domain!
     ) is service-operation('RequestCancelWorkflowExecution') {
         my $request-input = RequestCancelWorkflowExecutionInput.new(
-        :$run-id,
-        :$workflow-id,
-        :$domain
+            :$run-id,
+            :$workflow-id,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<RequestCancelWorkflowExecution>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-domain(
-    DomainName :$name!,
-    DurationInDays :$workflow-execution-retention-period-in-days!,
-    Description :$description
+        DomainName :$name!,
+        DurationInDays :$workflow-execution-retention-period-in-days!,
+        Description :$description
     ) is service-operation('RegisterDomain') {
         my $request-input = RegisterDomainInput.new(
-        :$name,
-        :$workflow-execution-retention-period-in-days,
-        :$description
+            :$name,
+            :$workflow-execution-retention-period-in-days,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<RegisterDomain>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method poll-for-decision-task(
-    Bool :$reverse-order,
-    PageToken :$next-page-token,
-    Identity :$identity,
-    TaskList :$task-list!,
-    PageSize :$maximum-page-size,
-    DomainName :$domain!
+        Bool :$reverse-order,
+        PageToken :$next-page-token,
+        Identity :$identity,
+        TaskList :$task-list!,
+        PageSize :$maximum-page-size,
+        DomainName :$domain!
     ) returns DecisionTask is service-operation('PollForDecisionTask') {
         my $request-input = PollForDecisionTaskInput.new(
-        :$reverse-order,
-        :$next-page-token,
-        :$identity,
-        :$task-list,
-        :$maximum-page-size,
-        :$domain
+            :$reverse-order,
+            :$next-page-token,
+            :$identity,
+            :$task-list,
+            :$maximum-page-size,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<PollForDecisionTask>,
-            :return-type(DecisionTask),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method count-pending-activity-tasks(
-    TaskList :$task-list!,
-    DomainName :$domain!
+        TaskList :$task-list!,
+        DomainName :$domain!
     ) returns PendingTaskCount is service-operation('CountPendingActivityTasks') {
         my $request-input = CountPendingActivityTasksInput.new(
-        :$task-list,
-        :$domain
+            :$task-list,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<CountPendingActivityTasks>,
-            :return-type(PendingTaskCount),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method count-open-workflow-executions(
-    WorkflowTypeFilter :$type-filter,
-    WorkflowExecutionFilter :$execution-filter,
-    TagFilter :$tag-filter,
-    ExecutionTimeFilter :$start-time-filter!,
-    DomainName :$domain!
+        WorkflowTypeFilter :$type-filter,
+        WorkflowExecutionFilter :$execution-filter,
+        TagFilter :$tag-filter,
+        ExecutionTimeFilter :$start-time-filter!,
+        DomainName :$domain!
     ) returns WorkflowExecutionCount is service-operation('CountOpenWorkflowExecutions') {
         my $request-input = CountOpenWorkflowExecutionsInput.new(
-        :$type-filter,
-        :$execution-filter,
-        :$tag-filter,
-        :$start-time-filter,
-        :$domain
+            :$type-filter,
+            :$execution-filter,
+            :$tag-filter,
+            :$start-time-filter,
+            :$domain
         );
-;
+
         self.perform-operation(
             :api-call<CountOpenWorkflowExecutions>,
-            :return-type(WorkflowExecutionCount),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

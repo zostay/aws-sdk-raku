@@ -502,412 +502,370 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     method list-tags(
-    Str :$resource-name!,
-    Str :$next-token
+        Str :$resource-name!,
+        Str :$next-token
     ) returns ListTagsResponse is service-operation('ListTags') {
         my $request-input = ListTagsRequest.new(
-        :$resource-name,
-        :$next-token
+            :$resource-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListTags>,
-            :return-type(ListTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-parameter-group(
-    Str :$parameter-group-name!
+        Str :$parameter-group-name!
     ) returns DeleteParameterGroupResponse is service-operation('DeleteParameterGroup') {
         my $request-input = DeleteParameterGroupRequest.new(
-        :$parameter-group-name
+            :$parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteParameterGroup>,
-            :return-type(DeleteParameterGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-subnet-group(
-    Str :$description,
-    Str :$subnet-group-name!,
-    Array[Str] :$subnet-ids!
+        Str :$description,
+        Str :$subnet-group-name!,
+        Array[Str] :$subnet-ids!
     ) returns CreateSubnetGroupResponse is service-operation('CreateSubnetGroup') {
         my $request-input = CreateSubnetGroupRequest.new(
-        :$description,
-        :$subnet-group-name,
-        :$subnet-ids
+            :$description,
+            :$subnet-group-name,
+            :$subnet-ids
         );
-;
+
         self.perform-operation(
             :api-call<CreateSubnetGroup>,
-            :return-type(CreateSubnetGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method increase-replication-factor(
-    Int :$new-replication-factor!,
-    Array[Str] :$availability-zones,
-    Str :$cluster-name!
+        Int :$new-replication-factor!,
+        Array[Str] :$availability-zones,
+        Str :$cluster-name!
     ) returns IncreaseReplicationFactorResponse is service-operation('IncreaseReplicationFactor') {
         my $request-input = IncreaseReplicationFactorRequest.new(
-        :$new-replication-factor,
-        :$availability-zones,
-        :$cluster-name
+            :$new-replication-factor,
+            :$availability-zones,
+            :$cluster-name
         );
-;
+
         self.perform-operation(
             :api-call<IncreaseReplicationFactor>,
-            :return-type(IncreaseReplicationFactorResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-subnet-group(
-    Str :$subnet-group-name!
+        Str :$subnet-group-name!
     ) returns DeleteSubnetGroupResponse is service-operation('DeleteSubnetGroup') {
         my $request-input = DeleteSubnetGroupRequest.new(
-        :$subnet-group-name
+            :$subnet-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSubnetGroup>,
-            :return-type(DeleteSubnetGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-cluster(
-    Array[Str] :$security-group-ids,
-    Str :$parameter-group-name,
-    Str :$notification-topic-arn,
-    Str :$description,
-    Str :$preferred-maintenance-window,
-    Str :$cluster-name!,
-    Str :$notification-topic-status
+        Array[Str] :$security-group-ids,
+        Str :$parameter-group-name,
+        Str :$notification-topic-arn,
+        Str :$description,
+        Str :$preferred-maintenance-window,
+        Str :$cluster-name!,
+        Str :$notification-topic-status
     ) returns UpdateClusterResponse is service-operation('UpdateCluster') {
         my $request-input = UpdateClusterRequest.new(
-        :$security-group-ids,
-        :$parameter-group-name,
-        :$notification-topic-arn,
-        :$description,
-        :$preferred-maintenance-window,
-        :$cluster-name,
-        :$notification-topic-status
+            :$security-group-ids,
+            :$parameter-group-name,
+            :$notification-topic-arn,
+            :$description,
+            :$preferred-maintenance-window,
+            :$cluster-name,
+            :$notification-topic-status
         );
-;
+
         self.perform-operation(
             :api-call<UpdateCluster>,
-            :return-type(UpdateClusterResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-resource(
-    Str :$resource-name!,
-    Array[Tag] :$tags!
+        Str :$resource-name!,
+        Array[Tag] :$tags!
     ) returns TagResourceResponse is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-        :$resource-name,
-        :$tags
+            :$resource-name,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<TagResource>,
-            :return-type(TagResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-subnet-groups(
-    Int :$max-results,
-    Array[Str] :$subnet-group-names,
-    Str :$next-token
+        Int :$max-results,
+        Array[Str] :$subnet-group-names,
+        Str :$next-token
     ) returns DescribeSubnetGroupsResponse is service-operation('DescribeSubnetGroups') {
         my $request-input = DescribeSubnetGroupsRequest.new(
-        :$max-results,
-        :$subnet-group-names,
-        :$next-token
+            :$max-results,
+            :$subnet-group-names,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSubnetGroups>,
-            :return-type(DescribeSubnetGroupsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-parameter-groups(
-    Int :$max-results,
-    Str :$next-token,
-    Array[Str] :$parameter-group-names
+        Int :$max-results,
+        Str :$next-token,
+        Array[Str] :$parameter-group-names
     ) returns DescribeParameterGroupsResponse is service-operation('DescribeParameterGroups') {
         my $request-input = DescribeParameterGroupsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$parameter-group-names
+            :$max-results,
+            :$next-token,
+            :$parameter-group-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeParameterGroups>,
-            :return-type(DescribeParameterGroupsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-events(
-    Int :$max-results,
-    Int :$duration,
-    DateTime :$end-time,
-    Str :$source-name,
-    DateTime :$start-time,
-    Str :$next-token,
-    SourceType :$source-type
+        Int :$max-results,
+        Int :$duration,
+        DateTime :$end-time,
+        Str :$source-name,
+        DateTime :$start-time,
+        Str :$next-token,
+        SourceType :$source-type
     ) returns DescribeEventsResponse is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsRequest.new(
-        :$max-results,
-        :$duration,
-        :$end-time,
-        :$source-name,
-        :$start-time,
-        :$next-token,
-        :$source-type
+            :$max-results,
+            :$duration,
+            :$end-time,
+            :$source-name,
+            :$start-time,
+            :$next-token,
+            :$source-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEvents>,
-            :return-type(DescribeEventsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-parameter-group(
-    Str :$parameter-group-name!,
-    Str :$description
+        Str :$parameter-group-name!,
+        Str :$description
     ) returns CreateParameterGroupResponse is service-operation('CreateParameterGroup') {
         my $request-input = CreateParameterGroupRequest.new(
-        :$parameter-group-name,
-        :$description
+            :$parameter-group-name,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateParameterGroup>,
-            :return-type(CreateParameterGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-cluster(
-    Str :$iam-role-arn!,
-    Array[Str] :$security-group-ids,
-    Str :$parameter-group-name,
-    Str :$notification-topic-arn,
-    Str :$subnet-group-name,
-    Int :$replication-factor!,
-    Str :$description,
-    Array[Str] :$availability-zones,
-    Array[Tag] :$tags,
-    Str :$preferred-maintenance-window,
-    Str :$cluster-name!,
-    Str :$node-type!
+        Str :$iam-role-arn!,
+        Array[Str] :$security-group-ids,
+        Str :$parameter-group-name,
+        Str :$notification-topic-arn,
+        Str :$subnet-group-name,
+        Int :$replication-factor!,
+        Str :$description,
+        Array[Str] :$availability-zones,
+        Array[Tag] :$tags,
+        Str :$preferred-maintenance-window,
+        Str :$cluster-name!,
+        Str :$node-type!
     ) returns CreateClusterResponse is service-operation('CreateCluster') {
         my $request-input = CreateClusterRequest.new(
-        :$iam-role-arn,
-        :$security-group-ids,
-        :$parameter-group-name,
-        :$notification-topic-arn,
-        :$subnet-group-name,
-        :$replication-factor,
-        :$description,
-        :$availability-zones,
-        :$tags,
-        :$preferred-maintenance-window,
-        :$cluster-name,
-        :$node-type
+            :$iam-role-arn,
+            :$security-group-ids,
+            :$parameter-group-name,
+            :$notification-topic-arn,
+            :$subnet-group-name,
+            :$replication-factor,
+            :$description,
+            :$availability-zones,
+            :$tags,
+            :$preferred-maintenance-window,
+            :$cluster-name,
+            :$node-type
         );
-;
+
         self.perform-operation(
             :api-call<CreateCluster>,
-            :return-type(CreateClusterResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reboot-node(
-    Str :$node-id!,
-    Str :$cluster-name!
+        Str :$node-id!,
+        Str :$cluster-name!
     ) returns RebootNodeResponse is service-operation('RebootNode') {
         my $request-input = RebootNodeRequest.new(
-        :$node-id,
-        :$cluster-name
+            :$node-id,
+            :$cluster-name
         );
-;
+
         self.perform-operation(
             :api-call<RebootNode>,
-            :return-type(RebootNodeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-default-parameters(
-    Int :$max-results,
-    Str :$next-token
+        Int :$max-results,
+        Str :$next-token
     ) returns DescribeDefaultParametersResponse is service-operation('DescribeDefaultParameters') {
         my $request-input = DescribeDefaultParametersRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDefaultParameters>,
-            :return-type(DescribeDefaultParametersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-resource(
-    Str :$resource-name!,
-    Array[Str] :$tag-keys!
+        Str :$resource-name!,
+        Array[Str] :$tag-keys!
     ) returns UntagResourceResponse is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-        :$resource-name,
-        :$tag-keys
+            :$resource-name,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<UntagResource>,
-            :return-type(UntagResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-subnet-group(
-    Str :$description,
-    Str :$subnet-group-name!,
-    Array[Str] :$subnet-ids
+        Str :$description,
+        Str :$subnet-group-name!,
+        Array[Str] :$subnet-ids
     ) returns UpdateSubnetGroupResponse is service-operation('UpdateSubnetGroup') {
         my $request-input = UpdateSubnetGroupRequest.new(
-        :$description,
-        :$subnet-group-name,
-        :$subnet-ids
+            :$description,
+            :$subnet-group-name,
+            :$subnet-ids
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSubnetGroup>,
-            :return-type(UpdateSubnetGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-parameter-group(
-    Array[ParameterNameValue] :$parameter-name-values!,
-    Str :$parameter-group-name!
+        Array[ParameterNameValue] :$parameter-name-values!,
+        Str :$parameter-group-name!
     ) returns UpdateParameterGroupResponse is service-operation('UpdateParameterGroup') {
         my $request-input = UpdateParameterGroupRequest.new(
-        :$parameter-name-values,
-        :$parameter-group-name
+            :$parameter-name-values,
+            :$parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateParameterGroup>,
-            :return-type(UpdateParameterGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-parameters(
-    Int :$max-results,
-    Str :$source,
-    Str :$parameter-group-name!,
-    Str :$next-token
+        Int :$max-results,
+        Str :$source,
+        Str :$parameter-group-name!,
+        Str :$next-token
     ) returns DescribeParametersResponse is service-operation('DescribeParameters') {
         my $request-input = DescribeParametersRequest.new(
-        :$max-results,
-        :$source,
-        :$parameter-group-name,
-        :$next-token
+            :$max-results,
+            :$source,
+            :$parameter-group-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeParameters>,
-            :return-type(DescribeParametersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-clusters(
-    Int :$max-results,
-    Str :$next-token,
-    Array[Str] :$cluster-names
+        Int :$max-results,
+        Str :$next-token,
+        Array[Str] :$cluster-names
     ) returns DescribeClustersResponse is service-operation('DescribeClusters') {
         my $request-input = DescribeClustersRequest.new(
-        :$max-results,
-        :$next-token,
-        :$cluster-names
+            :$max-results,
+            :$next-token,
+            :$cluster-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClusters>,
-            :return-type(DescribeClustersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-cluster(
-    Str :$cluster-name!
+        Str :$cluster-name!
     ) returns DeleteClusterResponse is service-operation('DeleteCluster') {
         my $request-input = DeleteClusterRequest.new(
-        :$cluster-name
+            :$cluster-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCluster>,
-            :return-type(DeleteClusterResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method decrease-replication-factor(
-    Int :$new-replication-factor!,
-    Array[Str] :$availability-zones,
-    Array[Str] :$node-ids-to-remove,
-    Str :$cluster-name!
+        Int :$new-replication-factor!,
+        Array[Str] :$availability-zones,
+        Array[Str] :$node-ids-to-remove,
+        Str :$cluster-name!
     ) returns DecreaseReplicationFactorResponse is service-operation('DecreaseReplicationFactor') {
         my $request-input = DecreaseReplicationFactorRequest.new(
-        :$new-replication-factor,
-        :$availability-zones,
-        :$node-ids-to-remove,
-        :$cluster-name
+            :$new-replication-factor,
+            :$availability-zones,
+            :$node-ids-to-remove,
+            :$cluster-name
         );
-;
+
         self.perform-operation(
             :api-call<DecreaseReplicationFactor>,
-            :return-type(DecreaseReplicationFactorResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

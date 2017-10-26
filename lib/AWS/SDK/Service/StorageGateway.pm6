@@ -1112,1109 +1112,985 @@ class AWS::SDK::Service::StorageGateway does AWS::SDK::Service {
     }
 
     method update-vtl-device-type(
-    VTLDeviceARN :$vtl-device-arn!,
-    DeviceType :$device-type!
+        VTLDeviceARN :$vtl-device-arn!,
+        DeviceType :$device-type!
     ) returns UpdateVTLDeviceTypeOutput is service-operation('UpdateVTLDeviceType') {
         my $request-input = UpdateVTLDeviceTypeInput.new(
-        :$vtl-device-arn,
-        :$device-type
+            :$vtl-device-arn,
+            :$device-type
         );
-;
+
         self.perform-operation(
             :api-call<UpdateVTLDeviceType>,
-            :return-type(UpdateVTLDeviceTypeOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-volume-initiators(
-    VolumeARN :$volume-arn!
+        VolumeARN :$volume-arn!
     ) returns ListVolumeInitiatorsOutput is service-operation('ListVolumeInitiators') {
         my $request-input = ListVolumeInitiatorsInput.new(
-        :$volume-arn
+            :$volume-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListVolumeInitiators>,
-            :return-type(ListVolumeInitiatorsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reset-cache(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns ResetCacheOutput is service-operation('ResetCache') {
         my $request-input = ResetCacheInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<ResetCache>,
-            :return-type(ResetCacheOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags-to-resource(
-    Array[Tag] :$tags!,
-    ResourceARN :$resource-arn!
+        Array[Tag] :$tags!,
+        ResourceARN :$resource-arn!
     ) returns AddTagsToResourceOutput is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceInput.new(
-        :$tags,
-        :$resource-arn
+            :$tags,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<AddTagsToResource>,
-            :return-type(AddTagsToResourceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-working-storage(
-    Array[DiskId] :$disk-ids!,
-    GatewayARN :$gateway-arn!
+        Array[DiskId] :$disk-ids!,
+        GatewayARN :$gateway-arn!
     ) returns AddWorkingStorageOutput is service-operation('AddWorkingStorage') {
         my $request-input = AddWorkingStorageInput.new(
-        :$disk-ids,
-        :$gateway-arn
+            :$disk-ids,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<AddWorkingStorage>,
-            :return-type(AddWorkingStorageOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-tape-with-barcode(
-    TapeBarcode :$tape-barcode!,
-    Int :$tape-size-in-bytes!,
-    GatewayARN :$gateway-arn!
+        TapeBarcode :$tape-barcode!,
+        Int :$tape-size-in-bytes!,
+        GatewayARN :$gateway-arn!
     ) returns CreateTapeWithBarcodeOutput is service-operation('CreateTapeWithBarcode') {
         my $request-input = CreateTapeWithBarcodeInput.new(
-        :$tape-barcode,
-        :$tape-size-in-bytes,
-        :$gateway-arn
+            :$tape-barcode,
+            :$tape-size-in-bytes,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateTapeWithBarcode>,
-            :return-type(CreateTapeWithBarcodeOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-file-share(
-    FileShareARN :$file-share-arn!,
-    Bool :$force-delete
+        FileShareARN :$file-share-arn!,
+        Bool :$force-delete
     ) returns DeleteFileShareOutput is service-operation('DeleteFileShare') {
         my $request-input = DeleteFileShareInput.new(
-        :$file-share-arn,
-        :$force-delete
+            :$file-share-arn,
+            :$force-delete
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFileShare>,
-            :return-type(DeleteFileShareOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tape-archives(
-    PositiveIntObject :$limit,
-    Marker :$marker,
-    Array[TapeARN] :$tape-arns
+        PositiveIntObject :$limit,
+        Marker :$marker,
+        Array[TapeARN] :$tape-arns
     ) returns DescribeTapeArchivesOutput is service-operation('DescribeTapeArchives') {
         my $request-input = DescribeTapeArchivesInput.new(
-        :$limit,
-        :$marker,
-        :$tape-arns
+            :$limit,
+            :$marker,
+            :$tape-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTapeArchives>,
-            :return-type(DescribeTapeArchivesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-volumes(
-    PositiveIntObject :$limit,
-    Marker :$marker,
-    GatewayARN :$gateway-arn
+        PositiveIntObject :$limit,
+        Marker :$marker,
+        GatewayARN :$gateway-arn
     ) returns ListVolumesOutput is service-operation('ListVolumes') {
         my $request-input = ListVolumesInput.new(
-        :$limit,
-        :$marker,
-        :$gateway-arn
+            :$limit,
+            :$marker,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListVolumes>,
-            :return-type(ListVolumesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-cache(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns DescribeCacheOutput is service-operation('DescribeCache') {
         my $request-input = DescribeCacheInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCache>,
-            :return-type(DescribeCacheOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-working-storage(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns DescribeWorkingStorageOutput is service-operation('DescribeWorkingStorage') {
         my $request-input = DescribeWorkingStorageInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeWorkingStorage>,
-            :return-type(DescribeWorkingStorageOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags-from-resource(
-    Array[TagKey] :$tag-keys!,
-    ResourceARN :$resource-arn!
+        Array[TagKey] :$tag-keys!,
+        ResourceARN :$resource-arn!
     ) returns RemoveTagsFromResourceOutput is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceInput.new(
-        :$tag-keys,
-        :$resource-arn
+            :$tag-keys,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
-            :return-type(RemoveTagsFromResourceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method retrieve-tape-recovery-point(
-    TapeARN :$tape-arn!,
-    GatewayARN :$gateway-arn!
+        TapeARN :$tape-arn!,
+        GatewayARN :$gateway-arn!
     ) returns RetrieveTapeRecoveryPointOutput is service-operation('RetrieveTapeRecoveryPoint') {
         my $request-input = RetrieveTapeRecoveryPointInput.new(
-        :$tape-arn,
-        :$gateway-arn
+            :$tape-arn,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<RetrieveTapeRecoveryPoint>,
-            :return-type(RetrieveTapeRecoveryPointOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-nfs-file-share(
-    Squash :$squash,
-    FileShareClientList :$client-list,
-    LocationARN :$location-arn!,
-    Role :$role!,
-    KMSKey :$kms-key,
-    ClientToken :$client-token!,
-    NFSFileShareDefaults :$nfs-file-share-defaults,
-    StorageClass :$default-storage-class,
-    GatewayARN :$gateway-arn!,
-    Bool :$read-only,
-    Bool :$kms-encrypted
+        Squash :$squash,
+        FileShareClientList :$client-list,
+        LocationARN :$location-arn!,
+        Role :$role!,
+        KMSKey :$kms-key,
+        ClientToken :$client-token!,
+        NFSFileShareDefaults :$nfs-file-share-defaults,
+        StorageClass :$default-storage-class,
+        GatewayARN :$gateway-arn!,
+        Bool :$read-only,
+        Bool :$kms-encrypted
     ) returns CreateNFSFileShareOutput is service-operation('CreateNFSFileShare') {
         my $request-input = CreateNFSFileShareInput.new(
-        :$squash,
-        :$client-list,
-        :$location-arn,
-        :$role,
-        :$kms-key,
-        :$client-token,
-        :$nfs-file-share-defaults,
-        :$default-storage-class,
-        :$gateway-arn,
-        :$read-only,
-        :$kms-encrypted
+            :$squash,
+            :$client-list,
+            :$location-arn,
+            :$role,
+            :$kms-key,
+            :$client-token,
+            :$nfs-file-share-defaults,
+            :$default-storage-class,
+            :$gateway-arn,
+            :$read-only,
+            :$kms-encrypted
         );
-;
+
         self.perform-operation(
             :api-call<CreateNFSFileShare>,
-            :return-type(CreateNFSFileShareOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-tape-archive(
-    TapeARN :$tape-arn!
+        TapeARN :$tape-arn!
     ) returns DeleteTapeArchiveOutput is service-operation('DeleteTapeArchive') {
         my $request-input = DeleteTapeArchiveInput.new(
-        :$tape-arn
+            :$tape-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTapeArchive>,
-            :return-type(DeleteTapeArchiveOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-volume(
-    VolumeARN :$volume-arn!
+        VolumeARN :$volume-arn!
     ) returns DeleteVolumeOutput is service-operation('DeleteVolume') {
         my $request-input = DeleteVolumeInput.new(
-        :$volume-arn
+            :$volume-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVolume>,
-            :return-type(DeleteVolumeOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-cached-iscsi-volume(
-    TargetName :$target-name!,
-    SnapshotId :$snapshot-id,
-    ClientToken :$client-token!,
-    Int :$volume-size-in-bytes!,
-    NetworkInterfaceId :$network-interface-id!,
-    VolumeARN :$source-volume-arn,
-    GatewayARN :$gateway-arn!
+        TargetName :$target-name!,
+        SnapshotId :$snapshot-id,
+        ClientToken :$client-token!,
+        Int :$volume-size-in-bytes!,
+        NetworkInterfaceId :$network-interface-id!,
+        VolumeARN :$source-volume-arn,
+        GatewayARN :$gateway-arn!
     ) returns CreateCachediSCSIVolumeOutput is service-operation('CreateCachediSCSIVolume') {
         my $request-input = CreateCachediSCSIVolumeInput.new(
-        :$target-name,
-        :$snapshot-id,
-        :$client-token,
-        :$volume-size-in-bytes,
-        :$network-interface-id,
-        :$source-volume-arn,
-        :$gateway-arn
+            :$target-name,
+            :$snapshot-id,
+            :$client-token,
+            :$volume-size-in-bytes,
+            :$network-interface-id,
+            :$source-volume-arn,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateCachediSCSIVolume>,
-            :return-type(CreateCachediSCSIVolumeOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-gateway(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns DisableGatewayOutput is service-operation('DisableGateway') {
         my $request-input = DisableGatewayInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DisableGateway>,
-            :return-type(DisableGatewayOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method activate-gateway(
-    RegionId :$gateway-region!,
-    GatewayTimezone :$gateway-timezone!,
-    GatewayName :$gateway-name!,
-    GatewayType :$gateway-type,
-    MediumChangerType :$medium-changer-type,
-    TapeDriveType :$tape-drive-type,
-    ActivationKey :$activation-key!
+        RegionId :$gateway-region!,
+        GatewayTimezone :$gateway-timezone!,
+        GatewayName :$gateway-name!,
+        GatewayType :$gateway-type,
+        MediumChangerType :$medium-changer-type,
+        TapeDriveType :$tape-drive-type,
+        ActivationKey :$activation-key!
     ) returns ActivateGatewayOutput is service-operation('ActivateGateway') {
         my $request-input = ActivateGatewayInput.new(
-        :$gateway-region,
-        :$gateway-timezone,
-        :$gateway-name,
-        :$gateway-type,
-        :$medium-changer-type,
-        :$tape-drive-type,
-        :$activation-key
+            :$gateway-region,
+            :$gateway-timezone,
+            :$gateway-name,
+            :$gateway-type,
+            :$medium-changer-type,
+            :$tape-drive-type,
+            :$activation-key
         );
-;
+
         self.perform-operation(
             :api-call<ActivateGateway>,
-            :return-type(ActivateGatewayOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-chap-credentials(
-    IqnName :$initiator-name!,
-    TargetARN :$target-arn!
+        IqnName :$initiator-name!,
+        TargetARN :$target-arn!
     ) returns DeleteChapCredentialsOutput is service-operation('DeleteChapCredentials') {
         my $request-input = DeleteChapCredentialsInput.new(
-        :$initiator-name,
-        :$target-arn
+            :$initiator-name,
+            :$target-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteChapCredentials>,
-            :return-type(DeleteChapCredentialsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-tape(
-    TapeARN :$tape-arn!,
-    GatewayARN :$gateway-arn!
+        TapeARN :$tape-arn!,
+        GatewayARN :$gateway-arn!
     ) returns DeleteTapeOutput is service-operation('DeleteTape') {
         my $request-input = DeleteTapeInput.new(
-        :$tape-arn,
-        :$gateway-arn
+            :$tape-arn,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTape>,
-            :return-type(DeleteTapeOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-maintenance-start-time(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns DescribeMaintenanceStartTimeOutput is service-operation('DescribeMaintenanceStartTime') {
         my $request-input = DescribeMaintenanceStartTimeInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMaintenanceStartTime>,
-            :return-type(DescribeMaintenanceStartTimeOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method retrieve-tape-archive(
-    TapeARN :$tape-arn!,
-    GatewayARN :$gateway-arn!
+        TapeARN :$tape-arn!,
+        GatewayARN :$gateway-arn!
     ) returns RetrieveTapeArchiveOutput is service-operation('RetrieveTapeArchive') {
         my $request-input = RetrieveTapeArchiveInput.new(
-        :$tape-arn,
-        :$gateway-arn
+            :$tape-arn,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<RetrieveTapeArchive>,
-            :return-type(RetrieveTapeArchiveOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-maintenance-start-time(
-    DayOfWeek :$day-of-week!,
-    MinuteOfHour :$minute-of-hour!,
-    GatewayARN :$gateway-arn!,
-    HourOfDay :$hour-of-day!
+        DayOfWeek :$day-of-week!,
+        MinuteOfHour :$minute-of-hour!,
+        GatewayARN :$gateway-arn!,
+        HourOfDay :$hour-of-day!
     ) returns UpdateMaintenanceStartTimeOutput is service-operation('UpdateMaintenanceStartTime') {
         my $request-input = UpdateMaintenanceStartTimeInput.new(
-        :$day-of-week,
-        :$minute-of-hour,
-        :$gateway-arn,
-        :$hour-of-day
+            :$day-of-week,
+            :$minute-of-hour,
+            :$gateway-arn,
+            :$hour-of-day
         );
-;
+
         self.perform-operation(
             :api-call<UpdateMaintenanceStartTime>,
-            :return-type(UpdateMaintenanceStartTimeOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-archival(
-    TapeARN :$tape-arn!,
-    GatewayARN :$gateway-arn!
+        TapeARN :$tape-arn!,
+        GatewayARN :$gateway-arn!
     ) returns CancelArchivalOutput is service-operation('CancelArchival') {
         my $request-input = CancelArchivalInput.new(
-        :$tape-arn,
-        :$gateway-arn
+            :$tape-arn,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<CancelArchival>,
-            :return-type(CancelArchivalOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-volume-recovery-points(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns ListVolumeRecoveryPointsOutput is service-operation('ListVolumeRecoveryPoints') {
         my $request-input = ListVolumeRecoveryPointsInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListVolumeRecoveryPoints>,
-            :return-type(ListVolumeRecoveryPointsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bandwidth-rate-limit(
-    BandwidthType :$bandwidth-type!,
-    GatewayARN :$gateway-arn!
+        BandwidthType :$bandwidth-type!,
+        GatewayARN :$gateway-arn!
     ) returns DeleteBandwidthRateLimitOutput is service-operation('DeleteBandwidthRateLimit') {
         my $request-input = DeleteBandwidthRateLimitInput.new(
-        :$bandwidth-type,
-        :$gateway-arn
+            :$bandwidth-type,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBandwidthRateLimit>,
-            :return-type(DeleteBandwidthRateLimitOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-snapshot-schedule(
-    VolumeARN :$volume-arn!
+        VolumeARN :$volume-arn!
     ) returns DeleteSnapshotScheduleOutput is service-operation('DeleteSnapshotSchedule') {
         my $request-input = DeleteSnapshotScheduleInput.new(
-        :$volume-arn
+            :$volume-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSnapshotSchedule>,
-            :return-type(DeleteSnapshotScheduleOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-stored-iscsi-volumes(
-    Array[VolumeARN] :$volume-arns!
+        Array[VolumeARN] :$volume-arns!
     ) returns DescribeStorediSCSIVolumesOutput is service-operation('DescribeStorediSCSIVolumes') {
         my $request-input = DescribeStorediSCSIVolumesInput.new(
-        :$volume-arns
+            :$volume-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStorediSCSIVolumes>,
-            :return-type(DescribeStorediSCSIVolumesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-local-disks(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns ListLocalDisksOutput is service-operation('ListLocalDisks') {
         my $request-input = ListLocalDisksInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListLocalDisks>,
-            :return-type(ListLocalDisksOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method shutdown-gateway(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns ShutdownGatewayOutput is service-operation('ShutdownGateway') {
         my $request-input = ShutdownGatewayInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<ShutdownGateway>,
-            :return-type(ShutdownGatewayOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-cache(
-    Array[DiskId] :$disk-ids!,
-    GatewayARN :$gateway-arn!
+        Array[DiskId] :$disk-ids!,
+        GatewayARN :$gateway-arn!
     ) returns AddCacheOutput is service-operation('AddCache') {
         my $request-input = AddCacheInput.new(
-        :$disk-ids,
-        :$gateway-arn
+            :$disk-ids,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<AddCache>,
-            :return-type(AddCacheOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-retrieval(
-    TapeARN :$tape-arn!,
-    GatewayARN :$gateway-arn!
+        TapeARN :$tape-arn!,
+        GatewayARN :$gateway-arn!
     ) returns CancelRetrievalOutput is service-operation('CancelRetrieval') {
         my $request-input = CancelRetrievalInput.new(
-        :$tape-arn,
-        :$gateway-arn
+            :$tape-arn,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<CancelRetrieval>,
-            :return-type(CancelRetrievalOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-snapshot-from-volume-recovery-point(
-    SnapshotDescription :$snapshot-description!,
-    VolumeARN :$volume-arn!
+        SnapshotDescription :$snapshot-description!,
+        VolumeARN :$volume-arn!
     ) returns CreateSnapshotFromVolumeRecoveryPointOutput is service-operation('CreateSnapshotFromVolumeRecoveryPoint') {
         my $request-input = CreateSnapshotFromVolumeRecoveryPointInput.new(
-        :$snapshot-description,
-        :$volume-arn
+            :$snapshot-description,
+            :$volume-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateSnapshotFromVolumeRecoveryPoint>,
-            :return-type(CreateSnapshotFromVolumeRecoveryPointOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-gateway(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns DeleteGatewayOutput is service-operation('DeleteGateway') {
         my $request-input = DeleteGatewayInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteGateway>,
-            :return-type(DeleteGatewayOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-gateway-software-now(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns UpdateGatewaySoftwareNowOutput is service-operation('UpdateGatewaySoftwareNow') {
         my $request-input = UpdateGatewaySoftwareNowInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<UpdateGatewaySoftwareNow>,
-            :return-type(UpdateGatewaySoftwareNowOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-chap-credentials(
-    TargetARN :$target-arn!
+        TargetARN :$target-arn!
     ) returns DescribeChapCredentialsOutput is service-operation('DescribeChapCredentials') {
         my $request-input = DescribeChapCredentialsInput.new(
-        :$target-arn
+            :$target-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeChapCredentials>,
-            :return-type(DescribeChapCredentialsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-snapshot(
-    SnapshotDescription :$snapshot-description!,
-    VolumeARN :$volume-arn!
+        SnapshotDescription :$snapshot-description!,
+        VolumeARN :$volume-arn!
     ) returns CreateSnapshotOutput is service-operation('CreateSnapshot') {
         my $request-input = CreateSnapshotInput.new(
-        :$snapshot-description,
-        :$volume-arn
+            :$snapshot-description,
+            :$volume-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateSnapshot>,
-            :return-type(CreateSnapshotOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-gateway-information(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns DescribeGatewayInformationOutput is service-operation('DescribeGatewayInformation') {
         my $request-input = DescribeGatewayInformationInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeGatewayInformation>,
-            :return-type(DescribeGatewayInformationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-gateway(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns StartGatewayOutput is service-operation('StartGateway') {
         my $request-input = StartGatewayInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<StartGateway>,
-            :return-type(StartGatewayOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-upload-buffer(
-    Array[DiskId] :$disk-ids!,
-    GatewayARN :$gateway-arn!
+        Array[DiskId] :$disk-ids!,
+        GatewayARN :$gateway-arn!
     ) returns AddUploadBufferOutput is service-operation('AddUploadBuffer') {
         my $request-input = AddUploadBufferInput.new(
-        :$disk-ids,
-        :$gateway-arn
+            :$disk-ids,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<AddUploadBuffer>,
-            :return-type(AddUploadBufferOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-upload-buffer(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns DescribeUploadBufferOutput is service-operation('DescribeUploadBuffer') {
         my $request-input = DescribeUploadBufferInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeUploadBuffer>,
-            :return-type(DescribeUploadBufferOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vtl-devices(
-    PositiveIntObject :$limit,
-    Array[VTLDeviceARN] :$vtl-device-arns,
-    Marker :$marker,
-    GatewayARN :$gateway-arn!
+        PositiveIntObject :$limit,
+        Array[VTLDeviceARN] :$vtl-device-arns,
+        Marker :$marker,
+        GatewayARN :$gateway-arn!
     ) returns DescribeVTLDevicesOutput is service-operation('DescribeVTLDevices') {
         my $request-input = DescribeVTLDevicesInput.new(
-        :$limit,
-        :$vtl-device-arns,
-        :$marker,
-        :$gateway-arn
+            :$limit,
+            :$vtl-device-arns,
+            :$marker,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVTLDevices>,
-            :return-type(DescribeVTLDevicesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-bandwidth-rate-limit(
-    BandwidthUploadRateLimit :$average-upload-rate-limit-in-bits-per-sec,
-    BandwidthDownloadRateLimit :$average-download-rate-limit-in-bits-per-sec,
-    GatewayARN :$gateway-arn!
+        BandwidthUploadRateLimit :$average-upload-rate-limit-in-bits-per-sec,
+        BandwidthDownloadRateLimit :$average-download-rate-limit-in-bits-per-sec,
+        GatewayARN :$gateway-arn!
     ) returns UpdateBandwidthRateLimitOutput is service-operation('UpdateBandwidthRateLimit') {
         my $request-input = UpdateBandwidthRateLimitInput.new(
-        :$average-upload-rate-limit-in-bits-per-sec,
-        :$average-download-rate-limit-in-bits-per-sec,
-        :$gateway-arn
+            :$average-upload-rate-limit-in-bits-per-sec,
+            :$average-download-rate-limit-in-bits-per-sec,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<UpdateBandwidthRateLimit>,
-            :return-type(UpdateBandwidthRateLimitOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-snapshot-schedule(
-    Description :$description,
-    RecurrenceInHours :$recurrence-in-hours!,
-    HourOfDay :$start-at!,
-    VolumeARN :$volume-arn!
+        Description :$description,
+        RecurrenceInHours :$recurrence-in-hours!,
+        HourOfDay :$start-at!,
+        VolumeARN :$volume-arn!
     ) returns UpdateSnapshotScheduleOutput is service-operation('UpdateSnapshotSchedule') {
         my $request-input = UpdateSnapshotScheduleInput.new(
-        :$description,
-        :$recurrence-in-hours,
-        :$start-at,
-        :$volume-arn
+            :$description,
+            :$recurrence-in-hours,
+            :$start-at,
+            :$volume-arn
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSnapshotSchedule>,
-            :return-type(UpdateSnapshotScheduleOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-nfs-file-shares(
-    FileShareARNList :$file-share-arn-list!
+        FileShareARNList :$file-share-arn-list!
     ) returns DescribeNFSFileSharesOutput is service-operation('DescribeNFSFileShares') {
         my $request-input = DescribeNFSFileSharesInput.new(
-        :$file-share-arn-list
+            :$file-share-arn-list
         );
-;
+
         self.perform-operation(
             :api-call<DescribeNFSFileShares>,
-            :return-type(DescribeNFSFileSharesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tapes(
-    PositiveIntObject :$limit,
-    Marker :$marker,
-    GatewayARN :$gateway-arn!,
-    Array[TapeARN] :$tape-arns
+        PositiveIntObject :$limit,
+        Marker :$marker,
+        GatewayARN :$gateway-arn!,
+        Array[TapeARN] :$tape-arns
     ) returns DescribeTapesOutput is service-operation('DescribeTapes') {
         my $request-input = DescribeTapesInput.new(
-        :$limit,
-        :$marker,
-        :$gateway-arn,
-        :$tape-arns
+            :$limit,
+            :$marker,
+            :$gateway-arn,
+            :$tape-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTapes>,
-            :return-type(DescribeTapesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-gateways(
-    PositiveIntObject :$limit,
-    Marker :$marker
+        PositiveIntObject :$limit,
+        Marker :$marker
     ) returns ListGatewaysOutput is service-operation('ListGateways') {
         my $request-input = ListGatewaysInput.new(
-        :$limit,
-        :$marker
+            :$limit,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListGateways>,
-            :return-type(ListGatewaysOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method refresh-cache(
-    FileShareARN :$file-share-arn!
+        FileShareARN :$file-share-arn!
     ) returns RefreshCacheOutput is service-operation('RefreshCache') {
         my $request-input = RefreshCacheInput.new(
-        :$file-share-arn
+            :$file-share-arn
         );
-;
+
         self.perform-operation(
             :api-call<RefreshCache>,
-            :return-type(RefreshCacheOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-bandwidth-rate-limit(
-    GatewayARN :$gateway-arn!
+        GatewayARN :$gateway-arn!
     ) returns DescribeBandwidthRateLimitOutput is service-operation('DescribeBandwidthRateLimit') {
         my $request-input = DescribeBandwidthRateLimitInput.new(
-        :$gateway-arn
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeBandwidthRateLimit>,
-            :return-type(DescribeBandwidthRateLimitOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-resource(
-    PositiveIntObject :$limit,
-    ResourceARN :$resource-arn!,
-    Marker :$marker
+        PositiveIntObject :$limit,
+        ResourceARN :$resource-arn!,
+        Marker :$marker
     ) returns ListTagsForResourceOutput is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceInput.new(
-        :$limit,
-        :$resource-arn,
-        :$marker
+            :$limit,
+            :$resource-arn,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResource>,
-            :return-type(ListTagsForResourceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tapes(
-    PositiveIntObject :$limit,
-    Marker :$marker,
-    Array[TapeARN] :$tape-arns
+        PositiveIntObject :$limit,
+        Marker :$marker,
+        Array[TapeARN] :$tape-arns
     ) returns ListTapesOutput is service-operation('ListTapes') {
         my $request-input = ListTapesInput.new(
-        :$limit,
-        :$marker,
-        :$tape-arns
+            :$limit,
+            :$marker,
+            :$tape-arns
         );
-;
+
         self.perform-operation(
             :api-call<ListTapes>,
-            :return-type(ListTapesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-nfs-file-share(
-    Squash :$squash,
-    FileShareARN :$file-share-arn!,
-    FileShareClientList :$client-list,
-    KMSKey :$kms-key,
-    NFSFileShareDefaults :$nfs-file-share-defaults,
-    StorageClass :$default-storage-class,
-    Bool :$read-only,
-    Bool :$kms-encrypted
+        Squash :$squash,
+        FileShareARN :$file-share-arn!,
+        FileShareClientList :$client-list,
+        KMSKey :$kms-key,
+        NFSFileShareDefaults :$nfs-file-share-defaults,
+        StorageClass :$default-storage-class,
+        Bool :$read-only,
+        Bool :$kms-encrypted
     ) returns UpdateNFSFileShareOutput is service-operation('UpdateNFSFileShare') {
         my $request-input = UpdateNFSFileShareInput.new(
-        :$squash,
-        :$file-share-arn,
-        :$client-list,
-        :$kms-key,
-        :$nfs-file-share-defaults,
-        :$default-storage-class,
-        :$read-only,
-        :$kms-encrypted
+            :$squash,
+            :$file-share-arn,
+            :$client-list,
+            :$kms-key,
+            :$nfs-file-share-defaults,
+            :$default-storage-class,
+            :$read-only,
+            :$kms-encrypted
         );
-;
+
         self.perform-operation(
             :api-call<UpdateNFSFileShare>,
-            :return-type(UpdateNFSFileShareOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-tapes(
-    NumTapesToCreate :$num-tapes-to-create!,
-    TapeBarcodePrefix :$tape-barcode-prefix!,
-    ClientToken :$client-token!,
-    Int :$tape-size-in-bytes!,
-    GatewayARN :$gateway-arn!
+        NumTapesToCreate :$num-tapes-to-create!,
+        TapeBarcodePrefix :$tape-barcode-prefix!,
+        ClientToken :$client-token!,
+        Int :$tape-size-in-bytes!,
+        GatewayARN :$gateway-arn!
     ) returns CreateTapesOutput is service-operation('CreateTapes') {
         my $request-input = CreateTapesInput.new(
-        :$num-tapes-to-create,
-        :$tape-barcode-prefix,
-        :$client-token,
-        :$tape-size-in-bytes,
-        :$gateway-arn
+            :$num-tapes-to-create,
+            :$tape-barcode-prefix,
+            :$client-token,
+            :$tape-size-in-bytes,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateTapes>,
-            :return-type(CreateTapesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-snapshot-schedule(
-    VolumeARN :$volume-arn!
+        VolumeARN :$volume-arn!
     ) returns DescribeSnapshotScheduleOutput is service-operation('DescribeSnapshotSchedule') {
         my $request-input = DescribeSnapshotScheduleInput.new(
-        :$volume-arn
+            :$volume-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSnapshotSchedule>,
-            :return-type(DescribeSnapshotScheduleOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-local-console-password(
-    LocalConsolePassword :$local-console-password!,
-    GatewayARN :$gateway-arn!
+        LocalConsolePassword :$local-console-password!,
+        GatewayARN :$gateway-arn!
     ) returns SetLocalConsolePasswordOutput is service-operation('SetLocalConsolePassword') {
         my $request-input = SetLocalConsolePasswordInput.new(
-        :$local-console-password,
-        :$gateway-arn
+            :$local-console-password,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<SetLocalConsolePassword>,
-            :return-type(SetLocalConsolePasswordOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-chap-credentials(
-    ChapSecret :$secret-to-authenticate-initiator!,
-    IqnName :$initiator-name!,
-    ChapSecret :$secret-to-authenticate-target,
-    TargetARN :$target-arn!
+        ChapSecret :$secret-to-authenticate-initiator!,
+        IqnName :$initiator-name!,
+        ChapSecret :$secret-to-authenticate-target,
+        TargetARN :$target-arn!
     ) returns UpdateChapCredentialsOutput is service-operation('UpdateChapCredentials') {
         my $request-input = UpdateChapCredentialsInput.new(
-        :$secret-to-authenticate-initiator,
-        :$initiator-name,
-        :$secret-to-authenticate-target,
-        :$target-arn
+            :$secret-to-authenticate-initiator,
+            :$initiator-name,
+            :$secret-to-authenticate-target,
+            :$target-arn
         );
-;
+
         self.perform-operation(
             :api-call<UpdateChapCredentials>,
-            :return-type(UpdateChapCredentialsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-gateway-information(
-    GatewayTimezone :$gateway-timezone,
-    GatewayName :$gateway-name,
-    GatewayARN :$gateway-arn!
+        GatewayTimezone :$gateway-timezone,
+        GatewayName :$gateway-name,
+        GatewayARN :$gateway-arn!
     ) returns UpdateGatewayInformationOutput is service-operation('UpdateGatewayInformation') {
         my $request-input = UpdateGatewayInformationInput.new(
-        :$gateway-timezone,
-        :$gateway-name,
-        :$gateway-arn
+            :$gateway-timezone,
+            :$gateway-name,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<UpdateGatewayInformation>,
-            :return-type(UpdateGatewayInformationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-stored-iscsi-volume(
-    Bool :$preserve-existing-data!,
-    DiskId :$disk-id!,
-    TargetName :$target-name!,
-    SnapshotId :$snapshot-id,
-    NetworkInterfaceId :$network-interface-id!,
-    GatewayARN :$gateway-arn!
+        Bool :$preserve-existing-data!,
+        DiskId :$disk-id!,
+        TargetName :$target-name!,
+        SnapshotId :$snapshot-id,
+        NetworkInterfaceId :$network-interface-id!,
+        GatewayARN :$gateway-arn!
     ) returns CreateStorediSCSIVolumeOutput is service-operation('CreateStorediSCSIVolume') {
         my $request-input = CreateStorediSCSIVolumeInput.new(
-        :$preserve-existing-data,
-        :$disk-id,
-        :$target-name,
-        :$snapshot-id,
-        :$network-interface-id,
-        :$gateway-arn
+            :$preserve-existing-data,
+            :$disk-id,
+            :$target-name,
+            :$snapshot-id,
+            :$network-interface-id,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateStorediSCSIVolume>,
-            :return-type(CreateStorediSCSIVolumeOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-cached-iscsi-volumes(
-    Array[VolumeARN] :$volume-arns!
+        Array[VolumeARN] :$volume-arns!
     ) returns DescribeCachediSCSIVolumesOutput is service-operation('DescribeCachediSCSIVolumes') {
         my $request-input = DescribeCachediSCSIVolumesInput.new(
-        :$volume-arns
+            :$volume-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCachediSCSIVolumes>,
-            :return-type(DescribeCachediSCSIVolumesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tape-recovery-points(
-    PositiveIntObject :$limit,
-    Marker :$marker,
-    GatewayARN :$gateway-arn!
+        PositiveIntObject :$limit,
+        Marker :$marker,
+        GatewayARN :$gateway-arn!
     ) returns DescribeTapeRecoveryPointsOutput is service-operation('DescribeTapeRecoveryPoints') {
         my $request-input = DescribeTapeRecoveryPointsInput.new(
-        :$limit,
-        :$marker,
-        :$gateway-arn
+            :$limit,
+            :$marker,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTapeRecoveryPoints>,
-            :return-type(DescribeTapeRecoveryPointsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-file-shares(
-    PositiveIntObject :$limit,
-    Marker :$marker,
-    GatewayARN :$gateway-arn
+        PositiveIntObject :$limit,
+        Marker :$marker,
+        GatewayARN :$gateway-arn
     ) returns ListFileSharesOutput is service-operation('ListFileShares') {
         my $request-input = ListFileSharesInput.new(
-        :$limit,
-        :$marker,
-        :$gateway-arn
+            :$limit,
+            :$marker,
+            :$gateway-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListFileShares>,
-            :return-type(ListFileSharesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

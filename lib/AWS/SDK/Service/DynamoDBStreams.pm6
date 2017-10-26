@@ -198,77 +198,69 @@ class AWS::SDK::Service::DynamoDBStreams does AWS::SDK::Service {
     subset StreamArn of Str where 37 <= .chars <= 1024;
 
     method describe-stream(
-    PositiveIntegerObject :$limit,
-    ShardId :$exclusive-start-shard-id,
-    StreamArn :$stream-arn!
+        PositiveIntegerObject :$limit,
+        ShardId :$exclusive-start-shard-id,
+        StreamArn :$stream-arn!
     ) returns DescribeStreamOutput is service-operation('DescribeStream') {
         my $request-input = DescribeStreamInput.new(
-        :$limit,
-        :$exclusive-start-shard-id,
-        :$stream-arn
+            :$limit,
+            :$exclusive-start-shard-id,
+            :$stream-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStream>,
-            :return-type(DescribeStreamOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-records(
-    PositiveIntegerObject :$limit,
-    ShardIterator :$shard-iterator!
+        PositiveIntegerObject :$limit,
+        ShardIterator :$shard-iterator!
     ) returns GetRecordsOutput is service-operation('GetRecords') {
         my $request-input = GetRecordsInput.new(
-        :$limit,
-        :$shard-iterator
+            :$limit,
+            :$shard-iterator
         );
-;
+
         self.perform-operation(
             :api-call<GetRecords>,
-            :return-type(GetRecordsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-streams(
-    PositiveIntegerObject :$limit,
-    TableName :$table-name,
-    StreamArn :$exclusive-start-stream-arn
+        PositiveIntegerObject :$limit,
+        TableName :$table-name,
+        StreamArn :$exclusive-start-stream-arn
     ) returns ListStreamsOutput is service-operation('ListStreams') {
         my $request-input = ListStreamsInput.new(
-        :$limit,
-        :$table-name,
-        :$exclusive-start-stream-arn
+            :$limit,
+            :$table-name,
+            :$exclusive-start-stream-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListStreams>,
-            :return-type(ListStreamsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-shard-iterator(
-    ShardId :$shard-id!,
-    SequenceNumber :$sequence-number,
-    ShardIteratorType :$shard-iterator-type!,
-    StreamArn :$stream-arn!
+        ShardId :$shard-id!,
+        SequenceNumber :$sequence-number,
+        ShardIteratorType :$shard-iterator-type!,
+        StreamArn :$stream-arn!
     ) returns GetShardIteratorOutput is service-operation('GetShardIterator') {
         my $request-input = GetShardIteratorInput.new(
-        :$shard-id,
-        :$sequence-number,
-        :$shard-iterator-type,
-        :$stream-arn
+            :$shard-id,
+            :$sequence-number,
+            :$shard-iterator-type,
+            :$stream-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetShardIterator>,
-            :return-type(GetShardIteratorOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

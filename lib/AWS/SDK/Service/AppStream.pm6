@@ -630,560 +630,502 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     }
 
     method describe-sessions(
-    AuthenticationType :$authentication-type,
-    String :$stack-name!,
-    Int :$limit,
-    String :$next-token,
-    UserId :$user-id,
-    String :$fleet-name!
+        AuthenticationType :$authentication-type,
+        String :$stack-name!,
+        Int :$limit,
+        String :$next-token,
+        UserId :$user-id,
+        String :$fleet-name!
     ) returns DescribeSessionsResult is service-operation('DescribeSessions') {
         my $request-input = DescribeSessionsRequest.new(
-        :$authentication-type,
-        :$stack-name,
-        :$limit,
-        :$next-token,
-        :$user-id,
-        :$fleet-name
+            :$authentication-type,
+            :$stack-name,
+            :$limit,
+            :$next-token,
+            :$user-id,
+            :$fleet-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSessions>,
-            :return-type(DescribeSessionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-fleet(
-    String :$stack-name!,
-    String :$fleet-name!
+        String :$stack-name!,
+        String :$fleet-name!
     ) returns AssociateFleetResult is service-operation('AssociateFleet') {
         my $request-input = AssociateFleetRequest.new(
-        :$stack-name,
-        :$fleet-name
+            :$stack-name,
+            :$fleet-name
         );
-;
+
         self.perform-operation(
             :api-call<AssociateFleet>,
-            :return-type(AssociateFleetResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-fleet(
-    String :$name!
+        String :$name!
     ) returns StopFleetResult is service-operation('StopFleet') {
         my $request-input = StopFleetRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StopFleet>,
-            :return-type(StopFleetResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-directory-configs(
-    Int :$max-results,
-    Array[Str] :$directory-names,
-    String :$next-token
+        Int :$max-results,
+        Array[Str] :$directory-names,
+        String :$next-token
     ) returns DescribeDirectoryConfigsResult is service-operation('DescribeDirectoryConfigs') {
         my $request-input = DescribeDirectoryConfigsRequest.new(
-        :$max-results,
-        :$directory-names,
-        :$next-token
+            :$max-results,
+            :$directory-names,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDirectoryConfigs>,
-            :return-type(DescribeDirectoryConfigsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-fleet(
-    String :$name!
+        String :$name!
     ) returns DeleteFleetResult is service-operation('DeleteFleet') {
         my $request-input = DeleteFleetRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFleet>,
-            :return-type(DeleteFleetResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-stack(
-    DisplayName :$display-name,
-    Description :$description,
-    Array[StorageConnector] :$storage-connectors,
-    String :$name!
+        DisplayName :$display-name,
+        Description :$description,
+        Array[StorageConnector] :$storage-connectors,
+        String :$name!
     ) returns CreateStackResult is service-operation('CreateStack') {
         my $request-input = CreateStackRequest.new(
-        :$display-name,
-        :$description,
-        :$storage-connectors,
-        :$name
+            :$display-name,
+            :$description,
+            :$storage-connectors,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateStack>,
-            :return-type(CreateStackResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-stack(
-    DisplayName :$display-name,
-    Description :$description,
-    Array[StorageConnector] :$storage-connectors,
-    String :$name!,
-    Bool :$delete-storage-connectors
+        DisplayName :$display-name,
+        Description :$description,
+        Array[StorageConnector] :$storage-connectors,
+        String :$name!,
+        Bool :$delete-storage-connectors
     ) returns UpdateStackResult is service-operation('UpdateStack') {
         my $request-input = UpdateStackRequest.new(
-        :$display-name,
-        :$description,
-        :$storage-connectors,
-        :$name,
-        :$delete-storage-connectors
+            :$display-name,
+            :$description,
+            :$storage-connectors,
+            :$name,
+            :$delete-storage-connectors
         );
-;
+
         self.perform-operation(
             :api-call<UpdateStack>,
-            :return-type(UpdateStackResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-directory-config(
-    Str :$directory-name!
+        Str :$directory-name!
     ) returns DeleteDirectoryConfigResult is service-operation('DeleteDirectoryConfig') {
         my $request-input = DeleteDirectoryConfigRequest.new(
-        :$directory-name
+            :$directory-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDirectoryConfig>,
-            :return-type(DeleteDirectoryConfigResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-fleet(
-    String :$stack-name!,
-    String :$fleet-name!
+        String :$stack-name!,
+        String :$fleet-name!
     ) returns DisassociateFleetResult is service-operation('DisassociateFleet') {
         my $request-input = DisassociateFleetRequest.new(
-        :$stack-name,
-        :$fleet-name
+            :$stack-name,
+            :$fleet-name
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateFleet>,
-            :return-type(DisassociateFleetResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-image(
-    Name :$name!
+        Name :$name!
     ) returns DeleteImageResult is service-operation('DeleteImage') {
         my $request-input = DeleteImageRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteImage>,
-            :return-type(DeleteImageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-image-builder(
-    DisplayName :$display-name,
-    DomainJoinInfo :$domain-join-info,
-    Description :$description,
-    String :$image-name!,
-    VpcConfig :$vpc-config,
-    Name :$name!,
-    String :$instance-type!,
-    Bool :$enable-default-internet-access
+        DisplayName :$display-name,
+        DomainJoinInfo :$domain-join-info,
+        Description :$description,
+        String :$image-name!,
+        VpcConfig :$vpc-config,
+        Name :$name!,
+        String :$instance-type!,
+        Bool :$enable-default-internet-access
     ) returns CreateImageBuilderResult is service-operation('CreateImageBuilder') {
         my $request-input = CreateImageBuilderRequest.new(
-        :$display-name,
-        :$domain-join-info,
-        :$description,
-        :$image-name,
-        :$vpc-config,
-        :$name,
-        :$instance-type,
-        :$enable-default-internet-access
+            :$display-name,
+            :$domain-join-info,
+            :$description,
+            :$image-name,
+            :$vpc-config,
+            :$name,
+            :$instance-type,
+            :$enable-default-internet-access
         );
-;
+
         self.perform-operation(
             :api-call<CreateImageBuilder>,
-            :return-type(CreateImageBuilderResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-directory-config(
-    Str :$directory-name!,
-    Array[OrganizationalUnitDistinguishedName] :$organizational-unit-distinguished-names!,
-    ServiceAccountCredentials :$service-account-credentials!
+        Str :$directory-name!,
+        Array[OrganizationalUnitDistinguishedName] :$organizational-unit-distinguished-names!,
+        ServiceAccountCredentials :$service-account-credentials!
     ) returns CreateDirectoryConfigResult is service-operation('CreateDirectoryConfig') {
         my $request-input = CreateDirectoryConfigRequest.new(
-        :$directory-name,
-        :$organizational-unit-distinguished-names,
-        :$service-account-credentials
+            :$directory-name,
+            :$organizational-unit-distinguished-names,
+            :$service-account-credentials
         );
-;
+
         self.perform-operation(
             :api-call<CreateDirectoryConfig>,
-            :return-type(CreateDirectoryConfigResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-fleet(
-    DisplayName :$display-name,
-    Bool :$delete-vpc-config,
-    ComputeCapacity :$compute-capacity,
-    DomainJoinInfo :$domain-join-info,
-    Description :$description,
-    Int :$disconnect-timeout-in-seconds,
-    Int :$max-user-duration-in-seconds,
-    String :$image-name,
-    VpcConfig :$vpc-config,
-    String :$name!,
-    Array[FleetAttribute] :$attributes-to-delete,
-    String :$instance-type,
-    Bool :$enable-default-internet-access
+        DisplayName :$display-name,
+        Bool :$delete-vpc-config,
+        ComputeCapacity :$compute-capacity,
+        DomainJoinInfo :$domain-join-info,
+        Description :$description,
+        Int :$disconnect-timeout-in-seconds,
+        Int :$max-user-duration-in-seconds,
+        String :$image-name,
+        VpcConfig :$vpc-config,
+        String :$name!,
+        Array[FleetAttribute] :$attributes-to-delete,
+        String :$instance-type,
+        Bool :$enable-default-internet-access
     ) returns UpdateFleetResult is service-operation('UpdateFleet') {
         my $request-input = UpdateFleetRequest.new(
-        :$display-name,
-        :$delete-vpc-config,
-        :$compute-capacity,
-        :$domain-join-info,
-        :$description,
-        :$disconnect-timeout-in-seconds,
-        :$max-user-duration-in-seconds,
-        :$image-name,
-        :$vpc-config,
-        :$name,
-        :$attributes-to-delete,
-        :$instance-type,
-        :$enable-default-internet-access
+            :$display-name,
+            :$delete-vpc-config,
+            :$compute-capacity,
+            :$domain-join-info,
+            :$description,
+            :$disconnect-timeout-in-seconds,
+            :$max-user-duration-in-seconds,
+            :$image-name,
+            :$vpc-config,
+            :$name,
+            :$attributes-to-delete,
+            :$instance-type,
+            :$enable-default-internet-access
         );
-;
+
         self.perform-operation(
             :api-call<UpdateFleet>,
-            :return-type(UpdateFleetResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-image-builder(
-    String :$name!
+        String :$name!
     ) returns StartImageBuilderResult is service-operation('StartImageBuilder') {
         my $request-input = StartImageBuilderRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StartImageBuilder>,
-            :return-type(StartImageBuilderResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-fleet(
-    String :$name!
+        String :$name!
     ) returns StartFleetResult is service-operation('StartFleet') {
         my $request-input = StartFleetRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StartFleet>,
-            :return-type(StartFleetResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-fleet(
-    DisplayName :$display-name,
-    ComputeCapacity :$compute-capacity!,
-    DomainJoinInfo :$domain-join-info,
-    Description :$description,
-    Int :$disconnect-timeout-in-seconds,
-    Int :$max-user-duration-in-seconds,
-    String :$image-name!,
-    VpcConfig :$vpc-config,
-    Name :$name!,
-    String :$instance-type!,
-    Bool :$enable-default-internet-access,
-    FleetType :$fleet-type
+        DisplayName :$display-name,
+        ComputeCapacity :$compute-capacity!,
+        DomainJoinInfo :$domain-join-info,
+        Description :$description,
+        Int :$disconnect-timeout-in-seconds,
+        Int :$max-user-duration-in-seconds,
+        String :$image-name!,
+        VpcConfig :$vpc-config,
+        Name :$name!,
+        String :$instance-type!,
+        Bool :$enable-default-internet-access,
+        FleetType :$fleet-type
     ) returns CreateFleetResult is service-operation('CreateFleet') {
         my $request-input = CreateFleetRequest.new(
-        :$display-name,
-        :$compute-capacity,
-        :$domain-join-info,
-        :$description,
-        :$disconnect-timeout-in-seconds,
-        :$max-user-duration-in-seconds,
-        :$image-name,
-        :$vpc-config,
-        :$name,
-        :$instance-type,
-        :$enable-default-internet-access,
-        :$fleet-type
+            :$display-name,
+            :$compute-capacity,
+            :$domain-join-info,
+            :$description,
+            :$disconnect-timeout-in-seconds,
+            :$max-user-duration-in-seconds,
+            :$image-name,
+            :$vpc-config,
+            :$name,
+            :$instance-type,
+            :$enable-default-internet-access,
+            :$fleet-type
         );
-;
+
         self.perform-operation(
             :api-call<CreateFleet>,
-            :return-type(CreateFleetResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-image-builder(
-    String :$name!
+        String :$name!
     ) returns StopImageBuilderResult is service-operation('StopImageBuilder') {
         my $request-input = StopImageBuilderRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StopImageBuilder>,
-            :return-type(StopImageBuilderResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-images(
-    Array[String] :$names
+        Array[String] :$names
     ) returns DescribeImagesResult is service-operation('DescribeImages') {
         my $request-input = DescribeImagesRequest.new(
-        :$names
+            :$names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeImages>,
-            :return-type(DescribeImagesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-image-builders(
-    Int :$max-results,
-    Array[String] :$names,
-    String :$next-token
+        Int :$max-results,
+        Array[String] :$names,
+        String :$next-token
     ) returns DescribeImageBuildersResult is service-operation('DescribeImageBuilders') {
         my $request-input = DescribeImageBuildersRequest.new(
-        :$max-results,
-        :$names,
-        :$next-token
+            :$max-results,
+            :$names,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeImageBuilders>,
-            :return-type(DescribeImageBuildersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-fleets(
-    Array[String] :$names,
-    String :$next-token
+        Array[String] :$names,
+        String :$next-token
     ) returns DescribeFleetsResult is service-operation('DescribeFleets') {
         my $request-input = DescribeFleetsRequest.new(
-        :$names,
-        :$next-token
+            :$names,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFleets>,
-            :return-type(DescribeFleetsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-stack(
-    String :$name!
+        String :$name!
     ) returns DeleteStackResult is service-operation('DeleteStack') {
         my $request-input = DeleteStackRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteStack>,
-            :return-type(DeleteStackResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-streaming-url(
-    String :$stack-name!,
-    String :$session-context,
-    Int :$validity,
-    StreamingUrlUserId :$user-id!,
-    String :$fleet-name!,
-    String :$application-id
+        String :$stack-name!,
+        String :$session-context,
+        Int :$validity,
+        StreamingUrlUserId :$user-id!,
+        String :$fleet-name!,
+        String :$application-id
     ) returns CreateStreamingURLResult is service-operation('CreateStreamingURL') {
         my $request-input = CreateStreamingURLRequest.new(
-        :$stack-name,
-        :$session-context,
-        :$validity,
-        :$user-id,
-        :$fleet-name,
-        :$application-id
+            :$stack-name,
+            :$session-context,
+            :$validity,
+            :$user-id,
+            :$fleet-name,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateStreamingURL>,
-            :return-type(CreateStreamingURLResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-image-builder-streaming-url(
-    Int :$validity,
-    String :$name!
+        Int :$validity,
+        String :$name!
     ) returns CreateImageBuilderStreamingURLResult is service-operation('CreateImageBuilderStreamingURL') {
         my $request-input = CreateImageBuilderStreamingURLRequest.new(
-        :$validity,
-        :$name
+            :$validity,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateImageBuilderStreamingURL>,
-            :return-type(CreateImageBuilderStreamingURLResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-directory-config(
-    Str :$directory-name!,
-    Array[OrganizationalUnitDistinguishedName] :$organizational-unit-distinguished-names,
-    ServiceAccountCredentials :$service-account-credentials
+        Str :$directory-name!,
+        Array[OrganizationalUnitDistinguishedName] :$organizational-unit-distinguished-names,
+        ServiceAccountCredentials :$service-account-credentials
     ) returns UpdateDirectoryConfigResult is service-operation('UpdateDirectoryConfig') {
         my $request-input = UpdateDirectoryConfigRequest.new(
-        :$directory-name,
-        :$organizational-unit-distinguished-names,
-        :$service-account-credentials
+            :$directory-name,
+            :$organizational-unit-distinguished-names,
+            :$service-account-credentials
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDirectoryConfig>,
-            :return-type(UpdateDirectoryConfigResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-associated-stacks(
-    String :$next-token,
-    String :$fleet-name!
+        String :$next-token,
+        String :$fleet-name!
     ) returns ListAssociatedStacksResult is service-operation('ListAssociatedStacks') {
         my $request-input = ListAssociatedStacksRequest.new(
-        :$next-token,
-        :$fleet-name
+            :$next-token,
+            :$fleet-name
         );
-;
+
         self.perform-operation(
             :api-call<ListAssociatedStacks>,
-            :return-type(ListAssociatedStacksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method expire-session(
-    String :$session-id!
+        String :$session-id!
     ) returns ExpireSessionResult is service-operation('ExpireSession') {
         my $request-input = ExpireSessionRequest.new(
-        :$session-id
+            :$session-id
         );
-;
+
         self.perform-operation(
             :api-call<ExpireSession>,
-            :return-type(ExpireSessionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-associated-fleets(
-    String :$stack-name!,
-    String :$next-token
+        String :$stack-name!,
+        String :$next-token
     ) returns ListAssociatedFleetsResult is service-operation('ListAssociatedFleets') {
         my $request-input = ListAssociatedFleetsRequest.new(
-        :$stack-name,
-        :$next-token
+            :$stack-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListAssociatedFleets>,
-            :return-type(ListAssociatedFleetsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-stacks(
-    Array[String] :$names,
-    String :$next-token
+        Array[String] :$names,
+        String :$next-token
     ) returns DescribeStacksResult is service-operation('DescribeStacks') {
         my $request-input = DescribeStacksRequest.new(
-        :$names,
-        :$next-token
+            :$names,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStacks>,
-            :return-type(DescribeStacksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-image-builder(
-    Name :$name!
+        Name :$name!
     ) returns DeleteImageBuilderResult is service-operation('DeleteImageBuilder') {
         my $request-input = DeleteImageBuilderRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteImageBuilder>,
-            :return-type(DeleteImageBuilderResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

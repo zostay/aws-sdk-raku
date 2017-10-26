@@ -741,604 +741,542 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     subset LoadBalancerStateEnum of Str where $_ ~~ any('active', 'provisioning', 'active_impaired', 'failed');
 
     method set-security-groups(
-    Array[Str] :$security-groups!,
-    Str :$load-balancer-arn!
+        Array[Str] :$security-groups!,
+        Str :$load-balancer-arn!
     ) returns SetSecurityGroupsOutput is service-operation('SetSecurityGroups') {
         my $request-input = SetSecurityGroupsInput.new(
-        :$security-groups,
-        :$load-balancer-arn
+            :$security-groups,
+            :$load-balancer-arn
         );
-;
+
         self.perform-operation(
             :api-call<SetSecurityGroups>,
-            :return-type(SetSecurityGroupsOutput),
-            :result-wrapper('SetSecurityGroupsResult'),
             :$request-input,
         );
     }
 
     method set-rule-priorities(
-    Array[RulePriorityPair] :$rule-priorities!
+        Array[RulePriorityPair] :$rule-priorities!
     ) returns SetRulePrioritiesOutput is service-operation('SetRulePriorities') {
         my $request-input = SetRulePrioritiesInput.new(
-        :$rule-priorities
+            :$rule-priorities
         );
-;
+
         self.perform-operation(
             :api-call<SetRulePriorities>,
-            :return-type(SetRulePrioritiesOutput),
-            :result-wrapper('SetRulePrioritiesResult'),
             :$request-input,
         );
     }
 
     method modify-rule(
-    Array[RuleCondition] :$conditions,
-    Array[Action] :$actions,
-    Str :$rule-arn!
+        Array[RuleCondition] :$conditions,
+        Array[Action] :$actions,
+        Str :$rule-arn!
     ) returns ModifyRuleOutput is service-operation('ModifyRule') {
         my $request-input = ModifyRuleInput.new(
-        :$conditions,
-        :$actions,
-        :$rule-arn
+            :$conditions,
+            :$actions,
+            :$rule-arn
         );
-;
+
         self.perform-operation(
             :api-call<ModifyRule>,
-            :return-type(ModifyRuleOutput),
-            :result-wrapper('ModifyRuleResult'),
             :$request-input,
         );
     }
 
     method modify-listener(
-    Array[Certificate] :$certificates,
-    Array[Action] :$default-actions,
-    Str :$listener-arn!,
-    ProtocolEnum :$protocol,
-    Port :$port,
-    Str :$ssl-policy
+        Array[Certificate] :$certificates,
+        Array[Action] :$default-actions,
+        Str :$listener-arn!,
+        ProtocolEnum :$protocol,
+        Port :$port,
+        Str :$ssl-policy
     ) returns ModifyListenerOutput is service-operation('ModifyListener') {
         my $request-input = ModifyListenerInput.new(
-        :$certificates,
-        :$default-actions,
-        :$listener-arn,
-        :$protocol,
-        :$port,
-        :$ssl-policy
+            :$certificates,
+            :$default-actions,
+            :$listener-arn,
+            :$protocol,
+            :$port,
+            :$ssl-policy
         );
-;
+
         self.perform-operation(
             :api-call<ModifyListener>,
-            :return-type(ModifyListenerOutput),
-            :result-wrapper('ModifyListenerResult'),
             :$request-input,
         );
     }
 
     method describe-target-health(
-    Str :$target-group-arn!,
-    Array[TargetDescription] :$targets
+        Str :$target-group-arn!,
+        Array[TargetDescription] :$targets
     ) returns DescribeTargetHealthOutput is service-operation('DescribeTargetHealth') {
         my $request-input = DescribeTargetHealthInput.new(
-        :$target-group-arn,
-        :$targets
+            :$target-group-arn,
+            :$targets
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTargetHealth>,
-            :return-type(DescribeTargetHealthOutput),
-            :result-wrapper('DescribeTargetHealthResult'),
             :$request-input,
         );
     }
 
     method describe-target-groups(
-    Array[Str] :$target-group-arns,
-    Str :$load-balancer-arn,
-    Array[Str] :$names,
-    PageSize :$page-size,
-    Str :$marker
+        Array[Str] :$target-group-arns,
+        Str :$load-balancer-arn,
+        Array[Str] :$names,
+        PageSize :$page-size,
+        Str :$marker
     ) returns DescribeTargetGroupsOutput is service-operation('DescribeTargetGroups') {
         my $request-input = DescribeTargetGroupsInput.new(
-        :$target-group-arns,
-        :$load-balancer-arn,
-        :$names,
-        :$page-size,
-        :$marker
+            :$target-group-arns,
+            :$load-balancer-arn,
+            :$names,
+            :$page-size,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTargetGroups>,
-            :return-type(DescribeTargetGroupsOutput),
-            :result-wrapper('DescribeTargetGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancers(
-    Array[Str] :$load-balancer-arns,
-    Array[Str] :$names,
-    PageSize :$page-size,
-    Str :$marker
+        Array[Str] :$load-balancer-arns,
+        Array[Str] :$names,
+        PageSize :$page-size,
+        Str :$marker
     ) returns DescribeLoadBalancersOutput is service-operation('DescribeLoadBalancers') {
         my $request-input = DescribeLoadBalancersInput.new(
-        :$load-balancer-arns,
-        :$names,
-        :$page-size,
-        :$marker
+            :$load-balancer-arns,
+            :$names,
+            :$page-size,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoadBalancers>,
-            :return-type(DescribeLoadBalancersOutput),
-            :result-wrapper('DescribeLoadBalancersResult'),
             :$request-input,
         );
     }
 
     method create-target-group(
-    Matcher :$matcher,
-    Path :$health-check-path,
-    ProtocolEnum :$health-check-protocol,
-    Str :$vpc-id!,
-    TargetTypeEnum :$target-type,
-    HealthCheckThresholdCount :$unhealthy-threshold-count,
-    Str :$name!,
-    HealthCheckIntervalSeconds :$health-check-interval-seconds,
-    Port :$port!,
-    ProtocolEnum :$protocol!,
-    HealthCheckThresholdCount :$healthy-threshold-count,
-    HealthCheckTimeoutSeconds :$health-check-timeout-seconds,
-    Str :$health-check-port
+        Matcher :$matcher,
+        Path :$health-check-path,
+        ProtocolEnum :$health-check-protocol,
+        Str :$vpc-id!,
+        TargetTypeEnum :$target-type,
+        HealthCheckThresholdCount :$unhealthy-threshold-count,
+        Str :$name!,
+        HealthCheckIntervalSeconds :$health-check-interval-seconds,
+        Port :$port!,
+        ProtocolEnum :$protocol!,
+        HealthCheckThresholdCount :$healthy-threshold-count,
+        HealthCheckTimeoutSeconds :$health-check-timeout-seconds,
+        Str :$health-check-port
     ) returns CreateTargetGroupOutput is service-operation('CreateTargetGroup') {
         my $request-input = CreateTargetGroupInput.new(
-        :$matcher,
-        :$health-check-path,
-        :$health-check-protocol,
-        :$vpc-id,
-        :$target-type,
-        :$unhealthy-threshold-count,
-        :$name,
-        :$health-check-interval-seconds,
-        :$port,
-        :$protocol,
-        :$healthy-threshold-count,
-        :$health-check-timeout-seconds,
-        :$health-check-port
+            :$matcher,
+            :$health-check-path,
+            :$health-check-protocol,
+            :$vpc-id,
+            :$target-type,
+            :$unhealthy-threshold-count,
+            :$name,
+            :$health-check-interval-seconds,
+            :$port,
+            :$protocol,
+            :$healthy-threshold-count,
+            :$health-check-timeout-seconds,
+            :$health-check-port
         );
-;
+
         self.perform-operation(
             :api-call<CreateTargetGroup>,
-            :return-type(CreateTargetGroupOutput),
-            :result-wrapper('CreateTargetGroupResult'),
             :$request-input,
         );
     }
 
     method modify-target-group-attributes(
-    Array[TargetGroupAttribute] :$attributes!,
-    Str :$target-group-arn!
+        Array[TargetGroupAttribute] :$attributes!,
+        Str :$target-group-arn!
     ) returns ModifyTargetGroupAttributesOutput is service-operation('ModifyTargetGroupAttributes') {
         my $request-input = ModifyTargetGroupAttributesInput.new(
-        :$attributes,
-        :$target-group-arn
+            :$attributes,
+            :$target-group-arn
         );
-;
+
         self.perform-operation(
             :api-call<ModifyTargetGroupAttributes>,
-            :return-type(ModifyTargetGroupAttributesOutput),
-            :result-wrapper('ModifyTargetGroupAttributesResult'),
             :$request-input,
         );
     }
 
     method describe-ssl-policies(
-    Array[Str] :$names,
-    PageSize :$page-size,
-    Str :$marker
+        Array[Str] :$names,
+        PageSize :$page-size,
+        Str :$marker
     ) returns DescribeSSLPoliciesOutput is service-operation('DescribeSSLPolicies') {
         my $request-input = DescribeSSLPoliciesInput.new(
-        :$names,
-        :$page-size,
-        :$marker
+            :$names,
+            :$page-size,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSSLPolicies>,
-            :return-type(DescribeSSLPoliciesOutput),
-            :result-wrapper('DescribeSSLPoliciesResult'),
             :$request-input,
         );
     }
 
     method describe-account-limits(
-    PageSize :$page-size,
-    Str :$marker
+        PageSize :$page-size,
+        Str :$marker
     ) returns DescribeAccountLimitsOutput is service-operation('DescribeAccountLimits') {
         my $request-input = DescribeAccountLimitsInput.new(
-        :$page-size,
-        :$marker
+            :$page-size,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAccountLimits>,
-            :return-type(DescribeAccountLimitsOutput),
-            :result-wrapper('DescribeAccountLimitsResult'),
             :$request-input,
         );
     }
 
     method delete-rule(
-    Str :$rule-arn!
+        Str :$rule-arn!
     ) returns DeleteRuleOutput is service-operation('DeleteRule') {
         my $request-input = DeleteRuleInput.new(
-        :$rule-arn
+            :$rule-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRule>,
-            :return-type(DeleteRuleOutput),
-            :result-wrapper('DeleteRuleResult'),
             :$request-input,
         );
     }
 
     method add-tags(
-    Array[Str] :$resource-arns!,
-    TagList :$tags!
+        Array[Str] :$resource-arns!,
+        TagList :$tags!
     ) returns AddTagsOutput is service-operation('AddTags') {
         my $request-input = AddTagsInput.new(
-        :$resource-arns,
-        :$tags
+            :$resource-arns,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<AddTags>,
-            :return-type(AddTagsOutput),
-            :result-wrapper('AddTagsResult'),
             :$request-input,
         );
     }
 
     method describe-rules(
-    Array[Str] :$rule-arns,
-    Str :$listener-arn,
-    PageSize :$page-size,
-    Str :$marker
+        Array[Str] :$rule-arns,
+        Str :$listener-arn,
+        PageSize :$page-size,
+        Str :$marker
     ) returns DescribeRulesOutput is service-operation('DescribeRules') {
         my $request-input = DescribeRulesInput.new(
-        :$rule-arns,
-        :$listener-arn,
-        :$page-size,
-        :$marker
+            :$rule-arns,
+            :$listener-arn,
+            :$page-size,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRules>,
-            :return-type(DescribeRulesOutput),
-            :result-wrapper('DescribeRulesResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancer-attributes(
-    Str :$load-balancer-arn!
+        Str :$load-balancer-arn!
     ) returns DescribeLoadBalancerAttributesOutput is service-operation('DescribeLoadBalancerAttributes') {
         my $request-input = DescribeLoadBalancerAttributesInput.new(
-        :$load-balancer-arn
+            :$load-balancer-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoadBalancerAttributes>,
-            :return-type(DescribeLoadBalancerAttributesOutput),
-            :result-wrapper('DescribeLoadBalancerAttributesResult'),
             :$request-input,
         );
     }
 
     method delete-target-group(
-    Str :$target-group-arn!
+        Str :$target-group-arn!
     ) returns DeleteTargetGroupOutput is service-operation('DeleteTargetGroup') {
         my $request-input = DeleteTargetGroupInput.new(
-        :$target-group-arn
+            :$target-group-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTargetGroup>,
-            :return-type(DeleteTargetGroupOutput),
-            :result-wrapper('DeleteTargetGroupResult'),
             :$request-input,
         );
     }
 
     method set-subnets(
-    Array[SubnetMapping] :$subnet-mappings,
-    Array[Str] :$subnets!,
-    Str :$load-balancer-arn!
+        Array[SubnetMapping] :$subnet-mappings,
+        Array[Str] :$subnets!,
+        Str :$load-balancer-arn!
     ) returns SetSubnetsOutput is service-operation('SetSubnets') {
         my $request-input = SetSubnetsInput.new(
-        :$subnet-mappings,
-        :$subnets,
-        :$load-balancer-arn
+            :$subnet-mappings,
+            :$subnets,
+            :$load-balancer-arn
         );
-;
+
         self.perform-operation(
             :api-call<SetSubnets>,
-            :return-type(SetSubnetsOutput),
-            :result-wrapper('SetSubnetsResult'),
             :$request-input,
         );
     }
 
     method deregister-targets(
-    Str :$target-group-arn!,
-    Array[TargetDescription] :$targets!
+        Str :$target-group-arn!,
+        Array[TargetDescription] :$targets!
     ) returns DeregisterTargetsOutput is service-operation('DeregisterTargets') {
         my $request-input = DeregisterTargetsInput.new(
-        :$target-group-arn,
-        :$targets
+            :$target-group-arn,
+            :$targets
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterTargets>,
-            :return-type(DeregisterTargetsOutput),
-            :result-wrapper('DeregisterTargetsResult'),
             :$request-input,
         );
     }
 
     method create-listener(
-    Array[Certificate] :$certificates,
-    Array[Action] :$default-actions!,
-    Str :$load-balancer-arn!,
-    Port :$port!,
-    ProtocolEnum :$protocol!,
-    Str :$ssl-policy
+        Array[Certificate] :$certificates,
+        Array[Action] :$default-actions!,
+        Str :$load-balancer-arn!,
+        Port :$port!,
+        ProtocolEnum :$protocol!,
+        Str :$ssl-policy
     ) returns CreateListenerOutput is service-operation('CreateListener') {
         my $request-input = CreateListenerInput.new(
-        :$certificates,
-        :$default-actions,
-        :$load-balancer-arn,
-        :$port,
-        :$protocol,
-        :$ssl-policy
+            :$certificates,
+            :$default-actions,
+            :$load-balancer-arn,
+            :$port,
+            :$protocol,
+            :$ssl-policy
         );
-;
+
         self.perform-operation(
             :api-call<CreateListener>,
-            :return-type(CreateListenerOutput),
-            :result-wrapper('CreateListenerResult'),
             :$request-input,
         );
     }
 
     method register-targets(
-    Str :$target-group-arn!,
-    Array[TargetDescription] :$targets!
+        Str :$target-group-arn!,
+        Array[TargetDescription] :$targets!
     ) returns RegisterTargetsOutput is service-operation('RegisterTargets') {
         my $request-input = RegisterTargetsInput.new(
-        :$target-group-arn,
-        :$targets
+            :$target-group-arn,
+            :$targets
         );
-;
+
         self.perform-operation(
             :api-call<RegisterTargets>,
-            :return-type(RegisterTargetsOutput),
-            :result-wrapper('RegisterTargetsResult'),
             :$request-input,
         );
     }
 
     method describe-listeners(
-    Str :$load-balancer-arn,
-    Array[Str] :$listener-arns,
-    PageSize :$page-size,
-    Str :$marker
+        Str :$load-balancer-arn,
+        Array[Str] :$listener-arns,
+        PageSize :$page-size,
+        Str :$marker
     ) returns DescribeListenersOutput is service-operation('DescribeListeners') {
         my $request-input = DescribeListenersInput.new(
-        :$load-balancer-arn,
-        :$listener-arns,
-        :$page-size,
-        :$marker
+            :$load-balancer-arn,
+            :$listener-arns,
+            :$page-size,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeListeners>,
-            :return-type(DescribeListenersOutput),
-            :result-wrapper('DescribeListenersResult'),
             :$request-input,
         );
     }
 
     method create-load-balancer(
-    LoadBalancerSchemeEnum :$scheme,
-    Array[SubnetMapping] :$subnet-mappings,
-    IpAddressType :$ip-address-type,
-    Array[Str] :$security-groups,
-    Array[Str] :$subnets,
-    TagList :$tags,
-    Str :$name!,
-    LoadBalancerTypeEnum :$type
+        LoadBalancerSchemeEnum :$scheme,
+        Array[SubnetMapping] :$subnet-mappings,
+        IpAddressType :$ip-address-type,
+        Array[Str] :$security-groups,
+        Array[Str] :$subnets,
+        TagList :$tags,
+        Str :$name!,
+        LoadBalancerTypeEnum :$type
     ) returns CreateLoadBalancerOutput is service-operation('CreateLoadBalancer') {
         my $request-input = CreateLoadBalancerInput.new(
-        :$scheme,
-        :$subnet-mappings,
-        :$ip-address-type,
-        :$security-groups,
-        :$subnets,
-        :$tags,
-        :$name,
-        :$type
+            :$scheme,
+            :$subnet-mappings,
+            :$ip-address-type,
+            :$security-groups,
+            :$subnets,
+            :$tags,
+            :$name,
+            :$type
         );
-;
+
         self.perform-operation(
             :api-call<CreateLoadBalancer>,
-            :return-type(CreateLoadBalancerOutput),
-            :result-wrapper('CreateLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method remove-tags(
-    Array[Str] :$resource-arns!,
-    Array[TagKey] :$tag-keys!
+        Array[Str] :$resource-arns!,
+        Array[TagKey] :$tag-keys!
     ) returns RemoveTagsOutput is service-operation('RemoveTags') {
         my $request-input = RemoveTagsInput.new(
-        :$resource-arns,
-        :$tag-keys
+            :$resource-arns,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTags>,
-            :return-type(RemoveTagsOutput),
-            :result-wrapper('RemoveTagsResult'),
             :$request-input,
         );
     }
 
     method describe-target-group-attributes(
-    Str :$target-group-arn!
+        Str :$target-group-arn!
     ) returns DescribeTargetGroupAttributesOutput is service-operation('DescribeTargetGroupAttributes') {
         my $request-input = DescribeTargetGroupAttributesInput.new(
-        :$target-group-arn
+            :$target-group-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTargetGroupAttributes>,
-            :return-type(DescribeTargetGroupAttributesOutput),
-            :result-wrapper('DescribeTargetGroupAttributesResult'),
             :$request-input,
         );
     }
 
     method describe-tags(
-    Array[Str] :$resource-arns!
+        Array[Str] :$resource-arns!
     ) returns DescribeTagsOutput is service-operation('DescribeTags') {
         my $request-input = DescribeTagsInput.new(
-        :$resource-arns
+            :$resource-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTags>,
-            :return-type(DescribeTagsOutput),
-            :result-wrapper('DescribeTagsResult'),
             :$request-input,
         );
     }
 
     method delete-listener(
-    Str :$listener-arn!
+        Str :$listener-arn!
     ) returns DeleteListenerOutput is service-operation('DeleteListener') {
         my $request-input = DeleteListenerInput.new(
-        :$listener-arn
+            :$listener-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteListener>,
-            :return-type(DeleteListenerOutput),
-            :result-wrapper('DeleteListenerResult'),
             :$request-input,
         );
     }
 
     method modify-target-group(
-    Matcher :$matcher,
-    Path :$health-check-path,
-    ProtocolEnum :$health-check-protocol,
-    HealthCheckThresholdCount :$unhealthy-threshold-count,
-    HealthCheckIntervalSeconds :$health-check-interval-seconds,
-    Str :$target-group-arn!,
-    HealthCheckThresholdCount :$healthy-threshold-count,
-    HealthCheckTimeoutSeconds :$health-check-timeout-seconds,
-    Str :$health-check-port
+        Matcher :$matcher,
+        Path :$health-check-path,
+        ProtocolEnum :$health-check-protocol,
+        HealthCheckThresholdCount :$unhealthy-threshold-count,
+        HealthCheckIntervalSeconds :$health-check-interval-seconds,
+        Str :$target-group-arn!,
+        HealthCheckThresholdCount :$healthy-threshold-count,
+        HealthCheckTimeoutSeconds :$health-check-timeout-seconds,
+        Str :$health-check-port
     ) returns ModifyTargetGroupOutput is service-operation('ModifyTargetGroup') {
         my $request-input = ModifyTargetGroupInput.new(
-        :$matcher,
-        :$health-check-path,
-        :$health-check-protocol,
-        :$unhealthy-threshold-count,
-        :$health-check-interval-seconds,
-        :$target-group-arn,
-        :$healthy-threshold-count,
-        :$health-check-timeout-seconds,
-        :$health-check-port
+            :$matcher,
+            :$health-check-path,
+            :$health-check-protocol,
+            :$unhealthy-threshold-count,
+            :$health-check-interval-seconds,
+            :$target-group-arn,
+            :$healthy-threshold-count,
+            :$health-check-timeout-seconds,
+            :$health-check-port
         );
-;
+
         self.perform-operation(
             :api-call<ModifyTargetGroup>,
-            :return-type(ModifyTargetGroupOutput),
-            :result-wrapper('ModifyTargetGroupResult'),
             :$request-input,
         );
     }
 
     method modify-load-balancer-attributes(
-    Str :$load-balancer-arn!,
-    LoadBalancerAttributes :$attributes!
+        Str :$load-balancer-arn!,
+        LoadBalancerAttributes :$attributes!
     ) returns ModifyLoadBalancerAttributesOutput is service-operation('ModifyLoadBalancerAttributes') {
         my $request-input = ModifyLoadBalancerAttributesInput.new(
-        :$load-balancer-arn,
-        :$attributes
+            :$load-balancer-arn,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<ModifyLoadBalancerAttributes>,
-            :return-type(ModifyLoadBalancerAttributesOutput),
-            :result-wrapper('ModifyLoadBalancerAttributesResult'),
             :$request-input,
         );
     }
 
     method set-ip-address-type(
-    IpAddressType :$ip-address-type!,
-    Str :$load-balancer-arn!
+        IpAddressType :$ip-address-type!,
+        Str :$load-balancer-arn!
     ) returns SetIpAddressTypeOutput is service-operation('SetIpAddressType') {
         my $request-input = SetIpAddressTypeInput.new(
-        :$ip-address-type,
-        :$load-balancer-arn
+            :$ip-address-type,
+            :$load-balancer-arn
         );
-;
+
         self.perform-operation(
             :api-call<SetIpAddressType>,
-            :return-type(SetIpAddressTypeOutput),
-            :result-wrapper('SetIpAddressTypeResult'),
             :$request-input,
         );
     }
 
     method delete-load-balancer(
-    Str :$load-balancer-arn!
+        Str :$load-balancer-arn!
     ) returns DeleteLoadBalancerOutput is service-operation('DeleteLoadBalancer') {
         my $request-input = DeleteLoadBalancerInput.new(
-        :$load-balancer-arn
+            :$load-balancer-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLoadBalancer>,
-            :return-type(DeleteLoadBalancerOutput),
-            :result-wrapper('DeleteLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method create-rule(
-    Array[RuleCondition] :$conditions!,
-    Array[Action] :$actions!,
-    Str :$listener-arn!,
-    RulePriority :$priority!
+        Array[RuleCondition] :$conditions!,
+        Array[Action] :$actions!,
+        Str :$listener-arn!,
+        RulePriority :$priority!
     ) returns CreateRuleOutput is service-operation('CreateRule') {
         my $request-input = CreateRuleInput.new(
-        :$conditions,
-        :$actions,
-        :$listener-arn,
-        :$priority
+            :$conditions,
+            :$actions,
+            :$listener-arn,
+            :$priority
         );
-;
+
         self.perform-operation(
             :api-call<CreateRule>,
-            :return-type(CreateRuleOutput),
-            :result-wrapper('CreateRuleResult'),
             :$request-input,
         );
     }

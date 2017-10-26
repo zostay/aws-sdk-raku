@@ -573,628 +573,562 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
     }
 
     method put-subscription-filter(
-    FilterName :$filter-name!,
-    LogGroupName :$log-group-name!,
-    DestinationArn :$destination-arn!,
-    FilterPattern :$filter-pattern!,
-    Distribution :$distribution,
-    RoleArn :$role-arn
+        FilterName :$filter-name!,
+        LogGroupName :$log-group-name!,
+        DestinationArn :$destination-arn!,
+        FilterPattern :$filter-pattern!,
+        Distribution :$distribution,
+        RoleArn :$role-arn
     ) is service-operation('PutSubscriptionFilter') {
         my $request-input = PutSubscriptionFilterRequest.new(
-        :$filter-name,
-        :$log-group-name,
-        :$destination-arn,
-        :$filter-pattern,
-        :$distribution,
-        :$role-arn
+            :$filter-name,
+            :$log-group-name,
+            :$destination-arn,
+            :$filter-pattern,
+            :$distribution,
+            :$role-arn
         );
-;
+
         self.perform-operation(
             :api-call<PutSubscriptionFilter>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-kms-key(
-    LogGroupName :$log-group-name!
+        LogGroupName :$log-group-name!
     ) is service-operation('DisassociateKmsKey') {
         my $request-input = DisassociateKmsKeyRequest.new(
-        :$log-group-name
+            :$log-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateKmsKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-retention-policy(
-    LogGroupName :$log-group-name!
+        LogGroupName :$log-group-name!
     ) is service-operation('DeleteRetentionPolicy') {
         my $request-input = DeleteRetentionPolicyRequest.new(
-        :$log-group-name
+            :$log-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRetentionPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-destination(
-    DestinationName :$destination-name!
+        DestinationName :$destination-name!
     ) is service-operation('DeleteDestination') {
         my $request-input = DeleteDestinationRequest.new(
-        :$destination-name
+            :$destination-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDestination>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-export-task(
-    Str :$destination-prefix,
-    LogGroupName :$log-group-name!,
-    ExportTaskName :$task-name,
-    Timestamp :$to!,
-    LogStreamName :$log-stream-name-prefix,
-    ExportDestinationBucket :$destination!,
-    Timestamp :$from!
+        Str :$destination-prefix,
+        LogGroupName :$log-group-name!,
+        ExportTaskName :$task-name,
+        Timestamp :$to!,
+        LogStreamName :$log-stream-name-prefix,
+        ExportDestinationBucket :$destination!,
+        Timestamp :$from!
     ) returns CreateExportTaskResponse is service-operation('CreateExportTask') {
         my $request-input = CreateExportTaskRequest.new(
-        :$destination-prefix,
-        :$log-group-name,
-        :$task-name,
-        :$to,
-        :$log-stream-name-prefix,
-        :$destination,
-        :$from
+            :$destination-prefix,
+            :$log-group-name,
+            :$task-name,
+            :$to,
+            :$log-stream-name-prefix,
+            :$destination,
+            :$from
         );
-;
+
         self.perform-operation(
             :api-call<CreateExportTask>,
-            :return-type(CreateExportTaskResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-export-task(
-    ExportTaskId :$task-id!
+        ExportTaskId :$task-id!
     ) is service-operation('CancelExportTask') {
         my $request-input = CancelExportTaskRequest.new(
-        :$task-id
+            :$task-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelExportTask>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method test-metric-filter(
-    FilterPattern :$filter-pattern!,
-    TestEventMessages :$log-event-messages!
+        FilterPattern :$filter-pattern!,
+        TestEventMessages :$log-event-messages!
     ) returns TestMetricFilterResponse is service-operation('TestMetricFilter') {
         my $request-input = TestMetricFilterRequest.new(
-        :$filter-pattern,
-        :$log-event-messages
+            :$filter-pattern,
+            :$log-event-messages
         );
-;
+
         self.perform-operation(
             :api-call<TestMetricFilter>,
-            :return-type(TestMetricFilterResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-log-group(
-    LogGroupName :$log-group-name!,
-    Tags :$tags!
+        LogGroupName :$log-group-name!,
+        Tags :$tags!
     ) is service-operation('TagLogGroup') {
         my $request-input = TagLogGroupRequest.new(
-        :$log-group-name,
-        :$tags
+            :$log-group-name,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<TagLogGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-log-events(
-    LogGroupName :$log-group-name!,
-    SequenceToken :$sequence-token,
-    LogStreamName :$log-stream-name!,
-    InputLogEvents :$log-events!
+        LogGroupName :$log-group-name!,
+        SequenceToken :$sequence-token,
+        LogStreamName :$log-stream-name!,
+        InputLogEvents :$log-events!
     ) returns PutLogEventsResponse is service-operation('PutLogEvents') {
         my $request-input = PutLogEventsRequest.new(
-        :$log-group-name,
-        :$sequence-token,
-        :$log-stream-name,
-        :$log-events
+            :$log-group-name,
+            :$sequence-token,
+            :$log-stream-name,
+            :$log-events
         );
-;
+
         self.perform-operation(
             :api-call<PutLogEvents>,
-            :return-type(PutLogEventsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-metric-filters(
-    LogGroupName :$log-group-name,
-    DescribeLimit :$limit,
-    NextToken :$next-token,
-    FilterName :$filter-name-prefix,
-    MetricNamespace :$metric-namespace,
-    MetricName :$metric-name
+        LogGroupName :$log-group-name,
+        DescribeLimit :$limit,
+        NextToken :$next-token,
+        FilterName :$filter-name-prefix,
+        MetricNamespace :$metric-namespace,
+        MetricName :$metric-name
     ) returns DescribeMetricFiltersResponse is service-operation('DescribeMetricFilters') {
         my $request-input = DescribeMetricFiltersRequest.new(
-        :$log-group-name,
-        :$limit,
-        :$next-token,
-        :$filter-name-prefix,
-        :$metric-namespace,
-        :$metric-name
+            :$log-group-name,
+            :$limit,
+            :$next-token,
+            :$filter-name-prefix,
+            :$metric-namespace,
+            :$metric-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMetricFilters>,
-            :return-type(DescribeMetricFiltersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-destinations(
-    DestinationName :$destination-name-prefix,
-    DescribeLimit :$limit,
-    NextToken :$next-token
+        DestinationName :$destination-name-prefix,
+        DescribeLimit :$limit,
+        NextToken :$next-token
     ) returns DescribeDestinationsResponse is service-operation('DescribeDestinations') {
         my $request-input = DescribeDestinationsRequest.new(
-        :$destination-name-prefix,
-        :$limit,
-        :$next-token
+            :$destination-name-prefix,
+            :$limit,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDestinations>,
-            :return-type(DescribeDestinationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-log-stream(
-    LogGroupName :$log-group-name!,
-    LogStreamName :$log-stream-name!
+        LogGroupName :$log-group-name!,
+        LogStreamName :$log-stream-name!
     ) is service-operation('CreateLogStream') {
         my $request-input = CreateLogStreamRequest.new(
-        :$log-group-name,
-        :$log-stream-name
+            :$log-group-name,
+            :$log-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateLogStream>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-resource-policy(
-    PolicyDocument :$policy-document,
-    Str :$policy-name
+        PolicyDocument :$policy-document,
+        Str :$policy-name
     ) returns PutResourcePolicyResponse is service-operation('PutResourcePolicy') {
         my $request-input = PutResourcePolicyRequest.new(
-        :$policy-document,
-        :$policy-name
+            :$policy-document,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<PutResourcePolicy>,
-            :return-type(PutResourcePolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-log-events(
-    LogGroupName :$log-group-name!,
-    EventsLimit :$limit,
-    NextToken :$next-token,
-    LogStreamName :$log-stream-name!,
-    Bool :$start-from-head,
-    Timestamp :$end-time,
-    Timestamp :$start-time
+        LogGroupName :$log-group-name!,
+        EventsLimit :$limit,
+        NextToken :$next-token,
+        LogStreamName :$log-stream-name!,
+        Bool :$start-from-head,
+        Timestamp :$end-time,
+        Timestamp :$start-time
     ) returns GetLogEventsResponse is service-operation('GetLogEvents') {
         my $request-input = GetLogEventsRequest.new(
-        :$log-group-name,
-        :$limit,
-        :$next-token,
-        :$log-stream-name,
-        :$start-from-head,
-        :$end-time,
-        :$start-time
+            :$log-group-name,
+            :$limit,
+            :$next-token,
+            :$log-stream-name,
+            :$start-from-head,
+            :$end-time,
+            :$start-time
         );
-;
+
         self.perform-operation(
             :api-call<GetLogEvents>,
-            :return-type(GetLogEventsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-log-group(
-    LogGroupName :$log-group-name!,
-    TagList :$tags!
+        LogGroupName :$log-group-name!,
+        TagList :$tags!
     ) is service-operation('UntagLogGroup') {
         my $request-input = UntagLogGroupRequest.new(
-        :$log-group-name,
-        :$tags
+            :$log-group-name,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<UntagLogGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method filter-log-events(
-    LogGroupName :$log-group-name!,
-    EventsLimit :$limit,
-    NextToken :$next-token,
-    FilterPattern :$filter-pattern,
-    Bool :$interleaved,
-    InputLogStreamNames :$log-stream-names,
-    Timestamp :$end-time,
-    Timestamp :$start-time
+        LogGroupName :$log-group-name!,
+        EventsLimit :$limit,
+        NextToken :$next-token,
+        FilterPattern :$filter-pattern,
+        Bool :$interleaved,
+        InputLogStreamNames :$log-stream-names,
+        Timestamp :$end-time,
+        Timestamp :$start-time
     ) returns FilterLogEventsResponse is service-operation('FilterLogEvents') {
         my $request-input = FilterLogEventsRequest.new(
-        :$log-group-name,
-        :$limit,
-        :$next-token,
-        :$filter-pattern,
-        :$interleaved,
-        :$log-stream-names,
-        :$end-time,
-        :$start-time
+            :$log-group-name,
+            :$limit,
+            :$next-token,
+            :$filter-pattern,
+            :$interleaved,
+            :$log-stream-names,
+            :$end-time,
+            :$start-time
         );
-;
+
         self.perform-operation(
             :api-call<FilterLogEvents>,
-            :return-type(FilterLogEventsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-resource-policy(
-    Str :$policy-name
+        Str :$policy-name
     ) is service-operation('DeleteResourcePolicy') {
         my $request-input = DeleteResourcePolicyRequest.new(
-        :$policy-name
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteResourcePolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-log-stream(
-    LogGroupName :$log-group-name!,
-    LogStreamName :$log-stream-name!
+        LogGroupName :$log-group-name!,
+        LogStreamName :$log-stream-name!
     ) is service-operation('DeleteLogStream') {
         my $request-input = DeleteLogStreamRequest.new(
-        :$log-group-name,
-        :$log-stream-name
+            :$log-group-name,
+            :$log-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLogStream>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-retention-policy(
-    LogGroupName :$log-group-name!,
-    Int :$retention-in-days!
+        LogGroupName :$log-group-name!,
+        Int :$retention-in-days!
     ) is service-operation('PutRetentionPolicy') {
         my $request-input = PutRetentionPolicyRequest.new(
-        :$log-group-name,
-        :$retention-in-days
+            :$log-group-name,
+            :$retention-in-days
         );
-;
+
         self.perform-operation(
             :api-call<PutRetentionPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-metric-filter(
-    FilterName :$filter-name!,
-    LogGroupName :$log-group-name!,
-    FilterPattern :$filter-pattern!,
-    MetricTransformations :$metric-transformations!
+        FilterName :$filter-name!,
+        LogGroupName :$log-group-name!,
+        FilterPattern :$filter-pattern!,
+        MetricTransformations :$metric-transformations!
     ) is service-operation('PutMetricFilter') {
         my $request-input = PutMetricFilterRequest.new(
-        :$filter-name,
-        :$log-group-name,
-        :$filter-pattern,
-        :$metric-transformations
+            :$filter-name,
+            :$log-group-name,
+            :$filter-pattern,
+            :$metric-transformations
         );
-;
+
         self.perform-operation(
             :api-call<PutMetricFilter>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-destination(
-    RoleArn :$role-arn!,
-    DestinationName :$destination-name!,
-    TargetArn :$target-arn!
+        RoleArn :$role-arn!,
+        DestinationName :$destination-name!,
+        TargetArn :$target-arn!
     ) returns PutDestinationResponse is service-operation('PutDestination') {
         my $request-input = PutDestinationRequest.new(
-        :$role-arn,
-        :$destination-name,
-        :$target-arn
+            :$role-arn,
+            :$destination-name,
+            :$target-arn
         );
-;
+
         self.perform-operation(
             :api-call<PutDestination>,
-            :return-type(PutDestinationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-log-group(
-    LogGroupName :$log-group-name!,
-    KmsKeyId :$kms-key-id,
-    Tags :$tags
+        LogGroupName :$log-group-name!,
+        KmsKeyId :$kms-key-id,
+        Tags :$tags
     ) is service-operation('CreateLogGroup') {
         my $request-input = CreateLogGroupRequest.new(
-        :$log-group-name,
-        :$kms-key-id,
-        :$tags
+            :$log-group-name,
+            :$kms-key-id,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateLogGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-destination-policy(
-    AccessPolicy :$access-policy!,
-    DestinationName :$destination-name!
+        AccessPolicy :$access-policy!,
+        DestinationName :$destination-name!
     ) is service-operation('PutDestinationPolicy') {
         my $request-input = PutDestinationPolicyRequest.new(
-        :$access-policy,
-        :$destination-name
+            :$access-policy,
+            :$destination-name
         );
-;
+
         self.perform-operation(
             :api-call<PutDestinationPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-subscription-filters(
-    LogGroupName :$log-group-name!,
-    DescribeLimit :$limit,
-    NextToken :$next-token,
-    FilterName :$filter-name-prefix
+        LogGroupName :$log-group-name!,
+        DescribeLimit :$limit,
+        NextToken :$next-token,
+        FilterName :$filter-name-prefix
     ) returns DescribeSubscriptionFiltersResponse is service-operation('DescribeSubscriptionFilters') {
         my $request-input = DescribeSubscriptionFiltersRequest.new(
-        :$log-group-name,
-        :$limit,
-        :$next-token,
-        :$filter-name-prefix
+            :$log-group-name,
+            :$limit,
+            :$next-token,
+            :$filter-name-prefix
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSubscriptionFilters>,
-            :return-type(DescribeSubscriptionFiltersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-resource-policies(
-    DescribeLimit :$limit,
-    NextToken :$next-token
+        DescribeLimit :$limit,
+        NextToken :$next-token
     ) returns DescribeResourcePoliciesResponse is service-operation('DescribeResourcePolicies') {
         my $request-input = DescribeResourcePoliciesRequest.new(
-        :$limit,
-        :$next-token
+            :$limit,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeResourcePolicies>,
-            :return-type(DescribeResourcePoliciesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-metric-filter(
-    FilterName :$filter-name!,
-    LogGroupName :$log-group-name!
+        FilterName :$filter-name!,
+        LogGroupName :$log-group-name!
     ) is service-operation('DeleteMetricFilter') {
         my $request-input = DeleteMetricFilterRequest.new(
-        :$filter-name,
-        :$log-group-name
+            :$filter-name,
+            :$log-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteMetricFilter>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-log-group(
-    LogGroupName :$log-group-name!
+        LogGroupName :$log-group-name!
     ) is service-operation('DeleteLogGroup') {
         my $request-input = DeleteLogGroupRequest.new(
-        :$log-group-name
+            :$log-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLogGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-kms-key(
-    LogGroupName :$log-group-name!,
-    KmsKeyId :$kms-key-id!
+        LogGroupName :$log-group-name!,
+        KmsKeyId :$kms-key-id!
     ) is service-operation('AssociateKmsKey') {
         my $request-input = AssociateKmsKeyRequest.new(
-        :$log-group-name,
-        :$kms-key-id
+            :$log-group-name,
+            :$kms-key-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateKmsKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-log-group(
-    LogGroupName :$log-group-name!
+        LogGroupName :$log-group-name!
     ) returns ListTagsLogGroupResponse is service-operation('ListTagsLogGroup') {
         my $request-input = ListTagsLogGroupRequest.new(
-        :$log-group-name
+            :$log-group-name
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsLogGroup>,
-            :return-type(ListTagsLogGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-log-streams(
-    Bool :$descending,
-    LogGroupName :$log-group-name!,
-    DescribeLimit :$limit,
-    NextToken :$next-token,
-    LogStreamName :$log-stream-name-prefix,
-    OrderBy :$order-by
+        Bool :$descending,
+        LogGroupName :$log-group-name!,
+        DescribeLimit :$limit,
+        NextToken :$next-token,
+        LogStreamName :$log-stream-name-prefix,
+        OrderBy :$order-by
     ) returns DescribeLogStreamsResponse is service-operation('DescribeLogStreams') {
         my $request-input = DescribeLogStreamsRequest.new(
-        :$descending,
-        :$log-group-name,
-        :$limit,
-        :$next-token,
-        :$log-stream-name-prefix,
-        :$order-by
+            :$descending,
+            :$log-group-name,
+            :$limit,
+            :$next-token,
+            :$log-stream-name-prefix,
+            :$order-by
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLogStreams>,
-            :return-type(DescribeLogStreamsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-log-groups(
-    DescribeLimit :$limit,
-    NextToken :$next-token,
-    LogGroupName :$log-group-name-prefix
+        DescribeLimit :$limit,
+        NextToken :$next-token,
+        LogGroupName :$log-group-name-prefix
     ) returns DescribeLogGroupsResponse is service-operation('DescribeLogGroups') {
         my $request-input = DescribeLogGroupsRequest.new(
-        :$limit,
-        :$next-token,
-        :$log-group-name-prefix
+            :$limit,
+            :$next-token,
+            :$log-group-name-prefix
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLogGroups>,
-            :return-type(DescribeLogGroupsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-export-tasks(
-    ExportTaskId :$task-id,
-    DescribeLimit :$limit,
-    NextToken :$next-token,
-    ExportTaskStatusCode :$status-code
+        ExportTaskId :$task-id,
+        DescribeLimit :$limit,
+        NextToken :$next-token,
+        ExportTaskStatusCode :$status-code
     ) returns DescribeExportTasksResponse is service-operation('DescribeExportTasks') {
         my $request-input = DescribeExportTasksRequest.new(
-        :$task-id,
-        :$limit,
-        :$next-token,
-        :$status-code
+            :$task-id,
+            :$limit,
+            :$next-token,
+            :$status-code
         );
-;
+
         self.perform-operation(
             :api-call<DescribeExportTasks>,
-            :return-type(DescribeExportTasksResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-subscription-filter(
-    FilterName :$filter-name!,
-    LogGroupName :$log-group-name!
+        FilterName :$filter-name!,
+        LogGroupName :$log-group-name!
     ) is service-operation('DeleteSubscriptionFilter') {
         my $request-input = DeleteSubscriptionFilterRequest.new(
-        :$filter-name,
-        :$log-group-name
+            :$filter-name,
+            :$log-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSubscriptionFilter>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

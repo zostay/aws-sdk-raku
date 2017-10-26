@@ -1079,1110 +1079,1004 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     }
 
     method create-constraint(
-    Id :$product-id!,
-    ConstraintDescription :$description,
-    Str :$accept-language,
-    Str :$parameters!,
-    ConstraintType :$type!,
-    IdempotencyToken :$idempotency-token!,
-    Id :$portfolio-id!
+        Id :$product-id!,
+        ConstraintDescription :$description,
+        Str :$accept-language,
+        Str :$parameters!,
+        ConstraintType :$type!,
+        IdempotencyToken :$idempotency-token!,
+        Id :$portfolio-id!
     ) returns CreateConstraintOutput is service-operation('CreateConstraint') {
         my $request-input = CreateConstraintInput.new(
-        :$product-id,
-        :$description,
-        :$accept-language,
-        :$parameters,
-        :$type,
-        :$idempotency-token,
-        :$portfolio-id
+            :$product-id,
+            :$description,
+            :$accept-language,
+            :$parameters,
+            :$type,
+            :$idempotency-token,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateConstraint>,
-            :return-type(CreateConstraintOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-provisioned-product(
-    Str :$accept-language,
-    Id :$id!
+        Str :$accept-language,
+        Id :$id!
     ) returns DescribeProvisionedProductOutput is service-operation('DescribeProvisionedProduct') {
         my $request-input = DescribeProvisionedProductInput.new(
-        :$accept-language,
-        :$id
+            :$accept-language,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeProvisionedProduct>,
-            :return-type(DescribeProvisionedProductOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method terminate-provisioned-product(
-    Str :$accept-language,
-    IdempotencyToken :$terminate-token!,
-    Id :$provisioned-product-id,
-    ProvisionedProductNameOrArn :$provisioned-product-name,
-    Bool :$ignore-errors
+        Str :$accept-language,
+        IdempotencyToken :$terminate-token!,
+        Id :$provisioned-product-id,
+        ProvisionedProductNameOrArn :$provisioned-product-name,
+        Bool :$ignore-errors
     ) returns TerminateProvisionedProductOutput is service-operation('TerminateProvisionedProduct') {
         my $request-input = TerminateProvisionedProductInput.new(
-        :$accept-language,
-        :$terminate-token,
-        :$provisioned-product-id,
-        :$provisioned-product-name,
-        :$ignore-errors
+            :$accept-language,
+            :$terminate-token,
+            :$provisioned-product-id,
+            :$provisioned-product-name,
+            :$ignore-errors
         );
-;
+
         self.perform-operation(
             :api-call<TerminateProvisionedProduct>,
-            :return-type(TerminateProvisionedProductOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-tag-option(
-    TagOptionValue :$value!,
-    TagOptionKey :$key!
+        TagOptionValue :$value!,
+        TagOptionKey :$key!
     ) returns CreateTagOptionOutput is service-operation('CreateTagOption') {
         my $request-input = CreateTagOptionInput.new(
-        :$value,
-        :$key
+            :$value,
+            :$key
         );
-;
+
         self.perform-operation(
             :api-call<CreateTagOption>,
-            :return-type(CreateTagOptionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-portfolio(
-    Str :$accept-language,
-    Id :$id!
+        Str :$accept-language,
+        Id :$id!
     ) returns DeletePortfolioOutput is service-operation('DeletePortfolio') {
         my $request-input = DeletePortfolioInput.new(
-        :$accept-language,
-        :$id
+            :$accept-language,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeletePortfolio>,
-            :return-type(DeletePortfolioOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-product(
-    Str :$accept-language,
-    Id :$id!
+        Str :$accept-language,
+        Id :$id!
     ) returns DescribeProductOutput is service-operation('DescribeProduct') {
         my $request-input = DescribeProductInput.new(
-        :$accept-language,
-        :$id
+            :$accept-language,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeProduct>,
-            :return-type(DescribeProductOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-provisioning-parameters(
-    Id :$provisioning-artifact-id!,
-    Id :$product-id!,
-    Id :$path-id,
-    Str :$accept-language
+        Id :$provisioning-artifact-id!,
+        Id :$product-id!,
+        Id :$path-id,
+        Str :$accept-language
     ) returns DescribeProvisioningParametersOutput is service-operation('DescribeProvisioningParameters') {
         my $request-input = DescribeProvisioningParametersInput.new(
-        :$provisioning-artifact-id,
-        :$product-id,
-        :$path-id,
-        :$accept-language
+            :$provisioning-artifact-id,
+            :$product-id,
+            :$path-id,
+            :$accept-language
         );
-;
+
         self.perform-operation(
             :api-call<DescribeProvisioningParameters>,
-            :return-type(DescribeProvisioningParametersOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-provisioning-artifact(
-    Id :$provisioning-artifact-id!,
-    Id :$product-id!,
-    Str :$accept-language
+        Id :$provisioning-artifact-id!,
+        Id :$product-id!,
+        Str :$accept-language
     ) returns DeleteProvisioningArtifactOutput is service-operation('DeleteProvisioningArtifact') {
         my $request-input = DeleteProvisioningArtifactInput.new(
-        :$provisioning-artifact-id,
-        :$product-id,
-        :$accept-language
+            :$provisioning-artifact-id,
+            :$product-id,
+            :$accept-language
         );
-;
+
         self.perform-operation(
             :api-call<DeleteProvisioningArtifact>,
-            :return-type(DeleteProvisioningArtifactOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reject-portfolio-share(
-    Str :$accept-language,
-    Id :$portfolio-id!
+        Str :$accept-language,
+        Id :$portfolio-id!
     ) returns RejectPortfolioShareOutput is service-operation('RejectPortfolioShare') {
         my $request-input = RejectPortfolioShareInput.new(
-        :$accept-language,
-        :$portfolio-id
+            :$accept-language,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<RejectPortfolioShare>,
-            :return-type(RejectPortfolioShareOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-portfolio-access(
-    Str :$accept-language,
-    Id :$portfolio-id!
+        Str :$accept-language,
+        Id :$portfolio-id!
     ) returns ListPortfolioAccessOutput is service-operation('ListPortfolioAccess') {
         my $request-input = ListPortfolioAccessInput.new(
-        :$accept-language,
-        :$portfolio-id
+            :$accept-language,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<ListPortfolioAccess>,
-            :return-type(ListPortfolioAccessOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-constraint(
-    Str :$accept-language,
-    Id :$id!
+        Str :$accept-language,
+        Id :$id!
     ) returns DeleteConstraintOutput is service-operation('DeleteConstraint') {
         my $request-input = DeleteConstraintInput.new(
-        :$accept-language,
-        :$id
+            :$accept-language,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteConstraint>,
-            :return-type(DeleteConstraintOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-portfolio-share(
-    Str :$accept-language,
-    AccountId :$account-id!,
-    Id :$portfolio-id!
+        Str :$accept-language,
+        AccountId :$account-id!,
+        Id :$portfolio-id!
     ) returns DeletePortfolioShareOutput is service-operation('DeletePortfolioShare') {
         my $request-input = DeletePortfolioShareInput.new(
-        :$accept-language,
-        :$account-id,
-        :$portfolio-id
+            :$accept-language,
+            :$account-id,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<DeletePortfolioShare>,
-            :return-type(DeletePortfolioShareOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-product-with-portfolio(
-    Id :$product-id!,
-    Str :$accept-language,
-    Id :$source-portfolio-id,
-    Id :$portfolio-id!
+        Id :$product-id!,
+        Str :$accept-language,
+        Id :$source-portfolio-id,
+        Id :$portfolio-id!
     ) returns AssociateProductWithPortfolioOutput is service-operation('AssociateProductWithPortfolio') {
         my $request-input = AssociateProductWithPortfolioInput.new(
-        :$product-id,
-        :$accept-language,
-        :$source-portfolio-id,
-        :$portfolio-id
+            :$product-id,
+            :$accept-language,
+            :$source-portfolio-id,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateProductWithPortfolio>,
-            :return-type(AssociateProductWithPortfolioOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-provisioning-artifact(
-    Id :$product-id!,
-    Id :$provisioning-artifact-id!,
-    Str :$accept-language,
-    Bool :$verbose
+        Id :$product-id!,
+        Id :$provisioning-artifact-id!,
+        Str :$accept-language,
+        Bool :$verbose
     ) returns DescribeProvisioningArtifactOutput is service-operation('DescribeProvisioningArtifact') {
         my $request-input = DescribeProvisioningArtifactInput.new(
-        :$product-id,
-        :$provisioning-artifact-id,
-        :$accept-language,
-        :$verbose
+            :$product-id,
+            :$provisioning-artifact-id,
+            :$accept-language,
+            :$verbose
         );
-;
+
         self.perform-operation(
             :api-call<DescribeProvisioningArtifact>,
-            :return-type(DescribeProvisioningArtifactOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tag-options(
-    ListTagOptionsFilters :$filters,
-    PageToken :$page-token,
-    PageSize :$page-size
+        ListTagOptionsFilters :$filters,
+        PageToken :$page-token,
+        PageSize :$page-size
     ) returns ListTagOptionsOutput is service-operation('ListTagOptions') {
         my $request-input = ListTagOptionsInput.new(
-        :$filters,
-        :$page-token,
-        :$page-size
+            :$filters,
+            :$page-token,
+            :$page-size
         );
-;
+
         self.perform-operation(
             :api-call<ListTagOptions>,
-            :return-type(ListTagOptionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method search-products(
-    ProductViewSortBy :$sort-by,
-    Hash[Array[Str], ProductViewFilterBy] :$filters,
-    Str :$accept-language,
-    PageToken :$page-token,
-    PageSize :$page-size,
-    SortOrder :$sort-order
+        ProductViewSortBy :$sort-by,
+        Hash[Array[Str], ProductViewFilterBy] :$filters,
+        Str :$accept-language,
+        PageToken :$page-token,
+        PageSize :$page-size,
+        SortOrder :$sort-order
     ) returns SearchProductsOutput is service-operation('SearchProducts') {
         my $request-input = SearchProductsInput.new(
-        :$sort-by,
-        :$filters,
-        :$accept-language,
-        :$page-token,
-        :$page-size,
-        :$sort-order
+            :$sort-by,
+            :$filters,
+            :$accept-language,
+            :$page-token,
+            :$page-size,
+            :$sort-order
         );
-;
+
         self.perform-operation(
             :api-call<SearchProducts>,
-            :return-type(SearchProductsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-constraint(
-    ConstraintDescription :$description,
-    Str :$accept-language,
-    Id :$id!
+        ConstraintDescription :$description,
+        Str :$accept-language,
+        Id :$id!
     ) returns UpdateConstraintOutput is service-operation('UpdateConstraint') {
         my $request-input = UpdateConstraintInput.new(
-        :$description,
-        :$accept-language,
-        :$id
+            :$description,
+            :$accept-language,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateConstraint>,
-            :return-type(UpdateConstraintOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-portfolio-share(
-    Str :$accept-language,
-    AccountId :$account-id!,
-    Id :$portfolio-id!
+        Str :$accept-language,
+        AccountId :$account-id!,
+        Id :$portfolio-id!
     ) returns CreatePortfolioShareOutput is service-operation('CreatePortfolioShare') {
         my $request-input = CreatePortfolioShareInput.new(
-        :$accept-language,
-        :$account-id,
-        :$portfolio-id
+            :$accept-language,
+            :$account-id,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<CreatePortfolioShare>,
-            :return-type(CreatePortfolioShareOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-product(
-    Str :$accept-language,
-    Id :$id!
+        Str :$accept-language,
+        Id :$id!
     ) returns DeleteProductOutput is service-operation('DeleteProduct') {
         my $request-input = DeleteProductInput.new(
-        :$accept-language,
-        :$id
+            :$accept-language,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteProduct>,
-            :return-type(DeleteProductOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-record(
-    Str :$accept-language,
-    Id :$id!,
-    PageSize :$page-size,
-    PageToken :$page-token
+        Str :$accept-language,
+        Id :$id!,
+        PageSize :$page-size,
+        PageToken :$page-token
     ) returns DescribeRecordOutput is service-operation('DescribeRecord') {
         my $request-input = DescribeRecordInput.new(
-        :$accept-language,
-        :$id,
-        :$page-size,
-        :$page-token
+            :$accept-language,
+            :$id,
+            :$page-size,
+            :$page-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRecord>,
-            :return-type(DescribeRecordOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tag-option(
-    TagOptionId :$id!
+        TagOptionId :$id!
     ) returns DescribeTagOptionOutput is service-operation('DescribeTagOption') {
         my $request-input = DescribeTagOptionInput.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTagOption>,
-            :return-type(DescribeTagOptionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-provisioning-artifact(
-    Id :$product-id!,
-    Str :$accept-language,
-    ProvisioningArtifactProperties :$parameters!,
-    IdempotencyToken :$idempotency-token!
+        Id :$product-id!,
+        Str :$accept-language,
+        ProvisioningArtifactProperties :$parameters!,
+        IdempotencyToken :$idempotency-token!
     ) returns CreateProvisioningArtifactOutput is service-operation('CreateProvisioningArtifact') {
         my $request-input = CreateProvisioningArtifactInput.new(
-        :$product-id,
-        :$accept-language,
-        :$parameters,
-        :$idempotency-token
+            :$product-id,
+            :$accept-language,
+            :$parameters,
+            :$idempotency-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateProvisioningArtifact>,
-            :return-type(CreateProvisioningArtifactOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-tag-option-from-resource(
-    Str :$resource-id!,
-    TagOptionId :$tag-option-id!
+        Str :$resource-id!,
+        TagOptionId :$tag-option-id!
     ) returns DisassociateTagOptionFromResourceOutput is service-operation('DisassociateTagOptionFromResource') {
         my $request-input = DisassociateTagOptionFromResourceInput.new(
-        :$resource-id,
-        :$tag-option-id
+            :$resource-id,
+            :$tag-option-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateTagOptionFromResource>,
-            :return-type(DisassociateTagOptionFromResourceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method search-products-as-admin(
-    ProductViewSortBy :$sort-by,
-    Hash[Array[Str], ProductViewFilterBy] :$filters,
-    Str :$accept-language,
-    ProductSource :$product-source,
-    PageSize :$page-size,
-    PageToken :$page-token,
-    SortOrder :$sort-order,
-    Id :$portfolio-id
+        ProductViewSortBy :$sort-by,
+        Hash[Array[Str], ProductViewFilterBy] :$filters,
+        Str :$accept-language,
+        ProductSource :$product-source,
+        PageSize :$page-size,
+        PageToken :$page-token,
+        SortOrder :$sort-order,
+        Id :$portfolio-id
     ) returns SearchProductsAsAdminOutput is service-operation('SearchProductsAsAdmin') {
         my $request-input = SearchProductsAsAdminInput.new(
-        :$sort-by,
-        :$filters,
-        :$accept-language,
-        :$product-source,
-        :$page-size,
-        :$page-token,
-        :$sort-order,
-        :$portfolio-id
+            :$sort-by,
+            :$filters,
+            :$accept-language,
+            :$product-source,
+            :$page-size,
+            :$page-token,
+            :$sort-order,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<SearchProductsAsAdmin>,
-            :return-type(SearchProductsAsAdminOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-constraint(
-    Str :$accept-language,
-    Id :$id!
+        Str :$accept-language,
+        Id :$id!
     ) returns DescribeConstraintOutput is service-operation('DescribeConstraint') {
         my $request-input = DescribeConstraintInput.new(
-        :$accept-language,
-        :$id
+            :$accept-language,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConstraint>,
-            :return-type(DescribeConstraintOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-product-as-admin(
-    Str :$accept-language,
-    Id :$id!
+        Str :$accept-language,
+        Id :$id!
     ) returns DescribeProductAsAdminOutput is service-operation('DescribeProductAsAdmin') {
         my $request-input = DescribeProductAsAdminInput.new(
-        :$accept-language,
-        :$id
+            :$accept-language,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeProductAsAdmin>,
-            :return-type(DescribeProductAsAdminOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-product-from-portfolio(
-    Id :$product-id!,
-    Str :$accept-language,
-    Id :$portfolio-id!
+        Id :$product-id!,
+        Str :$accept-language,
+        Id :$portfolio-id!
     ) returns DisassociateProductFromPortfolioOutput is service-operation('DisassociateProductFromPortfolio') {
         my $request-input = DisassociateProductFromPortfolioInput.new(
-        :$product-id,
-        :$accept-language,
-        :$portfolio-id
+            :$product-id,
+            :$accept-language,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateProductFromPortfolio>,
-            :return-type(DisassociateProductFromPortfolioOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-tag-option-with-resource(
-    Str :$resource-id!,
-    TagOptionId :$tag-option-id!
+        Str :$resource-id!,
+        TagOptionId :$tag-option-id!
     ) returns AssociateTagOptionWithResourceOutput is service-operation('AssociateTagOptionWithResource') {
         my $request-input = AssociateTagOptionWithResourceInput.new(
-        :$resource-id,
-        :$tag-option-id
+            :$resource-id,
+            :$tag-option-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateTagOptionWithResource>,
-            :return-type(AssociateTagOptionWithResourceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-constraints-for-portfolio(
-    Id :$product-id,
-    Str :$accept-language,
-    PageToken :$page-token,
-    PageSize :$page-size,
-    Id :$portfolio-id!
+        Id :$product-id,
+        Str :$accept-language,
+        PageToken :$page-token,
+        PageSize :$page-size,
+        Id :$portfolio-id!
     ) returns ListConstraintsForPortfolioOutput is service-operation('ListConstraintsForPortfolio') {
         my $request-input = ListConstraintsForPortfolioInput.new(
-        :$product-id,
-        :$accept-language,
-        :$page-token,
-        :$page-size,
-        :$portfolio-id
+            :$product-id,
+            :$accept-language,
+            :$page-token,
+            :$page-size,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<ListConstraintsForPortfolio>,
-            :return-type(ListConstraintsForPortfolioOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-portfolios(
-    Str :$accept-language,
-    PageSize :$page-size,
-    PageToken :$page-token
+        Str :$accept-language,
+        PageSize :$page-size,
+        PageToken :$page-token
     ) returns ListPortfoliosOutput is service-operation('ListPortfolios') {
         my $request-input = ListPortfoliosInput.new(
-        :$accept-language,
-        :$page-size,
-        :$page-token
+            :$accept-language,
+            :$page-size,
+            :$page-token
         );
-;
+
         self.perform-operation(
             :api-call<ListPortfolios>,
-            :return-type(ListPortfoliosOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-resources-for-tag-option(
-    Str :$resource-type,
-    TagOptionId :$tag-option-id!,
-    PageToken :$page-token,
-    PageSize :$page-size
+        Str :$resource-type,
+        TagOptionId :$tag-option-id!,
+        PageToken :$page-token,
+        PageSize :$page-size
     ) returns ListResourcesForTagOptionOutput is service-operation('ListResourcesForTagOption') {
         my $request-input = ListResourcesForTagOptionInput.new(
-        :$resource-type,
-        :$tag-option-id,
-        :$page-token,
-        :$page-size
+            :$resource-type,
+            :$tag-option-id,
+            :$page-token,
+            :$page-size
         );
-;
+
         self.perform-operation(
             :api-call<ListResourcesForTagOption>,
-            :return-type(ListResourcesForTagOptionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-portfolio(
-    Str :$accept-language,
-    Id :$id!
+        Str :$accept-language,
+        Id :$id!
     ) returns DescribePortfolioOutput is service-operation('DescribePortfolio') {
         my $request-input = DescribePortfolioInput.new(
-        :$accept-language,
-        :$id
+            :$accept-language,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DescribePortfolio>,
-            :return-type(DescribePortfolioOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-accepted-portfolio-shares(
-    Str :$accept-language,
-    PageSize :$page-size,
-    PageToken :$page-token
+        Str :$accept-language,
+        PageSize :$page-size,
+        PageToken :$page-token
     ) returns ListAcceptedPortfolioSharesOutput is service-operation('ListAcceptedPortfolioShares') {
         my $request-input = ListAcceptedPortfolioSharesInput.new(
-        :$accept-language,
-        :$page-size,
-        :$page-token
+            :$accept-language,
+            :$page-size,
+            :$page-token
         );
-;
+
         self.perform-operation(
             :api-call<ListAcceptedPortfolioShares>,
-            :return-type(ListAcceptedPortfolioSharesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method provision-product(
-    NotificationArns :$notification-arns,
-    Id :$provisioning-artifact-id!,
-    Id :$product-id!,
-    IdempotencyToken :$provision-token!,
-    Array[ProvisioningParameter] :$provisioning-parameters,
-    Id :$path-id,
-    Str :$accept-language,
-    Tags :$tags,
-    ProvisionedProductName :$provisioned-product-name!
+        NotificationArns :$notification-arns,
+        Id :$provisioning-artifact-id!,
+        Id :$product-id!,
+        IdempotencyToken :$provision-token!,
+        Array[ProvisioningParameter] :$provisioning-parameters,
+        Id :$path-id,
+        Str :$accept-language,
+        Tags :$tags,
+        ProvisionedProductName :$provisioned-product-name!
     ) returns ProvisionProductOutput is service-operation('ProvisionProduct') {
         my $request-input = ProvisionProductInput.new(
-        :$notification-arns,
-        :$provisioning-artifact-id,
-        :$product-id,
-        :$provision-token,
-        :$provisioning-parameters,
-        :$path-id,
-        :$accept-language,
-        :$tags,
-        :$provisioned-product-name
+            :$notification-arns,
+            :$provisioning-artifact-id,
+            :$product-id,
+            :$provision-token,
+            :$provisioning-parameters,
+            :$path-id,
+            :$accept-language,
+            :$tags,
+            :$provisioned-product-name
         );
-;
+
         self.perform-operation(
             :api-call<ProvisionProduct>,
-            :return-type(ProvisionProductOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method scan-provisioned-products(
-    AccessLevelFilter :$access-level-filter,
-    Str :$accept-language,
-    PageToken :$page-token,
-    PageSize :$page-size
+        AccessLevelFilter :$access-level-filter,
+        Str :$accept-language,
+        PageToken :$page-token,
+        PageSize :$page-size
     ) returns ScanProvisionedProductsOutput is service-operation('ScanProvisionedProducts') {
         my $request-input = ScanProvisionedProductsInput.new(
-        :$access-level-filter,
-        :$accept-language,
-        :$page-token,
-        :$page-size
+            :$access-level-filter,
+            :$accept-language,
+            :$page-token,
+            :$page-size
         );
-;
+
         self.perform-operation(
             :api-call<ScanProvisionedProducts>,
-            :return-type(ScanProvisionedProductsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-tag-option(
-    Bool :$active,
-    TagOptionId :$id!,
-    TagOptionValue :$value
+        Bool :$active,
+        TagOptionId :$id!,
+        TagOptionValue :$value
     ) returns UpdateTagOptionOutput is service-operation('UpdateTagOption') {
         my $request-input = UpdateTagOptionInput.new(
-        :$active,
-        :$id,
-        :$value
+            :$active,
+            :$id,
+            :$value
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTagOption>,
-            :return-type(UpdateTagOptionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-provisioning-artifact(
-    Id :$provisioning-artifact-id!,
-    Id :$product-id!,
-    Str :$description,
-    Str :$accept-language,
-    Str :$name
+        Id :$provisioning-artifact-id!,
+        Id :$product-id!,
+        Str :$description,
+        Str :$accept-language,
+        Str :$name
     ) returns UpdateProvisioningArtifactOutput is service-operation('UpdateProvisioningArtifact') {
         my $request-input = UpdateProvisioningArtifactInput.new(
-        :$provisioning-artifact-id,
-        :$product-id,
-        :$description,
-        :$accept-language,
-        :$name
+            :$provisioning-artifact-id,
+            :$product-id,
+            :$description,
+            :$accept-language,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateProvisioningArtifact>,
-            :return-type(UpdateProvisioningArtifactOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-principal-with-portfolio(
-    Str :$accept-language,
-    PrincipalARN :$principal-arn!,
-    PrincipalType :$principal-type!,
-    Id :$portfolio-id!
+        Str :$accept-language,
+        PrincipalARN :$principal-arn!,
+        PrincipalType :$principal-type!,
+        Id :$portfolio-id!
     ) returns AssociatePrincipalWithPortfolioOutput is service-operation('AssociatePrincipalWithPortfolio') {
         my $request-input = AssociatePrincipalWithPortfolioInput.new(
-        :$accept-language,
-        :$principal-arn,
-        :$principal-type,
-        :$portfolio-id
+            :$accept-language,
+            :$principal-arn,
+            :$principal-type,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociatePrincipalWithPortfolio>,
-            :return-type(AssociatePrincipalWithPortfolioOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-product(
-    Str :$owner,
-    AddTags :$add-tags,
-    Str :$support-email,
-    Str :$description,
-    Str :$accept-language,
-    Str :$support-url,
-    Id :$id!,
-    Str :$distributor,
-    Str :$name,
-    Array[TagKey] :$remove-tags,
-    Str :$support-description
+        Str :$owner,
+        AddTags :$add-tags,
+        Str :$support-email,
+        Str :$description,
+        Str :$accept-language,
+        Str :$support-url,
+        Id :$id!,
+        Str :$distributor,
+        Str :$name,
+        Array[TagKey] :$remove-tags,
+        Str :$support-description
     ) returns UpdateProductOutput is service-operation('UpdateProduct') {
         my $request-input = UpdateProductInput.new(
-        :$owner,
-        :$add-tags,
-        :$support-email,
-        :$description,
-        :$accept-language,
-        :$support-url,
-        :$id,
-        :$distributor,
-        :$name,
-        :$remove-tags,
-        :$support-description
+            :$owner,
+            :$add-tags,
+            :$support-email,
+            :$description,
+            :$accept-language,
+            :$support-url,
+            :$id,
+            :$distributor,
+            :$name,
+            :$remove-tags,
+            :$support-description
         );
-;
+
         self.perform-operation(
             :api-call<UpdateProduct>,
-            :return-type(UpdateProductOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-launch-paths(
-    Id :$product-id!,
-    Str :$accept-language,
-    PageToken :$page-token,
-    PageSize :$page-size
+        Id :$product-id!,
+        Str :$accept-language,
+        PageToken :$page-token,
+        PageSize :$page-size
     ) returns ListLaunchPathsOutput is service-operation('ListLaunchPaths') {
         my $request-input = ListLaunchPathsInput.new(
-        :$product-id,
-        :$accept-language,
-        :$page-token,
-        :$page-size
+            :$product-id,
+            :$accept-language,
+            :$page-token,
+            :$page-size
         );
-;
+
         self.perform-operation(
             :api-call<ListLaunchPaths>,
-            :return-type(ListLaunchPathsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-portfolios-for-product(
-    Id :$product-id!,
-    Str :$accept-language,
-    PageSize :$page-size,
-    PageToken :$page-token
+        Id :$product-id!,
+        Str :$accept-language,
+        PageSize :$page-size,
+        PageToken :$page-token
     ) returns ListPortfoliosForProductOutput is service-operation('ListPortfoliosForProduct') {
         my $request-input = ListPortfoliosForProductInput.new(
-        :$product-id,
-        :$accept-language,
-        :$page-size,
-        :$page-token
+            :$product-id,
+            :$accept-language,
+            :$page-size,
+            :$page-token
         );
-;
+
         self.perform-operation(
             :api-call<ListPortfoliosForProduct>,
-            :return-type(ListPortfoliosForProductOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-record-history(
-    AccessLevelFilter :$access-level-filter,
-    ListRecordHistorySearchFilter :$search-filter,
-    Str :$accept-language,
-    PageToken :$page-token,
-    PageSize :$page-size
+        AccessLevelFilter :$access-level-filter,
+        ListRecordHistorySearchFilter :$search-filter,
+        Str :$accept-language,
+        PageToken :$page-token,
+        PageSize :$page-size
     ) returns ListRecordHistoryOutput is service-operation('ListRecordHistory') {
         my $request-input = ListRecordHistoryInput.new(
-        :$access-level-filter,
-        :$search-filter,
-        :$accept-language,
-        :$page-token,
-        :$page-size
+            :$access-level-filter,
+            :$search-filter,
+            :$accept-language,
+            :$page-token,
+            :$page-size
         );
-;
+
         self.perform-operation(
             :api-call<ListRecordHistory>,
-            :return-type(ListRecordHistoryOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method accept-portfolio-share(
-    Str :$accept-language,
-    Id :$portfolio-id!
+        Str :$accept-language,
+        Id :$portfolio-id!
     ) returns AcceptPortfolioShareOutput is service-operation('AcceptPortfolioShare') {
         my $request-input = AcceptPortfolioShareInput.new(
-        :$accept-language,
-        :$portfolio-id
+            :$accept-language,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<AcceptPortfolioShare>,
-            :return-type(AcceptPortfolioShareOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-product(
-    Str :$owner!,
-    Str :$support-email,
-    Str :$description,
-    Str :$accept-language,
-    Str :$support-url,
-    ProvisioningArtifactProperties :$provisioning-artifact-parameters!,
-    AddTags :$tags,
-    ProductType :$product-type!,
-    Str :$distributor,
-    Str :$name!,
-    Str :$support-description,
-    IdempotencyToken :$idempotency-token!
+        Str :$owner!,
+        Str :$support-email,
+        Str :$description,
+        Str :$accept-language,
+        Str :$support-url,
+        ProvisioningArtifactProperties :$provisioning-artifact-parameters!,
+        AddTags :$tags,
+        ProductType :$product-type!,
+        Str :$distributor,
+        Str :$name!,
+        Str :$support-description,
+        IdempotencyToken :$idempotency-token!
     ) returns CreateProductOutput is service-operation('CreateProduct') {
         my $request-input = CreateProductInput.new(
-        :$owner,
-        :$support-email,
-        :$description,
-        :$accept-language,
-        :$support-url,
-        :$provisioning-artifact-parameters,
-        :$tags,
-        :$product-type,
-        :$distributor,
-        :$name,
-        :$support-description,
-        :$idempotency-token
+            :$owner,
+            :$support-email,
+            :$description,
+            :$accept-language,
+            :$support-url,
+            :$provisioning-artifact-parameters,
+            :$tags,
+            :$product-type,
+            :$distributor,
+            :$name,
+            :$support-description,
+            :$idempotency-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateProduct>,
-            :return-type(CreateProductOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-product-view(
-    Str :$accept-language,
-    Id :$id!
+        Str :$accept-language,
+        Id :$id!
     ) returns DescribeProductViewOutput is service-operation('DescribeProductView') {
         my $request-input = DescribeProductViewInput.new(
-        :$accept-language,
-        :$id
+            :$accept-language,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeProductView>,
-            :return-type(DescribeProductViewOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-provisioning-artifacts(
-    Id :$product-id!,
-    Str :$accept-language
+        Id :$product-id!,
+        Str :$accept-language
     ) returns ListProvisioningArtifactsOutput is service-operation('ListProvisioningArtifacts') {
         my $request-input = ListProvisioningArtifactsInput.new(
-        :$product-id,
-        :$accept-language
+            :$product-id,
+            :$accept-language
         );
-;
+
         self.perform-operation(
             :api-call<ListProvisioningArtifacts>,
-            :return-type(ListProvisioningArtifactsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-portfolio(
-    PortfolioDisplayName :$display-name,
-    AddTags :$add-tags,
-    ProviderName :$provider-name,
-    PortfolioDescription :$description,
-    Str :$accept-language,
-    Id :$id!,
-    Array[TagKey] :$remove-tags
+        PortfolioDisplayName :$display-name,
+        AddTags :$add-tags,
+        ProviderName :$provider-name,
+        PortfolioDescription :$description,
+        Str :$accept-language,
+        Id :$id!,
+        Array[TagKey] :$remove-tags
     ) returns UpdatePortfolioOutput is service-operation('UpdatePortfolio') {
         my $request-input = UpdatePortfolioInput.new(
-        :$display-name,
-        :$add-tags,
-        :$provider-name,
-        :$description,
-        :$accept-language,
-        :$id,
-        :$remove-tags
+            :$display-name,
+            :$add-tags,
+            :$provider-name,
+            :$description,
+            :$accept-language,
+            :$id,
+            :$remove-tags
         );
-;
+
         self.perform-operation(
             :api-call<UpdatePortfolio>,
-            :return-type(UpdatePortfolioOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-provisioned-product(
-    Id :$provisioning-artifact-id,
-    Id :$product-id,
-    Array[UpdateProvisioningParameter] :$provisioning-parameters,
-    Id :$path-id,
-    Str :$accept-language,
-    Id :$provisioned-product-id,
-    ProvisionedProductNameOrArn :$provisioned-product-name,
-    IdempotencyToken :$update-token!
+        Id :$provisioning-artifact-id,
+        Id :$product-id,
+        Array[UpdateProvisioningParameter] :$provisioning-parameters,
+        Id :$path-id,
+        Str :$accept-language,
+        Id :$provisioned-product-id,
+        ProvisionedProductNameOrArn :$provisioned-product-name,
+        IdempotencyToken :$update-token!
     ) returns UpdateProvisionedProductOutput is service-operation('UpdateProvisionedProduct') {
         my $request-input = UpdateProvisionedProductInput.new(
-        :$provisioning-artifact-id,
-        :$product-id,
-        :$provisioning-parameters,
-        :$path-id,
-        :$accept-language,
-        :$provisioned-product-id,
-        :$provisioned-product-name,
-        :$update-token
+            :$provisioning-artifact-id,
+            :$product-id,
+            :$provisioning-parameters,
+            :$path-id,
+            :$accept-language,
+            :$provisioned-product-id,
+            :$provisioned-product-name,
+            :$update-token
         );
-;
+
         self.perform-operation(
             :api-call<UpdateProvisionedProduct>,
-            :return-type(UpdateProvisionedProductOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-copy-product-status(
-    Str :$accept-language,
-    Id :$copy-product-token!
+        Str :$accept-language,
+        Id :$copy-product-token!
     ) returns DescribeCopyProductStatusOutput is service-operation('DescribeCopyProductStatus') {
         my $request-input = DescribeCopyProductStatusInput.new(
-        :$accept-language,
-        :$copy-product-token
+            :$accept-language,
+            :$copy-product-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCopyProductStatus>,
-            :return-type(DescribeCopyProductStatusOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method copy-product(
-    Array[CopyOption] :$copy-options,
-    Array[Hash[Str, ProvisioningArtifactPropertyName]] :$source-provisioning-artifact-identifiers,
-    Str :$target-product-name,
-    Str :$accept-language,
-    IdempotencyToken :$idempotency-token!,
-    Id :$target-product-id,
-    ProductArn :$source-product-arn!
+        Array[CopyOption] :$copy-options,
+        Array[Hash[Str, ProvisioningArtifactPropertyName]] :$source-provisioning-artifact-identifiers,
+        Str :$target-product-name,
+        Str :$accept-language,
+        IdempotencyToken :$idempotency-token!,
+        Id :$target-product-id,
+        ProductArn :$source-product-arn!
     ) returns CopyProductOutput is service-operation('CopyProduct') {
         my $request-input = CopyProductInput.new(
-        :$copy-options,
-        :$source-provisioning-artifact-identifiers,
-        :$target-product-name,
-        :$accept-language,
-        :$idempotency-token,
-        :$target-product-id,
-        :$source-product-arn
+            :$copy-options,
+            :$source-provisioning-artifact-identifiers,
+            :$target-product-name,
+            :$accept-language,
+            :$idempotency-token,
+            :$target-product-id,
+            :$source-product-arn
         );
-;
+
         self.perform-operation(
             :api-call<CopyProduct>,
-            :return-type(CopyProductOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-portfolio(
-    PortfolioDisplayName :$display-name!,
-    ProviderName :$provider-name!,
-    PortfolioDescription :$description,
-    Str :$accept-language,
-    AddTags :$tags,
-    IdempotencyToken :$idempotency-token!
+        PortfolioDisplayName :$display-name!,
+        ProviderName :$provider-name!,
+        PortfolioDescription :$description,
+        Str :$accept-language,
+        AddTags :$tags,
+        IdempotencyToken :$idempotency-token!
     ) returns CreatePortfolioOutput is service-operation('CreatePortfolio') {
         my $request-input = CreatePortfolioInput.new(
-        :$display-name,
-        :$provider-name,
-        :$description,
-        :$accept-language,
-        :$tags,
-        :$idempotency-token
+            :$display-name,
+            :$provider-name,
+            :$description,
+            :$accept-language,
+            :$tags,
+            :$idempotency-token
         );
-;
+
         self.perform-operation(
             :api-call<CreatePortfolio>,
-            :return-type(CreatePortfolioOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-principal-from-portfolio(
-    Str :$accept-language,
-    PrincipalARN :$principal-arn!,
-    Id :$portfolio-id!
+        Str :$accept-language,
+        PrincipalARN :$principal-arn!,
+        Id :$portfolio-id!
     ) returns DisassociatePrincipalFromPortfolioOutput is service-operation('DisassociatePrincipalFromPortfolio') {
         my $request-input = DisassociatePrincipalFromPortfolioInput.new(
-        :$accept-language,
-        :$principal-arn,
-        :$portfolio-id
+            :$accept-language,
+            :$principal-arn,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociatePrincipalFromPortfolio>,
-            :return-type(DisassociatePrincipalFromPortfolioOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-principals-for-portfolio(
-    Str :$accept-language,
-    PageToken :$page-token,
-    PageSize :$page-size,
-    Id :$portfolio-id!
+        Str :$accept-language,
+        PageToken :$page-token,
+        PageSize :$page-size,
+        Id :$portfolio-id!
     ) returns ListPrincipalsForPortfolioOutput is service-operation('ListPrincipalsForPortfolio') {
         my $request-input = ListPrincipalsForPortfolioInput.new(
-        :$accept-language,
-        :$page-token,
-        :$page-size,
-        :$portfolio-id
+            :$accept-language,
+            :$page-token,
+            :$page-size,
+            :$portfolio-id
         );
-;
+
         self.perform-operation(
             :api-call<ListPrincipalsForPortfolio>,
-            :return-type(ListPrincipalsForPortfolioOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

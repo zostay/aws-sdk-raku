@@ -5166,5018 +5166,4536 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method describe-network-acls(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$network-acl-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$network-acl-ids
     ) returns DescribeNetworkAclsResult is service-operation('DescribeNetworkAcls') {
         my $request-input = DescribeNetworkAclsRequest.new(
-        :$dry-run,
-        :$filters,
-        :$network-acl-ids
+            :$dry-run,
+            :$filters,
+            :$network-acl-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeNetworkAcls>,
-            :return-type(DescribeNetworkAclsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-scheduled-instance-availability(
-    Int :$max-slot-duration-in-hours,
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Bool :$dry-run,
-    Str :$next-token,
-    ScheduledInstanceRecurrenceRequest :$recurrence!,
-    Int :$min-slot-duration-in-hours,
-    SlotDateTimeRangeRequest :$first-slot-start-time-range!
+        Int :$max-slot-duration-in-hours,
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Bool :$dry-run,
+        Str :$next-token,
+        ScheduledInstanceRecurrenceRequest :$recurrence!,
+        Int :$min-slot-duration-in-hours,
+        SlotDateTimeRangeRequest :$first-slot-start-time-range!
     ) returns DescribeScheduledInstanceAvailabilityResult is service-operation('DescribeScheduledInstanceAvailability') {
         my $request-input = DescribeScheduledInstanceAvailabilityRequest.new(
-        :$max-slot-duration-in-hours,
-        :$max-results,
-        :$filters,
-        :$dry-run,
-        :$next-token,
-        :$recurrence,
-        :$min-slot-duration-in-hours,
-        :$first-slot-start-time-range
+            :$max-slot-duration-in-hours,
+            :$max-results,
+            :$filters,
+            :$dry-run,
+            :$next-token,
+            :$recurrence,
+            :$min-slot-duration-in-hours,
+            :$first-slot-start-time-range
         );
-;
+
         self.perform-operation(
             :api-call<DescribeScheduledInstanceAvailability>,
-            :return-type(DescribeScheduledInstanceAvailabilityResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method purchase-reserved-instances-offering(
-    Bool :$dry-run,
-    ReservedInstanceLimitPrice :$limit-price,
-    Str :$reserved-instances-offering-id!,
-    Int :$instance-count!
+        Bool :$dry-run,
+        ReservedInstanceLimitPrice :$limit-price,
+        Str :$reserved-instances-offering-id!,
+        Int :$instance-count!
     ) returns PurchaseReservedInstancesOfferingResult is service-operation('PurchaseReservedInstancesOffering') {
         my $request-input = PurchaseReservedInstancesOfferingRequest.new(
-        :$dry-run,
-        :$limit-price,
-        :$reserved-instances-offering-id,
-        :$instance-count
+            :$dry-run,
+            :$limit-price,
+            :$reserved-instances-offering-id,
+            :$instance-count
         );
-;
+
         self.perform-operation(
             :api-call<PurchaseReservedInstancesOffering>,
-            :return-type(PurchaseReservedInstancesOfferingResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-vpn-gateway(
-    Bool :$dry-run,
-    Str :$vpc-id!,
-    Str :$vpn-gateway-id!
+        Bool :$dry-run,
+        Str :$vpc-id!,
+        Str :$vpn-gateway-id!
     ) returns AttachVpnGatewayResult is service-operation('AttachVpnGateway') {
         my $request-input = AttachVpnGatewayRequest.new(
-        :$dry-run,
-        :$vpc-id,
-        :$vpn-gateway-id
+            :$dry-run,
+            :$vpc-id,
+            :$vpn-gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<AttachVpnGateway>,
-            :return-type(AttachVpnGatewayResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-vpc-cidr-block(
-    Str :$association-id!
+        Str :$association-id!
     ) returns DisassociateVpcCidrBlockResult is service-operation('DisassociateVpcCidrBlock') {
         my $request-input = DisassociateVpcCidrBlockRequest.new(
-        :$association-id
+            :$association-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateVpcCidrBlock>,
-            :return-type(DisassociateVpcCidrBlockResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reset-image-attribute(
-    Bool :$dry-run,
-    Str :$image-id!,
-    ResetImageAttributeName :$attribute!
+        Bool :$dry-run,
+        Str :$image-id!,
+        ResetImageAttributeName :$attribute!
     ) is service-operation('ResetImageAttribute') {
         my $request-input = ResetImageAttributeRequest.new(
-        :$dry-run,
-        :$image-id,
-        :$attribute
+            :$dry-run,
+            :$image-id,
+            :$attribute
         );
-;
+
         self.perform-operation(
             :api-call<ResetImageAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method replace-route(
-    Str :$route-table-id!,
-    Bool :$dry-run,
-    Str :$gateway-id,
-    Str :$egress-only-internet-gateway-id,
-    Str :$network-interface-id,
-    Str :$nat-gateway-id,
-    Str :$destination-ipv6-cidr-block,
-    Str :$destination-cidr-block,
-    Str :$vpc-peering-connection-id,
-    Str :$instance-id
+        Str :$route-table-id!,
+        Bool :$dry-run,
+        Str :$gateway-id,
+        Str :$egress-only-internet-gateway-id,
+        Str :$network-interface-id,
+        Str :$nat-gateway-id,
+        Str :$destination-ipv6-cidr-block,
+        Str :$destination-cidr-block,
+        Str :$vpc-peering-connection-id,
+        Str :$instance-id
     ) is service-operation('ReplaceRoute') {
         my $request-input = ReplaceRouteRequest.new(
-        :$route-table-id,
-        :$dry-run,
-        :$gateway-id,
-        :$egress-only-internet-gateway-id,
-        :$network-interface-id,
-        :$nat-gateway-id,
-        :$destination-ipv6-cidr-block,
-        :$destination-cidr-block,
-        :$vpc-peering-connection-id,
-        :$instance-id
+            :$route-table-id,
+            :$dry-run,
+            :$gateway-id,
+            :$egress-only-internet-gateway-id,
+            :$network-interface-id,
+            :$nat-gateway-id,
+            :$destination-ipv6-cidr-block,
+            :$destination-cidr-block,
+            :$vpc-peering-connection-id,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<ReplaceRoute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-vpc-endpoint(
-    Str :$vpc-endpoint-id!,
-    Array[Str] :$remove-route-table-ids,
-    Bool :$dry-run,
-    Str :$policy-document,
-    Bool :$reset-policy,
-    Array[Str] :$add-route-table-ids
+        Str :$vpc-endpoint-id!,
+        Array[Str] :$remove-route-table-ids,
+        Bool :$dry-run,
+        Str :$policy-document,
+        Bool :$reset-policy,
+        Array[Str] :$add-route-table-ids
     ) returns ModifyVpcEndpointResult is service-operation('ModifyVpcEndpoint') {
         my $request-input = ModifyVpcEndpointRequest.new(
-        :$vpc-endpoint-id,
-        :$remove-route-table-ids,
-        :$dry-run,
-        :$policy-document,
-        :$reset-policy,
-        :$add-route-table-ids
+            :$vpc-endpoint-id,
+            :$remove-route-table-ids,
+            :$dry-run,
+            :$policy-document,
+            :$reset-policy,
+            :$add-route-table-ids
         );
-;
+
         self.perform-operation(
             :api-call<ModifyVpcEndpoint>,
-            :return-type(ModifyVpcEndpointResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-reserved-instances-listing(
-    Str :$reserved-instances-listing-id!
+        Str :$reserved-instances-listing-id!
     ) returns CancelReservedInstancesListingResult is service-operation('CancelReservedInstancesListing') {
         my $request-input = CancelReservedInstancesListingRequest.new(
-        :$reserved-instances-listing-id
+            :$reserved-instances-listing-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelReservedInstancesListing>,
-            :return-type(CancelReservedInstancesListingResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-default-vpc(
-    Bool :$dry-run
+        Bool :$dry-run
     ) returns CreateDefaultVpcResult is service-operation('CreateDefaultVpc') {
         my $request-input = CreateDefaultVpcRequest.new(
-        :$dry-run
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<CreateDefaultVpc>,
-            :return-type(CreateDefaultVpcResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vpc-attribute(
-    Bool :$dry-run,
-    Str :$vpc-id!,
-    VpcAttributeName :$attribute!
+        Bool :$dry-run,
+        Str :$vpc-id!,
+        VpcAttributeName :$attribute!
     ) returns DescribeVpcAttributeResult is service-operation('DescribeVpcAttribute') {
         my $request-input = DescribeVpcAttributeRequest.new(
-        :$dry-run,
-        :$vpc-id,
-        :$attribute
+            :$dry-run,
+            :$vpc-id,
+            :$attribute
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpcAttribute>,
-            :return-type(DescribeVpcAttributeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reject-vpc-peering-connection(
-    Bool :$dry-run,
-    Str :$vpc-peering-connection-id!
+        Bool :$dry-run,
+        Str :$vpc-peering-connection-id!
     ) returns RejectVpcPeeringConnectionResult is service-operation('RejectVpcPeeringConnection') {
         my $request-input = RejectVpcPeeringConnectionRequest.new(
-        :$dry-run,
-        :$vpc-peering-connection-id
+            :$dry-run,
+            :$vpc-peering-connection-id
         );
-;
+
         self.perform-operation(
             :api-call<RejectVpcPeeringConnection>,
-            :return-type(RejectVpcPeeringConnectionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vpc-peering-connection(
-    Bool :$dry-run,
-    Str :$vpc-peering-connection-id!
+        Bool :$dry-run,
+        Str :$vpc-peering-connection-id!
     ) returns DeleteVpcPeeringConnectionResult is service-operation('DeleteVpcPeeringConnection') {
         my $request-input = DeleteVpcPeeringConnectionRequest.new(
-        :$dry-run,
-        :$vpc-peering-connection-id
+            :$dry-run,
+            :$vpc-peering-connection-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVpcPeeringConnection>,
-            :return-type(DeleteVpcPeeringConnectionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-vpn-connection-route(
-    Str :$vpn-connection-id!,
-    Str :$destination-cidr-block!
+        Str :$vpn-connection-id!,
+        Str :$destination-cidr-block!
     ) is service-operation('CreateVpnConnectionRoute') {
         my $request-input = CreateVpnConnectionRouteRequest.new(
-        :$vpn-connection-id,
-        :$destination-cidr-block
+            :$vpn-connection-id,
+            :$destination-cidr-block
         );
-;
+
         self.perform-operation(
             :api-call<CreateVpnConnectionRoute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-bundle-task(
-    Bool :$dry-run,
-    Str :$bundle-id!
+        Bool :$dry-run,
+        Str :$bundle-id!
     ) returns CancelBundleTaskResult is service-operation('CancelBundleTask') {
         my $request-input = CancelBundleTaskRequest.new(
-        :$dry-run,
-        :$bundle-id
+            :$dry-run,
+            :$bundle-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelBundleTask>,
-            :return-type(CancelBundleTaskResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-fpga-image(
-    Bool :$dry-run,
-    Str :$client-token,
-    Str :$description,
-    Str :$name,
-    StorageLocation :$logs-storage-location,
-    StorageLocation :$input-storage-location!
+        Bool :$dry-run,
+        Str :$client-token,
+        Str :$description,
+        Str :$name,
+        StorageLocation :$logs-storage-location,
+        StorageLocation :$input-storage-location!
     ) returns CreateFpgaImageResult is service-operation('CreateFpgaImage') {
         my $request-input = CreateFpgaImageRequest.new(
-        :$dry-run,
-        :$client-token,
-        :$description,
-        :$name,
-        :$logs-storage-location,
-        :$input-storage-location
+            :$dry-run,
+            :$client-token,
+            :$description,
+            :$name,
+            :$logs-storage-location,
+            :$input-storage-location
         );
-;
+
         self.perform-operation(
             :api-call<CreateFpgaImage>,
-            :return-type(CreateFpgaImageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-reserved-instances(
-    OfferingTypeValues :$offering-type,
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    OfferingClassType :$offering-class,
-    Array[Str] :$reserved-instances-ids
+        OfferingTypeValues :$offering-type,
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        OfferingClassType :$offering-class,
+        Array[Str] :$reserved-instances-ids
     ) returns DescribeReservedInstancesResult is service-operation('DescribeReservedInstances') {
         my $request-input = DescribeReservedInstancesRequest.new(
-        :$offering-type,
-        :$dry-run,
-        :$filters,
-        :$offering-class,
-        :$reserved-instances-ids
+            :$offering-type,
+            :$dry-run,
+            :$filters,
+            :$offering-class,
+            :$reserved-instances-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReservedInstances>,
-            :return-type(DescribeReservedInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-security-groups(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$group-ids,
-    Array[Str] :$group-names
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$group-ids,
+        Array[Str] :$group-names
     ) returns DescribeSecurityGroupsResult is service-operation('DescribeSecurityGroups') {
         my $request-input = DescribeSecurityGroupsRequest.new(
-        :$dry-run,
-        :$filters,
-        :$group-ids,
-        :$group-names
+            :$dry-run,
+            :$filters,
+            :$group-ids,
+            :$group-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSecurityGroups>,
-            :return-type(DescribeSecurityGroupsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-vgw-route-propagation(
-    Str :$route-table-id!,
-    Str :$gateway-id!
+        Str :$route-table-id!,
+        Str :$gateway-id!
     ) is service-operation('EnableVgwRoutePropagation') {
         my $request-input = EnableVgwRoutePropagationRequest.new(
-        :$route-table-id,
-        :$gateway-id
+            :$route-table-id,
+            :$gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<EnableVgwRoutePropagation>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method monitor-instances(
-    Bool :$dry-run,
-    Array[Str] :$instance-ids!
+        Bool :$dry-run,
+        Array[Str] :$instance-ids!
     ) returns MonitorInstancesResult is service-operation('MonitorInstances') {
         my $request-input = MonitorInstancesRequest.new(
-        :$dry-run,
-        :$instance-ids
+            :$dry-run,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<MonitorInstances>,
-            :return-type(MonitorInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-network-acl(
-    Str :$vpc-id!,
-    Bool :$dry-run
+        Str :$vpc-id!,
+        Bool :$dry-run
     ) returns CreateNetworkAclResult is service-operation('CreateNetworkAcl') {
         my $request-input = CreateNetworkAclRequest.new(
-        :$vpc-id,
-        :$dry-run
+            :$vpc-id,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<CreateNetworkAcl>,
-            :return-type(CreateNetworkAclResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-egress-only-internet-gateway(
-    Str :$vpc-id!,
-    Bool :$dry-run,
-    Str :$client-token
+        Str :$vpc-id!,
+        Bool :$dry-run,
+        Str :$client-token
     ) returns CreateEgressOnlyInternetGatewayResult is service-operation('CreateEgressOnlyInternetGateway') {
         my $request-input = CreateEgressOnlyInternetGatewayRequest.new(
-        :$vpc-id,
-        :$dry-run,
-        :$client-token
+            :$vpc-id,
+            :$dry-run,
+            :$client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateEgressOnlyInternetGateway>,
-            :return-type(CreateEgressOnlyInternetGatewayResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-instances(
-    Bool :$dry-run,
-    Bool :$force,
-    Array[Str] :$instance-ids!
+        Bool :$dry-run,
+        Bool :$force,
+        Array[Str] :$instance-ids!
     ) returns StopInstancesResult is service-operation('StopInstances') {
         my $request-input = StopInstancesRequest.new(
-        :$dry-run,
-        :$force,
-        :$instance-ids
+            :$dry-run,
+            :$force,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<StopInstances>,
-            :return-type(StopInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reset-instance-attribute(
-    Bool :$dry-run,
-    InstanceAttributeName :$attribute!,
-    Str :$instance-id!
+        Bool :$dry-run,
+        InstanceAttributeName :$attribute!,
+        Str :$instance-id!
     ) is service-operation('ResetInstanceAttribute') {
         my $request-input = ResetInstanceAttributeRequest.new(
-        :$dry-run,
-        :$attribute,
-        :$instance-id
+            :$dry-run,
+            :$attribute,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<ResetInstanceAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-import-image-tasks(
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Bool :$dry-run,
-    Array[Str] :$import-task-ids,
-    Str :$next-token
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Bool :$dry-run,
+        Array[Str] :$import-task-ids,
+        Str :$next-token
     ) returns DescribeImportImageTasksResult is service-operation('DescribeImportImageTasks') {
         my $request-input = DescribeImportImageTasksRequest.new(
-        :$max-results,
-        :$filters,
-        :$dry-run,
-        :$import-task-ids,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$dry-run,
+            :$import-task-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeImportImageTasks>,
-            :return-type(DescribeImportImageTasksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-id-format(
-    Str :$resource
+        Str :$resource
     ) returns DescribeIdFormatResult is service-operation('DescribeIdFormat') {
         my $request-input = DescribeIdFormatRequest.new(
-        :$resource
+            :$resource
         );
-;
+
         self.perform-operation(
             :api-call<DescribeIdFormat>,
-            :return-type(DescribeIdFormatResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-availability-zones(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$zone-names
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$zone-names
     ) returns DescribeAvailabilityZonesResult is service-operation('DescribeAvailabilityZones') {
         my $request-input = DescribeAvailabilityZonesRequest.new(
-        :$dry-run,
-        :$filters,
-        :$zone-names
+            :$dry-run,
+            :$filters,
+            :$zone-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAvailabilityZones>,
-            :return-type(DescribeAvailabilityZonesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-internet-gateway(
-    Str :$vpc-id!,
-    Bool :$dry-run,
-    Str :$internet-gateway-id!
+        Str :$vpc-id!,
+        Bool :$dry-run,
+        Str :$internet-gateway-id!
     ) is service-operation('AttachInternetGateway') {
         my $request-input = AttachInternetGatewayRequest.new(
-        :$vpc-id,
-        :$dry-run,
-        :$internet-gateway-id
+            :$vpc-id,
+            :$dry-run,
+            :$internet-gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<AttachInternetGateway>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-conversion-task(
-    Str :$conversion-task-id!,
-    Bool :$dry-run,
-    Str :$reason-message
+        Str :$conversion-task-id!,
+        Bool :$dry-run,
+        Str :$reason-message
     ) is service-operation('CancelConversionTask') {
         my $request-input = CancelConversionRequest.new(
-        :$conversion-task-id,
-        :$dry-run,
-        :$reason-message
+            :$conversion-task-id,
+            :$dry-run,
+            :$reason-message
         );
-;
+
         self.perform-operation(
             :api-call<CancelConversionTask>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method copy-fpga-image(
-    Str :$source-region!,
-    Str :$source-fpga-image-id!,
-    Bool :$dry-run,
-    Str :$client-token,
-    Str :$description,
-    Str :$name
+        Str :$source-region!,
+        Str :$source-fpga-image-id!,
+        Bool :$dry-run,
+        Str :$client-token,
+        Str :$description,
+        Str :$name
     ) returns CopyFpgaImageResult is service-operation('CopyFpgaImage') {
         my $request-input = CopyFpgaImageRequest.new(
-        :$source-region,
-        :$source-fpga-image-id,
-        :$dry-run,
-        :$client-token,
-        :$description,
-        :$name
+            :$source-region,
+            :$source-fpga-image-id,
+            :$dry-run,
+            :$client-token,
+            :$description,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CopyFpgaImage>,
-            :return-type(CopyFpgaImageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-address(
-    Bool :$dry-run,
-    Str :$public-ip,
-    Str :$association-id
+        Bool :$dry-run,
+        Str :$public-ip,
+        Str :$association-id
     ) is service-operation('DisassociateAddress') {
         my $request-input = DisassociateAddressRequest.new(
-        :$dry-run,
-        :$public-ip,
-        :$association-id
+            :$dry-run,
+            :$public-ip,
+            :$association-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateAddress>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-instances(
-    Bool :$dry-run,
-    Str :$additional-info,
-    Array[Str] :$instance-ids!
+        Bool :$dry-run,
+        Str :$additional-info,
+        Array[Str] :$instance-ids!
     ) returns StartInstancesResult is service-operation('StartInstances') {
         my $request-input = StartInstancesRequest.new(
-        :$dry-run,
-        :$additional-info,
-        :$instance-ids
+            :$dry-run,
+            :$additional-info,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<StartInstances>,
-            :return-type(StartInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-export-tasks(
-    Array[Str] :$export-task-ids
+        Array[Str] :$export-task-ids
     ) returns DescribeExportTasksResult is service-operation('DescribeExportTasks') {
         my $request-input = DescribeExportTasksRequest.new(
-        :$export-task-ids
+            :$export-task-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeExportTasks>,
-            :return-type(DescribeExportTasksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-regions(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$region-names
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$region-names
     ) returns DescribeRegionsResult is service-operation('DescribeRegions') {
         my $request-input = DescribeRegionsRequest.new(
-        :$dry-run,
-        :$filters,
-        :$region-names
+            :$dry-run,
+            :$filters,
+            :$region-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRegions>,
-            :return-type(DescribeRegionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reset-snapshot-attribute(
-    Bool :$dry-run,
-    Str :$snapshot-id!,
-    SnapshotAttributeName :$attribute!
+        Bool :$dry-run,
+        Str :$snapshot-id!,
+        SnapshotAttributeName :$attribute!
     ) is service-operation('ResetSnapshotAttribute') {
         my $request-input = ResetSnapshotAttributeRequest.new(
-        :$dry-run,
-        :$snapshot-id,
-        :$attribute
+            :$dry-run,
+            :$snapshot-id,
+            :$attribute
         );
-;
+
         self.perform-operation(
             :api-call<ResetSnapshotAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method authorize-security-group-egress(
-    Str :$source-security-group-owner-id,
-    Str :$cidr-ip,
-    Array[IpPermission] :$ip-permissions,
-    Str :$group-id!,
-    Bool :$dry-run,
-    Str :$ip-protocol,
-    Int :$from-port,
-    Str :$source-security-group-name,
-    Int :$to-port
+        Str :$source-security-group-owner-id,
+        Str :$cidr-ip,
+        Array[IpPermission] :$ip-permissions,
+        Str :$group-id!,
+        Bool :$dry-run,
+        Str :$ip-protocol,
+        Int :$from-port,
+        Str :$source-security-group-name,
+        Int :$to-port
     ) is service-operation('AuthorizeSecurityGroupEgress') {
         my $request-input = AuthorizeSecurityGroupEgressRequest.new(
-        :$source-security-group-owner-id,
-        :$cidr-ip,
-        :$ip-permissions,
-        :$group-id,
-        :$dry-run,
-        :$ip-protocol,
-        :$from-port,
-        :$source-security-group-name,
-        :$to-port
+            :$source-security-group-owner-id,
+            :$cidr-ip,
+            :$ip-permissions,
+            :$group-id,
+            :$dry-run,
+            :$ip-protocol,
+            :$from-port,
+            :$source-security-group-name,
+            :$to-port
         );
-;
+
         self.perform-operation(
             :api-call<AuthorizeSecurityGroupEgress>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-vgw-route-propagation(
-    Str :$route-table-id!,
-    Str :$gateway-id!
+        Str :$route-table-id!,
+        Str :$gateway-id!
     ) is service-operation('DisableVgwRoutePropagation') {
         my $request-input = DisableVgwRoutePropagationRequest.new(
-        :$route-table-id,
-        :$gateway-id
+            :$route-table-id,
+            :$gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<DisableVgwRoutePropagation>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-volume-status(
-    Int :$max-results,
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$volume-ids,
-    Str :$next-token
+        Int :$max-results,
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$volume-ids,
+        Str :$next-token
     ) returns DescribeVolumeStatusResult is service-operation('DescribeVolumeStatus') {
         my $request-input = DescribeVolumeStatusRequest.new(
-        :$max-results,
-        :$dry-run,
-        :$filters,
-        :$volume-ids,
-        :$next-token
+            :$max-results,
+            :$dry-run,
+            :$filters,
+            :$volume-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVolumeStatus>,
-            :return-type(DescribeVolumeStatusResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vpc-peering-connections(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$vpc-peering-connection-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$vpc-peering-connection-ids
     ) returns DescribeVpcPeeringConnectionsResult is service-operation('DescribeVpcPeeringConnections') {
         my $request-input = DescribeVpcPeeringConnectionsRequest.new(
-        :$dry-run,
-        :$filters,
-        :$vpc-peering-connection-ids
+            :$dry-run,
+            :$filters,
+            :$vpc-peering-connection-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpcPeeringConnections>,
-            :return-type(DescribeVpcPeeringConnectionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-vpc-attribute(
-    Str :$vpc-id!,
-    AttributeBooleanValue :$enable-dns-support,
-    AttributeBooleanValue :$enable-dns-hostnames
+        Str :$vpc-id!,
+        AttributeBooleanValue :$enable-dns-support,
+        AttributeBooleanValue :$enable-dns-hostnames
     ) is service-operation('ModifyVpcAttribute') {
         my $request-input = ModifyVpcAttributeRequest.new(
-        :$vpc-id,
-        :$enable-dns-support,
-        :$enable-dns-hostnames
+            :$vpc-id,
+            :$enable-dns-support,
+            :$enable-dns-hostnames
         );
-;
+
         self.perform-operation(
             :api-call<ModifyVpcAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-spot-datafeed-subscription(
-    Str :$bucket!,
-    Bool :$dry-run,
-    Str :$prefix
+        Str :$bucket!,
+        Bool :$dry-run,
+        Str :$prefix
     ) returns CreateSpotDatafeedSubscriptionResult is service-operation('CreateSpotDatafeedSubscription') {
         my $request-input = CreateSpotDatafeedSubscriptionRequest.new(
-        :$bucket,
-        :$dry-run,
-        :$prefix
+            :$bucket,
+            :$dry-run,
+            :$prefix
         );
-;
+
         self.perform-operation(
             :api-call<CreateSpotDatafeedSubscription>,
-            :return-type(CreateSpotDatafeedSubscriptionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-classic-link-vpc(
-    Str :$vpc-id!,
-    Bool :$dry-run,
-    Array[Str] :$groups!,
-    Str :$instance-id!
+        Str :$vpc-id!,
+        Bool :$dry-run,
+        Array[Str] :$groups!,
+        Str :$instance-id!
     ) returns AttachClassicLinkVpcResult is service-operation('AttachClassicLinkVpc') {
         my $request-input = AttachClassicLinkVpcRequest.new(
-        :$vpc-id,
-        :$dry-run,
-        :$groups,
-        :$instance-id
+            :$vpc-id,
+            :$dry-run,
+            :$groups,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<AttachClassicLinkVpc>,
-            :return-type(AttachClassicLinkVpcResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-placement-groups(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$group-names
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$group-names
     ) returns DescribePlacementGroupsResult is service-operation('DescribePlacementGroups') {
         my $request-input = DescribePlacementGroupsRequest.new(
-        :$dry-run,
-        :$filters,
-        :$group-names
+            :$dry-run,
+            :$filters,
+            :$group-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribePlacementGroups>,
-            :return-type(DescribePlacementGroupsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-volume(
-    Bool :$dry-run,
-    VolumeType :$volume-type,
-    Int :$size,
-    Str :$volume-id!,
-    Int :$iops
+        Bool :$dry-run,
+        VolumeType :$volume-type,
+        Int :$size,
+        Str :$volume-id!,
+        Int :$iops
     ) returns ModifyVolumeResult is service-operation('ModifyVolume') {
         my $request-input = ModifyVolumeRequest.new(
-        :$dry-run,
-        :$volume-type,
-        :$size,
-        :$volume-id,
-        :$iops
+            :$dry-run,
+            :$volume-type,
+            :$size,
+            :$volume-id,
+            :$iops
         );
-;
+
         self.perform-operation(
             :api-call<ModifyVolume>,
-            :return-type(ModifyVolumeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-route(
-    Str :$route-table-id!,
-    Bool :$dry-run,
-    Str :$gateway-id,
-    Str :$egress-only-internet-gateway-id,
-    Str :$network-interface-id,
-    Str :$nat-gateway-id,
-    Str :$destination-ipv6-cidr-block,
-    Str :$destination-cidr-block,
-    Str :$vpc-peering-connection-id,
-    Str :$instance-id
+        Str :$route-table-id!,
+        Bool :$dry-run,
+        Str :$gateway-id,
+        Str :$egress-only-internet-gateway-id,
+        Str :$network-interface-id,
+        Str :$nat-gateway-id,
+        Str :$destination-ipv6-cidr-block,
+        Str :$destination-cidr-block,
+        Str :$vpc-peering-connection-id,
+        Str :$instance-id
     ) returns CreateRouteResult is service-operation('CreateRoute') {
         my $request-input = CreateRouteRequest.new(
-        :$route-table-id,
-        :$dry-run,
-        :$gateway-id,
-        :$egress-only-internet-gateway-id,
-        :$network-interface-id,
-        :$nat-gateway-id,
-        :$destination-ipv6-cidr-block,
-        :$destination-cidr-block,
-        :$vpc-peering-connection-id,
-        :$instance-id
+            :$route-table-id,
+            :$dry-run,
+            :$gateway-id,
+            :$egress-only-internet-gateway-id,
+            :$network-interface-id,
+            :$nat-gateway-id,
+            :$destination-ipv6-cidr-block,
+            :$destination-cidr-block,
+            :$vpc-peering-connection-id,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateRoute>,
-            :return-type(CreateRouteResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-spot-instance-requests(
-    Bool :$dry-run,
-    Array[Str] :$spot-instance-request-ids!
+        Bool :$dry-run,
+        Array[Str] :$spot-instance-request-ids!
     ) returns CancelSpotInstanceRequestsResult is service-operation('CancelSpotInstanceRequests') {
         my $request-input = CancelSpotInstanceRequestsRequest.new(
-        :$dry-run,
-        :$spot-instance-request-ids
+            :$dry-run,
+            :$spot-instance-request-ids
         );
-;
+
         self.perform-operation(
             :api-call<CancelSpotInstanceRequests>,
-            :return-type(CancelSpotInstanceRequestsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-internet-gateway(
-    Bool :$dry-run
+        Bool :$dry-run
     ) returns CreateInternetGatewayResult is service-operation('CreateInternetGateway') {
         my $request-input = CreateInternetGatewayRequest.new(
-        :$dry-run
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<CreateInternetGateway>,
-            :return-type(CreateInternetGatewayResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vpcs(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$vpc-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$vpc-ids
     ) returns DescribeVpcsResult is service-operation('DescribeVpcs') {
         my $request-input = DescribeVpcsRequest.new(
-        :$dry-run,
-        :$filters,
-        :$vpc-ids
+            :$dry-run,
+            :$filters,
+            :$vpc-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpcs>,
-            :return-type(DescribeVpcsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-spot-fleet-requests(
-    Array[Str] :$spot-fleet-request-ids!,
-    Bool :$dry-run,
-    Bool :$terminate-instances!
+        Array[Str] :$spot-fleet-request-ids!,
+        Bool :$dry-run,
+        Bool :$terminate-instances!
     ) returns CancelSpotFleetRequestsResponse is service-operation('CancelSpotFleetRequests') {
         my $request-input = CancelSpotFleetRequestsRequest.new(
-        :$spot-fleet-request-ids,
-        :$dry-run,
-        :$terminate-instances
+            :$spot-fleet-request-ids,
+            :$dry-run,
+            :$terminate-instances
         );
-;
+
         self.perform-operation(
             :api-call<CancelSpotFleetRequests>,
-            :return-type(CancelSpotFleetRequestsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-volumes-modifications(
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Bool :$dry-run,
-    Array[Str] :$volume-ids,
-    Str :$next-token
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Bool :$dry-run,
+        Array[Str] :$volume-ids,
+        Str :$next-token
     ) returns DescribeVolumesModificationsResult is service-operation('DescribeVolumesModifications') {
         my $request-input = DescribeVolumesModificationsRequest.new(
-        :$max-results,
-        :$filters,
-        :$dry-run,
-        :$volume-ids,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$dry-run,
+            :$volume-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVolumesModifications>,
-            :return-type(DescribeVolumesModificationsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-security-group-rule-descriptions-egress(
-    Array[IpPermission] :$ip-permissions!,
-    Str :$group-id,
-    Bool :$dry-run,
-    Str :$group-name
+        Array[IpPermission] :$ip-permissions!,
+        Str :$group-id,
+        Bool :$dry-run,
+        Str :$group-name
     ) returns UpdateSecurityGroupRuleDescriptionsEgressResult is service-operation('UpdateSecurityGroupRuleDescriptionsEgress') {
         my $request-input = UpdateSecurityGroupRuleDescriptionsEgressRequest.new(
-        :$ip-permissions,
-        :$group-id,
-        :$dry-run,
-        :$group-name
+            :$ip-permissions,
+            :$group-id,
+            :$dry-run,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSecurityGroupRuleDescriptionsEgress>,
-            :return-type(UpdateSecurityGroupRuleDescriptionsEgressResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method replace-iam-instance-profile-association(
-    Str :$association-id!,
-    IamInstanceProfileSpecification :$iam-instance-profile!
+        Str :$association-id!,
+        IamInstanceProfileSpecification :$iam-instance-profile!
     ) returns ReplaceIamInstanceProfileAssociationResult is service-operation('ReplaceIamInstanceProfileAssociation') {
         my $request-input = ReplaceIamInstanceProfileAssociationRequest.new(
-        :$association-id,
-        :$iam-instance-profile
+            :$association-id,
+            :$iam-instance-profile
         );
-;
+
         self.perform-operation(
             :api-call<ReplaceIamInstanceProfileAssociation>,
-            :return-type(ReplaceIamInstanceProfileAssociationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-volume-attribute(
-    Bool :$dry-run,
-    AttributeBooleanValue :$auto-enable-io,
-    Str :$volume-id!
+        Bool :$dry-run,
+        AttributeBooleanValue :$auto-enable-io,
+        Str :$volume-id!
     ) is service-operation('ModifyVolumeAttribute') {
         my $request-input = ModifyVolumeAttributeRequest.new(
-        :$dry-run,
-        :$auto-enable-io,
-        :$volume-id
+            :$dry-run,
+            :$auto-enable-io,
+            :$volume-id
         );
-;
+
         self.perform-operation(
             :api-call<ModifyVolumeAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-images(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$executable-users,
-    Array[Str] :$owners,
-    Array[Str] :$image-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$executable-users,
+        Array[Str] :$owners,
+        Array[Str] :$image-ids
     ) returns DescribeImagesResult is service-operation('DescribeImages') {
         my $request-input = DescribeImagesRequest.new(
-        :$dry-run,
-        :$filters,
-        :$executable-users,
-        :$owners,
-        :$image-ids
+            :$dry-run,
+            :$filters,
+            :$executable-users,
+            :$owners,
+            :$image-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeImages>,
-            :return-type(DescribeImagesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-console-screenshot(
-    Bool :$dry-run,
-    Str :$instance-id!,
-    Bool :$wake-up
+        Bool :$dry-run,
+        Str :$instance-id!,
+        Bool :$wake-up
     ) returns GetConsoleScreenshotResult is service-operation('GetConsoleScreenshot') {
         my $request-input = GetConsoleScreenshotRequest.new(
-        :$dry-run,
-        :$instance-id,
-        :$wake-up
+            :$dry-run,
+            :$instance-id,
+            :$wake-up
         );
-;
+
         self.perform-operation(
             :api-call<GetConsoleScreenshot>,
-            :return-type(GetConsoleScreenshotResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-host-reservation-purchase-preview(
-    Str :$offering-id!,
-    Array[Str] :$host-id-set!
+        Str :$offering-id!,
+        Array[Str] :$host-id-set!
     ) returns GetHostReservationPurchasePreviewResult is service-operation('GetHostReservationPurchasePreview') {
         my $request-input = GetHostReservationPurchasePreviewRequest.new(
-        :$offering-id,
-        :$host-id-set
+            :$offering-id,
+            :$host-id-set
         );
-;
+
         self.perform-operation(
             :api-call<GetHostReservationPurchasePreview>,
-            :return-type(GetHostReservationPurchasePreviewResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-flow-logs(
-    Int :$max-results,
-    Array[Str] :$flow-log-ids,
-    Array[Filter] :$filter,
-    Str :$next-token
+        Int :$max-results,
+        Array[Str] :$flow-log-ids,
+        Array[Filter] :$filter,
+        Str :$next-token
     ) returns DescribeFlowLogsResult is service-operation('DescribeFlowLogs') {
         my $request-input = DescribeFlowLogsRequest.new(
-        :$max-results,
-        :$flow-log-ids,
-        :$filter,
-        :$next-token
+            :$max-results,
+            :$flow-log-ids,
+            :$filter,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFlowLogs>,
-            :return-type(DescribeFlowLogsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-dhcp-options(
-    Array[Str] :$dhcp-options-ids,
-    Bool :$dry-run,
-    Array[Filter] :$filters
+        Array[Str] :$dhcp-options-ids,
+        Bool :$dry-run,
+        Array[Filter] :$filters
     ) returns DescribeDhcpOptionsResult is service-operation('DescribeDhcpOptions') {
         my $request-input = DescribeDhcpOptionsRequest.new(
-        :$dhcp-options-ids,
-        :$dry-run,
-        :$filters
+            :$dhcp-options-ids,
+            :$dry-run,
+            :$filters
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDhcpOptions>,
-            :return-type(DescribeDhcpOptionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-customer-gateway(
-    Bool :$dry-run,
-    Str :$customer-gateway-id!
+        Bool :$dry-run,
+        Str :$customer-gateway-id!
     ) is service-operation('DeleteCustomerGateway') {
         my $request-input = DeleteCustomerGatewayRequest.new(
-        :$dry-run,
-        :$customer-gateway-id
+            :$dry-run,
+            :$customer-gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCustomerGateway>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method confirm-product-instance(
-    Bool :$dry-run,
-    Str :$product-code!,
-    Str :$instance-id!
+        Bool :$dry-run,
+        Str :$product-code!,
+        Str :$instance-id!
     ) returns ConfirmProductInstanceResult is service-operation('ConfirmProductInstance') {
         my $request-input = ConfirmProductInstanceRequest.new(
-        :$dry-run,
-        :$product-code,
-        :$instance-id
+            :$dry-run,
+            :$product-code,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<ConfirmProductInstance>,
-            :return-type(ConfirmProductInstanceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-dhcp-options(
-    Bool :$dry-run,
-    Array[NewDhcpConfiguration] :$dhcp-configurations!
+        Bool :$dry-run,
+        Array[NewDhcpConfiguration] :$dhcp-configurations!
     ) returns CreateDhcpOptionsResult is service-operation('CreateDhcpOptions') {
         my $request-input = CreateDhcpOptionsRequest.new(
-        :$dry-run,
-        :$dhcp-configurations
+            :$dry-run,
+            :$dhcp-configurations
         );
-;
+
         self.perform-operation(
             :api-call<CreateDhcpOptions>,
-            :return-type(CreateDhcpOptionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-image(
-    Str :$license-type,
-    Bool :$dry-run,
-    Str :$platform,
-    Str :$hypervisor,
-    Array[ImageDiskContainer] :$disk-containers,
-    Str :$description,
-    Str :$client-token,
-    ClientData :$client-data,
-    Str :$role-name,
-    Str :$architecture
+        Str :$license-type,
+        Bool :$dry-run,
+        Str :$platform,
+        Str :$hypervisor,
+        Array[ImageDiskContainer] :$disk-containers,
+        Str :$description,
+        Str :$client-token,
+        ClientData :$client-data,
+        Str :$role-name,
+        Str :$architecture
     ) returns ImportImageResult is service-operation('ImportImage') {
         my $request-input = ImportImageRequest.new(
-        :$license-type,
-        :$dry-run,
-        :$platform,
-        :$hypervisor,
-        :$disk-containers,
-        :$description,
-        :$client-token,
-        :$client-data,
-        :$role-name,
-        :$architecture
+            :$license-type,
+            :$dry-run,
+            :$platform,
+            :$hypervisor,
+            :$disk-containers,
+            :$description,
+            :$client-token,
+            :$client-data,
+            :$role-name,
+            :$architecture
         );
-;
+
         self.perform-operation(
             :api-call<ImportImage>,
-            :return-type(ImportImageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-instance-status(
-    Int :$max-results,
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Str :$next-token,
-    Bool :$include-all-instances,
-    Array[Str] :$instance-ids
+        Int :$max-results,
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Str :$next-token,
+        Bool :$include-all-instances,
+        Array[Str] :$instance-ids
     ) returns DescribeInstanceStatusResult is service-operation('DescribeInstanceStatus') {
         my $request-input = DescribeInstanceStatusRequest.new(
-        :$max-results,
-        :$dry-run,
-        :$filters,
-        :$next-token,
-        :$include-all-instances,
-        :$instance-ids
+            :$max-results,
+            :$dry-run,
+            :$filters,
+            :$next-token,
+            :$include-all-instances,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstanceStatus>,
-            :return-type(DescribeInstanceStatusResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-customer-gateway(
-    Bool :$dry-run,
-    Str :$public-ip!,
-    GatewayType :$type!,
-    Int :$bgp-asn!
+        Bool :$dry-run,
+        Str :$public-ip!,
+        GatewayType :$type!,
+        Int :$bgp-asn!
     ) returns CreateCustomerGatewayResult is service-operation('CreateCustomerGateway') {
         my $request-input = CreateCustomerGatewayRequest.new(
-        :$dry-run,
-        :$public-ip,
-        :$type,
-        :$bgp-asn
+            :$dry-run,
+            :$public-ip,
+            :$type,
+            :$bgp-asn
         );
-;
+
         self.perform-operation(
             :api-call<CreateCustomerGateway>,
-            :return-type(CreateCustomerGatewayResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-vpc-classic-link-dns-support(
-    Str :$vpc-id
+        Str :$vpc-id
     ) returns DisableVpcClassicLinkDnsSupportResult is service-operation('DisableVpcClassicLinkDnsSupport') {
         my $request-input = DisableVpcClassicLinkDnsSupportRequest.new(
-        :$vpc-id
+            :$vpc-id
         );
-;
+
         self.perform-operation(
             :api-call<DisableVpcClassicLinkDnsSupport>,
-            :return-type(DisableVpcClassicLinkDnsSupportResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-network-interface-attribute(
-    Bool :$dry-run,
-    Str :$network-interface-id!,
-    NetworkInterfaceAttribute :$attribute
+        Bool :$dry-run,
+        Str :$network-interface-id!,
+        NetworkInterfaceAttribute :$attribute
     ) returns DescribeNetworkInterfaceAttributeResult is service-operation('DescribeNetworkInterfaceAttribute') {
         my $request-input = DescribeNetworkInterfaceAttributeRequest.new(
-        :$dry-run,
-        :$network-interface-id,
-        :$attribute
+            :$dry-run,
+            :$network-interface-id,
+            :$attribute
         );
-;
+
         self.perform-operation(
             :api-call<DescribeNetworkInterfaceAttribute>,
-            :return-type(DescribeNetworkInterfaceAttributeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vpc-classic-link(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$vpc-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$vpc-ids
     ) returns DescribeVpcClassicLinkResult is service-operation('DescribeVpcClassicLink') {
         my $request-input = DescribeVpcClassicLinkRequest.new(
-        :$dry-run,
-        :$filters,
-        :$vpc-ids
+            :$dry-run,
+            :$filters,
+            :$vpc-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpcClassicLink>,
-            :return-type(DescribeVpcClassicLinkResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-moving-addresses(
-    Int :$max-results,
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Str :$next-token,
-    Array[Str] :$public-ips
+        Int :$max-results,
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Str :$next-token,
+        Array[Str] :$public-ips
     ) returns DescribeMovingAddressesResult is service-operation('DescribeMovingAddresses') {
         my $request-input = DescribeMovingAddressesRequest.new(
-        :$max-results,
-        :$dry-run,
-        :$filters,
-        :$next-token,
-        :$public-ips
+            :$max-results,
+            :$dry-run,
+            :$filters,
+            :$next-token,
+            :$public-ips
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMovingAddresses>,
-            :return-type(DescribeMovingAddressesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-network-interface(
-    Array[InstanceIpv6Address] :$ipv6-addresses,
-    Int :$ipv6-address-count,
-    Str :$subnet-id!,
-    Int :$secondary-private-ip-address-count,
-    Bool :$dry-run,
-    Array[PrivateIpAddressSpecification] :$private-ip-addresses,
-    Str :$description,
-    Array[Str] :$groups,
-    Str :$private-ip-address
+        Array[InstanceIpv6Address] :$ipv6-addresses,
+        Int :$ipv6-address-count,
+        Str :$subnet-id!,
+        Int :$secondary-private-ip-address-count,
+        Bool :$dry-run,
+        Array[PrivateIpAddressSpecification] :$private-ip-addresses,
+        Str :$description,
+        Array[Str] :$groups,
+        Str :$private-ip-address
     ) returns CreateNetworkInterfaceResult is service-operation('CreateNetworkInterface') {
         my $request-input = CreateNetworkInterfaceRequest.new(
-        :$ipv6-addresses,
-        :$ipv6-address-count,
-        :$subnet-id,
-        :$secondary-private-ip-address-count,
-        :$dry-run,
-        :$private-ip-addresses,
-        :$description,
-        :$groups,
-        :$private-ip-address
+            :$ipv6-addresses,
+            :$ipv6-address-count,
+            :$subnet-id,
+            :$secondary-private-ip-address-count,
+            :$dry-run,
+            :$private-ip-addresses,
+            :$description,
+            :$groups,
+            :$private-ip-address
         );
-;
+
         self.perform-operation(
             :api-call<CreateNetworkInterface>,
-            :return-type(CreateNetworkInterfaceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-snapshot(
-    Bool :$dry-run,
-    Str :$description,
-    Str :$client-token,
-    ClientData :$client-data,
-    SnapshotDiskContainer :$disk-container,
-    Str :$role-name
+        Bool :$dry-run,
+        Str :$description,
+        Str :$client-token,
+        ClientData :$client-data,
+        SnapshotDiskContainer :$disk-container,
+        Str :$role-name
     ) returns ImportSnapshotResult is service-operation('ImportSnapshot') {
         my $request-input = ImportSnapshotRequest.new(
-        :$dry-run,
-        :$description,
-        :$client-token,
-        :$client-data,
-        :$disk-container,
-        :$role-name
+            :$dry-run,
+            :$description,
+            :$client-token,
+            :$client-data,
+            :$disk-container,
+            :$role-name
         );
-;
+
         self.perform-operation(
             :api-call<ImportSnapshot>,
-            :return-type(ImportSnapshotResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-network-acl(
-    Str :$network-acl-id!,
-    Bool :$dry-run
+        Str :$network-acl-id!,
+        Bool :$dry-run
     ) is service-operation('DeleteNetworkAcl') {
         my $request-input = DeleteNetworkAclRequest.new(
-        :$network-acl-id,
-        :$dry-run
+            :$network-acl-id,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<DeleteNetworkAcl>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-route-tables(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$route-table-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$route-table-ids
     ) returns DescribeRouteTablesResult is service-operation('DescribeRouteTables') {
         my $request-input = DescribeRouteTablesRequest.new(
-        :$dry-run,
-        :$filters,
-        :$route-table-ids
+            :$dry-run,
+            :$filters,
+            :$route-table-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRouteTables>,
-            :return-type(DescribeRouteTablesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-spot-fleet-request-history(
-    Int :$max-results,
-    Bool :$dry-run,
-    DateTime :$start-time!,
-    Str :$next-token,
-    Str :$spot-fleet-request-id!,
-    EventType :$event-type
+        Int :$max-results,
+        Bool :$dry-run,
+        DateTime :$start-time!,
+        Str :$next-token,
+        Str :$spot-fleet-request-id!,
+        EventType :$event-type
     ) returns DescribeSpotFleetRequestHistoryResponse is service-operation('DescribeSpotFleetRequestHistory') {
         my $request-input = DescribeSpotFleetRequestHistoryRequest.new(
-        :$max-results,
-        :$dry-run,
-        :$start-time,
-        :$next-token,
-        :$spot-fleet-request-id,
-        :$event-type
+            :$max-results,
+            :$dry-run,
+            :$start-time,
+            :$next-token,
+            :$spot-fleet-request-id,
+            :$event-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSpotFleetRequestHistory>,
-            :return-type(DescribeSpotFleetRequestHistoryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-import-task(
-    Bool :$dry-run,
-    Str :$cancel-reason,
-    Str :$import-task-id
+        Bool :$dry-run,
+        Str :$cancel-reason,
+        Str :$import-task-id
     ) returns CancelImportTaskResult is service-operation('CancelImportTask') {
         my $request-input = CancelImportTaskRequest.new(
-        :$dry-run,
-        :$cancel-reason,
-        :$import-task-id
+            :$dry-run,
+            :$cancel-reason,
+            :$import-task-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelImportTask>,
-            :return-type(CancelImportTaskResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-vpc-classic-link(
-    Str :$vpc-id!,
-    Bool :$dry-run
+        Str :$vpc-id!,
+        Bool :$dry-run
     ) returns EnableVpcClassicLinkResult is service-operation('EnableVpcClassicLink') {
         my $request-input = EnableVpcClassicLinkRequest.new(
-        :$vpc-id,
-        :$dry-run
+            :$vpc-id,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<EnableVpcClassicLink>,
-            :return-type(EnableVpcClassicLinkResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-fpga-image-attribute(
-    Str :$fpga-image-id!,
-    Array[Str] :$user-ids,
-    Bool :$dry-run,
-    Str :$description,
-    Array[Str] :$user-groups,
-    Str :$name,
-    OperationType :$operation-type,
-    FpgaImageAttributeName :$attribute,
-    Array[Str] :$product-codes,
-    LoadPermissionModifications :$load-permission
+        Str :$fpga-image-id!,
+        Array[Str] :$user-ids,
+        Bool :$dry-run,
+        Str :$description,
+        Array[Str] :$user-groups,
+        Str :$name,
+        OperationType :$operation-type,
+        FpgaImageAttributeName :$attribute,
+        Array[Str] :$product-codes,
+        LoadPermissionModifications :$load-permission
     ) returns ModifyFpgaImageAttributeResult is service-operation('ModifyFpgaImageAttribute') {
         my $request-input = ModifyFpgaImageAttributeRequest.new(
-        :$fpga-image-id,
-        :$user-ids,
-        :$dry-run,
-        :$description,
-        :$user-groups,
-        :$name,
-        :$operation-type,
-        :$attribute,
-        :$product-codes,
-        :$load-permission
+            :$fpga-image-id,
+            :$user-ids,
+            :$dry-run,
+            :$description,
+            :$user-groups,
+            :$name,
+            :$operation-type,
+            :$attribute,
+            :$product-codes,
+            :$load-permission
         );
-;
+
         self.perform-operation(
             :api-call<ModifyFpgaImageAttribute>,
-            :return-type(ModifyFpgaImageAttributeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-import-snapshot-tasks(
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Bool :$dry-run,
-    Array[Str] :$import-task-ids,
-    Str :$next-token
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Bool :$dry-run,
+        Array[Str] :$import-task-ids,
+        Str :$next-token
     ) returns DescribeImportSnapshotTasksResult is service-operation('DescribeImportSnapshotTasks') {
         my $request-input = DescribeImportSnapshotTasksRequest.new(
-        :$max-results,
-        :$filters,
-        :$dry-run,
-        :$import-task-ids,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$dry-run,
+            :$import-task-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeImportSnapshotTasks>,
-            :return-type(DescribeImportSnapshotTasksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-image(
-    Bool :$dry-run,
-    Str :$image-id!
+        Bool :$dry-run,
+        Str :$image-id!
     ) is service-operation('DeregisterImage') {
         my $request-input = DeregisterImageRequest.new(
-        :$dry-run,
-        :$image-id
+            :$dry-run,
+            :$image-id
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterImage>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-subnet(
-    Str :$ipv6-cidr-block,
-    Str :$cidr-block!,
-    Bool :$dry-run,
-    Str :$vpc-id!,
-    Str :$availability-zone
+        Str :$ipv6-cidr-block,
+        Str :$cidr-block!,
+        Bool :$dry-run,
+        Str :$vpc-id!,
+        Str :$availability-zone
     ) returns CreateSubnetResult is service-operation('CreateSubnet') {
         my $request-input = CreateSubnetRequest.new(
-        :$ipv6-cidr-block,
-        :$cidr-block,
-        :$dry-run,
-        :$vpc-id,
-        :$availability-zone
+            :$ipv6-cidr-block,
+            :$cidr-block,
+            :$dry-run,
+            :$vpc-id,
+            :$availability-zone
         );
-;
+
         self.perform-operation(
             :api-call<CreateSubnet>,
-            :return-type(CreateSubnetResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-snapshots(
-    Array[Str] :$restorable-by-user-ids,
-    Int :$max-results,
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$snapshot-ids,
-    Array[Str] :$owner-ids,
-    Str :$next-token
+        Array[Str] :$restorable-by-user-ids,
+        Int :$max-results,
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$snapshot-ids,
+        Array[Str] :$owner-ids,
+        Str :$next-token
     ) returns DescribeSnapshotsResult is service-operation('DescribeSnapshots') {
         my $request-input = DescribeSnapshotsRequest.new(
-        :$restorable-by-user-ids,
-        :$max-results,
-        :$dry-run,
-        :$filters,
-        :$snapshot-ids,
-        :$owner-ids,
-        :$next-token
+            :$restorable-by-user-ids,
+            :$max-results,
+            :$dry-run,
+            :$filters,
+            :$snapshot-ids,
+            :$owner-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSnapshots>,
-            :return-type(DescribeSnapshotsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-volume(
-    DiskImageDetail :$image!,
-    Bool :$dry-run,
-    VolumeDetail :$volume!,
-    Str :$description,
-    Str :$availability-zone!
+        DiskImageDetail :$image!,
+        Bool :$dry-run,
+        VolumeDetail :$volume!,
+        Str :$description,
+        Str :$availability-zone!
     ) returns ImportVolumeResult is service-operation('ImportVolume') {
         my $request-input = ImportVolumeRequest.new(
-        :$image,
-        :$dry-run,
-        :$volume,
-        :$description,
-        :$availability-zone
+            :$image,
+            :$dry-run,
+            :$volume,
+            :$description,
+            :$availability-zone
         );
-;
+
         self.perform-operation(
             :api-call<ImportVolume>,
-            :return-type(ImportVolumeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method copy-snapshot(
-    Str :$kms-key-id,
-    Str :$destination-region,
-    Bool :$dry-run,
-    Str :$source-region!,
-    Str :$presigned-url,
-    Str :$description,
-    Str :$source-snapshot-id!,
-    Bool :$encrypted
+        Str :$kms-key-id,
+        Str :$destination-region,
+        Bool :$dry-run,
+        Str :$source-region!,
+        Str :$presigned-url,
+        Str :$description,
+        Str :$source-snapshot-id!,
+        Bool :$encrypted
     ) returns CopySnapshotResult is service-operation('CopySnapshot') {
         my $request-input = CopySnapshotRequest.new(
-        :$kms-key-id,
-        :$destination-region,
-        :$dry-run,
-        :$source-region,
-        :$presigned-url,
-        :$description,
-        :$source-snapshot-id,
-        :$encrypted
+            :$kms-key-id,
+            :$destination-region,
+            :$dry-run,
+            :$source-region,
+            :$presigned-url,
+            :$description,
+            :$source-snapshot-id,
+            :$encrypted
         );
-;
+
         self.perform-operation(
             :api-call<CopySnapshot>,
-            :return-type(CopySnapshotResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vpc-endpoint-services(
-    Int :$max-results,
-    Bool :$dry-run,
-    Str :$next-token
+        Int :$max-results,
+        Bool :$dry-run,
+        Str :$next-token
     ) returns DescribeVpcEndpointServicesResult is service-operation('DescribeVpcEndpointServices') {
         my $request-input = DescribeVpcEndpointServicesRequest.new(
-        :$max-results,
-        :$dry-run,
-        :$next-token
+            :$max-results,
+            :$dry-run,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpcEndpointServices>,
-            :return-type(DescribeVpcEndpointServicesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-vpc-classic-link(
-    Str :$vpc-id!,
-    Bool :$dry-run
+        Str :$vpc-id!,
+        Bool :$dry-run
     ) returns DisableVpcClassicLinkResult is service-operation('DisableVpcClassicLink') {
         my $request-input = DisableVpcClassicLinkRequest.new(
-        :$vpc-id,
-        :$dry-run
+            :$vpc-id,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<DisableVpcClassicLink>,
-            :return-type(DisableVpcClassicLinkResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-hosts(
-    Array[Str] :$host-ids!,
-    AutoPlacement :$auto-placement!
+        Array[Str] :$host-ids!,
+        AutoPlacement :$auto-placement!
     ) returns ModifyHostsResult is service-operation('ModifyHosts') {
         my $request-input = ModifyHostsRequest.new(
-        :$host-ids,
-        :$auto-placement
+            :$host-ids,
+            :$auto-placement
         );
-;
+
         self.perform-operation(
             :api-call<ModifyHosts>,
-            :return-type(ModifyHostsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-spot-fleet-request(
-    ExcessCapacityTerminationPolicy :$excess-capacity-termination-policy,
-    Int :$target-capacity,
-    Str :$spot-fleet-request-id!
+        ExcessCapacityTerminationPolicy :$excess-capacity-termination-policy,
+        Int :$target-capacity,
+        Str :$spot-fleet-request-id!
     ) returns ModifySpotFleetRequestResponse is service-operation('ModifySpotFleetRequest') {
         my $request-input = ModifySpotFleetRequestRequest.new(
-        :$excess-capacity-termination-policy,
-        :$target-capacity,
-        :$spot-fleet-request-id
+            :$excess-capacity-termination-policy,
+            :$target-capacity,
+            :$spot-fleet-request-id
         );
-;
+
         self.perform-operation(
             :api-call<ModifySpotFleetRequest>,
-            :return-type(ModifySpotFleetRequestResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-security-group-rule-descriptions-ingress(
-    Array[IpPermission] :$ip-permissions!,
-    Str :$group-id,
-    Bool :$dry-run,
-    Str :$group-name
+        Array[IpPermission] :$ip-permissions!,
+        Str :$group-id,
+        Bool :$dry-run,
+        Str :$group-name
     ) returns UpdateSecurityGroupRuleDescriptionsIngressResult is service-operation('UpdateSecurityGroupRuleDescriptionsIngress') {
         my $request-input = UpdateSecurityGroupRuleDescriptionsIngressRequest.new(
-        :$ip-permissions,
-        :$group-id,
-        :$dry-run,
-        :$group-name
+            :$ip-permissions,
+            :$group-id,
+            :$dry-run,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSecurityGroupRuleDescriptionsIngress>,
-            :return-type(UpdateSecurityGroupRuleDescriptionsIngressResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method run-scheduled-instances(
-    ScheduledInstancesLaunchSpecification :$launch-specification!,
-    Bool :$dry-run,
-    Str :$client-token,
-    Str :$scheduled-instance-id!,
-    Int :$instance-count
+        ScheduledInstancesLaunchSpecification :$launch-specification!,
+        Bool :$dry-run,
+        Str :$client-token,
+        Str :$scheduled-instance-id!,
+        Int :$instance-count
     ) returns RunScheduledInstancesResult is service-operation('RunScheduledInstances') {
         my $request-input = RunScheduledInstancesRequest.new(
-        :$launch-specification,
-        :$dry-run,
-        :$client-token,
-        :$scheduled-instance-id,
-        :$instance-count
+            :$launch-specification,
+            :$dry-run,
+            :$client-token,
+            :$scheduled-instance-id,
+            :$instance-count
         );
-;
+
         self.perform-operation(
             :api-call<RunScheduledInstances>,
-            :return-type(RunScheduledInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-vpc-endpoint(
-    Str :$vpc-id!,
-    Str :$service-name!,
-    Bool :$dry-run,
-    Str :$client-token,
-    Str :$policy-document,
-    Array[Str] :$route-table-ids
+        Str :$vpc-id!,
+        Str :$service-name!,
+        Bool :$dry-run,
+        Str :$client-token,
+        Str :$policy-document,
+        Array[Str] :$route-table-ids
     ) returns CreateVpcEndpointResult is service-operation('CreateVpcEndpoint') {
         my $request-input = CreateVpcEndpointRequest.new(
-        :$vpc-id,
-        :$service-name,
-        :$dry-run,
-        :$client-token,
-        :$policy-document,
-        :$route-table-ids
+            :$vpc-id,
+            :$service-name,
+            :$dry-run,
+            :$client-token,
+            :$policy-document,
+            :$route-table-ids
         );
-;
+
         self.perform-operation(
             :api-call<CreateVpcEndpoint>,
-            :return-type(CreateVpcEndpointResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-tags(
-    Array[Str] :$resources!,
-    Bool :$dry-run,
-    Array[Tag] :$tags!
+        Array[Str] :$resources!,
+        Bool :$dry-run,
+        Array[Tag] :$tags!
     ) is service-operation('CreateTags') {
         my $request-input = CreateTagsRequest.new(
-        :$resources,
-        :$dry-run,
-        :$tags
+            :$resources,
+            :$dry-run,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateTags>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-route-table(
-    Str :$vpc-id!,
-    Bool :$dry-run
+        Str :$vpc-id!,
+        Bool :$dry-run
     ) returns CreateRouteTableResult is service-operation('CreateRouteTable') {
         my $request-input = CreateRouteTableRequest.new(
-        :$vpc-id,
-        :$dry-run
+            :$vpc-id,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<CreateRouteTable>,
-            :return-type(CreateRouteTableResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method assign-ipv6-addresses(
-    Array[Str] :$ipv6-addresses,
-    Int :$ipv6-address-count,
-    Str :$network-interface-id!
+        Array[Str] :$ipv6-addresses,
+        Int :$ipv6-address-count,
+        Str :$network-interface-id!
     ) returns AssignIpv6AddressesResult is service-operation('AssignIpv6Addresses') {
         my $request-input = AssignIpv6AddressesRequest.new(
-        :$ipv6-addresses,
-        :$ipv6-address-count,
-        :$network-interface-id
+            :$ipv6-addresses,
+            :$ipv6-address-count,
+            :$network-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<AssignIpv6Addresses>,
-            :return-type(AssignIpv6AddressesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-subnet-cidr-block(
-    Str :$association-id!
+        Str :$association-id!
     ) returns DisassociateSubnetCidrBlockResult is service-operation('DisassociateSubnetCidrBlock') {
         my $request-input = DisassociateSubnetCidrBlockRequest.new(
-        :$association-id
+            :$association-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateSubnetCidrBlock>,
-            :return-type(DisassociateSubnetCidrBlockResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vpn-gateway(
-    Bool :$dry-run,
-    Str :$vpn-gateway-id!
+        Bool :$dry-run,
+        Str :$vpn-gateway-id!
     ) is service-operation('DeleteVpnGateway') {
         my $request-input = DeleteVpnGatewayRequest.new(
-        :$dry-run,
-        :$vpn-gateway-id
+            :$dry-run,
+            :$vpn-gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVpnGateway>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-spot-fleet-instances(
-    Int :$max-results,
-    Bool :$dry-run,
-    Str :$next-token,
-    Str :$spot-fleet-request-id!
+        Int :$max-results,
+        Bool :$dry-run,
+        Str :$next-token,
+        Str :$spot-fleet-request-id!
     ) returns DescribeSpotFleetInstancesResponse is service-operation('DescribeSpotFleetInstances') {
         my $request-input = DescribeSpotFleetInstancesRequest.new(
-        :$max-results,
-        :$dry-run,
-        :$next-token,
-        :$spot-fleet-request-id
+            :$max-results,
+            :$dry-run,
+            :$next-token,
+            :$spot-fleet-request-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSpotFleetInstances>,
-            :return-type(DescribeSpotFleetInstancesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method unassign-ipv6-addresses(
-    Array[Str] :$ipv6-addresses!,
-    Str :$network-interface-id!
+        Array[Str] :$ipv6-addresses!,
+        Str :$network-interface-id!
     ) returns UnassignIpv6AddressesResult is service-operation('UnassignIpv6Addresses') {
         my $request-input = UnassignIpv6AddressesRequest.new(
-        :$ipv6-addresses,
-        :$network-interface-id
+            :$ipv6-addresses,
+            :$network-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<UnassignIpv6Addresses>,
-            :return-type(UnassignIpv6AddressesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method release-address(
-    Bool :$dry-run,
-    Str :$public-ip,
-    Str :$allocation-id
+        Bool :$dry-run,
+        Str :$public-ip,
+        Str :$allocation-id
     ) is service-operation('ReleaseAddress') {
         my $request-input = ReleaseAddressRequest.new(
-        :$dry-run,
-        :$public-ip,
-        :$allocation-id
+            :$dry-run,
+            :$public-ip,
+            :$allocation-id
         );
-;
+
         self.perform-operation(
             :api-call<ReleaseAddress>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-customer-gateways(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$customer-gateway-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$customer-gateway-ids
     ) returns DescribeCustomerGatewaysResult is service-operation('DescribeCustomerGateways') {
         my $request-input = DescribeCustomerGatewaysRequest.new(
-        :$dry-run,
-        :$filters,
-        :$customer-gateway-ids
+            :$dry-run,
+            :$filters,
+            :$customer-gateway-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCustomerGateways>,
-            :return-type(DescribeCustomerGatewaysResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vpn-connection(
-    Bool :$dry-run,
-    Str :$vpn-connection-id!
+        Bool :$dry-run,
+        Str :$vpn-connection-id!
     ) is service-operation('DeleteVpnConnection') {
         my $request-input = DeleteVpnConnectionRequest.new(
-        :$dry-run,
-        :$vpn-connection-id
+            :$dry-run,
+            :$vpn-connection-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVpnConnection>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-fpga-image(
-    Str :$fpga-image-id!,
-    Bool :$dry-run
+        Str :$fpga-image-id!,
+        Bool :$dry-run
     ) returns DeleteFpgaImageResult is service-operation('DeleteFpgaImage') {
         my $request-input = DeleteFpgaImageRequest.new(
-        :$fpga-image-id,
-        :$dry-run
+            :$fpga-image-id,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFpgaImage>,
-            :return-type(DeleteFpgaImageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-spot-datafeed-subscription(
-    Bool :$dry-run
+        Bool :$dry-run
     ) returns DescribeSpotDatafeedSubscriptionResult is service-operation('DescribeSpotDatafeedSubscription') {
         my $request-input = DescribeSpotDatafeedSubscriptionRequest.new(
-        :$dry-run
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSpotDatafeedSubscription>,
-            :return-type(DescribeSpotDatafeedSubscriptionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-dhcp-options(
-    Str :$dhcp-options-id!,
-    Bool :$dry-run,
-    Str :$vpc-id!
+        Str :$dhcp-options-id!,
+        Bool :$dry-run,
+        Str :$vpc-id!
     ) is service-operation('AssociateDhcpOptions') {
         my $request-input = AssociateDhcpOptionsRequest.new(
-        :$dhcp-options-id,
-        :$dry-run,
-        :$vpc-id
+            :$dhcp-options-id,
+            :$dry-run,
+            :$vpc-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateDhcpOptions>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-network-interface-attribute(
-    Bool :$dry-run,
-    AttributeBooleanValue :$source-dest-check,
-    AttributeValue :$description,
-    NetworkInterfaceAttachmentChanges :$attachment,
-    Str :$network-interface-id!,
-    Array[Str] :$groups
+        Bool :$dry-run,
+        AttributeBooleanValue :$source-dest-check,
+        AttributeValue :$description,
+        NetworkInterfaceAttachmentChanges :$attachment,
+        Str :$network-interface-id!,
+        Array[Str] :$groups
     ) is service-operation('ModifyNetworkInterfaceAttribute') {
         my $request-input = ModifyNetworkInterfaceAttributeRequest.new(
-        :$dry-run,
-        :$source-dest-check,
-        :$description,
-        :$attachment,
-        :$network-interface-id,
-        :$groups
+            :$dry-run,
+            :$source-dest-check,
+            :$description,
+            :$attachment,
+            :$network-interface-id,
+            :$groups
         );
-;
+
         self.perform-operation(
             :api-call<ModifyNetworkInterfaceAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method replace-network-acl-entry(
-    Str :$ipv6-cidr-block,
-    Str :$cidr-block,
-    Str :$network-acl-id!,
-    Bool :$egress!,
-    Bool :$dry-run,
-    IcmpTypeCode :$icmp-type-code,
-    PortRange :$port-range,
-    Int :$rule-number!,
-    RuleAction :$rule-action!,
-    Str :$protocol!
+        Str :$ipv6-cidr-block,
+        Str :$cidr-block,
+        Str :$network-acl-id!,
+        Bool :$egress!,
+        Bool :$dry-run,
+        IcmpTypeCode :$icmp-type-code,
+        PortRange :$port-range,
+        Int :$rule-number!,
+        RuleAction :$rule-action!,
+        Str :$protocol!
     ) is service-operation('ReplaceNetworkAclEntry') {
         my $request-input = ReplaceNetworkAclEntryRequest.new(
-        :$ipv6-cidr-block,
-        :$cidr-block,
-        :$network-acl-id,
-        :$egress,
-        :$dry-run,
-        :$icmp-type-code,
-        :$port-range,
-        :$rule-number,
-        :$rule-action,
-        :$protocol
+            :$ipv6-cidr-block,
+            :$cidr-block,
+            :$network-acl-id,
+            :$egress,
+            :$dry-run,
+            :$icmp-type-code,
+            :$port-range,
+            :$rule-number,
+            :$rule-action,
+            :$protocol
         );
-;
+
         self.perform-operation(
             :api-call<ReplaceNetworkAclEntry>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-egress-only-internet-gateways(
-    Int :$max-results,
-    Array[Str] :$egress-only-internet-gateway-ids,
-    Bool :$dry-run,
-    Str :$next-token
+        Int :$max-results,
+        Array[Str] :$egress-only-internet-gateway-ids,
+        Bool :$dry-run,
+        Str :$next-token
     ) returns DescribeEgressOnlyInternetGatewaysResult is service-operation('DescribeEgressOnlyInternetGateways') {
         my $request-input = DescribeEgressOnlyInternetGatewaysRequest.new(
-        :$max-results,
-        :$egress-only-internet-gateway-ids,
-        :$dry-run,
-        :$next-token
+            :$max-results,
+            :$egress-only-internet-gateway-ids,
+            :$dry-run,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEgressOnlyInternetGateways>,
-            :return-type(DescribeEgressOnlyInternetGatewaysResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-route-table(
-    Str :$route-table-id!,
-    Bool :$dry-run
+        Str :$route-table-id!,
+        Bool :$dry-run
     ) is service-operation('DeleteRouteTable') {
         my $request-input = DeleteRouteTableRequest.new(
-        :$route-table-id,
-        :$dry-run
+            :$route-table-id,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRouteTable>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-vpn-gateway(
-    Bool :$dry-run,
-    GatewayType :$type!,
-    Str :$availability-zone
+        Bool :$dry-run,
+        GatewayType :$type!,
+        Str :$availability-zone
     ) returns CreateVpnGatewayResult is service-operation('CreateVpnGateway') {
         my $request-input = CreateVpnGatewayRequest.new(
-        :$dry-run,
-        :$type,
-        :$availability-zone
+            :$dry-run,
+            :$type,
+            :$availability-zone
         );
-;
+
         self.perform-operation(
             :api-call<CreateVpnGateway>,
-            :return-type(CreateVpnGatewayResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-snapshot(
-    Bool :$dry-run,
-    Str :$description,
-    Str :$volume-id!
+        Bool :$dry-run,
+        Str :$description,
+        Str :$volume-id!
     ) returns Snapshot is service-operation('CreateSnapshot') {
         my $request-input = CreateSnapshotRequest.new(
-        :$dry-run,
-        :$description,
-        :$volume-id
+            :$dry-run,
+            :$description,
+            :$volume-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateSnapshot>,
-            :return-type(Snapshot),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-instances(
-    Int :$max-results,
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Str :$next-token,
-    Array[Str] :$instance-ids
+        Int :$max-results,
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Str :$next-token,
+        Array[Str] :$instance-ids
     ) returns DescribeInstancesResult is service-operation('DescribeInstances') {
         my $request-input = DescribeInstancesRequest.new(
-        :$max-results,
-        :$dry-run,
-        :$filters,
-        :$next-token,
-        :$instance-ids
+            :$max-results,
+            :$dry-run,
+            :$filters,
+            :$next-token,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstances>,
-            :return-type(DescribeInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-snapshot-attribute(
-    Bool :$dry-run,
-    Str :$snapshot-id!,
-    SnapshotAttributeName :$attribute!
+        Bool :$dry-run,
+        Str :$snapshot-id!,
+        SnapshotAttributeName :$attribute!
     ) returns DescribeSnapshotAttributeResult is service-operation('DescribeSnapshotAttribute') {
         my $request-input = DescribeSnapshotAttributeRequest.new(
-        :$dry-run,
-        :$snapshot-id,
-        :$attribute
+            :$dry-run,
+            :$snapshot-id,
+            :$attribute
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSnapshotAttribute>,
-            :return-type(DescribeSnapshotAttributeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-volume-attribute(
-    Bool :$dry-run,
-    Str :$volume-id!,
-    VolumeAttributeName :$attribute
+        Bool :$dry-run,
+        Str :$volume-id!,
+        VolumeAttributeName :$attribute
     ) returns DescribeVolumeAttributeResult is service-operation('DescribeVolumeAttribute') {
         my $request-input = DescribeVolumeAttributeRequest.new(
-        :$dry-run,
-        :$volume-id,
-        :$attribute
+            :$dry-run,
+            :$volume-id,
+            :$attribute
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVolumeAttribute>,
-            :return-type(DescribeVolumeAttributeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-key-pairs(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$key-names
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$key-names
     ) returns DescribeKeyPairsResult is service-operation('DescribeKeyPairs') {
         my $request-input = DescribeKeyPairsRequest.new(
-        :$dry-run,
-        :$filters,
-        :$key-names
+            :$dry-run,
+            :$filters,
+            :$key-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeKeyPairs>,
-            :return-type(DescribeKeyPairsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-internet-gateway(
-    Bool :$dry-run,
-    Str :$internet-gateway-id!
+        Bool :$dry-run,
+        Str :$internet-gateway-id!
     ) is service-operation('DeleteInternetGateway') {
         my $request-input = DeleteInternetGatewayRequest.new(
-        :$dry-run,
-        :$internet-gateway-id
+            :$dry-run,
+            :$internet-gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteInternetGateway>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method accept-vpc-peering-connection(
-    Bool :$dry-run,
-    Str :$vpc-peering-connection-id
+        Bool :$dry-run,
+        Str :$vpc-peering-connection-id
     ) returns AcceptVpcPeeringConnectionResult is service-operation('AcceptVpcPeeringConnection') {
         my $request-input = AcceptVpcPeeringConnectionRequest.new(
-        :$dry-run,
-        :$vpc-peering-connection-id
+            :$dry-run,
+            :$vpc-peering-connection-id
         );
-;
+
         self.perform-operation(
             :api-call<AcceptVpcPeeringConnection>,
-            :return-type(AcceptVpcPeeringConnectionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method unmonitor-instances(
-    Bool :$dry-run,
-    Array[Str] :$instance-ids!
+        Bool :$dry-run,
+        Array[Str] :$instance-ids!
     ) returns UnmonitorInstancesResult is service-operation('UnmonitorInstances') {
         my $request-input = UnmonitorInstancesRequest.new(
-        :$dry-run,
-        :$instance-ids
+            :$dry-run,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<UnmonitorInstances>,
-            :return-type(UnmonitorInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method purchase-scheduled-instances(
-    PurchaseRequestSet :$purchase-requests!,
-    Bool :$dry-run,
-    Str :$client-token
+        PurchaseRequestSet :$purchase-requests!,
+        Bool :$dry-run,
+        Str :$client-token
     ) returns PurchaseScheduledInstancesResult is service-operation('PurchaseScheduledInstances') {
         my $request-input = PurchaseScheduledInstancesRequest.new(
-        :$purchase-requests,
-        :$dry-run,
-        :$client-token
+            :$purchase-requests,
+            :$dry-run,
+            :$client-token
         );
-;
+
         self.perform-operation(
             :api-call<PurchaseScheduledInstances>,
-            :return-type(PurchaseScheduledInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-egress-only-internet-gateway(
-    Bool :$dry-run,
-    Str :$egress-only-internet-gateway-id!
+        Bool :$dry-run,
+        Str :$egress-only-internet-gateway-id!
     ) returns DeleteEgressOnlyInternetGatewayResult is service-operation('DeleteEgressOnlyInternetGateway') {
         my $request-input = DeleteEgressOnlyInternetGatewayRequest.new(
-        :$dry-run,
-        :$egress-only-internet-gateway-id
+            :$dry-run,
+            :$egress-only-internet-gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEgressOnlyInternetGateway>,
-            :return-type(DeleteEgressOnlyInternetGatewayResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-elastic-gpus(
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Bool :$dry-run,
-    Str :$next-token,
-    Array[Str] :$elastic-gpu-ids
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Bool :$dry-run,
+        Str :$next-token,
+        Array[Str] :$elastic-gpu-ids
     ) returns DescribeElasticGpusResult is service-operation('DescribeElasticGpus') {
         my $request-input = DescribeElasticGpusRequest.new(
-        :$max-results,
-        :$filters,
-        :$dry-run,
-        :$next-token,
-        :$elastic-gpu-ids
+            :$max-results,
+            :$filters,
+            :$dry-run,
+            :$next-token,
+            :$elastic-gpu-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeElasticGpus>,
-            :return-type(DescribeElasticGpusResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-bundle-tasks(
-    Array[Str] :$bundle-ids,
-    Bool :$dry-run,
-    Array[Filter] :$filters
+        Array[Str] :$bundle-ids,
+        Bool :$dry-run,
+        Array[Filter] :$filters
     ) returns DescribeBundleTasksResult is service-operation('DescribeBundleTasks') {
         my $request-input = DescribeBundleTasksRequest.new(
-        :$bundle-ids,
-        :$dry-run,
-        :$filters
+            :$bundle-ids,
+            :$dry-run,
+            :$filters
         );
-;
+
         self.perform-operation(
             :api-call<DescribeBundleTasks>,
-            :return-type(DescribeBundleTasksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-security-group(
-    Str :$group-id,
-    Bool :$dry-run,
-    Str :$group-name
+        Str :$group-id,
+        Bool :$dry-run,
+        Str :$group-name
     ) is service-operation('DeleteSecurityGroup') {
         my $request-input = DeleteSecurityGroupRequest.new(
-        :$group-id,
-        :$dry-run,
-        :$group-name
+            :$group-id,
+            :$dry-run,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSecurityGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-image-attribute(
-    Bool :$dry-run,
-    Str :$image-id!,
-    ImageAttributeName :$attribute!
+        Bool :$dry-run,
+        Str :$image-id!,
+        ImageAttributeName :$attribute!
     ) returns ImageAttribute is service-operation('DescribeImageAttribute') {
         my $request-input = DescribeImageAttributeRequest.new(
-        :$dry-run,
-        :$image-id,
-        :$attribute
+            :$dry-run,
+            :$image-id,
+            :$attribute
         );
-;
+
         self.perform-operation(
             :api-call<DescribeImageAttribute>,
-            :return-type(ImageAttribute),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-reserved-instances-exchange-quote(
-    Bool :$dry-run,
-    Array[TargetConfigurationRequest] :$target-configurations,
-    Array[Str] :$reserved-instance-ids!
+        Bool :$dry-run,
+        Array[TargetConfigurationRequest] :$target-configurations,
+        Array[Str] :$reserved-instance-ids!
     ) returns GetReservedInstancesExchangeQuoteResult is service-operation('GetReservedInstancesExchangeQuote') {
         my $request-input = GetReservedInstancesExchangeQuoteRequest.new(
-        :$dry-run,
-        :$target-configurations,
-        :$reserved-instance-ids
+            :$dry-run,
+            :$target-configurations,
+            :$reserved-instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<GetReservedInstancesExchangeQuote>,
-            :return-type(GetReservedInstancesExchangeQuoteResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-key-pair(
-    Bool :$dry-run,
-    Blob :$public-key-material!,
-    Str :$key-name!
+        Bool :$dry-run,
+        Blob :$public-key-material!,
+        Str :$key-name!
     ) returns ImportKeyPairResult is service-operation('ImportKeyPair') {
         my $request-input = ImportKeyPairRequest.new(
-        :$dry-run,
-        :$public-key-material,
-        :$key-name
+            :$dry-run,
+            :$public-key-material,
+            :$key-name
         );
-;
+
         self.perform-operation(
             :api-call<ImportKeyPair>,
-            :return-type(ImportKeyPairResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method run-instances(
-    Array[Str] :$security-group-ids,
-    Placement :$placement,
-    Array[InstanceIpv6Address] :$ipv6-addresses,
-    Int :$ipv6-address-count,
-    Array[BlockDeviceMapping] :$block-device-mappings,
-    Bool :$dry-run,
-    Str :$subnet-id,
-    Array[ElasticGpuSpecification] :$elastic-gpu-specification,
-    Str :$client-token,
-    Str :$user-data,
-    Array[Str] :$security-groups,
-    Str :$ramdisk-id,
-    Str :$image-id!,
-    ShutdownBehavior :$instance-initiated-shutdown-behavior,
-    Bool :$disable-api-termination,
-    Str :$additional-info,
-    Int :$max-count!,
-    Bool :$ebs-optimized,
-    Array[TagSpecification] :$tag-specifications,
-    Int :$min-count!,
-    Str :$kernel-id,
-    InstanceType :$instance-type,
-    Str :$private-ip-address,
-    Array[InstanceNetworkInterfaceSpecification] :$network-interfaces,
-    IamInstanceProfileSpecification :$iam-instance-profile,
-    RunInstancesMonitoringEnabled :$monitoring,
-    Str :$key-name
+        Array[Str] :$security-group-ids,
+        Placement :$placement,
+        Array[InstanceIpv6Address] :$ipv6-addresses,
+        Int :$ipv6-address-count,
+        Array[BlockDeviceMapping] :$block-device-mappings,
+        Bool :$dry-run,
+        Str :$subnet-id,
+        Array[ElasticGpuSpecification] :$elastic-gpu-specification,
+        Str :$client-token,
+        Str :$user-data,
+        Array[Str] :$security-groups,
+        Str :$ramdisk-id,
+        Str :$image-id!,
+        ShutdownBehavior :$instance-initiated-shutdown-behavior,
+        Bool :$disable-api-termination,
+        Str :$additional-info,
+        Int :$max-count!,
+        Bool :$ebs-optimized,
+        Array[TagSpecification] :$tag-specifications,
+        Int :$min-count!,
+        Str :$kernel-id,
+        InstanceType :$instance-type,
+        Str :$private-ip-address,
+        Array[InstanceNetworkInterfaceSpecification] :$network-interfaces,
+        IamInstanceProfileSpecification :$iam-instance-profile,
+        RunInstancesMonitoringEnabled :$monitoring,
+        Str :$key-name
     ) returns Reservation is service-operation('RunInstances') {
         my $request-input = RunInstancesRequest.new(
-        :$security-group-ids,
-        :$placement,
-        :$ipv6-addresses,
-        :$ipv6-address-count,
-        :$block-device-mappings,
-        :$dry-run,
-        :$subnet-id,
-        :$elastic-gpu-specification,
-        :$client-token,
-        :$user-data,
-        :$security-groups,
-        :$ramdisk-id,
-        :$image-id,
-        :$instance-initiated-shutdown-behavior,
-        :$disable-api-termination,
-        :$additional-info,
-        :$max-count,
-        :$ebs-optimized,
-        :$tag-specifications,
-        :$min-count,
-        :$kernel-id,
-        :$instance-type,
-        :$private-ip-address,
-        :$network-interfaces,
-        :$iam-instance-profile,
-        :$monitoring,
-        :$key-name
+            :$security-group-ids,
+            :$placement,
+            :$ipv6-addresses,
+            :$ipv6-address-count,
+            :$block-device-mappings,
+            :$dry-run,
+            :$subnet-id,
+            :$elastic-gpu-specification,
+            :$client-token,
+            :$user-data,
+            :$security-groups,
+            :$ramdisk-id,
+            :$image-id,
+            :$instance-initiated-shutdown-behavior,
+            :$disable-api-termination,
+            :$additional-info,
+            :$max-count,
+            :$ebs-optimized,
+            :$tag-specifications,
+            :$min-count,
+            :$kernel-id,
+            :$instance-type,
+            :$private-ip-address,
+            :$network-interfaces,
+            :$iam-instance-profile,
+            :$monitoring,
+            :$key-name
         );
-;
+
         self.perform-operation(
             :api-call<RunInstances>,
-            :return-type(Reservation),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-iam-instance-profile-associations(
-    MaxResults :$max-results,
-    Array[Str] :$association-ids,
-    Array[Filter] :$filters,
-    NextToken :$next-token
+        MaxResults :$max-results,
+        Array[Str] :$association-ids,
+        Array[Filter] :$filters,
+        NextToken :$next-token
     ) returns DescribeIamInstanceProfileAssociationsResult is service-operation('DescribeIamInstanceProfileAssociations') {
         my $request-input = DescribeIamInstanceProfileAssociationsRequest.new(
-        :$max-results,
-        :$association-ids,
-        :$filters,
-        :$next-token
+            :$max-results,
+            :$association-ids,
+            :$filters,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeIamInstanceProfileAssociations>,
-            :return-type(DescribeIamInstanceProfileAssociationsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-network-interface(
-    Bool :$dry-run,
-    Str :$network-interface-id!
+        Bool :$dry-run,
+        Str :$network-interface-id!
     ) is service-operation('DeleteNetworkInterface') {
         my $request-input = DeleteNetworkInterfaceRequest.new(
-        :$dry-run,
-        :$network-interface-id
+            :$dry-run,
+            :$network-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteNetworkInterface>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-dhcp-options(
-    Str :$dhcp-options-id!,
-    Bool :$dry-run
+        Str :$dhcp-options-id!,
+        Bool :$dry-run
     ) is service-operation('DeleteDhcpOptions') {
         my $request-input = DeleteDhcpOptionsRequest.new(
-        :$dhcp-options-id,
-        :$dry-run
+            :$dhcp-options-id,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDhcpOptions>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-vpc-peering-connection(
-    Str :$vpc-id,
-    Bool :$dry-run,
-    Str :$peer-vpc-id,
-    Str :$peer-owner-id
+        Str :$vpc-id,
+        Bool :$dry-run,
+        Str :$peer-vpc-id,
+        Str :$peer-owner-id
     ) returns CreateVpcPeeringConnectionResult is service-operation('CreateVpcPeeringConnection') {
         my $request-input = CreateVpcPeeringConnectionRequest.new(
-        :$vpc-id,
-        :$dry-run,
-        :$peer-vpc-id,
-        :$peer-owner-id
+            :$vpc-id,
+            :$dry-run,
+            :$peer-vpc-id,
+            :$peer-owner-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateVpcPeeringConnection>,
-            :return-type(CreateVpcPeeringConnectionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method allocate-hosts(
-    Str :$client-token,
-    Int :$quantity!,
-    Str :$instance-type!,
-    Str :$availability-zone!,
-    AutoPlacement :$auto-placement
+        Str :$client-token,
+        Int :$quantity!,
+        Str :$instance-type!,
+        Str :$availability-zone!,
+        AutoPlacement :$auto-placement
     ) returns AllocateHostsResult is service-operation('AllocateHosts') {
         my $request-input = AllocateHostsRequest.new(
-        :$client-token,
-        :$quantity,
-        :$instance-type,
-        :$availability-zone,
-        :$auto-placement
+            :$client-token,
+            :$quantity,
+            :$instance-type,
+            :$availability-zone,
+            :$auto-placement
         );
-;
+
         self.perform-operation(
             :api-call<AllocateHosts>,
-            :return-type(AllocateHostsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-route-table(
-    Str :$route-table-id!,
-    Str :$subnet-id!,
-    Bool :$dry-run
+        Str :$route-table-id!,
+        Str :$subnet-id!,
+        Bool :$dry-run
     ) returns AssociateRouteTableResult is service-operation('AssociateRouteTable') {
         my $request-input = AssociateRouteTableRequest.new(
-        :$route-table-id,
-        :$subnet-id,
-        :$dry-run
+            :$route-table-id,
+            :$subnet-id,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<AssociateRouteTable>,
-            :return-type(AssociateRouteTableResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vpn-connections(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$vpn-connection-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$vpn-connection-ids
     ) returns DescribeVpnConnectionsResult is service-operation('DescribeVpnConnections') {
         my $request-input = DescribeVpnConnectionsRequest.new(
-        :$dry-run,
-        :$filters,
-        :$vpn-connection-ids
+            :$dry-run,
+            :$filters,
+            :$vpn-connection-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpnConnections>,
-            :return-type(DescribeVpnConnectionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-password-data(
-    Bool :$dry-run,
-    Str :$instance-id!
+        Bool :$dry-run,
+        Str :$instance-id!
     ) returns GetPasswordDataResult is service-operation('GetPasswordData') {
         my $request-input = GetPasswordDataRequest.new(
-        :$dry-run,
-        :$instance-id
+            :$dry-run,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<GetPasswordData>,
-            :return-type(GetPasswordDataResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method replace-route-table-association(
-    Str :$route-table-id!,
-    Bool :$dry-run,
-    Str :$association-id!
+        Str :$route-table-id!,
+        Bool :$dry-run,
+        Str :$association-id!
     ) returns ReplaceRouteTableAssociationResult is service-operation('ReplaceRouteTableAssociation') {
         my $request-input = ReplaceRouteTableAssociationRequest.new(
-        :$route-table-id,
-        :$dry-run,
-        :$association-id
+            :$route-table-id,
+            :$dry-run,
+            :$association-id
         );
-;
+
         self.perform-operation(
             :api-call<ReplaceRouteTableAssociation>,
-            :return-type(ReplaceRouteTableAssociationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-conversion-tasks(
-    Bool :$dry-run,
-    Array[Str] :$conversion-task-ids
+        Bool :$dry-run,
+        Array[Str] :$conversion-task-ids
     ) returns DescribeConversionTasksResult is service-operation('DescribeConversionTasks') {
         my $request-input = DescribeConversionTasksRequest.new(
-        :$dry-run,
-        :$conversion-task-ids
+            :$dry-run,
+            :$conversion-task-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConversionTasks>,
-            :return-type(DescribeConversionTasksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vpc-endpoints(
-    Bool :$dry-run,
-    Array[Str] :$vpc-endpoint-ids!
+        Bool :$dry-run,
+        Array[Str] :$vpc-endpoint-ids!
     ) returns DeleteVpcEndpointsResult is service-operation('DeleteVpcEndpoints') {
         my $request-input = DeleteVpcEndpointsRequest.new(
-        :$dry-run,
-        :$vpc-endpoint-ids
+            :$dry-run,
+            :$vpc-endpoint-ids
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVpcEndpoints>,
-            :return-type(DeleteVpcEndpointsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-iam-instance-profile(
-    Str :$instance-id!,
-    IamInstanceProfileSpecification :$iam-instance-profile!
+        Str :$instance-id!,
+        IamInstanceProfileSpecification :$iam-instance-profile!
     ) returns AssociateIamInstanceProfileResult is service-operation('AssociateIamInstanceProfile') {
         my $request-input = AssociateIamInstanceProfileRequest.new(
-        :$instance-id,
-        :$iam-instance-profile
+            :$instance-id,
+            :$iam-instance-profile
         );
-;
+
         self.perform-operation(
             :api-call<AssociateIamInstanceProfile>,
-            :return-type(AssociateIamInstanceProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method release-hosts(
-    Array[Str] :$host-ids!
+        Array[Str] :$host-ids!
     ) returns ReleaseHostsResult is service-operation('ReleaseHosts') {
         my $request-input = ReleaseHostsRequest.new(
-        :$host-ids
+            :$host-ids
         );
-;
+
         self.perform-operation(
             :api-call<ReleaseHosts>,
-            :return-type(ReleaseHostsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-volume(
-    Bool :$dry-run,
-    Str :$volume-id!
+        Bool :$dry-run,
+        Str :$volume-id!
     ) is service-operation('DeleteVolume') {
         my $request-input = DeleteVolumeRequest.new(
-        :$dry-run,
-        :$volume-id
+            :$dry-run,
+            :$volume-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVolume>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-vpc(
-    Str :$cidr-block!,
-    Tenancy :$instance-tenancy,
-    Bool :$dry-run,
-    Bool :$amazon-provided-ipv6-cidr-block
+        Str :$cidr-block!,
+        Tenancy :$instance-tenancy,
+        Bool :$dry-run,
+        Bool :$amazon-provided-ipv6-cidr-block
     ) returns CreateVpcResult is service-operation('CreateVpc') {
         my $request-input = CreateVpcRequest.new(
-        :$cidr-block,
-        :$instance-tenancy,
-        :$dry-run,
-        :$amazon-provided-ipv6-cidr-block
+            :$cidr-block,
+            :$instance-tenancy,
+            :$dry-run,
+            :$amazon-provided-ipv6-cidr-block
         );
-;
+
         self.perform-operation(
             :api-call<CreateVpc>,
-            :return-type(CreateVpcResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-network-interface-permission(
-    Bool :$dry-run,
-    InterfacePermissionType :$permission!,
-    Str :$aws-account-id,
-    Str :$network-interface-id!,
-    Str :$aws-service
+        Bool :$dry-run,
+        InterfacePermissionType :$permission!,
+        Str :$aws-account-id,
+        Str :$network-interface-id!,
+        Str :$aws-service
     ) returns CreateNetworkInterfacePermissionResult is service-operation('CreateNetworkInterfacePermission') {
         my $request-input = CreateNetworkInterfacePermissionRequest.new(
-        :$dry-run,
-        :$permission,
-        :$aws-account-id,
-        :$network-interface-id,
-        :$aws-service
+            :$dry-run,
+            :$permission,
+            :$aws-account-id,
+            :$network-interface-id,
+            :$aws-service
         );
-;
+
         self.perform-operation(
             :api-call<CreateNetworkInterfacePermission>,
-            :return-type(CreateNetworkInterfacePermissionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-key-pair(
-    Bool :$dry-run,
-    Str :$key-name!
+        Bool :$dry-run,
+        Str :$key-name!
     ) returns KeyPair is service-operation('CreateKeyPair') {
         my $request-input = CreateKeyPairRequest.new(
-        :$dry-run,
-        :$key-name
+            :$dry-run,
+            :$key-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateKeyPair>,
-            :return-type(KeyPair),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-spot-instance-requests(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$spot-instance-request-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$spot-instance-request-ids
     ) returns DescribeSpotInstanceRequestsResult is service-operation('DescribeSpotInstanceRequests') {
         my $request-input = DescribeSpotInstanceRequestsRequest.new(
-        :$dry-run,
-        :$filters,
-        :$spot-instance-request-ids
+            :$dry-run,
+            :$filters,
+            :$spot-instance-request-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSpotInstanceRequests>,
-            :return-type(DescribeSpotInstanceRequestsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method request-spot-instances(
-    InstanceInterruptionBehavior :$instance-interruption-behavior,
-    DateTime :$valid-until,
-    RequestSpotLaunchSpecification :$launch-specification,
-    Str :$launch-group,
-    Bool :$dry-run,
-    Str :$client-token,
-    DateTime :$valid-from,
-    Str :$spot-price!,
-    SpotInstanceType :$type,
-    Str :$availability-zone-group,
-    Int :$instance-count,
-    Int :$block-duration-minutes
+        InstanceInterruptionBehavior :$instance-interruption-behavior,
+        DateTime :$valid-until,
+        RequestSpotLaunchSpecification :$launch-specification,
+        Str :$launch-group,
+        Bool :$dry-run,
+        Str :$client-token,
+        DateTime :$valid-from,
+        Str :$spot-price!,
+        SpotInstanceType :$type,
+        Str :$availability-zone-group,
+        Int :$instance-count,
+        Int :$block-duration-minutes
     ) returns RequestSpotInstancesResult is service-operation('RequestSpotInstances') {
         my $request-input = RequestSpotInstancesRequest.new(
-        :$instance-interruption-behavior,
-        :$valid-until,
-        :$launch-specification,
-        :$launch-group,
-        :$dry-run,
-        :$client-token,
-        :$valid-from,
-        :$spot-price,
-        :$type,
-        :$availability-zone-group,
-        :$instance-count,
-        :$block-duration-minutes
+            :$instance-interruption-behavior,
+            :$valid-until,
+            :$launch-specification,
+            :$launch-group,
+            :$dry-run,
+            :$client-token,
+            :$valid-from,
+            :$spot-price,
+            :$type,
+            :$availability-zone-group,
+            :$instance-count,
+            :$block-duration-minutes
         );
-;
+
         self.perform-operation(
             :api-call<RequestSpotInstances>,
-            :return-type(RequestSpotInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method authorize-security-group-ingress(
-    Str :$source-security-group-owner-id,
-    Array[IpPermission] :$ip-permissions,
-    Str :$group-id,
-    Str :$cidr-ip,
-    Bool :$dry-run,
-    Str :$ip-protocol,
-    Int :$from-port,
-    Int :$to-port,
-    Str :$source-security-group-name,
-    Str :$group-name
+        Str :$source-security-group-owner-id,
+        Array[IpPermission] :$ip-permissions,
+        Str :$group-id,
+        Str :$cidr-ip,
+        Bool :$dry-run,
+        Str :$ip-protocol,
+        Int :$from-port,
+        Int :$to-port,
+        Str :$source-security-group-name,
+        Str :$group-name
     ) is service-operation('AuthorizeSecurityGroupIngress') {
         my $request-input = AuthorizeSecurityGroupIngressRequest.new(
-        :$source-security-group-owner-id,
-        :$ip-permissions,
-        :$group-id,
-        :$cidr-ip,
-        :$dry-run,
-        :$ip-protocol,
-        :$from-port,
-        :$to-port,
-        :$source-security-group-name,
-        :$group-name
+            :$source-security-group-owner-id,
+            :$ip-permissions,
+            :$group-id,
+            :$cidr-ip,
+            :$dry-run,
+            :$ip-protocol,
+            :$from-port,
+            :$to-port,
+            :$source-security-group-name,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<AuthorizeSecurityGroupIngress>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method terminate-instances(
-    Bool :$dry-run,
-    Array[Str] :$instance-ids!
+        Bool :$dry-run,
+        Array[Str] :$instance-ids!
     ) returns TerminateInstancesResult is service-operation('TerminateInstances') {
         my $request-input = TerminateInstancesRequest.new(
-        :$dry-run,
-        :$instance-ids
+            :$dry-run,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<TerminateInstances>,
-            :return-type(TerminateInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-fpga-image-attribute(
-    Str :$fpga-image-id!,
-    Bool :$dry-run,
-    FpgaImageAttributeName :$attribute!
+        Str :$fpga-image-id!,
+        Bool :$dry-run,
+        FpgaImageAttributeName :$attribute!
     ) returns DescribeFpgaImageAttributeResult is service-operation('DescribeFpgaImageAttribute') {
         my $request-input = DescribeFpgaImageAttributeRequest.new(
-        :$fpga-image-id,
-        :$dry-run,
-        :$attribute
+            :$fpga-image-id,
+            :$dry-run,
+            :$attribute
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFpgaImageAttribute>,
-            :return-type(DescribeFpgaImageAttributeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vpc-endpoints(
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Bool :$dry-run,
-    Array[Str] :$vpc-endpoint-ids,
-    Str :$next-token
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Bool :$dry-run,
+        Array[Str] :$vpc-endpoint-ids,
+        Str :$next-token
     ) returns DescribeVpcEndpointsResult is service-operation('DescribeVpcEndpoints') {
         my $request-input = DescribeVpcEndpointsRequest.new(
-        :$max-results,
-        :$filters,
-        :$dry-run,
-        :$vpc-endpoint-ids,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$dry-run,
+            :$vpc-endpoint-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpcEndpoints>,
-            :return-type(DescribeVpcEndpointsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-volume-io(
-    Bool :$dry-run,
-    Str :$volume-id!
+        Bool :$dry-run,
+        Str :$volume-id!
     ) is service-operation('EnableVolumeIO') {
         my $request-input = EnableVolumeIORequest.new(
-        :$dry-run,
-        :$volume-id
+            :$dry-run,
+            :$volume-id
         );
-;
+
         self.perform-operation(
             :api-call<EnableVolumeIO>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-instance-export-task(
-    Str :$description,
-    Str :$instance-id!,
-    ExportEnvironment :$target-environment,
-    ExportToS3TaskSpecification :$export-to-s3-task
+        Str :$description,
+        Str :$instance-id!,
+        ExportEnvironment :$target-environment,
+        ExportToS3TaskSpecification :$export-to-s3-task
     ) returns CreateInstanceExportTaskResult is service-operation('CreateInstanceExportTask') {
         my $request-input = CreateInstanceExportTaskRequest.new(
-        :$description,
-        :$instance-id,
-        :$target-environment,
-        :$export-to-s3-task
+            :$description,
+            :$instance-id,
+            :$target-environment,
+            :$export-to-s3-task
         );
-;
+
         self.perform-operation(
             :api-call<CreateInstanceExportTask>,
-            :return-type(CreateInstanceExportTaskResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-instance-placement(
-    Affinity :$affinity,
-    Str :$host-id,
-    HostTenancy :$tenancy,
-    Str :$instance-id!
+        Affinity :$affinity,
+        Str :$host-id,
+        HostTenancy :$tenancy,
+        Str :$instance-id!
     ) returns ModifyInstancePlacementResult is service-operation('ModifyInstancePlacement') {
         my $request-input = ModifyInstancePlacementRequest.new(
-        :$affinity,
-        :$host-id,
-        :$tenancy,
-        :$instance-id
+            :$affinity,
+            :$host-id,
+            :$tenancy,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<ModifyInstancePlacement>,
-            :return-type(ModifyInstancePlacementResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reboot-instances(
-    Bool :$dry-run,
-    Array[Str] :$instance-ids!
+        Bool :$dry-run,
+        Array[Str] :$instance-ids!
     ) is service-operation('RebootInstances') {
         my $request-input = RebootInstancesRequest.new(
-        :$dry-run,
-        :$instance-ids
+            :$dry-run,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<RebootInstances>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-route-table(
-    Bool :$dry-run,
-    Str :$association-id!
+        Bool :$dry-run,
+        Str :$association-id!
     ) is service-operation('DisassociateRouteTable') {
         my $request-input = DisassociateRouteTableRequest.new(
-        :$dry-run,
-        :$association-id
+            :$dry-run,
+            :$association-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateRouteTable>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reset-fpga-image-attribute(
-    Str :$fpga-image-id!,
-    Bool :$dry-run,
-    ResetFpgaImageAttributeName :$attribute
+        Str :$fpga-image-id!,
+        Bool :$dry-run,
+        ResetFpgaImageAttributeName :$attribute
     ) returns ResetFpgaImageAttributeResult is service-operation('ResetFpgaImageAttribute') {
         my $request-input = ResetFpgaImageAttributeRequest.new(
-        :$fpga-image-id,
-        :$dry-run,
-        :$attribute
+            :$fpga-image-id,
+            :$dry-run,
+            :$attribute
         );
-;
+
         self.perform-operation(
             :api-call<ResetFpgaImageAttribute>,
-            :return-type(ResetFpgaImageAttributeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method move-address-to-vpc(
-    Str :$public-ip!,
-    Bool :$dry-run
+        Str :$public-ip!,
+        Bool :$dry-run
     ) returns MoveAddressToVpcResult is service-operation('MoveAddressToVpc') {
         my $request-input = MoveAddressToVpcRequest.new(
-        :$public-ip,
-        :$dry-run
+            :$public-ip,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<MoveAddressToVpc>,
-            :return-type(MoveAddressToVpcResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-subnet(
-    Bool :$dry-run,
-    Str :$subnet-id!
+        Bool :$dry-run,
+        Str :$subnet-id!
     ) is service-operation('DeleteSubnet') {
         my $request-input = DeleteSubnetRequest.new(
-        :$dry-run,
-        :$subnet-id
+            :$dry-run,
+            :$subnet-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSubnet>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-network-acl-entry(
-    Str :$network-acl-id!,
-    Bool :$egress!,
-    Bool :$dry-run,
-    Int :$rule-number!
+        Str :$network-acl-id!,
+        Bool :$egress!,
+        Bool :$dry-run,
+        Int :$rule-number!
     ) is service-operation('DeleteNetworkAclEntry') {
         my $request-input = DeleteNetworkAclEntryRequest.new(
-        :$network-acl-id,
-        :$egress,
-        :$dry-run,
-        :$rule-number
+            :$network-acl-id,
+            :$egress,
+            :$dry-run,
+            :$rule-number
         );
-;
+
         self.perform-operation(
             :api-call<DeleteNetworkAclEntry>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-spot-fleet-requests(
-    Array[Str] :$spot-fleet-request-ids,
-    Int :$max-results,
-    Bool :$dry-run,
-    Str :$next-token
+        Array[Str] :$spot-fleet-request-ids,
+        Int :$max-results,
+        Bool :$dry-run,
+        Str :$next-token
     ) returns DescribeSpotFleetRequestsResponse is service-operation('DescribeSpotFleetRequests') {
         my $request-input = DescribeSpotFleetRequestsRequest.new(
-        :$spot-fleet-request-ids,
-        :$max-results,
-        :$dry-run,
-        :$next-token
+            :$spot-fleet-request-ids,
+            :$max-results,
+            :$dry-run,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSpotFleetRequests>,
-            :return-type(DescribeSpotFleetRequestsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vpn-gateways(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$vpn-gateway-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$vpn-gateway-ids
     ) returns DescribeVpnGatewaysResult is service-operation('DescribeVpnGateways') {
         my $request-input = DescribeVpnGatewaysRequest.new(
-        :$dry-run,
-        :$filters,
-        :$vpn-gateway-ids
+            :$dry-run,
+            :$filters,
+            :$vpn-gateway-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpnGateways>,
-            :return-type(DescribeVpnGatewaysResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-reserved-instances(
-    Str :$client-token,
-    Array[ReservedInstancesConfiguration] :$target-configurations!,
-    Array[Str] :$reserved-instances-ids!
+        Str :$client-token,
+        Array[ReservedInstancesConfiguration] :$target-configurations!,
+        Array[Str] :$reserved-instances-ids!
     ) returns ModifyReservedInstancesResult is service-operation('ModifyReservedInstances') {
         my $request-input = ModifyReservedInstancesRequest.new(
-        :$client-token,
-        :$target-configurations,
-        :$reserved-instances-ids
+            :$client-token,
+            :$target-configurations,
+            :$reserved-instances-ids
         );
-;
+
         self.perform-operation(
             :api-call<ModifyReservedInstances>,
-            :return-type(ModifyReservedInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-export-task(
-    Str :$export-task-id!
+        Str :$export-task-id!
     ) is service-operation('CancelExportTask') {
         my $request-input = CancelExportTaskRequest.new(
-        :$export-task-id
+            :$export-task-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelExportTask>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-console-output(
-    Bool :$dry-run,
-    Str :$instance-id!
+        Bool :$dry-run,
+        Str :$instance-id!
     ) returns GetConsoleOutputResult is service-operation('GetConsoleOutput') {
         my $request-input = GetConsoleOutputRequest.new(
-        :$dry-run,
-        :$instance-id
+            :$dry-run,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<GetConsoleOutput>,
-            :return-type(GetConsoleOutputResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-route(
-    Str :$route-table-id!,
-    Bool :$dry-run,
-    Str :$destination-ipv6-cidr-block,
-    Str :$destination-cidr-block
+        Str :$route-table-id!,
+        Bool :$dry-run,
+        Str :$destination-ipv6-cidr-block,
+        Str :$destination-cidr-block
     ) is service-operation('DeleteRoute') {
         my $request-input = DeleteRouteRequest.new(
-        :$route-table-id,
-        :$dry-run,
-        :$destination-ipv6-cidr-block,
-        :$destination-cidr-block
+            :$route-table-id,
+            :$dry-run,
+            :$destination-ipv6-cidr-block,
+            :$destination-cidr-block
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRoute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method restore-address-to-classic(
-    Str :$public-ip!,
-    Bool :$dry-run
+        Str :$public-ip!,
+        Bool :$dry-run
     ) returns RestoreAddressToClassicResult is service-operation('RestoreAddressToClassic') {
         my $request-input = RestoreAddressToClassicRequest.new(
-        :$public-ip,
-        :$dry-run
+            :$public-ip,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<RestoreAddressToClassic>,
-            :return-type(RestoreAddressToClassicResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-account-attributes(
-    Bool :$dry-run,
-    Array[AccountAttributeName] :$attribute-names
+        Bool :$dry-run,
+        Array[AccountAttributeName] :$attribute-names
     ) returns DescribeAccountAttributesResult is service-operation('DescribeAccountAttributes') {
         my $request-input = DescribeAccountAttributesRequest.new(
-        :$dry-run,
-        :$attribute-names
+            :$dry-run,
+            :$attribute-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAccountAttributes>,
-            :return-type(DescribeAccountAttributesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-snapshot(
-    Bool :$dry-run,
-    Str :$snapshot-id!
+        Bool :$dry-run,
+        Str :$snapshot-id!
     ) is service-operation('DeleteSnapshot') {
         my $request-input = DeleteSnapshotRequest.new(
-        :$dry-run,
-        :$snapshot-id
+            :$dry-run,
+            :$snapshot-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSnapshot>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-reserved-instances-listing(
-    Str :$reserved-instances-id!,
-    Str :$client-token!,
-    Array[PriceScheduleSpecification] :$price-schedules!,
-    Int :$instance-count!
+        Str :$reserved-instances-id!,
+        Str :$client-token!,
+        Array[PriceScheduleSpecification] :$price-schedules!,
+        Int :$instance-count!
     ) returns CreateReservedInstancesListingResult is service-operation('CreateReservedInstancesListing') {
         my $request-input = CreateReservedInstancesListingRequest.new(
-        :$reserved-instances-id,
-        :$client-token,
-        :$price-schedules,
-        :$instance-count
+            :$reserved-instances-id,
+            :$client-token,
+            :$price-schedules,
+            :$instance-count
         );
-;
+
         self.perform-operation(
             :api-call<CreateReservedInstancesListing>,
-            :return-type(CreateReservedInstancesListingResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-placement-group(
-    Bool :$dry-run,
-    PlacementStrategy :$strategy!,
-    Str :$group-name!
+        Bool :$dry-run,
+        PlacementStrategy :$strategy!,
+        Str :$group-name!
     ) is service-operation('CreatePlacementGroup') {
         my $request-input = CreatePlacementGroupRequest.new(
-        :$dry-run,
-        :$strategy,
-        :$group-name
+            :$dry-run,
+            :$strategy,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<CreatePlacementGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-address(
-    Bool :$dry-run,
-    Str :$public-ip,
-    Str :$network-interface-id,
-    Bool :$allow-reassociation,
-    Str :$private-ip-address,
-    Str :$instance-id,
-    Str :$allocation-id
+        Bool :$dry-run,
+        Str :$public-ip,
+        Str :$network-interface-id,
+        Bool :$allow-reassociation,
+        Str :$private-ip-address,
+        Str :$instance-id,
+        Str :$allocation-id
     ) returns AssociateAddressResult is service-operation('AssociateAddress') {
         my $request-input = AssociateAddressRequest.new(
-        :$dry-run,
-        :$public-ip,
-        :$network-interface-id,
-        :$allow-reassociation,
-        :$private-ip-address,
-        :$instance-id,
-        :$allocation-id
+            :$dry-run,
+            :$public-ip,
+            :$network-interface-id,
+            :$allow-reassociation,
+            :$private-ip-address,
+            :$instance-id,
+            :$allocation-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateAddress>,
-            :return-type(AssociateAddressResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-image(
-    Array[BlockDeviceMapping] :$block-device-mappings,
-    Bool :$no-reboot,
-    Bool :$dry-run,
-    Str :$description,
-    Str :$name!,
-    Str :$instance-id!
+        Array[BlockDeviceMapping] :$block-device-mappings,
+        Bool :$no-reboot,
+        Bool :$dry-run,
+        Str :$description,
+        Str :$name!,
+        Str :$instance-id!
     ) returns CreateImageResult is service-operation('CreateImage') {
         my $request-input = CreateImageRequest.new(
-        :$block-device-mappings,
-        :$no-reboot,
-        :$dry-run,
-        :$description,
-        :$name,
-        :$instance-id
+            :$block-device-mappings,
+            :$no-reboot,
+            :$dry-run,
+            :$description,
+            :$name,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateImage>,
-            :return-type(CreateImageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-stale-security-groups(
-    MaxResults :$max-results,
-    Str :$vpc-id!,
-    Bool :$dry-run,
-    NextToken :$next-token
+        MaxResults :$max-results,
+        Str :$vpc-id!,
+        Bool :$dry-run,
+        NextToken :$next-token
     ) returns DescribeStaleSecurityGroupsResult is service-operation('DescribeStaleSecurityGroups') {
         my $request-input = DescribeStaleSecurityGroupsRequest.new(
-        :$max-results,
-        :$vpc-id,
-        :$dry-run,
-        :$next-token
+            :$max-results,
+            :$vpc-id,
+            :$dry-run,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStaleSecurityGroups>,
-            :return-type(DescribeStaleSecurityGroupsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-identity-id-format(
-    Bool :$use-long-ids!,
-    Str :$principal-arn!,
-    Str :$resource!
+        Bool :$use-long-ids!,
+        Str :$principal-arn!,
+        Str :$resource!
     ) is service-operation('ModifyIdentityIdFormat') {
         my $request-input = ModifyIdentityIdFormatRequest.new(
-        :$use-long-ids,
-        :$principal-arn,
-        :$resource
+            :$use-long-ids,
+            :$principal-arn,
+            :$resource
         );
-;
+
         self.perform-operation(
             :api-call<ModifyIdentityIdFormat>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method report-instance-status(
-    Array[ReportInstanceReasonCodes] :$reason-codes!,
-    DateTime :$end-time,
-    Bool :$dry-run,
-    Str :$description,
-    Array[Str] :$instances!,
-    DateTime :$start-time,
-    ReportStatusType :$status!
+        Array[ReportInstanceReasonCodes] :$reason-codes!,
+        DateTime :$end-time,
+        Bool :$dry-run,
+        Str :$description,
+        Array[Str] :$instances!,
+        DateTime :$start-time,
+        ReportStatusType :$status!
     ) is service-operation('ReportInstanceStatus') {
         my $request-input = ReportInstanceStatusRequest.new(
-        :$reason-codes,
-        :$end-time,
-        :$dry-run,
-        :$description,
-        :$instances,
-        :$start-time,
-        :$status
+            :$reason-codes,
+            :$end-time,
+            :$dry-run,
+            :$description,
+            :$instances,
+            :$start-time,
+            :$status
         );
-;
+
         self.perform-operation(
             :api-call<ReportInstanceStatus>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method purchase-host-reservation(
-    Str :$client-token,
-    Str :$offering-id!,
-    Str :$limit-price,
-    CurrencyCodeValues :$currency-code,
-    Array[Str] :$host-id-set!
+        Str :$client-token,
+        Str :$offering-id!,
+        Str :$limit-price,
+        CurrencyCodeValues :$currency-code,
+        Array[Str] :$host-id-set!
     ) returns PurchaseHostReservationResult is service-operation('PurchaseHostReservation') {
         my $request-input = PurchaseHostReservationRequest.new(
-        :$client-token,
-        :$offering-id,
-        :$limit-price,
-        :$currency-code,
-        :$host-id-set
+            :$client-token,
+            :$offering-id,
+            :$limit-price,
+            :$currency-code,
+            :$host-id-set
         );
-;
+
         self.perform-operation(
             :api-call<PurchaseHostReservation>,
-            :return-type(PurchaseHostReservationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-fpga-images(
-    MaxResults :$max-results,
-    Array[Filter] :$filters,
-    Bool :$dry-run,
-    Array[Str] :$owners,
-    Array[Str] :$fpga-image-ids,
-    NextToken :$next-token
+        MaxResults :$max-results,
+        Array[Filter] :$filters,
+        Bool :$dry-run,
+        Array[Str] :$owners,
+        Array[Str] :$fpga-image-ids,
+        NextToken :$next-token
     ) returns DescribeFpgaImagesResult is service-operation('DescribeFpgaImages') {
         my $request-input = DescribeFpgaImagesRequest.new(
-        :$max-results,
-        :$filters,
-        :$dry-run,
-        :$owners,
-        :$fpga-image-ids,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$dry-run,
+            :$owners,
+            :$fpga-image-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFpgaImages>,
-            :return-type(DescribeFpgaImagesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-addresses(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$allocation-ids,
-    Array[Str] :$public-ips
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$allocation-ids,
+        Array[Str] :$public-ips
     ) returns DescribeAddressesResult is service-operation('DescribeAddresses') {
         my $request-input = DescribeAddressesRequest.new(
-        :$dry-run,
-        :$filters,
-        :$allocation-ids,
-        :$public-ips
+            :$dry-run,
+            :$filters,
+            :$allocation-ids,
+            :$public-ips
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAddresses>,
-            :return-type(DescribeAddressesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-network-interface(
-    Bool :$dry-run,
-    Int :$device-index!,
-    Str :$network-interface-id!,
-    Str :$instance-id!
+        Bool :$dry-run,
+        Int :$device-index!,
+        Str :$network-interface-id!,
+        Str :$instance-id!
     ) returns AttachNetworkInterfaceResult is service-operation('AttachNetworkInterface') {
         my $request-input = AttachNetworkInterfaceRequest.new(
-        :$dry-run,
-        :$device-index,
-        :$network-interface-id,
-        :$instance-id
+            :$dry-run,
+            :$device-index,
+            :$network-interface-id,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<AttachNetworkInterface>,
-            :return-type(AttachNetworkInterfaceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-network-interfaces(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$network-interface-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$network-interface-ids
     ) returns DescribeNetworkInterfacesResult is service-operation('DescribeNetworkInterfaces') {
         my $request-input = DescribeNetworkInterfacesRequest.new(
-        :$dry-run,
-        :$filters,
-        :$network-interface-ids
+            :$dry-run,
+            :$filters,
+            :$network-interface-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeNetworkInterfaces>,
-            :return-type(DescribeNetworkInterfacesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-nat-gateways(
-    Int :$max-results,
-    Array[Filter] :$filter,
-    Array[Str] :$nat-gateway-ids,
-    Str :$next-token
+        Int :$max-results,
+        Array[Filter] :$filter,
+        Array[Str] :$nat-gateway-ids,
+        Str :$next-token
     ) returns DescribeNatGatewaysResult is service-operation('DescribeNatGateways') {
         my $request-input = DescribeNatGatewaysRequest.new(
-        :$max-results,
-        :$filter,
-        :$nat-gateway-ids,
-        :$next-token
+            :$max-results,
+            :$filter,
+            :$nat-gateway-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeNatGateways>,
-            :return-type(DescribeNatGatewaysResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-tags(
-    Array[Str] :$resources!,
-    Bool :$dry-run,
-    Array[Tag] :$tags
+        Array[Str] :$resources!,
+        Bool :$dry-run,
+        Array[Tag] :$tags
     ) is service-operation('DeleteTags') {
         my $request-input = DeleteTagsRequest.new(
-        :$resources,
-        :$dry-run,
-        :$tags
+            :$resources,
+            :$dry-run,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTags>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-subnet-cidr-block(
-    Str :$ipv6-cidr-block!,
-    Str :$subnet-id!
+        Str :$ipv6-cidr-block!,
+        Str :$subnet-id!
     ) returns AssociateSubnetCidrBlockResult is service-operation('AssociateSubnetCidrBlock') {
         my $request-input = AssociateSubnetCidrBlockRequest.new(
-        :$ipv6-cidr-block,
-        :$subnet-id
+            :$ipv6-cidr-block,
+            :$subnet-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateSubnetCidrBlock>,
-            :return-type(AssociateSubnetCidrBlockResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method copy-image(
-    Str :$kms-key-id,
-    Bool :$dry-run,
-    Str :$source-region!,
-    Str :$source-image-id!,
-    Str :$description,
-    Str :$client-token,
-    Str :$name!,
-    Bool :$encrypted
+        Str :$kms-key-id,
+        Bool :$dry-run,
+        Str :$source-region!,
+        Str :$source-image-id!,
+        Str :$description,
+        Str :$client-token,
+        Str :$name!,
+        Bool :$encrypted
     ) returns CopyImageResult is service-operation('CopyImage') {
         my $request-input = CopyImageRequest.new(
-        :$kms-key-id,
-        :$dry-run,
-        :$source-region,
-        :$source-image-id,
-        :$description,
-        :$client-token,
-        :$name,
-        :$encrypted
+            :$kms-key-id,
+            :$dry-run,
+            :$source-region,
+            :$source-image-id,
+            :$description,
+            :$client-token,
+            :$name,
+            :$encrypted
         );
-;
+
         self.perform-operation(
             :api-call<CopyImage>,
-            :return-type(CopyImageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-scheduled-instances(
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Bool :$dry-run,
-    Array[Str] :$scheduled-instance-ids,
-    Str :$next-token,
-    SlotStartTimeRangeRequest :$slot-start-time-range
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Bool :$dry-run,
+        Array[Str] :$scheduled-instance-ids,
+        Str :$next-token,
+        SlotStartTimeRangeRequest :$slot-start-time-range
     ) returns DescribeScheduledInstancesResult is service-operation('DescribeScheduledInstances') {
         my $request-input = DescribeScheduledInstancesRequest.new(
-        :$max-results,
-        :$filters,
-        :$dry-run,
-        :$scheduled-instance-ids,
-        :$next-token,
-        :$slot-start-time-range
+            :$max-results,
+            :$filters,
+            :$dry-run,
+            :$scheduled-instance-ids,
+            :$next-token,
+            :$slot-start-time-range
         );
-;
+
         self.perform-operation(
             :api-call<DescribeScheduledInstances>,
-            :return-type(DescribeScheduledInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tags(
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Bool :$dry-run,
-    Str :$next-token
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Bool :$dry-run,
+        Str :$next-token
     ) returns DescribeTagsResult is service-operation('DescribeTags') {
         my $request-input = DescribeTagsRequest.new(
-        :$max-results,
-        :$filters,
-        :$dry-run,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$dry-run,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTags>,
-            :return-type(DescribeTagsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-volumes(
-    Int :$max-results,
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$volume-ids,
-    Str :$next-token
+        Int :$max-results,
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$volume-ids,
+        Str :$next-token
     ) returns DescribeVolumesResult is service-operation('DescribeVolumes') {
         my $request-input = DescribeVolumesRequest.new(
-        :$max-results,
-        :$dry-run,
-        :$filters,
-        :$volume-ids,
-        :$next-token
+            :$max-results,
+            :$dry-run,
+            :$filters,
+            :$volume-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVolumes>,
-            :return-type(DescribeVolumesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reset-network-interface-attribute(
-    Bool :$dry-run,
-    Str :$source-dest-check,
-    Str :$network-interface-id!
+        Bool :$dry-run,
+        Str :$source-dest-check,
+        Str :$network-interface-id!
     ) is service-operation('ResetNetworkInterfaceAttribute') {
         my $request-input = ResetNetworkInterfaceAttributeRequest.new(
-        :$dry-run,
-        :$source-dest-check,
-        :$network-interface-id
+            :$dry-run,
+            :$source-dest-check,
+            :$network-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<ResetNetworkInterfaceAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-network-interface-permissions(
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Array[Str] :$network-interface-permission-ids,
-    Str :$next-token
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Array[Str] :$network-interface-permission-ids,
+        Str :$next-token
     ) returns DescribeNetworkInterfacePermissionsResult is service-operation('DescribeNetworkInterfacePermissions') {
         my $request-input = DescribeNetworkInterfacePermissionsRequest.new(
-        :$max-results,
-        :$filters,
-        :$network-interface-permission-ids,
-        :$next-token
+            :$max-results,
+            :$filters,
+            :$network-interface-permission-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeNetworkInterfacePermissions>,
-            :return-type(DescribeNetworkInterfacePermissionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-volume(
-    Str :$kms-key-id,
-    Bool :$dry-run,
-    Str :$snapshot-id,
-    VolumeType :$volume-type,
-    Array[TagSpecification] :$tag-specifications,
-    Int :$size,
-    Str :$availability-zone!,
-    Int :$iops,
-    Bool :$encrypted
+        Str :$kms-key-id,
+        Bool :$dry-run,
+        Str :$snapshot-id,
+        VolumeType :$volume-type,
+        Array[TagSpecification] :$tag-specifications,
+        Int :$size,
+        Str :$availability-zone!,
+        Int :$iops,
+        Bool :$encrypted
     ) returns Volume is service-operation('CreateVolume') {
         my $request-input = CreateVolumeRequest.new(
-        :$kms-key-id,
-        :$dry-run,
-        :$snapshot-id,
-        :$volume-type,
-        :$tag-specifications,
-        :$size,
-        :$availability-zone,
-        :$iops,
-        :$encrypted
+            :$kms-key-id,
+            :$dry-run,
+            :$snapshot-id,
+            :$volume-type,
+            :$tag-specifications,
+            :$size,
+            :$availability-zone,
+            :$iops,
+            :$encrypted
         );
-;
+
         self.perform-operation(
             :api-call<CreateVolume>,
-            :return-type(Volume),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-image-attribute(
-    Bool :$dry-run,
-    Array[Str] :$user-ids,
-    LaunchPermissionModifications :$launch-permission,
-    Str :$image-id!,
-    AttributeValue :$description,
-    Array[Str] :$user-groups,
-    Str :$value,
-    OperationType :$operation-type,
-    Str :$attribute,
-    Array[Str] :$product-codes
+        Bool :$dry-run,
+        Array[Str] :$user-ids,
+        LaunchPermissionModifications :$launch-permission,
+        Str :$image-id!,
+        AttributeValue :$description,
+        Array[Str] :$user-groups,
+        Str :$value,
+        OperationType :$operation-type,
+        Str :$attribute,
+        Array[Str] :$product-codes
     ) is service-operation('ModifyImageAttribute') {
         my $request-input = ModifyImageAttributeRequest.new(
-        :$dry-run,
-        :$user-ids,
-        :$launch-permission,
-        :$image-id,
-        :$description,
-        :$user-groups,
-        :$value,
-        :$operation-type,
-        :$attribute,
-        :$product-codes
+            :$dry-run,
+            :$user-ids,
+            :$launch-permission,
+            :$image-id,
+            :$description,
+            :$user-groups,
+            :$value,
+            :$operation-type,
+            :$attribute,
+            :$product-codes
         );
-;
+
         self.perform-operation(
             :api-call<ModifyImageAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method revoke-security-group-ingress(
-    Str :$source-security-group-owner-id,
-    Array[IpPermission] :$ip-permissions,
-    Str :$group-id,
-    Str :$cidr-ip,
-    Bool :$dry-run,
-    Str :$ip-protocol,
-    Int :$from-port,
-    Int :$to-port,
-    Str :$source-security-group-name,
-    Str :$group-name
+        Str :$source-security-group-owner-id,
+        Array[IpPermission] :$ip-permissions,
+        Str :$group-id,
+        Str :$cidr-ip,
+        Bool :$dry-run,
+        Str :$ip-protocol,
+        Int :$from-port,
+        Int :$to-port,
+        Str :$source-security-group-name,
+        Str :$group-name
     ) is service-operation('RevokeSecurityGroupIngress') {
         my $request-input = RevokeSecurityGroupIngressRequest.new(
-        :$source-security-group-owner-id,
-        :$ip-permissions,
-        :$group-id,
-        :$cidr-ip,
-        :$dry-run,
-        :$ip-protocol,
-        :$from-port,
-        :$to-port,
-        :$source-security-group-name,
-        :$group-name
+            :$source-security-group-owner-id,
+            :$ip-permissions,
+            :$group-id,
+            :$cidr-ip,
+            :$dry-run,
+            :$ip-protocol,
+            :$from-port,
+            :$to-port,
+            :$source-security-group-name,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<RevokeSecurityGroupIngress>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-internet-gateways(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$internet-gateway-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$internet-gateway-ids
     ) returns DescribeInternetGatewaysResult is service-operation('DescribeInternetGateways') {
         my $request-input = DescribeInternetGatewaysRequest.new(
-        :$dry-run,
-        :$filters,
-        :$internet-gateway-ids
+            :$dry-run,
+            :$filters,
+            :$internet-gateway-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInternetGateways>,
-            :return-type(DescribeInternetGatewaysResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-security-group-references(
-    Array[Str] :$group-id!,
-    Bool :$dry-run
+        Array[Str] :$group-id!,
+        Bool :$dry-run
     ) returns DescribeSecurityGroupReferencesResult is service-operation('DescribeSecurityGroupReferences') {
         my $request-input = DescribeSecurityGroupReferencesRequest.new(
-        :$group-id,
-        :$dry-run
+            :$group-id,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSecurityGroupReferences>,
-            :return-type(DescribeSecurityGroupReferencesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-instance(
-    ImportInstanceLaunchSpecification :$launch-specification,
-    Bool :$dry-run,
-    PlatformValues :$platform!,
-    Str :$description,
-    Array[DiskImage] :$disk-images
+        ImportInstanceLaunchSpecification :$launch-specification,
+        Bool :$dry-run,
+        PlatformValues :$platform!,
+        Str :$description,
+        Array[DiskImage] :$disk-images
     ) returns ImportInstanceResult is service-operation('ImportInstance') {
         my $request-input = ImportInstanceRequest.new(
-        :$launch-specification,
-        :$dry-run,
-        :$platform,
-        :$description,
-        :$disk-images
+            :$launch-specification,
+            :$dry-run,
+            :$platform,
+            :$description,
+            :$disk-images
         );
-;
+
         self.perform-operation(
             :api-call<ImportInstance>,
-            :return-type(ImportInstanceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-spot-datafeed-subscription(
-    Bool :$dry-run
+        Bool :$dry-run
     ) is service-operation('DeleteSpotDatafeedSubscription') {
         my $request-input = DeleteSpotDatafeedSubscriptionRequest.new(
-        :$dry-run
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSpotDatafeedSubscription>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-security-group(
-    Bool :$dry-run,
-    Str :$vpc-id,
-    Str :$description!,
-    Str :$group-name!
+        Bool :$dry-run,
+        Str :$vpc-id,
+        Str :$description!,
+        Str :$group-name!
     ) returns CreateSecurityGroupResult is service-operation('CreateSecurityGroup') {
         my $request-input = CreateSecurityGroupRequest.new(
-        :$dry-run,
-        :$vpc-id,
-        :$description,
-        :$group-name
+            :$dry-run,
+            :$vpc-id,
+            :$description,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateSecurityGroup>,
-            :return-type(CreateSecurityGroupResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-network-acl-entry(
-    Str :$ipv6-cidr-block,
-    Str :$cidr-block,
-    Str :$network-acl-id!,
-    Bool :$egress!,
-    Bool :$dry-run,
-    IcmpTypeCode :$icmp-type-code,
-    PortRange :$port-range,
-    Int :$rule-number!,
-    RuleAction :$rule-action!,
-    Str :$protocol!
+        Str :$ipv6-cidr-block,
+        Str :$cidr-block,
+        Str :$network-acl-id!,
+        Bool :$egress!,
+        Bool :$dry-run,
+        IcmpTypeCode :$icmp-type-code,
+        PortRange :$port-range,
+        Int :$rule-number!,
+        RuleAction :$rule-action!,
+        Str :$protocol!
     ) is service-operation('CreateNetworkAclEntry') {
         my $request-input = CreateNetworkAclEntryRequest.new(
-        :$ipv6-cidr-block,
-        :$cidr-block,
-        :$network-acl-id,
-        :$egress,
-        :$dry-run,
-        :$icmp-type-code,
-        :$port-range,
-        :$rule-number,
-        :$rule-action,
-        :$protocol
+            :$ipv6-cidr-block,
+            :$cidr-block,
+            :$network-acl-id,
+            :$egress,
+            :$dry-run,
+            :$icmp-type-code,
+            :$port-range,
+            :$rule-number,
+            :$rule-action,
+            :$protocol
         );
-;
+
         self.perform-operation(
             :api-call<CreateNetworkAclEntry>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-reserved-instances-listings(
-    Array[Filter] :$filters,
-    Str :$reserved-instances-listing-id,
-    Str :$reserved-instances-id
+        Array[Filter] :$filters,
+        Str :$reserved-instances-listing-id,
+        Str :$reserved-instances-id
     ) returns DescribeReservedInstancesListingsResult is service-operation('DescribeReservedInstancesListings') {
         my $request-input = DescribeReservedInstancesListingsRequest.new(
-        :$filters,
-        :$reserved-instances-listing-id,
-        :$reserved-instances-id
+            :$filters,
+            :$reserved-instances-listing-id,
+            :$reserved-instances-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReservedInstancesListings>,
-            :return-type(DescribeReservedInstancesListingsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-volume(
-    Str :$device,
-    Bool :$dry-run,
-    Str :$volume-id!,
-    Bool :$force,
-    Str :$instance-id
+        Str :$device,
+        Bool :$dry-run,
+        Str :$volume-id!,
+        Bool :$force,
+        Str :$instance-id
     ) returns VolumeAttachment is service-operation('DetachVolume') {
         my $request-input = DetachVolumeRequest.new(
-        :$device,
-        :$dry-run,
-        :$volume-id,
-        :$force,
-        :$instance-id
+            :$device,
+            :$dry-run,
+            :$volume-id,
+            :$force,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DetachVolume>,
-            :return-type(VolumeAttachment),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-vpn-gateway(
-    Bool :$dry-run,
-    Str :$vpc-id!,
-    Str :$vpn-gateway-id!
+        Bool :$dry-run,
+        Str :$vpc-id!,
+        Str :$vpn-gateway-id!
     ) is service-operation('DetachVpnGateway') {
         my $request-input = DetachVpnGatewayRequest.new(
-        :$dry-run,
-        :$vpc-id,
-        :$vpn-gateway-id
+            :$dry-run,
+            :$vpc-id,
+            :$vpn-gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<DetachVpnGateway>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vpc(
-    Bool :$dry-run,
-    Str :$vpc-id!
+        Bool :$dry-run,
+        Str :$vpc-id!
     ) is service-operation('DeleteVpc') {
         my $request-input = DeleteVpcRequest.new(
-        :$dry-run,
-        :$vpc-id
+            :$dry-run,
+            :$vpc-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVpc>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-subnet-attribute(
-    Str :$subnet-id!,
-    AttributeBooleanValue :$assign-ipv6-address-on-creation,
-    AttributeBooleanValue :$map-public-ip-on-launch
+        Str :$subnet-id!,
+        AttributeBooleanValue :$assign-ipv6-address-on-creation,
+        AttributeBooleanValue :$map-public-ip-on-launch
     ) is service-operation('ModifySubnetAttribute') {
         my $request-input = ModifySubnetAttributeRequest.new(
-        :$subnet-id,
-        :$assign-ipv6-address-on-creation,
-        :$map-public-ip-on-launch
+            :$subnet-id,
+            :$assign-ipv6-address-on-creation,
+            :$map-public-ip-on-launch
         );
-;
+
         self.perform-operation(
             :api-call<ModifySubnetAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-flow-logs(
-    Str :$log-group-name!,
-    Str :$client-token,
-    TrafficType :$traffic-type!,
-    FlowLogsResourceType :$resource-type!,
-    Array[Str] :$resource-ids!,
-    Str :$deliver-logs-permission-arn!
+        Str :$log-group-name!,
+        Str :$client-token,
+        TrafficType :$traffic-type!,
+        FlowLogsResourceType :$resource-type!,
+        Array[Str] :$resource-ids!,
+        Str :$deliver-logs-permission-arn!
     ) returns CreateFlowLogsResult is service-operation('CreateFlowLogs') {
         my $request-input = CreateFlowLogsRequest.new(
-        :$log-group-name,
-        :$client-token,
-        :$traffic-type,
-        :$resource-type,
-        :$resource-ids,
-        :$deliver-logs-permission-arn
+            :$log-group-name,
+            :$client-token,
+            :$traffic-type,
+            :$resource-type,
+            :$resource-ids,
+            :$deliver-logs-permission-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateFlowLogs>,
-            :return-type(CreateFlowLogsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-prefix-lists(
-    Int :$max-results,
-    Array[Str] :$prefix-list-ids,
-    Array[Filter] :$filters,
-    Bool :$dry-run,
-    Str :$next-token
+        Int :$max-results,
+        Array[Str] :$prefix-list-ids,
+        Array[Filter] :$filters,
+        Bool :$dry-run,
+        Str :$next-token
     ) returns DescribePrefixListsResult is service-operation('DescribePrefixLists') {
         my $request-input = DescribePrefixListsRequest.new(
-        :$max-results,
-        :$prefix-list-ids,
-        :$filters,
-        :$dry-run,
-        :$next-token
+            :$max-results,
+            :$prefix-list-ids,
+            :$filters,
+            :$dry-run,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribePrefixLists>,
-            :return-type(DescribePrefixListsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-id-format(
-    Bool :$use-long-ids!,
-    Str :$resource!
+        Bool :$use-long-ids!,
+        Str :$resource!
     ) is service-operation('ModifyIdFormat') {
         my $request-input = ModifyIdFormatRequest.new(
-        :$use-long-ids,
-        :$resource
+            :$use-long-ids,
+            :$resource
         );
-;
+
         self.perform-operation(
             :api-call<ModifyIdFormat>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method revoke-security-group-egress(
-    Str :$source-security-group-owner-id,
-    Str :$cidr-ip,
-    Array[IpPermission] :$ip-permissions,
-    Str :$group-id!,
-    Bool :$dry-run,
-    Str :$ip-protocol,
-    Int :$from-port,
-    Str :$source-security-group-name,
-    Int :$to-port
+        Str :$source-security-group-owner-id,
+        Str :$cidr-ip,
+        Array[IpPermission] :$ip-permissions,
+        Str :$group-id!,
+        Bool :$dry-run,
+        Str :$ip-protocol,
+        Int :$from-port,
+        Str :$source-security-group-name,
+        Int :$to-port
     ) is service-operation('RevokeSecurityGroupEgress') {
         my $request-input = RevokeSecurityGroupEgressRequest.new(
-        :$source-security-group-owner-id,
-        :$cidr-ip,
-        :$ip-permissions,
-        :$group-id,
-        :$dry-run,
-        :$ip-protocol,
-        :$from-port,
-        :$source-security-group-name,
-        :$to-port
+            :$source-security-group-owner-id,
+            :$cidr-ip,
+            :$ip-permissions,
+            :$group-id,
+            :$dry-run,
+            :$ip-protocol,
+            :$from-port,
+            :$source-security-group-name,
+            :$to-port
         );
-;
+
         self.perform-operation(
             :api-call<RevokeSecurityGroupEgress>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method request-spot-fleet(
-    Bool :$dry-run,
-    SpotFleetRequestConfigData :$spot-fleet-request-config!
+        Bool :$dry-run,
+        SpotFleetRequestConfigData :$spot-fleet-request-config!
     ) returns RequestSpotFleetResponse is service-operation('RequestSpotFleet') {
         my $request-input = RequestSpotFleetRequest.new(
-        :$dry-run,
-        :$spot-fleet-request-config
+            :$dry-run,
+            :$spot-fleet-request-config
         );
-;
+
         self.perform-operation(
             :api-call<RequestSpotFleet>,
-            :return-type(RequestSpotFleetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-nat-gateway(
-    Str :$subnet-id!,
-    Str :$client-token,
-    Str :$allocation-id!
+        Str :$subnet-id!,
+        Str :$client-token,
+        Str :$allocation-id!
     ) returns CreateNatGatewayResult is service-operation('CreateNatGateway') {
         my $request-input = CreateNatGatewayRequest.new(
-        :$subnet-id,
-        :$client-token,
-        :$allocation-id
+            :$subnet-id,
+            :$client-token,
+            :$allocation-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateNatGateway>,
-            :return-type(CreateNatGatewayResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-subnets(
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[Str] :$subnet-ids
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[Str] :$subnet-ids
     ) returns DescribeSubnetsResult is service-operation('DescribeSubnets') {
         my $request-input = DescribeSubnetsRequest.new(
-        :$dry-run,
-        :$filters,
-        :$subnet-ids
+            :$dry-run,
+            :$filters,
+            :$subnet-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSubnets>,
-            :return-type(DescribeSubnetsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-iam-instance-profile(
-    Str :$association-id!
+        Str :$association-id!
     ) returns DisassociateIamInstanceProfileResult is service-operation('DisassociateIamInstanceProfile') {
         my $request-input = DisassociateIamInstanceProfileRequest.new(
-        :$association-id
+            :$association-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateIamInstanceProfile>,
-            :return-type(DisassociateIamInstanceProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-host-reservation-offerings(
-    Int :$max-results,
-    Array[Filter] :$filter,
-    Str :$offering-id,
-    Int :$max-duration,
-    Int :$min-duration,
-    Str :$next-token
+        Int :$max-results,
+        Array[Filter] :$filter,
+        Str :$offering-id,
+        Int :$max-duration,
+        Int :$min-duration,
+        Str :$next-token
     ) returns DescribeHostReservationOfferingsResult is service-operation('DescribeHostReservationOfferings') {
         my $request-input = DescribeHostReservationOfferingsRequest.new(
-        :$max-results,
-        :$filter,
-        :$offering-id,
-        :$max-duration,
-        :$min-duration,
-        :$next-token
+            :$max-results,
+            :$filter,
+            :$offering-id,
+            :$max-duration,
+            :$min-duration,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeHostReservationOfferings>,
-            :return-type(DescribeHostReservationOfferingsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method assign-private-ip-addresses(
-    Int :$secondary-private-ip-address-count,
-    Array[Str] :$private-ip-addresses,
-    Str :$network-interface-id!,
-    Bool :$allow-reassignment
+        Int :$secondary-private-ip-address-count,
+        Array[Str] :$private-ip-addresses,
+        Str :$network-interface-id!,
+        Bool :$allow-reassignment
     ) is service-operation('AssignPrivateIpAddresses') {
         my $request-input = AssignPrivateIpAddressesRequest.new(
-        :$secondary-private-ip-address-count,
-        :$private-ip-addresses,
-        :$network-interface-id,
-        :$allow-reassignment
+            :$secondary-private-ip-address-count,
+            :$private-ip-addresses,
+            :$network-interface-id,
+            :$allow-reassignment
         );
-;
+
         self.perform-operation(
             :api-call<AssignPrivateIpAddresses>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-spot-price-history(
-    Int :$max-results,
-    DateTime :$end-time,
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Array[InstanceType] :$instance-types,
-    DateTime :$start-time,
-    Array[Str] :$product-descriptions,
-    Str :$next-token,
-    Str :$availability-zone
+        Int :$max-results,
+        DateTime :$end-time,
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Array[InstanceType] :$instance-types,
+        DateTime :$start-time,
+        Array[Str] :$product-descriptions,
+        Str :$next-token,
+        Str :$availability-zone
     ) returns DescribeSpotPriceHistoryResult is service-operation('DescribeSpotPriceHistory') {
         my $request-input = DescribeSpotPriceHistoryRequest.new(
-        :$max-results,
-        :$end-time,
-        :$dry-run,
-        :$filters,
-        :$instance-types,
-        :$start-time,
-        :$product-descriptions,
-        :$next-token,
-        :$availability-zone
+            :$max-results,
+            :$end-time,
+            :$dry-run,
+            :$filters,
+            :$instance-types,
+            :$start-time,
+            :$product-descriptions,
+            :$next-token,
+            :$availability-zone
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSpotPriceHistory>,
-            :return-type(DescribeSpotPriceHistoryResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-internet-gateway(
-    Str :$vpc-id!,
-    Bool :$dry-run,
-    Str :$internet-gateway-id!
+        Str :$vpc-id!,
+        Bool :$dry-run,
+        Str :$internet-gateway-id!
     ) is service-operation('DetachInternetGateway') {
         my $request-input = DetachInternetGatewayRequest.new(
-        :$vpc-id,
-        :$dry-run,
-        :$internet-gateway-id
+            :$vpc-id,
+            :$dry-run,
+            :$internet-gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<DetachInternetGateway>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-network-interface(
-    Bool :$dry-run,
-    Bool :$force,
-    Str :$attachment-id!
+        Bool :$dry-run,
+        Bool :$force,
+        Str :$attachment-id!
     ) is service-operation('DetachNetworkInterface') {
         my $request-input = DetachNetworkInterfaceRequest.new(
-        :$dry-run,
-        :$force,
-        :$attachment-id
+            :$dry-run,
+            :$force,
+            :$attachment-id
         );
-;
+
         self.perform-operation(
             :api-call<DetachNetworkInterface>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-vpc-peering-connection-options(
-    PeeringConnectionOptionsRequest :$requester-peering-connection-options,
-    Bool :$dry-run,
-    Str :$vpc-peering-connection-id!,
-    PeeringConnectionOptionsRequest :$accepter-peering-connection-options
+        PeeringConnectionOptionsRequest :$requester-peering-connection-options,
+        Bool :$dry-run,
+        Str :$vpc-peering-connection-id!,
+        PeeringConnectionOptionsRequest :$accepter-peering-connection-options
     ) returns ModifyVpcPeeringConnectionOptionsResult is service-operation('ModifyVpcPeeringConnectionOptions') {
         my $request-input = ModifyVpcPeeringConnectionOptionsRequest.new(
-        :$requester-peering-connection-options,
-        :$dry-run,
-        :$vpc-peering-connection-id,
-        :$accepter-peering-connection-options
+            :$requester-peering-connection-options,
+            :$dry-run,
+            :$vpc-peering-connection-id,
+            :$accepter-peering-connection-options
         );
-;
+
         self.perform-operation(
             :api-call<ModifyVpcPeeringConnectionOptions>,
-            :return-type(ModifyVpcPeeringConnectionOptionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-hosts(
-    Int :$max-results,
-    Array[Str] :$host-ids,
-    Array[Filter] :$filter,
-    Str :$next-token
+        Int :$max-results,
+        Array[Str] :$host-ids,
+        Array[Filter] :$filter,
+        Str :$next-token
     ) returns DescribeHostsResult is service-operation('DescribeHosts') {
         my $request-input = DescribeHostsRequest.new(
-        :$max-results,
-        :$host-ids,
-        :$filter,
-        :$next-token
+            :$max-results,
+            :$host-ids,
+            :$filter,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeHosts>,
-            :return-type(DescribeHostsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-reserved-instances-modifications(
-    Array[Filter] :$filters,
-    Str :$next-token,
-    Array[Str] :$reserved-instances-modification-ids
+        Array[Filter] :$filters,
+        Str :$next-token,
+        Array[Str] :$reserved-instances-modification-ids
     ) returns DescribeReservedInstancesModificationsResult is service-operation('DescribeReservedInstancesModifications') {
         my $request-input = DescribeReservedInstancesModificationsRequest.new(
-        :$filters,
-        :$next-token,
-        :$reserved-instances-modification-ids
+            :$filters,
+            :$next-token,
+            :$reserved-instances-modification-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReservedInstancesModifications>,
-            :return-type(DescribeReservedInstancesModificationsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-network-interface-permission(
-    Bool :$dry-run,
-    Str :$network-interface-permission-id!,
-    Bool :$force
+        Bool :$dry-run,
+        Str :$network-interface-permission-id!,
+        Bool :$force
     ) returns DeleteNetworkInterfacePermissionResult is service-operation('DeleteNetworkInterfacePermission') {
         my $request-input = DeleteNetworkInterfacePermissionRequest.new(
-        :$dry-run,
-        :$network-interface-permission-id,
-        :$force
+            :$dry-run,
+            :$network-interface-permission-id,
+            :$force
         );
-;
+
         self.perform-operation(
             :api-call<DeleteNetworkInterfacePermission>,
-            :return-type(DeleteNetworkInterfacePermissionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-vpc-cidr-block(
-    Str :$cidr-block,
-    Str :$vpc-id!,
-    Bool :$amazon-provided-ipv6-cidr-block
+        Str :$cidr-block,
+        Str :$vpc-id!,
+        Bool :$amazon-provided-ipv6-cidr-block
     ) returns AssociateVpcCidrBlockResult is service-operation('AssociateVpcCidrBlock') {
         my $request-input = AssociateVpcCidrBlockRequest.new(
-        :$cidr-block,
-        :$vpc-id,
-        :$amazon-provided-ipv6-cidr-block
+            :$cidr-block,
+            :$vpc-id,
+            :$amazon-provided-ipv6-cidr-block
         );
-;
+
         self.perform-operation(
             :api-call<AssociateVpcCidrBlock>,
-            :return-type(AssociateVpcCidrBlockResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-classic-link-instances(
-    Int :$max-results,
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    Str :$next-token,
-    Array[Str] :$instance-ids
+        Int :$max-results,
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        Str :$next-token,
+        Array[Str] :$instance-ids
     ) returns DescribeClassicLinkInstancesResult is service-operation('DescribeClassicLinkInstances') {
         my $request-input = DescribeClassicLinkInstancesRequest.new(
-        :$max-results,
-        :$dry-run,
-        :$filters,
-        :$next-token,
-        :$instance-ids
+            :$max-results,
+            :$dry-run,
+            :$filters,
+            :$next-token,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClassicLinkInstances>,
-            :return-type(DescribeClassicLinkInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vpn-connection-route(
-    Str :$vpn-connection-id!,
-    Str :$destination-cidr-block!
+        Str :$vpn-connection-id!,
+        Str :$destination-cidr-block!
     ) is service-operation('DeleteVpnConnectionRoute') {
         my $request-input = DeleteVpnConnectionRouteRequest.new(
-        :$vpn-connection-id,
-        :$destination-cidr-block
+            :$vpn-connection-id,
+            :$destination-cidr-block
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVpnConnectionRoute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-nat-gateway(
-    Str :$nat-gateway-id!
+        Str :$nat-gateway-id!
     ) returns DeleteNatGatewayResult is service-operation('DeleteNatGateway') {
         my $request-input = DeleteNatGatewayRequest.new(
-        :$nat-gateway-id
+            :$nat-gateway-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteNatGateway>,
-            :return-type(DeleteNatGatewayResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-placement-group(
-    Bool :$dry-run,
-    Str :$group-name!
+        Bool :$dry-run,
+        Str :$group-name!
     ) is service-operation('DeletePlacementGroup') {
         my $request-input = DeletePlacementGroupRequest.new(
-        :$dry-run,
-        :$group-name
+            :$dry-run,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeletePlacementGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-vpn-connection(
-    Bool :$dry-run,
-    Str :$vpn-gateway-id!,
-    Str :$customer-gateway-id!,
-    VpnConnectionOptionsSpecification :$options,
-    Str :$type!
+        Bool :$dry-run,
+        Str :$vpn-gateway-id!,
+        Str :$customer-gateway-id!,
+        VpnConnectionOptionsSpecification :$options,
+        Str :$type!
     ) returns CreateVpnConnectionResult is service-operation('CreateVpnConnection') {
         my $request-input = CreateVpnConnectionRequest.new(
-        :$dry-run,
-        :$vpn-gateway-id,
-        :$customer-gateway-id,
-        :$options,
-        :$type
+            :$dry-run,
+            :$vpn-gateway-id,
+            :$customer-gateway-id,
+            :$options,
+            :$type
         );
-;
+
         self.perform-operation(
             :api-call<CreateVpnConnection>,
-            :return-type(CreateVpnConnectionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-reserved-instances-offerings(
-    OfferingTypeValues :$offering-type,
-    Int :$max-results,
-    RIProductDescription :$product-description,
-    Tenancy :$instance-tenancy,
-    Bool :$dry-run,
-    Array[Filter] :$filters,
-    OfferingClassType :$offering-class,
-    Int :$max-duration,
-    Bool :$include-marketplace,
-    Int :$min-duration,
-    Str :$next-token,
-    Array[Str] :$reserved-instances-offering-ids,
-    InstanceType :$instance-type,
-    Str :$availability-zone,
-    Int :$max-instance-count
+        OfferingTypeValues :$offering-type,
+        Int :$max-results,
+        RIProductDescription :$product-description,
+        Tenancy :$instance-tenancy,
+        Bool :$dry-run,
+        Array[Filter] :$filters,
+        OfferingClassType :$offering-class,
+        Int :$max-duration,
+        Bool :$include-marketplace,
+        Int :$min-duration,
+        Str :$next-token,
+        Array[Str] :$reserved-instances-offering-ids,
+        InstanceType :$instance-type,
+        Str :$availability-zone,
+        Int :$max-instance-count
     ) returns DescribeReservedInstancesOfferingsResult is service-operation('DescribeReservedInstancesOfferings') {
         my $request-input = DescribeReservedInstancesOfferingsRequest.new(
-        :$offering-type,
-        :$max-results,
-        :$product-description,
-        :$instance-tenancy,
-        :$dry-run,
-        :$filters,
-        :$offering-class,
-        :$max-duration,
-        :$include-marketplace,
-        :$min-duration,
-        :$next-token,
-        :$reserved-instances-offering-ids,
-        :$instance-type,
-        :$availability-zone,
-        :$max-instance-count
+            :$offering-type,
+            :$max-results,
+            :$product-description,
+            :$instance-tenancy,
+            :$dry-run,
+            :$filters,
+            :$offering-class,
+            :$max-duration,
+            :$include-marketplace,
+            :$min-duration,
+            :$next-token,
+            :$reserved-instances-offering-ids,
+            :$instance-type,
+            :$availability-zone,
+            :$max-instance-count
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReservedInstancesOfferings>,
-            :return-type(DescribeReservedInstancesOfferingsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-vpc-classic-link-dns-support(
-    Str :$vpc-id
+        Str :$vpc-id
     ) returns EnableVpcClassicLinkDnsSupportResult is service-operation('EnableVpcClassicLinkDnsSupport') {
         my $request-input = EnableVpcClassicLinkDnsSupportRequest.new(
-        :$vpc-id
+            :$vpc-id
         );
-;
+
         self.perform-operation(
             :api-call<EnableVpcClassicLinkDnsSupport>,
-            :return-type(EnableVpcClassicLinkDnsSupportResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method bundle-instance(
-    Storage :$storage!,
-    Bool :$dry-run,
-    Str :$instance-id!
+        Storage :$storage!,
+        Bool :$dry-run,
+        Str :$instance-id!
     ) returns BundleInstanceResult is service-operation('BundleInstance') {
         my $request-input = BundleInstanceRequest.new(
-        :$storage,
-        :$dry-run,
-        :$instance-id
+            :$storage,
+            :$dry-run,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<BundleInstance>,
-            :return-type(BundleInstanceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method replace-network-acl-association(
-    Str :$network-acl-id!,
-    Bool :$dry-run,
-    Str :$association-id!
+        Str :$network-acl-id!,
+        Bool :$dry-run,
+        Str :$association-id!
     ) returns ReplaceNetworkAclAssociationResult is service-operation('ReplaceNetworkAclAssociation') {
         my $request-input = ReplaceNetworkAclAssociationRequest.new(
-        :$network-acl-id,
-        :$dry-run,
-        :$association-id
+            :$network-acl-id,
+            :$dry-run,
+            :$association-id
         );
-;
+
         self.perform-operation(
             :api-call<ReplaceNetworkAclAssociation>,
-            :return-type(ReplaceNetworkAclAssociationResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-instance-attribute(
-    Bool :$dry-run,
-    InstanceAttributeName :$attribute!,
-    Str :$instance-id!
+        Bool :$dry-run,
+        InstanceAttributeName :$attribute!,
+        Str :$instance-id!
     ) returns InstanceAttribute is service-operation('DescribeInstanceAttribute') {
         my $request-input = DescribeInstanceAttributeRequest.new(
-        :$dry-run,
-        :$attribute,
-        :$instance-id
+            :$dry-run,
+            :$attribute,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstanceAttribute>,
-            :return-type(InstanceAttribute),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-flow-logs(
-    Array[Str] :$flow-log-ids!
+        Array[Str] :$flow-log-ids!
     ) returns DeleteFlowLogsResult is service-operation('DeleteFlowLogs') {
         my $request-input = DeleteFlowLogsRequest.new(
-        :$flow-log-ids
+            :$flow-log-ids
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFlowLogs>,
-            :return-type(DeleteFlowLogsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-host-reservations(
-    Int :$max-results,
-    Array[Filter] :$filter,
-    Array[Str] :$host-reservation-id-set,
-    Str :$next-token
+        Int :$max-results,
+        Array[Filter] :$filter,
+        Array[Str] :$host-reservation-id-set,
+        Str :$next-token
     ) returns DescribeHostReservationsResult is service-operation('DescribeHostReservations') {
         my $request-input = DescribeHostReservationsRequest.new(
-        :$max-results,
-        :$filter,
-        :$host-reservation-id-set,
-        :$next-token
+            :$max-results,
+            :$filter,
+            :$host-reservation-id-set,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeHostReservations>,
-            :return-type(DescribeHostReservationsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-key-pair(
-    Bool :$dry-run,
-    Str :$key-name!
+        Bool :$dry-run,
+        Str :$key-name!
     ) is service-operation('DeleteKeyPair') {
         my $request-input = DeleteKeyPairRequest.new(
-        :$dry-run,
-        :$key-name
+            :$dry-run,
+            :$key-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteKeyPair>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-classic-link-vpc(
-    Str :$vpc-id!,
-    Bool :$dry-run,
-    Str :$instance-id!
+        Str :$vpc-id!,
+        Bool :$dry-run,
+        Str :$instance-id!
     ) returns DetachClassicLinkVpcResult is service-operation('DetachClassicLinkVpc') {
         my $request-input = DetachClassicLinkVpcRequest.new(
-        :$vpc-id,
-        :$dry-run,
-        :$instance-id
+            :$vpc-id,
+            :$dry-run,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DetachClassicLinkVpc>,
-            :return-type(DetachClassicLinkVpcResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-identity-id-format(
-    Str :$principal-arn!,
-    Str :$resource
+        Str :$principal-arn!,
+        Str :$resource
     ) returns DescribeIdentityIdFormatResult is service-operation('DescribeIdentityIdFormat') {
         my $request-input = DescribeIdentityIdFormatRequest.new(
-        :$principal-arn,
-        :$resource
+            :$principal-arn,
+            :$resource
         );
-;
+
         self.perform-operation(
             :api-call<DescribeIdentityIdFormat>,
-            :return-type(DescribeIdentityIdFormatResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method allocate-address(
-    Str :$address,
-    DomainType :$domain,
-    Bool :$dry-run
+        Str :$address,
+        DomainType :$domain,
+        Bool :$dry-run
     ) returns AllocateAddressResult is service-operation('AllocateAddress') {
         my $request-input = AllocateAddressRequest.new(
-        :$address,
-        :$domain,
-        :$dry-run
+            :$address,
+            :$domain,
+            :$dry-run
         );
-;
+
         self.perform-operation(
             :api-call<AllocateAddress>,
-            :return-type(AllocateAddressResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-volume(
-    Str :$device!,
-    Bool :$dry-run,
-    Str :$volume-id!,
-    Str :$instance-id!
+        Str :$device!,
+        Bool :$dry-run,
+        Str :$volume-id!,
+        Str :$instance-id!
     ) returns VolumeAttachment is service-operation('AttachVolume') {
         my $request-input = AttachVolumeRequest.new(
-        :$device,
-        :$dry-run,
-        :$volume-id,
-        :$instance-id
+            :$device,
+            :$dry-run,
+            :$volume-id,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<AttachVolume>,
-            :return-type(VolumeAttachment),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vpc-classic-link-dns-support(
-    MaxResults :$max-results,
-    Array[Str] :$vpc-ids,
-    NextToken :$next-token
+        MaxResults :$max-results,
+        Array[Str] :$vpc-ids,
+        NextToken :$next-token
     ) returns DescribeVpcClassicLinkDnsSupportResult is service-operation('DescribeVpcClassicLinkDnsSupport') {
         my $request-input = DescribeVpcClassicLinkDnsSupportRequest.new(
-        :$max-results,
-        :$vpc-ids,
-        :$next-token
+            :$max-results,
+            :$vpc-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpcClassicLinkDnsSupport>,
-            :return-type(DescribeVpcClassicLinkDnsSupportResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-instance-attribute(
-    Array[InstanceBlockDeviceMappingSpecification] :$block-device-mappings,
-    AttributeValue :$ramdisk,
-    Bool :$dry-run,
-    BlobAttributeValue :$user-data,
-    AttributeBooleanValue :$source-dest-check,
-    AttributeValue :$instance-initiated-shutdown-behavior,
-    AttributeBooleanValue :$ena-support,
-    AttributeBooleanValue :$disable-api-termination,
-    Array[Str] :$groups,
-    AttributeBooleanValue :$ebs-optimized,
-    Str :$value,
-    AttributeValue :$instance-type,
-    InstanceAttributeName :$attribute,
-    Str :$instance-id!,
-    AttributeValue :$sriov-net-support,
-    AttributeValue :$kernel
+        Array[InstanceBlockDeviceMappingSpecification] :$block-device-mappings,
+        AttributeValue :$ramdisk,
+        Bool :$dry-run,
+        BlobAttributeValue :$user-data,
+        AttributeBooleanValue :$source-dest-check,
+        AttributeValue :$instance-initiated-shutdown-behavior,
+        AttributeBooleanValue :$ena-support,
+        AttributeBooleanValue :$disable-api-termination,
+        Array[Str] :$groups,
+        AttributeBooleanValue :$ebs-optimized,
+        Str :$value,
+        AttributeValue :$instance-type,
+        InstanceAttributeName :$attribute,
+        Str :$instance-id!,
+        AttributeValue :$sriov-net-support,
+        AttributeValue :$kernel
     ) is service-operation('ModifyInstanceAttribute') {
         my $request-input = ModifyInstanceAttributeRequest.new(
-        :$block-device-mappings,
-        :$ramdisk,
-        :$dry-run,
-        :$user-data,
-        :$source-dest-check,
-        :$instance-initiated-shutdown-behavior,
-        :$ena-support,
-        :$disable-api-termination,
-        :$groups,
-        :$ebs-optimized,
-        :$value,
-        :$instance-type,
-        :$attribute,
-        :$instance-id,
-        :$sriov-net-support,
-        :$kernel
+            :$block-device-mappings,
+            :$ramdisk,
+            :$dry-run,
+            :$user-data,
+            :$source-dest-check,
+            :$instance-initiated-shutdown-behavior,
+            :$ena-support,
+            :$disable-api-termination,
+            :$groups,
+            :$ebs-optimized,
+            :$value,
+            :$instance-type,
+            :$attribute,
+            :$instance-id,
+            :$sriov-net-support,
+            :$kernel
         );
-;
+
         self.perform-operation(
             :api-call<ModifyInstanceAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-snapshot-attribute(
-    Bool :$dry-run,
-    Array[Str] :$user-ids,
-    Str :$snapshot-id!,
-    OperationType :$operation-type,
-    SnapshotAttributeName :$attribute,
-    Array[Str] :$group-names,
-    CreateVolumePermissionModifications :$create-volume-permission
+        Bool :$dry-run,
+        Array[Str] :$user-ids,
+        Str :$snapshot-id!,
+        OperationType :$operation-type,
+        SnapshotAttributeName :$attribute,
+        Array[Str] :$group-names,
+        CreateVolumePermissionModifications :$create-volume-permission
     ) is service-operation('ModifySnapshotAttribute') {
         my $request-input = ModifySnapshotAttributeRequest.new(
-        :$dry-run,
-        :$user-ids,
-        :$snapshot-id,
-        :$operation-type,
-        :$attribute,
-        :$group-names,
-        :$create-volume-permission
+            :$dry-run,
+            :$user-ids,
+            :$snapshot-id,
+            :$operation-type,
+            :$attribute,
+            :$group-names,
+            :$create-volume-permission
         );
-;
+
         self.perform-operation(
             :api-call<ModifySnapshotAttribute>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method unassign-private-ip-addresses(
-    Array[Str] :$private-ip-addresses!,
-    Str :$network-interface-id!
+        Array[Str] :$private-ip-addresses!,
+        Str :$network-interface-id!
     ) is service-operation('UnassignPrivateIpAddresses') {
         my $request-input = UnassignPrivateIpAddressesRequest.new(
-        :$private-ip-addresses,
-        :$network-interface-id
+            :$private-ip-addresses,
+            :$network-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<UnassignPrivateIpAddresses>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-image(
-    Array[BlockDeviceMapping] :$block-device-mappings,
-    Array[Str] :$billing-products,
-    Bool :$dry-run,
-    Str :$virtualization-type,
-    Str :$ramdisk-id,
-    Str :$description,
-    Bool :$ena-support,
-    Str :$image-location,
-    Str :$name!,
-    Str :$kernel-id,
-    Str :$sriov-net-support,
-    Str :$root-device-name,
-    ArchitectureValues :$architecture
+        Array[BlockDeviceMapping] :$block-device-mappings,
+        Array[Str] :$billing-products,
+        Bool :$dry-run,
+        Str :$virtualization-type,
+        Str :$ramdisk-id,
+        Str :$description,
+        Bool :$ena-support,
+        Str :$image-location,
+        Str :$name!,
+        Str :$kernel-id,
+        Str :$sriov-net-support,
+        Str :$root-device-name,
+        ArchitectureValues :$architecture
     ) returns RegisterImageResult is service-operation('RegisterImage') {
         my $request-input = RegisterImageRequest.new(
-        :$block-device-mappings,
-        :$billing-products,
-        :$dry-run,
-        :$virtualization-type,
-        :$ramdisk-id,
-        :$description,
-        :$ena-support,
-        :$image-location,
-        :$name,
-        :$kernel-id,
-        :$sriov-net-support,
-        :$root-device-name,
-        :$architecture
+            :$block-device-mappings,
+            :$billing-products,
+            :$dry-run,
+            :$virtualization-type,
+            :$ramdisk-id,
+            :$description,
+            :$ena-support,
+            :$image-location,
+            :$name,
+            :$kernel-id,
+            :$sriov-net-support,
+            :$root-device-name,
+            :$architecture
         );
-;
+
         self.perform-operation(
             :api-call<RegisterImage>,
-            :return-type(RegisterImageResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method accept-reserved-instances-exchange-quote(
-    Bool :$dry-run,
-    Array[TargetConfigurationRequest] :$target-configurations,
-    Array[Str] :$reserved-instance-ids!
+        Bool :$dry-run,
+        Array[TargetConfigurationRequest] :$target-configurations,
+        Array[Str] :$reserved-instance-ids!
     ) returns AcceptReservedInstancesExchangeQuoteResult is service-operation('AcceptReservedInstancesExchangeQuote') {
         my $request-input = AcceptReservedInstancesExchangeQuoteRequest.new(
-        :$dry-run,
-        :$target-configurations,
-        :$reserved-instance-ids
+            :$dry-run,
+            :$target-configurations,
+            :$reserved-instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<AcceptReservedInstancesExchangeQuote>,
-            :return-type(AcceptReservedInstancesExchangeQuoteResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

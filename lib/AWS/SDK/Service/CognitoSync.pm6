@@ -382,322 +382,288 @@ class AWS::SDK::Service::CognitoSync does AWS::SDK::Service {
     }
 
     method set-identity-pool-configuration(
-    PushSync :$push-sync,
-    IdentityPoolId :$identity-pool-id!,
-    CognitoStreams :$cognito-streams
+        PushSync :$push-sync,
+        IdentityPoolId :$identity-pool-id!,
+        CognitoStreams :$cognito-streams
     ) returns SetIdentityPoolConfigurationResponse is service-operation('SetIdentityPoolConfiguration') {
         my $request-input = SetIdentityPoolConfigurationRequest.new(
-        :$push-sync,
-        :$identity-pool-id,
-        :$cognito-streams
+            :$push-sync,
+            :$identity-pool-id,
+            :$cognito-streams
         );
-;
+
         self.perform-operation(
             :api-call<SetIdentityPoolConfiguration>,
-            :return-type(SetIdentityPoolConfigurationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method unsubscribe-from-dataset(
-    DeviceId :$device-id!,
-    IdentityId :$identity-id!,
-    DatasetName :$dataset-name!,
-    IdentityPoolId :$identity-pool-id!
+        DeviceId :$device-id!,
+        IdentityId :$identity-id!,
+        DatasetName :$dataset-name!,
+        IdentityPoolId :$identity-pool-id!
     ) returns UnsubscribeFromDatasetResponse is service-operation('UnsubscribeFromDataset') {
         my $request-input = UnsubscribeFromDatasetRequest.new(
-        :$device-id,
-        :$identity-id,
-        :$dataset-name,
-        :$identity-pool-id
+            :$device-id,
+            :$identity-id,
+            :$dataset-name,
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<UnsubscribeFromDataset>,
-            :return-type(UnsubscribeFromDatasetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-identity-pool-configuration(
-    IdentityPoolId :$identity-pool-id!
+        IdentityPoolId :$identity-pool-id!
     ) returns GetIdentityPoolConfigurationResponse is service-operation('GetIdentityPoolConfiguration') {
         my $request-input = GetIdentityPoolConfigurationRequest.new(
-        :$identity-pool-id
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<GetIdentityPoolConfiguration>,
-            :return-type(GetIdentityPoolConfigurationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-cognito-events(
-    IdentityPoolId :$identity-pool-id!
+        IdentityPoolId :$identity-pool-id!
     ) returns GetCognitoEventsResponse is service-operation('GetCognitoEvents') {
         my $request-input = GetCognitoEventsRequest.new(
-        :$identity-pool-id
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<GetCognitoEvents>,
-            :return-type(GetCognitoEventsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method bulk-publish(
-    IdentityPoolId :$identity-pool-id!
+        IdentityPoolId :$identity-pool-id!
     ) returns BulkPublishResponse is service-operation('BulkPublish') {
         my $request-input = BulkPublishRequest.new(
-        :$identity-pool-id
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<BulkPublish>,
-            :return-type(BulkPublishResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-dataset(
-    IdentityId :$identity-id!,
-    DatasetName :$dataset-name!,
-    IdentityPoolId :$identity-pool-id!
+        IdentityId :$identity-id!,
+        DatasetName :$dataset-name!,
+        IdentityPoolId :$identity-pool-id!
     ) returns DescribeDatasetResponse is service-operation('DescribeDataset') {
         my $request-input = DescribeDatasetRequest.new(
-        :$identity-id,
-        :$dataset-name,
-        :$identity-pool-id
+            :$identity-id,
+            :$dataset-name,
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDataset>,
-            :return-type(DescribeDatasetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method subscribe-to-dataset(
-    DeviceId :$device-id!,
-    IdentityId :$identity-id!,
-    DatasetName :$dataset-name!,
-    IdentityPoolId :$identity-pool-id!
+        DeviceId :$device-id!,
+        IdentityId :$identity-id!,
+        DatasetName :$dataset-name!,
+        IdentityPoolId :$identity-pool-id!
     ) returns SubscribeToDatasetResponse is service-operation('SubscribeToDataset') {
         my $request-input = SubscribeToDatasetRequest.new(
-        :$device-id,
-        :$identity-id,
-        :$dataset-name,
-        :$identity-pool-id
+            :$device-id,
+            :$identity-id,
+            :$dataset-name,
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<SubscribeToDataset>,
-            :return-type(SubscribeToDatasetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-device(
-    Platform :$platform!,
-    IdentityId :$identity-id!,
-    IdentityPoolId :$identity-pool-id!,
-    Str :$token!
+        Platform :$platform!,
+        IdentityId :$identity-id!,
+        IdentityPoolId :$identity-pool-id!,
+        Str :$token!
     ) returns RegisterDeviceResponse is service-operation('RegisterDevice') {
         my $request-input = RegisterDeviceRequest.new(
-        :$platform,
-        :$identity-id,
-        :$identity-pool-id,
-        :$token
+            :$platform,
+            :$identity-id,
+            :$identity-pool-id,
+            :$token
         );
-;
+
         self.perform-operation(
             :api-call<RegisterDevice>,
-            :return-type(RegisterDeviceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-datasets(
-    Int :$max-results,
-    IdentityId :$identity-id!,
-    IdentityPoolId :$identity-pool-id!,
-    Str :$next-token
+        Int :$max-results,
+        IdentityId :$identity-id!,
+        IdentityPoolId :$identity-pool-id!,
+        Str :$next-token
     ) returns ListDatasetsResponse is service-operation('ListDatasets') {
         my $request-input = ListDatasetsRequest.new(
-        :$max-results,
-        :$identity-id,
-        :$identity-pool-id,
-        :$next-token
+            :$max-results,
+            :$identity-id,
+            :$identity-pool-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDatasets>,
-            :return-type(ListDatasetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-dataset(
-    IdentityId :$identity-id!,
-    DatasetName :$dataset-name!,
-    IdentityPoolId :$identity-pool-id!
+        IdentityId :$identity-id!,
+        DatasetName :$dataset-name!,
+        IdentityPoolId :$identity-pool-id!
     ) returns DeleteDatasetResponse is service-operation('DeleteDataset') {
         my $request-input = DeleteDatasetRequest.new(
-        :$identity-id,
-        :$dataset-name,
-        :$identity-pool-id
+            :$identity-id,
+            :$dataset-name,
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDataset>,
-            :return-type(DeleteDatasetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-cognito-events(
-    Events :$events!,
-    IdentityPoolId :$identity-pool-id!
+        Events :$events!,
+        IdentityPoolId :$identity-pool-id!
     ) is service-operation('SetCognitoEvents') {
         my $request-input = SetCognitoEventsRequest.new(
-        :$events,
-        :$identity-pool-id
+            :$events,
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<SetCognitoEvents>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-records(
-    Int :$max-results,
-    IdentityId :$identity-id!,
-    DatasetName :$dataset-name!,
-    IdentityPoolId :$identity-pool-id!,
-    Str :$next-token,
-    Int :$last-sync-count,
-    Str :$sync-session-token
+        Int :$max-results,
+        IdentityId :$identity-id!,
+        DatasetName :$dataset-name!,
+        IdentityPoolId :$identity-pool-id!,
+        Str :$next-token,
+        Int :$last-sync-count,
+        Str :$sync-session-token
     ) returns ListRecordsResponse is service-operation('ListRecords') {
         my $request-input = ListRecordsRequest.new(
-        :$max-results,
-        :$identity-id,
-        :$dataset-name,
-        :$identity-pool-id,
-        :$next-token,
-        :$last-sync-count,
-        :$sync-session-token
+            :$max-results,
+            :$identity-id,
+            :$dataset-name,
+            :$identity-pool-id,
+            :$next-token,
+            :$last-sync-count,
+            :$sync-session-token
         );
-;
+
         self.perform-operation(
             :api-call<ListRecords>,
-            :return-type(ListRecordsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-records(
-    DeviceId :$device-id,
-    Array[RecordPatch] :$record-patches,
-    IdentityId :$identity-id!,
-    DatasetName :$dataset-name!,
-    IdentityPoolId :$identity-pool-id!,
-    Str :$sync-session-token!,
-    Str :$client-context
+        DeviceId :$device-id,
+        Array[RecordPatch] :$record-patches,
+        IdentityId :$identity-id!,
+        DatasetName :$dataset-name!,
+        IdentityPoolId :$identity-pool-id!,
+        Str :$sync-session-token!,
+        Str :$client-context
     ) returns UpdateRecordsResponse is service-operation('UpdateRecords') {
         my $request-input = UpdateRecordsRequest.new(
-        :$device-id,
-        :$record-patches,
-        :$identity-id,
-        :$dataset-name,
-        :$identity-pool-id,
-        :$sync-session-token,
-        :$client-context
+            :$device-id,
+            :$record-patches,
+            :$identity-id,
+            :$dataset-name,
+            :$identity-pool-id,
+            :$sync-session-token,
+            :$client-context
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRecords>,
-            :return-type(UpdateRecordsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-identity-pool-usage(
-    Int :$max-results,
-    Str :$next-token
+        Int :$max-results,
+        Str :$next-token
     ) returns ListIdentityPoolUsageResponse is service-operation('ListIdentityPoolUsage') {
         my $request-input = ListIdentityPoolUsageRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListIdentityPoolUsage>,
-            :return-type(ListIdentityPoolUsageResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bulk-publish-details(
-    IdentityPoolId :$identity-pool-id!
+        IdentityPoolId :$identity-pool-id!
     ) returns GetBulkPublishDetailsResponse is service-operation('GetBulkPublishDetails') {
         my $request-input = GetBulkPublishDetailsRequest.new(
-        :$identity-pool-id
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<GetBulkPublishDetails>,
-            :return-type(GetBulkPublishDetailsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-identity-pool-usage(
-    IdentityPoolId :$identity-pool-id!
+        IdentityPoolId :$identity-pool-id!
     ) returns DescribeIdentityPoolUsageResponse is service-operation('DescribeIdentityPoolUsage') {
         my $request-input = DescribeIdentityPoolUsageRequest.new(
-        :$identity-pool-id
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeIdentityPoolUsage>,
-            :return-type(DescribeIdentityPoolUsageResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-identity-usage(
-    IdentityId :$identity-id!,
-    IdentityPoolId :$identity-pool-id!
+        IdentityId :$identity-id!,
+        IdentityPoolId :$identity-pool-id!
     ) returns DescribeIdentityUsageResponse is service-operation('DescribeIdentityUsage') {
         my $request-input = DescribeIdentityUsageRequest.new(
-        :$identity-id,
-        :$identity-pool-id
+            :$identity-id,
+            :$identity-pool-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeIdentityUsage>,
-            :return-type(DescribeIdentityUsageResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

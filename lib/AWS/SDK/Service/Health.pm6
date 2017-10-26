@@ -271,117 +271,105 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
     subset EventArnsList of Array[eventArn] where 1 <= *.elems <= 50;
 
     method describe-event-details(
-    locale :$locale,
-    eventArnList :$event-arns!
+        locale :$locale,
+        eventArnList :$event-arns!
     ) returns DescribeEventDetailsResponse is service-operation('DescribeEventDetails') {
         my $request-input = DescribeEventDetailsRequest.new(
-        :$locale,
-        :$event-arns
+            :$locale,
+            :$event-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEventDetails>,
-            :return-type(DescribeEventDetailsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-entity-aggregates(
-    EventArnsList :$event-arns
+        EventArnsList :$event-arns
     ) returns DescribeEntityAggregatesResponse is service-operation('DescribeEntityAggregates') {
         my $request-input = DescribeEntityAggregatesRequest.new(
-        :$event-arns
+            :$event-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEntityAggregates>,
-            :return-type(DescribeEntityAggregatesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-affected-entities(
-    EntityFilter :$filter!,
-    maxResults :$max-results,
-    nextToken :$next-token,
-    locale :$locale
+        EntityFilter :$filter!,
+        maxResults :$max-results,
+        nextToken :$next-token,
+        locale :$locale
     ) returns DescribeAffectedEntitiesResponse is service-operation('DescribeAffectedEntities') {
         my $request-input = DescribeAffectedEntitiesRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$locale
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$locale
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAffectedEntities>,
-            :return-type(DescribeAffectedEntitiesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-events(
-    EventFilter :$filter,
-    maxResults :$max-results,
-    nextToken :$next-token,
-    locale :$locale
+        EventFilter :$filter,
+        maxResults :$max-results,
+        nextToken :$next-token,
+        locale :$locale
     ) returns DescribeEventsResponse is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$locale
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$locale
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEvents>,
-            :return-type(DescribeEventsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-event-types(
-    EventTypeFilter :$filter,
-    maxResults :$max-results,
-    nextToken :$next-token,
-    locale :$locale
+        EventTypeFilter :$filter,
+        maxResults :$max-results,
+        nextToken :$next-token,
+        locale :$locale
     ) returns DescribeEventTypesResponse is service-operation('DescribeEventTypes') {
         my $request-input = DescribeEventTypesRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$locale
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$locale
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEventTypes>,
-            :return-type(DescribeEventTypesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-event-aggregates(
-    EventFilter :$filter,
-    nextToken :$next-token,
-    maxResults :$max-results,
-    eventAggregateField :$aggregate-field!
+        EventFilter :$filter,
+        nextToken :$next-token,
+        maxResults :$max-results,
+        eventAggregateField :$aggregate-field!
     ) returns DescribeEventAggregatesResponse is service-operation('DescribeEventAggregates') {
         my $request-input = DescribeEventAggregatesRequest.new(
-        :$filter,
-        :$next-token,
-        :$max-results,
-        :$aggregate-field
+            :$filter,
+            :$next-token,
+            :$max-results,
+            :$aggregate-field
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEventAggregates>,
-            :return-type(DescribeEventAggregatesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

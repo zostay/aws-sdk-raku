@@ -1046,123 +1046,111 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     method describe-environment-health(
-    Str :$environment-id,
-    Array[EnvironmentHealthAttribute] :$attribute-names,
-    EnvironmentName :$environment-name
+        Str :$environment-id,
+        Array[EnvironmentHealthAttribute] :$attribute-names,
+        EnvironmentName :$environment-name
     ) returns DescribeEnvironmentHealthResult is service-operation('DescribeEnvironmentHealth') {
         my $request-input = DescribeEnvironmentHealthRequest.new(
-        :$environment-id,
-        :$attribute-names,
-        :$environment-name
+            :$environment-id,
+            :$attribute-names,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEnvironmentHealth>,
-            :return-type(DescribeEnvironmentHealthResult),
-            :result-wrapper('DescribeEnvironmentHealthResult'),
             :$request-input,
         );
     }
 
     method describe-environment-managed-actions(
-    ActionStatus :$status,
-    Str :$environment-id,
-    Str :$environment-name
+        ActionStatus :$status,
+        Str :$environment-id,
+        Str :$environment-name
     ) returns DescribeEnvironmentManagedActionsResult is service-operation('DescribeEnvironmentManagedActions') {
         my $request-input = DescribeEnvironmentManagedActionsRequest.new(
-        :$status,
-        :$environment-id,
-        :$environment-name
+            :$status,
+            :$environment-id,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEnvironmentManagedActions>,
-            :return-type(DescribeEnvironmentManagedActionsResult),
-            :result-wrapper('DescribeEnvironmentManagedActionsResult'),
             :$request-input,
         );
     }
 
     method describe-environments(
-    DateTime :$included-deleted-back-to,
-    Array[EnvironmentName] :$environment-names,
-    Array[Str] :$environment-ids,
-    VersionLabel :$version-label,
-    ApplicationName :$application-name,
-    Str :$next-token,
-    Bool :$include-deleted,
-    MaxRecords :$max-records
+        DateTime :$included-deleted-back-to,
+        Array[EnvironmentName] :$environment-names,
+        Array[Str] :$environment-ids,
+        VersionLabel :$version-label,
+        ApplicationName :$application-name,
+        Str :$next-token,
+        Bool :$include-deleted,
+        MaxRecords :$max-records
     ) returns EnvironmentDescriptionsMessage is service-operation('DescribeEnvironments') {
         my $request-input = DescribeEnvironmentsMessage.new(
-        :$included-deleted-back-to,
-        :$environment-names,
-        :$environment-ids,
-        :$version-label,
-        :$application-name,
-        :$next-token,
-        :$include-deleted,
-        :$max-records
+            :$included-deleted-back-to,
+            :$environment-names,
+            :$environment-ids,
+            :$version-label,
+            :$application-name,
+            :$next-token,
+            :$include-deleted,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEnvironments>,
-            :return-type(EnvironmentDescriptionsMessage),
-            :result-wrapper('DescribeEnvironmentsResult'),
             :$request-input,
         );
     }
 
     method rebuild-environment(
-    Str :$environment-id,
-    EnvironmentName :$environment-name
+        Str :$environment-id,
+        EnvironmentName :$environment-name
     ) is service-operation('RebuildEnvironment') {
         my $request-input = RebuildEnvironmentMessage.new(
-        :$environment-id,
-        :$environment-name
+            :$environment-id,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<RebuildEnvironment>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method compose-environments(
-    ApplicationName :$application-name,
-    Array[VersionLabel] :$version-labels,
-    GroupName :$group-name
+        ApplicationName :$application-name,
+        Array[VersionLabel] :$version-labels,
+        GroupName :$group-name
     ) returns EnvironmentDescriptionsMessage is service-operation('ComposeEnvironments') {
         my $request-input = ComposeEnvironmentsMessage.new(
-        :$application-name,
-        :$version-labels,
-        :$group-name
+            :$application-name,
+            :$version-labels,
+            :$group-name
         );
-;
+
         self.perform-operation(
             :api-call<ComposeEnvironments>,
-            :return-type(EnvironmentDescriptionsMessage),
-            :result-wrapper('ComposeEnvironmentsResult'),
             :$request-input,
         );
     }
 
     method update-application-version(
-    Description :$description,
-    VersionLabel :$version-label!,
-    ApplicationName :$application-name!
+        Description :$description,
+        VersionLabel :$version-label!,
+        ApplicationName :$application-name!
     ) returns ApplicationVersionDescriptionMessage is service-operation('UpdateApplicationVersion') {
         my $request-input = UpdateApplicationVersionMessage.new(
-        :$description,
-        :$version-label,
-        :$application-name
+            :$description,
+            :$version-label,
+            :$application-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApplicationVersion>,
-            :return-type(ApplicationVersionDescriptionMessage),
-            :result-wrapper('UpdateApplicationVersionResult'),
             :$request-input,
         );
     }
@@ -1170,595 +1158,537 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     method create-storage-location(
 
     ) returns CreateStorageLocationResultMessage is service-operation('CreateStorageLocation') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<CreateStorageLocation>,
-            :return-type(CreateStorageLocationResultMessage),
-            :result-wrapper('CreateStorageLocationResult'),
             :$request-input,
         );
     }
 
     method describe-configuration-options(
-    ApplicationName :$application-name,
-    Array[OptionSpecification] :$options,
-    ConfigurationTemplateName :$template-name,
-    Str :$platform-arn,
-    Str :$solution-stack-name,
-    EnvironmentName :$environment-name
+        ApplicationName :$application-name,
+        Array[OptionSpecification] :$options,
+        ConfigurationTemplateName :$template-name,
+        Str :$platform-arn,
+        Str :$solution-stack-name,
+        EnvironmentName :$environment-name
     ) returns ConfigurationOptionsDescription is service-operation('DescribeConfigurationOptions') {
         my $request-input = DescribeConfigurationOptionsMessage.new(
-        :$application-name,
-        :$options,
-        :$template-name,
-        :$platform-arn,
-        :$solution-stack-name,
-        :$environment-name
+            :$application-name,
+            :$options,
+            :$template-name,
+            :$platform-arn,
+            :$solution-stack-name,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConfigurationOptions>,
-            :return-type(ConfigurationOptionsDescription),
-            :result-wrapper('DescribeConfigurationOptionsResult'),
             :$request-input,
         );
     }
 
     method delete-environment-configuration(
-    ApplicationName :$application-name!,
-    EnvironmentName :$environment-name!
+        ApplicationName :$application-name!,
+        EnvironmentName :$environment-name!
     ) is service-operation('DeleteEnvironmentConfiguration') {
         my $request-input = DeleteEnvironmentConfigurationMessage.new(
-        :$application-name,
-        :$environment-name
+            :$application-name,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEnvironmentConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method validate-configuration-settings(
-    Array[ConfigurationOptionSetting] :$option-settings!,
-    ApplicationName :$application-name!,
-    ConfigurationTemplateName :$template-name,
-    EnvironmentName :$environment-name
+        Array[ConfigurationOptionSetting] :$option-settings!,
+        ApplicationName :$application-name!,
+        ConfigurationTemplateName :$template-name,
+        EnvironmentName :$environment-name
     ) returns ConfigurationSettingsValidationMessages is service-operation('ValidateConfigurationSettings') {
         my $request-input = ValidateConfigurationSettingsMessage.new(
-        :$option-settings,
-        :$application-name,
-        :$template-name,
-        :$environment-name
+            :$option-settings,
+            :$application-name,
+            :$template-name,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<ValidateConfigurationSettings>,
-            :return-type(ConfigurationSettingsValidationMessages),
-            :result-wrapper('ValidateConfigurationSettingsResult'),
             :$request-input,
         );
     }
 
     method abort-environment-update(
-    Str :$environment-id,
-    EnvironmentName :$environment-name
+        Str :$environment-id,
+        EnvironmentName :$environment-name
     ) is service-operation('AbortEnvironmentUpdate') {
         my $request-input = AbortEnvironmentUpdateMessage.new(
-        :$environment-id,
-        :$environment-name
+            :$environment-id,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<AbortEnvironmentUpdate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-configuration-template(
-    SourceConfiguration :$source-configuration,
-    Array[ConfigurationOptionSetting] :$option-settings,
-    Description :$description,
-    ApplicationName :$application-name!,
-    Str :$environment-id,
-    ConfigurationTemplateName :$template-name!,
-    Str :$platform-arn,
-    Str :$solution-stack-name
+        SourceConfiguration :$source-configuration,
+        Array[ConfigurationOptionSetting] :$option-settings,
+        Description :$description,
+        ApplicationName :$application-name!,
+        Str :$environment-id,
+        ConfigurationTemplateName :$template-name!,
+        Str :$platform-arn,
+        Str :$solution-stack-name
     ) returns ConfigurationSettingsDescription is service-operation('CreateConfigurationTemplate') {
         my $request-input = CreateConfigurationTemplateMessage.new(
-        :$source-configuration,
-        :$option-settings,
-        :$description,
-        :$application-name,
-        :$environment-id,
-        :$template-name,
-        :$platform-arn,
-        :$solution-stack-name
+            :$source-configuration,
+            :$option-settings,
+            :$description,
+            :$application-name,
+            :$environment-id,
+            :$template-name,
+            :$platform-arn,
+            :$solution-stack-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateConfigurationTemplate>,
-            :return-type(ConfigurationSettingsDescription),
-            :result-wrapper('CreateConfigurationTemplateResult'),
             :$request-input,
         );
     }
 
     method list-platform-versions(
-    Array[PlatformFilter] :$filters,
-    Str :$next-token,
-    PlatformMaxRecords :$max-records
+        Array[PlatformFilter] :$filters,
+        Str :$next-token,
+        PlatformMaxRecords :$max-records
     ) returns ListPlatformVersionsResult is service-operation('ListPlatformVersions') {
         my $request-input = ListPlatformVersionsRequest.new(
-        :$filters,
-        :$next-token,
-        :$max-records
+            :$filters,
+            :$next-token,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<ListPlatformVersions>,
-            :return-type(ListPlatformVersionsResult),
-            :result-wrapper('ListPlatformVersionsResult'),
             :$request-input,
         );
     }
 
     method update-configuration-template(
-    Array[ConfigurationOptionSetting] :$option-settings,
-    Description :$description,
-    ApplicationName :$application-name!,
-    Array[OptionSpecification] :$options-to-remove,
-    ConfigurationTemplateName :$template-name!
+        Array[ConfigurationOptionSetting] :$option-settings,
+        Description :$description,
+        ApplicationName :$application-name!,
+        Array[OptionSpecification] :$options-to-remove,
+        ConfigurationTemplateName :$template-name!
     ) returns ConfigurationSettingsDescription is service-operation('UpdateConfigurationTemplate') {
         my $request-input = UpdateConfigurationTemplateMessage.new(
-        :$option-settings,
-        :$description,
-        :$application-name,
-        :$options-to-remove,
-        :$template-name
+            :$option-settings,
+            :$description,
+            :$application-name,
+            :$options-to-remove,
+            :$template-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateConfigurationTemplate>,
-            :return-type(ConfigurationSettingsDescription),
-            :result-wrapper('UpdateConfigurationTemplateResult'),
             :$request-input,
         );
     }
 
     method check-dns-availability(
-    DNSCnamePrefix :$cname-prefix!
+        DNSCnamePrefix :$cname-prefix!
     ) returns CheckDNSAvailabilityResultMessage is service-operation('CheckDNSAvailability') {
         my $request-input = CheckDNSAvailabilityMessage.new(
-        :$cname-prefix
+            :$cname-prefix
         );
-;
+
         self.perform-operation(
             :api-call<CheckDNSAvailability>,
-            :return-type(CheckDNSAvailabilityResultMessage),
-            :result-wrapper('CheckDNSAvailabilityResult'),
             :$request-input,
         );
     }
 
     method describe-application-versions(
-    ApplicationName :$application-name,
-    Array[VersionLabel] :$version-labels,
-    Str :$next-token,
-    MaxRecords :$max-records
+        ApplicationName :$application-name,
+        Array[VersionLabel] :$version-labels,
+        Str :$next-token,
+        MaxRecords :$max-records
     ) returns ApplicationVersionDescriptionsMessage is service-operation('DescribeApplicationVersions') {
         my $request-input = DescribeApplicationVersionsMessage.new(
-        :$application-name,
-        :$version-labels,
-        :$next-token,
-        :$max-records
+            :$application-name,
+            :$version-labels,
+            :$next-token,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeApplicationVersions>,
-            :return-type(ApplicationVersionDescriptionsMessage),
-            :result-wrapper('DescribeApplicationVersionsResult'),
             :$request-input,
         );
     }
 
     method swap-environment-cnames(
-    EnvironmentName :$source-environment-name,
-    Str :$source-environment-id,
-    Str :$destination-environment-id,
-    EnvironmentName :$destination-environment-name
+        EnvironmentName :$source-environment-name,
+        Str :$source-environment-id,
+        Str :$destination-environment-id,
+        EnvironmentName :$destination-environment-name
     ) is service-operation('SwapEnvironmentCNAMEs') {
         my $request-input = SwapEnvironmentCNAMEsMessage.new(
-        :$source-environment-name,
-        :$source-environment-id,
-        :$destination-environment-id,
-        :$destination-environment-name
+            :$source-environment-name,
+            :$source-environment-id,
+            :$destination-environment-id,
+            :$destination-environment-name
         );
-;
+
         self.perform-operation(
             :api-call<SwapEnvironmentCNAMEs>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-application(
-    Description :$description,
-    ApplicationName :$application-name!,
-    ApplicationResourceLifecycleConfig :$resource-lifecycle-config
+        Description :$description,
+        ApplicationName :$application-name!,
+        ApplicationResourceLifecycleConfig :$resource-lifecycle-config
     ) returns ApplicationDescriptionMessage is service-operation('CreateApplication') {
         my $request-input = CreateApplicationMessage.new(
-        :$description,
-        :$application-name,
-        :$resource-lifecycle-config
+            :$description,
+            :$application-name,
+            :$resource-lifecycle-config
         );
-;
+
         self.perform-operation(
             :api-call<CreateApplication>,
-            :return-type(ApplicationDescriptionMessage),
-            :result-wrapper('CreateApplicationResult'),
             :$request-input,
         );
     }
 
     method delete-configuration-template(
-    ApplicationName :$application-name!,
-    ConfigurationTemplateName :$template-name!
+        ApplicationName :$application-name!,
+        ConfigurationTemplateName :$template-name!
     ) is service-operation('DeleteConfigurationTemplate') {
         my $request-input = DeleteConfigurationTemplateMessage.new(
-        :$application-name,
-        :$template-name
+            :$application-name,
+            :$template-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteConfigurationTemplate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-platform-version(
-    Str :$platform-arn
+        Str :$platform-arn
     ) returns DescribePlatformVersionResult is service-operation('DescribePlatformVersion') {
         my $request-input = DescribePlatformVersionRequest.new(
-        :$platform-arn
+            :$platform-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribePlatformVersion>,
-            :return-type(DescribePlatformVersionResult),
-            :result-wrapper('DescribePlatformVersionResult'),
             :$request-input,
         );
     }
 
     method delete-application(
-    ApplicationName :$application-name!,
-    Bool :$terminate-env-by-force
+        ApplicationName :$application-name!,
+        Bool :$terminate-env-by-force
     ) is service-operation('DeleteApplication') {
         my $request-input = DeleteApplicationMessage.new(
-        :$application-name,
-        :$terminate-env-by-force
+            :$application-name,
+            :$terminate-env-by-force
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApplication>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-application-version(
-    VersionLabel :$version-label!,
-    ApplicationName :$application-name!,
-    Bool :$delete-source-bundle
+        VersionLabel :$version-label!,
+        ApplicationName :$application-name!,
+        Bool :$delete-source-bundle
     ) is service-operation('DeleteApplicationVersion') {
         my $request-input = DeleteApplicationVersionMessage.new(
-        :$version-label,
-        :$application-name,
-        :$delete-source-bundle
+            :$version-label,
+            :$application-name,
+            :$delete-source-bundle
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApplicationVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-configuration-settings(
-    ApplicationName :$application-name!,
-    ConfigurationTemplateName :$template-name,
-    EnvironmentName :$environment-name
+        ApplicationName :$application-name!,
+        ConfigurationTemplateName :$template-name,
+        EnvironmentName :$environment-name
     ) returns ConfigurationSettingsDescriptions is service-operation('DescribeConfigurationSettings') {
         my $request-input = DescribeConfigurationSettingsMessage.new(
-        :$application-name,
-        :$template-name,
-        :$environment-name
+            :$application-name,
+            :$template-name,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConfigurationSettings>,
-            :return-type(ConfigurationSettingsDescriptions),
-            :result-wrapper('DescribeConfigurationSettingsResult'),
             :$request-input,
         );
     }
 
     method describe-events(
-    EventSeverity :$severity,
-    DateTime :$end-time,
-    VersionLabel :$version-label,
-    ApplicationName :$application-name,
-    DateTime :$start-time,
-    Str :$request-id,
-    Str :$next-token,
-    Str :$environment-id,
-    ConfigurationTemplateName :$template-name,
-    MaxRecords :$max-records,
-    Str :$platform-arn,
-    EnvironmentName :$environment-name
+        EventSeverity :$severity,
+        DateTime :$end-time,
+        VersionLabel :$version-label,
+        ApplicationName :$application-name,
+        DateTime :$start-time,
+        Str :$request-id,
+        Str :$next-token,
+        Str :$environment-id,
+        ConfigurationTemplateName :$template-name,
+        MaxRecords :$max-records,
+        Str :$platform-arn,
+        EnvironmentName :$environment-name
     ) returns EventDescriptionsMessage is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsMessage.new(
-        :$severity,
-        :$end-time,
-        :$version-label,
-        :$application-name,
-        :$start-time,
-        :$request-id,
-        :$next-token,
-        :$environment-id,
-        :$template-name,
-        :$max-records,
-        :$platform-arn,
-        :$environment-name
+            :$severity,
+            :$end-time,
+            :$version-label,
+            :$application-name,
+            :$start-time,
+            :$request-id,
+            :$next-token,
+            :$environment-id,
+            :$template-name,
+            :$max-records,
+            :$platform-arn,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEvents>,
-            :return-type(EventDescriptionsMessage),
-            :result-wrapper('DescribeEventsResult'),
             :$request-input,
         );
     }
 
     method retrieve-environment-info(
-    EnvironmentInfoType :$info-type!,
-    Str :$environment-id,
-    EnvironmentName :$environment-name
+        EnvironmentInfoType :$info-type!,
+        Str :$environment-id,
+        EnvironmentName :$environment-name
     ) returns RetrieveEnvironmentInfoResultMessage is service-operation('RetrieveEnvironmentInfo') {
         my $request-input = RetrieveEnvironmentInfoMessage.new(
-        :$info-type,
-        :$environment-id,
-        :$environment-name
+            :$info-type,
+            :$environment-id,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<RetrieveEnvironmentInfo>,
-            :return-type(RetrieveEnvironmentInfoResultMessage),
-            :result-wrapper('RetrieveEnvironmentInfoResult'),
             :$request-input,
         );
     }
 
     method update-environment(
-    Array[ConfigurationOptionSetting] :$option-settings,
-    VersionLabel :$version-label,
-    Description :$description,
-    ApplicationName :$application-name,
-    Array[OptionSpecification] :$options-to-remove,
-    EnvironmentTier :$tier,
-    ConfigurationTemplateName :$template-name,
-    GroupName :$group-name,
-    Str :$environment-id,
-    Str :$platform-arn,
-    Str :$solution-stack-name,
-    EnvironmentName :$environment-name
+        Array[ConfigurationOptionSetting] :$option-settings,
+        VersionLabel :$version-label,
+        Description :$description,
+        ApplicationName :$application-name,
+        Array[OptionSpecification] :$options-to-remove,
+        EnvironmentTier :$tier,
+        ConfigurationTemplateName :$template-name,
+        GroupName :$group-name,
+        Str :$environment-id,
+        Str :$platform-arn,
+        Str :$solution-stack-name,
+        EnvironmentName :$environment-name
     ) returns EnvironmentDescription is service-operation('UpdateEnvironment') {
         my $request-input = UpdateEnvironmentMessage.new(
-        :$option-settings,
-        :$version-label,
-        :$description,
-        :$application-name,
-        :$options-to-remove,
-        :$tier,
-        :$template-name,
-        :$group-name,
-        :$environment-id,
-        :$platform-arn,
-        :$solution-stack-name,
-        :$environment-name
+            :$option-settings,
+            :$version-label,
+            :$description,
+            :$application-name,
+            :$options-to-remove,
+            :$tier,
+            :$template-name,
+            :$group-name,
+            :$environment-id,
+            :$platform-arn,
+            :$solution-stack-name,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateEnvironment>,
-            :return-type(EnvironmentDescription),
-            :result-wrapper('UpdateEnvironmentResult'),
             :$request-input,
         );
     }
 
     method delete-platform-version(
-    Str :$platform-arn
+        Str :$platform-arn
     ) returns DeletePlatformVersionResult is service-operation('DeletePlatformVersion') {
         my $request-input = DeletePlatformVersionRequest.new(
-        :$platform-arn
+            :$platform-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeletePlatformVersion>,
-            :return-type(DeletePlatformVersionResult),
-            :result-wrapper('DeletePlatformVersionResult'),
             :$request-input,
         );
     }
 
     method update-application-resource-lifecycle(
-    ApplicationName :$application-name!,
-    ApplicationResourceLifecycleConfig :$resource-lifecycle-config!
+        ApplicationName :$application-name!,
+        ApplicationResourceLifecycleConfig :$resource-lifecycle-config!
     ) returns ApplicationResourceLifecycleDescriptionMessage is service-operation('UpdateApplicationResourceLifecycle') {
         my $request-input = UpdateApplicationResourceLifecycleMessage.new(
-        :$application-name,
-        :$resource-lifecycle-config
+            :$application-name,
+            :$resource-lifecycle-config
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApplicationResourceLifecycle>,
-            :return-type(ApplicationResourceLifecycleDescriptionMessage),
-            :result-wrapper('UpdateApplicationResourceLifecycleResult'),
             :$request-input,
         );
     }
 
     method create-platform-version(
-    Str :$platform-name!,
-    Array[ConfigurationOptionSetting] :$option-settings,
-    Str :$platform-version!,
-    S3Location :$platform-definition-bundle!,
-    EnvironmentName :$environment-name
+        Str :$platform-name!,
+        Array[ConfigurationOptionSetting] :$option-settings,
+        Str :$platform-version!,
+        S3Location :$platform-definition-bundle!,
+        EnvironmentName :$environment-name
     ) returns CreatePlatformVersionResult is service-operation('CreatePlatformVersion') {
         my $request-input = CreatePlatformVersionRequest.new(
-        :$platform-name,
-        :$option-settings,
-        :$platform-version,
-        :$platform-definition-bundle,
-        :$environment-name
+            :$platform-name,
+            :$option-settings,
+            :$platform-version,
+            :$platform-definition-bundle,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<CreatePlatformVersion>,
-            :return-type(CreatePlatformVersionResult),
-            :result-wrapper('CreatePlatformVersionResult'),
             :$request-input,
         );
     }
 
     method describe-environment-managed-action-history(
-    Int :$max-items,
-    Str :$next-token,
-    Str :$environment-id,
-    EnvironmentName :$environment-name
+        Int :$max-items,
+        Str :$next-token,
+        Str :$environment-id,
+        EnvironmentName :$environment-name
     ) returns DescribeEnvironmentManagedActionHistoryResult is service-operation('DescribeEnvironmentManagedActionHistory') {
         my $request-input = DescribeEnvironmentManagedActionHistoryRequest.new(
-        :$max-items,
-        :$next-token,
-        :$environment-id,
-        :$environment-name
+            :$max-items,
+            :$next-token,
+            :$environment-id,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEnvironmentManagedActionHistory>,
-            :return-type(DescribeEnvironmentManagedActionHistoryResult),
-            :result-wrapper('DescribeEnvironmentManagedActionHistoryResult'),
             :$request-input,
         );
     }
 
     method apply-environment-managed-action(
-    Str :$action-id!,
-    Str :$environment-id,
-    Str :$environment-name
+        Str :$action-id!,
+        Str :$environment-id,
+        Str :$environment-name
     ) returns ApplyEnvironmentManagedActionResult is service-operation('ApplyEnvironmentManagedAction') {
         my $request-input = ApplyEnvironmentManagedActionRequest.new(
-        :$action-id,
-        :$environment-id,
-        :$environment-name
+            :$action-id,
+            :$environment-id,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<ApplyEnvironmentManagedAction>,
-            :return-type(ApplyEnvironmentManagedActionResult),
-            :result-wrapper('ApplyEnvironmentManagedActionResult'),
             :$request-input,
         );
     }
 
     method create-application-version(
-    S3Location :$source-bundle,
-    Description :$description,
-    VersionLabel :$version-label!,
-    ApplicationName :$application-name!,
-    Bool :$process,
-    BuildConfiguration :$build-configuration,
-    SourceBuildInformation :$source-build-information,
-    Bool :$auto-create-application
+        S3Location :$source-bundle,
+        Description :$description,
+        VersionLabel :$version-label!,
+        ApplicationName :$application-name!,
+        Bool :$process,
+        BuildConfiguration :$build-configuration,
+        SourceBuildInformation :$source-build-information,
+        Bool :$auto-create-application
     ) returns ApplicationVersionDescriptionMessage is service-operation('CreateApplicationVersion') {
         my $request-input = CreateApplicationVersionMessage.new(
-        :$source-bundle,
-        :$description,
-        :$version-label,
-        :$application-name,
-        :$process,
-        :$build-configuration,
-        :$source-build-information,
-        :$auto-create-application
+            :$source-bundle,
+            :$description,
+            :$version-label,
+            :$application-name,
+            :$process,
+            :$build-configuration,
+            :$source-build-information,
+            :$auto-create-application
         );
-;
+
         self.perform-operation(
             :api-call<CreateApplicationVersion>,
-            :return-type(ApplicationVersionDescriptionMessage),
-            :result-wrapper('CreateApplicationVersionResult'),
             :$request-input,
         );
     }
 
     method describe-applications(
-    Array[ApplicationName] :$application-names
+        Array[ApplicationName] :$application-names
     ) returns ApplicationDescriptionsMessage is service-operation('DescribeApplications') {
         my $request-input = DescribeApplicationsMessage.new(
-        :$application-names
+            :$application-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeApplications>,
-            :return-type(ApplicationDescriptionsMessage),
-            :result-wrapper('DescribeApplicationsResult'),
             :$request-input,
         );
     }
 
     method describe-environment-resources(
-    Str :$environment-id,
-    EnvironmentName :$environment-name
+        Str :$environment-id,
+        EnvironmentName :$environment-name
     ) returns EnvironmentResourceDescriptionsMessage is service-operation('DescribeEnvironmentResources') {
         my $request-input = DescribeEnvironmentResourcesMessage.new(
-        :$environment-id,
-        :$environment-name
+            :$environment-id,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEnvironmentResources>,
-            :return-type(EnvironmentResourceDescriptionsMessage),
-            :result-wrapper('DescribeEnvironmentResourcesResult'),
             :$request-input,
         );
     }
 
     method describe-instances-health(
-    NextToken :$next-token,
-    Str :$environment-id,
-    Array[InstancesHealthAttribute] :$attribute-names,
-    EnvironmentName :$environment-name
+        NextToken :$next-token,
+        Str :$environment-id,
+        Array[InstancesHealthAttribute] :$attribute-names,
+        EnvironmentName :$environment-name
     ) returns DescribeInstancesHealthResult is service-operation('DescribeInstancesHealth') {
         my $request-input = DescribeInstancesHealthRequest.new(
-        :$next-token,
-        :$environment-id,
-        :$attribute-names,
-        :$environment-name
+            :$next-token,
+            :$environment-id,
+            :$attribute-names,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstancesHealth>,
-            :return-type(DescribeInstancesHealthResult),
-            :result-wrapper('DescribeInstancesHealthResult'),
             :$request-input,
         );
     }
@@ -1766,124 +1696,112 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     method list-available-solution-stacks(
 
     ) returns ListAvailableSolutionStacksResultMessage is service-operation('ListAvailableSolutionStacks') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<ListAvailableSolutionStacks>,
-            :return-type(ListAvailableSolutionStacksResultMessage),
-            :result-wrapper('ListAvailableSolutionStacksResult'),
             :$request-input,
         );
     }
 
     method terminate-environment(
-    Bool :$terminate-resources,
-    Bool :$force-terminate,
-    Str :$environment-id,
-    EnvironmentName :$environment-name
+        Bool :$terminate-resources,
+        Bool :$force-terminate,
+        Str :$environment-id,
+        EnvironmentName :$environment-name
     ) returns EnvironmentDescription is service-operation('TerminateEnvironment') {
         my $request-input = TerminateEnvironmentMessage.new(
-        :$terminate-resources,
-        :$force-terminate,
-        :$environment-id,
-        :$environment-name
+            :$terminate-resources,
+            :$force-terminate,
+            :$environment-id,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<TerminateEnvironment>,
-            :return-type(EnvironmentDescription),
-            :result-wrapper('TerminateEnvironmentResult'),
             :$request-input,
         );
     }
 
     method create-environment(
-    Array[ConfigurationOptionSetting] :$option-settings,
-    VersionLabel :$version-label,
-    Description :$description,
-    ApplicationName :$application-name!,
-    Array[OptionSpecification] :$options-to-remove,
-    EnvironmentTier :$tier,
-    Array[Tag] :$tags,
-    ConfigurationTemplateName :$template-name,
-    GroupName :$group-name,
-    Str :$platform-arn,
-    Str :$solution-stack-name,
-    DNSCnamePrefix :$cname-prefix,
-    EnvironmentName :$environment-name
+        Array[ConfigurationOptionSetting] :$option-settings,
+        VersionLabel :$version-label,
+        Description :$description,
+        ApplicationName :$application-name!,
+        Array[OptionSpecification] :$options-to-remove,
+        EnvironmentTier :$tier,
+        Array[Tag] :$tags,
+        ConfigurationTemplateName :$template-name,
+        GroupName :$group-name,
+        Str :$platform-arn,
+        Str :$solution-stack-name,
+        DNSCnamePrefix :$cname-prefix,
+        EnvironmentName :$environment-name
     ) returns EnvironmentDescription is service-operation('CreateEnvironment') {
         my $request-input = CreateEnvironmentMessage.new(
-        :$option-settings,
-        :$version-label,
-        :$description,
-        :$application-name,
-        :$options-to-remove,
-        :$tier,
-        :$tags,
-        :$template-name,
-        :$group-name,
-        :$platform-arn,
-        :$solution-stack-name,
-        :$cname-prefix,
-        :$environment-name
+            :$option-settings,
+            :$version-label,
+            :$description,
+            :$application-name,
+            :$options-to-remove,
+            :$tier,
+            :$tags,
+            :$template-name,
+            :$group-name,
+            :$platform-arn,
+            :$solution-stack-name,
+            :$cname-prefix,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateEnvironment>,
-            :return-type(EnvironmentDescription),
-            :result-wrapper('CreateEnvironmentResult'),
             :$request-input,
         );
     }
 
     method request-environment-info(
-    EnvironmentInfoType :$info-type!,
-    Str :$environment-id,
-    EnvironmentName :$environment-name
+        EnvironmentInfoType :$info-type!,
+        Str :$environment-id,
+        EnvironmentName :$environment-name
     ) is service-operation('RequestEnvironmentInfo') {
         my $request-input = RequestEnvironmentInfoMessage.new(
-        :$info-type,
-        :$environment-id,
-        :$environment-name
+            :$info-type,
+            :$environment-id,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<RequestEnvironmentInfo>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method restart-app-server(
-    Str :$environment-id,
-    EnvironmentName :$environment-name
+        Str :$environment-id,
+        EnvironmentName :$environment-name
     ) is service-operation('RestartAppServer') {
         my $request-input = RestartAppServerMessage.new(
-        :$environment-id,
-        :$environment-name
+            :$environment-id,
+            :$environment-name
         );
-;
+
         self.perform-operation(
             :api-call<RestartAppServer>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-application(
-    Description :$description,
-    ApplicationName :$application-name!
+        Description :$description,
+        ApplicationName :$application-name!
     ) returns ApplicationDescriptionMessage is service-operation('UpdateApplication') {
         my $request-input = UpdateApplicationMessage.new(
-        :$description,
-        :$application-name
+            :$description,
+            :$application-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApplication>,
-            :return-type(ApplicationDescriptionMessage),
-            :result-wrapper('UpdateApplicationResult'),
             :$request-input,
         );
     }

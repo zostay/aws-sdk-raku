@@ -200,154 +200,136 @@ class AWS::SDK::Service::Mobile does AWS::SDK::Service {
     }
 
     method delete-project(
-    Str :$project-id!
+        Str :$project-id!
     ) returns DeleteProjectResult is service-operation('DeleteProject') {
         my $request-input = DeleteProjectRequest.new(
-        :$project-id
+            :$project-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteProject>,
-            :return-type(DeleteProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-project(
-    Str :$name,
-    Str :$region,
-    Str :$snapshot-id,
-    Blob :$contents
+        Str :$name,
+        Str :$region,
+        Str :$snapshot-id,
+        Blob :$contents
     ) returns CreateProjectResult is service-operation('CreateProject') {
         my $request-input = CreateProjectRequest.new(
-        :$name,
-        :$region,
-        :$snapshot-id,
-        :$contents
+            :$name,
+            :$region,
+            :$snapshot-id,
+            :$contents
         );
-;
+
         self.perform-operation(
             :api-call<CreateProject>,
-            :return-type(CreateProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-project(
-    Str :$project-id!,
-    Blob :$contents
+        Str :$project-id!,
+        Blob :$contents
     ) returns UpdateProjectResult is service-operation('UpdateProject') {
         my $request-input = UpdateProjectRequest.new(
-        :$project-id,
-        :$contents
+            :$project-id,
+            :$contents
         );
-;
+
         self.perform-operation(
             :api-call<UpdateProject>,
-            :return-type(UpdateProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-bundle(
-    Str :$bundle-id!
+        Str :$bundle-id!
     ) returns DescribeBundleResult is service-operation('DescribeBundle') {
         my $request-input = DescribeBundleRequest.new(
-        :$bundle-id
+            :$bundle-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeBundle>,
-            :return-type(DescribeBundleResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-projects(
-    Str :$next-token,
-    Int :$max-results
+        Str :$next-token,
+        Int :$max-results
     ) returns ListProjectsResult is service-operation('ListProjects') {
         my $request-input = ListProjectsRequest.new(
-        :$next-token,
-        :$max-results
+            :$next-token,
+            :$max-results
         );
-;
+
         self.perform-operation(
             :api-call<ListProjects>,
-            :return-type(ListProjectsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method export-bundle(
-    Str :$project-id,
-    Str :$bundle-id!,
-    Platform :$platform
+        Str :$project-id,
+        Str :$bundle-id!,
+        Platform :$platform
     ) returns ExportBundleResult is service-operation('ExportBundle') {
         my $request-input = ExportBundleRequest.new(
-        :$project-id,
-        :$bundle-id,
-        :$platform
+            :$project-id,
+            :$bundle-id,
+            :$platform
         );
-;
+
         self.perform-operation(
             :api-call<ExportBundle>,
-            :return-type(ExportBundleResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-bundles(
-    Str :$next-token,
-    Int :$max-results
+        Str :$next-token,
+        Int :$max-results
     ) returns ListBundlesResult is service-operation('ListBundles') {
         my $request-input = ListBundlesRequest.new(
-        :$next-token,
-        :$max-results
+            :$next-token,
+            :$max-results
         );
-;
+
         self.perform-operation(
             :api-call<ListBundles>,
-            :return-type(ListBundlesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-project(
-    Str :$project-id!,
-    Bool :$sync-from-resources
+        Str :$project-id!,
+        Bool :$sync-from-resources
     ) returns DescribeProjectResult is service-operation('DescribeProject') {
         my $request-input = DescribeProjectRequest.new(
-        :$project-id,
-        :$sync-from-resources
+            :$project-id,
+            :$sync-from-resources
         );
-;
+
         self.perform-operation(
             :api-call<DescribeProject>,
-            :return-type(DescribeProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method export-project(
-    Str :$project-id!
+        Str :$project-id!
     ) returns ExportProjectResult is service-operation('ExportProject') {
         my $request-input = ExportProjectRequest.new(
-        :$project-id
+            :$project-id
         );
-;
+
         self.perform-operation(
             :api-call<ExportProject>,
-            :return-type(ExportProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

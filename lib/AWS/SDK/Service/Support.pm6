@@ -363,263 +363,235 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     }
 
     method describe-services(
-    Str :$language,
-    ServiceCodeList :$service-code-list
+        Str :$language,
+        ServiceCodeList :$service-code-list
     ) returns DescribeServicesResponse is service-operation('DescribeServices') {
         my $request-input = DescribeServicesRequest.new(
-        :$language,
-        :$service-code-list
+            :$language,
+            :$service-code-list
         );
-;
+
         self.perform-operation(
             :api-call<DescribeServices>,
-            :return-type(DescribeServicesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-communications(
-    MaxResults :$max-results,
-    Str :$next-token,
-    Str :$before-time,
-    Str :$after-time,
-    Str :$case-id!
+        MaxResults :$max-results,
+        Str :$next-token,
+        Str :$before-time,
+        Str :$after-time,
+        Str :$case-id!
     ) returns DescribeCommunicationsResponse is service-operation('DescribeCommunications') {
         my $request-input = DescribeCommunicationsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$before-time,
-        :$after-time,
-        :$case-id
+            :$max-results,
+            :$next-token,
+            :$before-time,
+            :$after-time,
+            :$case-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCommunications>,
-            :return-type(DescribeCommunicationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method refresh-trusted-advisor-check(
-    Str :$check-id!
+        Str :$check-id!
     ) returns RefreshTrustedAdvisorCheckResponse is service-operation('RefreshTrustedAdvisorCheck') {
         my $request-input = RefreshTrustedAdvisorCheckRequest.new(
-        :$check-id
+            :$check-id
         );
-;
+
         self.perform-operation(
             :api-call<RefreshTrustedAdvisorCheck>,
-            :return-type(RefreshTrustedAdvisorCheckResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-severity-levels(
-    Str :$language
+        Str :$language
     ) returns DescribeSeverityLevelsResponse is service-operation('DescribeSeverityLevels') {
         my $request-input = DescribeSeverityLevelsRequest.new(
-        :$language
+            :$language
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSeverityLevels>,
-            :return-type(DescribeSeverityLevelsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-trusted-advisor-check-summaries(
-    Array[Str] :$check-ids!
+        Array[Str] :$check-ids!
     ) returns DescribeTrustedAdvisorCheckSummariesResponse is service-operation('DescribeTrustedAdvisorCheckSummaries') {
         my $request-input = DescribeTrustedAdvisorCheckSummariesRequest.new(
-        :$check-ids
+            :$check-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTrustedAdvisorCheckSummaries>,
-            :return-type(DescribeTrustedAdvisorCheckSummariesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-trusted-advisor-check-result(
-    Str :$language,
-    Str :$check-id!
+        Str :$language,
+        Str :$check-id!
     ) returns DescribeTrustedAdvisorCheckResultResponse is service-operation('DescribeTrustedAdvisorCheckResult') {
         my $request-input = DescribeTrustedAdvisorCheckResultRequest.new(
-        :$language,
-        :$check-id
+            :$language,
+            :$check-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTrustedAdvisorCheckResult>,
-            :return-type(DescribeTrustedAdvisorCheckResultResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-cases(
-    Str :$language,
-    MaxResults :$max-results,
-    Str :$next-token,
-    Bool :$include-resolved-cases,
-    Str :$display-id,
-    Str :$before-time,
-    Str :$after-time,
-    CaseIdList :$case-id-list,
-    Bool :$include-communications
+        Str :$language,
+        MaxResults :$max-results,
+        Str :$next-token,
+        Bool :$include-resolved-cases,
+        Str :$display-id,
+        Str :$before-time,
+        Str :$after-time,
+        CaseIdList :$case-id-list,
+        Bool :$include-communications
     ) returns DescribeCasesResponse is service-operation('DescribeCases') {
         my $request-input = DescribeCasesRequest.new(
-        :$language,
-        :$max-results,
-        :$next-token,
-        :$include-resolved-cases,
-        :$display-id,
-        :$before-time,
-        :$after-time,
-        :$case-id-list,
-        :$include-communications
+            :$language,
+            :$max-results,
+            :$next-token,
+            :$include-resolved-cases,
+            :$display-id,
+            :$before-time,
+            :$after-time,
+            :$case-id-list,
+            :$include-communications
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCases>,
-            :return-type(DescribeCasesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-trusted-advisor-checks(
-    Str :$language!
+        Str :$language!
     ) returns DescribeTrustedAdvisorChecksResponse is service-operation('DescribeTrustedAdvisorChecks') {
         my $request-input = DescribeTrustedAdvisorChecksRequest.new(
-        :$language
+            :$language
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTrustedAdvisorChecks>,
-            :return-type(DescribeTrustedAdvisorChecksResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-attachment(
-    Str :$attachment-id!
+        Str :$attachment-id!
     ) returns DescribeAttachmentResponse is service-operation('DescribeAttachment') {
         my $request-input = DescribeAttachmentRequest.new(
-        :$attachment-id
+            :$attachment-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAttachment>,
-            :return-type(DescribeAttachmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-attachments-to-set(
-    Str :$attachment-set-id,
-    Array[Attachment] :$attachments!
+        Str :$attachment-set-id,
+        Array[Attachment] :$attachments!
     ) returns AddAttachmentsToSetResponse is service-operation('AddAttachmentsToSet') {
         my $request-input = AddAttachmentsToSetRequest.new(
-        :$attachment-set-id,
-        :$attachments
+            :$attachment-set-id,
+            :$attachments
         );
-;
+
         self.perform-operation(
             :api-call<AddAttachmentsToSet>,
-            :return-type(AddAttachmentsToSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-case(
-    Str :$attachment-set-id,
-    Str :$severity-code,
-    Str :$service-code,
-    Str :$language,
-    Str :$category-code,
-    CcEmailAddressList :$cc-email-addresses,
-    Str :$issue-type,
-    CommunicationBody :$communication-body!,
-    Str :$subject!
+        Str :$attachment-set-id,
+        Str :$severity-code,
+        Str :$service-code,
+        Str :$language,
+        Str :$category-code,
+        CcEmailAddressList :$cc-email-addresses,
+        Str :$issue-type,
+        CommunicationBody :$communication-body!,
+        Str :$subject!
     ) returns CreateCaseResponse is service-operation('CreateCase') {
         my $request-input = CreateCaseRequest.new(
-        :$attachment-set-id,
-        :$severity-code,
-        :$service-code,
-        :$language,
-        :$category-code,
-        :$cc-email-addresses,
-        :$issue-type,
-        :$communication-body,
-        :$subject
+            :$attachment-set-id,
+            :$severity-code,
+            :$service-code,
+            :$language,
+            :$category-code,
+            :$cc-email-addresses,
+            :$issue-type,
+            :$communication-body,
+            :$subject
         );
-;
+
         self.perform-operation(
             :api-call<CreateCase>,
-            :return-type(CreateCaseResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method resolve-case(
-    Str :$case-id
+        Str :$case-id
     ) returns ResolveCaseResponse is service-operation('ResolveCase') {
         my $request-input = ResolveCaseRequest.new(
-        :$case-id
+            :$case-id
         );
-;
+
         self.perform-operation(
             :api-call<ResolveCase>,
-            :return-type(ResolveCaseResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-trusted-advisor-check-refresh-statuses(
-    Array[Str] :$check-ids!
+        Array[Str] :$check-ids!
     ) returns DescribeTrustedAdvisorCheckRefreshStatusesResponse is service-operation('DescribeTrustedAdvisorCheckRefreshStatuses') {
         my $request-input = DescribeTrustedAdvisorCheckRefreshStatusesRequest.new(
-        :$check-ids
+            :$check-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTrustedAdvisorCheckRefreshStatuses>,
-            :return-type(DescribeTrustedAdvisorCheckRefreshStatusesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-communication-to-case(
-    Str :$attachment-set-id,
-    CcEmailAddressList :$cc-email-addresses,
-    CommunicationBody :$communication-body!,
-    Str :$case-id
+        Str :$attachment-set-id,
+        CcEmailAddressList :$cc-email-addresses,
+        CommunicationBody :$communication-body!,
+        Str :$case-id
     ) returns AddCommunicationToCaseResponse is service-operation('AddCommunicationToCase') {
         my $request-input = AddCommunicationToCaseRequest.new(
-        :$attachment-set-id,
-        :$cc-email-addresses,
-        :$communication-body,
-        :$case-id
+            :$attachment-set-id,
+            :$cc-email-addresses,
+            :$communication-body,
+            :$case-id
         );
-;
+
         self.perform-operation(
             :api-call<AddCommunicationToCase>,
-            :return-type(AddCommunicationToCaseResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

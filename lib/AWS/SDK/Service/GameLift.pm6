@@ -1345,218 +1345,196 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     method accept-match(
-    AcceptanceType :$acceptance-type!,
-    Array[PlayerIdStringModel] :$player-ids!,
-    MatchmakingIdStringModel :$ticket-id!
+        AcceptanceType :$acceptance-type!,
+        Array[PlayerIdStringModel] :$player-ids!,
+        MatchmakingIdStringModel :$ticket-id!
     ) returns AcceptMatchOutput is service-operation('AcceptMatch') {
         my $request-input = AcceptMatchInput.new(
-        :$acceptance-type,
-        :$player-ids,
-        :$ticket-id
+            :$acceptance-type,
+            :$player-ids,
+            :$ticket-id
         );
-;
+
         self.perform-operation(
             :api-call<AcceptMatch>,
-            :return-type(AcceptMatchOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-player-sessions(
-    NonZeroAndMaxString :$player-session-status-filter,
-    PlayerSessionId :$player-session-id,
-    PositiveInteger :$limit,
-    NonZeroAndMaxString :$next-token,
-    ArnStringModel :$game-session-id,
-    NonZeroAndMaxString :$player-id
+        NonZeroAndMaxString :$player-session-status-filter,
+        PlayerSessionId :$player-session-id,
+        PositiveInteger :$limit,
+        NonZeroAndMaxString :$next-token,
+        ArnStringModel :$game-session-id,
+        NonZeroAndMaxString :$player-id
     ) returns DescribePlayerSessionsOutput is service-operation('DescribePlayerSessions') {
         my $request-input = DescribePlayerSessionsInput.new(
-        :$player-session-status-filter,
-        :$player-session-id,
-        :$limit,
-        :$next-token,
-        :$game-session-id,
-        :$player-id
+            :$player-session-status-filter,
+            :$player-session-id,
+            :$limit,
+            :$next-token,
+            :$game-session-id,
+            :$player-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribePlayerSessions>,
-            :return-type(DescribePlayerSessionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-alias(
-    AliasId :$alias-id!,
-    NonZeroAndMaxString :$description,
-    NonBlankAndLengthConstraintString :$name,
-    RoutingStrategy :$routing-strategy
+        AliasId :$alias-id!,
+        NonZeroAndMaxString :$description,
+        NonBlankAndLengthConstraintString :$name,
+        RoutingStrategy :$routing-strategy
     ) returns UpdateAliasOutput is service-operation('UpdateAlias') {
         my $request-input = UpdateAliasInput.new(
-        :$alias-id,
-        :$description,
-        :$name,
-        :$routing-strategy
+            :$alias-id,
+            :$description,
+            :$name,
+            :$routing-strategy
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAlias>,
-            :return-type(UpdateAliasOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-vpc-peering-connection(
-    FleetId :$fleet-id!,
-    NonZeroAndMaxString :$peer-vpc-aws-account-id!,
-    NonZeroAndMaxString :$peer-vpc-id!
+        FleetId :$fleet-id!,
+        NonZeroAndMaxString :$peer-vpc-aws-account-id!,
+        NonZeroAndMaxString :$peer-vpc-id!
     ) returns CreateVpcPeeringConnectionOutput is service-operation('CreateVpcPeeringConnection') {
         my $request-input = CreateVpcPeeringConnectionInput.new(
-        :$fleet-id,
-        :$peer-vpc-aws-account-id,
-        :$peer-vpc-id
+            :$fleet-id,
+            :$peer-vpc-aws-account-id,
+            :$peer-vpc-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateVpcPeeringConnection>,
-            :return-type(CreateVpcPeeringConnectionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-game-sessions(
-    NonZeroAndMaxString :$status-filter,
-    AliasId :$alias-id,
-    FleetId :$fleet-id,
-    PositiveInteger :$limit,
-    NonZeroAndMaxString :$next-token,
-    ArnStringModel :$game-session-id
+        NonZeroAndMaxString :$status-filter,
+        AliasId :$alias-id,
+        FleetId :$fleet-id,
+        PositiveInteger :$limit,
+        NonZeroAndMaxString :$next-token,
+        ArnStringModel :$game-session-id
     ) returns DescribeGameSessionsOutput is service-operation('DescribeGameSessions') {
         my $request-input = DescribeGameSessionsInput.new(
-        :$status-filter,
-        :$alias-id,
-        :$fleet-id,
-        :$limit,
-        :$next-token,
-        :$game-session-id
+            :$status-filter,
+            :$alias-id,
+            :$fleet-id,
+            :$limit,
+            :$next-token,
+            :$game-session-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeGameSessions>,
-            :return-type(DescribeGameSessionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-matchmaking-configurations(
-    MatchmakingIdStringModel :$rule-set-name,
-    PositiveInteger :$limit,
-    Array[MatchmakingIdStringModel] :$names,
-    NonZeroAndMaxString :$next-token
+        MatchmakingIdStringModel :$rule-set-name,
+        PositiveInteger :$limit,
+        Array[MatchmakingIdStringModel] :$names,
+        NonZeroAndMaxString :$next-token
     ) returns DescribeMatchmakingConfigurationsOutput is service-operation('DescribeMatchmakingConfigurations') {
         my $request-input = DescribeMatchmakingConfigurationsInput.new(
-        :$rule-set-name,
-        :$limit,
-        :$names,
-        :$next-token
+            :$rule-set-name,
+            :$limit,
+            :$names,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMatchmakingConfigurations>,
-            :return-type(DescribeMatchmakingConfigurationsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-fleets(
-    PositiveInteger :$limit,
-    NonZeroAndMaxString :$next-token,
-    BuildId :$build-id
+        PositiveInteger :$limit,
+        NonZeroAndMaxString :$next-token,
+        BuildId :$build-id
     ) returns ListFleetsOutput is service-operation('ListFleets') {
         my $request-input = ListFleetsInput.new(
-        :$limit,
-        :$next-token,
-        :$build-id
+            :$limit,
+            :$next-token,
+            :$build-id
         );
-;
+
         self.perform-operation(
             :api-call<ListFleets>,
-            :return-type(ListFleetsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-game-session-queue(
-    GameSessionQueueName :$name!,
-    Array[PlayerLatencyPolicy] :$player-latency-policies,
-    Array[GameSessionQueueDestination] :$destinations,
-    WholeNumber :$timeout-in-seconds
+        GameSessionQueueName :$name!,
+        Array[PlayerLatencyPolicy] :$player-latency-policies,
+        Array[GameSessionQueueDestination] :$destinations,
+        WholeNumber :$timeout-in-seconds
     ) returns CreateGameSessionQueueOutput is service-operation('CreateGameSessionQueue') {
         my $request-input = CreateGameSessionQueueInput.new(
-        :$name,
-        :$player-latency-policies,
-        :$destinations,
-        :$timeout-in-seconds
+            :$name,
+            :$player-latency-policies,
+            :$destinations,
+            :$timeout-in-seconds
         );
-;
+
         self.perform-operation(
             :api-call<CreateGameSessionQueue>,
-            :return-type(CreateGameSessionQueueOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vpc-peering-connection(
-    FleetId :$fleet-id!,
-    NonZeroAndMaxString :$vpc-peering-connection-id!
+        FleetId :$fleet-id!,
+        NonZeroAndMaxString :$vpc-peering-connection-id!
     ) returns DeleteVpcPeeringConnectionOutput is service-operation('DeleteVpcPeeringConnection') {
         my $request-input = DeleteVpcPeeringConnectionInput.new(
-        :$fleet-id,
-        :$vpc-peering-connection-id
+            :$fleet-id,
+            :$vpc-peering-connection-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVpcPeeringConnection>,
-            :return-type(DeleteVpcPeeringConnectionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-build(
-    BuildId :$build-id!
+        BuildId :$build-id!
     ) returns DescribeBuildOutput is service-operation('DescribeBuild') {
         my $request-input = DescribeBuildInput.new(
-        :$build-id
+            :$build-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeBuild>,
-            :return-type(DescribeBuildOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method request-upload-credentials(
-    BuildId :$build-id!
+        BuildId :$build-id!
     ) returns RequestUploadCredentialsOutput is service-operation('RequestUploadCredentials') {
         my $request-input = RequestUploadCredentialsInput.new(
-        :$build-id
+            :$build-id
         );
-;
+
         self.perform-operation(
             :api-call<RequestUploadCredentials>,
-            :return-type(RequestUploadCredentialsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1567,1047 +1545,941 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         my $request-input = DescribeVpcPeeringAuthorizationsInput.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpcPeeringAuthorizations>,
-            :return-type(DescribeVpcPeeringAuthorizationsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-scaling-policy(
-    PositiveInteger :$evaluation-periods!,
-    Int :$scaling-adjustment!,
-    FleetId :$fleet-id!,
-    Numeric :$threshold!,
-    MetricName :$metric-name!,
-    ScalingAdjustmentType :$scaling-adjustment-type!,
-    NonZeroAndMaxString :$name!,
-    ComparisonOperatorType :$comparison-operator!
+        PositiveInteger :$evaluation-periods!,
+        Int :$scaling-adjustment!,
+        FleetId :$fleet-id!,
+        Numeric :$threshold!,
+        MetricName :$metric-name!,
+        ScalingAdjustmentType :$scaling-adjustment-type!,
+        NonZeroAndMaxString :$name!,
+        ComparisonOperatorType :$comparison-operator!
     ) returns PutScalingPolicyOutput is service-operation('PutScalingPolicy') {
         my $request-input = PutScalingPolicyInput.new(
-        :$evaluation-periods,
-        :$scaling-adjustment,
-        :$fleet-id,
-        :$threshold,
-        :$metric-name,
-        :$scaling-adjustment-type,
-        :$name,
-        :$comparison-operator
+            :$evaluation-periods,
+            :$scaling-adjustment,
+            :$fleet-id,
+            :$threshold,
+            :$metric-name,
+            :$scaling-adjustment-type,
+            :$name,
+            :$comparison-operator
         );
-;
+
         self.perform-operation(
             :api-call<PutScalingPolicy>,
-            :return-type(PutScalingPolicyOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-build(
-    NonZeroAndMaxString :$version,
-    NonZeroAndMaxString :$name,
-    BuildId :$build-id!
+        NonZeroAndMaxString :$version,
+        NonZeroAndMaxString :$name,
+        BuildId :$build-id!
     ) returns UpdateBuildOutput is service-operation('UpdateBuild') {
         my $request-input = UpdateBuildInput.new(
-        :$version,
-        :$name,
-        :$build-id
+            :$version,
+            :$name,
+            :$build-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateBuild>,
-            :return-type(UpdateBuildOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-fleet-attributes(
-    PositiveInteger :$limit,
-    NonZeroAndMaxString :$next-token,
-    FleetIdList :$fleet-ids
+        PositiveInteger :$limit,
+        NonZeroAndMaxString :$next-token,
+        FleetIdList :$fleet-ids
     ) returns DescribeFleetAttributesOutput is service-operation('DescribeFleetAttributes') {
         my $request-input = DescribeFleetAttributesInput.new(
-        :$limit,
-        :$next-token,
-        :$fleet-ids
+            :$limit,
+            :$next-token,
+            :$fleet-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFleetAttributes>,
-            :return-type(DescribeFleetAttributesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-runtime-configuration(
-    FleetId :$fleet-id!
+        FleetId :$fleet-id!
     ) returns DescribeRuntimeConfigurationOutput is service-operation('DescribeRuntimeConfiguration') {
         my $request-input = DescribeRuntimeConfigurationInput.new(
-        :$fleet-id
+            :$fleet-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRuntimeConfiguration>,
-            :return-type(DescribeRuntimeConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-instance-access(
-    FleetId :$fleet-id!,
-    InstanceId :$instance-id!
+        FleetId :$fleet-id!,
+        InstanceId :$instance-id!
     ) returns GetInstanceAccessOutput is service-operation('GetInstanceAccess') {
         my $request-input = GetInstanceAccessInput.new(
-        :$fleet-id,
-        :$instance-id
+            :$fleet-id,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<GetInstanceAccess>,
-            :return-type(GetInstanceAccessOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-fleet-attributes(
-    ProtectionPolicy :$new-game-session-protection-policy,
-    FleetId :$fleet-id!,
-    ResourceCreationLimitPolicy :$resource-creation-limit-policy,
-    NonZeroAndMaxString :$description,
-    NonZeroAndMaxString :$name,
-    MetricGroupList :$metric-groups
+        ProtectionPolicy :$new-game-session-protection-policy,
+        FleetId :$fleet-id!,
+        ResourceCreationLimitPolicy :$resource-creation-limit-policy,
+        NonZeroAndMaxString :$description,
+        NonZeroAndMaxString :$name,
+        MetricGroupList :$metric-groups
     ) returns UpdateFleetAttributesOutput is service-operation('UpdateFleetAttributes') {
         my $request-input = UpdateFleetAttributesInput.new(
-        :$new-game-session-protection-policy,
-        :$fleet-id,
-        :$resource-creation-limit-policy,
-        :$description,
-        :$name,
-        :$metric-groups
+            :$new-game-session-protection-policy,
+            :$fleet-id,
+            :$resource-creation-limit-policy,
+            :$description,
+            :$name,
+            :$metric-groups
         );
-;
+
         self.perform-operation(
             :api-call<UpdateFleetAttributes>,
-            :return-type(UpdateFleetAttributesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-build(
-    BuildId :$build-id!
+        BuildId :$build-id!
     ) is service-operation('DeleteBuild') {
         my $request-input = DeleteBuildInput.new(
-        :$build-id
+            :$build-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBuild>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-game-session-queue(
-    GameSessionQueueName :$name!
+        GameSessionQueueName :$name!
     ) returns DeleteGameSessionQueueOutput is service-operation('DeleteGameSessionQueue') {
         my $request-input = DeleteGameSessionQueueInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteGameSessionQueue>,
-            :return-type(DeleteGameSessionQueueOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-matchmaking-configuration(
-    MatchmakingIdStringModel :$name!
+        MatchmakingIdStringModel :$name!
     ) returns DeleteMatchmakingConfigurationOutput is service-operation('DeleteMatchmakingConfiguration') {
         my $request-input = DeleteMatchmakingConfigurationInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteMatchmakingConfiguration>,
-            :return-type(DeleteMatchmakingConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-fleet-capacity(
-    PositiveInteger :$limit,
-    NonZeroAndMaxString :$next-token,
-    FleetIdList :$fleet-ids
+        PositiveInteger :$limit,
+        NonZeroAndMaxString :$next-token,
+        FleetIdList :$fleet-ids
     ) returns DescribeFleetCapacityOutput is service-operation('DescribeFleetCapacity') {
         my $request-input = DescribeFleetCapacityInput.new(
-        :$limit,
-        :$next-token,
-        :$fleet-ids
+            :$limit,
+            :$next-token,
+            :$fleet-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFleetCapacity>,
-            :return-type(DescribeFleetCapacityOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-matchmaking(
-    Array[Player] :$players!,
-    MatchmakingIdStringModel :$configuration-name!,
-    MatchmakingIdStringModel :$ticket-id
+        Array[Player] :$players!,
+        MatchmakingIdStringModel :$configuration-name!,
+        MatchmakingIdStringModel :$ticket-id
     ) returns StartMatchmakingOutput is service-operation('StartMatchmaking') {
         my $request-input = StartMatchmakingInput.new(
-        :$players,
-        :$configuration-name,
-        :$ticket-id
+            :$players,
+            :$configuration-name,
+            :$ticket-id
         );
-;
+
         self.perform-operation(
             :api-call<StartMatchmaking>,
-            :return-type(StartMatchmakingOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-game-session(
-    WholeNumber :$maximum-player-session-count!,
-    AliasId :$alias-id,
-    FleetId :$fleet-id,
-    GameSessionData :$game-session-data,
-    GamePropertyList :$game-properties,
-    NonZeroAndMaxString :$creator-id,
-    NonZeroAndMaxString :$name,
-    IdStringModel :$game-session-id,
-    IdStringModel :$idempotency-token
+        WholeNumber :$maximum-player-session-count!,
+        AliasId :$alias-id,
+        FleetId :$fleet-id,
+        GameSessionData :$game-session-data,
+        GamePropertyList :$game-properties,
+        NonZeroAndMaxString :$creator-id,
+        NonZeroAndMaxString :$name,
+        IdStringModel :$game-session-id,
+        IdStringModel :$idempotency-token
     ) returns CreateGameSessionOutput is service-operation('CreateGameSession') {
         my $request-input = CreateGameSessionInput.new(
-        :$maximum-player-session-count,
-        :$alias-id,
-        :$fleet-id,
-        :$game-session-data,
-        :$game-properties,
-        :$creator-id,
-        :$name,
-        :$game-session-id,
-        :$idempotency-token
+            :$maximum-player-session-count,
+            :$alias-id,
+            :$fleet-id,
+            :$game-session-data,
+            :$game-properties,
+            :$creator-id,
+            :$name,
+            :$game-session-id,
+            :$idempotency-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateGameSession>,
-            :return-type(CreateGameSessionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-matchmaking-rule-set(
-    MatchmakingIdStringModel :$name!,
-    RuleSetBody :$rule-set-body!
+        MatchmakingIdStringModel :$name!,
+        RuleSetBody :$rule-set-body!
     ) returns CreateMatchmakingRuleSetOutput is service-operation('CreateMatchmakingRuleSet') {
         my $request-input = CreateMatchmakingRuleSetInput.new(
-        :$name,
-        :$rule-set-body
+            :$name,
+            :$rule-set-body
         );
-;
+
         self.perform-operation(
             :api-call<CreateMatchmakingRuleSet>,
-            :return-type(CreateMatchmakingRuleSetOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-vpc-peering-authorization(
-    NonZeroAndMaxString :$peer-vpc-id!,
-    NonZeroAndMaxString :$game-lift-aws-account-id!
+        NonZeroAndMaxString :$peer-vpc-id!,
+        NonZeroAndMaxString :$game-lift-aws-account-id!
     ) returns CreateVpcPeeringAuthorizationOutput is service-operation('CreateVpcPeeringAuthorization') {
         my $request-input = CreateVpcPeeringAuthorizationInput.new(
-        :$peer-vpc-id,
-        :$game-lift-aws-account-id
+            :$peer-vpc-id,
+            :$game-lift-aws-account-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateVpcPeeringAuthorization>,
-            :return-type(CreateVpcPeeringAuthorizationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-game-session-placement(
-    WholeNumber :$maximum-player-session-count!,
-    Array[DesiredPlayerSession] :$desired-player-sessions,
-    Array[PlayerLatency] :$player-latencies,
-    GameSessionData :$game-session-data,
-    NonZeroAndMaxString :$game-session-name,
-    GamePropertyList :$game-properties,
-    GameSessionQueueName :$game-session-queue-name!,
-    IdStringModel :$placement-id!
+        WholeNumber :$maximum-player-session-count!,
+        Array[DesiredPlayerSession] :$desired-player-sessions,
+        Array[PlayerLatency] :$player-latencies,
+        GameSessionData :$game-session-data,
+        NonZeroAndMaxString :$game-session-name,
+        GamePropertyList :$game-properties,
+        GameSessionQueueName :$game-session-queue-name!,
+        IdStringModel :$placement-id!
     ) returns StartGameSessionPlacementOutput is service-operation('StartGameSessionPlacement') {
         my $request-input = StartGameSessionPlacementInput.new(
-        :$maximum-player-session-count,
-        :$desired-player-sessions,
-        :$player-latencies,
-        :$game-session-data,
-        :$game-session-name,
-        :$game-properties,
-        :$game-session-queue-name,
-        :$placement-id
+            :$maximum-player-session-count,
+            :$desired-player-sessions,
+            :$player-latencies,
+            :$game-session-data,
+            :$game-session-name,
+            :$game-properties,
+            :$game-session-queue-name,
+            :$placement-id
         );
-;
+
         self.perform-operation(
             :api-call<StartGameSessionPlacement>,
-            :return-type(StartGameSessionPlacementOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-matchmaking(
-    MatchmakingIdStringModel :$ticket-id!
+        MatchmakingIdStringModel :$ticket-id!
     ) returns StopMatchmakingOutput is service-operation('StopMatchmaking') {
         my $request-input = StopMatchmakingInput.new(
-        :$ticket-id
+            :$ticket-id
         );
-;
+
         self.perform-operation(
             :api-call<StopMatchmaking>,
-            :return-type(StopMatchmakingOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-alias(
-    AliasId :$alias-id!
+        AliasId :$alias-id!
     ) is service-operation('DeleteAlias') {
         my $request-input = DeleteAliasInput.new(
-        :$alias-id
+            :$alias-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAlias>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-alias(
-    AliasId :$alias-id!
+        AliasId :$alias-id!
     ) returns DescribeAliasOutput is service-operation('DescribeAlias') {
         my $request-input = DescribeAliasInput.new(
-        :$alias-id
+            :$alias-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAlias>,
-            :return-type(DescribeAliasOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-game-session-placement(
-    IdStringModel :$placement-id!
+        IdStringModel :$placement-id!
     ) returns DescribeGameSessionPlacementOutput is service-operation('DescribeGameSessionPlacement') {
         my $request-input = DescribeGameSessionPlacementInput.new(
-        :$placement-id
+            :$placement-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeGameSessionPlacement>,
-            :return-type(DescribeGameSessionPlacementOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-game-session-queues(
-    PositiveInteger :$limit,
-    Array[GameSessionQueueName] :$names,
-    NonZeroAndMaxString :$next-token
+        PositiveInteger :$limit,
+        Array[GameSessionQueueName] :$names,
+        NonZeroAndMaxString :$next-token
     ) returns DescribeGameSessionQueuesOutput is service-operation('DescribeGameSessionQueues') {
         my $request-input = DescribeGameSessionQueuesInput.new(
-        :$limit,
-        :$names,
-        :$next-token
+            :$limit,
+            :$names,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeGameSessionQueues>,
-            :return-type(DescribeGameSessionQueuesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-fleet-port-settings(
-    IpPermissionsList :$inbound-permission-revocations,
-    FleetId :$fleet-id!,
-    IpPermissionsList :$inbound-permission-authorizations
+        IpPermissionsList :$inbound-permission-revocations,
+        FleetId :$fleet-id!,
+        IpPermissionsList :$inbound-permission-authorizations
     ) returns UpdateFleetPortSettingsOutput is service-operation('UpdateFleetPortSettings') {
         my $request-input = UpdateFleetPortSettingsInput.new(
-        :$inbound-permission-revocations,
-        :$fleet-id,
-        :$inbound-permission-authorizations
+            :$inbound-permission-revocations,
+            :$fleet-id,
+            :$inbound-permission-authorizations
         );
-;
+
         self.perform-operation(
             :api-call<UpdateFleetPortSettings>,
-            :return-type(UpdateFleetPortSettingsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-game-session(
-    ProtectionPolicy :$protection-policy,
-    WholeNumber :$maximum-player-session-count,
-    NonZeroAndMaxString :$name,
-    PlayerSessionCreationPolicy :$player-session-creation-policy,
-    ArnStringModel :$game-session-id!
+        ProtectionPolicy :$protection-policy,
+        WholeNumber :$maximum-player-session-count,
+        NonZeroAndMaxString :$name,
+        PlayerSessionCreationPolicy :$player-session-creation-policy,
+        ArnStringModel :$game-session-id!
     ) returns UpdateGameSessionOutput is service-operation('UpdateGameSession') {
         my $request-input = UpdateGameSessionInput.new(
-        :$protection-policy,
-        :$maximum-player-session-count,
-        :$name,
-        :$player-session-creation-policy,
-        :$game-session-id
+            :$protection-policy,
+            :$maximum-player-session-count,
+            :$name,
+            :$player-session-creation-policy,
+            :$game-session-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateGameSession>,
-            :return-type(UpdateGameSessionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-alias(
-    NonZeroAndMaxString :$description,
-    NonBlankAndLengthConstraintString :$name!,
-    RoutingStrategy :$routing-strategy!
+        NonZeroAndMaxString :$description,
+        NonBlankAndLengthConstraintString :$name!,
+        RoutingStrategy :$routing-strategy!
     ) returns CreateAliasOutput is service-operation('CreateAlias') {
         my $request-input = CreateAliasInput.new(
-        :$description,
-        :$name,
-        :$routing-strategy
+            :$description,
+            :$name,
+            :$routing-strategy
         );
-;
+
         self.perform-operation(
             :api-call<CreateAlias>,
-            :return-type(CreateAliasOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-player-session(
-    PlayerData :$player-data,
-    ArnStringModel :$game-session-id!,
-    NonZeroAndMaxString :$player-id!
+        PlayerData :$player-data,
+        ArnStringModel :$game-session-id!,
+        NonZeroAndMaxString :$player-id!
     ) returns CreatePlayerSessionOutput is service-operation('CreatePlayerSession') {
         my $request-input = CreatePlayerSessionInput.new(
-        :$player-data,
-        :$game-session-id,
-        :$player-id
+            :$player-data,
+            :$game-session-id,
+            :$player-id
         );
-;
+
         self.perform-operation(
             :api-call<CreatePlayerSession>,
-            :return-type(CreatePlayerSessionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-fleet(
-    FleetId :$fleet-id!
+        FleetId :$fleet-id!
     ) is service-operation('DeleteFleet') {
         my $request-input = DeleteFleetInput.new(
-        :$fleet-id
+            :$fleet-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFleet>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-scaling-policy(
-    FleetId :$fleet-id!,
-    NonZeroAndMaxString :$name!
+        FleetId :$fleet-id!,
+        NonZeroAndMaxString :$name!
     ) is service-operation('DeleteScalingPolicy') {
         my $request-input = DeleteScalingPolicyInput.new(
-        :$fleet-id,
-        :$name
+            :$fleet-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteScalingPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-aliases(
-    PositiveInteger :$limit,
-    NonEmptyString :$name,
-    RoutingStrategyType :$routing-strategy-type,
-    NonEmptyString :$next-token
+        PositiveInteger :$limit,
+        NonEmptyString :$name,
+        RoutingStrategyType :$routing-strategy-type,
+        NonEmptyString :$next-token
     ) returns ListAliasesOutput is service-operation('ListAliases') {
         my $request-input = ListAliasesInput.new(
-        :$limit,
-        :$name,
-        :$routing-strategy-type,
-        :$next-token
+            :$limit,
+            :$name,
+            :$routing-strategy-type,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListAliases>,
-            :return-type(ListAliasesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-game-session-queue(
-    GameSessionQueueName :$name!,
-    Array[PlayerLatencyPolicy] :$player-latency-policies,
-    Array[GameSessionQueueDestination] :$destinations,
-    WholeNumber :$timeout-in-seconds
+        GameSessionQueueName :$name!,
+        Array[PlayerLatencyPolicy] :$player-latency-policies,
+        Array[GameSessionQueueDestination] :$destinations,
+        WholeNumber :$timeout-in-seconds
     ) returns UpdateGameSessionQueueOutput is service-operation('UpdateGameSessionQueue') {
         my $request-input = UpdateGameSessionQueueInput.new(
-        :$name,
-        :$player-latency-policies,
-        :$destinations,
-        :$timeout-in-seconds
+            :$name,
+            :$player-latency-policies,
+            :$destinations,
+            :$timeout-in-seconds
         );
-;
+
         self.perform-operation(
             :api-call<UpdateGameSessionQueue>,
-            :return-type(UpdateGameSessionQueueOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-ec2-instance-limits(
-    EC2InstanceType :$ec2-instance-type
+        EC2InstanceType :$ec2-instance-type
     ) returns DescribeEC2InstanceLimitsOutput is service-operation('DescribeEC2InstanceLimits') {
         my $request-input = DescribeEC2InstanceLimitsInput.new(
-        :$ec2-instance-type
+            :$ec2-instance-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEC2InstanceLimits>,
-            :return-type(DescribeEC2InstanceLimitsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-matchmaking-rule-sets(
-    RuleSetLimit :$limit,
-    MatchmakingRuleSetNameList :$names,
-    NonZeroAndMaxString :$next-token
+        RuleSetLimit :$limit,
+        MatchmakingRuleSetNameList :$names,
+        NonZeroAndMaxString :$next-token
     ) returns DescribeMatchmakingRuleSetsOutput is service-operation('DescribeMatchmakingRuleSets') {
         my $request-input = DescribeMatchmakingRuleSetsInput.new(
-        :$limit,
-        :$names,
-        :$next-token
+            :$limit,
+            :$names,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMatchmakingRuleSets>,
-            :return-type(DescribeMatchmakingRuleSetsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-vpc-peering-connections(
-    FleetId :$fleet-id
+        FleetId :$fleet-id
     ) returns DescribeVpcPeeringConnectionsOutput is service-operation('DescribeVpcPeeringConnections') {
         my $request-input = DescribeVpcPeeringConnectionsInput.new(
-        :$fleet-id
+            :$fleet-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVpcPeeringConnections>,
-            :return-type(DescribeVpcPeeringConnectionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-game-session-log-url(
-    ArnStringModel :$game-session-id!
+        ArnStringModel :$game-session-id!
     ) returns GetGameSessionLogUrlOutput is service-operation('GetGameSessionLogUrl') {
         my $request-input = GetGameSessionLogUrlInput.new(
-        :$game-session-id
+            :$game-session-id
         );
-;
+
         self.perform-operation(
             :api-call<GetGameSessionLogUrl>,
-            :return-type(GetGameSessionLogUrlOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method search-game-sessions(
-    AliasId :$alias-id,
-    FleetId :$fleet-id,
-    PositiveInteger :$limit,
-    NonZeroAndMaxString :$sort-expression,
-    NonZeroAndMaxString :$next-token,
-    NonZeroAndMaxString :$filter-expression
+        AliasId :$alias-id,
+        FleetId :$fleet-id,
+        PositiveInteger :$limit,
+        NonZeroAndMaxString :$sort-expression,
+        NonZeroAndMaxString :$next-token,
+        NonZeroAndMaxString :$filter-expression
     ) returns SearchGameSessionsOutput is service-operation('SearchGameSessions') {
         my $request-input = SearchGameSessionsInput.new(
-        :$alias-id,
-        :$fleet-id,
-        :$limit,
-        :$sort-expression,
-        :$next-token,
-        :$filter-expression
+            :$alias-id,
+            :$fleet-id,
+            :$limit,
+            :$sort-expression,
+            :$next-token,
+            :$filter-expression
         );
-;
+
         self.perform-operation(
             :api-call<SearchGameSessions>,
-            :return-type(SearchGameSessionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-game-session-details(
-    NonZeroAndMaxString :$status-filter,
-    AliasId :$alias-id,
-    FleetId :$fleet-id,
-    PositiveInteger :$limit,
-    NonZeroAndMaxString :$next-token,
-    ArnStringModel :$game-session-id
+        NonZeroAndMaxString :$status-filter,
+        AliasId :$alias-id,
+        FleetId :$fleet-id,
+        PositiveInteger :$limit,
+        NonZeroAndMaxString :$next-token,
+        ArnStringModel :$game-session-id
     ) returns DescribeGameSessionDetailsOutput is service-operation('DescribeGameSessionDetails') {
         my $request-input = DescribeGameSessionDetailsInput.new(
-        :$status-filter,
-        :$alias-id,
-        :$fleet-id,
-        :$limit,
-        :$next-token,
-        :$game-session-id
+            :$status-filter,
+            :$alias-id,
+            :$fleet-id,
+            :$limit,
+            :$next-token,
+            :$game-session-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeGameSessionDetails>,
-            :return-type(DescribeGameSessionDetailsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-instances(
-    FleetId :$fleet-id!,
-    PositiveInteger :$limit,
-    NonZeroAndMaxString :$next-token,
-    InstanceId :$instance-id
+        FleetId :$fleet-id!,
+        PositiveInteger :$limit,
+        NonZeroAndMaxString :$next-token,
+        InstanceId :$instance-id
     ) returns DescribeInstancesOutput is service-operation('DescribeInstances') {
         my $request-input = DescribeInstancesInput.new(
-        :$fleet-id,
-        :$limit,
-        :$next-token,
-        :$instance-id
+            :$fleet-id,
+            :$limit,
+            :$next-token,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstances>,
-            :return-type(DescribeInstancesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method resolve-alias(
-    AliasId :$alias-id!
+        AliasId :$alias-id!
     ) returns ResolveAliasOutput is service-operation('ResolveAlias') {
         my $request-input = ResolveAliasInput.new(
-        :$alias-id
+            :$alias-id
         );
-;
+
         self.perform-operation(
             :api-call<ResolveAlias>,
-            :return-type(ResolveAliasOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-matchmaking-configuration(
-    MatchmakingIdStringModel :$rule-set-name,
-    GameSessionData :$game-session-data,
-    GamePropertyList :$game-properties,
-    NonZeroAndMaxString :$description,
-    WholeNumber :$additional-player-count,
-    CustomEventData :$custom-event-data,
-    MatchmakingIdStringModel :$name!,
-    MatchmakingRequestTimeoutInteger :$request-timeout-seconds,
-    MatchmakingAcceptanceTimeoutInteger :$acceptance-timeout-seconds,
-    Array[ArnStringModel] :$game-session-queue-arns,
-    SnsArnStringModel :$notification-target,
-    Bool :$acceptance-required
+        MatchmakingIdStringModel :$rule-set-name,
+        GameSessionData :$game-session-data,
+        GamePropertyList :$game-properties,
+        NonZeroAndMaxString :$description,
+        WholeNumber :$additional-player-count,
+        CustomEventData :$custom-event-data,
+        MatchmakingIdStringModel :$name!,
+        MatchmakingRequestTimeoutInteger :$request-timeout-seconds,
+        MatchmakingAcceptanceTimeoutInteger :$acceptance-timeout-seconds,
+        Array[ArnStringModel] :$game-session-queue-arns,
+        SnsArnStringModel :$notification-target,
+        Bool :$acceptance-required
     ) returns UpdateMatchmakingConfigurationOutput is service-operation('UpdateMatchmakingConfiguration') {
         my $request-input = UpdateMatchmakingConfigurationInput.new(
-        :$rule-set-name,
-        :$game-session-data,
-        :$game-properties,
-        :$description,
-        :$additional-player-count,
-        :$custom-event-data,
-        :$name,
-        :$request-timeout-seconds,
-        :$acceptance-timeout-seconds,
-        :$game-session-queue-arns,
-        :$notification-target,
-        :$acceptance-required
+            :$rule-set-name,
+            :$game-session-data,
+            :$game-properties,
+            :$description,
+            :$additional-player-count,
+            :$custom-event-data,
+            :$name,
+            :$request-timeout-seconds,
+            :$acceptance-timeout-seconds,
+            :$game-session-queue-arns,
+            :$notification-target,
+            :$acceptance-required
         );
-;
+
         self.perform-operation(
             :api-call<UpdateMatchmakingConfiguration>,
-            :return-type(UpdateMatchmakingConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-build(
-    S3Location :$storage-location,
-    NonZeroAndMaxString :$version,
-    NonZeroAndMaxString :$name,
-    OperatingSystem :$operating-system
+        S3Location :$storage-location,
+        NonZeroAndMaxString :$version,
+        NonZeroAndMaxString :$name,
+        OperatingSystem :$operating-system
     ) returns CreateBuildOutput is service-operation('CreateBuild') {
         my $request-input = CreateBuildInput.new(
-        :$storage-location,
-        :$version,
-        :$name,
-        :$operating-system
+            :$storage-location,
+            :$version,
+            :$name,
+            :$operating-system
         );
-;
+
         self.perform-operation(
             :api-call<CreateBuild>,
-            :return-type(CreateBuildOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-fleet(
-    ProtectionPolicy :$new-game-session-protection-policy,
-    ResourceCreationLimitPolicy :$resource-creation-limit-policy,
-    Array[NonZeroAndMaxString] :$log-paths,
-    NonZeroAndMaxString :$description,
-    NonZeroAndMaxString :$peer-vpc-aws-account-id,
-    IpPermissionsList :$ec2-inbound-permissions,
-    EC2InstanceType :$ec2-instance-type!,
-    NonZeroAndMaxString :$server-launch-path,
-    NonZeroAndMaxString :$peer-vpc-id,
-    RuntimeConfiguration :$runtime-configuration,
-    NonZeroAndMaxString :$server-launch-parameters,
-    NonZeroAndMaxString :$name!,
-    BuildId :$build-id!,
-    MetricGroupList :$metric-groups
+        ProtectionPolicy :$new-game-session-protection-policy,
+        ResourceCreationLimitPolicy :$resource-creation-limit-policy,
+        Array[NonZeroAndMaxString] :$log-paths,
+        NonZeroAndMaxString :$description,
+        NonZeroAndMaxString :$peer-vpc-aws-account-id,
+        IpPermissionsList :$ec2-inbound-permissions,
+        EC2InstanceType :$ec2-instance-type!,
+        NonZeroAndMaxString :$server-launch-path,
+        NonZeroAndMaxString :$peer-vpc-id,
+        RuntimeConfiguration :$runtime-configuration,
+        NonZeroAndMaxString :$server-launch-parameters,
+        NonZeroAndMaxString :$name!,
+        BuildId :$build-id!,
+        MetricGroupList :$metric-groups
     ) returns CreateFleetOutput is service-operation('CreateFleet') {
         my $request-input = CreateFleetInput.new(
-        :$new-game-session-protection-policy,
-        :$resource-creation-limit-policy,
-        :$log-paths,
-        :$description,
-        :$peer-vpc-aws-account-id,
-        :$ec2-inbound-permissions,
-        :$ec2-instance-type,
-        :$server-launch-path,
-        :$peer-vpc-id,
-        :$runtime-configuration,
-        :$server-launch-parameters,
-        :$name,
-        :$build-id,
-        :$metric-groups
+            :$new-game-session-protection-policy,
+            :$resource-creation-limit-policy,
+            :$log-paths,
+            :$description,
+            :$peer-vpc-aws-account-id,
+            :$ec2-inbound-permissions,
+            :$ec2-instance-type,
+            :$server-launch-path,
+            :$peer-vpc-id,
+            :$runtime-configuration,
+            :$server-launch-parameters,
+            :$name,
+            :$build-id,
+            :$metric-groups
         );
-;
+
         self.perform-operation(
             :api-call<CreateFleet>,
-            :return-type(CreateFleetOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-matchmaking-configuration(
-    MatchmakingIdStringModel :$rule-set-name!,
-    GameSessionData :$game-session-data,
-    GamePropertyList :$game-properties,
-    NonZeroAndMaxString :$description,
-    WholeNumber :$additional-player-count,
-    CustomEventData :$custom-event-data,
-    MatchmakingIdStringModel :$name!,
-    MatchmakingRequestTimeoutInteger :$request-timeout-seconds!,
-    MatchmakingAcceptanceTimeoutInteger :$acceptance-timeout-seconds,
-    Array[ArnStringModel] :$game-session-queue-arns!,
-    SnsArnStringModel :$notification-target,
-    Bool :$acceptance-required!
+        MatchmakingIdStringModel :$rule-set-name!,
+        GameSessionData :$game-session-data,
+        GamePropertyList :$game-properties,
+        NonZeroAndMaxString :$description,
+        WholeNumber :$additional-player-count,
+        CustomEventData :$custom-event-data,
+        MatchmakingIdStringModel :$name!,
+        MatchmakingRequestTimeoutInteger :$request-timeout-seconds!,
+        MatchmakingAcceptanceTimeoutInteger :$acceptance-timeout-seconds,
+        Array[ArnStringModel] :$game-session-queue-arns!,
+        SnsArnStringModel :$notification-target,
+        Bool :$acceptance-required!
     ) returns CreateMatchmakingConfigurationOutput is service-operation('CreateMatchmakingConfiguration') {
         my $request-input = CreateMatchmakingConfigurationInput.new(
-        :$rule-set-name,
-        :$game-session-data,
-        :$game-properties,
-        :$description,
-        :$additional-player-count,
-        :$custom-event-data,
-        :$name,
-        :$request-timeout-seconds,
-        :$acceptance-timeout-seconds,
-        :$game-session-queue-arns,
-        :$notification-target,
-        :$acceptance-required
+            :$rule-set-name,
+            :$game-session-data,
+            :$game-properties,
+            :$description,
+            :$additional-player-count,
+            :$custom-event-data,
+            :$name,
+            :$request-timeout-seconds,
+            :$acceptance-timeout-seconds,
+            :$game-session-queue-arns,
+            :$notification-target,
+            :$acceptance-required
         );
-;
+
         self.perform-operation(
             :api-call<CreateMatchmakingConfiguration>,
-            :return-type(CreateMatchmakingConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-fleet-port-settings(
-    FleetId :$fleet-id!
+        FleetId :$fleet-id!
     ) returns DescribeFleetPortSettingsOutput is service-operation('DescribeFleetPortSettings') {
         my $request-input = DescribeFleetPortSettingsInput.new(
-        :$fleet-id
+            :$fleet-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFleetPortSettings>,
-            :return-type(DescribeFleetPortSettingsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-fleet-utilization(
-    PositiveInteger :$limit,
-    NonZeroAndMaxString :$next-token,
-    FleetIdList :$fleet-ids
+        PositiveInteger :$limit,
+        NonZeroAndMaxString :$next-token,
+        FleetIdList :$fleet-ids
     ) returns DescribeFleetUtilizationOutput is service-operation('DescribeFleetUtilization') {
         my $request-input = DescribeFleetUtilizationInput.new(
-        :$limit,
-        :$next-token,
-        :$fleet-ids
+            :$limit,
+            :$next-token,
+            :$fleet-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFleetUtilization>,
-            :return-type(DescribeFleetUtilizationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-game-session-placement(
-    IdStringModel :$placement-id!
+        IdStringModel :$placement-id!
     ) returns StopGameSessionPlacementOutput is service-operation('StopGameSessionPlacement') {
         my $request-input = StopGameSessionPlacementInput.new(
-        :$placement-id
+            :$placement-id
         );
-;
+
         self.perform-operation(
             :api-call<StopGameSessionPlacement>,
-            :return-type(StopGameSessionPlacementOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method validate-matchmaking-rule-set(
-    RuleSetBody :$rule-set-body!
+        RuleSetBody :$rule-set-body!
     ) returns ValidateMatchmakingRuleSetOutput is service-operation('ValidateMatchmakingRuleSet') {
         my $request-input = ValidateMatchmakingRuleSetInput.new(
-        :$rule-set-body
+            :$rule-set-body
         );
-;
+
         self.perform-operation(
             :api-call<ValidateMatchmakingRuleSet>,
-            :return-type(ValidateMatchmakingRuleSetOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-runtime-configuration(
-    FleetId :$fleet-id!,
-    RuntimeConfiguration :$runtime-configuration!
+        FleetId :$fleet-id!,
+        RuntimeConfiguration :$runtime-configuration!
     ) returns UpdateRuntimeConfigurationOutput is service-operation('UpdateRuntimeConfiguration') {
         my $request-input = UpdateRuntimeConfigurationInput.new(
-        :$fleet-id,
-        :$runtime-configuration
+            :$fleet-id,
+            :$runtime-configuration
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRuntimeConfiguration>,
-            :return-type(UpdateRuntimeConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-player-sessions(
-    Hash[PlayerData, NonZeroAndMaxString] :$player-data-map,
-    PlayerIdList :$player-ids!,
-    ArnStringModel :$game-session-id!
+        Hash[PlayerData, NonZeroAndMaxString] :$player-data-map,
+        PlayerIdList :$player-ids!,
+        ArnStringModel :$game-session-id!
     ) returns CreatePlayerSessionsOutput is service-operation('CreatePlayerSessions') {
         my $request-input = CreatePlayerSessionsInput.new(
-        :$player-data-map,
-        :$player-ids,
-        :$game-session-id
+            :$player-data-map,
+            :$player-ids,
+            :$game-session-id
         );
-;
+
         self.perform-operation(
             :api-call<CreatePlayerSessions>,
-            :return-type(CreatePlayerSessionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-matchmaking(
-    Array[MatchmakingIdStringModel] :$ticket-ids!
+        Array[MatchmakingIdStringModel] :$ticket-ids!
     ) returns DescribeMatchmakingOutput is service-operation('DescribeMatchmaking') {
         my $request-input = DescribeMatchmakingInput.new(
-        :$ticket-ids
+            :$ticket-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMatchmaking>,
-            :return-type(DescribeMatchmakingOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-builds(
-    PositiveInteger :$limit,
-    NonEmptyString :$next-token,
-    BuildStatus :$status
+        PositiveInteger :$limit,
+        NonEmptyString :$next-token,
+        BuildStatus :$status
     ) returns ListBuildsOutput is service-operation('ListBuilds') {
         my $request-input = ListBuildsInput.new(
-        :$limit,
-        :$next-token,
-        :$status
+            :$limit,
+            :$next-token,
+            :$status
         );
-;
+
         self.perform-operation(
             :api-call<ListBuilds>,
-            :return-type(ListBuildsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-fleet-capacity(
-    WholeNumber :$max-size,
-    FleetId :$fleet-id!,
-    WholeNumber :$min-size,
-    WholeNumber :$desired-instances
+        WholeNumber :$max-size,
+        FleetId :$fleet-id!,
+        WholeNumber :$min-size,
+        WholeNumber :$desired-instances
     ) returns UpdateFleetCapacityOutput is service-operation('UpdateFleetCapacity') {
         my $request-input = UpdateFleetCapacityInput.new(
-        :$max-size,
-        :$fleet-id,
-        :$min-size,
-        :$desired-instances
+            :$max-size,
+            :$fleet-id,
+            :$min-size,
+            :$desired-instances
         );
-;
+
         self.perform-operation(
             :api-call<UpdateFleetCapacity>,
-            :return-type(UpdateFleetCapacityOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-vpc-peering-authorization(
-    NonZeroAndMaxString :$peer-vpc-id!,
-    NonZeroAndMaxString :$game-lift-aws-account-id!
+        NonZeroAndMaxString :$peer-vpc-id!,
+        NonZeroAndMaxString :$game-lift-aws-account-id!
     ) returns DeleteVpcPeeringAuthorizationOutput is service-operation('DeleteVpcPeeringAuthorization') {
         my $request-input = DeleteVpcPeeringAuthorizationInput.new(
-        :$peer-vpc-id,
-        :$game-lift-aws-account-id
+            :$peer-vpc-id,
+            :$game-lift-aws-account-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVpcPeeringAuthorization>,
-            :return-type(DeleteVpcPeeringAuthorizationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-fleet-events(
-    DateTime :$end-time,
-    FleetId :$fleet-id!,
-    PositiveInteger :$limit,
-    DateTime :$start-time,
-    NonZeroAndMaxString :$next-token
+        DateTime :$end-time,
+        FleetId :$fleet-id!,
+        PositiveInteger :$limit,
+        DateTime :$start-time,
+        NonZeroAndMaxString :$next-token
     ) returns DescribeFleetEventsOutput is service-operation('DescribeFleetEvents') {
         my $request-input = DescribeFleetEventsInput.new(
-        :$end-time,
-        :$fleet-id,
-        :$limit,
-        :$start-time,
-        :$next-token
+            :$end-time,
+            :$fleet-id,
+            :$limit,
+            :$start-time,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFleetEvents>,
-            :return-type(DescribeFleetEventsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-scaling-policies(
-    ScalingStatusType :$status-filter,
-    FleetId :$fleet-id!,
-    PositiveInteger :$limit,
-    NonZeroAndMaxString :$next-token
+        ScalingStatusType :$status-filter,
+        FleetId :$fleet-id!,
+        PositiveInteger :$limit,
+        NonZeroAndMaxString :$next-token
     ) returns DescribeScalingPoliciesOutput is service-operation('DescribeScalingPolicies') {
         my $request-input = DescribeScalingPoliciesInput.new(
-        :$status-filter,
-        :$fleet-id,
-        :$limit,
-        :$next-token
+            :$status-filter,
+            :$fleet-id,
+            :$limit,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeScalingPolicies>,
-            :return-type(DescribeScalingPoliciesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

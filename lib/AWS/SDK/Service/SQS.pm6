@@ -316,306 +316,272 @@ class AWS::SDK::Service::SQS does AWS::SDK::Service {
     }
 
     method set-queue-attributes(
-    Str :$queue-url!,
-    Hash[Str, QueueAttributeName] :$attributes!
+        Str :$queue-url!,
+        Hash[Str, QueueAttributeName] :$attributes!
     ) is service-operation('SetQueueAttributes') {
         my $request-input = SetQueueAttributesRequest.new(
-        :$queue-url,
-        :$attributes
+            :$queue-url,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<SetQueueAttributes>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method send-message-batch(
-    Str :$queue-url!,
-    Array[SendMessageBatchRequestEntry] :$entries!
+        Str :$queue-url!,
+        Array[SendMessageBatchRequestEntry] :$entries!
     ) returns SendMessageBatchResult is service-operation('SendMessageBatch') {
         my $request-input = SendMessageBatchRequest.new(
-        :$queue-url,
-        :$entries
+            :$queue-url,
+            :$entries
         );
-;
+
         self.perform-operation(
             :api-call<SendMessageBatch>,
-            :return-type(SendMessageBatchResult),
-            :result-wrapper('SendMessageBatchResult'),
             :$request-input,
         );
     }
 
     method get-queue-attributes(
-    Str :$queue-url!,
-    Array[QueueAttributeName] :$attribute-names
+        Str :$queue-url!,
+        Array[QueueAttributeName] :$attribute-names
     ) returns GetQueueAttributesResult is service-operation('GetQueueAttributes') {
         my $request-input = GetQueueAttributesRequest.new(
-        :$queue-url,
-        :$attribute-names
+            :$queue-url,
+            :$attribute-names
         );
-;
+
         self.perform-operation(
             :api-call<GetQueueAttributes>,
-            :return-type(GetQueueAttributesResult),
-            :result-wrapper('GetQueueAttributesResult'),
             :$request-input,
         );
     }
 
     method send-message(
-    Str :$message-group-id,
-    Str :$message-deduplication-id,
-    Hash[MessageAttributeValue, Str] :$message-attributes,
-    Str :$queue-url!,
-    Int :$delay-seconds,
-    Str :$message-body!
+        Str :$message-group-id,
+        Str :$message-deduplication-id,
+        Hash[MessageAttributeValue, Str] :$message-attributes,
+        Str :$queue-url!,
+        Int :$delay-seconds,
+        Str :$message-body!
     ) returns SendMessageResult is service-operation('SendMessage') {
         my $request-input = SendMessageRequest.new(
-        :$message-group-id,
-        :$message-deduplication-id,
-        :$message-attributes,
-        :$queue-url,
-        :$delay-seconds,
-        :$message-body
+            :$message-group-id,
+            :$message-deduplication-id,
+            :$message-attributes,
+            :$queue-url,
+            :$delay-seconds,
+            :$message-body
         );
-;
+
         self.perform-operation(
             :api-call<SendMessage>,
-            :return-type(SendMessageResult),
-            :result-wrapper('SendMessageResult'),
             :$request-input,
         );
     }
 
     method delete-message-batch(
-    Str :$queue-url!,
-    Array[DeleteMessageBatchRequestEntry] :$entries!
+        Str :$queue-url!,
+        Array[DeleteMessageBatchRequestEntry] :$entries!
     ) returns DeleteMessageBatchResult is service-operation('DeleteMessageBatch') {
         my $request-input = DeleteMessageBatchRequest.new(
-        :$queue-url,
-        :$entries
+            :$queue-url,
+            :$entries
         );
-;
+
         self.perform-operation(
             :api-call<DeleteMessageBatch>,
-            :return-type(DeleteMessageBatchResult),
-            :result-wrapper('DeleteMessageBatchResult'),
             :$request-input,
         );
     }
 
     method create-queue(
-    Str :$queue-name!,
-    Hash[Str, QueueAttributeName] :$attributes
+        Str :$queue-name!,
+        Hash[Str, QueueAttributeName] :$attributes
     ) returns CreateQueueResult is service-operation('CreateQueue') {
         my $request-input = CreateQueueRequest.new(
-        :$queue-name,
-        :$attributes
+            :$queue-name,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<CreateQueue>,
-            :return-type(CreateQueueResult),
-            :result-wrapper('CreateQueueResult'),
             :$request-input,
         );
     }
 
     method receive-message(
-    Array[Str] :$message-attribute-names,
-    Int :$wait-time-seconds,
-    Str :$receive-request-attempt-id,
-    Int :$max-number-of-messages,
-    Str :$queue-url!,
-    Int :$visibility-timeout,
-    Array[QueueAttributeName] :$attribute-names
+        Array[Str] :$message-attribute-names,
+        Int :$wait-time-seconds,
+        Str :$receive-request-attempt-id,
+        Int :$max-number-of-messages,
+        Str :$queue-url!,
+        Int :$visibility-timeout,
+        Array[QueueAttributeName] :$attribute-names
     ) returns ReceiveMessageResult is service-operation('ReceiveMessage') {
         my $request-input = ReceiveMessageRequest.new(
-        :$message-attribute-names,
-        :$wait-time-seconds,
-        :$receive-request-attempt-id,
-        :$max-number-of-messages,
-        :$queue-url,
-        :$visibility-timeout,
-        :$attribute-names
+            :$message-attribute-names,
+            :$wait-time-seconds,
+            :$receive-request-attempt-id,
+            :$max-number-of-messages,
+            :$queue-url,
+            :$visibility-timeout,
+            :$attribute-names
         );
-;
+
         self.perform-operation(
             :api-call<ReceiveMessage>,
-            :return-type(ReceiveMessageResult),
-            :result-wrapper('ReceiveMessageResult'),
             :$request-input,
         );
     }
 
     method get-queue-url(
-    Str :$queue-name!,
-    Str :$queue-owner-aws-account-id
+        Str :$queue-name!,
+        Str :$queue-owner-aws-account-id
     ) returns GetQueueUrlResult is service-operation('GetQueueUrl') {
         my $request-input = GetQueueUrlRequest.new(
-        :$queue-name,
-        :$queue-owner-aws-account-id
+            :$queue-name,
+            :$queue-owner-aws-account-id
         );
-;
+
         self.perform-operation(
             :api-call<GetQueueUrl>,
-            :return-type(GetQueueUrlResult),
-            :result-wrapper('GetQueueUrlResult'),
             :$request-input,
         );
     }
 
     method delete-queue(
-    Str :$queue-url!
+        Str :$queue-url!
     ) is service-operation('DeleteQueue') {
         my $request-input = DeleteQueueRequest.new(
-        :$queue-url
+            :$queue-url
         );
-;
+
         self.perform-operation(
             :api-call<DeleteQueue>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-message(
-    Str :$receipt-handle!,
-    Str :$queue-url!
+        Str :$receipt-handle!,
+        Str :$queue-url!
     ) is service-operation('DeleteMessage') {
         my $request-input = DeleteMessageRequest.new(
-        :$receipt-handle,
-        :$queue-url
+            :$receipt-handle,
+            :$queue-url
         );
-;
+
         self.perform-operation(
             :api-call<DeleteMessage>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method change-message-visibility(
-    Str :$receipt-handle!,
-    Str :$queue-url!,
-    Int :$visibility-timeout!
+        Str :$receipt-handle!,
+        Str :$queue-url!,
+        Int :$visibility-timeout!
     ) is service-operation('ChangeMessageVisibility') {
         my $request-input = ChangeMessageVisibilityRequest.new(
-        :$receipt-handle,
-        :$queue-url,
-        :$visibility-timeout
+            :$receipt-handle,
+            :$queue-url,
+            :$visibility-timeout
         );
-;
+
         self.perform-operation(
             :api-call<ChangeMessageVisibility>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-dead-letter-source-queues(
-    Str :$queue-url!
+        Str :$queue-url!
     ) returns ListDeadLetterSourceQueuesResult is service-operation('ListDeadLetterSourceQueues') {
         my $request-input = ListDeadLetterSourceQueuesRequest.new(
-        :$queue-url
+            :$queue-url
         );
-;
+
         self.perform-operation(
             :api-call<ListDeadLetterSourceQueues>,
-            :return-type(ListDeadLetterSourceQueuesResult),
-            :result-wrapper('ListDeadLetterSourceQueuesResult'),
             :$request-input,
         );
     }
 
     method remove-permission(
-    Str :$queue-url!,
-    Str :$label!
+        Str :$queue-url!,
+        Str :$label!
     ) is service-operation('RemovePermission') {
         my $request-input = RemovePermissionRequest.new(
-        :$queue-url,
-        :$label
+            :$queue-url,
+            :$label
         );
-;
+
         self.perform-operation(
             :api-call<RemovePermission>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method purge-queue(
-    Str :$queue-url!
+        Str :$queue-url!
     ) is service-operation('PurgeQueue') {
         my $request-input = PurgeQueueRequest.new(
-        :$queue-url
+            :$queue-url
         );
-;
+
         self.perform-operation(
             :api-call<PurgeQueue>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method change-message-visibility-batch(
-    Str :$queue-url!,
-    Array[ChangeMessageVisibilityBatchRequestEntry] :$entries!
+        Str :$queue-url!,
+        Array[ChangeMessageVisibilityBatchRequestEntry] :$entries!
     ) returns ChangeMessageVisibilityBatchResult is service-operation('ChangeMessageVisibilityBatch') {
         my $request-input = ChangeMessageVisibilityBatchRequest.new(
-        :$queue-url,
-        :$entries
+            :$queue-url,
+            :$entries
         );
-;
+
         self.perform-operation(
             :api-call<ChangeMessageVisibilityBatch>,
-            :return-type(ChangeMessageVisibilityBatchResult),
-            :result-wrapper('ChangeMessageVisibilityBatchResult'),
             :$request-input,
         );
     }
 
     method add-permission(
-    Array[Str] :$aws-account-ids!,
-    Array[Str] :$actions!,
-    Str :$queue-url!,
-    Str :$label!
+        Array[Str] :$aws-account-ids!,
+        Array[Str] :$actions!,
+        Str :$queue-url!,
+        Str :$label!
     ) is service-operation('AddPermission') {
         my $request-input = AddPermissionRequest.new(
-        :$aws-account-ids,
-        :$actions,
-        :$queue-url,
-        :$label
+            :$aws-account-ids,
+            :$actions,
+            :$queue-url,
+            :$label
         );
-;
+
         self.perform-operation(
             :api-call<AddPermission>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-queues(
-    Str :$queue-name-prefix
+        Str :$queue-name-prefix
     ) returns ListQueuesResult is service-operation('ListQueues') {
         my $request-input = ListQueuesRequest.new(
-        :$queue-name-prefix
+            :$queue-name-prefix
         );
-;
+
         self.perform-operation(
             :api-call<ListQueues>,
-            :return-type(ListQueuesResult),
-            :result-wrapper('ListQueuesResult'),
             :$request-input,
         );
     }

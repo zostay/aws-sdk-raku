@@ -275,89 +275,81 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
     }
 
     method update-replication-job(
-    LicenseType :$license-type,
-    DateTime :$next-replication-run-start-time,
-    Str :$role-name,
-    Str :$description,
-    Int :$frequency,
-    Str :$replication-job-id!
+        LicenseType :$license-type,
+        DateTime :$next-replication-run-start-time,
+        Str :$role-name,
+        Str :$description,
+        Int :$frequency,
+        Str :$replication-job-id!
     ) returns UpdateReplicationJobResponse is service-operation('UpdateReplicationJob') {
         my $request-input = UpdateReplicationJobRequest.new(
-        :$license-type,
-        :$next-replication-run-start-time,
-        :$role-name,
-        :$description,
-        :$frequency,
-        :$replication-job-id
+            :$license-type,
+            :$next-replication-run-start-time,
+            :$role-name,
+            :$description,
+            :$frequency,
+            :$replication-job-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateReplicationJob>,
-            :return-type(UpdateReplicationJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-replication-jobs(
-    Int :$max-results,
-    Str :$next-token,
-    Str :$replication-job-id
+        Int :$max-results,
+        Str :$next-token,
+        Str :$replication-job-id
     ) returns GetReplicationJobsResponse is service-operation('GetReplicationJobs') {
         my $request-input = GetReplicationJobsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$replication-job-id
+            :$max-results,
+            :$next-token,
+            :$replication-job-id
         );
-;
+
         self.perform-operation(
             :api-call<GetReplicationJobs>,
-            :return-type(GetReplicationJobsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-replication-job(
-    LicenseType :$license-type,
-    Str :$role-name,
-    DateTime :$seed-replication-time!,
-    Str :$description,
-    Int :$frequency!,
-    Str :$server-id!
+        LicenseType :$license-type,
+        Str :$role-name,
+        DateTime :$seed-replication-time!,
+        Str :$description,
+        Int :$frequency!,
+        Str :$server-id!
     ) returns CreateReplicationJobResponse is service-operation('CreateReplicationJob') {
         my $request-input = CreateReplicationJobRequest.new(
-        :$license-type,
-        :$role-name,
-        :$seed-replication-time,
-        :$description,
-        :$frequency,
-        :$server-id
+            :$license-type,
+            :$role-name,
+            :$seed-replication-time,
+            :$description,
+            :$frequency,
+            :$server-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateReplicationJob>,
-            :return-type(CreateReplicationJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-replication-runs(
-    Int :$max-results,
-    Str :$next-token,
-    Str :$replication-job-id!
+        Int :$max-results,
+        Str :$next-token,
+        Str :$replication-job-id!
     ) returns GetReplicationRunsResponse is service-operation('GetReplicationRuns') {
         my $request-input = GetReplicationRunsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$replication-job-id
+            :$max-results,
+            :$next-token,
+            :$replication-job-id
         );
-;
+
         self.perform-operation(
             :api-call<GetReplicationRuns>,
-            :return-type(GetReplicationRunsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -368,77 +360,67 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
         my $request-input = DeleteServerCatalogRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<DeleteServerCatalog>,
-            :return-type(DeleteServerCatalogResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-on-demand-replication-run(
-    Str :$description,
-    Str :$replication-job-id!
+        Str :$description,
+        Str :$replication-job-id!
     ) returns StartOnDemandReplicationRunResponse is service-operation('StartOnDemandReplicationRun') {
         my $request-input = StartOnDemandReplicationRunRequest.new(
-        :$description,
-        :$replication-job-id
+            :$description,
+            :$replication-job-id
         );
-;
+
         self.perform-operation(
             :api-call<StartOnDemandReplicationRun>,
-            :return-type(StartOnDemandReplicationRunResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-servers(
-    Int :$max-results,
-    Str :$next-token
+        Int :$max-results,
+        Str :$next-token
     ) returns GetServersResponse is service-operation('GetServers') {
         my $request-input = GetServersRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetServers>,
-            :return-type(GetServersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-connectors(
-    Int :$max-results,
-    Str :$next-token
+        Int :$max-results,
+        Str :$next-token
     ) returns GetConnectorsResponse is service-operation('GetConnectors') {
         my $request-input = GetConnectorsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetConnectors>,
-            :return-type(GetConnectorsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-replication-job(
-    Str :$replication-job-id!
+        Str :$replication-job-id!
     ) returns DeleteReplicationJobResponse is service-operation('DeleteReplicationJob') {
         my $request-input = DeleteReplicationJobRequest.new(
-        :$replication-job-id
+            :$replication-job-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteReplicationJob>,
-            :return-type(DeleteReplicationJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -449,26 +431,22 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
         my $request-input = ImportServerCatalogRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<ImportServerCatalog>,
-            :return-type(ImportServerCatalogResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-connector(
-    Str :$connector-id!
+        Str :$connector-id!
     ) returns DisassociateConnectorResponse is service-operation('DisassociateConnector') {
         my $request-input = DisassociateConnectorRequest.new(
-        :$connector-id
+            :$connector-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateConnector>,
-            :return-type(DisassociateConnectorResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

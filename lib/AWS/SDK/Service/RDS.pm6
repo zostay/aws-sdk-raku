@@ -2211,1810 +2211,1668 @@ class AWS::SDK::Service::RDS does AWS::SDK::Service {
     }
 
     method remove-source-identifier-from-subscription(
-    Str :$subscription-name!,
-    Str :$source-identifier!
+        Str :$subscription-name!,
+        Str :$source-identifier!
     ) returns RemoveSourceIdentifierFromSubscriptionResult is service-operation('RemoveSourceIdentifierFromSubscription') {
         my $request-input = RemoveSourceIdentifierFromSubscriptionMessage.new(
-        :$subscription-name,
-        :$source-identifier
+            :$subscription-name,
+            :$source-identifier
         );
-;
+
         self.perform-operation(
             :api-call<RemoveSourceIdentifierFromSubscription>,
-            :return-type(RemoveSourceIdentifierFromSubscriptionResult),
-            :result-wrapper('RemoveSourceIdentifierFromSubscriptionResult'),
             :$request-input,
         );
     }
 
     method modify-option-group(
-    Array[Str] :$options-to-remove,
-    Array[OptionConfiguration] :$options-to-include,
-    Str :$option-group-name!,
-    Bool :$apply-immediately
+        Array[Str] :$options-to-remove,
+        Array[OptionConfiguration] :$options-to-include,
+        Str :$option-group-name!,
+        Bool :$apply-immediately
     ) returns ModifyOptionGroupResult is service-operation('ModifyOptionGroup') {
         my $request-input = ModifyOptionGroupMessage.new(
-        :$options-to-remove,
-        :$options-to-include,
-        :$option-group-name,
-        :$apply-immediately
+            :$options-to-remove,
+            :$options-to-include,
+            :$option-group-name,
+            :$apply-immediately
         );
-;
+
         self.perform-operation(
             :api-call<ModifyOptionGroup>,
-            :return-type(ModifyOptionGroupResult),
-            :result-wrapper('ModifyOptionGroupResult'),
             :$request-input,
         );
     }
 
     method copy-db-cluster-parameter-group(
-    Str :$target-db-cluster-parameter-group-identifier!,
-    Array[Tag] :$tags,
-    Str :$target-db-cluster-parameter-group-description!,
-    Str :$source-db-cluster-parameter-group-identifier!
+        Str :$target-db-cluster-parameter-group-identifier!,
+        Array[Tag] :$tags,
+        Str :$target-db-cluster-parameter-group-description!,
+        Str :$source-db-cluster-parameter-group-identifier!
     ) returns CopyDBClusterParameterGroupResult is service-operation('CopyDBClusterParameterGroup') {
         my $request-input = CopyDBClusterParameterGroupMessage.new(
-        :$target-db-cluster-parameter-group-identifier,
-        :$tags,
-        :$target-db-cluster-parameter-group-description,
-        :$source-db-cluster-parameter-group-identifier
+            :$target-db-cluster-parameter-group-identifier,
+            :$tags,
+            :$target-db-cluster-parameter-group-description,
+            :$source-db-cluster-parameter-group-identifier
         );
-;
+
         self.perform-operation(
             :api-call<CopyDBClusterParameterGroup>,
-            :return-type(CopyDBClusterParameterGroupResult),
-            :result-wrapper('CopyDBClusterParameterGroupResult'),
             :$request-input,
         );
     }
 
     method create-db-cluster-parameter-group(
-    Str :$db-parameter-group-family!,
-    Str :$description!,
-    Str :$db-cluster-parameter-group-name!,
-    Array[Tag] :$tags
+        Str :$db-parameter-group-family!,
+        Str :$description!,
+        Str :$db-cluster-parameter-group-name!,
+        Array[Tag] :$tags
     ) returns CreateDBClusterParameterGroupResult is service-operation('CreateDBClusterParameterGroup') {
         my $request-input = CreateDBClusterParameterGroupMessage.new(
-        :$db-parameter-group-family,
-        :$description,
-        :$db-cluster-parameter-group-name,
-        :$tags
+            :$db-parameter-group-family,
+            :$description,
+            :$db-cluster-parameter-group-name,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateDBClusterParameterGroup>,
-            :return-type(CreateDBClusterParameterGroupResult),
-            :result-wrapper('CreateDBClusterParameterGroupResult'),
             :$request-input,
         );
     }
 
     method describe-db-clusters(
-    Array[Filter] :$filters,
-    Str :$db-cluster-identifier,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$db-cluster-identifier,
+        Str :$marker,
+        Int :$max-records
     ) returns DBClusterMessage is service-operation('DescribeDBClusters') {
         my $request-input = DescribeDBClustersMessage.new(
-        :$filters,
-        :$db-cluster-identifier,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$db-cluster-identifier,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBClusters>,
-            :return-type(DBClusterMessage),
-            :result-wrapper('DescribeDBClustersResult'),
             :$request-input,
         );
     }
 
     method describe-db-parameter-groups(
-    Str :$db-parameter-group-name,
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Str :$db-parameter-group-name,
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DBParameterGroupsMessage is service-operation('DescribeDBParameterGroups') {
         my $request-input = DescribeDBParameterGroupsMessage.new(
-        :$db-parameter-group-name,
-        :$filters,
-        :$marker,
-        :$max-records
+            :$db-parameter-group-name,
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBParameterGroups>,
-            :return-type(DBParameterGroupsMessage),
-            :result-wrapper('DescribeDBParameterGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-db-parameters(
-    Str :$db-parameter-group-name!,
-    Array[Filter] :$filters,
-    Str :$source,
-    Str :$marker,
-    Int :$max-records
+        Str :$db-parameter-group-name!,
+        Array[Filter] :$filters,
+        Str :$source,
+        Str :$marker,
+        Int :$max-records
     ) returns DBParameterGroupDetails is service-operation('DescribeDBParameters') {
         my $request-input = DescribeDBParametersMessage.new(
-        :$db-parameter-group-name,
-        :$filters,
-        :$source,
-        :$marker,
-        :$max-records
+            :$db-parameter-group-name,
+            :$filters,
+            :$source,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBParameters>,
-            :return-type(DBParameterGroupDetails),
-            :result-wrapper('DescribeDBParametersResult'),
             :$request-input,
         );
     }
 
     method stop-db-instance(
-    Str :$db-snapshot-identifier,
-    Str :$db-instance-identifier!
+        Str :$db-snapshot-identifier,
+        Str :$db-instance-identifier!
     ) returns StopDBInstanceResult is service-operation('StopDBInstance') {
         my $request-input = StopDBInstanceMessage.new(
-        :$db-snapshot-identifier,
-        :$db-instance-identifier
+            :$db-snapshot-identifier,
+            :$db-instance-identifier
         );
-;
+
         self.perform-operation(
             :api-call<StopDBInstance>,
-            :return-type(StopDBInstanceResult),
-            :result-wrapper('StopDBInstanceResult'),
             :$request-input,
         );
     }
 
     method restore-db-cluster-from-snapshot(
-    Str :$kms-key-id,
-    Array[Str] :$vpc-security-group-ids,
-    Str :$database-name,
-    Str :$db-subnet-group-name,
-    Str :$snapshot-identifier!,
-    Array[Str] :$availability-zones,
-    Array[Tag] :$tags,
-    Str :$engine!,
-    Str :$db-cluster-identifier!,
-    Str :$option-group-name,
-    Int :$port,
-    Str :$engine-version,
-    Bool :$enable-iam-database-authentication
+        Str :$kms-key-id,
+        Array[Str] :$vpc-security-group-ids,
+        Str :$database-name,
+        Str :$db-subnet-group-name,
+        Str :$snapshot-identifier!,
+        Array[Str] :$availability-zones,
+        Array[Tag] :$tags,
+        Str :$engine!,
+        Str :$db-cluster-identifier!,
+        Str :$option-group-name,
+        Int :$port,
+        Str :$engine-version,
+        Bool :$enable-iam-database-authentication
     ) returns RestoreDBClusterFromSnapshotResult is service-operation('RestoreDBClusterFromSnapshot') {
         my $request-input = RestoreDBClusterFromSnapshotMessage.new(
-        :$kms-key-id,
-        :$vpc-security-group-ids,
-        :$database-name,
-        :$db-subnet-group-name,
-        :$snapshot-identifier,
-        :$availability-zones,
-        :$tags,
-        :$engine,
-        :$db-cluster-identifier,
-        :$option-group-name,
-        :$port,
-        :$engine-version,
-        :$enable-iam-database-authentication
+            :$kms-key-id,
+            :$vpc-security-group-ids,
+            :$database-name,
+            :$db-subnet-group-name,
+            :$snapshot-identifier,
+            :$availability-zones,
+            :$tags,
+            :$engine,
+            :$db-cluster-identifier,
+            :$option-group-name,
+            :$port,
+            :$engine-version,
+            :$enable-iam-database-authentication
         );
-;
+
         self.perform-operation(
             :api-call<RestoreDBClusterFromSnapshot>,
-            :return-type(RestoreDBClusterFromSnapshotResult),
-            :result-wrapper('RestoreDBClusterFromSnapshotResult'),
             :$request-input,
         );
     }
 
     method remove-role-from-db-cluster(
-    Str :$role-arn!,
-    Str :$db-cluster-identifier!
+        Str :$role-arn!,
+        Str :$db-cluster-identifier!
     ) is service-operation('RemoveRoleFromDBCluster') {
         my $request-input = RemoveRoleFromDBClusterMessage.new(
-        :$role-arn,
-        :$db-cluster-identifier
+            :$role-arn,
+            :$db-cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<RemoveRoleFromDBCluster>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-source-identifier-to-subscription(
-    Str :$subscription-name!,
-    Str :$source-identifier!
+        Str :$subscription-name!,
+        Str :$source-identifier!
     ) returns AddSourceIdentifierToSubscriptionResult is service-operation('AddSourceIdentifierToSubscription') {
         my $request-input = AddSourceIdentifierToSubscriptionMessage.new(
-        :$subscription-name,
-        :$source-identifier
+            :$subscription-name,
+            :$source-identifier
         );
-;
+
         self.perform-operation(
             :api-call<AddSourceIdentifierToSubscription>,
-            :return-type(AddSourceIdentifierToSubscriptionResult),
-            :result-wrapper('AddSourceIdentifierToSubscriptionResult'),
             :$request-input,
         );
     }
 
     method add-tags-to-resource(
-    Str :$resource-name!,
-    Array[Tag] :$tags!
+        Str :$resource-name!,
+        Array[Tag] :$tags!
     ) is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceMessage.new(
-        :$resource-name,
-        :$tags
+            :$resource-name,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<AddTagsToResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method apply-pending-maintenance-action(
-    Str :$apply-action!,
-    Str :$resource-identifier!,
-    Str :$opt-in-type!
+        Str :$apply-action!,
+        Str :$resource-identifier!,
+        Str :$opt-in-type!
     ) returns ApplyPendingMaintenanceActionResult is service-operation('ApplyPendingMaintenanceAction') {
         my $request-input = ApplyPendingMaintenanceActionMessage.new(
-        :$apply-action,
-        :$resource-identifier,
-        :$opt-in-type
+            :$apply-action,
+            :$resource-identifier,
+            :$opt-in-type
         );
-;
+
         self.perform-operation(
             :api-call<ApplyPendingMaintenanceAction>,
-            :return-type(ApplyPendingMaintenanceActionResult),
-            :result-wrapper('ApplyPendingMaintenanceActionResult'),
             :$request-input,
         );
     }
 
     method authorize-db-security-group-ingress(
-    Str :$ec2-security-group-name,
-    Str :$db-security-group-name!,
-    Str :$ec2-security-group-id,
-    Str :$cidr-ip,
-    Str :$ec2-security-group-owner-id
+        Str :$ec2-security-group-name,
+        Str :$db-security-group-name!,
+        Str :$ec2-security-group-id,
+        Str :$cidr-ip,
+        Str :$ec2-security-group-owner-id
     ) returns AuthorizeDBSecurityGroupIngressResult is service-operation('AuthorizeDBSecurityGroupIngress') {
         my $request-input = AuthorizeDBSecurityGroupIngressMessage.new(
-        :$ec2-security-group-name,
-        :$db-security-group-name,
-        :$ec2-security-group-id,
-        :$cidr-ip,
-        :$ec2-security-group-owner-id
+            :$ec2-security-group-name,
+            :$db-security-group-name,
+            :$ec2-security-group-id,
+            :$cidr-ip,
+            :$ec2-security-group-owner-id
         );
-;
+
         self.perform-operation(
             :api-call<AuthorizeDBSecurityGroupIngress>,
-            :return-type(AuthorizeDBSecurityGroupIngressResult),
-            :result-wrapper('AuthorizeDBSecurityGroupIngressResult'),
             :$request-input,
         );
     }
 
     method create-db-cluster-snapshot(
-    Str :$db-cluster-snapshot-identifier!,
-    Array[Tag] :$tags,
-    Str :$db-cluster-identifier!
+        Str :$db-cluster-snapshot-identifier!,
+        Array[Tag] :$tags,
+        Str :$db-cluster-identifier!
     ) returns CreateDBClusterSnapshotResult is service-operation('CreateDBClusterSnapshot') {
         my $request-input = CreateDBClusterSnapshotMessage.new(
-        :$db-cluster-snapshot-identifier,
-        :$tags,
-        :$db-cluster-identifier
+            :$db-cluster-snapshot-identifier,
+            :$tags,
+            :$db-cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<CreateDBClusterSnapshot>,
-            :return-type(CreateDBClusterSnapshotResult),
-            :result-wrapper('CreateDBClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method describe-db-security-groups(
-    Array[Filter] :$filters,
-    Str :$db-security-group-name,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$db-security-group-name,
+        Str :$marker,
+        Int :$max-records
     ) returns DBSecurityGroupMessage is service-operation('DescribeDBSecurityGroups') {
         my $request-input = DescribeDBSecurityGroupsMessage.new(
-        :$filters,
-        :$db-security-group-name,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$db-security-group-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBSecurityGroups>,
-            :return-type(DBSecurityGroupMessage),
-            :result-wrapper('DescribeDBSecurityGroupsResult'),
             :$request-input,
         );
     }
 
     method reset-db-cluster-parameter-group(
-    Array[Parameter] :$parameters,
-    Bool :$reset-all-parameters,
-    Str :$db-cluster-parameter-group-name!
+        Array[Parameter] :$parameters,
+        Bool :$reset-all-parameters,
+        Str :$db-cluster-parameter-group-name!
     ) returns DBClusterParameterGroupNameMessage is service-operation('ResetDBClusterParameterGroup') {
         my $request-input = ResetDBClusterParameterGroupMessage.new(
-        :$parameters,
-        :$reset-all-parameters,
-        :$db-cluster-parameter-group-name
+            :$parameters,
+            :$reset-all-parameters,
+            :$db-cluster-parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<ResetDBClusterParameterGroup>,
-            :return-type(DBClusterParameterGroupNameMessage),
-            :result-wrapper('ResetDBClusterParameterGroupResult'),
             :$request-input,
         );
     }
 
     method remove-tags-from-resource(
-    Str :$resource-name!,
-    Array[Str] :$tag-keys!
+        Str :$resource-name!,
+        Array[Str] :$tag-keys!
     ) is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceMessage.new(
-        :$resource-name,
-        :$tag-keys
+            :$resource-name,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method copy-db-snapshot(
-    Str :$pre-signed-url,
-    Str :$kms-key-id,
-    Str :$target-db-snapshot-identifier!,
-    Bool :$copy-tags,
-    Array[Tag] :$tags,
-    Str :$source-db-snapshot-identifier!,
-    Str :$option-group-name
+        Str :$pre-signed-url,
+        Str :$kms-key-id,
+        Str :$target-db-snapshot-identifier!,
+        Bool :$copy-tags,
+        Array[Tag] :$tags,
+        Str :$source-db-snapshot-identifier!,
+        Str :$option-group-name
     ) returns CopyDBSnapshotResult is service-operation('CopyDBSnapshot') {
         my $request-input = CopyDBSnapshotMessage.new(
-        :$pre-signed-url,
-        :$kms-key-id,
-        :$target-db-snapshot-identifier,
-        :$copy-tags,
-        :$tags,
-        :$source-db-snapshot-identifier,
-        :$option-group-name
+            :$pre-signed-url,
+            :$kms-key-id,
+            :$target-db-snapshot-identifier,
+            :$copy-tags,
+            :$tags,
+            :$source-db-snapshot-identifier,
+            :$option-group-name
         );
-;
+
         self.perform-operation(
             :api-call<CopyDBSnapshot>,
-            :return-type(CopyDBSnapshotResult),
-            :result-wrapper('CopyDBSnapshotResult'),
             :$request-input,
         );
     }
 
     method create-db-parameter-group(
-    Str :$db-parameter-group-family!,
-    Str :$db-parameter-group-name!,
-    Str :$description!,
-    Array[Tag] :$tags
+        Str :$db-parameter-group-family!,
+        Str :$db-parameter-group-name!,
+        Str :$description!,
+        Array[Tag] :$tags
     ) returns CreateDBParameterGroupResult is service-operation('CreateDBParameterGroup') {
         my $request-input = CreateDBParameterGroupMessage.new(
-        :$db-parameter-group-family,
-        :$db-parameter-group-name,
-        :$description,
-        :$tags
+            :$db-parameter-group-family,
+            :$db-parameter-group-name,
+            :$description,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateDBParameterGroup>,
-            :return-type(CreateDBParameterGroupResult),
-            :result-wrapper('CreateDBParameterGroupResult'),
             :$request-input,
         );
     }
 
     method describe-db-cluster-parameter-groups(
-    Array[Filter] :$filters,
-    Str :$db-cluster-parameter-group-name,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$db-cluster-parameter-group-name,
+        Str :$marker,
+        Int :$max-records
     ) returns DBClusterParameterGroupsMessage is service-operation('DescribeDBClusterParameterGroups') {
         my $request-input = DescribeDBClusterParameterGroupsMessage.new(
-        :$filters,
-        :$db-cluster-parameter-group-name,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$db-cluster-parameter-group-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBClusterParameterGroups>,
-            :return-type(DBClusterParameterGroupsMessage),
-            :result-wrapper('DescribeDBClusterParameterGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-event-subscriptions(
-    Str :$subscription-name,
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Str :$subscription-name,
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns EventSubscriptionsMessage is service-operation('DescribeEventSubscriptions') {
         my $request-input = DescribeEventSubscriptionsMessage.new(
-        :$subscription-name,
-        :$filters,
-        :$marker,
-        :$max-records
+            :$subscription-name,
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEventSubscriptions>,
-            :return-type(EventSubscriptionsMessage),
-            :result-wrapper('DescribeEventSubscriptionsResult'),
             :$request-input,
         );
     }
 
     method start-db-instance(
-    Str :$db-instance-identifier!
+        Str :$db-instance-identifier!
     ) returns StartDBInstanceResult is service-operation('StartDBInstance') {
         my $request-input = StartDBInstanceMessage.new(
-        :$db-instance-identifier
+            :$db-instance-identifier
         );
-;
+
         self.perform-operation(
             :api-call<StartDBInstance>,
-            :return-type(StartDBInstanceResult),
-            :result-wrapper('StartDBInstanceResult'),
             :$request-input,
         );
     }
 
     method restore-db-instance-from-db-snapshot(
-    Str :$domain,
-    Str :$db-name,
-    Str :$license-model,
-    Str :$db-snapshot-identifier!,
-    Str :$db-subnet-group-name,
-    Bool :$copy-tags-to-snapshot,
-    Str :$tde-credential-password,
-    Str :$storage-type,
-    Array[Tag] :$tags,
-    Str :$engine,
-    Bool :$publicly-accessible,
-    Str :$db-instance-class,
-    Str :$domain-iam-role-name,
-    Str :$availability-zone,
-    Str :$db-instance-identifier!,
-    Str :$tde-credential-arn,
-    Str :$option-group-name,
-    Int :$iops,
-    Bool :$auto-minor-version-upgrade,
-    Bool :$multi-az,
-    Int :$port,
-    Bool :$enable-iam-database-authentication
+        Str :$domain,
+        Str :$db-name,
+        Str :$license-model,
+        Str :$db-snapshot-identifier!,
+        Str :$db-subnet-group-name,
+        Bool :$copy-tags-to-snapshot,
+        Str :$tde-credential-password,
+        Str :$storage-type,
+        Array[Tag] :$tags,
+        Str :$engine,
+        Bool :$publicly-accessible,
+        Str :$db-instance-class,
+        Str :$domain-iam-role-name,
+        Str :$availability-zone,
+        Str :$db-instance-identifier!,
+        Str :$tde-credential-arn,
+        Str :$option-group-name,
+        Int :$iops,
+        Bool :$auto-minor-version-upgrade,
+        Bool :$multi-az,
+        Int :$port,
+        Bool :$enable-iam-database-authentication
     ) returns RestoreDBInstanceFromDBSnapshotResult is service-operation('RestoreDBInstanceFromDBSnapshot') {
         my $request-input = RestoreDBInstanceFromDBSnapshotMessage.new(
-        :$domain,
-        :$db-name,
-        :$license-model,
-        :$db-snapshot-identifier,
-        :$db-subnet-group-name,
-        :$copy-tags-to-snapshot,
-        :$tde-credential-password,
-        :$storage-type,
-        :$tags,
-        :$engine,
-        :$publicly-accessible,
-        :$db-instance-class,
-        :$domain-iam-role-name,
-        :$availability-zone,
-        :$db-instance-identifier,
-        :$tde-credential-arn,
-        :$option-group-name,
-        :$iops,
-        :$auto-minor-version-upgrade,
-        :$multi-az,
-        :$port,
-        :$enable-iam-database-authentication
+            :$domain,
+            :$db-name,
+            :$license-model,
+            :$db-snapshot-identifier,
+            :$db-subnet-group-name,
+            :$copy-tags-to-snapshot,
+            :$tde-credential-password,
+            :$storage-type,
+            :$tags,
+            :$engine,
+            :$publicly-accessible,
+            :$db-instance-class,
+            :$domain-iam-role-name,
+            :$availability-zone,
+            :$db-instance-identifier,
+            :$tde-credential-arn,
+            :$option-group-name,
+            :$iops,
+            :$auto-minor-version-upgrade,
+            :$multi-az,
+            :$port,
+            :$enable-iam-database-authentication
         );
-;
+
         self.perform-operation(
             :api-call<RestoreDBInstanceFromDBSnapshot>,
-            :return-type(RestoreDBInstanceFromDBSnapshotResult),
-            :result-wrapper('RestoreDBInstanceFromDBSnapshotResult'),
             :$request-input,
         );
     }
 
     method purchase-reserved-db-instances-offering(
-    Array[Tag] :$tags,
-    Str :$reserved-db-instance-id,
-    Int :$db-instance-count,
-    Str :$reserved-db-instances-offering-id!
+        Array[Tag] :$tags,
+        Str :$reserved-db-instance-id,
+        Int :$db-instance-count,
+        Str :$reserved-db-instances-offering-id!
     ) returns PurchaseReservedDBInstancesOfferingResult is service-operation('PurchaseReservedDBInstancesOffering') {
         my $request-input = PurchaseReservedDBInstancesOfferingMessage.new(
-        :$tags,
-        :$reserved-db-instance-id,
-        :$db-instance-count,
-        :$reserved-db-instances-offering-id
+            :$tags,
+            :$reserved-db-instance-id,
+            :$db-instance-count,
+            :$reserved-db-instances-offering-id
         );
-;
+
         self.perform-operation(
             :api-call<PurchaseReservedDBInstancesOffering>,
-            :return-type(PurchaseReservedDBInstancesOfferingResult),
-            :result-wrapper('PurchaseReservedDBInstancesOfferingResult'),
             :$request-input,
         );
     }
 
     method modify-db-cluster-parameter-group(
-    Array[Parameter] :$parameters!,
-    Str :$db-cluster-parameter-group-name!
+        Array[Parameter] :$parameters!,
+        Str :$db-cluster-parameter-group-name!
     ) returns DBClusterParameterGroupNameMessage is service-operation('ModifyDBClusterParameterGroup') {
         my $request-input = ModifyDBClusterParameterGroupMessage.new(
-        :$parameters,
-        :$db-cluster-parameter-group-name
+            :$parameters,
+            :$db-cluster-parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<ModifyDBClusterParameterGroup>,
-            :return-type(DBClusterParameterGroupNameMessage),
-            :result-wrapper('ModifyDBClusterParameterGroupResult'),
             :$request-input,
         );
     }
 
     method download-db-log-file-portion(
-    Str :$log-file-name!,
-    Int :$number-of-lines,
-    Str :$db-instance-identifier!,
-    Str :$marker
+        Str :$log-file-name!,
+        Int :$number-of-lines,
+        Str :$db-instance-identifier!,
+        Str :$marker
     ) returns DownloadDBLogFilePortionDetails is service-operation('DownloadDBLogFilePortion') {
         my $request-input = DownloadDBLogFilePortionMessage.new(
-        :$log-file-name,
-        :$number-of-lines,
-        :$db-instance-identifier,
-        :$marker
+            :$log-file-name,
+            :$number-of-lines,
+            :$db-instance-identifier,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DownloadDBLogFilePortion>,
-            :return-type(DownloadDBLogFilePortionDetails),
-            :result-wrapper('DownloadDBLogFilePortionResult'),
             :$request-input,
         );
     }
 
     method create-db-subnet-group(
-    Str :$db-subnet-group-description!,
-    Str :$db-subnet-group-name!,
-    Array[Tag] :$tags,
-    Array[Str] :$subnet-ids!
+        Str :$db-subnet-group-description!,
+        Str :$db-subnet-group-name!,
+        Array[Tag] :$tags,
+        Array[Str] :$subnet-ids!
     ) returns CreateDBSubnetGroupResult is service-operation('CreateDBSubnetGroup') {
         my $request-input = CreateDBSubnetGroupMessage.new(
-        :$db-subnet-group-description,
-        :$db-subnet-group-name,
-        :$tags,
-        :$subnet-ids
+            :$db-subnet-group-description,
+            :$db-subnet-group-name,
+            :$tags,
+            :$subnet-ids
         );
-;
+
         self.perform-operation(
             :api-call<CreateDBSubnetGroup>,
-            :return-type(CreateDBSubnetGroupResult),
-            :result-wrapper('CreateDBSubnetGroupResult'),
             :$request-input,
         );
     }
 
     method promote-read-replica-db-cluster(
-    Str :$db-cluster-identifier!
+        Str :$db-cluster-identifier!
     ) returns PromoteReadReplicaDBClusterResult is service-operation('PromoteReadReplicaDBCluster') {
         my $request-input = PromoteReadReplicaDBClusterMessage.new(
-        :$db-cluster-identifier
+            :$db-cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<PromoteReadReplicaDBCluster>,
-            :return-type(PromoteReadReplicaDBClusterResult),
-            :result-wrapper('PromoteReadReplicaDBClusterResult'),
             :$request-input,
         );
     }
 
     method copy-db-cluster-snapshot(
-    Str :$pre-signed-url,
-    Str :$kms-key-id,
-    Str :$target-db-cluster-snapshot-identifier!,
-    Str :$source-db-cluster-snapshot-identifier!,
-    Array[Tag] :$tags,
-    Bool :$copy-tags
+        Str :$pre-signed-url,
+        Str :$kms-key-id,
+        Str :$target-db-cluster-snapshot-identifier!,
+        Str :$source-db-cluster-snapshot-identifier!,
+        Array[Tag] :$tags,
+        Bool :$copy-tags
     ) returns CopyDBClusterSnapshotResult is service-operation('CopyDBClusterSnapshot') {
         my $request-input = CopyDBClusterSnapshotMessage.new(
-        :$pre-signed-url,
-        :$kms-key-id,
-        :$target-db-cluster-snapshot-identifier,
-        :$source-db-cluster-snapshot-identifier,
-        :$tags,
-        :$copy-tags
+            :$pre-signed-url,
+            :$kms-key-id,
+            :$target-db-cluster-snapshot-identifier,
+            :$source-db-cluster-snapshot-identifier,
+            :$tags,
+            :$copy-tags
         );
-;
+
         self.perform-operation(
             :api-call<CopyDBClusterSnapshot>,
-            :return-type(CopyDBClusterSnapshotResult),
-            :result-wrapper('CopyDBClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method delete-db-parameter-group(
-    Str :$db-parameter-group-name!
+        Str :$db-parameter-group-name!
     ) is service-operation('DeleteDBParameterGroup') {
         my $request-input = DeleteDBParameterGroupMessage.new(
-        :$db-parameter-group-name
+            :$db-parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDBParameterGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-db-cluster-snapshot-attributes(
-    Str :$db-cluster-snapshot-identifier!
+        Str :$db-cluster-snapshot-identifier!
     ) returns DescribeDBClusterSnapshotAttributesResult is service-operation('DescribeDBClusterSnapshotAttributes') {
         my $request-input = DescribeDBClusterSnapshotAttributesMessage.new(
-        :$db-cluster-snapshot-identifier
+            :$db-cluster-snapshot-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBClusterSnapshotAttributes>,
-            :return-type(DescribeDBClusterSnapshotAttributesResult),
-            :result-wrapper('DescribeDBClusterSnapshotAttributesResult'),
             :$request-input,
         );
     }
 
     method modify-db-snapshot(
-    Str :$db-snapshot-identifier!,
-    Str :$option-group-name,
-    Str :$engine-version
+        Str :$db-snapshot-identifier!,
+        Str :$option-group-name,
+        Str :$engine-version
     ) returns ModifyDBSnapshotResult is service-operation('ModifyDBSnapshot') {
         my $request-input = ModifyDBSnapshotMessage.new(
-        :$db-snapshot-identifier,
-        :$option-group-name,
-        :$engine-version
+            :$db-snapshot-identifier,
+            :$option-group-name,
+            :$engine-version
         );
-;
+
         self.perform-operation(
             :api-call<ModifyDBSnapshot>,
-            :return-type(ModifyDBSnapshotResult),
-            :result-wrapper('ModifyDBSnapshotResult'),
             :$request-input,
         );
     }
 
     method modify-db-cluster-snapshot-attribute(
-    Str :$attribute-name!,
-    Str :$db-cluster-snapshot-identifier!,
-    Array[Str] :$values-to-remove,
-    Array[Str] :$values-to-add
+        Str :$attribute-name!,
+        Str :$db-cluster-snapshot-identifier!,
+        Array[Str] :$values-to-remove,
+        Array[Str] :$values-to-add
     ) returns ModifyDBClusterSnapshotAttributeResult is service-operation('ModifyDBClusterSnapshotAttribute') {
         my $request-input = ModifyDBClusterSnapshotAttributeMessage.new(
-        :$attribute-name,
-        :$db-cluster-snapshot-identifier,
-        :$values-to-remove,
-        :$values-to-add
+            :$attribute-name,
+            :$db-cluster-snapshot-identifier,
+            :$values-to-remove,
+            :$values-to-add
         );
-;
+
         self.perform-operation(
             :api-call<ModifyDBClusterSnapshotAttribute>,
-            :return-type(ModifyDBClusterSnapshotAttributeResult),
-            :result-wrapper('ModifyDBClusterSnapshotAttributeResult'),
             :$request-input,
         );
     }
 
     method describe-option-groups(
-    Str :$engine-name,
-    Array[Filter] :$filters,
-    Str :$major-engine-version,
-    Str :$marker,
-    Str :$option-group-name,
-    Int :$max-records
+        Str :$engine-name,
+        Array[Filter] :$filters,
+        Str :$major-engine-version,
+        Str :$marker,
+        Str :$option-group-name,
+        Int :$max-records
     ) returns OptionGroups is service-operation('DescribeOptionGroups') {
         my $request-input = DescribeOptionGroupsMessage.new(
-        :$engine-name,
-        :$filters,
-        :$major-engine-version,
-        :$marker,
-        :$option-group-name,
-        :$max-records
+            :$engine-name,
+            :$filters,
+            :$major-engine-version,
+            :$marker,
+            :$option-group-name,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeOptionGroups>,
-            :return-type(OptionGroups),
-            :result-wrapper('DescribeOptionGroupsResult'),
             :$request-input,
         );
     }
 
     method create-db-cluster(
-    Str :$pre-signed-url,
-    Str :$kms-key-id,
-    Str :$replication-source-identifier,
-    Str :$master-user-password,
-    Array[Str] :$vpc-security-group-ids,
-    Int :$backup-retention-period,
-    Str :$db-subnet-group-name,
-    Str :$database-name,
-    Str :$character-set-name,
-    Str :$master-username,
-    Str :$db-cluster-parameter-group-name,
-    Array[Str] :$availability-zones,
-    Array[Tag] :$tags,
-    Str :$engine!,
-    Str :$preferred-backup-window,
-    Str :$db-cluster-identifier!,
-    Bool :$storage-encrypted,
-    Str :$preferred-maintenance-window,
-    Str :$option-group-name,
-    Int :$port,
-    Str :$engine-version,
-    Bool :$enable-iam-database-authentication
+        Str :$pre-signed-url,
+        Str :$kms-key-id,
+        Str :$replication-source-identifier,
+        Str :$master-user-password,
+        Array[Str] :$vpc-security-group-ids,
+        Int :$backup-retention-period,
+        Str :$db-subnet-group-name,
+        Str :$database-name,
+        Str :$character-set-name,
+        Str :$master-username,
+        Str :$db-cluster-parameter-group-name,
+        Array[Str] :$availability-zones,
+        Array[Tag] :$tags,
+        Str :$engine!,
+        Str :$preferred-backup-window,
+        Str :$db-cluster-identifier!,
+        Bool :$storage-encrypted,
+        Str :$preferred-maintenance-window,
+        Str :$option-group-name,
+        Int :$port,
+        Str :$engine-version,
+        Bool :$enable-iam-database-authentication
     ) returns CreateDBClusterResult is service-operation('CreateDBCluster') {
         my $request-input = CreateDBClusterMessage.new(
-        :$pre-signed-url,
-        :$kms-key-id,
-        :$replication-source-identifier,
-        :$master-user-password,
-        :$vpc-security-group-ids,
-        :$backup-retention-period,
-        :$db-subnet-group-name,
-        :$database-name,
-        :$character-set-name,
-        :$master-username,
-        :$db-cluster-parameter-group-name,
-        :$availability-zones,
-        :$tags,
-        :$engine,
-        :$preferred-backup-window,
-        :$db-cluster-identifier,
-        :$storage-encrypted,
-        :$preferred-maintenance-window,
-        :$option-group-name,
-        :$port,
-        :$engine-version,
-        :$enable-iam-database-authentication
+            :$pre-signed-url,
+            :$kms-key-id,
+            :$replication-source-identifier,
+            :$master-user-password,
+            :$vpc-security-group-ids,
+            :$backup-retention-period,
+            :$db-subnet-group-name,
+            :$database-name,
+            :$character-set-name,
+            :$master-username,
+            :$db-cluster-parameter-group-name,
+            :$availability-zones,
+            :$tags,
+            :$engine,
+            :$preferred-backup-window,
+            :$db-cluster-identifier,
+            :$storage-encrypted,
+            :$preferred-maintenance-window,
+            :$option-group-name,
+            :$port,
+            :$engine-version,
+            :$enable-iam-database-authentication
         );
-;
+
         self.perform-operation(
             :api-call<CreateDBCluster>,
-            :return-type(CreateDBClusterResult),
-            :result-wrapper('CreateDBClusterResult'),
             :$request-input,
         );
     }
 
     method create-db-security-group(
-    Str :$db-security-group-name!,
-    Array[Tag] :$tags,
-    Str :$db-security-group-description!
+        Str :$db-security-group-name!,
+        Array[Tag] :$tags,
+        Str :$db-security-group-description!
     ) returns CreateDBSecurityGroupResult is service-operation('CreateDBSecurityGroup') {
         my $request-input = CreateDBSecurityGroupMessage.new(
-        :$db-security-group-name,
-        :$tags,
-        :$db-security-group-description
+            :$db-security-group-name,
+            :$tags,
+            :$db-security-group-description
         );
-;
+
         self.perform-operation(
             :api-call<CreateDBSecurityGroup>,
-            :return-type(CreateDBSecurityGroupResult),
-            :result-wrapper('CreateDBSecurityGroupResult'),
             :$request-input,
         );
     }
 
     method create-db-snapshot(
-    Str :$db-snapshot-identifier!,
-    Array[Tag] :$tags,
-    Str :$db-instance-identifier!
+        Str :$db-snapshot-identifier!,
+        Array[Tag] :$tags,
+        Str :$db-instance-identifier!
     ) returns CreateDBSnapshotResult is service-operation('CreateDBSnapshot') {
         my $request-input = CreateDBSnapshotMessage.new(
-        :$db-snapshot-identifier,
-        :$tags,
-        :$db-instance-identifier
+            :$db-snapshot-identifier,
+            :$tags,
+            :$db-instance-identifier
         );
-;
+
         self.perform-operation(
             :api-call<CreateDBSnapshot>,
-            :return-type(CreateDBSnapshotResult),
-            :result-wrapper('CreateDBSnapshotResult'),
             :$request-input,
         );
     }
 
     method delete-option-group(
-    Str :$option-group-name!
+        Str :$option-group-name!
     ) is service-operation('DeleteOptionGroup') {
         my $request-input = DeleteOptionGroupMessage.new(
-        :$option-group-name
+            :$option-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteOptionGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-db-snapshots(
-    Array[Filter] :$filters,
-    Str :$db-snapshot-identifier,
-    Str :$snapshot-type,
-    Bool :$include-shared,
-    Str :$db-instance-identifier,
-    Bool :$include-public,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$db-snapshot-identifier,
+        Str :$snapshot-type,
+        Bool :$include-shared,
+        Str :$db-instance-identifier,
+        Bool :$include-public,
+        Str :$marker,
+        Int :$max-records
     ) returns DBSnapshotMessage is service-operation('DescribeDBSnapshots') {
         my $request-input = DescribeDBSnapshotsMessage.new(
-        :$filters,
-        :$db-snapshot-identifier,
-        :$snapshot-type,
-        :$include-shared,
-        :$db-instance-identifier,
-        :$include-public,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$db-snapshot-identifier,
+            :$snapshot-type,
+            :$include-shared,
+            :$db-instance-identifier,
+            :$include-public,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBSnapshots>,
-            :return-type(DBSnapshotMessage),
-            :result-wrapper('DescribeDBSnapshotsResult'),
             :$request-input,
         );
     }
 
     method revoke-db-security-group-ingress(
-    Str :$ec2-security-group-name,
-    Str :$db-security-group-name!,
-    Str :$ec2-security-group-id,
-    Str :$cidr-ip,
-    Str :$ec2-security-group-owner-id
+        Str :$ec2-security-group-name,
+        Str :$db-security-group-name!,
+        Str :$ec2-security-group-id,
+        Str :$cidr-ip,
+        Str :$ec2-security-group-owner-id
     ) returns RevokeDBSecurityGroupIngressResult is service-operation('RevokeDBSecurityGroupIngress') {
         my $request-input = RevokeDBSecurityGroupIngressMessage.new(
-        :$ec2-security-group-name,
-        :$db-security-group-name,
-        :$ec2-security-group-id,
-        :$cidr-ip,
-        :$ec2-security-group-owner-id
+            :$ec2-security-group-name,
+            :$db-security-group-name,
+            :$ec2-security-group-id,
+            :$cidr-ip,
+            :$ec2-security-group-owner-id
         );
-;
+
         self.perform-operation(
             :api-call<RevokeDBSecurityGroupIngress>,
-            :return-type(RevokeDBSecurityGroupIngressResult),
-            :result-wrapper('RevokeDBSecurityGroupIngressResult'),
             :$request-input,
         );
     }
 
     method restore-db-cluster-from-s3(
-    Str :$kms-key-id,
-    Str :$master-user-password!,
-    Array[Str] :$vpc-security-group-ids,
-    Int :$backup-retention-period,
-    Str :$s3-prefix,
-    Str :$s3-bucket-name!,
-    Str :$source-engine-version!,
-    Str :$db-subnet-group-name,
-    Str :$database-name,
-    Str :$character-set-name,
-    Str :$master-username!,
-    Str :$db-cluster-parameter-group-name,
-    Array[Str] :$availability-zones,
-    Array[Tag] :$tags,
-    Str :$engine!,
-    Str :$preferred-backup-window,
-    Str :$db-cluster-identifier!,
-    Str :$s3-ingestion-role-arn!,
-    Str :$source-engine!,
-    Bool :$storage-encrypted,
-    Str :$preferred-maintenance-window,
-    Str :$option-group-name,
-    Int :$port,
-    Str :$engine-version,
-    Bool :$enable-iam-database-authentication
+        Str :$kms-key-id,
+        Str :$master-user-password!,
+        Array[Str] :$vpc-security-group-ids,
+        Int :$backup-retention-period,
+        Str :$s3-prefix,
+        Str :$s3-bucket-name!,
+        Str :$source-engine-version!,
+        Str :$db-subnet-group-name,
+        Str :$database-name,
+        Str :$character-set-name,
+        Str :$master-username!,
+        Str :$db-cluster-parameter-group-name,
+        Array[Str] :$availability-zones,
+        Array[Tag] :$tags,
+        Str :$engine!,
+        Str :$preferred-backup-window,
+        Str :$db-cluster-identifier!,
+        Str :$s3-ingestion-role-arn!,
+        Str :$source-engine!,
+        Bool :$storage-encrypted,
+        Str :$preferred-maintenance-window,
+        Str :$option-group-name,
+        Int :$port,
+        Str :$engine-version,
+        Bool :$enable-iam-database-authentication
     ) returns RestoreDBClusterFromS3Result is service-operation('RestoreDBClusterFromS3') {
         my $request-input = RestoreDBClusterFromS3Message.new(
-        :$kms-key-id,
-        :$master-user-password,
-        :$vpc-security-group-ids,
-        :$backup-retention-period,
-        :$s3-prefix,
-        :$s3-bucket-name,
-        :$source-engine-version,
-        :$db-subnet-group-name,
-        :$database-name,
-        :$character-set-name,
-        :$master-username,
-        :$db-cluster-parameter-group-name,
-        :$availability-zones,
-        :$tags,
-        :$engine,
-        :$preferred-backup-window,
-        :$db-cluster-identifier,
-        :$s3-ingestion-role-arn,
-        :$source-engine,
-        :$storage-encrypted,
-        :$preferred-maintenance-window,
-        :$option-group-name,
-        :$port,
-        :$engine-version,
-        :$enable-iam-database-authentication
+            :$kms-key-id,
+            :$master-user-password,
+            :$vpc-security-group-ids,
+            :$backup-retention-period,
+            :$s3-prefix,
+            :$s3-bucket-name,
+            :$source-engine-version,
+            :$db-subnet-group-name,
+            :$database-name,
+            :$character-set-name,
+            :$master-username,
+            :$db-cluster-parameter-group-name,
+            :$availability-zones,
+            :$tags,
+            :$engine,
+            :$preferred-backup-window,
+            :$db-cluster-identifier,
+            :$s3-ingestion-role-arn,
+            :$source-engine,
+            :$storage-encrypted,
+            :$preferred-maintenance-window,
+            :$option-group-name,
+            :$port,
+            :$engine-version,
+            :$enable-iam-database-authentication
         );
-;
+
         self.perform-operation(
             :api-call<RestoreDBClusterFromS3>,
-            :return-type(RestoreDBClusterFromS3Result),
-            :result-wrapper('RestoreDBClusterFromS3Result'),
             :$request-input,
         );
     }
 
     method promote-read-replica(
-    Int :$backup-retention-period,
-    Str :$preferred-backup-window,
-    Str :$db-instance-identifier!
+        Int :$backup-retention-period,
+        Str :$preferred-backup-window,
+        Str :$db-instance-identifier!
     ) returns PromoteReadReplicaResult is service-operation('PromoteReadReplica') {
         my $request-input = PromoteReadReplicaMessage.new(
-        :$backup-retention-period,
-        :$preferred-backup-window,
-        :$db-instance-identifier
+            :$backup-retention-period,
+            :$preferred-backup-window,
+            :$db-instance-identifier
         );
-;
+
         self.perform-operation(
             :api-call<PromoteReadReplica>,
-            :return-type(PromoteReadReplicaResult),
-            :result-wrapper('PromoteReadReplicaResult'),
             :$request-input,
         );
     }
 
     method describe-reserved-db-instances-offerings(
-    Str :$offering-type,
-    Str :$product-description,
-    Str :$duration,
-    Array[Filter] :$filters,
-    Str :$db-instance-class,
-    Str :$marker,
-    Bool :$multi-az,
-    Str :$reserved-db-instances-offering-id,
-    Int :$max-records
+        Str :$offering-type,
+        Str :$product-description,
+        Str :$duration,
+        Array[Filter] :$filters,
+        Str :$db-instance-class,
+        Str :$marker,
+        Bool :$multi-az,
+        Str :$reserved-db-instances-offering-id,
+        Int :$max-records
     ) returns ReservedDBInstancesOfferingMessage is service-operation('DescribeReservedDBInstancesOfferings') {
         my $request-input = DescribeReservedDBInstancesOfferingsMessage.new(
-        :$offering-type,
-        :$product-description,
-        :$duration,
-        :$filters,
-        :$db-instance-class,
-        :$marker,
-        :$multi-az,
-        :$reserved-db-instances-offering-id,
-        :$max-records
+            :$offering-type,
+            :$product-description,
+            :$duration,
+            :$filters,
+            :$db-instance-class,
+            :$marker,
+            :$multi-az,
+            :$reserved-db-instances-offering-id,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReservedDBInstancesOfferings>,
-            :return-type(ReservedDBInstancesOfferingMessage),
-            :result-wrapper('DescribeReservedDBInstancesOfferingsResult'),
             :$request-input,
         );
     }
 
     method copy-option-group(
-    Str :$target-option-group-description!,
-    Str :$target-option-group-identifier!,
-    Array[Tag] :$tags,
-    Str :$source-option-group-identifier!
+        Str :$target-option-group-description!,
+        Str :$target-option-group-identifier!,
+        Array[Tag] :$tags,
+        Str :$source-option-group-identifier!
     ) returns CopyOptionGroupResult is service-operation('CopyOptionGroup') {
         my $request-input = CopyOptionGroupMessage.new(
-        :$target-option-group-description,
-        :$target-option-group-identifier,
-        :$tags,
-        :$source-option-group-identifier
+            :$target-option-group-description,
+            :$target-option-group-identifier,
+            :$tags,
+            :$source-option-group-identifier
         );
-;
+
         self.perform-operation(
             :api-call<CopyOptionGroup>,
-            :return-type(CopyOptionGroupResult),
-            :result-wrapper('CopyOptionGroupResult'),
             :$request-input,
         );
     }
 
     method create-db-instance(
-    Str :$performance-insights-kms-key-id,
-    Str :$db-name,
-    Str :$master-user-password,
-    Array[Str] :$vpc-security-group-ids,
-    Str :$db-parameter-group-name,
-    Int :$backup-retention-period,
-    Str :$kms-key-id,
-    Int :$allocated-storage,
-    Str :$storage-type,
-    Str :$db-instance-identifier!,
-    Str :$availability-zone,
-    Str :$preferred-backup-window,
-    Str :$db-cluster-identifier,
-    Bool :$multi-az,
-    Str :$engine-version,
-    Bool :$auto-minor-version-upgrade,
-    Int :$iops,
-    Str :$option-group-name,
-    Array[Str] :$db-security-groups,
-    Int :$monitoring-interval,
-    Bool :$enable-performance-insights,
-    Str :$license-model,
-    Str :$domain,
-    Str :$db-subnet-group-name,
-    Str :$character-set-name,
-    Str :$master-username,
-    Str :$db-instance-class!,
-    Str :$engine!,
-    Bool :$publicly-accessible,
-    Array[Tag] :$tags,
-    Str :$tde-credential-password,
-    Bool :$copy-tags-to-snapshot,
-    Str :$monitoring-role-arn,
-    Str :$domain-iam-role-name,
-    Str :$timezone,
-    Str :$preferred-maintenance-window,
-    Int :$port,
-    Str :$tde-credential-arn,
-    Bool :$storage-encrypted,
-    Int :$promotion-tier,
-    Bool :$enable-iam-database-authentication
+        Str :$performance-insights-kms-key-id,
+        Str :$db-name,
+        Str :$master-user-password,
+        Array[Str] :$vpc-security-group-ids,
+        Str :$db-parameter-group-name,
+        Int :$backup-retention-period,
+        Str :$kms-key-id,
+        Int :$allocated-storage,
+        Str :$storage-type,
+        Str :$db-instance-identifier!,
+        Str :$availability-zone,
+        Str :$preferred-backup-window,
+        Str :$db-cluster-identifier,
+        Bool :$multi-az,
+        Str :$engine-version,
+        Bool :$auto-minor-version-upgrade,
+        Int :$iops,
+        Str :$option-group-name,
+        Array[Str] :$db-security-groups,
+        Int :$monitoring-interval,
+        Bool :$enable-performance-insights,
+        Str :$license-model,
+        Str :$domain,
+        Str :$db-subnet-group-name,
+        Str :$character-set-name,
+        Str :$master-username,
+        Str :$db-instance-class!,
+        Str :$engine!,
+        Bool :$publicly-accessible,
+        Array[Tag] :$tags,
+        Str :$tde-credential-password,
+        Bool :$copy-tags-to-snapshot,
+        Str :$monitoring-role-arn,
+        Str :$domain-iam-role-name,
+        Str :$timezone,
+        Str :$preferred-maintenance-window,
+        Int :$port,
+        Str :$tde-credential-arn,
+        Bool :$storage-encrypted,
+        Int :$promotion-tier,
+        Bool :$enable-iam-database-authentication
     ) returns CreateDBInstanceResult is service-operation('CreateDBInstance') {
         my $request-input = CreateDBInstanceMessage.new(
-        :$performance-insights-kms-key-id,
-        :$db-name,
-        :$master-user-password,
-        :$vpc-security-group-ids,
-        :$db-parameter-group-name,
-        :$backup-retention-period,
-        :$kms-key-id,
-        :$allocated-storage,
-        :$storage-type,
-        :$db-instance-identifier,
-        :$availability-zone,
-        :$preferred-backup-window,
-        :$db-cluster-identifier,
-        :$multi-az,
-        :$engine-version,
-        :$auto-minor-version-upgrade,
-        :$iops,
-        :$option-group-name,
-        :$db-security-groups,
-        :$monitoring-interval,
-        :$enable-performance-insights,
-        :$license-model,
-        :$domain,
-        :$db-subnet-group-name,
-        :$character-set-name,
-        :$master-username,
-        :$db-instance-class,
-        :$engine,
-        :$publicly-accessible,
-        :$tags,
-        :$tde-credential-password,
-        :$copy-tags-to-snapshot,
-        :$monitoring-role-arn,
-        :$domain-iam-role-name,
-        :$timezone,
-        :$preferred-maintenance-window,
-        :$port,
-        :$tde-credential-arn,
-        :$storage-encrypted,
-        :$promotion-tier,
-        :$enable-iam-database-authentication
+            :$performance-insights-kms-key-id,
+            :$db-name,
+            :$master-user-password,
+            :$vpc-security-group-ids,
+            :$db-parameter-group-name,
+            :$backup-retention-period,
+            :$kms-key-id,
+            :$allocated-storage,
+            :$storage-type,
+            :$db-instance-identifier,
+            :$availability-zone,
+            :$preferred-backup-window,
+            :$db-cluster-identifier,
+            :$multi-az,
+            :$engine-version,
+            :$auto-minor-version-upgrade,
+            :$iops,
+            :$option-group-name,
+            :$db-security-groups,
+            :$monitoring-interval,
+            :$enable-performance-insights,
+            :$license-model,
+            :$domain,
+            :$db-subnet-group-name,
+            :$character-set-name,
+            :$master-username,
+            :$db-instance-class,
+            :$engine,
+            :$publicly-accessible,
+            :$tags,
+            :$tde-credential-password,
+            :$copy-tags-to-snapshot,
+            :$monitoring-role-arn,
+            :$domain-iam-role-name,
+            :$timezone,
+            :$preferred-maintenance-window,
+            :$port,
+            :$tde-credential-arn,
+            :$storage-encrypted,
+            :$promotion-tier,
+            :$enable-iam-database-authentication
         );
-;
+
         self.perform-operation(
             :api-call<CreateDBInstance>,
-            :return-type(CreateDBInstanceResult),
-            :result-wrapper('CreateDBInstanceResult'),
             :$request-input,
         );
     }
 
     method create-event-subscription(
-    Str :$subscription-name!,
-    Array[Str] :$source-ids,
-    Array[Tag] :$tags,
-    Bool :$enabled,
-    Str :$sns-topic-arn!,
-    Str :$source-type,
-    Array[Str] :$event-categories
+        Str :$subscription-name!,
+        Array[Str] :$source-ids,
+        Array[Tag] :$tags,
+        Bool :$enabled,
+        Str :$sns-topic-arn!,
+        Str :$source-type,
+        Array[Str] :$event-categories
     ) returns CreateEventSubscriptionResult is service-operation('CreateEventSubscription') {
         my $request-input = CreateEventSubscriptionMessage.new(
-        :$subscription-name,
-        :$source-ids,
-        :$tags,
-        :$enabled,
-        :$sns-topic-arn,
-        :$source-type,
-        :$event-categories
+            :$subscription-name,
+            :$source-ids,
+            :$tags,
+            :$enabled,
+            :$sns-topic-arn,
+            :$source-type,
+            :$event-categories
         );
-;
+
         self.perform-operation(
             :api-call<CreateEventSubscription>,
-            :return-type(CreateEventSubscriptionResult),
-            :result-wrapper('CreateEventSubscriptionResult'),
             :$request-input,
         );
     }
 
     method restore-db-cluster-to-point-in-time(
-    Str :$kms-key-id,
-    Array[Str] :$vpc-security-group-ids,
-    Str :$db-subnet-group-name,
-    DateTime :$restore-to-time,
-    Array[Tag] :$tags,
-    Str :$restore-type,
-    Str :$db-cluster-identifier!,
-    Str :$option-group-name,
-    Int :$port,
-    Bool :$enable-iam-database-authentication,
-    Bool :$use-latest-restorable-time,
-    Str :$source-db-cluster-identifier!
+        Str :$kms-key-id,
+        Array[Str] :$vpc-security-group-ids,
+        Str :$db-subnet-group-name,
+        DateTime :$restore-to-time,
+        Array[Tag] :$tags,
+        Str :$restore-type,
+        Str :$db-cluster-identifier!,
+        Str :$option-group-name,
+        Int :$port,
+        Bool :$enable-iam-database-authentication,
+        Bool :$use-latest-restorable-time,
+        Str :$source-db-cluster-identifier!
     ) returns RestoreDBClusterToPointInTimeResult is service-operation('RestoreDBClusterToPointInTime') {
         my $request-input = RestoreDBClusterToPointInTimeMessage.new(
-        :$kms-key-id,
-        :$vpc-security-group-ids,
-        :$db-subnet-group-name,
-        :$restore-to-time,
-        :$tags,
-        :$restore-type,
-        :$db-cluster-identifier,
-        :$option-group-name,
-        :$port,
-        :$enable-iam-database-authentication,
-        :$use-latest-restorable-time,
-        :$source-db-cluster-identifier
+            :$kms-key-id,
+            :$vpc-security-group-ids,
+            :$db-subnet-group-name,
+            :$restore-to-time,
+            :$tags,
+            :$restore-type,
+            :$db-cluster-identifier,
+            :$option-group-name,
+            :$port,
+            :$enable-iam-database-authentication,
+            :$use-latest-restorable-time,
+            :$source-db-cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<RestoreDBClusterToPointInTime>,
-            :return-type(RestoreDBClusterToPointInTimeResult),
-            :result-wrapper('RestoreDBClusterToPointInTimeResult'),
             :$request-input,
         );
     }
 
     method describe-db-cluster-parameters(
-    Array[Filter] :$filters,
-    Str :$source,
-    Str :$db-cluster-parameter-group-name!,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$source,
+        Str :$db-cluster-parameter-group-name!,
+        Str :$marker,
+        Int :$max-records
     ) returns DBClusterParameterGroupDetails is service-operation('DescribeDBClusterParameters') {
         my $request-input = DescribeDBClusterParametersMessage.new(
-        :$filters,
-        :$source,
-        :$db-cluster-parameter-group-name,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$source,
+            :$db-cluster-parameter-group-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBClusterParameters>,
-            :return-type(DBClusterParameterGroupDetails),
-            :result-wrapper('DescribeDBClusterParametersResult'),
             :$request-input,
         );
     }
 
     method describe-event-categories(
-    Array[Filter] :$filters,
-    Str :$source-type
+        Array[Filter] :$filters,
+        Str :$source-type
     ) returns EventCategoriesMessage is service-operation('DescribeEventCategories') {
         my $request-input = DescribeEventCategoriesMessage.new(
-        :$filters,
-        :$source-type
+            :$filters,
+            :$source-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEventCategories>,
-            :return-type(EventCategoriesMessage),
-            :result-wrapper('DescribeEventCategoriesResult'),
             :$request-input,
         );
     }
 
     method delete-db-subnet-group(
-    Str :$db-subnet-group-name!
+        Str :$db-subnet-group-name!
     ) is service-operation('DeleteDBSubnetGroup') {
         my $request-input = DeleteDBSubnetGroupMessage.new(
-        :$db-subnet-group-name
+            :$db-subnet-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDBSubnetGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method restore-db-instance-to-point-in-time(
-    Str :$domain,
-    Str :$db-name,
-    Str :$license-model,
-    Str :$target-db-instance-identifier!,
-    Str :$source-db-instance-identifier!,
-    Str :$db-subnet-group-name,
-    Str :$tde-credential-password,
-    Str :$storage-type,
-    Array[Tag] :$tags,
-    Bool :$copy-tags-to-snapshot,
-    Str :$engine,
-    Bool :$publicly-accessible,
-    Str :$db-instance-class,
-    DateTime :$restore-time,
-    Str :$domain-iam-role-name,
-    Str :$availability-zone,
-    Str :$tde-credential-arn,
-    Str :$option-group-name,
-    Int :$iops,
-    Bool :$auto-minor-version-upgrade,
-    Bool :$multi-az,
-    Int :$port,
-    Bool :$enable-iam-database-authentication,
-    Bool :$use-latest-restorable-time
+        Str :$domain,
+        Str :$db-name,
+        Str :$license-model,
+        Str :$target-db-instance-identifier!,
+        Str :$source-db-instance-identifier!,
+        Str :$db-subnet-group-name,
+        Str :$tde-credential-password,
+        Str :$storage-type,
+        Array[Tag] :$tags,
+        Bool :$copy-tags-to-snapshot,
+        Str :$engine,
+        Bool :$publicly-accessible,
+        Str :$db-instance-class,
+        DateTime :$restore-time,
+        Str :$domain-iam-role-name,
+        Str :$availability-zone,
+        Str :$tde-credential-arn,
+        Str :$option-group-name,
+        Int :$iops,
+        Bool :$auto-minor-version-upgrade,
+        Bool :$multi-az,
+        Int :$port,
+        Bool :$enable-iam-database-authentication,
+        Bool :$use-latest-restorable-time
     ) returns RestoreDBInstanceToPointInTimeResult is service-operation('RestoreDBInstanceToPointInTime') {
         my $request-input = RestoreDBInstanceToPointInTimeMessage.new(
-        :$domain,
-        :$db-name,
-        :$license-model,
-        :$target-db-instance-identifier,
-        :$source-db-instance-identifier,
-        :$db-subnet-group-name,
-        :$tde-credential-password,
-        :$storage-type,
-        :$tags,
-        :$copy-tags-to-snapshot,
-        :$engine,
-        :$publicly-accessible,
-        :$db-instance-class,
-        :$restore-time,
-        :$domain-iam-role-name,
-        :$availability-zone,
-        :$tde-credential-arn,
-        :$option-group-name,
-        :$iops,
-        :$auto-minor-version-upgrade,
-        :$multi-az,
-        :$port,
-        :$enable-iam-database-authentication,
-        :$use-latest-restorable-time
+            :$domain,
+            :$db-name,
+            :$license-model,
+            :$target-db-instance-identifier,
+            :$source-db-instance-identifier,
+            :$db-subnet-group-name,
+            :$tde-credential-password,
+            :$storage-type,
+            :$tags,
+            :$copy-tags-to-snapshot,
+            :$engine,
+            :$publicly-accessible,
+            :$db-instance-class,
+            :$restore-time,
+            :$domain-iam-role-name,
+            :$availability-zone,
+            :$tde-credential-arn,
+            :$option-group-name,
+            :$iops,
+            :$auto-minor-version-upgrade,
+            :$multi-az,
+            :$port,
+            :$enable-iam-database-authentication,
+            :$use-latest-restorable-time
         );
-;
+
         self.perform-operation(
             :api-call<RestoreDBInstanceToPointInTime>,
-            :return-type(RestoreDBInstanceToPointInTimeResult),
-            :result-wrapper('RestoreDBInstanceToPointInTimeResult'),
             :$request-input,
         );
     }
 
     method modify-event-subscription(
-    Str :$subscription-name!,
-    Bool :$enabled,
-    Str :$sns-topic-arn,
-    Str :$source-type,
-    Array[Str] :$event-categories
+        Str :$subscription-name!,
+        Bool :$enabled,
+        Str :$sns-topic-arn,
+        Str :$source-type,
+        Array[Str] :$event-categories
     ) returns ModifyEventSubscriptionResult is service-operation('ModifyEventSubscription') {
         my $request-input = ModifyEventSubscriptionMessage.new(
-        :$subscription-name,
-        :$enabled,
-        :$sns-topic-arn,
-        :$source-type,
-        :$event-categories
+            :$subscription-name,
+            :$enabled,
+            :$sns-topic-arn,
+            :$source-type,
+            :$event-categories
         );
-;
+
         self.perform-operation(
             :api-call<ModifyEventSubscription>,
-            :return-type(ModifyEventSubscriptionResult),
-            :result-wrapper('ModifyEventSubscriptionResult'),
             :$request-input,
         );
     }
 
     method modify-db-subnet-group(
-    Str :$db-subnet-group-description,
-    Str :$db-subnet-group-name!,
-    Array[Str] :$subnet-ids!
+        Str :$db-subnet-group-description,
+        Str :$db-subnet-group-name!,
+        Array[Str] :$subnet-ids!
     ) returns ModifyDBSubnetGroupResult is service-operation('ModifyDBSubnetGroup') {
         my $request-input = ModifyDBSubnetGroupMessage.new(
-        :$db-subnet-group-description,
-        :$db-subnet-group-name,
-        :$subnet-ids
+            :$db-subnet-group-description,
+            :$db-subnet-group-name,
+            :$subnet-ids
         );
-;
+
         self.perform-operation(
             :api-call<ModifyDBSubnetGroup>,
-            :return-type(ModifyDBSubnetGroupResult),
-            :result-wrapper('ModifyDBSubnetGroupResult'),
             :$request-input,
         );
     }
 
     method describe-orderable-db-instance-options(
-    Str :$license-model,
-    Array[Filter] :$filters,
-    Str :$db-instance-class,
-    Str :$engine!,
-    Bool :$vpc,
-    Str :$marker,
-    Str :$engine-version,
-    Int :$max-records
+        Str :$license-model,
+        Array[Filter] :$filters,
+        Str :$db-instance-class,
+        Str :$engine!,
+        Bool :$vpc,
+        Str :$marker,
+        Str :$engine-version,
+        Int :$max-records
     ) returns OrderableDBInstanceOptionsMessage is service-operation('DescribeOrderableDBInstanceOptions') {
         my $request-input = DescribeOrderableDBInstanceOptionsMessage.new(
-        :$license-model,
-        :$filters,
-        :$db-instance-class,
-        :$engine,
-        :$vpc,
-        :$marker,
-        :$engine-version,
-        :$max-records
+            :$license-model,
+            :$filters,
+            :$db-instance-class,
+            :$engine,
+            :$vpc,
+            :$marker,
+            :$engine-version,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeOrderableDBInstanceOptions>,
-            :return-type(OrderableDBInstanceOptionsMessage),
-            :result-wrapper('DescribeOrderableDBInstanceOptionsResult'),
             :$request-input,
         );
     }
 
     method create-option-group(
-    Str :$engine-name!,
-    Str :$major-engine-version!,
-    Array[Tag] :$tags,
-    Str :$option-group-description!,
-    Str :$option-group-name!
+        Str :$engine-name!,
+        Str :$major-engine-version!,
+        Array[Tag] :$tags,
+        Str :$option-group-description!,
+        Str :$option-group-name!
     ) returns CreateOptionGroupResult is service-operation('CreateOptionGroup') {
         my $request-input = CreateOptionGroupMessage.new(
-        :$engine-name,
-        :$major-engine-version,
-        :$tags,
-        :$option-group-description,
-        :$option-group-name
+            :$engine-name,
+            :$major-engine-version,
+            :$tags,
+            :$option-group-description,
+            :$option-group-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateOptionGroup>,
-            :return-type(CreateOptionGroupResult),
-            :result-wrapper('CreateOptionGroupResult'),
             :$request-input,
         );
     }
 
     method describe-db-cluster-snapshots(
-    Str :$db-cluster-snapshot-identifier,
-    Array[Filter] :$filters,
-    Str :$snapshot-type,
-    Bool :$include-shared,
-    Str :$db-cluster-identifier,
-    Bool :$include-public,
-    Str :$marker,
-    Int :$max-records
+        Str :$db-cluster-snapshot-identifier,
+        Array[Filter] :$filters,
+        Str :$snapshot-type,
+        Bool :$include-shared,
+        Str :$db-cluster-identifier,
+        Bool :$include-public,
+        Str :$marker,
+        Int :$max-records
     ) returns DBClusterSnapshotMessage is service-operation('DescribeDBClusterSnapshots') {
         my $request-input = DescribeDBClusterSnapshotsMessage.new(
-        :$db-cluster-snapshot-identifier,
-        :$filters,
-        :$snapshot-type,
-        :$include-shared,
-        :$db-cluster-identifier,
-        :$include-public,
-        :$marker,
-        :$max-records
+            :$db-cluster-snapshot-identifier,
+            :$filters,
+            :$snapshot-type,
+            :$include-shared,
+            :$db-cluster-identifier,
+            :$include-public,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBClusterSnapshots>,
-            :return-type(DBClusterSnapshotMessage),
-            :result-wrapper('DescribeDBClusterSnapshotsResult'),
             :$request-input,
         );
     }
 
     method describe-db-log-files(
-    Array[Filter] :$filters,
-    Int :$file-last-written,
-    Str :$filename-contains,
-    Str :$db-instance-identifier!,
-    Str :$marker,
-    Int :$max-records,
-    Int :$file-size
+        Array[Filter] :$filters,
+        Int :$file-last-written,
+        Str :$filename-contains,
+        Str :$db-instance-identifier!,
+        Str :$marker,
+        Int :$max-records,
+        Int :$file-size
     ) returns DescribeDBLogFilesResponse is service-operation('DescribeDBLogFiles') {
         my $request-input = DescribeDBLogFilesMessage.new(
-        :$filters,
-        :$file-last-written,
-        :$filename-contains,
-        :$db-instance-identifier,
-        :$marker,
-        :$max-records,
-        :$file-size
+            :$filters,
+            :$file-last-written,
+            :$filename-contains,
+            :$db-instance-identifier,
+            :$marker,
+            :$max-records,
+            :$file-size
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBLogFiles>,
-            :return-type(DescribeDBLogFilesResponse),
-            :result-wrapper('DescribeDBLogFilesResult'),
             :$request-input,
         );
     }
 
     method describe-option-group-options(
-    Str :$engine-name!,
-    Array[Filter] :$filters,
-    Str :$major-engine-version,
-    Str :$marker,
-    Int :$max-records
+        Str :$engine-name!,
+        Array[Filter] :$filters,
+        Str :$major-engine-version,
+        Str :$marker,
+        Int :$max-records
     ) returns OptionGroupOptionsMessage is service-operation('DescribeOptionGroupOptions') {
         my $request-input = DescribeOptionGroupOptionsMessage.new(
-        :$engine-name,
-        :$filters,
-        :$major-engine-version,
-        :$marker,
-        :$max-records
+            :$engine-name,
+            :$filters,
+            :$major-engine-version,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeOptionGroupOptions>,
-            :return-type(OptionGroupOptionsMessage),
-            :result-wrapper('DescribeOptionGroupOptionsResult'),
             :$request-input,
         );
     }
 
     method failover-db-cluster(
-    Str :$target-db-instance-identifier,
-    Str :$db-cluster-identifier
+        Str :$target-db-instance-identifier,
+        Str :$db-cluster-identifier
     ) returns FailoverDBClusterResult is service-operation('FailoverDBCluster') {
         my $request-input = FailoverDBClusterMessage.new(
-        :$target-db-instance-identifier,
-        :$db-cluster-identifier
+            :$target-db-instance-identifier,
+            :$db-cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<FailoverDBCluster>,
-            :return-type(FailoverDBClusterResult),
-            :result-wrapper('FailoverDBClusterResult'),
             :$request-input,
         );
     }
 
     method create-db-instance-read-replica(
-    Str :$performance-insights-kms-key-id,
-    Bool :$enable-performance-insights,
-    Str :$pre-signed-url,
-    Str :$kms-key-id,
-    Str :$source-db-instance-identifier!,
-    Str :$db-subnet-group-name,
-    Str :$monitoring-role-arn,
-    Bool :$copy-tags-to-snapshot,
-    Str :$storage-type,
-    Array[Tag] :$tags,
-    Bool :$publicly-accessible,
-    Str :$db-instance-class,
-    Str :$availability-zone,
-    Str :$db-instance-identifier!,
-    Str :$option-group-name,
-    Int :$iops,
-    Bool :$auto-minor-version-upgrade,
-    Int :$port,
-    Bool :$enable-iam-database-authentication,
-    Int :$monitoring-interval
+        Str :$performance-insights-kms-key-id,
+        Bool :$enable-performance-insights,
+        Str :$pre-signed-url,
+        Str :$kms-key-id,
+        Str :$source-db-instance-identifier!,
+        Str :$db-subnet-group-name,
+        Str :$monitoring-role-arn,
+        Bool :$copy-tags-to-snapshot,
+        Str :$storage-type,
+        Array[Tag] :$tags,
+        Bool :$publicly-accessible,
+        Str :$db-instance-class,
+        Str :$availability-zone,
+        Str :$db-instance-identifier!,
+        Str :$option-group-name,
+        Int :$iops,
+        Bool :$auto-minor-version-upgrade,
+        Int :$port,
+        Bool :$enable-iam-database-authentication,
+        Int :$monitoring-interval
     ) returns CreateDBInstanceReadReplicaResult is service-operation('CreateDBInstanceReadReplica') {
         my $request-input = CreateDBInstanceReadReplicaMessage.new(
-        :$performance-insights-kms-key-id,
-        :$enable-performance-insights,
-        :$pre-signed-url,
-        :$kms-key-id,
-        :$source-db-instance-identifier,
-        :$db-subnet-group-name,
-        :$monitoring-role-arn,
-        :$copy-tags-to-snapshot,
-        :$storage-type,
-        :$tags,
-        :$publicly-accessible,
-        :$db-instance-class,
-        :$availability-zone,
-        :$db-instance-identifier,
-        :$option-group-name,
-        :$iops,
-        :$auto-minor-version-upgrade,
-        :$port,
-        :$enable-iam-database-authentication,
-        :$monitoring-interval
+            :$performance-insights-kms-key-id,
+            :$enable-performance-insights,
+            :$pre-signed-url,
+            :$kms-key-id,
+            :$source-db-instance-identifier,
+            :$db-subnet-group-name,
+            :$monitoring-role-arn,
+            :$copy-tags-to-snapshot,
+            :$storage-type,
+            :$tags,
+            :$publicly-accessible,
+            :$db-instance-class,
+            :$availability-zone,
+            :$db-instance-identifier,
+            :$option-group-name,
+            :$iops,
+            :$auto-minor-version-upgrade,
+            :$port,
+            :$enable-iam-database-authentication,
+            :$monitoring-interval
         );
-;
+
         self.perform-operation(
             :api-call<CreateDBInstanceReadReplica>,
-            :return-type(CreateDBInstanceReadReplicaResult),
-            :result-wrapper('CreateDBInstanceReadReplicaResult'),
             :$request-input,
         );
     }
 
     method delete-db-cluster(
-    Str :$final-db-snapshot-identifier,
-    Str :$db-cluster-identifier!,
-    Bool :$skip-final-snapshot
+        Str :$final-db-snapshot-identifier,
+        Str :$db-cluster-identifier!,
+        Bool :$skip-final-snapshot
     ) returns DeleteDBClusterResult is service-operation('DeleteDBCluster') {
         my $request-input = DeleteDBClusterMessage.new(
-        :$final-db-snapshot-identifier,
-        :$db-cluster-identifier,
-        :$skip-final-snapshot
+            :$final-db-snapshot-identifier,
+            :$db-cluster-identifier,
+            :$skip-final-snapshot
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDBCluster>,
-            :return-type(DeleteDBClusterResult),
-            :result-wrapper('DeleteDBClusterResult'),
             :$request-input,
         );
     }
 
     method delete-db-cluster-snapshot(
-    Str :$db-cluster-snapshot-identifier!
+        Str :$db-cluster-snapshot-identifier!
     ) returns DeleteDBClusterSnapshotResult is service-operation('DeleteDBClusterSnapshot') {
         my $request-input = DeleteDBClusterSnapshotMessage.new(
-        :$db-cluster-snapshot-identifier
+            :$db-cluster-snapshot-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDBClusterSnapshot>,
-            :return-type(DeleteDBClusterSnapshotResult),
-            :result-wrapper('DeleteDBClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method describe-db-snapshot-attributes(
-    Str :$db-snapshot-identifier!
+        Str :$db-snapshot-identifier!
     ) returns DescribeDBSnapshotAttributesResult is service-operation('DescribeDBSnapshotAttributes') {
         my $request-input = DescribeDBSnapshotAttributesMessage.new(
-        :$db-snapshot-identifier
+            :$db-snapshot-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBSnapshotAttributes>,
-            :return-type(DescribeDBSnapshotAttributesResult),
-            :result-wrapper('DescribeDBSnapshotAttributesResult'),
             :$request-input,
         );
     }
 
     method describe-events(
-    Int :$duration,
-    Array[Filter] :$filters,
-    DateTime :$end-time,
-    DateTime :$start-time,
-    SourceType :$source-type,
-    Str :$source-identifier,
-    Str :$marker,
-    Int :$max-records,
-    Array[Str] :$event-categories
+        Int :$duration,
+        Array[Filter] :$filters,
+        DateTime :$end-time,
+        DateTime :$start-time,
+        SourceType :$source-type,
+        Str :$source-identifier,
+        Str :$marker,
+        Int :$max-records,
+        Array[Str] :$event-categories
     ) returns EventsMessage is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsMessage.new(
-        :$duration,
-        :$filters,
-        :$end-time,
-        :$start-time,
-        :$source-type,
-        :$source-identifier,
-        :$marker,
-        :$max-records,
-        :$event-categories
+            :$duration,
+            :$filters,
+            :$end-time,
+            :$start-time,
+            :$source-type,
+            :$source-identifier,
+            :$marker,
+            :$max-records,
+            :$event-categories
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEvents>,
-            :return-type(EventsMessage),
-            :result-wrapper('DescribeEventsResult'),
             :$request-input,
         );
     }
 
     method reboot-db-instance(
-    Str :$db-instance-identifier!,
-    Bool :$force-failover
+        Str :$db-instance-identifier!,
+        Bool :$force-failover
     ) returns RebootDBInstanceResult is service-operation('RebootDBInstance') {
         my $request-input = RebootDBInstanceMessage.new(
-        :$db-instance-identifier,
-        :$force-failover
+            :$db-instance-identifier,
+            :$force-failover
         );
-;
+
         self.perform-operation(
             :api-call<RebootDBInstance>,
-            :return-type(RebootDBInstanceResult),
-            :result-wrapper('RebootDBInstanceResult'),
             :$request-input,
         );
     }
 
     method modify-db-parameter-group(
-    Str :$db-parameter-group-name!,
-    Array[Parameter] :$parameters!
+        Str :$db-parameter-group-name!,
+        Array[Parameter] :$parameters!
     ) returns DBParameterGroupNameMessage is service-operation('ModifyDBParameterGroup') {
         my $request-input = ModifyDBParameterGroupMessage.new(
-        :$db-parameter-group-name,
-        :$parameters
+            :$db-parameter-group-name,
+            :$parameters
         );
-;
+
         self.perform-operation(
             :api-call<ModifyDBParameterGroup>,
-            :return-type(DBParameterGroupNameMessage),
-            :result-wrapper('ModifyDBParameterGroupResult'),
             :$request-input,
         );
     }
 
     method modify-db-instance(
-    Array[Str] :$vpc-security-group-ids,
-    Str :$master-user-password,
-    Str :$db-parameter-group-name,
-    Int :$backup-retention-period,
-    Str :$new-db-instance-identifier,
-    Str :$ca-certificate-identifier,
-    Str :$performance-insights-kms-key-id,
-    Int :$allocated-storage,
-    Str :$storage-type,
-    Str :$db-instance-identifier!,
-    Str :$preferred-backup-window,
-    Bool :$multi-az,
-    Str :$engine-version,
-    Bool :$auto-minor-version-upgrade,
-    Int :$iops,
-    Str :$option-group-name,
-    Array[Str] :$db-security-groups,
-    Bool :$apply-immediately,
-    Int :$monitoring-interval,
-    Str :$license-model,
-    Str :$domain,
-    Bool :$enable-performance-insights,
-    Str :$db-subnet-group-name,
-    Str :$db-instance-class,
-    Str :$tde-credential-password,
-    Bool :$copy-tags-to-snapshot,
-    Bool :$publicly-accessible,
-    Str :$monitoring-role-arn,
-    Bool :$allow-major-version-upgrade,
-    Str :$domain-iam-role-name,
-    Str :$preferred-maintenance-window,
-    Str :$tde-credential-arn,
-    Int :$db-port-number,
-    Int :$promotion-tier,
-    Bool :$enable-iam-database-authentication
+        Array[Str] :$vpc-security-group-ids,
+        Str :$master-user-password,
+        Str :$db-parameter-group-name,
+        Int :$backup-retention-period,
+        Str :$new-db-instance-identifier,
+        Str :$ca-certificate-identifier,
+        Str :$performance-insights-kms-key-id,
+        Int :$allocated-storage,
+        Str :$storage-type,
+        Str :$db-instance-identifier!,
+        Str :$preferred-backup-window,
+        Bool :$multi-az,
+        Str :$engine-version,
+        Bool :$auto-minor-version-upgrade,
+        Int :$iops,
+        Str :$option-group-name,
+        Array[Str] :$db-security-groups,
+        Bool :$apply-immediately,
+        Int :$monitoring-interval,
+        Str :$license-model,
+        Str :$domain,
+        Bool :$enable-performance-insights,
+        Str :$db-subnet-group-name,
+        Str :$db-instance-class,
+        Str :$tde-credential-password,
+        Bool :$copy-tags-to-snapshot,
+        Bool :$publicly-accessible,
+        Str :$monitoring-role-arn,
+        Bool :$allow-major-version-upgrade,
+        Str :$domain-iam-role-name,
+        Str :$preferred-maintenance-window,
+        Str :$tde-credential-arn,
+        Int :$db-port-number,
+        Int :$promotion-tier,
+        Bool :$enable-iam-database-authentication
     ) returns ModifyDBInstanceResult is service-operation('ModifyDBInstance') {
         my $request-input = ModifyDBInstanceMessage.new(
-        :$vpc-security-group-ids,
-        :$master-user-password,
-        :$db-parameter-group-name,
-        :$backup-retention-period,
-        :$new-db-instance-identifier,
-        :$ca-certificate-identifier,
-        :$performance-insights-kms-key-id,
-        :$allocated-storage,
-        :$storage-type,
-        :$db-instance-identifier,
-        :$preferred-backup-window,
-        :$multi-az,
-        :$engine-version,
-        :$auto-minor-version-upgrade,
-        :$iops,
-        :$option-group-name,
-        :$db-security-groups,
-        :$apply-immediately,
-        :$monitoring-interval,
-        :$license-model,
-        :$domain,
-        :$enable-performance-insights,
-        :$db-subnet-group-name,
-        :$db-instance-class,
-        :$tde-credential-password,
-        :$copy-tags-to-snapshot,
-        :$publicly-accessible,
-        :$monitoring-role-arn,
-        :$allow-major-version-upgrade,
-        :$domain-iam-role-name,
-        :$preferred-maintenance-window,
-        :$tde-credential-arn,
-        :$db-port-number,
-        :$promotion-tier,
-        :$enable-iam-database-authentication
+            :$vpc-security-group-ids,
+            :$master-user-password,
+            :$db-parameter-group-name,
+            :$backup-retention-period,
+            :$new-db-instance-identifier,
+            :$ca-certificate-identifier,
+            :$performance-insights-kms-key-id,
+            :$allocated-storage,
+            :$storage-type,
+            :$db-instance-identifier,
+            :$preferred-backup-window,
+            :$multi-az,
+            :$engine-version,
+            :$auto-minor-version-upgrade,
+            :$iops,
+            :$option-group-name,
+            :$db-security-groups,
+            :$apply-immediately,
+            :$monitoring-interval,
+            :$license-model,
+            :$domain,
+            :$enable-performance-insights,
+            :$db-subnet-group-name,
+            :$db-instance-class,
+            :$tde-credential-password,
+            :$copy-tags-to-snapshot,
+            :$publicly-accessible,
+            :$monitoring-role-arn,
+            :$allow-major-version-upgrade,
+            :$domain-iam-role-name,
+            :$preferred-maintenance-window,
+            :$tde-credential-arn,
+            :$db-port-number,
+            :$promotion-tier,
+            :$enable-iam-database-authentication
         );
-;
+
         self.perform-operation(
             :api-call<ModifyDBInstance>,
-            :return-type(ModifyDBInstanceResult),
-            :result-wrapper('ModifyDBInstanceResult'),
             :$request-input,
         );
     }
 
     method add-role-to-db-cluster(
-    Str :$role-arn!,
-    Str :$db-cluster-identifier!
+        Str :$role-arn!,
+        Str :$db-cluster-identifier!
     ) is service-operation('AddRoleToDBCluster') {
         my $request-input = AddRoleToDBClusterMessage.new(
-        :$role-arn,
-        :$db-cluster-identifier
+            :$role-arn,
+            :$db-cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<AddRoleToDBCluster>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-db-instance(
-    Str :$final-db-snapshot-identifier,
-    Str :$db-instance-identifier!,
-    Bool :$skip-final-snapshot
+        Str :$final-db-snapshot-identifier,
+        Str :$db-instance-identifier!,
+        Bool :$skip-final-snapshot
     ) returns DeleteDBInstanceResult is service-operation('DeleteDBInstance') {
         my $request-input = DeleteDBInstanceMessage.new(
-        :$final-db-snapshot-identifier,
-        :$db-instance-identifier,
-        :$skip-final-snapshot
+            :$final-db-snapshot-identifier,
+            :$db-instance-identifier,
+            :$skip-final-snapshot
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDBInstance>,
-            :return-type(DeleteDBInstanceResult),
-            :result-wrapper('DeleteDBInstanceResult'),
             :$request-input,
         );
     }
 
     method delete-db-security-group(
-    Str :$db-security-group-name!
+        Str :$db-security-group-name!
     ) is service-operation('DeleteDBSecurityGroup') {
         my $request-input = DeleteDBSecurityGroupMessage.new(
-        :$db-security-group-name
+            :$db-security-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDBSecurityGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4025,382 +3883,346 @@ class AWS::SDK::Service::RDS does AWS::SDK::Service {
         my $request-input = DescribeAccountAttributesMessage.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAccountAttributes>,
-            :return-type(AccountAttributesMessage),
-            :result-wrapper('DescribeAccountAttributesResult'),
             :$request-input,
         );
     }
 
     method describe-source-regions(
-    Array[Filter] :$filters,
-    Str :$region-name,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$region-name,
+        Str :$marker,
+        Int :$max-records
     ) returns SourceRegionMessage is service-operation('DescribeSourceRegions') {
         my $request-input = DescribeSourceRegionsMessage.new(
-        :$filters,
-        :$region-name,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$region-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSourceRegions>,
-            :return-type(SourceRegionMessage),
-            :result-wrapper('DescribeSourceRegionsResult'),
             :$request-input,
         );
     }
 
     method describe-certificates(
-    Array[Filter] :$filters,
-    Str :$certificate-identifier,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$certificate-identifier,
+        Str :$marker,
+        Int :$max-records
     ) returns CertificateMessage is service-operation('DescribeCertificates') {
         my $request-input = DescribeCertificatesMessage.new(
-        :$filters,
-        :$certificate-identifier,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$certificate-identifier,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCertificates>,
-            :return-type(CertificateMessage),
-            :result-wrapper('DescribeCertificatesResult'),
             :$request-input,
         );
     }
 
     method describe-db-subnet-groups(
-    Array[Filter] :$filters,
-    Str :$db-subnet-group-name,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$db-subnet-group-name,
+        Str :$marker,
+        Int :$max-records
     ) returns DBSubnetGroupMessage is service-operation('DescribeDBSubnetGroups') {
         my $request-input = DescribeDBSubnetGroupsMessage.new(
-        :$filters,
-        :$db-subnet-group-name,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$db-subnet-group-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBSubnetGroups>,
-            :return-type(DBSubnetGroupMessage),
-            :result-wrapper('DescribeDBSubnetGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-engine-default-parameters(
-    Str :$db-parameter-group-family!,
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Str :$db-parameter-group-family!,
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeEngineDefaultParametersResult is service-operation('DescribeEngineDefaultParameters') {
         my $request-input = DescribeEngineDefaultParametersMessage.new(
-        :$db-parameter-group-family,
-        :$filters,
-        :$marker,
-        :$max-records
+            :$db-parameter-group-family,
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEngineDefaultParameters>,
-            :return-type(DescribeEngineDefaultParametersResult),
-            :result-wrapper('DescribeEngineDefaultParametersResult'),
             :$request-input,
         );
     }
 
     method reset-db-parameter-group(
-    Str :$db-parameter-group-name!,
-    Array[Parameter] :$parameters,
-    Bool :$reset-all-parameters
+        Str :$db-parameter-group-name!,
+        Array[Parameter] :$parameters,
+        Bool :$reset-all-parameters
     ) returns DBParameterGroupNameMessage is service-operation('ResetDBParameterGroup') {
         my $request-input = ResetDBParameterGroupMessage.new(
-        :$db-parameter-group-name,
-        :$parameters,
-        :$reset-all-parameters
+            :$db-parameter-group-name,
+            :$parameters,
+            :$reset-all-parameters
         );
-;
+
         self.perform-operation(
             :api-call<ResetDBParameterGroup>,
-            :return-type(DBParameterGroupNameMessage),
-            :result-wrapper('ResetDBParameterGroupResult'),
             :$request-input,
         );
     }
 
     method list-tags-for-resource(
-    Array[Filter] :$filters,
-    Str :$resource-name!
+        Array[Filter] :$filters,
+        Str :$resource-name!
     ) returns TagListMessage is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceMessage.new(
-        :$filters,
-        :$resource-name
+            :$filters,
+            :$resource-name
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResource>,
-            :return-type(TagListMessage),
-            :result-wrapper('ListTagsForResourceResult'),
             :$request-input,
         );
     }
 
     method describe-reserved-db-instances(
-    Str :$offering-type,
-    Str :$product-description,
-    Str :$duration,
-    Array[Filter] :$filters,
-    Str :$db-instance-class,
-    Str :$reserved-db-instance-id,
-    Str :$marker,
-    Bool :$multi-az,
-    Str :$reserved-db-instances-offering-id,
-    Int :$max-records
+        Str :$offering-type,
+        Str :$product-description,
+        Str :$duration,
+        Array[Filter] :$filters,
+        Str :$db-instance-class,
+        Str :$reserved-db-instance-id,
+        Str :$marker,
+        Bool :$multi-az,
+        Str :$reserved-db-instances-offering-id,
+        Int :$max-records
     ) returns ReservedDBInstanceMessage is service-operation('DescribeReservedDBInstances') {
         my $request-input = DescribeReservedDBInstancesMessage.new(
-        :$offering-type,
-        :$product-description,
-        :$duration,
-        :$filters,
-        :$db-instance-class,
-        :$reserved-db-instance-id,
-        :$marker,
-        :$multi-az,
-        :$reserved-db-instances-offering-id,
-        :$max-records
+            :$offering-type,
+            :$product-description,
+            :$duration,
+            :$filters,
+            :$db-instance-class,
+            :$reserved-db-instance-id,
+            :$marker,
+            :$multi-az,
+            :$reserved-db-instances-offering-id,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReservedDBInstances>,
-            :return-type(ReservedDBInstanceMessage),
-            :result-wrapper('DescribeReservedDBInstancesResult'),
             :$request-input,
         );
     }
 
     method describe-pending-maintenance-actions(
-    Array[Filter] :$filters,
-    Str :$resource-identifier,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$resource-identifier,
+        Str :$marker,
+        Int :$max-records
     ) returns PendingMaintenanceActionsMessage is service-operation('DescribePendingMaintenanceActions') {
         my $request-input = DescribePendingMaintenanceActionsMessage.new(
-        :$filters,
-        :$resource-identifier,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$resource-identifier,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribePendingMaintenanceActions>,
-            :return-type(PendingMaintenanceActionsMessage),
-            :result-wrapper('DescribePendingMaintenanceActionsResult'),
             :$request-input,
         );
     }
 
     method describe-db-engine-versions(
-    Str :$db-parameter-group-family,
-    Array[Filter] :$filters,
-    Bool :$list-supported-timezones,
-    Bool :$list-supported-character-sets,
-    Str :$engine,
-    Bool :$default-only,
-    Str :$marker,
-    Str :$engine-version,
-    Int :$max-records
+        Str :$db-parameter-group-family,
+        Array[Filter] :$filters,
+        Bool :$list-supported-timezones,
+        Bool :$list-supported-character-sets,
+        Str :$engine,
+        Bool :$default-only,
+        Str :$marker,
+        Str :$engine-version,
+        Int :$max-records
     ) returns DBEngineVersionMessage is service-operation('DescribeDBEngineVersions') {
         my $request-input = DescribeDBEngineVersionsMessage.new(
-        :$db-parameter-group-family,
-        :$filters,
-        :$list-supported-timezones,
-        :$list-supported-character-sets,
-        :$engine,
-        :$default-only,
-        :$marker,
-        :$engine-version,
-        :$max-records
+            :$db-parameter-group-family,
+            :$filters,
+            :$list-supported-timezones,
+            :$list-supported-character-sets,
+            :$engine,
+            :$default-only,
+            :$marker,
+            :$engine-version,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBEngineVersions>,
-            :return-type(DBEngineVersionMessage),
-            :result-wrapper('DescribeDBEngineVersionsResult'),
             :$request-input,
         );
     }
 
     method modify-db-snapshot-attribute(
-    Str :$attribute-name!,
-    Array[Str] :$values-to-remove,
-    Str :$db-snapshot-identifier!,
-    Array[Str] :$values-to-add
+        Str :$attribute-name!,
+        Array[Str] :$values-to-remove,
+        Str :$db-snapshot-identifier!,
+        Array[Str] :$values-to-add
     ) returns ModifyDBSnapshotAttributeResult is service-operation('ModifyDBSnapshotAttribute') {
         my $request-input = ModifyDBSnapshotAttributeMessage.new(
-        :$attribute-name,
-        :$values-to-remove,
-        :$db-snapshot-identifier,
-        :$values-to-add
+            :$attribute-name,
+            :$values-to-remove,
+            :$db-snapshot-identifier,
+            :$values-to-add
         );
-;
+
         self.perform-operation(
             :api-call<ModifyDBSnapshotAttribute>,
-            :return-type(ModifyDBSnapshotAttributeResult),
-            :result-wrapper('ModifyDBSnapshotAttributeResult'),
             :$request-input,
         );
     }
 
     method modify-db-cluster(
-    Str :$master-user-password,
-    Array[Str] :$vpc-security-group-ids,
-    Int :$backup-retention-period,
-    Str :$db-cluster-parameter-group-name,
-    Str :$preferred-backup-window,
-    Str :$db-cluster-identifier!,
-    Str :$preferred-maintenance-window,
-    Str :$option-group-name,
-    Int :$port,
-    Str :$new-db-cluster-identifier,
-    Bool :$enable-iam-database-authentication,
-    Bool :$apply-immediately
+        Str :$master-user-password,
+        Array[Str] :$vpc-security-group-ids,
+        Int :$backup-retention-period,
+        Str :$db-cluster-parameter-group-name,
+        Str :$preferred-backup-window,
+        Str :$db-cluster-identifier!,
+        Str :$preferred-maintenance-window,
+        Str :$option-group-name,
+        Int :$port,
+        Str :$new-db-cluster-identifier,
+        Bool :$enable-iam-database-authentication,
+        Bool :$apply-immediately
     ) returns ModifyDBClusterResult is service-operation('ModifyDBCluster') {
         my $request-input = ModifyDBClusterMessage.new(
-        :$master-user-password,
-        :$vpc-security-group-ids,
-        :$backup-retention-period,
-        :$db-cluster-parameter-group-name,
-        :$preferred-backup-window,
-        :$db-cluster-identifier,
-        :$preferred-maintenance-window,
-        :$option-group-name,
-        :$port,
-        :$new-db-cluster-identifier,
-        :$enable-iam-database-authentication,
-        :$apply-immediately
+            :$master-user-password,
+            :$vpc-security-group-ids,
+            :$backup-retention-period,
+            :$db-cluster-parameter-group-name,
+            :$preferred-backup-window,
+            :$db-cluster-identifier,
+            :$preferred-maintenance-window,
+            :$option-group-name,
+            :$port,
+            :$new-db-cluster-identifier,
+            :$enable-iam-database-authentication,
+            :$apply-immediately
         );
-;
+
         self.perform-operation(
             :api-call<ModifyDBCluster>,
-            :return-type(ModifyDBClusterResult),
-            :result-wrapper('ModifyDBClusterResult'),
             :$request-input,
         );
     }
 
     method copy-db-parameter-group(
-    Array[Tag] :$tags,
-    Str :$target-db-parameter-group-description!,
-    Str :$target-db-parameter-group-identifier!,
-    Str :$source-db-parameter-group-identifier!
+        Array[Tag] :$tags,
+        Str :$target-db-parameter-group-description!,
+        Str :$target-db-parameter-group-identifier!,
+        Str :$source-db-parameter-group-identifier!
     ) returns CopyDBParameterGroupResult is service-operation('CopyDBParameterGroup') {
         my $request-input = CopyDBParameterGroupMessage.new(
-        :$tags,
-        :$target-db-parameter-group-description,
-        :$target-db-parameter-group-identifier,
-        :$source-db-parameter-group-identifier
+            :$tags,
+            :$target-db-parameter-group-description,
+            :$target-db-parameter-group-identifier,
+            :$source-db-parameter-group-identifier
         );
-;
+
         self.perform-operation(
             :api-call<CopyDBParameterGroup>,
-            :return-type(CopyDBParameterGroupResult),
-            :result-wrapper('CopyDBParameterGroupResult'),
             :$request-input,
         );
     }
 
     method delete-db-snapshot(
-    Str :$db-snapshot-identifier!
+        Str :$db-snapshot-identifier!
     ) returns DeleteDBSnapshotResult is service-operation('DeleteDBSnapshot') {
         my $request-input = DeleteDBSnapshotMessage.new(
-        :$db-snapshot-identifier
+            :$db-snapshot-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDBSnapshot>,
-            :return-type(DeleteDBSnapshotResult),
-            :result-wrapper('DeleteDBSnapshotResult'),
             :$request-input,
         );
     }
 
     method delete-event-subscription(
-    Str :$subscription-name!
+        Str :$subscription-name!
     ) returns DeleteEventSubscriptionResult is service-operation('DeleteEventSubscription') {
         my $request-input = DeleteEventSubscriptionMessage.new(
-        :$subscription-name
+            :$subscription-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEventSubscription>,
-            :return-type(DeleteEventSubscriptionResult),
-            :result-wrapper('DeleteEventSubscriptionResult'),
             :$request-input,
         );
     }
 
     method describe-db-instances(
-    Array[Filter] :$filters,
-    Str :$db-instance-identifier,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$db-instance-identifier,
+        Str :$marker,
+        Int :$max-records
     ) returns DBInstanceMessage is service-operation('DescribeDBInstances') {
         my $request-input = DescribeDBInstancesMessage.new(
-        :$filters,
-        :$db-instance-identifier,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$db-instance-identifier,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDBInstances>,
-            :return-type(DBInstanceMessage),
-            :result-wrapper('DescribeDBInstancesResult'),
             :$request-input,
         );
     }
 
     method delete-db-cluster-parameter-group(
-    Str :$db-cluster-parameter-group-name!
+        Str :$db-cluster-parameter-group-name!
     ) is service-operation('DeleteDBClusterParameterGroup') {
         my $request-input = DeleteDBClusterParameterGroupMessage.new(
-        :$db-cluster-parameter-group-name
+            :$db-cluster-parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDBClusterParameterGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-engine-default-cluster-parameters(
-    Str :$db-parameter-group-family!,
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Str :$db-parameter-group-family!,
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeEngineDefaultClusterParametersResult is service-operation('DescribeEngineDefaultClusterParameters') {
         my $request-input = DescribeEngineDefaultClusterParametersMessage.new(
-        :$db-parameter-group-family,
-        :$filters,
-        :$marker,
-        :$max-records
+            :$db-parameter-group-family,
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEngineDefaultClusterParameters>,
-            :return-type(DescribeEngineDefaultClusterParametersResult),
-            :result-wrapper('DescribeEngineDefaultClusterParametersResult'),
             :$request-input,
         );
     }

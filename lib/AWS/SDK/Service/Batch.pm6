@@ -433,313 +433,281 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     }
 
     method submit-job(
-    Str :$job-definition!,
-    Str :$job-name!,
-    RetryStrategy :$retry-strategy,
-    Str :$job-queue!,
-    Hash[Str, Str] :$parameters,
-    Array[JobDependency] :$depends-on,
-    ContainerOverrides :$container-overrides
+        Str :$job-definition!,
+        Str :$job-name!,
+        RetryStrategy :$retry-strategy,
+        Str :$job-queue!,
+        Hash[Str, Str] :$parameters,
+        Array[JobDependency] :$depends-on,
+        ContainerOverrides :$container-overrides
     ) returns SubmitJobResponse is service-operation('SubmitJob') {
         my $request-input = SubmitJobRequest.new(
-        :$job-definition,
-        :$job-name,
-        :$retry-strategy,
-        :$job-queue,
-        :$parameters,
-        :$depends-on,
-        :$container-overrides
+            :$job-definition,
+            :$job-name,
+            :$retry-strategy,
+            :$job-queue,
+            :$parameters,
+            :$depends-on,
+            :$container-overrides
         );
-;
+
         self.perform-operation(
             :api-call<SubmitJob>,
-            :return-type(SubmitJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-job-queues(
-    Str :$next-token,
-    Int :$max-results,
-    Array[Str] :$job-queues
+        Str :$next-token,
+        Int :$max-results,
+        Array[Str] :$job-queues
     ) returns DescribeJobQueuesResponse is service-operation('DescribeJobQueues') {
         my $request-input = DescribeJobQueuesRequest.new(
-        :$next-token,
-        :$max-results,
-        :$job-queues
+            :$next-token,
+            :$max-results,
+            :$job-queues
         );
-;
+
         self.perform-operation(
             :api-call<DescribeJobQueues>,
-            :return-type(DescribeJobQueuesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-jobs(
-    Array[Str] :$jobs!
+        Array[Str] :$jobs!
     ) returns DescribeJobsResponse is service-operation('DescribeJobs') {
         my $request-input = DescribeJobsRequest.new(
-        :$jobs
+            :$jobs
         );
-;
+
         self.perform-operation(
             :api-call<DescribeJobs>,
-            :return-type(DescribeJobsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-job-queue(
-    Str :$job-queue!
+        Str :$job-queue!
     ) returns DeleteJobQueueResponse is service-operation('DeleteJobQueue') {
         my $request-input = DeleteJobQueueRequest.new(
-        :$job-queue
+            :$job-queue
         );
-;
+
         self.perform-operation(
             :api-call<DeleteJobQueue>,
-            :return-type(DeleteJobQueueResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-compute-environment(
-    ComputeResourceUpdate :$compute-resources,
-    CEState :$state,
-    Str :$service-role,
-    Str :$compute-environment!
+        ComputeResourceUpdate :$compute-resources,
+        CEState :$state,
+        Str :$service-role,
+        Str :$compute-environment!
     ) returns UpdateComputeEnvironmentResponse is service-operation('UpdateComputeEnvironment') {
         my $request-input = UpdateComputeEnvironmentRequest.new(
-        :$compute-resources,
-        :$state,
-        :$service-role,
-        :$compute-environment
+            :$compute-resources,
+            :$state,
+            :$service-role,
+            :$compute-environment
         );
-;
+
         self.perform-operation(
             :api-call<UpdateComputeEnvironment>,
-            :return-type(UpdateComputeEnvironmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-job-queue(
-    Str :$job-queue-name!,
-    Array[ComputeEnvironmentOrder] :$compute-environment-order!,
-    Int :$priority!,
-    JQState :$state
+        Str :$job-queue-name!,
+        Array[ComputeEnvironmentOrder] :$compute-environment-order!,
+        Int :$priority!,
+        JQState :$state
     ) returns CreateJobQueueResponse is service-operation('CreateJobQueue') {
         my $request-input = CreateJobQueueRequest.new(
-        :$job-queue-name,
-        :$compute-environment-order,
-        :$priority,
-        :$state
+            :$job-queue-name,
+            :$compute-environment-order,
+            :$priority,
+            :$state
         );
-;
+
         self.perform-operation(
             :api-call<CreateJobQueue>,
-            :return-type(CreateJobQueueResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-compute-environments(
-    Array[Str] :$compute-environments,
-    Str :$next-token,
-    Int :$max-results
+        Array[Str] :$compute-environments,
+        Str :$next-token,
+        Int :$max-results
     ) returns DescribeComputeEnvironmentsResponse is service-operation('DescribeComputeEnvironments') {
         my $request-input = DescribeComputeEnvironmentsRequest.new(
-        :$compute-environments,
-        :$next-token,
-        :$max-results
+            :$compute-environments,
+            :$next-token,
+            :$max-results
         );
-;
+
         self.perform-operation(
             :api-call<DescribeComputeEnvironments>,
-            :return-type(DescribeComputeEnvironmentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-job-queue(
-    Array[ComputeEnvironmentOrder] :$compute-environment-order,
-    Int :$priority,
-    JQState :$state,
-    Str :$job-queue!
+        Array[ComputeEnvironmentOrder] :$compute-environment-order,
+        Int :$priority,
+        JQState :$state,
+        Str :$job-queue!
     ) returns UpdateJobQueueResponse is service-operation('UpdateJobQueue') {
         my $request-input = UpdateJobQueueRequest.new(
-        :$compute-environment-order,
-        :$priority,
-        :$state,
-        :$job-queue
+            :$compute-environment-order,
+            :$priority,
+            :$state,
+            :$job-queue
         );
-;
+
         self.perform-operation(
             :api-call<UpdateJobQueue>,
-            :return-type(UpdateJobQueueResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method terminate-job(
-    Str :$job-id!,
-    Str :$reason!
+        Str :$job-id!,
+        Str :$reason!
     ) returns TerminateJobResponse is service-operation('TerminateJob') {
         my $request-input = TerminateJobRequest.new(
-        :$job-id,
-        :$reason
+            :$job-id,
+            :$reason
         );
-;
+
         self.perform-operation(
             :api-call<TerminateJob>,
-            :return-type(TerminateJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-job-definition(
-    Str :$job-definition!
+        Str :$job-definition!
     ) returns DeregisterJobDefinitionResponse is service-operation('DeregisterJobDefinition') {
         my $request-input = DeregisterJobDefinitionRequest.new(
-        :$job-definition
+            :$job-definition
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterJobDefinition>,
-            :return-type(DeregisterJobDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-compute-environment(
-    Str :$compute-environment!
+        Str :$compute-environment!
     ) returns DeleteComputeEnvironmentResponse is service-operation('DeleteComputeEnvironment') {
         my $request-input = DeleteComputeEnvironmentRequest.new(
-        :$compute-environment
+            :$compute-environment
         );
-;
+
         self.perform-operation(
             :api-call<DeleteComputeEnvironment>,
-            :return-type(DeleteComputeEnvironmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-job-definition(
-    ContainerProperties :$container-properties,
-    RetryStrategy :$retry-strategy,
-    JobDefinitionType :$type!,
-    Hash[Str, Str] :$parameters,
-    Str :$job-definition-name!
+        ContainerProperties :$container-properties,
+        RetryStrategy :$retry-strategy,
+        JobDefinitionType :$type!,
+        Hash[Str, Str] :$parameters,
+        Str :$job-definition-name!
     ) returns RegisterJobDefinitionResponse is service-operation('RegisterJobDefinition') {
         my $request-input = RegisterJobDefinitionRequest.new(
-        :$container-properties,
-        :$retry-strategy,
-        :$type,
-        :$parameters,
-        :$job-definition-name
+            :$container-properties,
+            :$retry-strategy,
+            :$type,
+            :$parameters,
+            :$job-definition-name
         );
-;
+
         self.perform-operation(
             :api-call<RegisterJobDefinition>,
-            :return-type(RegisterJobDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-job-definitions(
-    Array[Str] :$job-definitions,
-    Str :$status,
-    Str :$next-token,
-    Int :$max-results,
-    Str :$job-definition-name
+        Array[Str] :$job-definitions,
+        Str :$status,
+        Str :$next-token,
+        Int :$max-results,
+        Str :$job-definition-name
     ) returns DescribeJobDefinitionsResponse is service-operation('DescribeJobDefinitions') {
         my $request-input = DescribeJobDefinitionsRequest.new(
-        :$job-definitions,
-        :$status,
-        :$next-token,
-        :$max-results,
-        :$job-definition-name
+            :$job-definitions,
+            :$status,
+            :$next-token,
+            :$max-results,
+            :$job-definition-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeJobDefinitions>,
-            :return-type(DescribeJobDefinitionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-compute-environment(
-    Str :$compute-environment-name!,
-    ComputeResource :$compute-resources,
-    CEState :$state,
-    CEType :$type!,
-    Str :$service-role!
+        Str :$compute-environment-name!,
+        ComputeResource :$compute-resources,
+        CEState :$state,
+        CEType :$type!,
+        Str :$service-role!
     ) returns CreateComputeEnvironmentResponse is service-operation('CreateComputeEnvironment') {
         my $request-input = CreateComputeEnvironmentRequest.new(
-        :$compute-environment-name,
-        :$compute-resources,
-        :$state,
-        :$type,
-        :$service-role
+            :$compute-environment-name,
+            :$compute-resources,
+            :$state,
+            :$type,
+            :$service-role
         );
-;
+
         self.perform-operation(
             :api-call<CreateComputeEnvironment>,
-            :return-type(CreateComputeEnvironmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-job(
-    Str :$job-id!,
-    Str :$reason!
+        Str :$job-id!,
+        Str :$reason!
     ) returns CancelJobResponse is service-operation('CancelJob') {
         my $request-input = CancelJobRequest.new(
-        :$job-id,
-        :$reason
+            :$job-id,
+            :$reason
         );
-;
+
         self.perform-operation(
             :api-call<CancelJob>,
-            :return-type(CancelJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-jobs(
-    Str :$next-token,
-    Int :$max-results,
-    JobStatus :$job-status,
-    Str :$job-queue!
+        Str :$next-token,
+        Int :$max-results,
+        JobStatus :$job-status,
+        Str :$job-queue!
     ) returns ListJobsResponse is service-operation('ListJobs') {
         my $request-input = ListJobsRequest.new(
-        :$next-token,
-        :$max-results,
-        :$job-status,
-        :$job-queue
+            :$next-token,
+            :$max-results,
+            :$job-status,
+            :$job-queue
         );
-;
+
         self.perform-operation(
             :api-call<ListJobs>,
-            :return-type(ListJobsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

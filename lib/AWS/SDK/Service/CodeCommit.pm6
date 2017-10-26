@@ -458,296 +458,262 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
     }
 
     method update-default-branch(
-    RepositoryName :$repository-name!,
-    BranchName :$default-branch-name!
+        RepositoryName :$repository-name!,
+        BranchName :$default-branch-name!
     ) is service-operation('UpdateDefaultBranch') {
         my $request-input = UpdateDefaultBranchInput.new(
-        :$repository-name,
-        :$default-branch-name
+            :$repository-name,
+            :$default-branch-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDefaultBranch>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-branch(
-    RepositoryName :$repository-name,
-    BranchName :$branch-name
+        RepositoryName :$repository-name,
+        BranchName :$branch-name
     ) returns GetBranchOutput is service-operation('GetBranch') {
         my $request-input = GetBranchInput.new(
-        :$repository-name,
-        :$branch-name
+            :$repository-name,
+            :$branch-name
         );
-;
+
         self.perform-operation(
             :api-call<GetBranch>,
-            :return-type(GetBranchOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-repository(
-    RepositoryName :$repository-name!
+        RepositoryName :$repository-name!
     ) returns GetRepositoryOutput is service-operation('GetRepository') {
         my $request-input = GetRepositoryInput.new(
-        :$repository-name
+            :$repository-name
         );
-;
+
         self.perform-operation(
             :api-call<GetRepository>,
-            :return-type(GetRepositoryOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-repositories(
-    OrderEnum :$order,
-    Str :$next-token,
-    SortByEnum :$sort-by
+        OrderEnum :$order,
+        Str :$next-token,
+        SortByEnum :$sort-by
     ) returns ListRepositoriesOutput is service-operation('ListRepositories') {
         my $request-input = ListRepositoriesInput.new(
-        :$order,
-        :$next-token,
-        :$sort-by
+            :$order,
+            :$next-token,
+            :$sort-by
         );
-;
+
         self.perform-operation(
             :api-call<ListRepositories>,
-            :return-type(ListRepositoriesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-branches(
-    Str :$next-token,
-    RepositoryName :$repository-name!
+        Str :$next-token,
+        RepositoryName :$repository-name!
     ) returns ListBranchesOutput is service-operation('ListBranches') {
         my $request-input = ListBranchesInput.new(
-        :$next-token,
-        :$repository-name
+            :$next-token,
+            :$repository-name
         );
-;
+
         self.perform-operation(
             :api-call<ListBranches>,
-            :return-type(ListBranchesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-repository(
-    RepositoryDescription :$repository-description,
-    RepositoryName :$repository-name!
+        RepositoryDescription :$repository-description,
+        RepositoryName :$repository-name!
     ) returns CreateRepositoryOutput is service-operation('CreateRepository') {
         my $request-input = CreateRepositoryInput.new(
-        :$repository-description,
-        :$repository-name
+            :$repository-description,
+            :$repository-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateRepository>,
-            :return-type(CreateRepositoryOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-repository-name(
-    RepositoryName :$new-name!,
-    RepositoryName :$old-name!
+        RepositoryName :$new-name!,
+        RepositoryName :$old-name!
     ) is service-operation('UpdateRepositoryName') {
         my $request-input = UpdateRepositoryNameInput.new(
-        :$new-name,
-        :$old-name
+            :$new-name,
+            :$old-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRepositoryName>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-repository-description(
-    RepositoryDescription :$repository-description,
-    RepositoryName :$repository-name!
+        RepositoryDescription :$repository-description,
+        RepositoryName :$repository-name!
     ) is service-operation('UpdateRepositoryDescription') {
         my $request-input = UpdateRepositoryDescriptionInput.new(
-        :$repository-description,
-        :$repository-name
+            :$repository-description,
+            :$repository-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRepositoryDescription>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-repository-triggers(
-    RepositoryName :$repository-name!,
-    Array[RepositoryTrigger] :$triggers!
+        RepositoryName :$repository-name!,
+        Array[RepositoryTrigger] :$triggers!
     ) returns PutRepositoryTriggersOutput is service-operation('PutRepositoryTriggers') {
         my $request-input = PutRepositoryTriggersInput.new(
-        :$repository-name,
-        :$triggers
+            :$repository-name,
+            :$triggers
         );
-;
+
         self.perform-operation(
             :api-call<PutRepositoryTriggers>,
-            :return-type(PutRepositoryTriggersOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-blob(
-    RepositoryName :$repository-name!,
-    Str :$blob-id!
+        RepositoryName :$repository-name!,
+        Str :$blob-id!
     ) returns GetBlobOutput is service-operation('GetBlob') {
         my $request-input = GetBlobInput.new(
-        :$repository-name,
-        :$blob-id
+            :$repository-name,
+            :$blob-id
         );
-;
+
         self.perform-operation(
             :api-call<GetBlob>,
-            :return-type(GetBlobOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method test-repository-triggers(
-    RepositoryName :$repository-name!,
-    Array[RepositoryTrigger] :$triggers!
+        RepositoryName :$repository-name!,
+        Array[RepositoryTrigger] :$triggers!
     ) returns TestRepositoryTriggersOutput is service-operation('TestRepositoryTriggers') {
         my $request-input = TestRepositoryTriggersInput.new(
-        :$repository-name,
-        :$triggers
+            :$repository-name,
+            :$triggers
         );
-;
+
         self.perform-operation(
             :api-call<TestRepositoryTriggers>,
-            :return-type(TestRepositoryTriggersOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-repository(
-    RepositoryName :$repository-name!
+        RepositoryName :$repository-name!
     ) returns DeleteRepositoryOutput is service-operation('DeleteRepository') {
         my $request-input = DeleteRepositoryInput.new(
-        :$repository-name
+            :$repository-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRepository>,
-            :return-type(DeleteRepositoryOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-repositories(
-    Array[RepositoryName] :$repository-names!
+        Array[RepositoryName] :$repository-names!
     ) returns BatchGetRepositoriesOutput is service-operation('BatchGetRepositories') {
         my $request-input = BatchGetRepositoriesInput.new(
-        :$repository-names
+            :$repository-names
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetRepositories>,
-            :return-type(BatchGetRepositoriesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-repository-triggers(
-    RepositoryName :$repository-name!
+        RepositoryName :$repository-name!
     ) returns GetRepositoryTriggersOutput is service-operation('GetRepositoryTriggers') {
         my $request-input = GetRepositoryTriggersInput.new(
-        :$repository-name
+            :$repository-name
         );
-;
+
         self.perform-operation(
             :api-call<GetRepositoryTriggers>,
-            :return-type(GetRepositoryTriggersOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-differences(
-    Int :$max-results,
-    Str :$after-commit-specifier!,
-    Str :$after-path,
-    Str :$before-commit-specifier,
-    RepositoryName :$repository-name!,
-    Str :$next-token,
-    Str :$before-path
+        Int :$max-results,
+        Str :$after-commit-specifier!,
+        Str :$after-path,
+        Str :$before-commit-specifier,
+        RepositoryName :$repository-name!,
+        Str :$next-token,
+        Str :$before-path
     ) returns GetDifferencesOutput is service-operation('GetDifferences') {
         my $request-input = GetDifferencesInput.new(
-        :$max-results,
-        :$after-commit-specifier,
-        :$after-path,
-        :$before-commit-specifier,
-        :$repository-name,
-        :$next-token,
-        :$before-path
+            :$max-results,
+            :$after-commit-specifier,
+            :$after-path,
+            :$before-commit-specifier,
+            :$repository-name,
+            :$next-token,
+            :$before-path
         );
-;
+
         self.perform-operation(
             :api-call<GetDifferences>,
-            :return-type(GetDifferencesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-commit(
-    Str :$commit-id!,
-    RepositoryName :$repository-name!
+        Str :$commit-id!,
+        RepositoryName :$repository-name!
     ) returns GetCommitOutput is service-operation('GetCommit') {
         my $request-input = GetCommitInput.new(
-        :$commit-id,
-        :$repository-name
+            :$commit-id,
+            :$repository-name
         );
-;
+
         self.perform-operation(
             :api-call<GetCommit>,
-            :return-type(GetCommitOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-branch(
-    Str :$commit-id!,
-    RepositoryName :$repository-name!,
-    BranchName :$branch-name!
+        Str :$commit-id!,
+        RepositoryName :$repository-name!,
+        BranchName :$branch-name!
     ) is service-operation('CreateBranch') {
         my $request-input = CreateBranchInput.new(
-        :$commit-id,
-        :$repository-name,
-        :$branch-name
+            :$commit-id,
+            :$repository-name,
+            :$branch-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateBranch>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

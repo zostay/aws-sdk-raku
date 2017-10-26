@@ -857,324 +857,286 @@ class AWS::SDK::Service::DS does AWS::SDK::Service {
     }
 
     method verify-trust(
-    TrustId :$trust-id!
+        TrustId :$trust-id!
     ) returns VerifyTrustResult is service-operation('VerifyTrust') {
         my $request-input = VerifyTrustRequest.new(
-        :$trust-id
+            :$trust-id
         );
-;
+
         self.perform-operation(
             :api-call<VerifyTrust>,
-            :return-type(VerifyTrustResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-schema-extensions(
-    Limit :$limit,
-    Str :$next-token,
-    DirectoryId :$directory-id!
+        Limit :$limit,
+        Str :$next-token,
+        DirectoryId :$directory-id!
     ) returns ListSchemaExtensionsResult is service-operation('ListSchemaExtensions') {
         my $request-input = ListSchemaExtensionsRequest.new(
-        :$limit,
-        :$next-token,
-        :$directory-id
+            :$limit,
+            :$next-token,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<ListSchemaExtensions>,
-            :return-type(ListSchemaExtensionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-snapshot-limits(
-    DirectoryId :$directory-id!
+        DirectoryId :$directory-id!
     ) returns GetSnapshotLimitsResult is service-operation('GetSnapshotLimits') {
         my $request-input = GetSnapshotLimitsRequest.new(
-        :$directory-id
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSnapshotLimits>,
-            :return-type(GetSnapshotLimitsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-radius(
-    RadiusSettings :$radius-settings!,
-    DirectoryId :$directory-id!
+        RadiusSettings :$radius-settings!,
+        DirectoryId :$directory-id!
     ) returns EnableRadiusResult is service-operation('EnableRadius') {
         my $request-input = EnableRadiusRequest.new(
-        :$radius-settings,
-        :$directory-id
+            :$radius-settings,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<EnableRadius>,
-            :return-type(EnableRadiusResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-sso(
-    ConnectPassword :$password,
-    UserName :$user-name,
-    DirectoryId :$directory-id!
+        ConnectPassword :$password,
+        UserName :$user-name,
+        DirectoryId :$directory-id!
     ) returns DisableSsoResult is service-operation('DisableSso') {
         my $request-input = DisableSsoRequest.new(
-        :$password,
-        :$user-name,
-        :$directory-id
+            :$password,
+            :$user-name,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DisableSso>,
-            :return-type(DisableSsoResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-conditional-forwarders(
-    Array[RemoteDomainName] :$remote-domain-names,
-    DirectoryId :$directory-id!
+        Array[RemoteDomainName] :$remote-domain-names,
+        DirectoryId :$directory-id!
     ) returns DescribeConditionalForwardersResult is service-operation('DescribeConditionalForwarders') {
         my $request-input = DescribeConditionalForwardersRequest.new(
-        :$remote-domain-names,
-        :$directory-id
+            :$remote-domain-names,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConditionalForwarders>,
-            :return-type(DescribeConditionalForwardersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-event-topic(
-    TopicName :$topic-name!,
-    DirectoryId :$directory-id!
+        TopicName :$topic-name!,
+        DirectoryId :$directory-id!
     ) returns RegisterEventTopicResult is service-operation('RegisterEventTopic') {
         my $request-input = RegisterEventTopicRequest.new(
-        :$topic-name,
-        :$directory-id
+            :$topic-name,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<RegisterEventTopic>,
-            :return-type(RegisterEventTopicResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-event-topic(
-    TopicName :$topic-name!,
-    DirectoryId :$directory-id!
+        TopicName :$topic-name!,
+        DirectoryId :$directory-id!
     ) returns DeregisterEventTopicResult is service-operation('DeregisterEventTopic') {
         my $request-input = DeregisterEventTopicRequest.new(
-        :$topic-name,
-        :$directory-id
+            :$topic-name,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterEventTopic>,
-            :return-type(DeregisterEventTopicResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-trust(
-    Bool :$delete-associated-conditional-forwarder,
-    TrustId :$trust-id!
+        Bool :$delete-associated-conditional-forwarder,
+        TrustId :$trust-id!
     ) returns DeleteTrustResult is service-operation('DeleteTrust') {
         my $request-input = DeleteTrustRequest.new(
-        :$delete-associated-conditional-forwarder,
-        :$trust-id
+            :$delete-associated-conditional-forwarder,
+            :$trust-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTrust>,
-            :return-type(DeleteTrustResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-computer(
-    ComputerPassword :$password!,
-    Array[Attribute] :$computer-attributes,
-    OrganizationalUnitDN :$organizational-unit-distinguished-name,
-    ComputerName :$computer-name!,
-    DirectoryId :$directory-id!
+        ComputerPassword :$password!,
+        Array[Attribute] :$computer-attributes,
+        OrganizationalUnitDN :$organizational-unit-distinguished-name,
+        ComputerName :$computer-name!,
+        DirectoryId :$directory-id!
     ) returns CreateComputerResult is service-operation('CreateComputer') {
         my $request-input = CreateComputerRequest.new(
-        :$password,
-        :$computer-attributes,
-        :$organizational-unit-distinguished-name,
-        :$computer-name,
-        :$directory-id
+            :$password,
+            :$computer-attributes,
+            :$organizational-unit-distinguished-name,
+            :$computer-name,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateComputer>,
-            :return-type(CreateComputerResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-alias(
-    AliasName :$alias!,
-    DirectoryId :$directory-id!
+        AliasName :$alias!,
+        DirectoryId :$directory-id!
     ) returns CreateAliasResult is service-operation('CreateAlias') {
         my $request-input = CreateAliasRequest.new(
-        :$alias,
-        :$directory-id
+            :$alias,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateAlias>,
-            :return-type(CreateAliasResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method cancel-schema-extension(
-    SchemaExtensionId :$schema-extension-id!,
-    DirectoryId :$directory-id!
+        SchemaExtensionId :$schema-extension-id!,
+        DirectoryId :$directory-id!
     ) returns CancelSchemaExtensionResult is service-operation('CancelSchemaExtension') {
         my $request-input = CancelSchemaExtensionRequest.new(
-        :$schema-extension-id,
-        :$directory-id
+            :$schema-extension-id,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<CancelSchemaExtension>,
-            :return-type(CancelSchemaExtensionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags-to-resource(
-    Array[Tag] :$tags!,
-    ResourceId :$resource-id!
+        Array[Tag] :$tags!,
+        ResourceId :$resource-id!
     ) returns AddTagsToResourceResult is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceRequest.new(
-        :$tags,
-        :$resource-id
+            :$tags,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<AddTagsToResource>,
-            :return-type(AddTagsToResourceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags-from-resource(
-    Array[TagKey] :$tag-keys!,
-    ResourceId :$resource-id!
+        Array[TagKey] :$tag-keys!,
+        ResourceId :$resource-id!
     ) returns RemoveTagsFromResourceResult is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceRequest.new(
-        :$tag-keys,
-        :$resource-id
+            :$tag-keys,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
-            :return-type(RemoveTagsFromResourceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-radius(
-    DirectoryId :$directory-id!
+        DirectoryId :$directory-id!
     ) returns DisableRadiusResult is service-operation('DisableRadius') {
         my $request-input = DisableRadiusRequest.new(
-        :$directory-id
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DisableRadius>,
-            :return-type(DisableRadiusResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-snapshot(
-    SnapshotName :$name,
-    DirectoryId :$directory-id!
+        SnapshotName :$name,
+        DirectoryId :$directory-id!
     ) returns CreateSnapshotResult is service-operation('CreateSnapshot') {
         my $request-input = CreateSnapshotRequest.new(
-        :$name,
-        :$directory-id
+            :$name,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateSnapshot>,
-            :return-type(CreateSnapshotResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method restore-from-snapshot(
-    SnapshotId :$snapshot-id!
+        SnapshotId :$snapshot-id!
     ) returns RestoreFromSnapshotResult is service-operation('RestoreFromSnapshot') {
         my $request-input = RestoreFromSnapshotRequest.new(
-        :$snapshot-id
+            :$snapshot-id
         );
-;
+
         self.perform-operation(
             :api-call<RestoreFromSnapshot>,
-            :return-type(RestoreFromSnapshotResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-event-topics(
-    Array[TopicName] :$topic-names,
-    DirectoryId :$directory-id
+        Array[TopicName] :$topic-names,
+        DirectoryId :$directory-id
     ) returns DescribeEventTopicsResult is service-operation('DescribeEventTopics') {
         my $request-input = DescribeEventTopicsRequest.new(
-        :$topic-names,
-        :$directory-id
+            :$topic-names,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEventTopics>,
-            :return-type(DescribeEventTopicsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-snapshot(
-    SnapshotId :$snapshot-id!
+        SnapshotId :$snapshot-id!
     ) returns DeleteSnapshotResult is service-operation('DeleteSnapshot') {
         my $request-input = DeleteSnapshotRequest.new(
-        :$snapshot-id
+            :$snapshot-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSnapshot>,
-            :return-type(DeleteSnapshotResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1185,409 +1147,367 @@ class AWS::SDK::Service::DS does AWS::SDK::Service {
         my $request-input = GetDirectoryLimitsRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetDirectoryLimits>,
-            :return-type(GetDirectoryLimitsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-snapshots(
-    Limit :$limit,
-    Array[SnapshotId] :$snapshot-ids,
-    Str :$next-token,
-    DirectoryId :$directory-id
+        Limit :$limit,
+        Array[SnapshotId] :$snapshot-ids,
+        Str :$next-token,
+        DirectoryId :$directory-id
     ) returns DescribeSnapshotsResult is service-operation('DescribeSnapshots') {
         my $request-input = DescribeSnapshotsRequest.new(
-        :$limit,
-        :$snapshot-ids,
-        :$next-token,
-        :$directory-id
+            :$limit,
+            :$snapshot-ids,
+            :$next-token,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSnapshots>,
-            :return-type(DescribeSnapshotsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-directory(
-    DirectoryId :$directory-id!
+        DirectoryId :$directory-id!
     ) returns DeleteDirectoryResult is service-operation('DeleteDirectory') {
         my $request-input = DeleteDirectoryRequest.new(
-        :$directory-id
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDirectory>,
-            :return-type(DeleteDirectoryResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-conditional-forwarder(
-    RemoteDomainName :$remote-domain-name!,
-    DirectoryId :$directory-id!
+        RemoteDomainName :$remote-domain-name!,
+        DirectoryId :$directory-id!
     ) returns DeleteConditionalForwarderResult is service-operation('DeleteConditionalForwarder') {
         my $request-input = DeleteConditionalForwarderRequest.new(
-        :$remote-domain-name,
-        :$directory-id
+            :$remote-domain-name,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteConditionalForwarder>,
-            :return-type(DeleteConditionalForwarderResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-conditional-forwarder(
-    Array[IpAddr] :$dns-ip-addrs!,
-    RemoteDomainName :$remote-domain-name!,
-    DirectoryId :$directory-id!
+        Array[IpAddr] :$dns-ip-addrs!,
+        RemoteDomainName :$remote-domain-name!,
+        DirectoryId :$directory-id!
     ) returns CreateConditionalForwarderResult is service-operation('CreateConditionalForwarder') {
         my $request-input = CreateConditionalForwarderRequest.new(
-        :$dns-ip-addrs,
-        :$remote-domain-name,
-        :$directory-id
+            :$dns-ip-addrs,
+            :$remote-domain-name,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateConditionalForwarder>,
-            :return-type(CreateConditionalForwarderResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-radius(
-    RadiusSettings :$radius-settings!,
-    DirectoryId :$directory-id!
+        RadiusSettings :$radius-settings!,
+        DirectoryId :$directory-id!
     ) returns UpdateRadiusResult is service-operation('UpdateRadius') {
         my $request-input = UpdateRadiusRequest.new(
-        :$radius-settings,
-        :$directory-id
+            :$radius-settings,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRadius>,
-            :return-type(UpdateRadiusResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-number-of-domain-controllers(
-    DesiredNumberOfDomainControllers :$desired-number!,
-    DirectoryId :$directory-id!
+        DesiredNumberOfDomainControllers :$desired-number!,
+        DirectoryId :$directory-id!
     ) returns UpdateNumberOfDomainControllersResult is service-operation('UpdateNumberOfDomainControllers') {
         my $request-input = UpdateNumberOfDomainControllersRequest.new(
-        :$desired-number,
-        :$directory-id
+            :$desired-number,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateNumberOfDomainControllers>,
-            :return-type(UpdateNumberOfDomainControllersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-schema-extension(
-    Description :$description!,
-    Bool :$create-snapshot-before-schema-extension!,
-    LdifContent :$ldif-content!,
-    DirectoryId :$directory-id!
+        Description :$description!,
+        Bool :$create-snapshot-before-schema-extension!,
+        LdifContent :$ldif-content!,
+        DirectoryId :$directory-id!
     ) returns StartSchemaExtensionResult is service-operation('StartSchemaExtension') {
         my $request-input = StartSchemaExtensionRequest.new(
-        :$description,
-        :$create-snapshot-before-schema-extension,
-        :$ldif-content,
-        :$directory-id
+            :$description,
+            :$create-snapshot-before-schema-extension,
+            :$ldif-content,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<StartSchemaExtension>,
-            :return-type(StartSchemaExtensionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-resource(
-    Limit :$limit,
-    ResourceId :$resource-id!,
-    Str :$next-token
+        Limit :$limit,
+        ResourceId :$resource-id!,
+        Str :$next-token
     ) returns ListTagsForResourceResult is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceRequest.new(
-        :$limit,
-        :$resource-id,
-        :$next-token
+            :$limit,
+            :$resource-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResource>,
-            :return-type(ListTagsForResourceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-sso(
-    ConnectPassword :$password,
-    UserName :$user-name,
-    DirectoryId :$directory-id!
+        ConnectPassword :$password,
+        UserName :$user-name,
+        DirectoryId :$directory-id!
     ) returns EnableSsoResult is service-operation('EnableSso') {
         my $request-input = EnableSsoRequest.new(
-        :$password,
-        :$user-name,
-        :$directory-id
+            :$password,
+            :$user-name,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<EnableSso>,
-            :return-type(EnableSsoResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-trusts(
-    Limit :$limit,
-    Str :$next-token,
-    Array[TrustId] :$trust-ids,
-    DirectoryId :$directory-id
+        Limit :$limit,
+        Str :$next-token,
+        Array[TrustId] :$trust-ids,
+        DirectoryId :$directory-id
     ) returns DescribeTrustsResult is service-operation('DescribeTrusts') {
         my $request-input = DescribeTrustsRequest.new(
-        :$limit,
-        :$next-token,
-        :$trust-ids,
-        :$directory-id
+            :$limit,
+            :$next-token,
+            :$trust-ids,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTrusts>,
-            :return-type(DescribeTrustsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method connect-directory(
-    ConnectPassword :$password!,
-    Description :$description,
-    DirectoryShortName :$short-name,
-    DirectoryName :$name!,
-    DirectorySize :$size!,
-    DirectoryConnectSettings :$connect-settings!
+        ConnectPassword :$password!,
+        Description :$description,
+        DirectoryShortName :$short-name,
+        DirectoryName :$name!,
+        DirectorySize :$size!,
+        DirectoryConnectSettings :$connect-settings!
     ) returns ConnectDirectoryResult is service-operation('ConnectDirectory') {
         my $request-input = ConnectDirectoryRequest.new(
-        :$password,
-        :$description,
-        :$short-name,
-        :$name,
-        :$size,
-        :$connect-settings
+            :$password,
+            :$description,
+            :$short-name,
+            :$name,
+            :$size,
+            :$connect-settings
         );
-;
+
         self.perform-operation(
             :api-call<ConnectDirectory>,
-            :return-type(ConnectDirectoryResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-conditional-forwarder(
-    Array[IpAddr] :$dns-ip-addrs!,
-    RemoteDomainName :$remote-domain-name!,
-    DirectoryId :$directory-id!
+        Array[IpAddr] :$dns-ip-addrs!,
+        RemoteDomainName :$remote-domain-name!,
+        DirectoryId :$directory-id!
     ) returns UpdateConditionalForwarderResult is service-operation('UpdateConditionalForwarder') {
         my $request-input = UpdateConditionalForwarderRequest.new(
-        :$dns-ip-addrs,
-        :$remote-domain-name,
-        :$directory-id
+            :$dns-ip-addrs,
+            :$remote-domain-name,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateConditionalForwarder>,
-            :return-type(UpdateConditionalForwarderResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-domain-controllers(
-    Limit :$limit,
-    Array[DomainControllerId] :$domain-controller-ids,
-    Str :$next-token,
-    DirectoryId :$directory-id!
+        Limit :$limit,
+        Array[DomainControllerId] :$domain-controller-ids,
+        Str :$next-token,
+        DirectoryId :$directory-id!
     ) returns DescribeDomainControllersResult is service-operation('DescribeDomainControllers') {
         my $request-input = DescribeDomainControllersRequest.new(
-        :$limit,
-        :$domain-controller-ids,
-        :$next-token,
-        :$directory-id
+            :$limit,
+            :$domain-controller-ids,
+            :$next-token,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDomainControllers>,
-            :return-type(DescribeDomainControllersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-directories(
-    Limit :$limit,
-    Array[DirectoryId] :$directory-ids,
-    Str :$next-token
+        Limit :$limit,
+        Array[DirectoryId] :$directory-ids,
+        Str :$next-token
     ) returns DescribeDirectoriesResult is service-operation('DescribeDirectories') {
         my $request-input = DescribeDirectoriesRequest.new(
-        :$limit,
-        :$directory-ids,
-        :$next-token
+            :$limit,
+            :$directory-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDirectories>,
-            :return-type(DescribeDirectoriesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-trust(
-    Array[IpAddr] :$conditional-forwarder-ip-addrs,
-    TrustPassword :$trust-password!,
-    TrustType :$trust-type,
-    TrustDirection :$trust-direction!,
-    RemoteDomainName :$remote-domain-name!,
-    DirectoryId :$directory-id!
+        Array[IpAddr] :$conditional-forwarder-ip-addrs,
+        TrustPassword :$trust-password!,
+        TrustType :$trust-type,
+        TrustDirection :$trust-direction!,
+        RemoteDomainName :$remote-domain-name!,
+        DirectoryId :$directory-id!
     ) returns CreateTrustResult is service-operation('CreateTrust') {
         my $request-input = CreateTrustRequest.new(
-        :$conditional-forwarder-ip-addrs,
-        :$trust-password,
-        :$trust-type,
-        :$trust-direction,
-        :$remote-domain-name,
-        :$directory-id
+            :$conditional-forwarder-ip-addrs,
+            :$trust-password,
+            :$trust-type,
+            :$trust-direction,
+            :$remote-domain-name,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateTrust>,
-            :return-type(CreateTrustResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-microsoft-ad(
-    Password :$password!,
-    Description :$description,
-    DirectoryShortName :$short-name,
-    DirectoryName :$name!,
-    DirectoryVpcSettings :$vpc-settings!
+        Password :$password!,
+        Description :$description,
+        DirectoryShortName :$short-name,
+        DirectoryName :$name!,
+        DirectoryVpcSettings :$vpc-settings!
     ) returns CreateMicrosoftADResult is service-operation('CreateMicrosoftAD') {
         my $request-input = CreateMicrosoftADRequest.new(
-        :$password,
-        :$description,
-        :$short-name,
-        :$name,
-        :$vpc-settings
+            :$password,
+            :$description,
+            :$short-name,
+            :$name,
+            :$vpc-settings
         );
-;
+
         self.perform-operation(
             :api-call<CreateMicrosoftAD>,
-            :return-type(CreateMicrosoftADResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-ip-routes(
-    Bool :$update-security-group-for-directory-controllers,
-    Array[IpRoute] :$ip-routes!,
-    DirectoryId :$directory-id!
+        Bool :$update-security-group-for-directory-controllers,
+        Array[IpRoute] :$ip-routes!,
+        DirectoryId :$directory-id!
     ) returns AddIpRoutesResult is service-operation('AddIpRoutes') {
         my $request-input = AddIpRoutesRequest.new(
-        :$update-security-group-for-directory-controllers,
-        :$ip-routes,
-        :$directory-id
+            :$update-security-group-for-directory-controllers,
+            :$ip-routes,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<AddIpRoutes>,
-            :return-type(AddIpRoutesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-ip-routes(
-    Array[CidrIp] :$cidr-ips!,
-    DirectoryId :$directory-id!
+        Array[CidrIp] :$cidr-ips!,
+        DirectoryId :$directory-id!
     ) returns RemoveIpRoutesResult is service-operation('RemoveIpRoutes') {
         my $request-input = RemoveIpRoutesRequest.new(
-        :$cidr-ips,
-        :$directory-id
+            :$cidr-ips,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<RemoveIpRoutes>,
-            :return-type(RemoveIpRoutesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-ip-routes(
-    Limit :$limit,
-    Str :$next-token,
-    DirectoryId :$directory-id!
+        Limit :$limit,
+        Str :$next-token,
+        DirectoryId :$directory-id!
     ) returns ListIpRoutesResult is service-operation('ListIpRoutes') {
         my $request-input = ListIpRoutesRequest.new(
-        :$limit,
-        :$next-token,
-        :$directory-id
+            :$limit,
+            :$next-token,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<ListIpRoutes>,
-            :return-type(ListIpRoutesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-directory(
-    Password :$password!,
-    Description :$description,
-    DirectoryShortName :$short-name,
-    DirectoryName :$name!,
-    DirectorySize :$size!,
-    DirectoryVpcSettings :$vpc-settings
+        Password :$password!,
+        Description :$description,
+        DirectoryShortName :$short-name,
+        DirectoryName :$name!,
+        DirectorySize :$size!,
+        DirectoryVpcSettings :$vpc-settings
     ) returns CreateDirectoryResult is service-operation('CreateDirectory') {
         my $request-input = CreateDirectoryRequest.new(
-        :$password,
-        :$description,
-        :$short-name,
-        :$name,
-        :$size,
-        :$vpc-settings
+            :$password,
+            :$description,
+            :$short-name,
+            :$name,
+            :$size,
+            :$vpc-settings
         );
-;
+
         self.perform-operation(
             :api-call<CreateDirectory>,
-            :return-type(CreateDirectoryResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

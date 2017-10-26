@@ -1278,1266 +1278,1148 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method attach-elastic-load-balancer(
-    Str :$elastic-load-balancer-name!,
-    Str :$layer-id!
+        Str :$elastic-load-balancer-name!,
+        Str :$layer-id!
     ) is service-operation('AttachElasticLoadBalancer') {
         my $request-input = AttachElasticLoadBalancerRequest.new(
-        :$elastic-load-balancer-name,
-        :$layer-id
+            :$elastic-load-balancer-name,
+            :$layer-id
         );
-;
+
         self.perform-operation(
             :api-call<AttachElasticLoadBalancer>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method clone-stack(
-    Str :$agent-version,
-    RootDeviceType :$default-root-device-type,
-    StackConfigurationManager :$configuration-manager,
-    Str :$default-ssh-key-name,
-    ChefConfiguration :$chef-configuration,
-    Str :$custom-json,
-    Str :$default-subnet-id,
-    Str :$vpc-id,
-    Array[Str] :$clone-app-ids,
-    Str :$service-role-arn!,
-    Source :$custom-cookbooks-source,
-    Bool :$use-opsworks-security-groups,
-    Str :$hostname-theme,
-    Str :$region,
-    Str :$name,
-    Bool :$use-custom-cookbooks,
-    Str :$default-os,
-    Hash[Str, StackAttributesKeys] :$attributes,
-    Str :$source-stack-id!,
-    Bool :$clone-permissions,
-    Str :$default-availability-zone,
-    Str :$default-instance-profile-arn
+        Str :$agent-version,
+        RootDeviceType :$default-root-device-type,
+        StackConfigurationManager :$configuration-manager,
+        Str :$default-ssh-key-name,
+        ChefConfiguration :$chef-configuration,
+        Str :$custom-json,
+        Str :$default-subnet-id,
+        Str :$vpc-id,
+        Array[Str] :$clone-app-ids,
+        Str :$service-role-arn!,
+        Source :$custom-cookbooks-source,
+        Bool :$use-opsworks-security-groups,
+        Str :$hostname-theme,
+        Str :$region,
+        Str :$name,
+        Bool :$use-custom-cookbooks,
+        Str :$default-os,
+        Hash[Str, StackAttributesKeys] :$attributes,
+        Str :$source-stack-id!,
+        Bool :$clone-permissions,
+        Str :$default-availability-zone,
+        Str :$default-instance-profile-arn
     ) returns CloneStackResult is service-operation('CloneStack') {
         my $request-input = CloneStackRequest.new(
-        :$agent-version,
-        :$default-root-device-type,
-        :$configuration-manager,
-        :$default-ssh-key-name,
-        :$chef-configuration,
-        :$custom-json,
-        :$default-subnet-id,
-        :$vpc-id,
-        :$clone-app-ids,
-        :$service-role-arn,
-        :$custom-cookbooks-source,
-        :$use-opsworks-security-groups,
-        :$hostname-theme,
-        :$region,
-        :$name,
-        :$use-custom-cookbooks,
-        :$default-os,
-        :$attributes,
-        :$source-stack-id,
-        :$clone-permissions,
-        :$default-availability-zone,
-        :$default-instance-profile-arn
+            :$agent-version,
+            :$default-root-device-type,
+            :$configuration-manager,
+            :$default-ssh-key-name,
+            :$chef-configuration,
+            :$custom-json,
+            :$default-subnet-id,
+            :$vpc-id,
+            :$clone-app-ids,
+            :$service-role-arn,
+            :$custom-cookbooks-source,
+            :$use-opsworks-security-groups,
+            :$hostname-theme,
+            :$region,
+            :$name,
+            :$use-custom-cookbooks,
+            :$default-os,
+            :$attributes,
+            :$source-stack-id,
+            :$clone-permissions,
+            :$default-availability-zone,
+            :$default-instance-profile-arn
         );
-;
+
         self.perform-operation(
             :api-call<CloneStack>,
-            :return-type(CloneStackResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-user-profile(
-    Str :$iam-user-arn!
+        Str :$iam-user-arn!
     ) is service-operation('DeleteUserProfile') {
         my $request-input = DeleteUserProfileRequest.new(
-        :$iam-user-arn
+            :$iam-user-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteUserProfile>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-apps(
-    Array[Str] :$app-ids,
-    Str :$stack-id
+        Array[Str] :$app-ids,
+        Str :$stack-id
     ) returns DescribeAppsResult is service-operation('DescribeApps') {
         my $request-input = DescribeAppsRequest.new(
-        :$app-ids,
-        :$stack-id
+            :$app-ids,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeApps>,
-            :return-type(DescribeAppsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-service-errors(
-    Array[Str] :$service-error-ids,
-    Str :$instance-id,
-    Str :$stack-id
+        Array[Str] :$service-error-ids,
+        Str :$instance-id,
+        Str :$stack-id
     ) returns DescribeServiceErrorsResult is service-operation('DescribeServiceErrors') {
         my $request-input = DescribeServiceErrorsRequest.new(
-        :$service-error-ids,
-        :$instance-id,
-        :$stack-id
+            :$service-error-ids,
+            :$instance-id,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeServiceErrors>,
-            :return-type(DescribeServiceErrorsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-time-based-auto-scaling(
-    WeeklyAutoScalingSchedule :$auto-scaling-schedule,
-    Str :$instance-id!
+        WeeklyAutoScalingSchedule :$auto-scaling-schedule,
+        Str :$instance-id!
     ) is service-operation('SetTimeBasedAutoScaling') {
         my $request-input = SetTimeBasedAutoScalingRequest.new(
-        :$auto-scaling-schedule,
-        :$instance-id
+            :$auto-scaling-schedule,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<SetTimeBasedAutoScaling>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-rds-db-instance(
-    Str :$db-password!,
-    Str :$db-user!,
-    Str :$rds-db-instance-arn!,
-    Str :$stack-id!
+        Str :$db-password!,
+        Str :$db-user!,
+        Str :$rds-db-instance-arn!,
+        Str :$stack-id!
     ) is service-operation('RegisterRdsDbInstance') {
         my $request-input = RegisterRdsDbInstanceRequest.new(
-        :$db-password,
-        :$db-user,
-        :$rds-db-instance-arn,
-        :$stack-id
+            :$db-password,
+            :$db-user,
+            :$rds-db-instance-arn,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<RegisterRdsDbInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reboot-instance(
-    Str :$instance-id!
+        Str :$instance-id!
     ) is service-operation('RebootInstance') {
         my $request-input = RebootInstanceRequest.new(
-        :$instance-id
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<RebootInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-elastic-ip(
-    Str :$elastic-ip!
+        Str :$elastic-ip!
     ) is service-operation('DeregisterElasticIp') {
         my $request-input = DeregisterElasticIpRequest.new(
-        :$elastic-ip
+            :$elastic-ip
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterElasticIp>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-layer(
-    LifecycleEventConfiguration :$lifecycle-event-configuration,
-    Bool :$enable-auto-healing,
-    Array[Str] :$custom-security-group-ids,
-    Str :$custom-json,
-    Array[VolumeConfiguration] :$volume-configurations,
-    Array[Str] :$packages,
-    CloudWatchLogsConfiguration :$cloud-watch-logs-configuration,
-    Bool :$auto-assign-public-ips,
-    Str :$custom-instance-profile-arn,
-    Bool :$use-ebs-optimized-instances,
-    Str :$name,
-    Bool :$install-updates-on-boot,
-    Recipes :$custom-recipes,
-    Bool :$auto-assign-elastic-ips,
-    Hash[Str, LayerAttributesKeys] :$attributes,
-    Str :$layer-id!,
-    Str :$shortname
+        LifecycleEventConfiguration :$lifecycle-event-configuration,
+        Bool :$enable-auto-healing,
+        Array[Str] :$custom-security-group-ids,
+        Str :$custom-json,
+        Array[VolumeConfiguration] :$volume-configurations,
+        Array[Str] :$packages,
+        CloudWatchLogsConfiguration :$cloud-watch-logs-configuration,
+        Bool :$auto-assign-public-ips,
+        Str :$custom-instance-profile-arn,
+        Bool :$use-ebs-optimized-instances,
+        Str :$name,
+        Bool :$install-updates-on-boot,
+        Recipes :$custom-recipes,
+        Bool :$auto-assign-elastic-ips,
+        Hash[Str, LayerAttributesKeys] :$attributes,
+        Str :$layer-id!,
+        Str :$shortname
     ) is service-operation('UpdateLayer') {
         my $request-input = UpdateLayerRequest.new(
-        :$lifecycle-event-configuration,
-        :$enable-auto-healing,
-        :$custom-security-group-ids,
-        :$custom-json,
-        :$volume-configurations,
-        :$packages,
-        :$cloud-watch-logs-configuration,
-        :$auto-assign-public-ips,
-        :$custom-instance-profile-arn,
-        :$use-ebs-optimized-instances,
-        :$name,
-        :$install-updates-on-boot,
-        :$custom-recipes,
-        :$auto-assign-elastic-ips,
-        :$attributes,
-        :$layer-id,
-        :$shortname
+            :$lifecycle-event-configuration,
+            :$enable-auto-healing,
+            :$custom-security-group-ids,
+            :$custom-json,
+            :$volume-configurations,
+            :$packages,
+            :$cloud-watch-logs-configuration,
+            :$auto-assign-public-ips,
+            :$custom-instance-profile-arn,
+            :$use-ebs-optimized-instances,
+            :$name,
+            :$install-updates-on-boot,
+            :$custom-recipes,
+            :$auto-assign-elastic-ips,
+            :$attributes,
+            :$layer-id,
+            :$shortname
         );
-;
+
         self.perform-operation(
             :api-call<UpdateLayer>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-elastic-ip(
-    Str :$name,
-    Str :$elastic-ip!
+        Str :$name,
+        Str :$elastic-ip!
     ) is service-operation('UpdateElasticIp') {
         my $request-input = UpdateElasticIpRequest.new(
-        :$name,
-        :$elastic-ip
+            :$name,
+            :$elastic-ip
         );
-;
+
         self.perform-operation(
             :api-call<UpdateElasticIp>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-instance(
-    Bool :$delete-volumes,
-    Bool :$delete-elastic-ip,
-    Str :$instance-id!
+        Bool :$delete-volumes,
+        Bool :$delete-elastic-ip,
+        Str :$instance-id!
     ) is service-operation('DeleteInstance') {
         my $request-input = DeleteInstanceRequest.new(
-        :$delete-volumes,
-        :$delete-elastic-ip,
-        :$instance-id
+            :$delete-volumes,
+            :$delete-elastic-ip,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-app(
-    Source :$app-source,
-    Array[DataSource] :$data-sources,
-    Bool :$enable-ssl,
-    Array[Str] :$domains,
-    Str :$description,
-    Str :$app-id!,
-    Str :$name,
-    Hash[Str, AppAttributesKeys] :$attributes,
-    AppType :$type,
-    Array[EnvironmentVariable] :$environment,
-    SslConfiguration :$ssl-configuration
+        Source :$app-source,
+        Array[DataSource] :$data-sources,
+        Bool :$enable-ssl,
+        Array[Str] :$domains,
+        Str :$description,
+        Str :$app-id!,
+        Str :$name,
+        Hash[Str, AppAttributesKeys] :$attributes,
+        AppType :$type,
+        Array[EnvironmentVariable] :$environment,
+        SslConfiguration :$ssl-configuration
     ) is service-operation('UpdateApp') {
         my $request-input = UpdateAppRequest.new(
-        :$app-source,
-        :$data-sources,
-        :$enable-ssl,
-        :$domains,
-        :$description,
-        :$app-id,
-        :$name,
-        :$attributes,
-        :$type,
-        :$environment,
-        :$ssl-configuration
+            :$app-source,
+            :$data-sources,
+            :$enable-ssl,
+            :$domains,
+            :$description,
+            :$app-id,
+            :$name,
+            :$attributes,
+            :$type,
+            :$environment,
+            :$ssl-configuration
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApp>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-hostname-suggestion(
-    Str :$layer-id!
+        Str :$layer-id!
     ) returns GetHostnameSuggestionResult is service-operation('GetHostnameSuggestion') {
         my $request-input = GetHostnameSuggestionRequest.new(
-        :$layer-id
+            :$layer-id
         );
-;
+
         self.perform-operation(
             :api-call<GetHostnameSuggestion>,
-            :return-type(GetHostnameSuggestionResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-elastic-ip(
-    Str :$instance-id,
-    Str :$elastic-ip!
+        Str :$instance-id,
+        Str :$elastic-ip!
     ) is service-operation('AssociateElasticIp') {
         my $request-input = AssociateElasticIpRequest.new(
-        :$instance-id,
-        :$elastic-ip
+            :$instance-id,
+            :$elastic-ip
         );
-;
+
         self.perform-operation(
             :api-call<AssociateElasticIp>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-deployment(
-    Str :$custom-json,
-    Array[Str] :$layer-ids,
-    Str :$app-id,
-    Str :$comment,
-    DeploymentCommand :$command!,
-    Str :$stack-id!,
-    Array[Str] :$instance-ids
+        Str :$custom-json,
+        Array[Str] :$layer-ids,
+        Str :$app-id,
+        Str :$comment,
+        DeploymentCommand :$command!,
+        Str :$stack-id!,
+        Array[Str] :$instance-ids
     ) returns CreateDeploymentResult is service-operation('CreateDeployment') {
         my $request-input = CreateDeploymentRequest.new(
-        :$custom-json,
-        :$layer-ids,
-        :$app-id,
-        :$comment,
-        :$command,
-        :$stack-id,
-        :$instance-ids
+            :$custom-json,
+            :$layer-ids,
+            :$app-id,
+            :$comment,
+            :$command,
+            :$stack-id,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<CreateDeployment>,
-            :return-type(CreateDeploymentResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-elastic-ips(
-    Array[Str] :$ips,
-    Str :$stack-id,
-    Str :$instance-id
+        Array[Str] :$ips,
+        Str :$stack-id,
+        Str :$instance-id
     ) returns DescribeElasticIpsResult is service-operation('DescribeElasticIps') {
         my $request-input = DescribeElasticIpsRequest.new(
-        :$ips,
-        :$stack-id,
-        :$instance-id
+            :$ips,
+            :$stack-id,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeElasticIps>,
-            :return-type(DescribeElasticIpsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-elastic-load-balancers(
-    Array[Str] :$layer-ids,
-    Str :$stack-id
+        Array[Str] :$layer-ids,
+        Str :$stack-id
     ) returns DescribeElasticLoadBalancersResult is service-operation('DescribeElasticLoadBalancers') {
         my $request-input = DescribeElasticLoadBalancersRequest.new(
-        :$layer-ids,
-        :$stack-id
+            :$layer-ids,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeElasticLoadBalancers>,
-            :return-type(DescribeElasticLoadBalancersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-instance(
-    Str :$agent-version,
-    Str :$ssh-key-name,
-    Array[Str] :$layer-ids,
-    Bool :$ebs-optimized,
-    Str :$hostname,
-    Bool :$install-updates-on-boot,
-    Str :$os,
-    Str :$instance-type,
-    AutoScalingType :$auto-scaling-type,
-    Str :$instance-id!,
-    Architecture :$architecture,
-    Str :$ami-id
+        Str :$agent-version,
+        Str :$ssh-key-name,
+        Array[Str] :$layer-ids,
+        Bool :$ebs-optimized,
+        Str :$hostname,
+        Bool :$install-updates-on-boot,
+        Str :$os,
+        Str :$instance-type,
+        AutoScalingType :$auto-scaling-type,
+        Str :$instance-id!,
+        Architecture :$architecture,
+        Str :$ami-id
     ) is service-operation('UpdateInstance') {
         my $request-input = UpdateInstanceRequest.new(
-        :$agent-version,
-        :$ssh-key-name,
-        :$layer-ids,
-        :$ebs-optimized,
-        :$hostname,
-        :$install-updates-on-boot,
-        :$os,
-        :$instance-type,
-        :$auto-scaling-type,
-        :$instance-id,
-        :$architecture,
-        :$ami-id
+            :$agent-version,
+            :$ssh-key-name,
+            :$layer-ids,
+            :$ebs-optimized,
+            :$hostname,
+            :$install-updates-on-boot,
+            :$os,
+            :$instance-type,
+            :$auto-scaling-type,
+            :$instance-id,
+            :$architecture,
+            :$ami-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-resource(
-    Array[Str] :$tag-keys!,
-    Str :$resource-arn!
+        Array[Str] :$tag-keys!,
+        Str :$resource-arn!
     ) is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-        :$tag-keys,
-        :$resource-arn
+            :$tag-keys,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<UntagResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-elastic-load-balancer(
-    Str :$elastic-load-balancer-name!,
-    Str :$layer-id!
+        Str :$elastic-load-balancer-name!,
+        Str :$layer-id!
     ) is service-operation('DetachElasticLoadBalancer') {
         my $request-input = DetachElasticLoadBalancerRequest.new(
-        :$elastic-load-balancer-name,
-        :$layer-id
+            :$elastic-load-balancer-name,
+            :$layer-id
         );
-;
+
         self.perform-operation(
             :api-call<DetachElasticLoadBalancer>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method assign-instance(
-    Array[Str] :$layer-ids!,
-    Str :$instance-id!
+        Array[Str] :$layer-ids!,
+        Str :$instance-id!
     ) is service-operation('AssignInstance') {
         my $request-input = AssignInstanceRequest.new(
-        :$layer-ids,
-        :$instance-id
+            :$layer-ids,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<AssignInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-stack(
-    Str :$stack-id!
+        Str :$stack-id!
     ) is service-operation('StartStack') {
         my $request-input = StartStackRequest.new(
-        :$stack-id
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<StartStack>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-agent-versions(
-    StackConfigurationManager :$configuration-manager,
-    Str :$stack-id
+        StackConfigurationManager :$configuration-manager,
+        Str :$stack-id
     ) returns DescribeAgentVersionsResult is service-operation('DescribeAgentVersions') {
         my $request-input = DescribeAgentVersionsRequest.new(
-        :$configuration-manager,
-        :$stack-id
+            :$configuration-manager,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAgentVersions>,
-            :return-type(DescribeAgentVersionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-elastic-ip(
-    Str :$elastic-ip!
+        Str :$elastic-ip!
     ) is service-operation('DisassociateElasticIp') {
         my $request-input = DisassociateElasticIpRequest.new(
-        :$elastic-ip
+            :$elastic-ip
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateElasticIp>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-app(
-    Str :$app-id!
+        Str :$app-id!
     ) is service-operation('DeleteApp') {
         my $request-input = DeleteAppRequest.new(
-        :$app-id
+            :$app-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApp>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-stack-summary(
-    Str :$stack-id!
+        Str :$stack-id!
     ) returns DescribeStackSummaryResult is service-operation('DescribeStackSummary') {
         my $request-input = DescribeStackSummaryRequest.new(
-        :$stack-id
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStackSummary>,
-            :return-type(DescribeStackSummaryResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-user-profiles(
-    Array[Str] :$iam-user-arns
+        Array[Str] :$iam-user-arns
     ) returns DescribeUserProfilesResult is service-operation('DescribeUserProfiles') {
         my $request-input = DescribeUserProfilesRequest.new(
-        :$iam-user-arns
+            :$iam-user-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeUserProfiles>,
-            :return-type(DescribeUserProfilesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-instance(
-    Str :$instance-id!
+        Str :$instance-id!
     ) is service-operation('StopInstance') {
         my $request-input = StopInstanceRequest.new(
-        :$instance-id
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<StopInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-volume(
-    Str :$volume-id!
+        Str :$volume-id!
     ) is service-operation('DeregisterVolume') {
         my $request-input = DeregisterVolumeRequest.new(
-        :$volume-id
+            :$volume-id
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterVolume>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-stack(
-    Str :$stack-id!
+        Str :$stack-id!
     ) is service-operation('StopStack') {
         my $request-input = StopStackRequest.new(
-        :$stack-id
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<StopStack>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-volume(
-    Str :$ec2-volume-id,
-    Str :$stack-id!
+        Str :$ec2-volume-id,
+        Str :$stack-id!
     ) returns RegisterVolumeResult is service-operation('RegisterVolume') {
         my $request-input = RegisterVolumeRequest.new(
-        :$ec2-volume-id,
-        :$stack-id
+            :$ec2-volume-id,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<RegisterVolume>,
-            :return-type(RegisterVolumeResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags(
-    Int :$max-results,
-    Str :$next-token,
-    Str :$resource-arn!
+        Int :$max-results,
+        Str :$next-token,
+        Str :$resource-arn!
     ) returns ListTagsResult is service-operation('ListTags') {
         my $request-input = ListTagsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$resource-arn
+            :$max-results,
+            :$next-token,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListTags>,
-            :return-type(ListTagsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-ecs-clusters(
-    Int :$max-results,
-    Array[Str] :$ecs-cluster-arns,
-    Str :$next-token,
-    Str :$stack-id
+        Int :$max-results,
+        Array[Str] :$ecs-cluster-arns,
+        Str :$next-token,
+        Str :$stack-id
     ) returns DescribeEcsClustersResult is service-operation('DescribeEcsClusters') {
         my $request-input = DescribeEcsClustersRequest.new(
-        :$max-results,
-        :$ecs-cluster-arns,
-        :$next-token,
-        :$stack-id
+            :$max-results,
+            :$ecs-cluster-arns,
+            :$next-token,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEcsClusters>,
-            :return-type(DescribeEcsClustersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-permissions(
-    Str :$stack-id,
-    Str :$iam-user-arn
+        Str :$stack-id,
+        Str :$iam-user-arn
     ) returns DescribePermissionsResult is service-operation('DescribePermissions') {
         my $request-input = DescribePermissionsRequest.new(
-        :$stack-id,
-        :$iam-user-arn
+            :$stack-id,
+            :$iam-user-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribePermissions>,
-            :return-type(DescribePermissionsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-time-based-auto-scaling(
-    Array[Str] :$instance-ids!
+        Array[Str] :$instance-ids!
     ) returns DescribeTimeBasedAutoScalingResult is service-operation('DescribeTimeBasedAutoScaling') {
         my $request-input = DescribeTimeBasedAutoScalingRequest.new(
-        :$instance-ids
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTimeBasedAutoScaling>,
-            :return-type(DescribeTimeBasedAutoScalingResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method assign-volume(
-    Str :$volume-id!,
-    Str :$instance-id
+        Str :$volume-id!,
+        Str :$instance-id
     ) is service-operation('AssignVolume') {
         my $request-input = AssignVolumeRequest.new(
-        :$volume-id,
-        :$instance-id
+            :$volume-id,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<AssignVolume>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-stack(
-    Str :$agent-version,
-    RootDeviceType :$default-root-device-type,
-    StackConfigurationManager :$configuration-manager,
-    Str :$default-ssh-key-name,
-    ChefConfiguration :$chef-configuration,
-    Str :$custom-json,
-    Str :$default-subnet-id,
-    Str :$vpc-id,
-    Str :$service-role-arn!,
-    Source :$custom-cookbooks-source,
-    Bool :$use-opsworks-security-groups,
-    Str :$hostname-theme,
-    Str :$region!,
-    Str :$name!,
-    Bool :$use-custom-cookbooks,
-    Str :$default-os,
-    Hash[Str, StackAttributesKeys] :$attributes,
-    Str :$default-availability-zone,
-    Str :$default-instance-profile-arn!
+        Str :$agent-version,
+        RootDeviceType :$default-root-device-type,
+        StackConfigurationManager :$configuration-manager,
+        Str :$default-ssh-key-name,
+        ChefConfiguration :$chef-configuration,
+        Str :$custom-json,
+        Str :$default-subnet-id,
+        Str :$vpc-id,
+        Str :$service-role-arn!,
+        Source :$custom-cookbooks-source,
+        Bool :$use-opsworks-security-groups,
+        Str :$hostname-theme,
+        Str :$region!,
+        Str :$name!,
+        Bool :$use-custom-cookbooks,
+        Str :$default-os,
+        Hash[Str, StackAttributesKeys] :$attributes,
+        Str :$default-availability-zone,
+        Str :$default-instance-profile-arn!
     ) returns CreateStackResult is service-operation('CreateStack') {
         my $request-input = CreateStackRequest.new(
-        :$agent-version,
-        :$default-root-device-type,
-        :$configuration-manager,
-        :$default-ssh-key-name,
-        :$chef-configuration,
-        :$custom-json,
-        :$default-subnet-id,
-        :$vpc-id,
-        :$service-role-arn,
-        :$custom-cookbooks-source,
-        :$use-opsworks-security-groups,
-        :$hostname-theme,
-        :$region,
-        :$name,
-        :$use-custom-cookbooks,
-        :$default-os,
-        :$attributes,
-        :$default-availability-zone,
-        :$default-instance-profile-arn
+            :$agent-version,
+            :$default-root-device-type,
+            :$configuration-manager,
+            :$default-ssh-key-name,
+            :$chef-configuration,
+            :$custom-json,
+            :$default-subnet-id,
+            :$vpc-id,
+            :$service-role-arn,
+            :$custom-cookbooks-source,
+            :$use-opsworks-security-groups,
+            :$hostname-theme,
+            :$region,
+            :$name,
+            :$use-custom-cookbooks,
+            :$default-os,
+            :$attributes,
+            :$default-availability-zone,
+            :$default-instance-profile-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateStack>,
-            :return-type(CreateStackResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-stack(
-    Str :$agent-version,
-    RootDeviceType :$default-root-device-type,
-    StackConfigurationManager :$configuration-manager,
-    Str :$default-ssh-key-name,
-    ChefConfiguration :$chef-configuration,
-    Str :$custom-json,
-    Str :$default-subnet-id,
-    Str :$service-role-arn,
-    Bool :$use-opsworks-security-groups,
-    Source :$custom-cookbooks-source,
-    Str :$hostname-theme,
-    Str :$name,
-    Bool :$use-custom-cookbooks,
-    Str :$default-os,
-    Hash[Str, StackAttributesKeys] :$attributes,
-    Str :$default-availability-zone,
-    Str :$default-instance-profile-arn,
-    Str :$stack-id!
+        Str :$agent-version,
+        RootDeviceType :$default-root-device-type,
+        StackConfigurationManager :$configuration-manager,
+        Str :$default-ssh-key-name,
+        ChefConfiguration :$chef-configuration,
+        Str :$custom-json,
+        Str :$default-subnet-id,
+        Str :$service-role-arn,
+        Bool :$use-opsworks-security-groups,
+        Source :$custom-cookbooks-source,
+        Str :$hostname-theme,
+        Str :$name,
+        Bool :$use-custom-cookbooks,
+        Str :$default-os,
+        Hash[Str, StackAttributesKeys] :$attributes,
+        Str :$default-availability-zone,
+        Str :$default-instance-profile-arn,
+        Str :$stack-id!
     ) is service-operation('UpdateStack') {
         my $request-input = UpdateStackRequest.new(
-        :$agent-version,
-        :$default-root-device-type,
-        :$configuration-manager,
-        :$default-ssh-key-name,
-        :$chef-configuration,
-        :$custom-json,
-        :$default-subnet-id,
-        :$service-role-arn,
-        :$use-opsworks-security-groups,
-        :$custom-cookbooks-source,
-        :$hostname-theme,
-        :$name,
-        :$use-custom-cookbooks,
-        :$default-os,
-        :$attributes,
-        :$default-availability-zone,
-        :$default-instance-profile-arn,
-        :$stack-id
+            :$agent-version,
+            :$default-root-device-type,
+            :$configuration-manager,
+            :$default-ssh-key-name,
+            :$chef-configuration,
+            :$custom-json,
+            :$default-subnet-id,
+            :$service-role-arn,
+            :$use-opsworks-security-groups,
+            :$custom-cookbooks-source,
+            :$hostname-theme,
+            :$name,
+            :$use-custom-cookbooks,
+            :$default-os,
+            :$attributes,
+            :$default-availability-zone,
+            :$default-instance-profile-arn,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateStack>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method unassign-instance(
-    Str :$instance-id!
+        Str :$instance-id!
     ) is service-operation('UnassignInstance') {
         my $request-input = UnassignInstanceRequest.new(
-        :$instance-id
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<UnassignInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-resource(
-    Hash[Str, Str] :$tags!,
-    Str :$resource-arn!
+        Hash[Str, Str] :$tags!,
+        Str :$resource-arn!
     ) is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-        :$tags,
-        :$resource-arn
+            :$tags,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<TagResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-layer(
-    LifecycleEventConfiguration :$lifecycle-event-configuration,
-    Bool :$enable-auto-healing,
-    Array[Str] :$custom-security-group-ids,
-    Str :$custom-json,
-    Array[VolumeConfiguration] :$volume-configurations,
-    Array[Str] :$packages,
-    CloudWatchLogsConfiguration :$cloud-watch-logs-configuration,
-    Bool :$auto-assign-public-ips,
-    Str :$custom-instance-profile-arn,
-    Bool :$use-ebs-optimized-instances,
-    Str :$name!,
-    Bool :$install-updates-on-boot,
-    Recipes :$custom-recipes,
-    Bool :$auto-assign-elastic-ips,
-    Hash[Str, LayerAttributesKeys] :$attributes,
-    LayerType :$type!,
-    Str :$stack-id!,
-    Str :$shortname!
+        LifecycleEventConfiguration :$lifecycle-event-configuration,
+        Bool :$enable-auto-healing,
+        Array[Str] :$custom-security-group-ids,
+        Str :$custom-json,
+        Array[VolumeConfiguration] :$volume-configurations,
+        Array[Str] :$packages,
+        CloudWatchLogsConfiguration :$cloud-watch-logs-configuration,
+        Bool :$auto-assign-public-ips,
+        Str :$custom-instance-profile-arn,
+        Bool :$use-ebs-optimized-instances,
+        Str :$name!,
+        Bool :$install-updates-on-boot,
+        Recipes :$custom-recipes,
+        Bool :$auto-assign-elastic-ips,
+        Hash[Str, LayerAttributesKeys] :$attributes,
+        LayerType :$type!,
+        Str :$stack-id!,
+        Str :$shortname!
     ) returns CreateLayerResult is service-operation('CreateLayer') {
         my $request-input = CreateLayerRequest.new(
-        :$lifecycle-event-configuration,
-        :$enable-auto-healing,
-        :$custom-security-group-ids,
-        :$custom-json,
-        :$volume-configurations,
-        :$packages,
-        :$cloud-watch-logs-configuration,
-        :$auto-assign-public-ips,
-        :$custom-instance-profile-arn,
-        :$use-ebs-optimized-instances,
-        :$name,
-        :$install-updates-on-boot,
-        :$custom-recipes,
-        :$auto-assign-elastic-ips,
-        :$attributes,
-        :$type,
-        :$stack-id,
-        :$shortname
+            :$lifecycle-event-configuration,
+            :$enable-auto-healing,
+            :$custom-security-group-ids,
+            :$custom-json,
+            :$volume-configurations,
+            :$packages,
+            :$cloud-watch-logs-configuration,
+            :$auto-assign-public-ips,
+            :$custom-instance-profile-arn,
+            :$use-ebs-optimized-instances,
+            :$name,
+            :$install-updates-on-boot,
+            :$custom-recipes,
+            :$auto-assign-elastic-ips,
+            :$attributes,
+            :$type,
+            :$stack-id,
+            :$shortname
         );
-;
+
         self.perform-operation(
             :api-call<CreateLayer>,
-            :return-type(CreateLayerResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-commands(
-    Array[Str] :$command-ids,
-    Str :$instance-id,
-    Str :$deployment-id
+        Array[Str] :$command-ids,
+        Str :$instance-id,
+        Str :$deployment-id
     ) returns DescribeCommandsResult is service-operation('DescribeCommands') {
         my $request-input = DescribeCommandsRequest.new(
-        :$command-ids,
-        :$instance-id,
-        :$deployment-id
+            :$command-ids,
+            :$instance-id,
+            :$deployment-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCommands>,
-            :return-type(DescribeCommandsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-rds-db-instance(
-    Str :$db-password,
-    Str :$db-user,
-    Str :$rds-db-instance-arn!
+        Str :$db-password,
+        Str :$db-user,
+        Str :$rds-db-instance-arn!
     ) is service-operation('UpdateRdsDbInstance') {
         my $request-input = UpdateRdsDbInstanceRequest.new(
-        :$db-password,
-        :$db-user,
-        :$rds-db-instance-arn
+            :$db-password,
+            :$db-user,
+            :$rds-db-instance-arn
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRdsDbInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-instance(
-    Str :$instance-id!
+        Str :$instance-id!
     ) is service-operation('StartInstance') {
         my $request-input = StartInstanceRequest.new(
-        :$instance-id
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<StartInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-load-based-auto-scaling(
-    AutoScalingThresholds :$up-scaling,
-    Bool :$enable,
-    AutoScalingThresholds :$down-scaling,
-    Str :$layer-id!
+        AutoScalingThresholds :$up-scaling,
+        Bool :$enable,
+        AutoScalingThresholds :$down-scaling,
+        Str :$layer-id!
     ) is service-operation('SetLoadBasedAutoScaling') {
         my $request-input = SetLoadBasedAutoScalingRequest.new(
-        :$up-scaling,
-        :$enable,
-        :$down-scaling,
-        :$layer-id
+            :$up-scaling,
+            :$enable,
+            :$down-scaling,
+            :$layer-id
         );
-;
+
         self.perform-operation(
             :api-call<SetLoadBasedAutoScaling>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-instance(
-    Str :$agent-version,
-    Array[BlockDeviceMapping] :$block-device-mappings,
-    RootDeviceType :$root-device-type,
-    Str :$subnet-id,
-    Str :$ssh-key-name,
-    Str :$virtualization-type,
-    Array[Str] :$layer-ids!,
-    Str :$tenancy,
-    Bool :$ebs-optimized,
-    Str :$hostname,
-    Bool :$install-updates-on-boot,
-    Str :$availability-zone,
-    Str :$os,
-    Str :$instance-type!,
-    AutoScalingType :$auto-scaling-type,
-    Str :$stack-id!,
-    Architecture :$architecture,
-    Str :$ami-id
+        Str :$agent-version,
+        Array[BlockDeviceMapping] :$block-device-mappings,
+        RootDeviceType :$root-device-type,
+        Str :$subnet-id,
+        Str :$ssh-key-name,
+        Str :$virtualization-type,
+        Array[Str] :$layer-ids!,
+        Str :$tenancy,
+        Bool :$ebs-optimized,
+        Str :$hostname,
+        Bool :$install-updates-on-boot,
+        Str :$availability-zone,
+        Str :$os,
+        Str :$instance-type!,
+        AutoScalingType :$auto-scaling-type,
+        Str :$stack-id!,
+        Architecture :$architecture,
+        Str :$ami-id
     ) returns CreateInstanceResult is service-operation('CreateInstance') {
         my $request-input = CreateInstanceRequest.new(
-        :$agent-version,
-        :$block-device-mappings,
-        :$root-device-type,
-        :$subnet-id,
-        :$ssh-key-name,
-        :$virtualization-type,
-        :$layer-ids,
-        :$tenancy,
-        :$ebs-optimized,
-        :$hostname,
-        :$install-updates-on-boot,
-        :$availability-zone,
-        :$os,
-        :$instance-type,
-        :$auto-scaling-type,
-        :$stack-id,
-        :$architecture,
-        :$ami-id
+            :$agent-version,
+            :$block-device-mappings,
+            :$root-device-type,
+            :$subnet-id,
+            :$ssh-key-name,
+            :$virtualization-type,
+            :$layer-ids,
+            :$tenancy,
+            :$ebs-optimized,
+            :$hostname,
+            :$install-updates-on-boot,
+            :$availability-zone,
+            :$os,
+            :$instance-type,
+            :$auto-scaling-type,
+            :$stack-id,
+            :$architecture,
+            :$ami-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateInstance>,
-            :return-type(CreateInstanceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-instances(
-    Str :$layer-id,
-    Str :$stack-id,
-    Array[Str] :$instance-ids
+        Str :$layer-id,
+        Str :$stack-id,
+        Array[Str] :$instance-ids
     ) returns DescribeInstancesResult is service-operation('DescribeInstances') {
         my $request-input = DescribeInstancesRequest.new(
-        :$layer-id,
-        :$stack-id,
-        :$instance-ids
+            :$layer-id,
+            :$stack-id,
+            :$instance-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInstances>,
-            :return-type(DescribeInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-load-based-auto-scaling(
-    Array[Str] :$layer-ids!
+        Array[Str] :$layer-ids!
     ) returns DescribeLoadBasedAutoScalingResult is service-operation('DescribeLoadBasedAutoScaling') {
         my $request-input = DescribeLoadBasedAutoScalingRequest.new(
-        :$layer-ids
+            :$layer-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoadBasedAutoScaling>,
-            :return-type(DescribeLoadBasedAutoScalingResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-instance(
-    Str :$public-ip,
-    Str :$private-ip,
-    InstanceIdentity :$instance-identity,
-    Str :$rsa-public-key-fingerprint,
-    Str :$rsa-public-key,
-    Str :$hostname,
-    Str :$stack-id!
+        Str :$public-ip,
+        Str :$private-ip,
+        InstanceIdentity :$instance-identity,
+        Str :$rsa-public-key-fingerprint,
+        Str :$rsa-public-key,
+        Str :$hostname,
+        Str :$stack-id!
     ) returns RegisterInstanceResult is service-operation('RegisterInstance') {
         my $request-input = RegisterInstanceRequest.new(
-        :$public-ip,
-        :$private-ip,
-        :$instance-identity,
-        :$rsa-public-key-fingerprint,
-        :$rsa-public-key,
-        :$hostname,
-        :$stack-id
+            :$public-ip,
+            :$private-ip,
+            :$instance-identity,
+            :$rsa-public-key-fingerprint,
+            :$rsa-public-key,
+            :$hostname,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<RegisterInstance>,
-            :return-type(RegisterInstanceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-ecs-cluster(
-    Str :$ecs-cluster-arn!,
-    Str :$stack-id!
+        Str :$ecs-cluster-arn!,
+        Str :$stack-id!
     ) returns RegisterEcsClusterResult is service-operation('RegisterEcsCluster') {
         my $request-input = RegisterEcsClusterRequest.new(
-        :$ecs-cluster-arn,
-        :$stack-id
+            :$ecs-cluster-arn,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<RegisterEcsCluster>,
-            :return-type(RegisterEcsClusterResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-ecs-cluster(
-    Str :$ecs-cluster-arn!
+        Str :$ecs-cluster-arn!
     ) is service-operation('DeregisterEcsCluster') {
         my $request-input = DeregisterEcsClusterRequest.new(
-        :$ecs-cluster-arn
+            :$ecs-cluster-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterEcsCluster>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-volume(
-    Str :$name,
-    Str :$volume-id!,
-    Str :$mount-point
+        Str :$name,
+        Str :$volume-id!,
+        Str :$mount-point
     ) is service-operation('UpdateVolume') {
         my $request-input = UpdateVolumeRequest.new(
-        :$name,
-        :$volume-id,
-        :$mount-point
+            :$name,
+            :$volume-id,
+            :$mount-point
         );
-;
+
         self.perform-operation(
             :api-call<UpdateVolume>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-user-profile(
-    Bool :$allow-self-management,
-    Str :$ssh-username,
-    Str :$ssh-public-key,
-    Str :$iam-user-arn!
+        Bool :$allow-self-management,
+        Str :$ssh-username,
+        Str :$ssh-public-key,
+        Str :$iam-user-arn!
     ) is service-operation('UpdateUserProfile') {
         my $request-input = UpdateUserProfileRequest.new(
-        :$allow-self-management,
-        :$ssh-username,
-        :$ssh-public-key,
-        :$iam-user-arn
+            :$allow-self-management,
+            :$ssh-username,
+            :$ssh-public-key,
+            :$iam-user-arn
         );
-;
+
         self.perform-operation(
             :api-call<UpdateUserProfile>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-permission(
-    Str :$level,
-    Bool :$allow-sudo,
-    Bool :$allow-ssh,
-    Str :$iam-user-arn!,
-    Str :$stack-id!
+        Str :$level,
+        Bool :$allow-sudo,
+        Bool :$allow-ssh,
+        Str :$iam-user-arn!,
+        Str :$stack-id!
     ) is service-operation('SetPermission') {
         my $request-input = SetPermissionRequest.new(
-        :$level,
-        :$allow-sudo,
-        :$allow-ssh,
-        :$iam-user-arn,
-        :$stack-id
+            :$level,
+            :$allow-sudo,
+            :$allow-ssh,
+            :$iam-user-arn,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<SetPermission>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method grant-access(
-    ValidForInMinutes :$valid-for-in-minutes,
-    Str :$instance-id!
+        ValidForInMinutes :$valid-for-in-minutes,
+        Str :$instance-id!
     ) returns GrantAccessResult is service-operation('GrantAccess') {
         my $request-input = GrantAccessRequest.new(
-        :$valid-for-in-minutes,
-        :$instance-id
+            :$valid-for-in-minutes,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<GrantAccess>,
-            :return-type(GrantAccessResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-volumes(
-    Array[Str] :$volume-ids,
-    Str :$raid-array-id,
-    Str :$stack-id,
-    Str :$instance-id
+        Array[Str] :$volume-ids,
+        Str :$raid-array-id,
+        Str :$stack-id,
+        Str :$instance-id
     ) returns DescribeVolumesResult is service-operation('DescribeVolumes') {
         my $request-input = DescribeVolumesRequest.new(
-        :$volume-ids,
-        :$raid-array-id,
-        :$stack-id,
-        :$instance-id
+            :$volume-ids,
+            :$raid-array-id,
+            :$stack-id,
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVolumes>,
-            :return-type(DescribeVolumesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-stack(
-    Str :$stack-id!
+        Str :$stack-id!
     ) is service-operation('DeleteStack') {
         my $request-input = DeleteStackRequest.new(
-        :$stack-id
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteStack>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-rds-db-instance(
-    Str :$rds-db-instance-arn!
+        Str :$rds-db-instance-arn!
     ) is service-operation('DeregisterRdsDbInstance') {
         my $request-input = DeregisterRdsDbInstanceRequest.new(
-        :$rds-db-instance-arn
+            :$rds-db-instance-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterRdsDbInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2545,248 +2427,220 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     method describe-my-user-profile(
 
     ) returns DescribeMyUserProfileResult is service-operation('DescribeMyUserProfile') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeMyUserProfile>,
-            :return-type(DescribeMyUserProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-rds-db-instances(
-    Array[Str] :$rds-db-instance-arns,
-    Str :$stack-id!
+        Array[Str] :$rds-db-instance-arns,
+        Str :$stack-id!
     ) returns DescribeRdsDbInstancesResult is service-operation('DescribeRdsDbInstances') {
         my $request-input = DescribeRdsDbInstancesRequest.new(
-        :$rds-db-instance-arns,
-        :$stack-id
+            :$rds-db-instance-arns,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRdsDbInstances>,
-            :return-type(DescribeRdsDbInstancesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method unassign-volume(
-    Str :$volume-id!
+        Str :$volume-id!
     ) is service-operation('UnassignVolume') {
         my $request-input = UnassignVolumeRequest.new(
-        :$volume-id
+            :$volume-id
         );
-;
+
         self.perform-operation(
             :api-call<UnassignVolume>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-app(
-    Source :$app-source,
-    Array[DataSource] :$data-sources,
-    Bool :$enable-ssl,
-    Array[Str] :$domains,
-    Str :$description,
-    Str :$name!,
-    Hash[Str, AppAttributesKeys] :$attributes,
-    AppType :$type!,
-    Str :$stack-id!,
-    Array[EnvironmentVariable] :$environment,
-    SslConfiguration :$ssl-configuration,
-    Str :$shortname
+        Source :$app-source,
+        Array[DataSource] :$data-sources,
+        Bool :$enable-ssl,
+        Array[Str] :$domains,
+        Str :$description,
+        Str :$name!,
+        Hash[Str, AppAttributesKeys] :$attributes,
+        AppType :$type!,
+        Str :$stack-id!,
+        Array[EnvironmentVariable] :$environment,
+        SslConfiguration :$ssl-configuration,
+        Str :$shortname
     ) returns CreateAppResult is service-operation('CreateApp') {
         my $request-input = CreateAppRequest.new(
-        :$app-source,
-        :$data-sources,
-        :$enable-ssl,
-        :$domains,
-        :$description,
-        :$name,
-        :$attributes,
-        :$type,
-        :$stack-id,
-        :$environment,
-        :$ssl-configuration,
-        :$shortname
+            :$app-source,
+            :$data-sources,
+            :$enable-ssl,
+            :$domains,
+            :$description,
+            :$name,
+            :$attributes,
+            :$type,
+            :$stack-id,
+            :$environment,
+            :$ssl-configuration,
+            :$shortname
         );
-;
+
         self.perform-operation(
             :api-call<CreateApp>,
-            :return-type(CreateAppResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-user-profile(
-    Bool :$allow-self-management,
-    Str :$ssh-username,
-    Str :$ssh-public-key,
-    Str :$iam-user-arn!
+        Bool :$allow-self-management,
+        Str :$ssh-username,
+        Str :$ssh-public-key,
+        Str :$iam-user-arn!
     ) returns CreateUserProfileResult is service-operation('CreateUserProfile') {
         my $request-input = CreateUserProfileRequest.new(
-        :$allow-self-management,
-        :$ssh-username,
-        :$ssh-public-key,
-        :$iam-user-arn
+            :$allow-self-management,
+            :$ssh-username,
+            :$ssh-public-key,
+            :$iam-user-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateUserProfile>,
-            :return-type(CreateUserProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-instance(
-    Str :$instance-id!
+        Str :$instance-id!
     ) is service-operation('DeregisterInstance') {
         my $request-input = DeregisterInstanceRequest.new(
-        :$instance-id
+            :$instance-id
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterInstance>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-deployments(
-    Array[Str] :$deployment-ids,
-    Str :$app-id,
-    Str :$stack-id
+        Array[Str] :$deployment-ids,
+        Str :$app-id,
+        Str :$stack-id
     ) returns DescribeDeploymentsResult is service-operation('DescribeDeployments') {
         my $request-input = DescribeDeploymentsRequest.new(
-        :$deployment-ids,
-        :$app-id,
-        :$stack-id
+            :$deployment-ids,
+            :$app-id,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDeployments>,
-            :return-type(DescribeDeploymentsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-layers(
-    Array[Str] :$layer-ids,
-    Str :$stack-id
+        Array[Str] :$layer-ids,
+        Str :$stack-id
     ) returns DescribeLayersResult is service-operation('DescribeLayers') {
         my $request-input = DescribeLayersRequest.new(
-        :$layer-ids,
-        :$stack-id
+            :$layer-ids,
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLayers>,
-            :return-type(DescribeLayersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-raid-arrays(
-    Str :$stack-id,
-    Str :$instance-id,
-    Array[Str] :$raid-array-ids
+        Str :$stack-id,
+        Str :$instance-id,
+        Array[Str] :$raid-array-ids
     ) returns DescribeRaidArraysResult is service-operation('DescribeRaidArrays') {
         my $request-input = DescribeRaidArraysRequest.new(
-        :$stack-id,
-        :$instance-id,
-        :$raid-array-ids
+            :$stack-id,
+            :$instance-id,
+            :$raid-array-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRaidArrays>,
-            :return-type(DescribeRaidArraysResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-stack-provisioning-parameters(
-    Str :$stack-id!
+        Str :$stack-id!
     ) returns DescribeStackProvisioningParametersResult is service-operation('DescribeStackProvisioningParameters') {
         my $request-input = DescribeStackProvisioningParametersRequest.new(
-        :$stack-id
+            :$stack-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStackProvisioningParameters>,
-            :return-type(DescribeStackProvisioningParametersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-my-user-profile(
-    Str :$ssh-public-key
+        Str :$ssh-public-key
     ) is service-operation('UpdateMyUserProfile') {
         my $request-input = UpdateMyUserProfileRequest.new(
-        :$ssh-public-key
+            :$ssh-public-key
         );
-;
+
         self.perform-operation(
             :api-call<UpdateMyUserProfile>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-elastic-ip(
-    Str :$stack-id!,
-    Str :$elastic-ip!
+        Str :$stack-id!,
+        Str :$elastic-ip!
     ) returns RegisterElasticIpResult is service-operation('RegisterElasticIp') {
         my $request-input = RegisterElasticIpRequest.new(
-        :$stack-id,
-        :$elastic-ip
+            :$stack-id,
+            :$elastic-ip
         );
-;
+
         self.perform-operation(
             :api-call<RegisterElasticIp>,
-            :return-type(RegisterElasticIpResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-layer(
-    Str :$layer-id!
+        Str :$layer-id!
     ) is service-operation('DeleteLayer') {
         my $request-input = DeleteLayerRequest.new(
-        :$layer-id
+            :$layer-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLayer>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-stacks(
-    Array[Str] :$stack-ids
+        Array[Str] :$stack-ids
     ) returns DescribeStacksResult is service-operation('DescribeStacks') {
         my $request-input = DescribeStacksRequest.new(
-        :$stack-ids
+            :$stack-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStacks>,
-            :return-type(DescribeStacksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

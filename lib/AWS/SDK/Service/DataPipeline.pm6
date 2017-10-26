@@ -383,356 +383,318 @@ class AWS::SDK::Service::DataPipeline does AWS::SDK::Service {
     }
 
     method validate-pipeline-definition(
-    Array[ParameterObject] :$parameter-objects,
-    Array[PipelineObject] :$pipeline-objects!,
-    id :$pipeline-id!,
-    Array[ParameterValue] :$parameter-values
+        Array[ParameterObject] :$parameter-objects,
+        Array[PipelineObject] :$pipeline-objects!,
+        id :$pipeline-id!,
+        Array[ParameterValue] :$parameter-values
     ) returns ValidatePipelineDefinitionOutput is service-operation('ValidatePipelineDefinition') {
         my $request-input = ValidatePipelineDefinitionInput.new(
-        :$parameter-objects,
-        :$pipeline-objects,
-        :$pipeline-id,
-        :$parameter-values
+            :$parameter-objects,
+            :$pipeline-objects,
+            :$pipeline-id,
+            :$parameter-values
         );
-;
+
         self.perform-operation(
             :api-call<ValidatePipelineDefinition>,
-            :return-type(ValidatePipelineDefinitionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method evaluate-expression(
-    id :$pipeline-id!,
-    longString :$expression!,
-    id :$object-id!
+        id :$pipeline-id!,
+        longString :$expression!,
+        id :$object-id!
     ) returns EvaluateExpressionOutput is service-operation('EvaluateExpression') {
         my $request-input = EvaluateExpressionInput.new(
-        :$pipeline-id,
-        :$expression,
-        :$object-id
+            :$pipeline-id,
+            :$expression,
+            :$object-id
         );
-;
+
         self.perform-operation(
             :api-call<EvaluateExpression>,
-            :return-type(EvaluateExpressionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-pipelines(
-    Array[id] :$pipeline-ids!
+        Array[id] :$pipeline-ids!
     ) returns DescribePipelinesOutput is service-operation('DescribePipelines') {
         my $request-input = DescribePipelinesInput.new(
-        :$pipeline-ids
+            :$pipeline-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribePipelines>,
-            :return-type(DescribePipelinesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-objects(
-    string :$marker,
-    Array[id] :$object-ids!,
-    id :$pipeline-id!,
-    Bool :$evaluate-expressions
+        string :$marker,
+        Array[id] :$object-ids!,
+        id :$pipeline-id!,
+        Bool :$evaluate-expressions
     ) returns DescribeObjectsOutput is service-operation('DescribeObjects') {
         my $request-input = DescribeObjectsInput.new(
-        :$marker,
-        :$object-ids,
-        :$pipeline-id,
-        :$evaluate-expressions
+            :$marker,
+            :$object-ids,
+            :$pipeline-id,
+            :$evaluate-expressions
         );
-;
+
         self.perform-operation(
             :api-call<DescribeObjects>,
-            :return-type(DescribeObjectsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-pipeline(
-    id :$name!,
-    id :$unique-id!,
-    tagList :$tags,
-    string :$description
+        id :$name!,
+        id :$unique-id!,
+        tagList :$tags,
+        string :$description
     ) returns CreatePipelineOutput is service-operation('CreatePipeline') {
         my $request-input = CreatePipelineInput.new(
-        :$name,
-        :$unique-id,
-        :$tags,
-        :$description
+            :$name,
+            :$unique-id,
+            :$tags,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreatePipeline>,
-            :return-type(CreatePipelineOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags(
-    id :$pipeline-id!,
-    tagList :$tags!
+        id :$pipeline-id!,
+        tagList :$tags!
     ) returns AddTagsOutput is service-operation('AddTags') {
         my $request-input = AddTagsInput.new(
-        :$pipeline-id,
-        :$tags
+            :$pipeline-id,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<AddTags>,
-            :return-type(AddTagsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method activate-pipeline(
-    id :$pipeline-id!,
-    Array[ParameterValue] :$parameter-values,
-    DateTime :$start-timestamp
+        id :$pipeline-id!,
+        Array[ParameterValue] :$parameter-values,
+        DateTime :$start-timestamp
     ) returns ActivatePipelineOutput is service-operation('ActivatePipeline') {
         my $request-input = ActivatePipelineInput.new(
-        :$pipeline-id,
-        :$parameter-values,
-        :$start-timestamp
+            :$pipeline-id,
+            :$parameter-values,
+            :$start-timestamp
         );
-;
+
         self.perform-operation(
             :api-call<ActivatePipeline>,
-            :return-type(ActivatePipelineOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method report-task-progress(
-    taskId :$task-id!,
-    Array[Field] :$fields
+        taskId :$task-id!,
+        Array[Field] :$fields
     ) returns ReportTaskProgressOutput is service-operation('ReportTaskProgress') {
         my $request-input = ReportTaskProgressInput.new(
-        :$task-id,
-        :$fields
+            :$task-id,
+            :$fields
         );
-;
+
         self.perform-operation(
             :api-call<ReportTaskProgress>,
-            :return-type(ReportTaskProgressOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method poll-for-task(
-    id :$hostname,
-    string :$worker-group!,
-    InstanceIdentity :$instance-identity
+        id :$hostname,
+        string :$worker-group!,
+        InstanceIdentity :$instance-identity
     ) returns PollForTaskOutput is service-operation('PollForTask') {
         my $request-input = PollForTaskInput.new(
-        :$hostname,
-        :$worker-group,
-        :$instance-identity
+            :$hostname,
+            :$worker-group,
+            :$instance-identity
         );
-;
+
         self.perform-operation(
             :api-call<PollForTask>,
-            :return-type(PollForTaskOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-task-status(
-    Str :$error-message,
-    taskId :$task-id!,
-    string :$error-stack-trace,
-    TaskStatus :$task-status!,
-    string :$error-id
+        Str :$error-message,
+        taskId :$task-id!,
+        string :$error-stack-trace,
+        TaskStatus :$task-status!,
+        string :$error-id
     ) returns SetTaskStatusOutput is service-operation('SetTaskStatus') {
         my $request-input = SetTaskStatusInput.new(
-        :$error-message,
-        :$task-id,
-        :$error-stack-trace,
-        :$task-status,
-        :$error-id
+            :$error-message,
+            :$task-id,
+            :$error-stack-trace,
+            :$task-status,
+            :$error-id
         );
-;
+
         self.perform-operation(
             :api-call<SetTaskStatus>,
-            :return-type(SetTaskStatusOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-pipeline-definition(
-    Array[ParameterObject] :$parameter-objects,
-    Array[PipelineObject] :$pipeline-objects!,
-    id :$pipeline-id!,
-    Array[ParameterValue] :$parameter-values
+        Array[ParameterObject] :$parameter-objects,
+        Array[PipelineObject] :$pipeline-objects!,
+        id :$pipeline-id!,
+        Array[ParameterValue] :$parameter-values
     ) returns PutPipelineDefinitionOutput is service-operation('PutPipelineDefinition') {
         my $request-input = PutPipelineDefinitionInput.new(
-        :$parameter-objects,
-        :$pipeline-objects,
-        :$pipeline-id,
-        :$parameter-values
+            :$parameter-objects,
+            :$pipeline-objects,
+            :$pipeline-id,
+            :$parameter-values
         );
-;
+
         self.perform-operation(
             :api-call<PutPipelineDefinition>,
-            :return-type(PutPipelineDefinitionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-status(
-    string :$status!,
-    Array[id] :$object-ids!,
-    id :$pipeline-id!
+        string :$status!,
+        Array[id] :$object-ids!,
+        id :$pipeline-id!
     ) is service-operation('SetStatus') {
         my $request-input = SetStatusInput.new(
-        :$status,
-        :$object-ids,
-        :$pipeline-id
+            :$status,
+            :$object-ids,
+            :$pipeline-id
         );
-;
+
         self.perform-operation(
             :api-call<SetStatus>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-pipeline-definition(
-    id :$pipeline-id!,
-    string :$version
+        id :$pipeline-id!,
+        string :$version
     ) returns GetPipelineDefinitionOutput is service-operation('GetPipelineDefinition') {
         my $request-input = GetPipelineDefinitionInput.new(
-        :$pipeline-id,
-        :$version
+            :$pipeline-id,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<GetPipelineDefinition>,
-            :return-type(GetPipelineDefinitionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-pipeline(
-    id :$pipeline-id!
+        id :$pipeline-id!
     ) is service-operation('DeletePipeline') {
         my $request-input = DeletePipelineInput.new(
-        :$pipeline-id
+            :$pipeline-id
         );
-;
+
         self.perform-operation(
             :api-call<DeletePipeline>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method report-task-runner-heartbeat(
-    id :$taskrunner-id!,
-    id :$hostname,
-    string :$worker-group
+        id :$taskrunner-id!,
+        id :$hostname,
+        string :$worker-group
     ) returns ReportTaskRunnerHeartbeatOutput is service-operation('ReportTaskRunnerHeartbeat') {
         my $request-input = ReportTaskRunnerHeartbeatInput.new(
-        :$taskrunner-id,
-        :$hostname,
-        :$worker-group
+            :$taskrunner-id,
+            :$hostname,
+            :$worker-group
         );
-;
+
         self.perform-operation(
             :api-call<ReportTaskRunnerHeartbeat>,
-            :return-type(ReportTaskRunnerHeartbeatOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags(
-    id :$pipeline-id!,
-    Array[string] :$tag-keys!
+        id :$pipeline-id!,
+        Array[string] :$tag-keys!
     ) returns RemoveTagsOutput is service-operation('RemoveTags') {
         my $request-input = RemoveTagsInput.new(
-        :$pipeline-id,
-        :$tag-keys
+            :$pipeline-id,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTags>,
-            :return-type(RemoveTagsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deactivate-pipeline(
-    Bool :$cancel-active,
-    id :$pipeline-id!
+        Bool :$cancel-active,
+        id :$pipeline-id!
     ) returns DeactivatePipelineOutput is service-operation('DeactivatePipeline') {
         my $request-input = DeactivatePipelineInput.new(
-        :$cancel-active,
-        :$pipeline-id
+            :$cancel-active,
+            :$pipeline-id
         );
-;
+
         self.perform-operation(
             :api-call<DeactivatePipeline>,
-            :return-type(DeactivatePipelineOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-pipelines(
-    string :$marker
+        string :$marker
     ) returns ListPipelinesOutput is service-operation('ListPipelines') {
         my $request-input = ListPipelinesInput.new(
-        :$marker
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListPipelines>,
-            :return-type(ListPipelinesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method query-objects(
-    Int :$limit,
-    string :$marker,
-    Query :$query,
-    id :$pipeline-id!,
-    string :$sphere!
+        Int :$limit,
+        string :$marker,
+        Query :$query,
+        id :$pipeline-id!,
+        string :$sphere!
     ) returns QueryObjectsOutput is service-operation('QueryObjects') {
         my $request-input = QueryObjectsInput.new(
-        :$limit,
-        :$marker,
-        :$query,
-        :$pipeline-id,
-        :$sphere
+            :$limit,
+            :$marker,
+            :$query,
+            :$pipeline-id,
+            :$sphere
         );
-;
+
         self.perform-operation(
             :api-call<QueryObjects>,
-            :return-type(QueryObjectsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

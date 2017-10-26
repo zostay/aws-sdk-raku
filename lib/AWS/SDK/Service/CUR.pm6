@@ -96,48 +96,42 @@ class AWS::SDK::Service::CUR does AWS::SDK::Service {
     subset AWSRegion of Str where $_ ~~ any('us-east-1', 'us-west-1', 'us-west-2', 'eu-central-1', 'eu-west-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1');
 
     method describe-report-definitions(
-    MaxResults :$max-results,
-    Str :$next-token
+        MaxResults :$max-results,
+        Str :$next-token
     ) returns DescribeReportDefinitionsResponse is service-operation('DescribeReportDefinitions') {
         my $request-input = DescribeReportDefinitionsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReportDefinitions>,
-            :return-type(DescribeReportDefinitionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-report-definition(
-    ReportName :$report-name
+        ReportName :$report-name
     ) returns DeleteReportDefinitionResponse is service-operation('DeleteReportDefinition') {
         my $request-input = DeleteReportDefinitionRequest.new(
-        :$report-name
+            :$report-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteReportDefinition>,
-            :return-type(DeleteReportDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-report-definition(
-    ReportDefinition :$report-definition!
+        ReportDefinition :$report-definition!
     ) returns PutReportDefinitionResponse is service-operation('PutReportDefinition') {
         my $request-input = PutReportDefinitionRequest.new(
-        :$report-definition
+            :$report-definition
         );
-;
+
         self.perform-operation(
             :api-call<PutReportDefinition>,
-            :return-type(PutReportDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

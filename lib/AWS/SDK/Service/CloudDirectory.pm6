@@ -1518,1140 +1518,1022 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     subset LinkName of Str where 1 <= .chars <= 64 && rx:P5/[^\\/\[\]\(\):\{\}#@!?\s\\;]+/;
 
     method list-typed-link-facet-attributes(
-    NumberResults :$max-results,
-    Str :$schema-arn!,
-    TypedLinkName :$name!,
-    Str :$next-token
+        NumberResults :$max-results,
+        Str :$schema-arn!,
+        TypedLinkName :$name!,
+        Str :$next-token
     ) returns ListTypedLinkFacetAttributesResponse is service-operation('ListTypedLinkFacetAttributes') {
         my $request-input = ListTypedLinkFacetAttributesRequest.new(
-        :$max-results,
-        :$schema-arn,
-        :$name,
-        :$next-token
+            :$max-results,
+            :$schema-arn,
+            :$name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListTypedLinkFacetAttributes>,
-            :return-type(ListTypedLinkFacetAttributesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-directory(
-    Str :$directory-arn!
+        Str :$directory-arn!
     ) returns GetDirectoryResponse is service-operation('GetDirectory') {
         my $request-input = GetDirectoryRequest.new(
-        :$directory-arn
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetDirectory>,
-            :return-type(GetDirectoryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method lookup-policy(
-    NumberResults :$max-results,
-    ObjectReference :$object-reference!,
-    Str :$next-token,
-    Str :$directory-arn!
+        NumberResults :$max-results,
+        ObjectReference :$object-reference!,
+        Str :$next-token,
+        Str :$directory-arn!
     ) returns LookupPolicyResponse is service-operation('LookupPolicy') {
         my $request-input = LookupPolicyRequest.new(
-        :$max-results,
-        :$object-reference,
-        :$next-token,
-        :$directory-arn
+            :$max-results,
+            :$object-reference,
+            :$next-token,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<LookupPolicy>,
-            :return-type(LookupPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-index(
-    Bool :$is-unique!,
-    ObjectReference :$parent-reference,
-    Array[AttributeKey] :$ordered-indexed-attribute-list!,
-    Str :$directory-arn!,
-    LinkName :$link-name
+        Bool :$is-unique!,
+        ObjectReference :$parent-reference,
+        Array[AttributeKey] :$ordered-indexed-attribute-list!,
+        Str :$directory-arn!,
+        LinkName :$link-name
     ) returns CreateIndexResponse is service-operation('CreateIndex') {
         my $request-input = CreateIndexRequest.new(
-        :$is-unique,
-        :$parent-reference,
-        :$ordered-indexed-attribute-list,
-        :$directory-arn,
-        :$link-name
+            :$is-unique,
+            :$parent-reference,
+            :$ordered-indexed-attribute-list,
+            :$directory-arn,
+            :$link-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateIndex>,
-            :return-type(CreateIndexResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-schema(
-    Str :$schema-arn!,
-    SchemaName :$name!
+        Str :$schema-arn!,
+        SchemaName :$name!
     ) returns UpdateSchemaResponse is service-operation('UpdateSchema') {
         my $request-input = UpdateSchemaRequest.new(
-        :$schema-arn,
-        :$name
+            :$schema-arn,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSchema>,
-            :return-type(UpdateSchemaResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-object-parent-paths(
-    NumberResults :$max-results,
-    ObjectReference :$object-reference!,
-    Str :$next-token,
-    Str :$directory-arn!
+        NumberResults :$max-results,
+        ObjectReference :$object-reference!,
+        Str :$next-token,
+        Str :$directory-arn!
     ) returns ListObjectParentPathsResponse is service-operation('ListObjectParentPaths') {
         my $request-input = ListObjectParentPathsRequest.new(
-        :$max-results,
-        :$object-reference,
-        :$next-token,
-        :$directory-arn
+            :$max-results,
+            :$object-reference,
+            :$next-token,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListObjectParentPaths>,
-            :return-type(ListObjectParentPathsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-schema(
-    Str :$schema-arn!
+        Str :$schema-arn!
     ) returns DeleteSchemaResponse is service-operation('DeleteSchema') {
         my $request-input = DeleteSchemaRequest.new(
-        :$schema-arn
+            :$schema-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSchema>,
-            :return-type(DeleteSchemaResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-facet-attributes(
-    NumberResults :$max-results,
-    Str :$schema-arn!,
-    FacetName :$name!,
-    Str :$next-token
+        NumberResults :$max-results,
+        Str :$schema-arn!,
+        FacetName :$name!,
+        Str :$next-token
     ) returns ListFacetAttributesResponse is service-operation('ListFacetAttributes') {
         my $request-input = ListFacetAttributesRequest.new(
-        :$max-results,
-        :$schema-arn,
-        :$name,
-        :$next-token
+            :$max-results,
+            :$schema-arn,
+            :$name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListFacetAttributes>,
-            :return-type(ListFacetAttributesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-object-parents(
-    NumberResults :$max-results,
-    ObjectReference :$object-reference!,
-    Str :$next-token,
-    Str :$directory-arn!,
-    ConsistencyLevel :$consistency-level
+        NumberResults :$max-results,
+        ObjectReference :$object-reference!,
+        Str :$next-token,
+        Str :$directory-arn!,
+        ConsistencyLevel :$consistency-level
     ) returns ListObjectParentsResponse is service-operation('ListObjectParents') {
         my $request-input = ListObjectParentsRequest.new(
-        :$max-results,
-        :$object-reference,
-        :$next-token,
-        :$directory-arn,
-        :$consistency-level
+            :$max-results,
+            :$object-reference,
+            :$next-token,
+            :$directory-arn,
+            :$consistency-level
         );
-;
+
         self.perform-operation(
             :api-call<ListObjectParents>,
-            :return-type(ListObjectParentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method apply-schema(
-    Str :$published-schema-arn!,
-    Str :$directory-arn!
+        Str :$published-schema-arn!,
+        Str :$directory-arn!
     ) returns ApplySchemaResponse is service-operation('ApplySchema') {
         my $request-input = ApplySchemaRequest.new(
-        :$published-schema-arn,
-        :$directory-arn
+            :$published-schema-arn,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<ApplySchema>,
-            :return-type(ApplySchemaResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-write(
-    Array[BatchWriteOperation] :$operations!,
-    Str :$directory-arn!
+        Array[BatchWriteOperation] :$operations!,
+        Str :$directory-arn!
     ) returns BatchWriteResponse is service-operation('BatchWrite') {
         my $request-input = BatchWriteRequest.new(
-        :$operations,
-        :$directory-arn
+            :$operations,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<BatchWrite>,
-            :return-type(BatchWriteResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-facet(
-    Str :$schema-arn!,
-    FacetName :$name!
+        Str :$schema-arn!,
+        FacetName :$name!
     ) returns DeleteFacetResponse is service-operation('DeleteFacet') {
         my $request-input = DeleteFacetRequest.new(
-        :$schema-arn,
-        :$name
+            :$schema-arn,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFacet>,
-            :return-type(DeleteFacetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-development-schema-arns(
-    NumberResults :$max-results,
-    Str :$next-token
+        NumberResults :$max-results,
+        Str :$next-token
     ) returns ListDevelopmentSchemaArnsResponse is service-operation('ListDevelopmentSchemaArns') {
         my $request-input = ListDevelopmentSchemaArnsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDevelopmentSchemaArns>,
-            :return-type(ListDevelopmentSchemaArnsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-resource(
-    Array[Str] :$tag-keys!,
-    Str :$resource-arn!
+        Array[Str] :$tag-keys!,
+        Str :$resource-arn!
     ) returns UntagResourceResponse is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-        :$tag-keys,
-        :$resource-arn
+            :$tag-keys,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<UntagResource>,
-            :return-type(UntagResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-object(
-    ObjectReference :$parent-reference!,
-    ObjectReference :$child-reference!,
-    Str :$directory-arn!,
-    LinkName :$link-name!
+        ObjectReference :$parent-reference!,
+        ObjectReference :$child-reference!,
+        Str :$directory-arn!,
+        LinkName :$link-name!
     ) returns AttachObjectResponse is service-operation('AttachObject') {
         my $request-input = AttachObjectRequest.new(
-        :$parent-reference,
-        :$child-reference,
-        :$directory-arn,
-        :$link-name
+            :$parent-reference,
+            :$child-reference,
+            :$directory-arn,
+            :$link-name
         );
-;
+
         self.perform-operation(
             :api-call<AttachObject>,
-            :return-type(AttachObjectResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-read(
-    Array[BatchReadOperation] :$operations!,
-    Str :$directory-arn!,
-    ConsistencyLevel :$consistency-level
+        Array[BatchReadOperation] :$operations!,
+        Str :$directory-arn!,
+        ConsistencyLevel :$consistency-level
     ) returns BatchReadResponse is service-operation('BatchRead') {
         my $request-input = BatchReadRequest.new(
-        :$operations,
-        :$directory-arn,
-        :$consistency-level
+            :$operations,
+            :$directory-arn,
+            :$consistency-level
         );
-;
+
         self.perform-operation(
             :api-call<BatchRead>,
-            :return-type(BatchReadResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-typed-link-facet(
-    Str :$schema-arn!,
-    TypedLinkFacet :$facet!
+        Str :$schema-arn!,
+        TypedLinkFacet :$facet!
     ) returns CreateTypedLinkFacetResponse is service-operation('CreateTypedLinkFacet') {
         my $request-input = CreateTypedLinkFacetRequest.new(
-        :$schema-arn,
-        :$facet
+            :$schema-arn,
+            :$facet
         );
-;
+
         self.perform-operation(
             :api-call<CreateTypedLinkFacet>,
-            :return-type(CreateTypedLinkFacetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-facet(
-    Str :$schema-arn!,
-    FacetName :$name!
+        Str :$schema-arn!,
+        FacetName :$name!
     ) returns GetFacetResponse is service-operation('GetFacet') {
         my $request-input = GetFacetRequest.new(
-        :$schema-arn,
-        :$name
+            :$schema-arn,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetFacet>,
-            :return-type(GetFacetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-policy-attachments(
-    NumberResults :$max-results,
-    ObjectReference :$policy-reference!,
-    Str :$next-token,
-    Str :$directory-arn!,
-    ConsistencyLevel :$consistency-level
+        NumberResults :$max-results,
+        ObjectReference :$policy-reference!,
+        Str :$next-token,
+        Str :$directory-arn!,
+        ConsistencyLevel :$consistency-level
     ) returns ListPolicyAttachmentsResponse is service-operation('ListPolicyAttachments') {
         my $request-input = ListPolicyAttachmentsRequest.new(
-        :$max-results,
-        :$policy-reference,
-        :$next-token,
-        :$directory-arn,
-        :$consistency-level
+            :$max-results,
+            :$policy-reference,
+            :$next-token,
+            :$directory-arn,
+            :$consistency-level
         );
-;
+
         self.perform-operation(
             :api-call<ListPolicyAttachments>,
-            :return-type(ListPolicyAttachmentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-typed-link-facet-information(
-    Str :$schema-arn!,
-    TypedLinkName :$name!
+        Str :$schema-arn!,
+        TypedLinkName :$name!
     ) returns GetTypedLinkFacetInformationResponse is service-operation('GetTypedLinkFacetInformation') {
         my $request-input = GetTypedLinkFacetInformationRequest.new(
-        :$schema-arn,
-        :$name
+            :$schema-arn,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetTypedLinkFacetInformation>,
-            :return-type(GetTypedLinkFacetInformationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-object(
-    ObjectReference :$parent-reference!,
-    Str :$directory-arn!,
-    LinkName :$link-name!
+        ObjectReference :$parent-reference!,
+        Str :$directory-arn!,
+        LinkName :$link-name!
     ) returns DetachObjectResponse is service-operation('DetachObject') {
         my $request-input = DetachObjectRequest.new(
-        :$parent-reference,
-        :$directory-arn,
-        :$link-name
+            :$parent-reference,
+            :$directory-arn,
+            :$link-name
         );
-;
+
         self.perform-operation(
             :api-call<DetachObject>,
-            :return-type(DetachObjectResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-object-information(
-    ObjectReference :$object-reference!,
-    Str :$directory-arn!,
-    ConsistencyLevel :$consistency-level
+        ObjectReference :$object-reference!,
+        Str :$directory-arn!,
+        ConsistencyLevel :$consistency-level
     ) returns GetObjectInformationResponse is service-operation('GetObjectInformation') {
         my $request-input = GetObjectInformationRequest.new(
-        :$object-reference,
-        :$directory-arn,
-        :$consistency-level
+            :$object-reference,
+            :$directory-arn,
+            :$consistency-level
         );
-;
+
         self.perform-operation(
             :api-call<GetObjectInformation>,
-            :return-type(GetObjectInformationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-applied-schema-arns(
-    NumberResults :$max-results,
-    Str :$next-token,
-    Str :$directory-arn!
+        NumberResults :$max-results,
+        Str :$next-token,
+        Str :$directory-arn!
     ) returns ListAppliedSchemaArnsResponse is service-operation('ListAppliedSchemaArns') {
         my $request-input = ListAppliedSchemaArnsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$directory-arn
+            :$max-results,
+            :$next-token,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListAppliedSchemaArns>,
-            :return-type(ListAppliedSchemaArnsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-schema-from-json(
-    Str :$document!,
-    Str :$schema-arn!
+        Str :$document!,
+        Str :$schema-arn!
     ) returns PutSchemaFromJsonResponse is service-operation('PutSchemaFromJson') {
         my $request-input = PutSchemaFromJsonRequest.new(
-        :$document,
-        :$schema-arn
+            :$document,
+            :$schema-arn
         );
-;
+
         self.perform-operation(
             :api-call<PutSchemaFromJson>,
-            :return-type(PutSchemaFromJsonResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-directory(
-    Str :$schema-arn!,
-    DirectoryName :$name!
+        Str :$schema-arn!,
+        DirectoryName :$name!
     ) returns CreateDirectoryResponse is service-operation('CreateDirectory') {
         my $request-input = CreateDirectoryRequest.new(
-        :$schema-arn,
-        :$name
+            :$schema-arn,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDirectory>,
-            :return-type(CreateDirectoryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-directory(
-    Str :$directory-arn!
+        Str :$directory-arn!
     ) returns EnableDirectoryResponse is service-operation('EnableDirectory') {
         my $request-input = EnableDirectoryRequest.new(
-        :$directory-arn
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<EnableDirectory>,
-            :return-type(EnableDirectoryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-directories(
-    NumberResults :$max-results,
-    DirectoryState :$state,
-    Str :$next-token
+        NumberResults :$max-results,
+        DirectoryState :$state,
+        Str :$next-token
     ) returns ListDirectoriesResponse is service-operation('ListDirectories') {
         my $request-input = ListDirectoriesRequest.new(
-        :$max-results,
-        :$state,
-        :$next-token
+            :$max-results,
+            :$state,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDirectories>,
-            :return-type(ListDirectoriesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-object(
-    Array[AttributeKeyAndValue] :$object-attribute-list,
-    Array[SchemaFacet] :$schema-facets!,
-    ObjectReference :$parent-reference,
-    Str :$directory-arn!,
-    LinkName :$link-name
+        Array[AttributeKeyAndValue] :$object-attribute-list,
+        Array[SchemaFacet] :$schema-facets!,
+        ObjectReference :$parent-reference,
+        Str :$directory-arn!,
+        LinkName :$link-name
     ) returns CreateObjectResponse is service-operation('CreateObject') {
         my $request-input = CreateObjectRequest.new(
-        :$object-attribute-list,
-        :$schema-facets,
-        :$parent-reference,
-        :$directory-arn,
-        :$link-name
+            :$object-attribute-list,
+            :$schema-facets,
+            :$parent-reference,
+            :$directory-arn,
+            :$link-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateObject>,
-            :return-type(CreateObjectResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-schema(
-    SchemaName :$name!
+        SchemaName :$name!
     ) returns CreateSchemaResponse is service-operation('CreateSchema') {
         my $request-input = CreateSchemaRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateSchema>,
-            :return-type(CreateSchemaResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-typed-link(
-    TypedLinkSpecifier :$typed-link-specifier!,
-    Str :$directory-arn!
+        TypedLinkSpecifier :$typed-link-specifier!,
+        Str :$directory-arn!
     ) is service-operation('DetachTypedLink') {
         my $request-input = DetachTypedLinkRequest.new(
-        :$typed-link-specifier,
-        :$directory-arn
+            :$typed-link-specifier,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<DetachTypedLink>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-published-schema-arns(
-    NumberResults :$max-results,
-    Str :$next-token
+        NumberResults :$max-results,
+        Str :$next-token
     ) returns ListPublishedSchemaArnsResponse is service-operation('ListPublishedSchemaArns') {
         my $request-input = ListPublishedSchemaArnsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListPublishedSchemaArns>,
-            :return-type(ListPublishedSchemaArnsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-outgoing-typed-links(
-    NumberResults :$max-results,
-    Array[TypedLinkAttributeRange] :$filter-attribute-ranges,
-    ObjectReference :$object-reference!,
-    Str :$next-token,
-    Str :$directory-arn!,
-    ConsistencyLevel :$consistency-level,
-    TypedLinkSchemaAndFacetName :$filter-typed-link
+        NumberResults :$max-results,
+        Array[TypedLinkAttributeRange] :$filter-attribute-ranges,
+        ObjectReference :$object-reference!,
+        Str :$next-token,
+        Str :$directory-arn!,
+        ConsistencyLevel :$consistency-level,
+        TypedLinkSchemaAndFacetName :$filter-typed-link
     ) returns ListOutgoingTypedLinksResponse is service-operation('ListOutgoingTypedLinks') {
         my $request-input = ListOutgoingTypedLinksRequest.new(
-        :$max-results,
-        :$filter-attribute-ranges,
-        :$object-reference,
-        :$next-token,
-        :$directory-arn,
-        :$consistency-level,
-        :$filter-typed-link
+            :$max-results,
+            :$filter-attribute-ranges,
+            :$object-reference,
+            :$next-token,
+            :$directory-arn,
+            :$consistency-level,
+            :$filter-typed-link
         );
-;
+
         self.perform-operation(
             :api-call<ListOutgoingTypedLinks>,
-            :return-type(ListOutgoingTypedLinksResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-object-policies(
-    NumberResults :$max-results,
-    ObjectReference :$object-reference!,
-    Str :$next-token,
-    Str :$directory-arn!,
-    ConsistencyLevel :$consistency-level
+        NumberResults :$max-results,
+        ObjectReference :$object-reference!,
+        Str :$next-token,
+        Str :$directory-arn!,
+        ConsistencyLevel :$consistency-level
     ) returns ListObjectPoliciesResponse is service-operation('ListObjectPolicies') {
         my $request-input = ListObjectPoliciesRequest.new(
-        :$max-results,
-        :$object-reference,
-        :$next-token,
-        :$directory-arn,
-        :$consistency-level
+            :$max-results,
+            :$object-reference,
+            :$next-token,
+            :$directory-arn,
+            :$consistency-level
         );
-;
+
         self.perform-operation(
             :api-call<ListObjectPolicies>,
-            :return-type(ListObjectPoliciesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-object-children(
-    NumberResults :$max-results,
-    ObjectReference :$object-reference!,
-    Str :$next-token,
-    Str :$directory-arn!,
-    ConsistencyLevel :$consistency-level
+        NumberResults :$max-results,
+        ObjectReference :$object-reference!,
+        Str :$next-token,
+        Str :$directory-arn!,
+        ConsistencyLevel :$consistency-level
     ) returns ListObjectChildrenResponse is service-operation('ListObjectChildren') {
         my $request-input = ListObjectChildrenRequest.new(
-        :$max-results,
-        :$object-reference,
-        :$next-token,
-        :$directory-arn,
-        :$consistency-level
+            :$max-results,
+            :$object-reference,
+            :$next-token,
+            :$directory-arn,
+            :$consistency-level
         );
-;
+
         self.perform-operation(
             :api-call<ListObjectChildren>,
-            :return-type(ListObjectChildrenResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-from-index(
-    ObjectReference :$index-reference!,
-    Str :$directory-arn!,
-    ObjectReference :$target-reference!
+        ObjectReference :$index-reference!,
+        Str :$directory-arn!,
+        ObjectReference :$target-reference!
     ) returns DetachFromIndexResponse is service-operation('DetachFromIndex') {
         my $request-input = DetachFromIndexRequest.new(
-        :$index-reference,
-        :$directory-arn,
-        :$target-reference
+            :$index-reference,
+            :$directory-arn,
+            :$target-reference
         );
-;
+
         self.perform-operation(
             :api-call<DetachFromIndex>,
-            :return-type(DetachFromIndexResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-schema-as-json(
-    Str :$schema-arn!
+        Str :$schema-arn!
     ) returns GetSchemaAsJsonResponse is service-operation('GetSchemaAsJson') {
         my $request-input = GetSchemaAsJsonRequest.new(
-        :$schema-arn
+            :$schema-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetSchemaAsJson>,
-            :return-type(GetSchemaAsJsonResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-resource(
-    Array[Tag] :$tags!,
-    Str :$resource-arn!
+        Array[Tag] :$tags!,
+        Str :$resource-arn!
     ) returns TagResourceResponse is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-        :$tags,
-        :$resource-arn
+            :$tags,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<TagResource>,
-            :return-type(TagResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-typed-link-facet(
-    Str :$schema-arn!,
-    TypedLinkName :$name!,
-    Array[AttributeName] :$identity-attribute-order!,
-    Array[TypedLinkFacetAttributeUpdate] :$attribute-updates!
+        Str :$schema-arn!,
+        TypedLinkName :$name!,
+        Array[AttributeName] :$identity-attribute-order!,
+        Array[TypedLinkFacetAttributeUpdate] :$attribute-updates!
     ) returns UpdateTypedLinkFacetResponse is service-operation('UpdateTypedLinkFacet') {
         my $request-input = UpdateTypedLinkFacetRequest.new(
-        :$schema-arn,
-        :$name,
-        :$identity-attribute-order,
-        :$attribute-updates
+            :$schema-arn,
+            :$name,
+            :$identity-attribute-order,
+            :$attribute-updates
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTypedLinkFacet>,
-            :return-type(UpdateTypedLinkFacetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method detach-policy(
-    ObjectReference :$object-reference!,
-    ObjectReference :$policy-reference!,
-    Str :$directory-arn!
+        ObjectReference :$object-reference!,
+        ObjectReference :$policy-reference!,
+        Str :$directory-arn!
     ) returns DetachPolicyResponse is service-operation('DetachPolicy') {
         my $request-input = DetachPolicyRequest.new(
-        :$object-reference,
-        :$policy-reference,
-        :$directory-arn
+            :$object-reference,
+            :$policy-reference,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<DetachPolicy>,
-            :return-type(DetachPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-facet-to-object(
-    ObjectReference :$object-reference!,
-    Array[AttributeKeyAndValue] :$object-attribute-list,
-    SchemaFacet :$schema-facet!,
-    Str :$directory-arn!
+        ObjectReference :$object-reference!,
+        Array[AttributeKeyAndValue] :$object-attribute-list,
+        SchemaFacet :$schema-facet!,
+        Str :$directory-arn!
     ) returns AddFacetToObjectResponse is service-operation('AddFacetToObject') {
         my $request-input = AddFacetToObjectRequest.new(
-        :$object-reference,
-        :$object-attribute-list,
-        :$schema-facet,
-        :$directory-arn
+            :$object-reference,
+            :$object-attribute-list,
+            :$schema-facet,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<AddFacetToObject>,
-            :return-type(AddFacetToObjectResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-index(
-    NumberResults :$max-results,
-    ObjectReference :$index-reference!,
-    Array[ObjectAttributeRange] :$ranges-on-indexed-values,
-    Str :$next-token,
-    Str :$directory-arn!,
-    ConsistencyLevel :$consistency-level
+        NumberResults :$max-results,
+        ObjectReference :$index-reference!,
+        Array[ObjectAttributeRange] :$ranges-on-indexed-values,
+        Str :$next-token,
+        Str :$directory-arn!,
+        ConsistencyLevel :$consistency-level
     ) returns ListIndexResponse is service-operation('ListIndex') {
         my $request-input = ListIndexRequest.new(
-        :$max-results,
-        :$index-reference,
-        :$ranges-on-indexed-values,
-        :$next-token,
-        :$directory-arn,
-        :$consistency-level
+            :$max-results,
+            :$index-reference,
+            :$ranges-on-indexed-values,
+            :$next-token,
+            :$directory-arn,
+            :$consistency-level
         );
-;
+
         self.perform-operation(
             :api-call<ListIndex>,
-            :return-type(ListIndexResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-directory(
-    Str :$directory-arn!
+        Str :$directory-arn!
     ) returns DeleteDirectoryResponse is service-operation('DeleteDirectory') {
         my $request-input = DeleteDirectoryRequest.new(
-        :$directory-arn
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDirectory>,
-            :return-type(DeleteDirectoryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-object-attributes(
-    NumberResults :$max-results,
-    ObjectReference :$object-reference!,
-    SchemaFacet :$facet-filter,
-    Str :$next-token,
-    Str :$directory-arn!,
-    ConsistencyLevel :$consistency-level
+        NumberResults :$max-results,
+        ObjectReference :$object-reference!,
+        SchemaFacet :$facet-filter,
+        Str :$next-token,
+        Str :$directory-arn!,
+        ConsistencyLevel :$consistency-level
     ) returns ListObjectAttributesResponse is service-operation('ListObjectAttributes') {
         my $request-input = ListObjectAttributesRequest.new(
-        :$max-results,
-        :$object-reference,
-        :$facet-filter,
-        :$next-token,
-        :$directory-arn,
-        :$consistency-level
+            :$max-results,
+            :$object-reference,
+            :$facet-filter,
+            :$next-token,
+            :$directory-arn,
+            :$consistency-level
         );
-;
+
         self.perform-operation(
             :api-call<ListObjectAttributes>,
-            :return-type(ListObjectAttributesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-facet-names(
-    NumberResults :$max-results,
-    Str :$schema-arn!,
-    Str :$next-token
+        NumberResults :$max-results,
+        Str :$schema-arn!,
+        Str :$next-token
     ) returns ListFacetNamesResponse is service-operation('ListFacetNames') {
         my $request-input = ListFacetNamesRequest.new(
-        :$max-results,
-        :$schema-arn,
-        :$next-token
+            :$max-results,
+            :$schema-arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListFacetNames>,
-            :return-type(ListFacetNamesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-policy(
-    ObjectReference :$object-reference!,
-    ObjectReference :$policy-reference!,
-    Str :$directory-arn
+        ObjectReference :$object-reference!,
+        ObjectReference :$policy-reference!,
+        Str :$directory-arn
     ) returns AttachPolicyResponse is service-operation('AttachPolicy') {
         my $request-input = AttachPolicyRequest.new(
-        :$object-reference,
-        :$policy-reference,
-        :$directory-arn
+            :$object-reference,
+            :$policy-reference,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<AttachPolicy>,
-            :return-type(AttachPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-facet(
-    Str :$schema-arn!,
-    ObjectType :$object-type,
-    FacetName :$name!,
-    Array[FacetAttributeUpdate] :$attribute-updates
+        Str :$schema-arn!,
+        ObjectType :$object-type,
+        FacetName :$name!,
+        Array[FacetAttributeUpdate] :$attribute-updates
     ) returns UpdateFacetResponse is service-operation('UpdateFacet') {
         my $request-input = UpdateFacetRequest.new(
-        :$schema-arn,
-        :$object-type,
-        :$name,
-        :$attribute-updates
+            :$schema-arn,
+            :$object-type,
+            :$name,
+            :$attribute-updates
         );
-;
+
         self.perform-operation(
             :api-call<UpdateFacet>,
-            :return-type(UpdateFacetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method publish-schema(
-    Str :$development-schema-arn!,
-    SchemaName :$name,
-    Version :$version!
+        Str :$development-schema-arn!,
+        SchemaName :$name,
+        Version :$version!
     ) returns PublishSchemaResponse is service-operation('PublishSchema') {
         my $request-input = PublishSchemaRequest.new(
-        :$development-schema-arn,
-        :$name,
-        :$version
+            :$development-schema-arn,
+            :$name,
+            :$version
         );
-;
+
         self.perform-operation(
             :api-call<PublishSchema>,
-            :return-type(PublishSchemaResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-resource(
-    TagsNumberResults :$max-results,
-    Str :$next-token,
-    Str :$resource-arn!
+        TagsNumberResults :$max-results,
+        Str :$next-token,
+        Str :$resource-arn!
     ) returns ListTagsForResourceResponse is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceRequest.new(
-        :$max-results,
-        :$next-token,
-        :$resource-arn
+            :$max-results,
+            :$next-token,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResource>,
-            :return-type(ListTagsForResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-typed-link(
-    TypedLinkSchemaAndFacetName :$typed-link-facet!,
-    Array[AttributeNameAndValue] :$attributes!,
-    ObjectReference :$source-object-reference!,
-    Str :$directory-arn!,
-    ObjectReference :$target-object-reference!
+        TypedLinkSchemaAndFacetName :$typed-link-facet!,
+        Array[AttributeNameAndValue] :$attributes!,
+        ObjectReference :$source-object-reference!,
+        Str :$directory-arn!,
+        ObjectReference :$target-object-reference!
     ) returns AttachTypedLinkResponse is service-operation('AttachTypedLink') {
         my $request-input = AttachTypedLinkRequest.new(
-        :$typed-link-facet,
-        :$attributes,
-        :$source-object-reference,
-        :$directory-arn,
-        :$target-object-reference
+            :$typed-link-facet,
+            :$attributes,
+            :$source-object-reference,
+            :$directory-arn,
+            :$target-object-reference
         );
-;
+
         self.perform-operation(
             :api-call<AttachTypedLink>,
-            :return-type(AttachTypedLinkResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-incoming-typed-links(
-    NumberResults :$max-results,
-    Array[TypedLinkAttributeRange] :$filter-attribute-ranges,
-    ObjectReference :$object-reference!,
-    Str :$next-token,
-    Str :$directory-arn!,
-    ConsistencyLevel :$consistency-level,
-    TypedLinkSchemaAndFacetName :$filter-typed-link
+        NumberResults :$max-results,
+        Array[TypedLinkAttributeRange] :$filter-attribute-ranges,
+        ObjectReference :$object-reference!,
+        Str :$next-token,
+        Str :$directory-arn!,
+        ConsistencyLevel :$consistency-level,
+        TypedLinkSchemaAndFacetName :$filter-typed-link
     ) returns ListIncomingTypedLinksResponse is service-operation('ListIncomingTypedLinks') {
         my $request-input = ListIncomingTypedLinksRequest.new(
-        :$max-results,
-        :$filter-attribute-ranges,
-        :$object-reference,
-        :$next-token,
-        :$directory-arn,
-        :$consistency-level,
-        :$filter-typed-link
+            :$max-results,
+            :$filter-attribute-ranges,
+            :$object-reference,
+            :$next-token,
+            :$directory-arn,
+            :$consistency-level,
+            :$filter-typed-link
         );
-;
+
         self.perform-operation(
             :api-call<ListIncomingTypedLinks>,
-            :return-type(ListIncomingTypedLinksResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-object-attributes(
-    ObjectReference :$object-reference!,
-    Array[ObjectAttributeUpdate] :$attribute-updates!,
-    Str :$directory-arn!
+        ObjectReference :$object-reference!,
+        Array[ObjectAttributeUpdate] :$attribute-updates!,
+        Str :$directory-arn!
     ) returns UpdateObjectAttributesResponse is service-operation('UpdateObjectAttributes') {
         my $request-input = UpdateObjectAttributesRequest.new(
-        :$object-reference,
-        :$attribute-updates,
-        :$directory-arn
+            :$object-reference,
+            :$attribute-updates,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<UpdateObjectAttributes>,
-            :return-type(UpdateObjectAttributesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method attach-to-index(
-    ObjectReference :$index-reference!,
-    Str :$directory-arn!,
-    ObjectReference :$target-reference!
+        ObjectReference :$index-reference!,
+        Str :$directory-arn!,
+        ObjectReference :$target-reference!
     ) returns AttachToIndexResponse is service-operation('AttachToIndex') {
         my $request-input = AttachToIndexRequest.new(
-        :$index-reference,
-        :$directory-arn,
-        :$target-reference
+            :$index-reference,
+            :$directory-arn,
+            :$target-reference
         );
-;
+
         self.perform-operation(
             :api-call<AttachToIndex>,
-            :return-type(AttachToIndexResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-facet(
-    Str :$schema-arn!,
-    ObjectType :$object-type!,
-    FacetName :$name!,
-    Array[FacetAttribute] :$attributes
+        Str :$schema-arn!,
+        ObjectType :$object-type!,
+        FacetName :$name!,
+        Array[FacetAttribute] :$attributes
     ) returns CreateFacetResponse is service-operation('CreateFacet') {
         my $request-input = CreateFacetRequest.new(
-        :$schema-arn,
-        :$object-type,
-        :$name,
-        :$attributes
+            :$schema-arn,
+            :$object-type,
+            :$name,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<CreateFacet>,
-            :return-type(CreateFacetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-attached-indices(
-    NumberResults :$max-results,
-    Str :$next-token,
-    Str :$directory-arn!,
-    ObjectReference :$target-reference!,
-    ConsistencyLevel :$consistency-level
+        NumberResults :$max-results,
+        Str :$next-token,
+        Str :$directory-arn!,
+        ObjectReference :$target-reference!,
+        ConsistencyLevel :$consistency-level
     ) returns ListAttachedIndicesResponse is service-operation('ListAttachedIndices') {
         my $request-input = ListAttachedIndicesRequest.new(
-        :$max-results,
-        :$next-token,
-        :$directory-arn,
-        :$target-reference,
-        :$consistency-level
+            :$max-results,
+            :$next-token,
+            :$directory-arn,
+            :$target-reference,
+            :$consistency-level
         );
-;
+
         self.perform-operation(
             :api-call<ListAttachedIndices>,
-            :return-type(ListAttachedIndicesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-facet-from-object(
-    ObjectReference :$object-reference!,
-    SchemaFacet :$schema-facet!,
-    Str :$directory-arn!
+        ObjectReference :$object-reference!,
+        SchemaFacet :$schema-facet!,
+        Str :$directory-arn!
     ) returns RemoveFacetFromObjectResponse is service-operation('RemoveFacetFromObject') {
         my $request-input = RemoveFacetFromObjectRequest.new(
-        :$object-reference,
-        :$schema-facet,
-        :$directory-arn
+            :$object-reference,
+            :$schema-facet,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<RemoveFacetFromObject>,
-            :return-type(RemoveFacetFromObjectResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-typed-link-facet-names(
-    NumberResults :$max-results,
-    Str :$schema-arn!,
-    Str :$next-token
+        NumberResults :$max-results,
+        Str :$schema-arn!,
+        Str :$next-token
     ) returns ListTypedLinkFacetNamesResponse is service-operation('ListTypedLinkFacetNames') {
         my $request-input = ListTypedLinkFacetNamesRequest.new(
-        :$max-results,
-        :$schema-arn,
-        :$next-token
+            :$max-results,
+            :$schema-arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListTypedLinkFacetNames>,
-            :return-type(ListTypedLinkFacetNamesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-object(
-    ObjectReference :$object-reference!,
-    Str :$directory-arn!
+        ObjectReference :$object-reference!,
+        Str :$directory-arn!
     ) returns DeleteObjectResponse is service-operation('DeleteObject') {
         my $request-input = DeleteObjectRequest.new(
-        :$object-reference,
-        :$directory-arn
+            :$object-reference,
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteObject>,
-            :return-type(DeleteObjectResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-typed-link-facet(
-    Str :$schema-arn!,
-    TypedLinkName :$name!
+        Str :$schema-arn!,
+        TypedLinkName :$name!
     ) returns DeleteTypedLinkFacetResponse is service-operation('DeleteTypedLinkFacet') {
         my $request-input = DeleteTypedLinkFacetRequest.new(
-        :$schema-arn,
-        :$name
+            :$schema-arn,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTypedLinkFacet>,
-            :return-type(DeleteTypedLinkFacetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-directory(
-    Str :$directory-arn!
+        Str :$directory-arn!
     ) returns DisableDirectoryResponse is service-operation('DisableDirectory') {
         my $request-input = DisableDirectoryRequest.new(
-        :$directory-arn
+            :$directory-arn
         );
-;
+
         self.perform-operation(
             :api-call<DisableDirectory>,
-            :return-type(DisableDirectoryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

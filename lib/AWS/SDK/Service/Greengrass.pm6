@@ -1060,512 +1060,454 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     method create-logger-definition-version(
-    Str :$logger-definition-id!,
-    Str :$amzn-client-token,
-    Array[Logger] :$loggers
+        Str :$logger-definition-id!,
+        Str :$amzn-client-token,
+        Array[Logger] :$loggers
     ) returns CreateLoggerDefinitionVersionResponse is service-operation('CreateLoggerDefinitionVersion') {
         my $request-input = CreateLoggerDefinitionVersionRequest.new(
-        :$logger-definition-id,
-        :$amzn-client-token,
-        :$loggers
+            :$logger-definition-id,
+            :$amzn-client-token,
+            :$loggers
         );
-;
+
         self.perform-operation(
             :api-call<CreateLoggerDefinitionVersion>,
-            :return-type(CreateLoggerDefinitionVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-function-definition-versions(
-    Str :$max-results,
-    Str :$function-definition-id!,
-    Str :$next-token
+        Str :$max-results,
+        Str :$function-definition-id!,
+        Str :$next-token
     ) returns ListFunctionDefinitionVersionsResponse is service-operation('ListFunctionDefinitionVersions') {
         my $request-input = ListFunctionDefinitionVersionsRequest.new(
-        :$max-results,
-        :$function-definition-id,
-        :$next-token
+            :$max-results,
+            :$function-definition-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListFunctionDefinitionVersions>,
-            :return-type(ListFunctionDefinitionVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reset-deployments(
-    Str :$group-id!,
-    Bool :$force,
-    Str :$amzn-client-token
+        Str :$group-id!,
+        Bool :$force,
+        Str :$amzn-client-token
     ) returns ResetDeploymentsResponse is service-operation('ResetDeployments') {
         my $request-input = ResetDeploymentsRequest.new(
-        :$group-id,
-        :$force,
-        :$amzn-client-token
+            :$group-id,
+            :$force,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<ResetDeployments>,
-            :return-type(ResetDeploymentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-logger-definition(
-    Str :$logger-definition-id!,
-    Str :$name
+        Str :$logger-definition-id!,
+        Str :$name
     ) returns UpdateLoggerDefinitionResponse is service-operation('UpdateLoggerDefinition') {
         my $request-input = UpdateLoggerDefinitionRequest.new(
-        :$logger-definition-id,
-        :$name
+            :$logger-definition-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateLoggerDefinition>,
-            :return-type(UpdateLoggerDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-core-definition-version(
-    Array[Core] :$cores,
-    Str :$core-definition-id!,
-    Str :$amzn-client-token
+        Array[Core] :$cores,
+        Str :$core-definition-id!,
+        Str :$amzn-client-token
     ) returns CreateCoreDefinitionVersionResponse is service-operation('CreateCoreDefinitionVersion') {
         my $request-input = CreateCoreDefinitionVersionRequest.new(
-        :$cores,
-        :$core-definition-id,
-        :$amzn-client-token
+            :$cores,
+            :$core-definition-id,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateCoreDefinitionVersion>,
-            :return-type(CreateCoreDefinitionVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-function-definition(
-    Str :$function-definition-id!
+        Str :$function-definition-id!
     ) returns DeleteFunctionDefinitionResponse is service-operation('DeleteFunctionDefinition') {
         my $request-input = DeleteFunctionDefinitionRequest.new(
-        :$function-definition-id
+            :$function-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFunctionDefinition>,
-            :return-type(DeleteFunctionDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-logger-definition-versions(
-    Str :$max-results,
-    Str :$logger-definition-id!,
-    Str :$next-token
+        Str :$max-results,
+        Str :$logger-definition-id!,
+        Str :$next-token
     ) returns ListLoggerDefinitionVersionsResponse is service-operation('ListLoggerDefinitionVersions') {
         my $request-input = ListLoggerDefinitionVersionsRequest.new(
-        :$max-results,
-        :$logger-definition-id,
-        :$next-token
+            :$max-results,
+            :$logger-definition-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListLoggerDefinitionVersions>,
-            :return-type(ListLoggerDefinitionVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-role-from-group(
-    Str :$group-id!
+        Str :$group-id!
     ) returns DisassociateRoleFromGroupResponse is service-operation('DisassociateRoleFromGroup') {
         my $request-input = DisassociateRoleFromGroupRequest.new(
-        :$group-id
+            :$group-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateRoleFromGroup>,
-            :return-type(DisassociateRoleFromGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-logger-definition(
-    Str :$logger-definition-id!
+        Str :$logger-definition-id!
     ) returns GetLoggerDefinitionResponse is service-operation('GetLoggerDefinition') {
         my $request-input = GetLoggerDefinitionRequest.new(
-        :$logger-definition-id
+            :$logger-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<GetLoggerDefinition>,
-            :return-type(GetLoggerDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-logger-definition-version(
-    Str :$logger-definition-version-id!,
-    Str :$logger-definition-id!
+        Str :$logger-definition-version-id!,
+        Str :$logger-definition-id!
     ) returns GetLoggerDefinitionVersionResponse is service-operation('GetLoggerDefinitionVersion') {
         my $request-input = GetLoggerDefinitionVersionRequest.new(
-        :$logger-definition-version-id,
-        :$logger-definition-id
+            :$logger-definition-version-id,
+            :$logger-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<GetLoggerDefinitionVersion>,
-            :return-type(GetLoggerDefinitionVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-group-certificate-configuration(
-    Str :$group-id!,
-    Str :$certificate-expiry-in-milliseconds
+        Str :$group-id!,
+        Str :$certificate-expiry-in-milliseconds
     ) returns UpdateGroupCertificateConfigurationResponse is service-operation('UpdateGroupCertificateConfiguration') {
         my $request-input = UpdateGroupCertificateConfigurationRequest.new(
-        :$group-id,
-        :$certificate-expiry-in-milliseconds
+            :$group-id,
+            :$certificate-expiry-in-milliseconds
         );
-;
+
         self.perform-operation(
             :api-call<UpdateGroupCertificateConfiguration>,
-            :return-type(UpdateGroupCertificateConfigurationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-deployment(
-    Str :$group-version-id,
-    Str :$group-id!,
-    DeploymentType :$deployment-type,
-    Str :$amzn-client-token,
-    Str :$deployment-id
+        Str :$group-version-id,
+        Str :$group-id!,
+        DeploymentType :$deployment-type,
+        Str :$amzn-client-token,
+        Str :$deployment-id
     ) returns CreateDeploymentResponse is service-operation('CreateDeployment') {
         my $request-input = CreateDeploymentRequest.new(
-        :$group-version-id,
-        :$group-id,
-        :$deployment-type,
-        :$amzn-client-token,
-        :$deployment-id
+            :$group-version-id,
+            :$group-id,
+            :$deployment-type,
+            :$amzn-client-token,
+            :$deployment-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateDeployment>,
-            :return-type(CreateDeploymentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-device-definition-version(
-    Array[Device] :$devices,
-    Str :$amzn-client-token,
-    Str :$device-definition-id!
+        Array[Device] :$devices,
+        Str :$amzn-client-token,
+        Str :$device-definition-id!
     ) returns CreateDeviceDefinitionVersionResponse is service-operation('CreateDeviceDefinitionVersion') {
         my $request-input = CreateDeviceDefinitionVersionRequest.new(
-        :$devices,
-        :$amzn-client-token,
-        :$device-definition-id
+            :$devices,
+            :$amzn-client-token,
+            :$device-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateDeviceDefinitionVersion>,
-            :return-type(CreateDeviceDefinitionVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-device-definition-version(
-    Str :$device-definition-version-id!,
-    Str :$device-definition-id!
+        Str :$device-definition-version-id!,
+        Str :$device-definition-id!
     ) returns GetDeviceDefinitionVersionResponse is service-operation('GetDeviceDefinitionVersion') {
         my $request-input = GetDeviceDefinitionVersionRequest.new(
-        :$device-definition-version-id,
-        :$device-definition-id
+            :$device-definition-version-id,
+            :$device-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDeviceDefinitionVersion>,
-            :return-type(GetDeviceDefinitionVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-subscription-definitions(
-    Str :$max-results,
-    Str :$next-token
+        Str :$max-results,
+        Str :$next-token
     ) returns ListSubscriptionDefinitionsResponse is service-operation('ListSubscriptionDefinitions') {
         my $request-input = ListSubscriptionDefinitionsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListSubscriptionDefinitions>,
-            :return-type(ListSubscriptionDefinitionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-core-definition(
-    Str :$core-definition-id!,
-    Str :$name
+        Str :$core-definition-id!,
+        Str :$name
     ) returns UpdateCoreDefinitionResponse is service-operation('UpdateCoreDefinition') {
         my $request-input = UpdateCoreDefinitionRequest.new(
-        :$core-definition-id,
-        :$name
+            :$core-definition-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateCoreDefinition>,
-            :return-type(UpdateCoreDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-device-definition(
-    Str :$device-definition-id!
+        Str :$device-definition-id!
     ) returns DeleteDeviceDefinitionResponse is service-operation('DeleteDeviceDefinition') {
         my $request-input = DeleteDeviceDefinitionRequest.new(
-        :$device-definition-id
+            :$device-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDeviceDefinition>,
-            :return-type(DeleteDeviceDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-core-definition(
-    Str :$core-definition-id!
+        Str :$core-definition-id!
     ) returns GetCoreDefinitionResponse is service-operation('GetCoreDefinition') {
         my $request-input = GetCoreDefinitionRequest.new(
-        :$core-definition-id
+            :$core-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<GetCoreDefinition>,
-            :return-type(GetCoreDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-group-version(
-    Str :$group-version-id!,
-    Str :$group-id!
+        Str :$group-version-id!,
+        Str :$group-id!
     ) returns GetGroupVersionResponse is service-operation('GetGroupVersion') {
         my $request-input = GetGroupVersionRequest.new(
-        :$group-version-id,
-        :$group-id
+            :$group-version-id,
+            :$group-id
         );
-;
+
         self.perform-operation(
             :api-call<GetGroupVersion>,
-            :return-type(GetGroupVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-logger-definitions(
-    Str :$max-results,
-    Str :$next-token
+        Str :$max-results,
+        Str :$next-token
     ) returns ListLoggerDefinitionsResponse is service-operation('ListLoggerDefinitions') {
         my $request-input = ListLoggerDefinitionsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListLoggerDefinitions>,
-            :return-type(ListLoggerDefinitionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-device-definition(
-    Str :$name,
-    Str :$device-definition-id!
+        Str :$name,
+        Str :$device-definition-id!
     ) returns UpdateDeviceDefinitionResponse is service-operation('UpdateDeviceDefinition') {
         my $request-input = UpdateDeviceDefinitionRequest.new(
-        :$name,
-        :$device-definition-id
+            :$name,
+            :$device-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDeviceDefinition>,
-            :return-type(UpdateDeviceDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-role-to-group(
-    Str :$group-id!,
-    Str :$role-arn
+        Str :$group-id!,
+        Str :$role-arn
     ) returns AssociateRoleToGroupResponse is service-operation('AssociateRoleToGroup') {
         my $request-input = AssociateRoleToGroupRequest.new(
-        :$group-id,
-        :$role-arn
+            :$group-id,
+            :$role-arn
         );
-;
+
         self.perform-operation(
             :api-call<AssociateRoleToGroup>,
-            :return-type(AssociateRoleToGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-logger-definition(
-    Str :$logger-definition-id!
+        Str :$logger-definition-id!
     ) returns DeleteLoggerDefinitionResponse is service-operation('DeleteLoggerDefinition') {
         my $request-input = DeleteLoggerDefinitionRequest.new(
-        :$logger-definition-id
+            :$logger-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLoggerDefinition>,
-            :return-type(DeleteLoggerDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-function-definitions(
-    Str :$max-results,
-    Str :$next-token
+        Str :$max-results,
+        Str :$next-token
     ) returns ListFunctionDefinitionsResponse is service-operation('ListFunctionDefinitions') {
         my $request-input = ListFunctionDefinitionsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListFunctionDefinitions>,
-            :return-type(ListFunctionDefinitionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-device-definition(
-    DeviceDefinitionVersion :$initial-version,
-    Str :$name,
-    Str :$amzn-client-token
+        DeviceDefinitionVersion :$initial-version,
+        Str :$name,
+        Str :$amzn-client-token
     ) returns CreateDeviceDefinitionResponse is service-operation('CreateDeviceDefinition') {
         my $request-input = CreateDeviceDefinitionRequest.new(
-        :$initial-version,
-        :$name,
-        :$amzn-client-token
+            :$initial-version,
+            :$name,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateDeviceDefinition>,
-            :return-type(CreateDeviceDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-function-definition-version(
-    Str :$function-definition-id!,
-    Str :$function-definition-version-id!
+        Str :$function-definition-id!,
+        Str :$function-definition-version-id!
     ) returns GetFunctionDefinitionVersionResponse is service-operation('GetFunctionDefinitionVersion') {
         my $request-input = GetFunctionDefinitionVersionRequest.new(
-        :$function-definition-id,
-        :$function-definition-version-id
+            :$function-definition-id,
+            :$function-definition-version-id
         );
-;
+
         self.perform-operation(
             :api-call<GetFunctionDefinitionVersion>,
-            :return-type(GetFunctionDefinitionVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-subscription-definition-version(
-    Str :$subscription-definition-version-id!,
-    Str :$subscription-definition-id!
+        Str :$subscription-definition-version-id!,
+        Str :$subscription-definition-id!
     ) returns GetSubscriptionDefinitionVersionResponse is service-operation('GetSubscriptionDefinitionVersion') {
         my $request-input = GetSubscriptionDefinitionVersionRequest.new(
-        :$subscription-definition-version-id,
-        :$subscription-definition-id
+            :$subscription-definition-version-id,
+            :$subscription-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSubscriptionDefinitionVersion>,
-            :return-type(GetSubscriptionDefinitionVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-groups(
-    Str :$max-results,
-    Str :$next-token
+        Str :$max-results,
+        Str :$next-token
     ) returns ListGroupsResponse is service-operation('ListGroups') {
         my $request-input = ListGroupsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListGroups>,
-            :return-type(ListGroupsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-group-version(
-    Str :$group-id!,
-    Str :$device-definition-version-arn,
-    Str :$core-definition-version-arn,
-    Str :$function-definition-version-arn,
-    Str :$subscription-definition-version-arn,
-    Str :$logger-definition-version-arn,
-    Str :$amzn-client-token
+        Str :$group-id!,
+        Str :$device-definition-version-arn,
+        Str :$core-definition-version-arn,
+        Str :$function-definition-version-arn,
+        Str :$subscription-definition-version-arn,
+        Str :$logger-definition-version-arn,
+        Str :$amzn-client-token
     ) returns CreateGroupVersionResponse is service-operation('CreateGroupVersion') {
         my $request-input = CreateGroupVersionRequest.new(
-        :$group-id,
-        :$device-definition-version-arn,
-        :$core-definition-version-arn,
-        :$function-definition-version-arn,
-        :$subscription-definition-version-arn,
-        :$logger-definition-version-arn,
-        :$amzn-client-token
+            :$group-id,
+            :$device-definition-version-arn,
+            :$core-definition-version-arn,
+            :$function-definition-version-arn,
+            :$subscription-definition-version-arn,
+            :$logger-definition-version-arn,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateGroupVersion>,
-            :return-type(CreateGroupVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1576,347 +1518,305 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
         my $request-input = DisassociateServiceRoleFromAccountRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateServiceRoleFromAccount>,
-            :return-type(DisassociateServiceRoleFromAccountResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-connectivity-info(
-    Str :$thing-name!
+        Str :$thing-name!
     ) returns GetConnectivityInfoResponse is service-operation('GetConnectivityInfo') {
         my $request-input = GetConnectivityInfoRequest.new(
-        :$thing-name
+            :$thing-name
         );
-;
+
         self.perform-operation(
             :api-call<GetConnectivityInfo>,
-            :return-type(GetConnectivityInfoResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-deployment-status(
-    Str :$group-id!,
-    Str :$deployment-id!
+        Str :$group-id!,
+        Str :$deployment-id!
     ) returns GetDeploymentStatusResponse is service-operation('GetDeploymentStatus') {
         my $request-input = GetDeploymentStatusRequest.new(
-        :$group-id,
-        :$deployment-id
+            :$group-id,
+            :$deployment-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDeploymentStatus>,
-            :return-type(GetDeploymentStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-device-definition(
-    Str :$device-definition-id!
+        Str :$device-definition-id!
     ) returns GetDeviceDefinitionResponse is service-operation('GetDeviceDefinition') {
         my $request-input = GetDeviceDefinitionRequest.new(
-        :$device-definition-id
+            :$device-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<GetDeviceDefinition>,
-            :return-type(GetDeviceDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-subscription-definition(
-    Str :$subscription-definition-id!
+        Str :$subscription-definition-id!
     ) returns GetSubscriptionDefinitionResponse is service-operation('GetSubscriptionDefinition') {
         my $request-input = GetSubscriptionDefinitionRequest.new(
-        :$subscription-definition-id
+            :$subscription-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSubscriptionDefinition>,
-            :return-type(GetSubscriptionDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-core-definition-versions(
-    Str :$max-results,
-    Str :$core-definition-id!,
-    Str :$next-token
+        Str :$max-results,
+        Str :$core-definition-id!,
+        Str :$next-token
     ) returns ListCoreDefinitionVersionsResponse is service-operation('ListCoreDefinitionVersions') {
         my $request-input = ListCoreDefinitionVersionsRequest.new(
-        :$max-results,
-        :$core-definition-id,
-        :$next-token
+            :$max-results,
+            :$core-definition-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListCoreDefinitionVersions>,
-            :return-type(ListCoreDefinitionVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-deployments(
-    Str :$max-results,
-    Str :$group-id!,
-    Str :$next-token
+        Str :$max-results,
+        Str :$group-id!,
+        Str :$next-token
     ) returns ListDeploymentsResponse is service-operation('ListDeployments') {
         my $request-input = ListDeploymentsRequest.new(
-        :$max-results,
-        :$group-id,
-        :$next-token
+            :$max-results,
+            :$group-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDeployments>,
-            :return-type(ListDeploymentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-function-definition(
-    FunctionDefinitionVersion :$initial-version,
-    Str :$name,
-    Str :$amzn-client-token
+        FunctionDefinitionVersion :$initial-version,
+        Str :$name,
+        Str :$amzn-client-token
     ) returns CreateFunctionDefinitionResponse is service-operation('CreateFunctionDefinition') {
         my $request-input = CreateFunctionDefinitionRequest.new(
-        :$initial-version,
-        :$name,
-        :$amzn-client-token
+            :$initial-version,
+            :$name,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateFunctionDefinition>,
-            :return-type(CreateFunctionDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-group(
-    Str :$group-id!
+        Str :$group-id!
     ) returns DeleteGroupResponse is service-operation('DeleteGroup') {
         my $request-input = DeleteGroupRequest.new(
-        :$group-id
+            :$group-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteGroup>,
-            :return-type(DeleteGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-function-definition(
-    Str :$function-definition-id!
+        Str :$function-definition-id!
     ) returns GetFunctionDefinitionResponse is service-operation('GetFunctionDefinition') {
         my $request-input = GetFunctionDefinitionRequest.new(
-        :$function-definition-id
+            :$function-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<GetFunctionDefinition>,
-            :return-type(GetFunctionDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-connectivity-info(
-    Str :$thing-name!,
-    Array[ConnectivityInfo] :$connectivity-info
+        Str :$thing-name!,
+        Array[ConnectivityInfo] :$connectivity-info
     ) returns UpdateConnectivityInfoResponse is service-operation('UpdateConnectivityInfo') {
         my $request-input = UpdateConnectivityInfoRequest.new(
-        :$thing-name,
-        :$connectivity-info
+            :$thing-name,
+            :$connectivity-info
         );
-;
+
         self.perform-operation(
             :api-call<UpdateConnectivityInfo>,
-            :return-type(UpdateConnectivityInfoResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-function-definition(
-    Str :$function-definition-id!,
-    Str :$name
+        Str :$function-definition-id!,
+        Str :$name
     ) returns UpdateFunctionDefinitionResponse is service-operation('UpdateFunctionDefinition') {
         my $request-input = UpdateFunctionDefinitionRequest.new(
-        :$function-definition-id,
-        :$name
+            :$function-definition-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateFunctionDefinition>,
-            :return-type(UpdateFunctionDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-group(
-    GroupVersion :$initial-version,
-    Str :$name,
-    Str :$amzn-client-token
+        GroupVersion :$initial-version,
+        Str :$name,
+        Str :$amzn-client-token
     ) returns CreateGroupResponse is service-operation('CreateGroup') {
         my $request-input = CreateGroupRequest.new(
-        :$initial-version,
-        :$name,
-        :$amzn-client-token
+            :$initial-version,
+            :$name,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateGroup>,
-            :return-type(CreateGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-subscription-definition-version(
-    Array[Subscription] :$subscriptions,
-    Str :$amzn-client-token,
-    Str :$subscription-definition-id!
+        Array[Subscription] :$subscriptions,
+        Str :$amzn-client-token,
+        Str :$subscription-definition-id!
     ) returns CreateSubscriptionDefinitionVersionResponse is service-operation('CreateSubscriptionDefinitionVersion') {
         my $request-input = CreateSubscriptionDefinitionVersionRequest.new(
-        :$subscriptions,
-        :$amzn-client-token,
-        :$subscription-definition-id
+            :$subscriptions,
+            :$amzn-client-token,
+            :$subscription-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateSubscriptionDefinitionVersion>,
-            :return-type(CreateSubscriptionDefinitionVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-group-versions(
-    Str :$max-results,
-    Str :$group-id!,
-    Str :$next-token
+        Str :$max-results,
+        Str :$group-id!,
+        Str :$next-token
     ) returns ListGroupVersionsResponse is service-operation('ListGroupVersions') {
         my $request-input = ListGroupVersionsRequest.new(
-        :$max-results,
-        :$group-id,
-        :$next-token
+            :$max-results,
+            :$group-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListGroupVersions>,
-            :return-type(ListGroupVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-core-definition-version(
-    Str :$core-definition-id!,
-    Str :$core-definition-version-id!
+        Str :$core-definition-id!,
+        Str :$core-definition-version-id!
     ) returns GetCoreDefinitionVersionResponse is service-operation('GetCoreDefinitionVersion') {
         my $request-input = GetCoreDefinitionVersionRequest.new(
-        :$core-definition-id,
-        :$core-definition-version-id
+            :$core-definition-id,
+            :$core-definition-version-id
         );
-;
+
         self.perform-operation(
             :api-call<GetCoreDefinitionVersion>,
-            :return-type(GetCoreDefinitionVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-group(
-    Str :$group-id!
+        Str :$group-id!
     ) returns GetGroupResponse is service-operation('GetGroup') {
         my $request-input = GetGroupRequest.new(
-        :$group-id
+            :$group-id
         );
-;
+
         self.perform-operation(
             :api-call<GetGroup>,
-            :return-type(GetGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-group-certificate-authority(
-    Str :$group-id!,
-    Str :$certificate-authority-id!
+        Str :$group-id!,
+        Str :$certificate-authority-id!
     ) returns GetGroupCertificateAuthorityResponse is service-operation('GetGroupCertificateAuthority') {
         my $request-input = GetGroupCertificateAuthorityRequest.new(
-        :$group-id,
-        :$certificate-authority-id
+            :$group-id,
+            :$certificate-authority-id
         );
-;
+
         self.perform-operation(
             :api-call<GetGroupCertificateAuthority>,
-            :return-type(GetGroupCertificateAuthorityResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-group(
-    Str :$group-id!,
-    Str :$name
+        Str :$group-id!,
+        Str :$name
     ) returns UpdateGroupResponse is service-operation('UpdateGroup') {
         my $request-input = UpdateGroupRequest.new(
-        :$group-id,
-        :$name
+            :$group-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateGroup>,
-            :return-type(UpdateGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-service-role-to-account(
-    Str :$role-arn
+        Str :$role-arn
     ) returns AssociateServiceRoleToAccountResponse is service-operation('AssociateServiceRoleToAccount') {
         my $request-input = AssociateServiceRoleToAccountRequest.new(
-        :$role-arn
+            :$role-arn
         );
-;
+
         self.perform-operation(
             :api-call<AssociateServiceRoleToAccount>,
-            :return-type(AssociateServiceRoleToAccountResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-subscription-definition(
-    Str :$subscription-definition-id!
+        Str :$subscription-definition-id!
     ) returns DeleteSubscriptionDefinitionResponse is service-operation('DeleteSubscriptionDefinition') {
         my $request-input = DeleteSubscriptionDefinitionRequest.new(
-        :$subscription-definition-id
+            :$subscription-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSubscriptionDefinition>,
-            :return-type(DeleteSubscriptionDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1927,253 +1827,223 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
         my $request-input = GetServiceRoleForAccountRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetServiceRoleForAccount>,
-            :return-type(GetServiceRoleForAccountResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-device-definition-versions(
-    Str :$max-results,
-    Str :$next-token,
-    Str :$device-definition-id!
+        Str :$max-results,
+        Str :$next-token,
+        Str :$device-definition-id!
     ) returns ListDeviceDefinitionVersionsResponse is service-operation('ListDeviceDefinitionVersions') {
         my $request-input = ListDeviceDefinitionVersionsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$device-definition-id
+            :$max-results,
+            :$next-token,
+            :$device-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<ListDeviceDefinitionVersions>,
-            :return-type(ListDeviceDefinitionVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-group-certificate-authorities(
-    Str :$group-id!
+        Str :$group-id!
     ) returns ListGroupCertificateAuthoritiesResponse is service-operation('ListGroupCertificateAuthorities') {
         my $request-input = ListGroupCertificateAuthoritiesRequest.new(
-        :$group-id
+            :$group-id
         );
-;
+
         self.perform-operation(
             :api-call<ListGroupCertificateAuthorities>,
-            :return-type(ListGroupCertificateAuthoritiesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-subscription-definition(
-    Str :$name,
-    Str :$subscription-definition-id!
+        Str :$name,
+        Str :$subscription-definition-id!
     ) returns UpdateSubscriptionDefinitionResponse is service-operation('UpdateSubscriptionDefinition') {
         my $request-input = UpdateSubscriptionDefinitionRequest.new(
-        :$name,
-        :$subscription-definition-id
+            :$name,
+            :$subscription-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSubscriptionDefinition>,
-            :return-type(UpdateSubscriptionDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-group-certificate-authority(
-    Str :$group-id!,
-    Str :$amzn-client-token
+        Str :$group-id!,
+        Str :$amzn-client-token
     ) returns CreateGroupCertificateAuthorityResponse is service-operation('CreateGroupCertificateAuthority') {
         my $request-input = CreateGroupCertificateAuthorityRequest.new(
-        :$group-id,
-        :$amzn-client-token
+            :$group-id,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateGroupCertificateAuthority>,
-            :return-type(CreateGroupCertificateAuthorityResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-logger-definition(
-    LoggerDefinitionVersion :$initial-version,
-    Str :$name,
-    Str :$amzn-client-token
+        LoggerDefinitionVersion :$initial-version,
+        Str :$name,
+        Str :$amzn-client-token
     ) returns CreateLoggerDefinitionResponse is service-operation('CreateLoggerDefinition') {
         my $request-input = CreateLoggerDefinitionRequest.new(
-        :$initial-version,
-        :$name,
-        :$amzn-client-token
+            :$initial-version,
+            :$name,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateLoggerDefinition>,
-            :return-type(CreateLoggerDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-subscription-definition(
-    SubscriptionDefinitionVersion :$initial-version,
-    Str :$name,
-    Str :$amzn-client-token
+        SubscriptionDefinitionVersion :$initial-version,
+        Str :$name,
+        Str :$amzn-client-token
     ) returns CreateSubscriptionDefinitionResponse is service-operation('CreateSubscriptionDefinition') {
         my $request-input = CreateSubscriptionDefinitionRequest.new(
-        :$initial-version,
-        :$name,
-        :$amzn-client-token
+            :$initial-version,
+            :$name,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateSubscriptionDefinition>,
-            :return-type(CreateSubscriptionDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-core-definition(
-    Str :$core-definition-id!
+        Str :$core-definition-id!
     ) returns DeleteCoreDefinitionResponse is service-operation('DeleteCoreDefinition') {
         my $request-input = DeleteCoreDefinitionRequest.new(
-        :$core-definition-id
+            :$core-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCoreDefinition>,
-            :return-type(DeleteCoreDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-group-certificate-configuration(
-    Str :$group-id!
+        Str :$group-id!
     ) returns GetGroupCertificateConfigurationResponse is service-operation('GetGroupCertificateConfiguration') {
         my $request-input = GetGroupCertificateConfigurationRequest.new(
-        :$group-id
+            :$group-id
         );
-;
+
         self.perform-operation(
             :api-call<GetGroupCertificateConfiguration>,
-            :return-type(GetGroupCertificateConfigurationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-subscription-definition-versions(
-    Str :$max-results,
-    Str :$next-token,
-    Str :$subscription-definition-id!
+        Str :$max-results,
+        Str :$next-token,
+        Str :$subscription-definition-id!
     ) returns ListSubscriptionDefinitionVersionsResponse is service-operation('ListSubscriptionDefinitionVersions') {
         my $request-input = ListSubscriptionDefinitionVersionsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$subscription-definition-id
+            :$max-results,
+            :$next-token,
+            :$subscription-definition-id
         );
-;
+
         self.perform-operation(
             :api-call<ListSubscriptionDefinitionVersions>,
-            :return-type(ListSubscriptionDefinitionVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-associated-role(
-    Str :$group-id!
+        Str :$group-id!
     ) returns GetAssociatedRoleResponse is service-operation('GetAssociatedRole') {
         my $request-input = GetAssociatedRoleRequest.new(
-        :$group-id
+            :$group-id
         );
-;
+
         self.perform-operation(
             :api-call<GetAssociatedRole>,
-            :return-type(GetAssociatedRoleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-core-definitions(
-    Str :$max-results,
-    Str :$next-token
+        Str :$max-results,
+        Str :$next-token
     ) returns ListCoreDefinitionsResponse is service-operation('ListCoreDefinitions') {
         my $request-input = ListCoreDefinitionsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListCoreDefinitions>,
-            :return-type(ListCoreDefinitionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-device-definitions(
-    Str :$max-results,
-    Str :$next-token
+        Str :$max-results,
+        Str :$next-token
     ) returns ListDeviceDefinitionsResponse is service-operation('ListDeviceDefinitions') {
         my $request-input = ListDeviceDefinitionsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDeviceDefinitions>,
-            :return-type(ListDeviceDefinitionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-core-definition(
-    CoreDefinitionVersion :$initial-version,
-    Str :$name,
-    Str :$amzn-client-token
+        CoreDefinitionVersion :$initial-version,
+        Str :$name,
+        Str :$amzn-client-token
     ) returns CreateCoreDefinitionResponse is service-operation('CreateCoreDefinition') {
         my $request-input = CreateCoreDefinitionRequest.new(
-        :$initial-version,
-        :$name,
-        :$amzn-client-token
+            :$initial-version,
+            :$name,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateCoreDefinition>,
-            :return-type(CreateCoreDefinitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-function-definition-version(
-    Str :$function-definition-id!,
-    Array[Function] :$functions,
-    Str :$amzn-client-token
+        Str :$function-definition-id!,
+        Array[Function] :$functions,
+        Str :$amzn-client-token
     ) returns CreateFunctionDefinitionVersionResponse is service-operation('CreateFunctionDefinitionVersion') {
         my $request-input = CreateFunctionDefinitionVersionRequest.new(
-        :$function-definition-id,
-        :$functions,
-        :$amzn-client-token
+            :$function-definition-id,
+            :$functions,
+            :$amzn-client-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateFunctionDefinitionVersion>,
-            :return-type(CreateFunctionDefinitionVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

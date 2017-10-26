@@ -365,333 +365,297 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
     }
 
     method update-team-member(
-    UserArn :$user-arn!,
-    ProjectId :$project-id!,
-    Role :$project-role,
-    Bool :$remote-access-allowed
+        UserArn :$user-arn!,
+        ProjectId :$project-id!,
+        Role :$project-role,
+        Bool :$remote-access-allowed
     ) returns UpdateTeamMemberResult is service-operation('UpdateTeamMember') {
         my $request-input = UpdateTeamMemberRequest.new(
-        :$user-arn,
-        :$project-id,
-        :$project-role,
-        :$remote-access-allowed
+            :$user-arn,
+            :$project-id,
+            :$project-role,
+            :$remote-access-allowed
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTeamMember>,
-            :return-type(UpdateTeamMemberResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-user-profile(
-    UserArn :$user-arn!
+        UserArn :$user-arn!
     ) returns DeleteUserProfileResult is service-operation('DeleteUserProfile') {
         my $request-input = DeleteUserProfileRequest.new(
-        :$user-arn
+            :$user-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteUserProfile>,
-            :return-type(DeleteUserProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-project(
-    Bool :$delete-stack,
-    ClientRequestToken :$client-request-token,
-    ProjectId :$id!
+        Bool :$delete-stack,
+        ClientRequestToken :$client-request-token,
+        ProjectId :$id!
     ) returns DeleteProjectResult is service-operation('DeleteProject') {
         my $request-input = DeleteProjectRequest.new(
-        :$delete-stack,
-        :$client-request-token,
-        :$id
+            :$delete-stack,
+            :$client-request-token,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteProject>,
-            :return-type(DeleteProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-project(
-    ProjectName :$name!,
-    ClientRequestToken :$client-request-token,
-    ProjectId :$id!,
-    ProjectDescription :$description
+        ProjectName :$name!,
+        ClientRequestToken :$client-request-token,
+        ProjectId :$id!,
+        ProjectDescription :$description
     ) returns CreateProjectResult is service-operation('CreateProject') {
         my $request-input = CreateProjectRequest.new(
-        :$name,
-        :$client-request-token,
-        :$id,
-        :$description
+            :$name,
+            :$client-request-token,
+            :$id,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateProject>,
-            :return-type(CreateProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-project(
-    ProjectName :$name,
-    ProjectId :$id!,
-    ProjectDescription :$description
+        ProjectName :$name,
+        ProjectId :$id!,
+        ProjectDescription :$description
     ) returns UpdateProjectResult is service-operation('UpdateProject') {
         my $request-input = UpdateProjectRequest.new(
-        :$name,
-        :$id,
-        :$description
+            :$name,
+            :$id,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<UpdateProject>,
-            :return-type(UpdateProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-user-profiles(
-    MaxResults :$max-results,
-    PaginationToken :$next-token
+        MaxResults :$max-results,
+        PaginationToken :$next-token
     ) returns ListUserProfilesResult is service-operation('ListUserProfiles') {
         my $request-input = ListUserProfilesRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListUserProfiles>,
-            :return-type(ListUserProfilesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-project(
-    ProjectId :$id!,
-    Array[TagKey] :$tags!
+        ProjectId :$id!,
+        Array[TagKey] :$tags!
     ) returns UntagProjectResult is service-operation('UntagProject') {
         my $request-input = UntagProjectRequest.new(
-        :$id,
-        :$tags
+            :$id,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<UntagProject>,
-            :return-type(UntagProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-project(
-    ProjectId :$id!,
-    Hash[TagValue, TagKey] :$tags!
+        ProjectId :$id!,
+        Hash[TagValue, TagKey] :$tags!
     ) returns TagProjectResult is service-operation('TagProject') {
         my $request-input = TagProjectRequest.new(
-        :$id,
-        :$tags
+            :$id,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<TagProject>,
-            :return-type(TagProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-project(
-    MaxResults :$max-results,
-    PaginationToken :$next-token,
-    ProjectId :$id!
+        MaxResults :$max-results,
+        PaginationToken :$next-token,
+        ProjectId :$id!
     ) returns ListTagsForProjectResult is service-operation('ListTagsForProject') {
         my $request-input = ListTagsForProjectRequest.new(
-        :$max-results,
-        :$next-token,
-        :$id
+            :$max-results,
+            :$next-token,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForProject>,
-            :return-type(ListTagsForProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-resources(
-    ProjectId :$project-id!,
-    MaxResults :$max-results,
-    PaginationToken :$next-token
+        ProjectId :$project-id!,
+        MaxResults :$max-results,
+        PaginationToken :$next-token
     ) returns ListResourcesResult is service-operation('ListResources') {
         my $request-input = ListResourcesRequest.new(
-        :$project-id,
-        :$max-results,
-        :$next-token
+            :$project-id,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListResources>,
-            :return-type(ListResourcesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-team-member(
-    UserArn :$user-arn!,
-    ProjectId :$project-id!
+        UserArn :$user-arn!,
+        ProjectId :$project-id!
     ) returns DisassociateTeamMemberResult is service-operation('DisassociateTeamMember') {
         my $request-input = DisassociateTeamMemberRequest.new(
-        :$user-arn,
-        :$project-id
+            :$user-arn,
+            :$project-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateTeamMember>,
-            :return-type(DisassociateTeamMemberResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-user-profile(
-    UserArn :$user-arn!
+        UserArn :$user-arn!
     ) returns DescribeUserProfileResult is service-operation('DescribeUserProfile') {
         my $request-input = DescribeUserProfileRequest.new(
-        :$user-arn
+            :$user-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeUserProfile>,
-            :return-type(DescribeUserProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-user-profile(
-    UserArn :$user-arn!,
-    Email :$email-address,
-    SshPublicKey :$ssh-public-key,
-    UserProfileDisplayName :$display-name
+        UserArn :$user-arn!,
+        Email :$email-address,
+        SshPublicKey :$ssh-public-key,
+        UserProfileDisplayName :$display-name
     ) returns UpdateUserProfileResult is service-operation('UpdateUserProfile') {
         my $request-input = UpdateUserProfileRequest.new(
-        :$user-arn,
-        :$email-address,
-        :$ssh-public-key,
-        :$display-name
+            :$user-arn,
+            :$email-address,
+            :$ssh-public-key,
+            :$display-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateUserProfile>,
-            :return-type(UpdateUserProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-projects(
-    MaxResults :$max-results,
-    PaginationToken :$next-token
+        MaxResults :$max-results,
+        PaginationToken :$next-token
     ) returns ListProjectsResult is service-operation('ListProjects') {
         my $request-input = ListProjectsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListProjects>,
-            :return-type(ListProjectsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-team-member(
-    UserArn :$user-arn!,
-    ProjectId :$project-id!,
-    ClientRequestToken :$client-request-token,
-    Role :$project-role!,
-    Bool :$remote-access-allowed
+        UserArn :$user-arn!,
+        ProjectId :$project-id!,
+        ClientRequestToken :$client-request-token,
+        Role :$project-role!,
+        Bool :$remote-access-allowed
     ) returns AssociateTeamMemberResult is service-operation('AssociateTeamMember') {
         my $request-input = AssociateTeamMemberRequest.new(
-        :$user-arn,
-        :$project-id,
-        :$client-request-token,
-        :$project-role,
-        :$remote-access-allowed
+            :$user-arn,
+            :$project-id,
+            :$client-request-token,
+            :$project-role,
+            :$remote-access-allowed
         );
-;
+
         self.perform-operation(
             :api-call<AssociateTeamMember>,
-            :return-type(AssociateTeamMemberResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-team-members(
-    ProjectId :$project-id!,
-    MaxResults :$max-results,
-    PaginationToken :$next-token
+        ProjectId :$project-id!,
+        MaxResults :$max-results,
+        PaginationToken :$next-token
     ) returns ListTeamMembersResult is service-operation('ListTeamMembers') {
         my $request-input = ListTeamMembersRequest.new(
-        :$project-id,
-        :$max-results,
-        :$next-token
+            :$project-id,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListTeamMembers>,
-            :return-type(ListTeamMembersResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-project(
-    ProjectId :$id!
+        ProjectId :$id!
     ) returns DescribeProjectResult is service-operation('DescribeProject') {
         my $request-input = DescribeProjectRequest.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeProject>,
-            :return-type(DescribeProjectResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-user-profile(
-    UserArn :$user-arn!,
-    Email :$email-address!,
-    SshPublicKey :$ssh-public-key,
-    UserProfileDisplayName :$display-name!
+        UserArn :$user-arn!,
+        Email :$email-address!,
+        SshPublicKey :$ssh-public-key,
+        UserProfileDisplayName :$display-name!
     ) returns CreateUserProfileResult is service-operation('CreateUserProfile') {
         my $request-input = CreateUserProfileRequest.new(
-        :$user-arn,
-        :$email-address,
-        :$ssh-public-key,
-        :$display-name
+            :$user-arn,
+            :$email-address,
+            :$ssh-public-key,
+            :$display-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateUserProfile>,
-            :return-type(CreateUserProfileResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

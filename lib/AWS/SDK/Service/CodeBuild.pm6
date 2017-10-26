@@ -389,118 +389,108 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
     }
 
     method start-build(
-    NonEmptyString :$project-name!,
-    Str :$source-version,
-    ProjectArtifacts :$artifacts-override,
-    TimeOut :$timeout-in-minutes-override,
-    Array[EnvironmentVariable] :$environment-variables-override,
-    Str :$buildspec-override
+        NonEmptyString :$project-name!,
+        Str :$source-version,
+        ProjectArtifacts :$artifacts-override,
+        TimeOut :$timeout-in-minutes-override,
+        Array[EnvironmentVariable] :$environment-variables-override,
+        Str :$buildspec-override
     ) returns StartBuildOutput is service-operation('StartBuild') {
         my $request-input = StartBuildInput.new(
-        :$project-name,
-        :$source-version,
-        :$artifacts-override,
-        :$timeout-in-minutes-override,
-        :$environment-variables-override,
-        :$buildspec-override
+            :$project-name,
+            :$source-version,
+            :$artifacts-override,
+            :$timeout-in-minutes-override,
+            :$environment-variables-override,
+            :$buildspec-override
         );
-;
+
         self.perform-operation(
             :api-call<StartBuild>,
-            :return-type(StartBuildOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-project(
-    NonEmptyString :$name!
+        NonEmptyString :$name!
     ) returns DeleteProjectOutput is service-operation('DeleteProject') {
         my $request-input = DeleteProjectInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteProject>,
-            :return-type(DeleteProjectOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-webhook(
-    ProjectName :$project-name!
+        ProjectName :$project-name!
     ) returns CreateWebhookOutput is service-operation('CreateWebhook') {
         my $request-input = CreateWebhookInput.new(
-        :$project-name
+            :$project-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateWebhook>,
-            :return-type(CreateWebhookOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-project(
-    ProjectEnvironment :$environment!,
-    ProjectName :$name!,
-    TimeOut :$timeout-in-minutes,
-    ProjectSource :$source!,
-    TagList :$tags,
-    ProjectArtifacts :$artifacts!,
-    NonEmptyString :$service-role,
-    NonEmptyString :$encryption-key,
-    ProjectDescription :$description
+        ProjectEnvironment :$environment!,
+        ProjectName :$name!,
+        TimeOut :$timeout-in-minutes,
+        ProjectSource :$source!,
+        TagList :$tags,
+        ProjectArtifacts :$artifacts!,
+        NonEmptyString :$service-role,
+        NonEmptyString :$encryption-key,
+        ProjectDescription :$description
     ) returns CreateProjectOutput is service-operation('CreateProject') {
         my $request-input = CreateProjectInput.new(
-        :$environment,
-        :$name,
-        :$timeout-in-minutes,
-        :$source,
-        :$tags,
-        :$artifacts,
-        :$service-role,
-        :$encryption-key,
-        :$description
+            :$environment,
+            :$name,
+            :$timeout-in-minutes,
+            :$source,
+            :$tags,
+            :$artifacts,
+            :$service-role,
+            :$encryption-key,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateProject>,
-            :return-type(CreateProjectOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-project(
-    ProjectEnvironment :$environment,
-    NonEmptyString :$name!,
-    TimeOut :$timeout-in-minutes,
-    ProjectSource :$source,
-    TagList :$tags,
-    ProjectArtifacts :$artifacts,
-    NonEmptyString :$service-role,
-    NonEmptyString :$encryption-key,
-    ProjectDescription :$description
+        ProjectEnvironment :$environment,
+        NonEmptyString :$name!,
+        TimeOut :$timeout-in-minutes,
+        ProjectSource :$source,
+        TagList :$tags,
+        ProjectArtifacts :$artifacts,
+        NonEmptyString :$service-role,
+        NonEmptyString :$encryption-key,
+        ProjectDescription :$description
     ) returns UpdateProjectOutput is service-operation('UpdateProject') {
         my $request-input = UpdateProjectInput.new(
-        :$environment,
-        :$name,
-        :$timeout-in-minutes,
-        :$source,
-        :$tags,
-        :$artifacts,
-        :$service-role,
-        :$encryption-key,
-        :$description
+            :$environment,
+            :$name,
+            :$timeout-in-minutes,
+            :$source,
+            :$tags,
+            :$artifacts,
+            :$service-role,
+            :$encryption-key,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<UpdateProject>,
-            :return-type(UpdateProjectOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -511,141 +501,123 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
         my $request-input = ListCuratedEnvironmentImagesInput.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<ListCuratedEnvironmentImages>,
-            :return-type(ListCuratedEnvironmentImagesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-projects(
-    NonEmptyString :$next-token,
-    SortOrderType :$sort-order,
-    ProjectSortByType :$sort-by
+        NonEmptyString :$next-token,
+        SortOrderType :$sort-order,
+        ProjectSortByType :$sort-by
     ) returns ListProjectsOutput is service-operation('ListProjects') {
         my $request-input = ListProjectsInput.new(
-        :$next-token,
-        :$sort-order,
-        :$sort-by
+            :$next-token,
+            :$sort-order,
+            :$sort-by
         );
-;
+
         self.perform-operation(
             :api-call<ListProjects>,
-            :return-type(ListProjectsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-builds(
-    Str :$next-token,
-    SortOrderType :$sort-order
+        Str :$next-token,
+        SortOrderType :$sort-order
     ) returns ListBuildsOutput is service-operation('ListBuilds') {
         my $request-input = ListBuildsInput.new(
-        :$next-token,
-        :$sort-order
+            :$next-token,
+            :$sort-order
         );
-;
+
         self.perform-operation(
             :api-call<ListBuilds>,
-            :return-type(ListBuildsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-webhook(
-    ProjectName :$project-name!
+        ProjectName :$project-name!
     ) returns DeleteWebhookOutput is service-operation('DeleteWebhook') {
         my $request-input = DeleteWebhookInput.new(
-        :$project-name
+            :$project-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteWebhook>,
-            :return-type(DeleteWebhookOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-builds(
-    BuildIds :$ids!
+        BuildIds :$ids!
     ) returns BatchGetBuildsOutput is service-operation('BatchGetBuilds') {
         my $request-input = BatchGetBuildsInput.new(
-        :$ids
+            :$ids
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetBuilds>,
-            :return-type(BatchGetBuildsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-delete-builds(
-    BuildIds :$ids!
+        BuildIds :$ids!
     ) returns BatchDeleteBuildsOutput is service-operation('BatchDeleteBuilds') {
         my $request-input = BatchDeleteBuildsInput.new(
-        :$ids
+            :$ids
         );
-;
+
         self.perform-operation(
             :api-call<BatchDeleteBuilds>,
-            :return-type(BatchDeleteBuildsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-build(
-    NonEmptyString :$id!
+        NonEmptyString :$id!
     ) returns StopBuildOutput is service-operation('StopBuild') {
         my $request-input = StopBuildInput.new(
-        :$id
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<StopBuild>,
-            :return-type(StopBuildOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-builds-for-project(
-    NonEmptyString :$project-name!,
-    Str :$next-token,
-    SortOrderType :$sort-order
+        NonEmptyString :$project-name!,
+        Str :$next-token,
+        SortOrderType :$sort-order
     ) returns ListBuildsForProjectOutput is service-operation('ListBuildsForProject') {
         my $request-input = ListBuildsForProjectInput.new(
-        :$project-name,
-        :$next-token,
-        :$sort-order
+            :$project-name,
+            :$next-token,
+            :$sort-order
         );
-;
+
         self.perform-operation(
             :api-call<ListBuildsForProject>,
-            :return-type(ListBuildsForProjectOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-projects(
-    ProjectNames :$names!
+        ProjectNames :$names!
     ) returns BatchGetProjectsOutput is service-operation('BatchGetProjects') {
         my $request-input = BatchGetProjectsInput.new(
-        :$names
+            :$names
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetProjects>,
-            :return-type(BatchGetProjectsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

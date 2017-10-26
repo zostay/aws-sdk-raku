@@ -376,505 +376,445 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     method publish(
-    Str :$subject,
-    Str :$phone-number,
-    Hash[MessageAttributeValue, Str] :$message-attributes,
-    Str :$message-structure,
-    Str :$target-arn,
-    Str :$topic-arn,
-    Str :$message!
+        Str :$subject,
+        Str :$phone-number,
+        Hash[MessageAttributeValue, Str] :$message-attributes,
+        Str :$message-structure,
+        Str :$target-arn,
+        Str :$topic-arn,
+        Str :$message!
     ) returns PublishResponse is service-operation('Publish') {
         my $request-input = PublishInput.new(
-        :$subject,
-        :$phone-number,
-        :$message-attributes,
-        :$message-structure,
-        :$target-arn,
-        :$topic-arn,
-        :$message
+            :$subject,
+            :$phone-number,
+            :$message-attributes,
+            :$message-structure,
+            :$target-arn,
+            :$topic-arn,
+            :$message
         );
-;
+
         self.perform-operation(
             :api-call<Publish>,
-            :return-type(PublishResponse),
-            :result-wrapper('PublishResult'),
             :$request-input,
         );
     }
 
     method list-subscriptions-by-topic(
-    Str :$topic-arn!,
-    Str :$next-token
+        Str :$topic-arn!,
+        Str :$next-token
     ) returns ListSubscriptionsByTopicResponse is service-operation('ListSubscriptionsByTopic') {
         my $request-input = ListSubscriptionsByTopicInput.new(
-        :$topic-arn,
-        :$next-token
+            :$topic-arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListSubscriptionsByTopic>,
-            :return-type(ListSubscriptionsByTopicResponse),
-            :result-wrapper('ListSubscriptionsByTopicResult'),
             :$request-input,
         );
     }
 
     method list-endpoints-by-platform-application(
-    Str :$platform-application-arn!,
-    Str :$next-token
+        Str :$platform-application-arn!,
+        Str :$next-token
     ) returns ListEndpointsByPlatformApplicationResponse is service-operation('ListEndpointsByPlatformApplication') {
         my $request-input = ListEndpointsByPlatformApplicationInput.new(
-        :$platform-application-arn,
-        :$next-token
+            :$platform-application-arn,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListEndpointsByPlatformApplication>,
-            :return-type(ListEndpointsByPlatformApplicationResponse),
-            :result-wrapper('ListEndpointsByPlatformApplicationResult'),
             :$request-input,
         );
     }
 
     method get-sms-attributes(
-    Array[Str] :$attributes
+        Array[Str] :$attributes
     ) returns GetSMSAttributesResponse is service-operation('GetSMSAttributes') {
         my $request-input = GetSMSAttributesInput.new(
-        :$attributes
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<GetSMSAttributes>,
-            :return-type(GetSMSAttributesResponse),
-            :result-wrapper('GetSMSAttributesResult'),
             :$request-input,
         );
     }
 
     method get-platform-application-attributes(
-    Str :$platform-application-arn!
+        Str :$platform-application-arn!
     ) returns GetPlatformApplicationAttributesResponse is service-operation('GetPlatformApplicationAttributes') {
         my $request-input = GetPlatformApplicationAttributesInput.new(
-        :$platform-application-arn
+            :$platform-application-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetPlatformApplicationAttributes>,
-            :return-type(GetPlatformApplicationAttributesResponse),
-            :result-wrapper('GetPlatformApplicationAttributesResult'),
             :$request-input,
         );
     }
 
     method create-platform-application(
-    Str :$platform!,
-    Str :$name!,
-    Hash[Str, Str] :$attributes!
+        Str :$platform!,
+        Str :$name!,
+        Hash[Str, Str] :$attributes!
     ) returns CreatePlatformApplicationResponse is service-operation('CreatePlatformApplication') {
         my $request-input = CreatePlatformApplicationInput.new(
-        :$platform,
-        :$name,
-        :$attributes
+            :$platform,
+            :$name,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<CreatePlatformApplication>,
-            :return-type(CreatePlatformApplicationResponse),
-            :result-wrapper('CreatePlatformApplicationResult'),
             :$request-input,
         );
     }
 
     method list-topics(
-    Str :$next-token
+        Str :$next-token
     ) returns ListTopicsResponse is service-operation('ListTopics') {
         my $request-input = ListTopicsInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListTopics>,
-            :return-type(ListTopicsResponse),
-            :result-wrapper('ListTopicsResult'),
             :$request-input,
         );
     }
 
     method set-subscription-attributes(
-    Str :$attribute-name!,
-    Str :$subscription-arn!,
-    Str :$attribute-value
+        Str :$attribute-name!,
+        Str :$subscription-arn!,
+        Str :$attribute-value
     ) is service-operation('SetSubscriptionAttributes') {
         my $request-input = SetSubscriptionAttributesInput.new(
-        :$attribute-name,
-        :$subscription-arn,
-        :$attribute-value
+            :$attribute-name,
+            :$subscription-arn,
+            :$attribute-value
         );
-;
+
         self.perform-operation(
             :api-call<SetSubscriptionAttributes>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-endpoint-attributes(
-    Str :$endpoint-arn!
+        Str :$endpoint-arn!
     ) returns GetEndpointAttributesResponse is service-operation('GetEndpointAttributes') {
         my $request-input = GetEndpointAttributesInput.new(
-        :$endpoint-arn
+            :$endpoint-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetEndpointAttributes>,
-            :return-type(GetEndpointAttributesResponse),
-            :result-wrapper('GetEndpointAttributesResult'),
             :$request-input,
         );
     }
 
     method unsubscribe(
-    Str :$subscription-arn!
+        Str :$subscription-arn!
     ) is service-operation('Unsubscribe') {
         my $request-input = UnsubscribeInput.new(
-        :$subscription-arn
+            :$subscription-arn
         );
-;
+
         self.perform-operation(
             :api-call<Unsubscribe>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-platform-application-attributes(
-    Str :$platform-application-arn!,
-    Hash[Str, Str] :$attributes!
+        Str :$platform-application-arn!,
+        Hash[Str, Str] :$attributes!
     ) is service-operation('SetPlatformApplicationAttributes') {
         my $request-input = SetPlatformApplicationAttributesInput.new(
-        :$platform-application-arn,
-        :$attributes
+            :$platform-application-arn,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<SetPlatformApplicationAttributes>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method opt-in-phone-number(
-    Str :$phone-number!
+        Str :$phone-number!
     ) returns OptInPhoneNumberResponse is service-operation('OptInPhoneNumber') {
         my $request-input = OptInPhoneNumberInput.new(
-        :$phone-number
+            :$phone-number
         );
-;
+
         self.perform-operation(
             :api-call<OptInPhoneNumber>,
-            :return-type(OptInPhoneNumberResponse),
-            :result-wrapper('OptInPhoneNumberResult'),
             :$request-input,
         );
     }
 
     method get-subscription-attributes(
-    Str :$subscription-arn!
+        Str :$subscription-arn!
     ) returns GetSubscriptionAttributesResponse is service-operation('GetSubscriptionAttributes') {
         my $request-input = GetSubscriptionAttributesInput.new(
-        :$subscription-arn
+            :$subscription-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetSubscriptionAttributes>,
-            :return-type(GetSubscriptionAttributesResponse),
-            :result-wrapper('GetSubscriptionAttributesResult'),
             :$request-input,
         );
     }
 
     method check-if-phone-number-is-opted-out(
-    Str :$phone-number!
+        Str :$phone-number!
     ) returns CheckIfPhoneNumberIsOptedOutResponse is service-operation('CheckIfPhoneNumberIsOptedOut') {
         my $request-input = CheckIfPhoneNumberIsOptedOutInput.new(
-        :$phone-number
+            :$phone-number
         );
-;
+
         self.perform-operation(
             :api-call<CheckIfPhoneNumberIsOptedOut>,
-            :return-type(CheckIfPhoneNumberIsOptedOutResponse),
-            :result-wrapper('CheckIfPhoneNumberIsOptedOutResult'),
             :$request-input,
         );
     }
 
     method set-topic-attributes(
-    Str :$attribute-name!,
-    Str :$attribute-value,
-    Str :$topic-arn!
+        Str :$attribute-name!,
+        Str :$attribute-value,
+        Str :$topic-arn!
     ) is service-operation('SetTopicAttributes') {
         my $request-input = SetTopicAttributesInput.new(
-        :$attribute-name,
-        :$attribute-value,
-        :$topic-arn
+            :$attribute-name,
+            :$attribute-value,
+            :$topic-arn
         );
-;
+
         self.perform-operation(
             :api-call<SetTopicAttributes>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-endpoint-attributes(
-    Hash[Str, Str] :$attributes!,
-    Str :$endpoint-arn!
+        Hash[Str, Str] :$attributes!,
+        Str :$endpoint-arn!
     ) is service-operation('SetEndpointAttributes') {
         my $request-input = SetEndpointAttributesInput.new(
-        :$attributes,
-        :$endpoint-arn
+            :$attributes,
+            :$endpoint-arn
         );
-;
+
         self.perform-operation(
             :api-call<SetEndpointAttributes>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-phone-numbers-opted-out(
-    Str :$next-token
+        Str :$next-token
     ) returns ListPhoneNumbersOptedOutResponse is service-operation('ListPhoneNumbersOptedOut') {
         my $request-input = ListPhoneNumbersOptedOutInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListPhoneNumbersOptedOut>,
-            :return-type(ListPhoneNumbersOptedOutResponse),
-            :result-wrapper('ListPhoneNumbersOptedOutResult'),
             :$request-input,
         );
     }
 
     method delete-topic(
-    Str :$topic-arn!
+        Str :$topic-arn!
     ) is service-operation('DeleteTopic') {
         my $request-input = DeleteTopicInput.new(
-        :$topic-arn
+            :$topic-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTopic>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-platform-application(
-    Str :$platform-application-arn!
+        Str :$platform-application-arn!
     ) is service-operation('DeletePlatformApplication') {
         my $request-input = DeletePlatformApplicationInput.new(
-        :$platform-application-arn
+            :$platform-application-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeletePlatformApplication>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-endpoint(
-    Str :$endpoint-arn!
+        Str :$endpoint-arn!
     ) is service-operation('DeleteEndpoint') {
         my $request-input = DeleteEndpointInput.new(
-        :$endpoint-arn
+            :$endpoint-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEndpoint>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-platform-endpoint(
-    Str :$custom-user-data,
-    Str :$platform-application-arn!,
-    Hash[Str, Str] :$attributes,
-    Str :$token!
+        Str :$custom-user-data,
+        Str :$platform-application-arn!,
+        Hash[Str, Str] :$attributes,
+        Str :$token!
     ) returns CreateEndpointResponse is service-operation('CreatePlatformEndpoint') {
         my $request-input = CreatePlatformEndpointInput.new(
-        :$custom-user-data,
-        :$platform-application-arn,
-        :$attributes,
-        :$token
+            :$custom-user-data,
+            :$platform-application-arn,
+            :$attributes,
+            :$token
         );
-;
+
         self.perform-operation(
             :api-call<CreatePlatformEndpoint>,
-            :return-type(CreateEndpointResponse),
-            :result-wrapper('CreatePlatformEndpointResult'),
             :$request-input,
         );
     }
 
     method set-sms-attributes(
-    Hash[Str, Str] :$attributes!
+        Hash[Str, Str] :$attributes!
     ) returns SetSMSAttributesResponse is service-operation('SetSMSAttributes') {
         my $request-input = SetSMSAttributesInput.new(
-        :$attributes
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<SetSMSAttributes>,
-            :return-type(SetSMSAttributesResponse),
-            :result-wrapper('SetSMSAttributesResult'),
             :$request-input,
         );
     }
 
     method remove-permission(
-    Str :$topic-arn!,
-    Str :$label!
+        Str :$topic-arn!,
+        Str :$label!
     ) is service-operation('RemovePermission') {
         my $request-input = RemovePermissionInput.new(
-        :$topic-arn,
-        :$label
+            :$topic-arn,
+            :$label
         );
-;
+
         self.perform-operation(
             :api-call<RemovePermission>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-subscriptions(
-    Str :$next-token
+        Str :$next-token
     ) returns ListSubscriptionsResponse is service-operation('ListSubscriptions') {
         my $request-input = ListSubscriptionsInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListSubscriptions>,
-            :return-type(ListSubscriptionsResponse),
-            :result-wrapper('ListSubscriptionsResult'),
             :$request-input,
         );
     }
 
     method list-platform-applications(
-    Str :$next-token
+        Str :$next-token
     ) returns ListPlatformApplicationsResponse is service-operation('ListPlatformApplications') {
         my $request-input = ListPlatformApplicationsInput.new(
-        :$next-token
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListPlatformApplications>,
-            :return-type(ListPlatformApplicationsResponse),
-            :result-wrapper('ListPlatformApplicationsResult'),
             :$request-input,
         );
     }
 
     method add-permission(
-    Str :$topic-arn!,
-    Str :$label!,
-    Array[Str] :$action-name!,
-    Array[Str] :$aws-account-id!
+        Str :$topic-arn!,
+        Str :$label!,
+        Array[Str] :$action-name!,
+        Array[Str] :$aws-account-id!
     ) is service-operation('AddPermission') {
         my $request-input = AddPermissionInput.new(
-        :$topic-arn,
-        :$label,
-        :$action-name,
-        :$aws-account-id
+            :$topic-arn,
+            :$label,
+            :$action-name,
+            :$aws-account-id
         );
-;
+
         self.perform-operation(
             :api-call<AddPermission>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method subscribe(
-    Str :$endpoint,
-    Str :$topic-arn!,
-    Str :$protocol!
+        Str :$endpoint,
+        Str :$topic-arn!,
+        Str :$protocol!
     ) returns SubscribeResponse is service-operation('Subscribe') {
         my $request-input = SubscribeInput.new(
-        :$endpoint,
-        :$topic-arn,
-        :$protocol
+            :$endpoint,
+            :$topic-arn,
+            :$protocol
         );
-;
+
         self.perform-operation(
             :api-call<Subscribe>,
-            :return-type(SubscribeResponse),
-            :result-wrapper('SubscribeResult'),
             :$request-input,
         );
     }
 
     method get-topic-attributes(
-    Str :$topic-arn!
+        Str :$topic-arn!
     ) returns GetTopicAttributesResponse is service-operation('GetTopicAttributes') {
         my $request-input = GetTopicAttributesInput.new(
-        :$topic-arn
+            :$topic-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetTopicAttributes>,
-            :return-type(GetTopicAttributesResponse),
-            :result-wrapper('GetTopicAttributesResult'),
             :$request-input,
         );
     }
 
     method create-topic(
-    Str :$name!
+        Str :$name!
     ) returns CreateTopicResponse is service-operation('CreateTopic') {
         my $request-input = CreateTopicInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateTopic>,
-            :return-type(CreateTopicResponse),
-            :result-wrapper('CreateTopicResult'),
             :$request-input,
         );
     }
 
     method confirm-subscription(
-    Str :$authenticate-on-unsubscribe,
-    Str :$topic-arn!,
-    Str :$token!
+        Str :$authenticate-on-unsubscribe,
+        Str :$topic-arn!,
+        Str :$token!
     ) returns ConfirmSubscriptionResponse is service-operation('ConfirmSubscription') {
         my $request-input = ConfirmSubscriptionInput.new(
-        :$authenticate-on-unsubscribe,
-        :$topic-arn,
-        :$token
+            :$authenticate-on-unsubscribe,
+            :$topic-arn,
+            :$token
         );
-;
+
         self.perform-operation(
             :api-call<ConfirmSubscription>,
-            :return-type(ConfirmSubscriptionResponse),
-            :result-wrapper('ConfirmSubscriptionResult'),
             :$request-input,
         );
     }

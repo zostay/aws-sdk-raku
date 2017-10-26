@@ -68,22 +68,20 @@ class AWS::SDK::Service::MarketplaceEntitlement does AWS::SDK::Service {
     }
 
     method get-entitlements(
-    Int :$max-results,
-    Hash[FilterValueList, GetEntitlementFilterName] :$filter,
-    ProductCode :$product-code!,
-    NonEmptyString :$next-token
+        Int :$max-results,
+        Hash[FilterValueList, GetEntitlementFilterName] :$filter,
+        ProductCode :$product-code!,
+        NonEmptyString :$next-token
     ) returns GetEntitlementsResult is service-operation('GetEntitlements') {
         my $request-input = GetEntitlementsRequest.new(
-        :$max-results,
-        :$filter,
-        :$product-code,
-        :$next-token
+            :$max-results,
+            :$filter,
+            :$product-code,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetEntitlements>,
-            :return-type(GetEntitlementsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -807,147 +807,131 @@ class AWS::SDK::Service::Inspector does AWS::SDK::Service {
     subset Message of Str where 0 <= .chars <= 1000;
 
     method list-assessment-templates(
-    AssessmentTemplateFilter :$filter,
-    Int :$max-results,
-    PaginationToken :$next-token,
-    ListParentArnList :$assessment-target-arns
+        AssessmentTemplateFilter :$filter,
+        Int :$max-results,
+        PaginationToken :$next-token,
+        ListParentArnList :$assessment-target-arns
     ) returns ListAssessmentTemplatesResponse is service-operation('ListAssessmentTemplates') {
         my $request-input = ListAssessmentTemplatesRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$assessment-target-arns
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$assessment-target-arns
         );
-;
+
         self.perform-operation(
             :api-call<ListAssessmentTemplates>,
-            :return-type(ListAssessmentTemplatesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-assessment-targets(
-    AssessmentTargetFilter :$filter,
-    Int :$max-results,
-    PaginationToken :$next-token
+        AssessmentTargetFilter :$filter,
+        Int :$max-results,
+        PaginationToken :$next-token
     ) returns ListAssessmentTargetsResponse is service-operation('ListAssessmentTargets') {
         my $request-input = ListAssessmentTargetsRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token
+            :$filter,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListAssessmentTargets>,
-            :return-type(ListAssessmentTargetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-assessment-template(
-    Arn :$assessment-target-arn!,
-    UserAttributeList :$user-attributes-for-findings,
-    AssessmentTemplateRulesPackageArnList :$rules-package-arns!,
-    AssessmentRunDuration :$duration-in-seconds!,
-    AssessmentTemplateName :$assessment-template-name!
+        Arn :$assessment-target-arn!,
+        UserAttributeList :$user-attributes-for-findings,
+        AssessmentTemplateRulesPackageArnList :$rules-package-arns!,
+        AssessmentRunDuration :$duration-in-seconds!,
+        AssessmentTemplateName :$assessment-template-name!
     ) returns CreateAssessmentTemplateResponse is service-operation('CreateAssessmentTemplate') {
         my $request-input = CreateAssessmentTemplateRequest.new(
-        :$assessment-target-arn,
-        :$user-attributes-for-findings,
-        :$rules-package-arns,
-        :$duration-in-seconds,
-        :$assessment-template-name
+            :$assessment-target-arn,
+            :$user-attributes-for-findings,
+            :$rules-package-arns,
+            :$duration-in-seconds,
+            :$assessment-template-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateAssessmentTemplate>,
-            :return-type(CreateAssessmentTemplateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-rules-packages(
-    Int :$max-results,
-    PaginationToken :$next-token
+        Int :$max-results,
+        PaginationToken :$next-token
     ) returns ListRulesPackagesResponse is service-operation('ListRulesPackages') {
         my $request-input = ListRulesPackagesRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListRulesPackages>,
-            :return-type(ListRulesPackagesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-assessment-run(
-    Arn :$assessment-run-arn!
+        Arn :$assessment-run-arn!
     ) is service-operation('DeleteAssessmentRun') {
         my $request-input = DeleteAssessmentRunRequest.new(
-        :$assessment-run-arn
+            :$assessment-run-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAssessmentRun>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method set-tags-for-resource(
-    TagList :$tags,
-    Arn :$resource-arn!
+        TagList :$tags,
+        Arn :$resource-arn!
     ) is service-operation('SetTagsForResource') {
         my $request-input = SetTagsForResourceRequest.new(
-        :$tags,
-        :$resource-arn
+            :$tags,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<SetTagsForResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-assessment-report(
-    ReportType :$report-type!,
-    ReportFileFormat :$report-file-format!,
-    Arn :$assessment-run-arn!
+        ReportType :$report-type!,
+        ReportFileFormat :$report-file-format!,
+        Arn :$assessment-run-arn!
     ) returns GetAssessmentReportResponse is service-operation('GetAssessmentReport') {
         my $request-input = GetAssessmentReportRequest.new(
-        :$report-type,
-        :$report-file-format,
-        :$assessment-run-arn
+            :$report-type,
+            :$report-file-format,
+            :$assessment-run-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetAssessmentReport>,
-            :return-type(GetAssessmentReportResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-resource-groups(
-    BatchDescribeArnList :$resource-group-arns!
+        BatchDescribeArnList :$resource-group-arns!
     ) returns DescribeResourceGroupsResponse is service-operation('DescribeResourceGroups') {
         my $request-input = DescribeResourceGroupsRequest.new(
-        :$resource-group-arns
+            :$resource-group-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeResourceGroups>,
-            :return-type(DescribeResourceGroupsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -955,423 +939,373 @@ class AWS::SDK::Service::Inspector does AWS::SDK::Service {
     method describe-cross-account-access-role(
 
     ) returns DescribeCrossAccountAccessRoleResponse is service-operation('DescribeCrossAccountAccessRole') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeCrossAccountAccessRole>,
-            :return-type(DescribeCrossAccountAccessRoleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-assessment-templates(
-    BatchDescribeArnList :$assessment-template-arns!
+        BatchDescribeArnList :$assessment-template-arns!
     ) returns DescribeAssessmentTemplatesResponse is service-operation('DescribeAssessmentTemplates') {
         my $request-input = DescribeAssessmentTemplatesRequest.new(
-        :$assessment-template-arns
+            :$assessment-template-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAssessmentTemplates>,
-            :return-type(DescribeAssessmentTemplatesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-assessment-targets(
-    BatchDescribeArnList :$assessment-target-arns!
+        BatchDescribeArnList :$assessment-target-arns!
     ) returns DescribeAssessmentTargetsResponse is service-operation('DescribeAssessmentTargets') {
         my $request-input = DescribeAssessmentTargetsRequest.new(
-        :$assessment-target-arns
+            :$assessment-target-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAssessmentTargets>,
-            :return-type(DescribeAssessmentTargetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-resource-group(
-    ResourceGroupTags :$resource-group-tags!
+        ResourceGroupTags :$resource-group-tags!
     ) returns CreateResourceGroupResponse is service-operation('CreateResourceGroup') {
         my $request-input = CreateResourceGroupRequest.new(
-        :$resource-group-tags
+            :$resource-group-tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateResourceGroup>,
-            :return-type(CreateResourceGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method unsubscribe-from-event(
-    Arn :$topic-arn!,
-    InspectorEvent :$event!,
-    Arn :$resource-arn!
+        Arn :$topic-arn!,
+        InspectorEvent :$event!,
+        Arn :$resource-arn!
     ) is service-operation('UnsubscribeFromEvent') {
         my $request-input = UnsubscribeFromEventRequest.new(
-        :$topic-arn,
-        :$event,
-        :$resource-arn
+            :$topic-arn,
+            :$event,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<UnsubscribeFromEvent>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method subscribe-to-event(
-    Arn :$topic-arn!,
-    InspectorEvent :$event!,
-    Arn :$resource-arn!
+        Arn :$topic-arn!,
+        InspectorEvent :$event!,
+        Arn :$resource-arn!
     ) is service-operation('SubscribeToEvent') {
         my $request-input = SubscribeToEventRequest.new(
-        :$topic-arn,
-        :$event,
-        :$resource-arn
+            :$topic-arn,
+            :$event,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<SubscribeToEvent>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-assessment-run(
-    AssessmentRunName :$assessment-run-name,
-    Arn :$assessment-template-arn!
+        AssessmentRunName :$assessment-run-name,
+        Arn :$assessment-template-arn!
     ) returns StartAssessmentRunResponse is service-operation('StartAssessmentRun') {
         my $request-input = StartAssessmentRunRequest.new(
-        :$assessment-run-name,
-        :$assessment-template-arn
+            :$assessment-run-name,
+            :$assessment-template-arn
         );
-;
+
         self.perform-operation(
             :api-call<StartAssessmentRun>,
-            :return-type(StartAssessmentRunResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-cross-account-access-role(
-    Arn :$role-arn!
+        Arn :$role-arn!
     ) is service-operation('RegisterCrossAccountAccessRole') {
         my $request-input = RegisterCrossAccountAccessRoleRequest.new(
-        :$role-arn
+            :$role-arn
         );
-;
+
         self.perform-operation(
             :api-call<RegisterCrossAccountAccessRole>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-assessment-template(
-    Arn :$assessment-template-arn!
+        Arn :$assessment-template-arn!
     ) is service-operation('DeleteAssessmentTemplate') {
         my $request-input = DeleteAssessmentTemplateRequest.new(
-        :$assessment-template-arn
+            :$assessment-template-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAssessmentTemplate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-assessment-target(
-    AssessmentTargetName :$assessment-target-name!,
-    Arn :$resource-group-arn!
+        AssessmentTargetName :$assessment-target-name!,
+        Arn :$resource-group-arn!
     ) returns CreateAssessmentTargetResponse is service-operation('CreateAssessmentTarget') {
         my $request-input = CreateAssessmentTargetRequest.new(
-        :$assessment-target-name,
-        :$resource-group-arn
+            :$assessment-target-name,
+            :$resource-group-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateAssessmentTarget>,
-            :return-type(CreateAssessmentTargetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-assessment-runs(
-    AssessmentRunFilter :$filter,
-    Int :$max-results,
-    PaginationToken :$next-token,
-    ListParentArnList :$assessment-template-arns
+        AssessmentRunFilter :$filter,
+        Int :$max-results,
+        PaginationToken :$next-token,
+        ListParentArnList :$assessment-template-arns
     ) returns ListAssessmentRunsResponse is service-operation('ListAssessmentRuns') {
         my $request-input = ListAssessmentRunsRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$assessment-template-arns
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$assessment-template-arns
         );
-;
+
         self.perform-operation(
             :api-call<ListAssessmentRuns>,
-            :return-type(ListAssessmentRunsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-findings(
-    BatchDescribeArnList :$finding-arns!,
-    Locale :$locale
+        BatchDescribeArnList :$finding-arns!,
+        Locale :$locale
     ) returns DescribeFindingsResponse is service-operation('DescribeFindings') {
         my $request-input = DescribeFindingsRequest.new(
-        :$finding-arns,
-        :$locale
+            :$finding-arns,
+            :$locale
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFindings>,
-            :return-type(DescribeFindingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-assessment-target(
-    Arn :$assessment-target-arn!
+        Arn :$assessment-target-arn!
     ) is service-operation('DeleteAssessmentTarget') {
         my $request-input = DeleteAssessmentTargetRequest.new(
-        :$assessment-target-arn
+            :$assessment-target-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAssessmentTarget>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-attributes-to-findings(
-    UserAttributeList :$attributes!,
-    AddRemoveAttributesFindingArnList :$finding-arns!
+        UserAttributeList :$attributes!,
+        AddRemoveAttributesFindingArnList :$finding-arns!
     ) returns AddAttributesToFindingsResponse is service-operation('AddAttributesToFindings') {
         my $request-input = AddAttributesToFindingsRequest.new(
-        :$attributes,
-        :$finding-arns
+            :$attributes,
+            :$finding-arns
         );
-;
+
         self.perform-operation(
             :api-call<AddAttributesToFindings>,
-            :return-type(AddAttributesToFindingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method preview-agents(
-    Int :$max-results,
-    PaginationToken :$next-token,
-    Arn :$preview-agents-arn!
+        Int :$max-results,
+        PaginationToken :$next-token,
+        Arn :$preview-agents-arn!
     ) returns PreviewAgentsResponse is service-operation('PreviewAgents') {
         my $request-input = PreviewAgentsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$preview-agents-arn
+            :$max-results,
+            :$next-token,
+            :$preview-agents-arn
         );
-;
+
         self.perform-operation(
             :api-call<PreviewAgents>,
-            :return-type(PreviewAgentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-resource(
-    Arn :$resource-arn!
+        Arn :$resource-arn!
     ) returns ListTagsForResourceResponse is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceRequest.new(
-        :$resource-arn
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResource>,
-            :return-type(ListTagsForResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-findings(
-    FindingFilter :$filter,
-    ListParentArnList :$assessment-run-arns,
-    Int :$max-results,
-    PaginationToken :$next-token
+        FindingFilter :$filter,
+        ListParentArnList :$assessment-run-arns,
+        Int :$max-results,
+        PaginationToken :$next-token
     ) returns ListFindingsResponse is service-operation('ListFindings') {
         my $request-input = ListFindingsRequest.new(
-        :$filter,
-        :$assessment-run-arns,
-        :$max-results,
-        :$next-token
+            :$filter,
+            :$assessment-run-arns,
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListFindings>,
-            :return-type(ListFindingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-rules-packages(
-    BatchDescribeArnList :$rules-package-arns!,
-    Locale :$locale
+        BatchDescribeArnList :$rules-package-arns!,
+        Locale :$locale
     ) returns DescribeRulesPackagesResponse is service-operation('DescribeRulesPackages') {
         my $request-input = DescribeRulesPackagesRequest.new(
-        :$rules-package-arns,
-        :$locale
+            :$rules-package-arns,
+            :$locale
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRulesPackages>,
-            :return-type(DescribeRulesPackagesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-attributes-from-findings(
-    AddRemoveAttributesFindingArnList :$finding-arns!,
-    UserAttributeKeyList :$attribute-keys!
+        AddRemoveAttributesFindingArnList :$finding-arns!,
+        UserAttributeKeyList :$attribute-keys!
     ) returns RemoveAttributesFromFindingsResponse is service-operation('RemoveAttributesFromFindings') {
         my $request-input = RemoveAttributesFromFindingsRequest.new(
-        :$finding-arns,
-        :$attribute-keys
+            :$finding-arns,
+            :$attribute-keys
         );
-;
+
         self.perform-operation(
             :api-call<RemoveAttributesFromFindings>,
-            :return-type(RemoveAttributesFromFindingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-assessment-runs(
-    BatchDescribeArnList :$assessment-run-arns!
+        BatchDescribeArnList :$assessment-run-arns!
     ) returns DescribeAssessmentRunsResponse is service-operation('DescribeAssessmentRuns') {
         my $request-input = DescribeAssessmentRunsRequest.new(
-        :$assessment-run-arns
+            :$assessment-run-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAssessmentRuns>,
-            :return-type(DescribeAssessmentRunsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-assessment-target(
-    AssessmentTargetName :$assessment-target-name!,
-    Arn :$assessment-target-arn!,
-    Arn :$resource-group-arn!
+        AssessmentTargetName :$assessment-target-name!,
+        Arn :$assessment-target-arn!,
+        Arn :$resource-group-arn!
     ) is service-operation('UpdateAssessmentTarget') {
         my $request-input = UpdateAssessmentTargetRequest.new(
-        :$assessment-target-name,
-        :$assessment-target-arn,
-        :$resource-group-arn
+            :$assessment-target-name,
+            :$assessment-target-arn,
+            :$resource-group-arn
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAssessmentTarget>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-assessment-run(
-    StopAction :$stop-action,
-    Arn :$assessment-run-arn!
+        StopAction :$stop-action,
+        Arn :$assessment-run-arn!
     ) is service-operation('StopAssessmentRun') {
         my $request-input = StopAssessmentRunRequest.new(
-        :$stop-action,
-        :$assessment-run-arn
+            :$stop-action,
+            :$assessment-run-arn
         );
-;
+
         self.perform-operation(
             :api-call<StopAssessmentRun>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-event-subscriptions(
-    Int :$max-results,
-    PaginationToken :$next-token,
-    Arn :$resource-arn
+        Int :$max-results,
+        PaginationToken :$next-token,
+        Arn :$resource-arn
     ) returns ListEventSubscriptionsResponse is service-operation('ListEventSubscriptions') {
         my $request-input = ListEventSubscriptionsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$resource-arn
+            :$max-results,
+            :$next-token,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListEventSubscriptions>,
-            :return-type(ListEventSubscriptionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-assessment-run-agents(
-    AgentFilter :$filter,
-    Int :$max-results,
-    PaginationToken :$next-token,
-    Arn :$assessment-run-arn!
+        AgentFilter :$filter,
+        Int :$max-results,
+        PaginationToken :$next-token,
+        Arn :$assessment-run-arn!
     ) returns ListAssessmentRunAgentsResponse is service-operation('ListAssessmentRunAgents') {
         my $request-input = ListAssessmentRunAgentsRequest.new(
-        :$filter,
-        :$max-results,
-        :$next-token,
-        :$assessment-run-arn
+            :$filter,
+            :$max-results,
+            :$next-token,
+            :$assessment-run-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListAssessmentRunAgents>,
-            :return-type(ListAssessmentRunAgentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-telemetry-metadata(
-    Arn :$assessment-run-arn!
+        Arn :$assessment-run-arn!
     ) returns GetTelemetryMetadataResponse is service-operation('GetTelemetryMetadata') {
         my $request-input = GetTelemetryMetadataRequest.new(
-        :$assessment-run-arn
+            :$assessment-run-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetTelemetryMetadata>,
-            :return-type(GetTelemetryMetadataResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -104,67 +104,59 @@ class AWS::SDK::Service::IoTData does AWS::SDK::Service {
     }
 
     method publish(
-    Blob :$payload,
-    Str :$topic!,
-    Qos :$qos
+        Blob :$payload,
+        Str :$topic!,
+        Qos :$qos
     ) is service-operation('Publish') {
         my $request-input = PublishRequest.new(
-        :$payload,
-        :$topic,
-        :$qos
+            :$payload,
+            :$topic,
+            :$qos
         );
-;
+
         self.perform-operation(
             :api-call<Publish>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-thing-shadow(
-    ThingName :$thing-name!
+        ThingName :$thing-name!
     ) returns DeleteThingShadowResponse is service-operation('DeleteThingShadow') {
         my $request-input = DeleteThingShadowRequest.new(
-        :$thing-name
+            :$thing-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteThingShadow>,
-            :return-type(DeleteThingShadowResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-thing-shadow(
-    Blob :$payload!,
-    ThingName :$thing-name!
+        Blob :$payload!,
+        ThingName :$thing-name!
     ) returns UpdateThingShadowResponse is service-operation('UpdateThingShadow') {
         my $request-input = UpdateThingShadowRequest.new(
-        :$payload,
-        :$thing-name
+            :$payload,
+            :$thing-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateThingShadow>,
-            :return-type(UpdateThingShadowResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-thing-shadow(
-    ThingName :$thing-name!
+        ThingName :$thing-name!
     ) returns GetThingShadowResponse is service-operation('GetThingShadow') {
         my $request-input = GetThingShadowRequest.new(
-        :$thing-name
+            :$thing-name
         );
-;
+
         self.perform-operation(
             :api-call<GetThingShadow>,
-            :return-type(GetThingShadowResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

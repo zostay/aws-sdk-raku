@@ -895,402 +895,368 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method modify-replication-instance(
-    Array[Str] :$vpc-security-group-ids,
-    Str :$replication-instance-arn!,
-    Str :$replication-instance-identifier,
-    Int :$allocated-storage,
-    Bool :$allow-major-version-upgrade,
-    Bool :$auto-minor-version-upgrade,
-    Str :$engine-version,
-    Bool :$multi-az,
-    Str :$preferred-maintenance-window,
-    Str :$replication-instance-class,
-    Bool :$apply-immediately
+        Array[Str] :$vpc-security-group-ids,
+        Str :$replication-instance-arn!,
+        Str :$replication-instance-identifier,
+        Int :$allocated-storage,
+        Bool :$allow-major-version-upgrade,
+        Bool :$auto-minor-version-upgrade,
+        Str :$engine-version,
+        Bool :$multi-az,
+        Str :$preferred-maintenance-window,
+        Str :$replication-instance-class,
+        Bool :$apply-immediately
     ) returns ModifyReplicationInstanceResponse is service-operation('ModifyReplicationInstance') {
         my $request-input = ModifyReplicationInstanceMessage.new(
-        :$vpc-security-group-ids,
-        :$replication-instance-arn,
-        :$replication-instance-identifier,
-        :$allocated-storage,
-        :$allow-major-version-upgrade,
-        :$auto-minor-version-upgrade,
-        :$engine-version,
-        :$multi-az,
-        :$preferred-maintenance-window,
-        :$replication-instance-class,
-        :$apply-immediately
+            :$vpc-security-group-ids,
+            :$replication-instance-arn,
+            :$replication-instance-identifier,
+            :$allocated-storage,
+            :$allow-major-version-upgrade,
+            :$auto-minor-version-upgrade,
+            :$engine-version,
+            :$multi-az,
+            :$preferred-maintenance-window,
+            :$replication-instance-class,
+            :$apply-immediately
         );
-;
+
         self.perform-operation(
             :api-call<ModifyReplicationInstance>,
-            :return-type(ModifyReplicationInstanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-replication-task(
-    Str :$replication-instance-arn!,
-    Str :$target-endpoint-arn!,
-    Str :$replication-task-settings,
-    Str :$source-endpoint-arn!,
-    Str :$replication-task-identifier!,
-    Array[Tag] :$tags,
-    Str :$table-mappings!,
-    DateTime :$cdc-start-time,
-    MigrationTypeValue :$migration-type!
+        Str :$replication-instance-arn!,
+        Str :$target-endpoint-arn!,
+        Str :$replication-task-settings,
+        Str :$source-endpoint-arn!,
+        Str :$replication-task-identifier!,
+        Array[Tag] :$tags,
+        Str :$table-mappings!,
+        DateTime :$cdc-start-time,
+        MigrationTypeValue :$migration-type!
     ) returns CreateReplicationTaskResponse is service-operation('CreateReplicationTask') {
         my $request-input = CreateReplicationTaskMessage.new(
-        :$replication-instance-arn,
-        :$target-endpoint-arn,
-        :$replication-task-settings,
-        :$source-endpoint-arn,
-        :$replication-task-identifier,
-        :$tags,
-        :$table-mappings,
-        :$cdc-start-time,
-        :$migration-type
+            :$replication-instance-arn,
+            :$target-endpoint-arn,
+            :$replication-task-settings,
+            :$source-endpoint-arn,
+            :$replication-task-identifier,
+            :$tags,
+            :$table-mappings,
+            :$cdc-start-time,
+            :$migration-type
         );
-;
+
         self.perform-operation(
             :api-call<CreateReplicationTask>,
-            :return-type(CreateReplicationTaskResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-replication-instance(
-    Str :$kms-key-id,
-    Array[Str] :$vpc-security-group-ids,
-    Str :$replication-subnet-group-identifier,
-    Str :$replication-instance-identifier!,
-    Bool :$publicly-accessible,
-    Array[Tag] :$tags,
-    Int :$allocated-storage,
-    Str :$availability-zone,
-    Bool :$auto-minor-version-upgrade,
-    Str :$engine-version,
-    Bool :$multi-az,
-    Str :$preferred-maintenance-window,
-    Str :$replication-instance-class!
+        Str :$kms-key-id,
+        Array[Str] :$vpc-security-group-ids,
+        Str :$replication-subnet-group-identifier,
+        Str :$replication-instance-identifier!,
+        Bool :$publicly-accessible,
+        Array[Tag] :$tags,
+        Int :$allocated-storage,
+        Str :$availability-zone,
+        Bool :$auto-minor-version-upgrade,
+        Str :$engine-version,
+        Bool :$multi-az,
+        Str :$preferred-maintenance-window,
+        Str :$replication-instance-class!
     ) returns CreateReplicationInstanceResponse is service-operation('CreateReplicationInstance') {
         my $request-input = CreateReplicationInstanceMessage.new(
-        :$kms-key-id,
-        :$vpc-security-group-ids,
-        :$replication-subnet-group-identifier,
-        :$replication-instance-identifier,
-        :$publicly-accessible,
-        :$tags,
-        :$allocated-storage,
-        :$availability-zone,
-        :$auto-minor-version-upgrade,
-        :$engine-version,
-        :$multi-az,
-        :$preferred-maintenance-window,
-        :$replication-instance-class
+            :$kms-key-id,
+            :$vpc-security-group-ids,
+            :$replication-subnet-group-identifier,
+            :$replication-instance-identifier,
+            :$publicly-accessible,
+            :$tags,
+            :$allocated-storage,
+            :$availability-zone,
+            :$auto-minor-version-upgrade,
+            :$engine-version,
+            :$multi-az,
+            :$preferred-maintenance-window,
+            :$replication-instance-class
         );
-;
+
         self.perform-operation(
             :api-call<CreateReplicationInstance>,
-            :return-type(CreateReplicationInstanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method refresh-schemas(
-    Str :$replication-instance-arn!,
-    Str :$endpoint-arn!
+        Str :$replication-instance-arn!,
+        Str :$endpoint-arn!
     ) returns RefreshSchemasResponse is service-operation('RefreshSchemas') {
         my $request-input = RefreshSchemasMessage.new(
-        :$replication-instance-arn,
-        :$endpoint-arn
+            :$replication-instance-arn,
+            :$endpoint-arn
         );
-;
+
         self.perform-operation(
             :api-call<RefreshSchemas>,
-            :return-type(RefreshSchemasResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-event-subscription(
-    Str :$subscription-name!,
-    Bool :$enabled,
-    Str :$sns-topic-arn,
-    Str :$source-type,
-    Array[Str] :$event-categories
+        Str :$subscription-name!,
+        Bool :$enabled,
+        Str :$sns-topic-arn,
+        Str :$source-type,
+        Array[Str] :$event-categories
     ) returns ModifyEventSubscriptionResponse is service-operation('ModifyEventSubscription') {
         my $request-input = ModifyEventSubscriptionMessage.new(
-        :$subscription-name,
-        :$enabled,
-        :$sns-topic-arn,
-        :$source-type,
-        :$event-categories
+            :$subscription-name,
+            :$enabled,
+            :$sns-topic-arn,
+            :$source-type,
+            :$event-categories
         );
-;
+
         self.perform-operation(
             :api-call<ModifyEventSubscription>,
-            :return-type(ModifyEventSubscriptionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-schemas(
-    Str :$marker,
-    Str :$endpoint-arn!,
-    Int :$max-records
+        Str :$marker,
+        Str :$endpoint-arn!,
+        Int :$max-records
     ) returns DescribeSchemasResponse is service-operation('DescribeSchemas') {
         my $request-input = DescribeSchemasMessage.new(
-        :$marker,
-        :$endpoint-arn,
-        :$max-records
+            :$marker,
+            :$endpoint-arn,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSchemas>,
-            :return-type(DescribeSchemasResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-replication-instances(
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeReplicationInstancesResponse is service-operation('DescribeReplicationInstances') {
         my $request-input = DescribeReplicationInstancesMessage.new(
-        :$filters,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReplicationInstances>,
-            :return-type(DescribeReplicationInstancesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-refresh-schemas-status(
-    Str :$endpoint-arn!
+        Str :$endpoint-arn!
     ) returns DescribeRefreshSchemasStatusResponse is service-operation('DescribeRefreshSchemasStatus') {
         my $request-input = DescribeRefreshSchemasStatusMessage.new(
-        :$endpoint-arn
+            :$endpoint-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeRefreshSchemasStatus>,
-            :return-type(DescribeRefreshSchemasStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-orderable-replication-instances(
-    Str :$marker,
-    Int :$max-records
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeOrderableReplicationInstancesResponse is service-operation('DescribeOrderableReplicationInstances') {
         my $request-input = DescribeOrderableReplicationInstancesMessage.new(
-        :$marker,
-        :$max-records
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeOrderableReplicationInstances>,
-            :return-type(DescribeOrderableReplicationInstancesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-endpoint(
-    Str :$kms-key-id,
-    Str :$server-name,
-    Str :$engine-name!,
-    MongoDbSettings :$mongo-db-settings,
-    Str :$password,
-    Str :$database-name,
-    Str :$certificate-arn,
-    DmsSslModeValue :$ssl-mode,
-    Array[Tag] :$tags,
-    Str :$endpoint-identifier!,
-    S3Settings :$s3-settings,
-    Str :$extra-connection-attributes,
-    Int :$port,
-    Str :$username,
-    DynamoDbSettings :$dynamo-db-settings,
-    ReplicationEndpointTypeValue :$endpoint-type!
+        Str :$kms-key-id,
+        Str :$server-name,
+        Str :$engine-name!,
+        MongoDbSettings :$mongo-db-settings,
+        Str :$password,
+        Str :$database-name,
+        Str :$certificate-arn,
+        DmsSslModeValue :$ssl-mode,
+        Array[Tag] :$tags,
+        Str :$endpoint-identifier!,
+        S3Settings :$s3-settings,
+        Str :$extra-connection-attributes,
+        Int :$port,
+        Str :$username,
+        DynamoDbSettings :$dynamo-db-settings,
+        ReplicationEndpointTypeValue :$endpoint-type!
     ) returns CreateEndpointResponse is service-operation('CreateEndpoint') {
         my $request-input = CreateEndpointMessage.new(
-        :$kms-key-id,
-        :$server-name,
-        :$engine-name,
-        :$mongo-db-settings,
-        :$password,
-        :$database-name,
-        :$certificate-arn,
-        :$ssl-mode,
-        :$tags,
-        :$endpoint-identifier,
-        :$s3-settings,
-        :$extra-connection-attributes,
-        :$port,
-        :$username,
-        :$dynamo-db-settings,
-        :$endpoint-type
+            :$kms-key-id,
+            :$server-name,
+            :$engine-name,
+            :$mongo-db-settings,
+            :$password,
+            :$database-name,
+            :$certificate-arn,
+            :$ssl-mode,
+            :$tags,
+            :$endpoint-identifier,
+            :$s3-settings,
+            :$extra-connection-attributes,
+            :$port,
+            :$username,
+            :$dynamo-db-settings,
+            :$endpoint-type
         );
-;
+
         self.perform-operation(
             :api-call<CreateEndpoint>,
-            :return-type(CreateEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags-to-resource(
-    Array[Tag] :$tags!,
-    Str :$resource-arn!
+        Array[Tag] :$tags!,
+        Str :$resource-arn!
     ) returns AddTagsToResourceResponse is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceMessage.new(
-        :$tags,
-        :$resource-arn
+            :$tags,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<AddTagsToResource>,
-            :return-type(AddTagsToResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags-from-resource(
-    Array[Str] :$tag-keys!,
-    Str :$resource-arn!
+        Array[Str] :$tag-keys!,
+        Str :$resource-arn!
     ) returns RemoveTagsFromResourceResponse is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceMessage.new(
-        :$tag-keys,
-        :$resource-arn
+            :$tag-keys,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
-            :return-type(RemoveTagsFromResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-events(
-    Int :$duration,
-    Array[Filter] :$filters,
-    DateTime :$end-time,
-    DateTime :$start-time,
-    SourceType :$source-type,
-    Str :$source-identifier,
-    Str :$marker,
-    Int :$max-records,
-    Array[Str] :$event-categories
+        Int :$duration,
+        Array[Filter] :$filters,
+        DateTime :$end-time,
+        DateTime :$start-time,
+        SourceType :$source-type,
+        Str :$source-identifier,
+        Str :$marker,
+        Int :$max-records,
+        Array[Str] :$event-categories
     ) returns DescribeEventsResponse is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsMessage.new(
-        :$duration,
-        :$filters,
-        :$end-time,
-        :$start-time,
-        :$source-type,
-        :$source-identifier,
-        :$marker,
-        :$max-records,
-        :$event-categories
+            :$duration,
+            :$filters,
+            :$end-time,
+            :$start-time,
+            :$source-type,
+            :$source-identifier,
+            :$marker,
+            :$max-records,
+            :$event-categories
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEvents>,
-            :return-type(DescribeEventsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-event-subscriptions(
-    Str :$subscription-name,
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Str :$subscription-name,
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeEventSubscriptionsResponse is service-operation('DescribeEventSubscriptions') {
         my $request-input = DescribeEventSubscriptionsMessage.new(
-        :$subscription-name,
-        :$filters,
-        :$marker,
-        :$max-records
+            :$subscription-name,
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEventSubscriptions>,
-            :return-type(DescribeEventSubscriptionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-endpoint-types(
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeEndpointTypesResponse is service-operation('DescribeEndpointTypes') {
         my $request-input = DescribeEndpointTypesMessage.new(
-        :$filters,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEndpointTypes>,
-            :return-type(DescribeEndpointTypesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method test-connection(
-    Str :$replication-instance-arn!,
-    Str :$endpoint-arn!
+        Str :$replication-instance-arn!,
+        Str :$endpoint-arn!
     ) returns TestConnectionResponse is service-operation('TestConnection') {
         my $request-input = TestConnectionMessage.new(
-        :$replication-instance-arn,
-        :$endpoint-arn
+            :$replication-instance-arn,
+            :$endpoint-arn
         );
-;
+
         self.perform-operation(
             :api-call<TestConnection>,
-            :return-type(TestConnectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-replication-subnet-groups(
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeReplicationSubnetGroupsResponse is service-operation('DescribeReplicationSubnetGroups') {
         my $request-input = DescribeReplicationSubnetGroupsMessage.new(
-        :$filters,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReplicationSubnetGroups>,
-            :return-type(DescribeReplicationSubnetGroupsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1301,435 +1267,389 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         my $request-input = DescribeAccountAttributesMessage.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAccountAttributes>,
-            :return-type(DescribeAccountAttributesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-certificate(
-    Str :$certificate-arn!
+        Str :$certificate-arn!
     ) returns DeleteCertificateResponse is service-operation('DeleteCertificate') {
         my $request-input = DeleteCertificateMessage.new(
-        :$certificate-arn
+            :$certificate-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCertificate>,
-            :return-type(DeleteCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-endpoints(
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeEndpointsResponse is service-operation('DescribeEndpoints') {
         my $request-input = DescribeEndpointsMessage.new(
-        :$filters,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEndpoints>,
-            :return-type(DescribeEndpointsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-connections(
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeConnectionsResponse is service-operation('DescribeConnections') {
         my $request-input = DescribeConnectionsMessage.new(
-        :$filters,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConnections>,
-            :return-type(DescribeConnectionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-certificates(
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeCertificatesResponse is service-operation('DescribeCertificates') {
         my $request-input = DescribeCertificatesMessage.new(
-        :$filters,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCertificates>,
-            :return-type(DescribeCertificatesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-replication-task(
-    Str :$replication-task-arn!
+        Str :$replication-task-arn!
     ) returns DeleteReplicationTaskResponse is service-operation('DeleteReplicationTask') {
         my $request-input = DeleteReplicationTaskMessage.new(
-        :$replication-task-arn
+            :$replication-task-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteReplicationTask>,
-            :return-type(DeleteReplicationTaskResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-replication-instance(
-    Str :$replication-instance-arn!
+        Str :$replication-instance-arn!
     ) returns DeleteReplicationInstanceResponse is service-operation('DeleteReplicationInstance') {
         my $request-input = DeleteReplicationInstanceMessage.new(
-        :$replication-instance-arn
+            :$replication-instance-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteReplicationInstance>,
-            :return-type(DeleteReplicationInstanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reload-tables(
-    Str :$replication-task-arn!,
-    Array[TableToReload] :$tables-to-reload!
+        Str :$replication-task-arn!,
+        Array[TableToReload] :$tables-to-reload!
     ) returns ReloadTablesResponse is service-operation('ReloadTables') {
         my $request-input = ReloadTablesMessage.new(
-        :$replication-task-arn,
-        :$tables-to-reload
+            :$replication-task-arn,
+            :$tables-to-reload
         );
-;
+
         self.perform-operation(
             :api-call<ReloadTables>,
-            :return-type(ReloadTablesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-resource(
-    Str :$resource-arn!
+        Str :$resource-arn!
     ) returns ListTagsForResourceResponse is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceMessage.new(
-        :$resource-arn
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResource>,
-            :return-type(ListTagsForResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-endpoint(
-    Str :$endpoint-arn!
+        Str :$endpoint-arn!
     ) returns DeleteEndpointResponse is service-operation('DeleteEndpoint') {
         my $request-input = DeleteEndpointMessage.new(
-        :$endpoint-arn
+            :$endpoint-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEndpoint>,
-            :return-type(DeleteEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-replication-subnet-group(
-    Str :$replication-subnet-group-identifier!,
-    Str :$replication-subnet-group-description!,
-    Array[Tag] :$tags,
-    Array[Str] :$subnet-ids!
+        Str :$replication-subnet-group-identifier!,
+        Str :$replication-subnet-group-description!,
+        Array[Tag] :$tags,
+        Array[Str] :$subnet-ids!
     ) returns CreateReplicationSubnetGroupResponse is service-operation('CreateReplicationSubnetGroup') {
         my $request-input = CreateReplicationSubnetGroupMessage.new(
-        :$replication-subnet-group-identifier,
-        :$replication-subnet-group-description,
-        :$tags,
-        :$subnet-ids
+            :$replication-subnet-group-identifier,
+            :$replication-subnet-group-description,
+            :$tags,
+            :$subnet-ids
         );
-;
+
         self.perform-operation(
             :api-call<CreateReplicationSubnetGroup>,
-            :return-type(CreateReplicationSubnetGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-replication-task(
-    Str :$replication-task-arn!
+        Str :$replication-task-arn!
     ) returns StopReplicationTaskResponse is service-operation('StopReplicationTask') {
         my $request-input = StopReplicationTaskMessage.new(
-        :$replication-task-arn
+            :$replication-task-arn
         );
-;
+
         self.perform-operation(
             :api-call<StopReplicationTask>,
-            :return-type(StopReplicationTaskResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-replication-task(
-    Str :$replication-task-arn!,
-    DateTime :$cdc-start-time,
-    StartReplicationTaskTypeValue :$start-replication-task-type!
+        Str :$replication-task-arn!,
+        DateTime :$cdc-start-time,
+        StartReplicationTaskTypeValue :$start-replication-task-type!
     ) returns StartReplicationTaskResponse is service-operation('StartReplicationTask') {
         my $request-input = StartReplicationTaskMessage.new(
-        :$replication-task-arn,
-        :$cdc-start-time,
-        :$start-replication-task-type
+            :$replication-task-arn,
+            :$cdc-start-time,
+            :$start-replication-task-type
         );
-;
+
         self.perform-operation(
             :api-call<StartReplicationTask>,
-            :return-type(StartReplicationTaskResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-replication-task(
-    Str :$replication-task-settings,
-    Str :$replication-task-identifier,
-    Str :$replication-task-arn!,
-    Str :$table-mappings,
-    DateTime :$cdc-start-time,
-    MigrationTypeValue :$migration-type
+        Str :$replication-task-settings,
+        Str :$replication-task-identifier,
+        Str :$replication-task-arn!,
+        Str :$table-mappings,
+        DateTime :$cdc-start-time,
+        MigrationTypeValue :$migration-type
     ) returns ModifyReplicationTaskResponse is service-operation('ModifyReplicationTask') {
         my $request-input = ModifyReplicationTaskMessage.new(
-        :$replication-task-settings,
-        :$replication-task-identifier,
-        :$replication-task-arn,
-        :$table-mappings,
-        :$cdc-start-time,
-        :$migration-type
+            :$replication-task-settings,
+            :$replication-task-identifier,
+            :$replication-task-arn,
+            :$table-mappings,
+            :$cdc-start-time,
+            :$migration-type
         );
-;
+
         self.perform-operation(
             :api-call<ModifyReplicationTask>,
-            :return-type(ModifyReplicationTaskResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-replication-subnet-group(
-    Str :$replication-subnet-group-identifier!
+        Str :$replication-subnet-group-identifier!
     ) returns DeleteReplicationSubnetGroupResponse is service-operation('DeleteReplicationSubnetGroup') {
         my $request-input = DeleteReplicationSubnetGroupMessage.new(
-        :$replication-subnet-group-identifier
+            :$replication-subnet-group-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DeleteReplicationSubnetGroup>,
-            :return-type(DeleteReplicationSubnetGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-event-subscription(
-    Str :$subscription-name!
+        Str :$subscription-name!
     ) returns DeleteEventSubscriptionResponse is service-operation('DeleteEventSubscription') {
         my $request-input = DeleteEventSubscriptionMessage.new(
-        :$subscription-name
+            :$subscription-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEventSubscription>,
-            :return-type(DeleteEventSubscriptionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-event-subscription(
-    Str :$subscription-name!,
-    Array[Str] :$source-ids,
-    Array[Tag] :$tags,
-    Bool :$enabled,
-    Str :$sns-topic-arn!,
-    Str :$source-type,
-    Array[Str] :$event-categories
+        Str :$subscription-name!,
+        Array[Str] :$source-ids,
+        Array[Tag] :$tags,
+        Bool :$enabled,
+        Str :$sns-topic-arn!,
+        Str :$source-type,
+        Array[Str] :$event-categories
     ) returns CreateEventSubscriptionResponse is service-operation('CreateEventSubscription') {
         my $request-input = CreateEventSubscriptionMessage.new(
-        :$subscription-name,
-        :$source-ids,
-        :$tags,
-        :$enabled,
-        :$sns-topic-arn,
-        :$source-type,
-        :$event-categories
+            :$subscription-name,
+            :$source-ids,
+            :$tags,
+            :$enabled,
+            :$sns-topic-arn,
+            :$source-type,
+            :$event-categories
         );
-;
+
         self.perform-operation(
             :api-call<CreateEventSubscription>,
-            :return-type(CreateEventSubscriptionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-replication-subnet-group(
-    Str :$replication-subnet-group-identifier!,
-    Str :$replication-subnet-group-description,
-    Array[Str] :$subnet-ids!
+        Str :$replication-subnet-group-identifier!,
+        Str :$replication-subnet-group-description,
+        Array[Str] :$subnet-ids!
     ) returns ModifyReplicationSubnetGroupResponse is service-operation('ModifyReplicationSubnetGroup') {
         my $request-input = ModifyReplicationSubnetGroupMessage.new(
-        :$replication-subnet-group-identifier,
-        :$replication-subnet-group-description,
-        :$subnet-ids
+            :$replication-subnet-group-identifier,
+            :$replication-subnet-group-description,
+            :$subnet-ids
         );
-;
+
         self.perform-operation(
             :api-call<ModifyReplicationSubnetGroup>,
-            :return-type(ModifyReplicationSubnetGroupResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-endpoint(
-    Str :$server-name,
-    Str :$engine-name,
-    MongoDbSettings :$mongo-db-settings,
-    Str :$password,
-    Str :$database-name,
-    Str :$certificate-arn,
-    DmsSslModeValue :$ssl-mode,
-    Str :$endpoint-identifier,
-    S3Settings :$s3-settings,
-    Str :$extra-connection-attributes,
-    Int :$port,
-    Str :$username,
-    Str :$endpoint-arn!,
-    DynamoDbSettings :$dynamo-db-settings,
-    ReplicationEndpointTypeValue :$endpoint-type
+        Str :$server-name,
+        Str :$engine-name,
+        MongoDbSettings :$mongo-db-settings,
+        Str :$password,
+        Str :$database-name,
+        Str :$certificate-arn,
+        DmsSslModeValue :$ssl-mode,
+        Str :$endpoint-identifier,
+        S3Settings :$s3-settings,
+        Str :$extra-connection-attributes,
+        Int :$port,
+        Str :$username,
+        Str :$endpoint-arn!,
+        DynamoDbSettings :$dynamo-db-settings,
+        ReplicationEndpointTypeValue :$endpoint-type
     ) returns ModifyEndpointResponse is service-operation('ModifyEndpoint') {
         my $request-input = ModifyEndpointMessage.new(
-        :$server-name,
-        :$engine-name,
-        :$mongo-db-settings,
-        :$password,
-        :$database-name,
-        :$certificate-arn,
-        :$ssl-mode,
-        :$endpoint-identifier,
-        :$s3-settings,
-        :$extra-connection-attributes,
-        :$port,
-        :$username,
-        :$endpoint-arn,
-        :$dynamo-db-settings,
-        :$endpoint-type
+            :$server-name,
+            :$engine-name,
+            :$mongo-db-settings,
+            :$password,
+            :$database-name,
+            :$certificate-arn,
+            :$ssl-mode,
+            :$endpoint-identifier,
+            :$s3-settings,
+            :$extra-connection-attributes,
+            :$port,
+            :$username,
+            :$endpoint-arn,
+            :$dynamo-db-settings,
+            :$endpoint-type
         );
-;
+
         self.perform-operation(
             :api-call<ModifyEndpoint>,
-            :return-type(ModifyEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-certificate(
-    Str :$certificate-identifier!,
-    Blob :$certificate-wallet,
-    Array[Tag] :$tags,
-    Str :$certificate-pem
+        Str :$certificate-identifier!,
+        Blob :$certificate-wallet,
+        Array[Tag] :$tags,
+        Str :$certificate-pem
     ) returns ImportCertificateResponse is service-operation('ImportCertificate') {
         my $request-input = ImportCertificateMessage.new(
-        :$certificate-identifier,
-        :$certificate-wallet,
-        :$tags,
-        :$certificate-pem
+            :$certificate-identifier,
+            :$certificate-wallet,
+            :$tags,
+            :$certificate-pem
         );
-;
+
         self.perform-operation(
             :api-call<ImportCertificate>,
-            :return-type(ImportCertificateResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-table-statistics(
-    Str :$replication-task-arn!,
-    Str :$marker,
-    Int :$max-records
+        Str :$replication-task-arn!,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeTableStatisticsResponse is service-operation('DescribeTableStatistics') {
         my $request-input = DescribeTableStatisticsMessage.new(
-        :$replication-task-arn,
-        :$marker,
-        :$max-records
+            :$replication-task-arn,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTableStatistics>,
-            :return-type(DescribeTableStatisticsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-replication-tasks(
-    Array[Filter] :$filters,
-    Str :$marker,
-    Int :$max-records
+        Array[Filter] :$filters,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeReplicationTasksResponse is service-operation('DescribeReplicationTasks') {
         my $request-input = DescribeReplicationTasksMessage.new(
-        :$filters,
-        :$marker,
-        :$max-records
+            :$filters,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReplicationTasks>,
-            :return-type(DescribeReplicationTasksResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-event-categories(
-    Array[Filter] :$filters,
-    Str :$source-type
+        Array[Filter] :$filters,
+        Str :$source-type
     ) returns DescribeEventCategoriesResponse is service-operation('DescribeEventCategories') {
         my $request-input = DescribeEventCategoriesMessage.new(
-        :$filters,
-        :$source-type
+            :$filters,
+            :$source-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEventCategories>,
-            :return-type(DescribeEventCategoriesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

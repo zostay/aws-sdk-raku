@@ -269,113 +269,101 @@ class AWS::SDK::Service::XRay does AWS::SDK::Service {
     }
 
     method get-trace-graph(
-    Array[TraceId] :$trace-ids!,
-    Str :$next-token
+        Array[TraceId] :$trace-ids!,
+        Str :$next-token
     ) returns GetTraceGraphResult is service-operation('GetTraceGraph') {
         my $request-input = GetTraceGraphRequest.new(
-        :$trace-ids,
-        :$next-token
+            :$trace-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetTraceGraph>,
-            :return-type(GetTraceGraphResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-trace-summaries(
-    DateTime :$end-time!,
-    Bool :$sampling,
-    DateTime :$start-time!,
-    Str :$next-token,
-    FilterExpression :$filter-expression
+        DateTime :$end-time!,
+        Bool :$sampling,
+        DateTime :$start-time!,
+        Str :$next-token,
+        FilterExpression :$filter-expression
     ) returns GetTraceSummariesResult is service-operation('GetTraceSummaries') {
         my $request-input = GetTraceSummariesRequest.new(
-        :$end-time,
-        :$sampling,
-        :$start-time,
-        :$next-token,
-        :$filter-expression
+            :$end-time,
+            :$sampling,
+            :$start-time,
+            :$next-token,
+            :$filter-expression
         );
-;
+
         self.perform-operation(
             :api-call<GetTraceSummaries>,
-            :return-type(GetTraceSummariesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-trace-segments(
-    Array[Str] :$trace-segment-documents!
+        Array[Str] :$trace-segment-documents!
     ) returns PutTraceSegmentsResult is service-operation('PutTraceSegments') {
         my $request-input = PutTraceSegmentsRequest.new(
-        :$trace-segment-documents
+            :$trace-segment-documents
         );
-;
+
         self.perform-operation(
             :api-call<PutTraceSegments>,
-            :return-type(PutTraceSegmentsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-telemetry-records(
-    Array[TelemetryRecord] :$telemetry-records!,
-    Str :$resource-arn,
-    Str :$hostname,
-    Str :$ec2-instance-id
+        Array[TelemetryRecord] :$telemetry-records!,
+        Str :$resource-arn,
+        Str :$hostname,
+        Str :$ec2-instance-id
     ) returns PutTelemetryRecordsResult is service-operation('PutTelemetryRecords') {
         my $request-input = PutTelemetryRecordsRequest.new(
-        :$telemetry-records,
-        :$resource-arn,
-        :$hostname,
-        :$ec2-instance-id
+            :$telemetry-records,
+            :$resource-arn,
+            :$hostname,
+            :$ec2-instance-id
         );
-;
+
         self.perform-operation(
             :api-call<PutTelemetryRecords>,
-            :return-type(PutTelemetryRecordsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-service-graph(
-    DateTime :$end-time!,
-    DateTime :$start-time!,
-    Str :$next-token
+        DateTime :$end-time!,
+        DateTime :$start-time!,
+        Str :$next-token
     ) returns GetServiceGraphResult is service-operation('GetServiceGraph') {
         my $request-input = GetServiceGraphRequest.new(
-        :$end-time,
-        :$start-time,
-        :$next-token
+            :$end-time,
+            :$start-time,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetServiceGraph>,
-            :return-type(GetServiceGraphResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-traces(
-    Array[TraceId] :$trace-ids!,
-    Str :$next-token
+        Array[TraceId] :$trace-ids!,
+        Str :$next-token
     ) returns BatchGetTracesResult is service-operation('BatchGetTraces') {
         my $request-input = BatchGetTracesRequest.new(
-        :$trace-ids,
-        :$next-token
+            :$trace-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetTraces>,
-            :return-type(BatchGetTracesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -1043,896 +1043,818 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     method delete-replication-group(
-    Bool :$retain-primary-cluster,
-    Str :$final-snapshot-identifier,
-    Str :$replication-group-id!
+        Bool :$retain-primary-cluster,
+        Str :$final-snapshot-identifier,
+        Str :$replication-group-id!
     ) returns DeleteReplicationGroupResult is service-operation('DeleteReplicationGroup') {
         my $request-input = DeleteReplicationGroupMessage.new(
-        :$retain-primary-cluster,
-        :$final-snapshot-identifier,
-        :$replication-group-id
+            :$retain-primary-cluster,
+            :$final-snapshot-identifier,
+            :$replication-group-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteReplicationGroup>,
-            :return-type(DeleteReplicationGroupResult),
-            :result-wrapper('DeleteReplicationGroupResult'),
             :$request-input,
         );
     }
 
     method delete-cache-security-group(
-    Str :$cache-security-group-name!
+        Str :$cache-security-group-name!
     ) is service-operation('DeleteCacheSecurityGroup') {
         my $request-input = DeleteCacheSecurityGroupMessage.new(
-        :$cache-security-group-name
+            :$cache-security-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCacheSecurityGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-replication-group(
-    Array[Str] :$security-group-ids,
-    Str :$cache-subnet-group-name,
-    Str :$auth-token,
-    Str :$snapshot-window,
-    Str :$notification-topic-arn,
-    Array[Str] :$preferred-cache-cluster-azs,
-    Bool :$automatic-failover-enabled,
-    Str :$primary-cluster-id,
-    Array[Str] :$snapshot-arns,
-    Str :$replication-group-description!,
-    Str :$snapshot-name,
-    Array[Tag] :$tags,
-    Array[Str] :$cache-security-group-names,
-    Str :$cache-parameter-group-name,
-    Str :$engine,
-    Array[NodeGroupConfiguration] :$node-group-configuration,
-    Int :$snapshot-retention-limit,
-    Str :$cache-node-type,
-    Int :$replicas-per-node-group,
-    Str :$replication-group-id!,
-    Bool :$auto-minor-version-upgrade,
-    Int :$port,
-    Str :$preferred-maintenance-window,
-    Str :$engine-version,
-    Int :$num-node-groups,
-    Int :$num-cache-clusters
+        Array[Str] :$security-group-ids,
+        Str :$cache-subnet-group-name,
+        Str :$auth-token,
+        Str :$snapshot-window,
+        Str :$notification-topic-arn,
+        Array[Str] :$preferred-cache-cluster-azs,
+        Bool :$automatic-failover-enabled,
+        Str :$primary-cluster-id,
+        Array[Str] :$snapshot-arns,
+        Str :$replication-group-description!,
+        Str :$snapshot-name,
+        Array[Tag] :$tags,
+        Array[Str] :$cache-security-group-names,
+        Str :$cache-parameter-group-name,
+        Str :$engine,
+        Array[NodeGroupConfiguration] :$node-group-configuration,
+        Int :$snapshot-retention-limit,
+        Str :$cache-node-type,
+        Int :$replicas-per-node-group,
+        Str :$replication-group-id!,
+        Bool :$auto-minor-version-upgrade,
+        Int :$port,
+        Str :$preferred-maintenance-window,
+        Str :$engine-version,
+        Int :$num-node-groups,
+        Int :$num-cache-clusters
     ) returns CreateReplicationGroupResult is service-operation('CreateReplicationGroup') {
         my $request-input = CreateReplicationGroupMessage.new(
-        :$security-group-ids,
-        :$cache-subnet-group-name,
-        :$auth-token,
-        :$snapshot-window,
-        :$notification-topic-arn,
-        :$preferred-cache-cluster-azs,
-        :$automatic-failover-enabled,
-        :$primary-cluster-id,
-        :$snapshot-arns,
-        :$replication-group-description,
-        :$snapshot-name,
-        :$tags,
-        :$cache-security-group-names,
-        :$cache-parameter-group-name,
-        :$engine,
-        :$node-group-configuration,
-        :$snapshot-retention-limit,
-        :$cache-node-type,
-        :$replicas-per-node-group,
-        :$replication-group-id,
-        :$auto-minor-version-upgrade,
-        :$port,
-        :$preferred-maintenance-window,
-        :$engine-version,
-        :$num-node-groups,
-        :$num-cache-clusters
+            :$security-group-ids,
+            :$cache-subnet-group-name,
+            :$auth-token,
+            :$snapshot-window,
+            :$notification-topic-arn,
+            :$preferred-cache-cluster-azs,
+            :$automatic-failover-enabled,
+            :$primary-cluster-id,
+            :$snapshot-arns,
+            :$replication-group-description,
+            :$snapshot-name,
+            :$tags,
+            :$cache-security-group-names,
+            :$cache-parameter-group-name,
+            :$engine,
+            :$node-group-configuration,
+            :$snapshot-retention-limit,
+            :$cache-node-type,
+            :$replicas-per-node-group,
+            :$replication-group-id,
+            :$auto-minor-version-upgrade,
+            :$port,
+            :$preferred-maintenance-window,
+            :$engine-version,
+            :$num-node-groups,
+            :$num-cache-clusters
         );
-;
+
         self.perform-operation(
             :api-call<CreateReplicationGroup>,
-            :return-type(CreateReplicationGroupResult),
-            :result-wrapper('CreateReplicationGroupResult'),
             :$request-input,
         );
     }
 
     method create-cache-subnet-group(
-    Str :$cache-subnet-group-name!,
-    Str :$cache-subnet-group-description!,
-    Array[Str] :$subnet-ids!
+        Str :$cache-subnet-group-name!,
+        Str :$cache-subnet-group-description!,
+        Array[Str] :$subnet-ids!
     ) returns CreateCacheSubnetGroupResult is service-operation('CreateCacheSubnetGroup') {
         my $request-input = CreateCacheSubnetGroupMessage.new(
-        :$cache-subnet-group-name,
-        :$cache-subnet-group-description,
-        :$subnet-ids
+            :$cache-subnet-group-name,
+            :$cache-subnet-group-description,
+            :$subnet-ids
         );
-;
+
         self.perform-operation(
             :api-call<CreateCacheSubnetGroup>,
-            :return-type(CreateCacheSubnetGroupResult),
-            :result-wrapper('CreateCacheSubnetGroupResult'),
             :$request-input,
         );
     }
 
     method create-cache-parameter-group(
-    Str :$description!,
-    Str :$cache-parameter-group-family!,
-    Str :$cache-parameter-group-name!
+        Str :$description!,
+        Str :$cache-parameter-group-family!,
+        Str :$cache-parameter-group-name!
     ) returns CreateCacheParameterGroupResult is service-operation('CreateCacheParameterGroup') {
         my $request-input = CreateCacheParameterGroupMessage.new(
-        :$description,
-        :$cache-parameter-group-family,
-        :$cache-parameter-group-name
+            :$description,
+            :$cache-parameter-group-family,
+            :$cache-parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateCacheParameterGroup>,
-            :return-type(CreateCacheParameterGroupResult),
-            :result-wrapper('CreateCacheParameterGroupResult'),
             :$request-input,
         );
     }
 
     method reset-cache-parameter-group(
-    Array[ParameterNameValue] :$parameter-name-values,
-    Bool :$reset-all-parameters,
-    Str :$cache-parameter-group-name!
+        Array[ParameterNameValue] :$parameter-name-values,
+        Bool :$reset-all-parameters,
+        Str :$cache-parameter-group-name!
     ) returns CacheParameterGroupNameMessage is service-operation('ResetCacheParameterGroup') {
         my $request-input = ResetCacheParameterGroupMessage.new(
-        :$parameter-name-values,
-        :$reset-all-parameters,
-        :$cache-parameter-group-name
+            :$parameter-name-values,
+            :$reset-all-parameters,
+            :$cache-parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<ResetCacheParameterGroup>,
-            :return-type(CacheParameterGroupNameMessage),
-            :result-wrapper('ResetCacheParameterGroupResult'),
             :$request-input,
         );
     }
 
     method describe-cache-engine-versions(
-    Str :$cache-parameter-group-family,
-    Str :$engine,
-    Bool :$default-only,
-    Str :$marker,
-    Str :$engine-version,
-    Int :$max-records
+        Str :$cache-parameter-group-family,
+        Str :$engine,
+        Bool :$default-only,
+        Str :$marker,
+        Str :$engine-version,
+        Int :$max-records
     ) returns CacheEngineVersionMessage is service-operation('DescribeCacheEngineVersions') {
         my $request-input = DescribeCacheEngineVersionsMessage.new(
-        :$cache-parameter-group-family,
-        :$engine,
-        :$default-only,
-        :$marker,
-        :$engine-version,
-        :$max-records
+            :$cache-parameter-group-family,
+            :$engine,
+            :$default-only,
+            :$marker,
+            :$engine-version,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCacheEngineVersions>,
-            :return-type(CacheEngineVersionMessage),
-            :result-wrapper('DescribeCacheEngineVersionsResult'),
             :$request-input,
         );
     }
 
     method add-tags-to-resource(
-    Str :$resource-name!,
-    Array[Tag] :$tags!
+        Str :$resource-name!,
+        Array[Tag] :$tags!
     ) returns TagListMessage is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceMessage.new(
-        :$resource-name,
-        :$tags
+            :$resource-name,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<AddTagsToResource>,
-            :return-type(TagListMessage),
-            :result-wrapper('AddTagsToResourceResult'),
             :$request-input,
         );
     }
 
     method remove-tags-from-resource(
-    Str :$resource-name!,
-    Array[Str] :$tag-keys!
+        Str :$resource-name!,
+        Array[Str] :$tag-keys!
     ) returns TagListMessage is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceMessage.new(
-        :$resource-name,
-        :$tag-keys
+            :$resource-name,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
-            :return-type(TagListMessage),
-            :result-wrapper('RemoveTagsFromResourceResult'),
             :$request-input,
         );
     }
 
     method modify-cache-cluster(
-    Array[Str] :$security-group-ids,
-    Str :$snapshot-window,
-    Str :$notification-topic-arn,
-    Array[Str] :$new-availability-zones,
-    Array[Str] :$cache-node-ids-to-remove,
-    Str :$cache-parameter-group-name,
-    Array[Str] :$cache-security-group-names,
-    Int :$num-cache-nodes,
-    Str :$cache-cluster-id!,
-    Str :$cache-node-type,
-    Int :$snapshot-retention-limit,
-    AZMode :$az-mode,
-    Bool :$auto-minor-version-upgrade,
-    Str :$engine-version,
-    Str :$preferred-maintenance-window,
-    Bool :$apply-immediately,
-    Str :$notification-topic-status
+        Array[Str] :$security-group-ids,
+        Str :$snapshot-window,
+        Str :$notification-topic-arn,
+        Array[Str] :$new-availability-zones,
+        Array[Str] :$cache-node-ids-to-remove,
+        Str :$cache-parameter-group-name,
+        Array[Str] :$cache-security-group-names,
+        Int :$num-cache-nodes,
+        Str :$cache-cluster-id!,
+        Str :$cache-node-type,
+        Int :$snapshot-retention-limit,
+        AZMode :$az-mode,
+        Bool :$auto-minor-version-upgrade,
+        Str :$engine-version,
+        Str :$preferred-maintenance-window,
+        Bool :$apply-immediately,
+        Str :$notification-topic-status
     ) returns ModifyCacheClusterResult is service-operation('ModifyCacheCluster') {
         my $request-input = ModifyCacheClusterMessage.new(
-        :$security-group-ids,
-        :$snapshot-window,
-        :$notification-topic-arn,
-        :$new-availability-zones,
-        :$cache-node-ids-to-remove,
-        :$cache-parameter-group-name,
-        :$cache-security-group-names,
-        :$num-cache-nodes,
-        :$cache-cluster-id,
-        :$cache-node-type,
-        :$snapshot-retention-limit,
-        :$az-mode,
-        :$auto-minor-version-upgrade,
-        :$engine-version,
-        :$preferred-maintenance-window,
-        :$apply-immediately,
-        :$notification-topic-status
+            :$security-group-ids,
+            :$snapshot-window,
+            :$notification-topic-arn,
+            :$new-availability-zones,
+            :$cache-node-ids-to-remove,
+            :$cache-parameter-group-name,
+            :$cache-security-group-names,
+            :$num-cache-nodes,
+            :$cache-cluster-id,
+            :$cache-node-type,
+            :$snapshot-retention-limit,
+            :$az-mode,
+            :$auto-minor-version-upgrade,
+            :$engine-version,
+            :$preferred-maintenance-window,
+            :$apply-immediately,
+            :$notification-topic-status
         );
-;
+
         self.perform-operation(
             :api-call<ModifyCacheCluster>,
-            :return-type(ModifyCacheClusterResult),
-            :result-wrapper('ModifyCacheClusterResult'),
             :$request-input,
         );
     }
 
     method list-allowed-node-type-modifications(
-    Str :$cache-cluster-id,
-    Str :$replication-group-id
+        Str :$cache-cluster-id,
+        Str :$replication-group-id
     ) returns AllowedNodeTypeModificationsMessage is service-operation('ListAllowedNodeTypeModifications') {
         my $request-input = ListAllowedNodeTypeModificationsMessage.new(
-        :$cache-cluster-id,
-        :$replication-group-id
+            :$cache-cluster-id,
+            :$replication-group-id
         );
-;
+
         self.perform-operation(
             :api-call<ListAllowedNodeTypeModifications>,
-            :return-type(AllowedNodeTypeModificationsMessage),
-            :result-wrapper('ListAllowedNodeTypeModificationsResult'),
             :$request-input,
         );
     }
 
     method describe-events(
-    Int :$duration,
-    DateTime :$end-time,
-    DateTime :$start-time,
-    SourceType :$source-type,
-    Str :$source-identifier,
-    Str :$marker,
-    Int :$max-records
+        Int :$duration,
+        DateTime :$end-time,
+        DateTime :$start-time,
+        SourceType :$source-type,
+        Str :$source-identifier,
+        Str :$marker,
+        Int :$max-records
     ) returns EventsMessage is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsMessage.new(
-        :$duration,
-        :$end-time,
-        :$start-time,
-        :$source-type,
-        :$source-identifier,
-        :$marker,
-        :$max-records
+            :$duration,
+            :$end-time,
+            :$start-time,
+            :$source-type,
+            :$source-identifier,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEvents>,
-            :return-type(EventsMessage),
-            :result-wrapper('DescribeEventsResult'),
             :$request-input,
         );
     }
 
     method delete-cache-parameter-group(
-    Str :$cache-parameter-group-name!
+        Str :$cache-parameter-group-name!
     ) is service-operation('DeleteCacheParameterGroup') {
         my $request-input = DeleteCacheParameterGroupMessage.new(
-        :$cache-parameter-group-name
+            :$cache-parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCacheParameterGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-cache-cluster(
-    Str :$cache-cluster-id!,
-    Str :$final-snapshot-identifier
+        Str :$cache-cluster-id!,
+        Str :$final-snapshot-identifier
     ) returns DeleteCacheClusterResult is service-operation('DeleteCacheCluster') {
         my $request-input = DeleteCacheClusterMessage.new(
-        :$cache-cluster-id,
-        :$final-snapshot-identifier
+            :$cache-cluster-id,
+            :$final-snapshot-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCacheCluster>,
-            :return-type(DeleteCacheClusterResult),
-            :result-wrapper('DeleteCacheClusterResult'),
             :$request-input,
         );
     }
 
     method create-snapshot(
-    Str :$snapshot-name!,
-    Str :$cache-cluster-id,
-    Str :$replication-group-id
+        Str :$snapshot-name!,
+        Str :$cache-cluster-id,
+        Str :$replication-group-id
     ) returns CreateSnapshotResult is service-operation('CreateSnapshot') {
         my $request-input = CreateSnapshotMessage.new(
-        :$snapshot-name,
-        :$cache-cluster-id,
-        :$replication-group-id
+            :$snapshot-name,
+            :$cache-cluster-id,
+            :$replication-group-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateSnapshot>,
-            :return-type(CreateSnapshotResult),
-            :result-wrapper('CreateSnapshotResult'),
             :$request-input,
         );
     }
 
     method create-cache-security-group(
-    Str :$description!,
-    Str :$cache-security-group-name!
+        Str :$description!,
+        Str :$cache-security-group-name!
     ) returns CreateCacheSecurityGroupResult is service-operation('CreateCacheSecurityGroup') {
         my $request-input = CreateCacheSecurityGroupMessage.new(
-        :$description,
-        :$cache-security-group-name
+            :$description,
+            :$cache-security-group-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateCacheSecurityGroup>,
-            :return-type(CreateCacheSecurityGroupResult),
-            :result-wrapper('CreateCacheSecurityGroupResult'),
             :$request-input,
         );
     }
 
     method revoke-cache-security-group-ingress(
-    Str :$ec2-security-group-name!,
-    Str :$cache-security-group-name!,
-    Str :$ec2-security-group-owner-id!
+        Str :$ec2-security-group-name!,
+        Str :$cache-security-group-name!,
+        Str :$ec2-security-group-owner-id!
     ) returns RevokeCacheSecurityGroupIngressResult is service-operation('RevokeCacheSecurityGroupIngress') {
         my $request-input = RevokeCacheSecurityGroupIngressMessage.new(
-        :$ec2-security-group-name,
-        :$cache-security-group-name,
-        :$ec2-security-group-owner-id
+            :$ec2-security-group-name,
+            :$cache-security-group-name,
+            :$ec2-security-group-owner-id
         );
-;
+
         self.perform-operation(
             :api-call<RevokeCacheSecurityGroupIngress>,
-            :return-type(RevokeCacheSecurityGroupIngressResult),
-            :result-wrapper('RevokeCacheSecurityGroupIngressResult'),
             :$request-input,
         );
     }
 
     method describe-cache-parameters(
-    Str :$source,
-    Str :$cache-parameter-group-name!,
-    Str :$marker,
-    Int :$max-records
+        Str :$source,
+        Str :$cache-parameter-group-name!,
+        Str :$marker,
+        Int :$max-records
     ) returns CacheParameterGroupDetails is service-operation('DescribeCacheParameters') {
         my $request-input = DescribeCacheParametersMessage.new(
-        :$source,
-        :$cache-parameter-group-name,
-        :$marker,
-        :$max-records
+            :$source,
+            :$cache-parameter-group-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCacheParameters>,
-            :return-type(CacheParameterGroupDetails),
-            :result-wrapper('DescribeCacheParametersResult'),
             :$request-input,
         );
     }
 
     method describe-cache-clusters(
-    Bool :$show-cache-node-info,
-    Str :$cache-cluster-id,
-    Bool :$show-cache-clusters-not-in-replication-groups,
-    Str :$marker,
-    Int :$max-records
+        Bool :$show-cache-node-info,
+        Str :$cache-cluster-id,
+        Bool :$show-cache-clusters-not-in-replication-groups,
+        Str :$marker,
+        Int :$max-records
     ) returns CacheClusterMessage is service-operation('DescribeCacheClusters') {
         my $request-input = DescribeCacheClustersMessage.new(
-        :$show-cache-node-info,
-        :$cache-cluster-id,
-        :$show-cache-clusters-not-in-replication-groups,
-        :$marker,
-        :$max-records
+            :$show-cache-node-info,
+            :$cache-cluster-id,
+            :$show-cache-clusters-not-in-replication-groups,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCacheClusters>,
-            :return-type(CacheClusterMessage),
-            :result-wrapper('DescribeCacheClustersResult'),
             :$request-input,
         );
     }
 
     method delete-snapshot(
-    Str :$snapshot-name!
+        Str :$snapshot-name!
     ) returns DeleteSnapshotResult is service-operation('DeleteSnapshot') {
         my $request-input = DeleteSnapshotMessage.new(
-        :$snapshot-name
+            :$snapshot-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSnapshot>,
-            :return-type(DeleteSnapshotResult),
-            :result-wrapper('DeleteSnapshotResult'),
             :$request-input,
         );
     }
 
     method delete-cache-subnet-group(
-    Str :$cache-subnet-group-name!
+        Str :$cache-subnet-group-name!
     ) is service-operation('DeleteCacheSubnetGroup') {
         my $request-input = DeleteCacheSubnetGroupMessage.new(
-        :$cache-subnet-group-name
+            :$cache-subnet-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCacheSubnetGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-cache-cluster(
-    Array[Str] :$security-group-ids,
-    Str :$cache-subnet-group-name,
-    Str :$preferred-availability-zone,
-    Str :$auth-token,
-    Str :$snapshot-window,
-    Str :$notification-topic-arn,
-    Array[Str] :$snapshot-arns,
-    Array[Str] :$preferred-availability-zones,
-    Str :$snapshot-name,
-    Array[Tag] :$tags,
-    Array[Str] :$cache-security-group-names,
-    Str :$cache-parameter-group-name,
-    Str :$engine,
-    Int :$num-cache-nodes,
-    Str :$cache-cluster-id!,
-    Int :$snapshot-retention-limit,
-    Str :$cache-node-type,
-    AZMode :$az-mode,
-    Str :$replication-group-id,
-    Bool :$auto-minor-version-upgrade,
-    Int :$port,
-    Str :$preferred-maintenance-window,
-    Str :$engine-version
+        Array[Str] :$security-group-ids,
+        Str :$cache-subnet-group-name,
+        Str :$preferred-availability-zone,
+        Str :$auth-token,
+        Str :$snapshot-window,
+        Str :$notification-topic-arn,
+        Array[Str] :$snapshot-arns,
+        Array[Str] :$preferred-availability-zones,
+        Str :$snapshot-name,
+        Array[Tag] :$tags,
+        Array[Str] :$cache-security-group-names,
+        Str :$cache-parameter-group-name,
+        Str :$engine,
+        Int :$num-cache-nodes,
+        Str :$cache-cluster-id!,
+        Int :$snapshot-retention-limit,
+        Str :$cache-node-type,
+        AZMode :$az-mode,
+        Str :$replication-group-id,
+        Bool :$auto-minor-version-upgrade,
+        Int :$port,
+        Str :$preferred-maintenance-window,
+        Str :$engine-version
     ) returns CreateCacheClusterResult is service-operation('CreateCacheCluster') {
         my $request-input = CreateCacheClusterMessage.new(
-        :$security-group-ids,
-        :$cache-subnet-group-name,
-        :$preferred-availability-zone,
-        :$auth-token,
-        :$snapshot-window,
-        :$notification-topic-arn,
-        :$snapshot-arns,
-        :$preferred-availability-zones,
-        :$snapshot-name,
-        :$tags,
-        :$cache-security-group-names,
-        :$cache-parameter-group-name,
-        :$engine,
-        :$num-cache-nodes,
-        :$cache-cluster-id,
-        :$snapshot-retention-limit,
-        :$cache-node-type,
-        :$az-mode,
-        :$replication-group-id,
-        :$auto-minor-version-upgrade,
-        :$port,
-        :$preferred-maintenance-window,
-        :$engine-version
+            :$security-group-ids,
+            :$cache-subnet-group-name,
+            :$preferred-availability-zone,
+            :$auth-token,
+            :$snapshot-window,
+            :$notification-topic-arn,
+            :$snapshot-arns,
+            :$preferred-availability-zones,
+            :$snapshot-name,
+            :$tags,
+            :$cache-security-group-names,
+            :$cache-parameter-group-name,
+            :$engine,
+            :$num-cache-nodes,
+            :$cache-cluster-id,
+            :$snapshot-retention-limit,
+            :$cache-node-type,
+            :$az-mode,
+            :$replication-group-id,
+            :$auto-minor-version-upgrade,
+            :$port,
+            :$preferred-maintenance-window,
+            :$engine-version
         );
-;
+
         self.perform-operation(
             :api-call<CreateCacheCluster>,
-            :return-type(CreateCacheClusterResult),
-            :result-wrapper('CreateCacheClusterResult'),
             :$request-input,
         );
     }
 
     method reboot-cache-cluster(
-    Str :$cache-cluster-id!,
-    Array[Str] :$cache-node-ids-to-reboot!
+        Str :$cache-cluster-id!,
+        Array[Str] :$cache-node-ids-to-reboot!
     ) returns RebootCacheClusterResult is service-operation('RebootCacheCluster') {
         my $request-input = RebootCacheClusterMessage.new(
-        :$cache-cluster-id,
-        :$cache-node-ids-to-reboot
+            :$cache-cluster-id,
+            :$cache-node-ids-to-reboot
         );
-;
+
         self.perform-operation(
             :api-call<RebootCacheCluster>,
-            :return-type(RebootCacheClusterResult),
-            :result-wrapper('RebootCacheClusterResult'),
             :$request-input,
         );
     }
 
     method modify-cache-subnet-group(
-    Str :$cache-subnet-group-name!,
-    Str :$cache-subnet-group-description,
-    Array[Str] :$subnet-ids
+        Str :$cache-subnet-group-name!,
+        Str :$cache-subnet-group-description,
+        Array[Str] :$subnet-ids
     ) returns ModifyCacheSubnetGroupResult is service-operation('ModifyCacheSubnetGroup') {
         my $request-input = ModifyCacheSubnetGroupMessage.new(
-        :$cache-subnet-group-name,
-        :$cache-subnet-group-description,
-        :$subnet-ids
+            :$cache-subnet-group-name,
+            :$cache-subnet-group-description,
+            :$subnet-ids
         );
-;
+
         self.perform-operation(
             :api-call<ModifyCacheSubnetGroup>,
-            :return-type(ModifyCacheSubnetGroupResult),
-            :result-wrapper('ModifyCacheSubnetGroupResult'),
             :$request-input,
         );
     }
 
     method modify-cache-parameter-group(
-    Array[ParameterNameValue] :$parameter-name-values!,
-    Str :$cache-parameter-group-name!
+        Array[ParameterNameValue] :$parameter-name-values!,
+        Str :$cache-parameter-group-name!
     ) returns CacheParameterGroupNameMessage is service-operation('ModifyCacheParameterGroup') {
         my $request-input = ModifyCacheParameterGroupMessage.new(
-        :$parameter-name-values,
-        :$cache-parameter-group-name
+            :$parameter-name-values,
+            :$cache-parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<ModifyCacheParameterGroup>,
-            :return-type(CacheParameterGroupNameMessage),
-            :result-wrapper('ModifyCacheParameterGroupResult'),
             :$request-input,
         );
     }
 
     method describe-snapshots(
-    Bool :$show-node-group-config,
-    Str :$snapshot-name,
-    Str :$cache-cluster-id,
-    Str :$snapshot-source,
-    Str :$replication-group-id,
-    Str :$marker,
-    Int :$max-records
+        Bool :$show-node-group-config,
+        Str :$snapshot-name,
+        Str :$cache-cluster-id,
+        Str :$snapshot-source,
+        Str :$replication-group-id,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeSnapshotsListMessage is service-operation('DescribeSnapshots') {
         my $request-input = DescribeSnapshotsMessage.new(
-        :$show-node-group-config,
-        :$snapshot-name,
-        :$cache-cluster-id,
-        :$snapshot-source,
-        :$replication-group-id,
-        :$marker,
-        :$max-records
+            :$show-node-group-config,
+            :$snapshot-name,
+            :$cache-cluster-id,
+            :$snapshot-source,
+            :$replication-group-id,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSnapshots>,
-            :return-type(DescribeSnapshotsListMessage),
-            :result-wrapper('DescribeSnapshotsResult'),
             :$request-input,
         );
     }
 
     method describe-reserved-cache-nodes(
-    Str :$offering-type,
-    Str :$product-description,
-    Str :$duration,
-    Str :$reserved-cache-nodes-offering-id,
-    Str :$cache-node-type,
-    Str :$reserved-cache-node-id,
-    Str :$marker,
-    Int :$max-records
+        Str :$offering-type,
+        Str :$product-description,
+        Str :$duration,
+        Str :$reserved-cache-nodes-offering-id,
+        Str :$cache-node-type,
+        Str :$reserved-cache-node-id,
+        Str :$marker,
+        Int :$max-records
     ) returns ReservedCacheNodeMessage is service-operation('DescribeReservedCacheNodes') {
         my $request-input = DescribeReservedCacheNodesMessage.new(
-        :$offering-type,
-        :$product-description,
-        :$duration,
-        :$reserved-cache-nodes-offering-id,
-        :$cache-node-type,
-        :$reserved-cache-node-id,
-        :$marker,
-        :$max-records
+            :$offering-type,
+            :$product-description,
+            :$duration,
+            :$reserved-cache-nodes-offering-id,
+            :$cache-node-type,
+            :$reserved-cache-node-id,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReservedCacheNodes>,
-            :return-type(ReservedCacheNodeMessage),
-            :result-wrapper('DescribeReservedCacheNodesResult'),
             :$request-input,
         );
     }
 
     method describe-engine-default-parameters(
-    Str :$cache-parameter-group-family!,
-    Str :$marker,
-    Int :$max-records
+        Str :$cache-parameter-group-family!,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeEngineDefaultParametersResult is service-operation('DescribeEngineDefaultParameters') {
         my $request-input = DescribeEngineDefaultParametersMessage.new(
-        :$cache-parameter-group-family,
-        :$marker,
-        :$max-records
+            :$cache-parameter-group-family,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEngineDefaultParameters>,
-            :return-type(DescribeEngineDefaultParametersResult),
-            :result-wrapper('DescribeEngineDefaultParametersResult'),
             :$request-input,
         );
     }
 
     method authorize-cache-security-group-ingress(
-    Str :$ec2-security-group-name!,
-    Str :$cache-security-group-name!,
-    Str :$ec2-security-group-owner-id!
+        Str :$ec2-security-group-name!,
+        Str :$cache-security-group-name!,
+        Str :$ec2-security-group-owner-id!
     ) returns AuthorizeCacheSecurityGroupIngressResult is service-operation('AuthorizeCacheSecurityGroupIngress') {
         my $request-input = AuthorizeCacheSecurityGroupIngressMessage.new(
-        :$ec2-security-group-name,
-        :$cache-security-group-name,
-        :$ec2-security-group-owner-id
+            :$ec2-security-group-name,
+            :$cache-security-group-name,
+            :$ec2-security-group-owner-id
         );
-;
+
         self.perform-operation(
             :api-call<AuthorizeCacheSecurityGroupIngress>,
-            :return-type(AuthorizeCacheSecurityGroupIngressResult),
-            :result-wrapper('AuthorizeCacheSecurityGroupIngressResult'),
             :$request-input,
         );
     }
 
     method list-tags-for-resource(
-    Str :$resource-name!
+        Str :$resource-name!
     ) returns TagListMessage is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceMessage.new(
-        :$resource-name
+            :$resource-name
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForResource>,
-            :return-type(TagListMessage),
-            :result-wrapper('ListTagsForResourceResult'),
             :$request-input,
         );
     }
 
     method describe-replication-groups(
-    Str :$replication-group-id,
-    Str :$marker,
-    Int :$max-records
+        Str :$replication-group-id,
+        Str :$marker,
+        Int :$max-records
     ) returns ReplicationGroupMessage is service-operation('DescribeReplicationGroups') {
         my $request-input = DescribeReplicationGroupsMessage.new(
-        :$replication-group-id,
-        :$marker,
-        :$max-records
+            :$replication-group-id,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReplicationGroups>,
-            :return-type(ReplicationGroupMessage),
-            :result-wrapper('DescribeReplicationGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-cache-parameter-groups(
-    Str :$cache-parameter-group-name,
-    Str :$marker,
-    Int :$max-records
+        Str :$cache-parameter-group-name,
+        Str :$marker,
+        Int :$max-records
     ) returns CacheParameterGroupsMessage is service-operation('DescribeCacheParameterGroups') {
         my $request-input = DescribeCacheParameterGroupsMessage.new(
-        :$cache-parameter-group-name,
-        :$marker,
-        :$max-records
+            :$cache-parameter-group-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCacheParameterGroups>,
-            :return-type(CacheParameterGroupsMessage),
-            :result-wrapper('DescribeCacheParameterGroupsResult'),
             :$request-input,
         );
     }
 
     method copy-snapshot(
-    Str :$target-bucket,
-    Str :$target-snapshot-name!,
-    Str :$source-snapshot-name!
+        Str :$target-bucket,
+        Str :$target-snapshot-name!,
+        Str :$source-snapshot-name!
     ) returns CopySnapshotResult is service-operation('CopySnapshot') {
         my $request-input = CopySnapshotMessage.new(
-        :$target-bucket,
-        :$target-snapshot-name,
-        :$source-snapshot-name
+            :$target-bucket,
+            :$target-snapshot-name,
+            :$source-snapshot-name
         );
-;
+
         self.perform-operation(
             :api-call<CopySnapshot>,
-            :return-type(CopySnapshotResult),
-            :result-wrapper('CopySnapshotResult'),
             :$request-input,
         );
     }
 
     method purchase-reserved-cache-nodes-offering(
-    Int :$cache-node-count,
-    Str :$reserved-cache-nodes-offering-id!,
-    Str :$reserved-cache-node-id
+        Int :$cache-node-count,
+        Str :$reserved-cache-nodes-offering-id!,
+        Str :$reserved-cache-node-id
     ) returns PurchaseReservedCacheNodesOfferingResult is service-operation('PurchaseReservedCacheNodesOffering') {
         my $request-input = PurchaseReservedCacheNodesOfferingMessage.new(
-        :$cache-node-count,
-        :$reserved-cache-nodes-offering-id,
-        :$reserved-cache-node-id
+            :$cache-node-count,
+            :$reserved-cache-nodes-offering-id,
+            :$reserved-cache-node-id
         );
-;
+
         self.perform-operation(
             :api-call<PurchaseReservedCacheNodesOffering>,
-            :return-type(PurchaseReservedCacheNodesOfferingResult),
-            :result-wrapper('PurchaseReservedCacheNodesOfferingResult'),
             :$request-input,
         );
     }
 
     method describe-cache-subnet-groups(
-    Str :$cache-subnet-group-name,
-    Str :$marker,
-    Int :$max-records
+        Str :$cache-subnet-group-name,
+        Str :$marker,
+        Int :$max-records
     ) returns CacheSubnetGroupMessage is service-operation('DescribeCacheSubnetGroups') {
         my $request-input = DescribeCacheSubnetGroupsMessage.new(
-        :$cache-subnet-group-name,
-        :$marker,
-        :$max-records
+            :$cache-subnet-group-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCacheSubnetGroups>,
-            :return-type(CacheSubnetGroupMessage),
-            :result-wrapper('DescribeCacheSubnetGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-cache-security-groups(
-    Str :$cache-security-group-name,
-    Str :$marker,
-    Int :$max-records
+        Str :$cache-security-group-name,
+        Str :$marker,
+        Int :$max-records
     ) returns CacheSecurityGroupMessage is service-operation('DescribeCacheSecurityGroups') {
         my $request-input = DescribeCacheSecurityGroupsMessage.new(
-        :$cache-security-group-name,
-        :$marker,
-        :$max-records
+            :$cache-security-group-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeCacheSecurityGroups>,
-            :return-type(CacheSecurityGroupMessage),
-            :result-wrapper('DescribeCacheSecurityGroupsResult'),
             :$request-input,
         );
     }
 
     method test-failover(
-    Str :$replication-group-id!,
-    Str :$node-group-id!
+        Str :$replication-group-id!,
+        Str :$node-group-id!
     ) returns TestFailoverResult is service-operation('TestFailover') {
         my $request-input = TestFailoverMessage.new(
-        :$replication-group-id,
-        :$node-group-id
+            :$replication-group-id,
+            :$node-group-id
         );
-;
+
         self.perform-operation(
             :api-call<TestFailover>,
-            :return-type(TestFailoverResult),
-            :result-wrapper('TestFailoverResult'),
             :$request-input,
         );
     }
 
     method modify-replication-group(
-    Array[Str] :$security-group-ids,
-    Str :$snapshot-window,
-    Str :$notification-topic-arn,
-    Bool :$automatic-failover-enabled,
-    Str :$primary-cluster-id,
-    Str :$replication-group-description,
-    Str :$cache-parameter-group-name,
-    Array[Str] :$cache-security-group-names,
-    Str :$cache-node-type,
-    Int :$snapshot-retention-limit,
-    Str :$snapshotting-cluster-id,
-    Str :$replication-group-id!,
-    Bool :$auto-minor-version-upgrade,
-    Str :$engine-version,
-    Str :$preferred-maintenance-window,
-    Str :$node-group-id,
-    Bool :$apply-immediately,
-    Str :$notification-topic-status
+        Array[Str] :$security-group-ids,
+        Str :$snapshot-window,
+        Str :$notification-topic-arn,
+        Bool :$automatic-failover-enabled,
+        Str :$primary-cluster-id,
+        Str :$replication-group-description,
+        Str :$cache-parameter-group-name,
+        Array[Str] :$cache-security-group-names,
+        Str :$cache-node-type,
+        Int :$snapshot-retention-limit,
+        Str :$snapshotting-cluster-id,
+        Str :$replication-group-id!,
+        Bool :$auto-minor-version-upgrade,
+        Str :$engine-version,
+        Str :$preferred-maintenance-window,
+        Str :$node-group-id,
+        Bool :$apply-immediately,
+        Str :$notification-topic-status
     ) returns ModifyReplicationGroupResult is service-operation('ModifyReplicationGroup') {
         my $request-input = ModifyReplicationGroupMessage.new(
-        :$security-group-ids,
-        :$snapshot-window,
-        :$notification-topic-arn,
-        :$automatic-failover-enabled,
-        :$primary-cluster-id,
-        :$replication-group-description,
-        :$cache-parameter-group-name,
-        :$cache-security-group-names,
-        :$cache-node-type,
-        :$snapshot-retention-limit,
-        :$snapshotting-cluster-id,
-        :$replication-group-id,
-        :$auto-minor-version-upgrade,
-        :$engine-version,
-        :$preferred-maintenance-window,
-        :$node-group-id,
-        :$apply-immediately,
-        :$notification-topic-status
+            :$security-group-ids,
+            :$snapshot-window,
+            :$notification-topic-arn,
+            :$automatic-failover-enabled,
+            :$primary-cluster-id,
+            :$replication-group-description,
+            :$cache-parameter-group-name,
+            :$cache-security-group-names,
+            :$cache-node-type,
+            :$snapshot-retention-limit,
+            :$snapshotting-cluster-id,
+            :$replication-group-id,
+            :$auto-minor-version-upgrade,
+            :$engine-version,
+            :$preferred-maintenance-window,
+            :$node-group-id,
+            :$apply-immediately,
+            :$notification-topic-status
         );
-;
+
         self.perform-operation(
             :api-call<ModifyReplicationGroup>,
-            :return-type(ModifyReplicationGroupResult),
-            :result-wrapper('ModifyReplicationGroupResult'),
             :$request-input,
         );
     }
 
     method describe-reserved-cache-nodes-offerings(
-    Str :$offering-type,
-    Str :$product-description,
-    Str :$duration,
-    Str :$reserved-cache-nodes-offering-id,
-    Str :$cache-node-type,
-    Str :$marker,
-    Int :$max-records
+        Str :$offering-type,
+        Str :$product-description,
+        Str :$duration,
+        Str :$reserved-cache-nodes-offering-id,
+        Str :$cache-node-type,
+        Str :$marker,
+        Int :$max-records
     ) returns ReservedCacheNodesOfferingMessage is service-operation('DescribeReservedCacheNodesOfferings') {
         my $request-input = DescribeReservedCacheNodesOfferingsMessage.new(
-        :$offering-type,
-        :$product-description,
-        :$duration,
-        :$reserved-cache-nodes-offering-id,
-        :$cache-node-type,
-        :$marker,
-        :$max-records
+            :$offering-type,
+            :$product-description,
+            :$duration,
+            :$reserved-cache-nodes-offering-id,
+            :$cache-node-type,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReservedCacheNodesOfferings>,
-            :return-type(ReservedCacheNodesOfferingMessage),
-            :result-wrapper('DescribeReservedCacheNodesOfferingsResult'),
             :$request-input,
         );
     }

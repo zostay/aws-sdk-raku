@@ -454,426 +454,380 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
     }
 
     method update-tags-for-domain(
-    DomainName :$domain-name!,
-    Array[Tag] :$tags-to-update
+        DomainName :$domain-name!,
+        Array[Tag] :$tags-to-update
     ) returns UpdateTagsForDomainResponse is service-operation('UpdateTagsForDomain') {
         my $request-input = UpdateTagsForDomainRequest.new(
-        :$domain-name,
-        :$tags-to-update
+            :$domain-name,
+            :$tags-to-update
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTagsForDomain>,
-            :return-type(UpdateTagsForDomainResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-domain-contact(
-    DomainName :$domain-name!,
-    ContactDetail :$registrant-contact,
-    ContactDetail :$admin-contact,
-    ContactDetail :$tech-contact
+        DomainName :$domain-name!,
+        ContactDetail :$registrant-contact,
+        ContactDetail :$admin-contact,
+        ContactDetail :$tech-contact
     ) returns UpdateDomainContactResponse is service-operation('UpdateDomainContact') {
         my $request-input = UpdateDomainContactRequest.new(
-        :$domain-name,
-        :$registrant-contact,
-        :$admin-contact,
-        :$tech-contact
+            :$domain-name,
+            :$registrant-contact,
+            :$admin-contact,
+            :$tech-contact
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDomainContact>,
-            :return-type(UpdateDomainContactResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-operation-detail(
-    OperationId :$operation-id!
+        OperationId :$operation-id!
     ) returns GetOperationDetailResponse is service-operation('GetOperationDetail') {
         my $request-input = GetOperationDetailRequest.new(
-        :$operation-id
+            :$operation-id
         );
-;
+
         self.perform-operation(
             :api-call<GetOperationDetail>,
-            :return-type(GetOperationDetailResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-domain-auto-renew(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DisableDomainAutoRenewResponse is service-operation('DisableDomainAutoRenew') {
         my $request-input = DisableDomainAutoRenewRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DisableDomainAutoRenew>,
-            :return-type(DisableDomainAutoRenewResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method transfer-domain(
-    DomainName :$domain-name!,
-    ContactDetail :$registrant-contact!,
-    ContactDetail :$admin-contact!,
-    Bool :$auto-renew,
-    LangCode :$idn-lang-code,
-    ContactDetail :$tech-contact!,
-    Bool :$privacy-protect-tech-contact,
-    Bool :$privacy-protect-registrant-contact,
-    Bool :$privacy-protect-admin-contact,
-    DomainAuthCode :$auth-code,
-    DurationInYears :$duration-in-years!,
-    Array[Nameserver] :$nameservers
+        DomainName :$domain-name!,
+        ContactDetail :$registrant-contact!,
+        ContactDetail :$admin-contact!,
+        Bool :$auto-renew,
+        LangCode :$idn-lang-code,
+        ContactDetail :$tech-contact!,
+        Bool :$privacy-protect-tech-contact,
+        Bool :$privacy-protect-registrant-contact,
+        Bool :$privacy-protect-admin-contact,
+        DomainAuthCode :$auth-code,
+        DurationInYears :$duration-in-years!,
+        Array[Nameserver] :$nameservers
     ) returns TransferDomainResponse is service-operation('TransferDomain') {
         my $request-input = TransferDomainRequest.new(
-        :$domain-name,
-        :$registrant-contact,
-        :$admin-contact,
-        :$auto-renew,
-        :$idn-lang-code,
-        :$tech-contact,
-        :$privacy-protect-tech-contact,
-        :$privacy-protect-registrant-contact,
-        :$privacy-protect-admin-contact,
-        :$auth-code,
-        :$duration-in-years,
-        :$nameservers
+            :$domain-name,
+            :$registrant-contact,
+            :$admin-contact,
+            :$auto-renew,
+            :$idn-lang-code,
+            :$tech-contact,
+            :$privacy-protect-tech-contact,
+            :$privacy-protect-registrant-contact,
+            :$privacy-protect-admin-contact,
+            :$auth-code,
+            :$duration-in-years,
+            :$nameservers
         );
-;
+
         self.perform-operation(
             :api-call<TransferDomain>,
-            :return-type(TransferDomainResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-domain-detail(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns GetDomainDetailResponse is service-operation('GetDomainDetail') {
         my $request-input = GetDomainDetailRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<GetDomainDetail>,
-            :return-type(GetDomainDetailResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method view-billing(
-    DateTime :$start,
-    DateTime :$end,
-    PageMaxItems :$max-items,
-    PageMarker :$marker
+        DateTime :$start,
+        DateTime :$end,
+        PageMaxItems :$max-items,
+        PageMarker :$marker
     ) returns ViewBillingResponse is service-operation('ViewBilling') {
         my $request-input = ViewBillingRequest.new(
-        :$start,
-        :$end,
-        :$max-items,
-        :$marker
+            :$start,
+            :$end,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ViewBilling>,
-            :return-type(ViewBillingResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-domain-nameservers(
-    DomainName :$domain-name!,
-    Array[Nameserver] :$nameservers!,
-    Str :$fi-auth-key
+        DomainName :$domain-name!,
+        Array[Nameserver] :$nameservers!,
+        Str :$fi-auth-key
     ) returns UpdateDomainNameserversResponse is service-operation('UpdateDomainNameservers') {
         my $request-input = UpdateDomainNameserversRequest.new(
-        :$domain-name,
-        :$nameservers,
-        :$fi-auth-key
+            :$domain-name,
+            :$nameservers,
+            :$fi-auth-key
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDomainNameservers>,
-            :return-type(UpdateDomainNameserversResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method renew-domain(
-    DomainName :$domain-name!,
-    Int :$current-expiry-year!,
-    DurationInYears :$duration-in-years
+        DomainName :$domain-name!,
+        Int :$current-expiry-year!,
+        DurationInYears :$duration-in-years
     ) returns RenewDomainResponse is service-operation('RenewDomain') {
         my $request-input = RenewDomainRequest.new(
-        :$domain-name,
-        :$current-expiry-year,
-        :$duration-in-years
+            :$domain-name,
+            :$current-expiry-year,
+            :$duration-in-years
         );
-;
+
         self.perform-operation(
             :api-call<RenewDomain>,
-            :return-type(RenewDomainResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-contact-reachability-status(
-    DomainName :$domain-name
+        DomainName :$domain-name
     ) returns GetContactReachabilityStatusResponse is service-operation('GetContactReachabilityStatus') {
         my $request-input = GetContactReachabilityStatusRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<GetContactReachabilityStatus>,
-            :return-type(GetContactReachabilityStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-domain-auto-renew(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns EnableDomainAutoRenewResponse is service-operation('EnableDomainAutoRenew') {
         my $request-input = EnableDomainAutoRenewRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<EnableDomainAutoRenew>,
-            :return-type(EnableDomainAutoRenewResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-tags-for-domain(
-    DomainName :$domain-name!,
-    Array[Str] :$tags-to-delete!
+        DomainName :$domain-name!,
+        Array[Str] :$tags-to-delete!
     ) returns DeleteTagsForDomainResponse is service-operation('DeleteTagsForDomain') {
         my $request-input = DeleteTagsForDomainRequest.new(
-        :$domain-name,
-        :$tags-to-delete
+            :$domain-name,
+            :$tags-to-delete
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTagsForDomain>,
-            :return-type(DeleteTagsForDomainResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method resend-contact-reachability-email(
-    DomainName :$domain-name
+        DomainName :$domain-name
     ) returns ResendContactReachabilityEmailResponse is service-operation('ResendContactReachabilityEmail') {
         my $request-input = ResendContactReachabilityEmailRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<ResendContactReachabilityEmail>,
-            :return-type(ResendContactReachabilityEmailResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-for-domain(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns ListTagsForDomainResponse is service-operation('ListTagsForDomain') {
         my $request-input = ListTagsForDomainRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsForDomain>,
-            :return-type(ListTagsForDomainResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-domain-contact-privacy(
-    Bool :$admin-privacy,
-    DomainName :$domain-name!,
-    Bool :$tech-privacy,
-    Bool :$registrant-privacy
+        Bool :$admin-privacy,
+        DomainName :$domain-name!,
+        Bool :$tech-privacy,
+        Bool :$registrant-privacy
     ) returns UpdateDomainContactPrivacyResponse is service-operation('UpdateDomainContactPrivacy') {
         my $request-input = UpdateDomainContactPrivacyRequest.new(
-        :$admin-privacy,
-        :$domain-name,
-        :$tech-privacy,
-        :$registrant-privacy
+            :$admin-privacy,
+            :$domain-name,
+            :$tech-privacy,
+            :$registrant-privacy
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDomainContactPrivacy>,
-            :return-type(UpdateDomainContactPrivacyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-operations(
-    PageMaxItems :$max-items,
-    PageMarker :$marker
+        PageMaxItems :$max-items,
+        PageMarker :$marker
     ) returns ListOperationsResponse is service-operation('ListOperations') {
         my $request-input = ListOperationsRequest.new(
-        :$max-items,
-        :$marker
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListOperations>,
-            :return-type(ListOperationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-domains(
-    PageMaxItems :$max-items,
-    PageMarker :$marker
+        PageMaxItems :$max-items,
+        PageMarker :$marker
     ) returns ListDomainsResponse is service-operation('ListDomains') {
         my $request-input = ListDomainsRequest.new(
-        :$max-items,
-        :$marker
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListDomains>,
-            :return-type(ListDomainsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method enable-domain-transfer-lock(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns EnableDomainTransferLockResponse is service-operation('EnableDomainTransferLock') {
         my $request-input = EnableDomainTransferLockRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<EnableDomainTransferLock>,
-            :return-type(EnableDomainTransferLockResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disable-domain-transfer-lock(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DisableDomainTransferLockResponse is service-operation('DisableDomainTransferLock') {
         my $request-input = DisableDomainTransferLockRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DisableDomainTransferLock>,
-            :return-type(DisableDomainTransferLockResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method check-domain-availability(
-    DomainName :$domain-name!,
-    LangCode :$idn-lang-code
+        DomainName :$domain-name!,
+        LangCode :$idn-lang-code
     ) returns CheckDomainAvailabilityResponse is service-operation('CheckDomainAvailability') {
         my $request-input = CheckDomainAvailabilityRequest.new(
-        :$domain-name,
-        :$idn-lang-code
+            :$domain-name,
+            :$idn-lang-code
         );
-;
+
         self.perform-operation(
             :api-call<CheckDomainAvailability>,
-            :return-type(CheckDomainAvailabilityResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method retrieve-domain-auth-code(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns RetrieveDomainAuthCodeResponse is service-operation('RetrieveDomainAuthCode') {
         my $request-input = RetrieveDomainAuthCodeRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<RetrieveDomainAuthCode>,
-            :return-type(RetrieveDomainAuthCodeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method register-domain(
-    DomainName :$domain-name!,
-    ContactDetail :$registrant-contact!,
-    ContactDetail :$admin-contact!,
-    Bool :$auto-renew,
-    LangCode :$idn-lang-code,
-    ContactDetail :$tech-contact!,
-    Bool :$privacy-protect-tech-contact,
-    Bool :$privacy-protect-registrant-contact,
-    Bool :$privacy-protect-admin-contact,
-    DurationInYears :$duration-in-years!
+        DomainName :$domain-name!,
+        ContactDetail :$registrant-contact!,
+        ContactDetail :$admin-contact!,
+        Bool :$auto-renew,
+        LangCode :$idn-lang-code,
+        ContactDetail :$tech-contact!,
+        Bool :$privacy-protect-tech-contact,
+        Bool :$privacy-protect-registrant-contact,
+        Bool :$privacy-protect-admin-contact,
+        DurationInYears :$duration-in-years!
     ) returns RegisterDomainResponse is service-operation('RegisterDomain') {
         my $request-input = RegisterDomainRequest.new(
-        :$domain-name,
-        :$registrant-contact,
-        :$admin-contact,
-        :$auto-renew,
-        :$idn-lang-code,
-        :$tech-contact,
-        :$privacy-protect-tech-contact,
-        :$privacy-protect-registrant-contact,
-        :$privacy-protect-admin-contact,
-        :$duration-in-years
+            :$domain-name,
+            :$registrant-contact,
+            :$admin-contact,
+            :$auto-renew,
+            :$idn-lang-code,
+            :$tech-contact,
+            :$privacy-protect-tech-contact,
+            :$privacy-protect-registrant-contact,
+            :$privacy-protect-admin-contact,
+            :$duration-in-years
         );
-;
+
         self.perform-operation(
             :api-call<RegisterDomain>,
-            :return-type(RegisterDomainResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-domain-suggestions(
-    DomainName :$domain-name!,
-    Bool :$only-available!,
-    Int :$suggestion-count!
+        DomainName :$domain-name!,
+        Bool :$only-available!,
+        Int :$suggestion-count!
     ) returns GetDomainSuggestionsResponse is service-operation('GetDomainSuggestions') {
         my $request-input = GetDomainSuggestionsRequest.new(
-        :$domain-name,
-        :$only-available,
-        :$suggestion-count
+            :$domain-name,
+            :$only-available,
+            :$suggestion-count
         );
-;
+
         self.perform-operation(
             :api-call<GetDomainSuggestions>,
-            :return-type(GetDomainSuggestionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -230,179 +230,159 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
     }
 
     method put-attributes(
-    Str :$domain-name!,
-    UpdateCondition :$expected,
-    Str :$item-name!,
-    Array[ReplaceableAttribute] :$attributes!
+        Str :$domain-name!,
+        UpdateCondition :$expected,
+        Str :$item-name!,
+        Array[ReplaceableAttribute] :$attributes!
     ) is service-operation('PutAttributes') {
         my $request-input = PutAttributesRequest.new(
-        :$domain-name,
-        :$expected,
-        :$item-name,
-        :$attributes
+            :$domain-name,
+            :$expected,
+            :$item-name,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<PutAttributes>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-put-attributes(
-    Str :$domain-name!,
-    Array[ReplaceableItem] :$items!
+        Str :$domain-name!,
+        Array[ReplaceableItem] :$items!
     ) is service-operation('BatchPutAttributes') {
         my $request-input = BatchPutAttributesRequest.new(
-        :$domain-name,
-        :$items
+            :$domain-name,
+            :$items
         );
-;
+
         self.perform-operation(
             :api-call<BatchPutAttributes>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method select(
-    Bool :$consistent-read,
-    Str :$next-token,
-    Str :$select-expression!
+        Bool :$consistent-read,
+        Str :$next-token,
+        Str :$select-expression!
     ) returns SelectResult is service-operation('Select') {
         my $request-input = SelectRequest.new(
-        :$consistent-read,
-        :$next-token,
-        :$select-expression
+            :$consistent-read,
+            :$next-token,
+            :$select-expression
         );
-;
+
         self.perform-operation(
             :api-call<Select>,
-            :return-type(SelectResult),
-            :result-wrapper('SelectResult'),
             :$request-input,
         );
     }
 
     method delete-domain(
-    Str :$domain-name!
+        Str :$domain-name!
     ) is service-operation('DeleteDomain') {
         my $request-input = DeleteDomainRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDomain>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-domain(
-    Str :$domain-name!
+        Str :$domain-name!
     ) is service-operation('CreateDomain') {
         my $request-input = CreateDomainRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDomain>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-delete-attributes(
-    Str :$domain-name!,
-    Array[DeletableItem] :$items!
+        Str :$domain-name!,
+        Array[DeletableItem] :$items!
     ) is service-operation('BatchDeleteAttributes') {
         my $request-input = BatchDeleteAttributesRequest.new(
-        :$domain-name,
-        :$items
+            :$domain-name,
+            :$items
         );
-;
+
         self.perform-operation(
             :api-call<BatchDeleteAttributes>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-attributes(
-    Str :$domain-name!,
-    UpdateCondition :$expected,
-    Str :$item-name!,
-    Array[Attribute] :$attributes
+        Str :$domain-name!,
+        UpdateCondition :$expected,
+        Str :$item-name!,
+        Array[Attribute] :$attributes
     ) is service-operation('DeleteAttributes') {
         my $request-input = DeleteAttributesRequest.new(
-        :$domain-name,
-        :$expected,
-        :$item-name,
-        :$attributes
+            :$domain-name,
+            :$expected,
+            :$item-name,
+            :$attributes
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAttributes>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-domains(
-    Int :$max-number-of-domains,
-    Str :$next-token
+        Int :$max-number-of-domains,
+        Str :$next-token
     ) returns ListDomainsResult is service-operation('ListDomains') {
         my $request-input = ListDomainsRequest.new(
-        :$max-number-of-domains,
-        :$next-token
+            :$max-number-of-domains,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListDomains>,
-            :return-type(ListDomainsResult),
-            :result-wrapper('ListDomainsResult'),
             :$request-input,
         );
     }
 
     method get-attributes(
-    Bool :$consistent-read,
-    Str :$domain-name!,
-    Str :$item-name!,
-    Array[Str] :$attribute-names
+        Bool :$consistent-read,
+        Str :$domain-name!,
+        Str :$item-name!,
+        Array[Str] :$attribute-names
     ) returns GetAttributesResult is service-operation('GetAttributes') {
         my $request-input = GetAttributesRequest.new(
-        :$consistent-read,
-        :$domain-name,
-        :$item-name,
-        :$attribute-names
+            :$consistent-read,
+            :$domain-name,
+            :$item-name,
+            :$attribute-names
         );
-;
+
         self.perform-operation(
             :api-call<GetAttributes>,
-            :return-type(GetAttributesResult),
-            :result-wrapper('GetAttributesResult'),
             :$request-input,
         );
     }
 
     method domain-metadata(
-    Str :$domain-name!
+        Str :$domain-name!
     ) returns DomainMetadataResult is service-operation('DomainMetadata') {
         my $request-input = DomainMetadataRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DomainMetadata>,
-            :return-type(DomainMetadataResult),
-            :result-wrapper('DomainMetadataResult'),
             :$request-input,
         );
     }

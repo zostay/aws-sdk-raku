@@ -627,505 +627,457 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     }
 
     method update-alias(
-    FunctionName :$function-name!,
-    Description :$description,
-    Version :$function-version,
-    Alias :$name!
+        FunctionName :$function-name!,
+        Description :$description,
+        Version :$function-version,
+        Alias :$name!
     ) returns AliasConfiguration is service-operation('UpdateAlias') {
         my $request-input = UpdateAliasRequest.new(
-        :$function-name,
-        :$description,
-        :$function-version,
-        :$name
+            :$function-name,
+            :$description,
+            :$function-version,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAlias>,
-            :return-type(AliasConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags(
-    FunctionArn :$resource!
+        FunctionArn :$resource!
     ) returns ListTagsResponse is service-operation('ListTags') {
         my $request-input = ListTagsRequest.new(
-        :$resource
+            :$resource
         );
-;
+
         self.perform-operation(
             :api-call<ListTags>,
-            :return-type(ListTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-function-configuration(
-    NamespacedFunctionName :$function-name!,
-    Qualifier :$qualifier
+        NamespacedFunctionName :$function-name!,
+        Qualifier :$qualifier
     ) returns FunctionConfiguration is service-operation('GetFunctionConfiguration') {
         my $request-input = GetFunctionConfigurationRequest.new(
-        :$function-name,
-        :$qualifier
+            :$function-name,
+            :$qualifier
         );
-;
+
         self.perform-operation(
             :api-call<GetFunctionConfiguration>,
-            :return-type(FunctionConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-alias(
-    FunctionName :$function-name!,
-    Alias :$name!
+        FunctionName :$function-name!,
+        Alias :$name!
     ) is service-operation('DeleteAlias') {
         my $request-input = DeleteAliasRequest.new(
-        :$function-name,
-        :$name
+            :$function-name,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAlias>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-function-configuration(
-    Timeout :$timeout,
-    KMSKeyArn :$kms-key-arn,
-    Runtime :$runtime,
-    RoleArn :$role,
-    FunctionName :$function-name!,
-    Description :$description,
-    Handler :$handler,
-    TracingConfig :$tracing-config,
-    DeadLetterConfig :$dead-letter-config,
-    VpcConfig :$vpc-config,
-    MemorySize :$memory-size,
-    Environment :$environment
+        Timeout :$timeout,
+        KMSKeyArn :$kms-key-arn,
+        Runtime :$runtime,
+        RoleArn :$role,
+        FunctionName :$function-name!,
+        Description :$description,
+        Handler :$handler,
+        TracingConfig :$tracing-config,
+        DeadLetterConfig :$dead-letter-config,
+        VpcConfig :$vpc-config,
+        MemorySize :$memory-size,
+        Environment :$environment
     ) returns FunctionConfiguration is service-operation('UpdateFunctionConfiguration') {
         my $request-input = UpdateFunctionConfigurationRequest.new(
-        :$timeout,
-        :$kms-key-arn,
-        :$runtime,
-        :$role,
-        :$function-name,
-        :$description,
-        :$handler,
-        :$tracing-config,
-        :$dead-letter-config,
-        :$vpc-config,
-        :$memory-size,
-        :$environment
+            :$timeout,
+            :$kms-key-arn,
+            :$runtime,
+            :$role,
+            :$function-name,
+            :$description,
+            :$handler,
+            :$tracing-config,
+            :$dead-letter-config,
+            :$vpc-config,
+            :$memory-size,
+            :$environment
         );
-;
+
         self.perform-operation(
             :api-call<UpdateFunctionConfiguration>,
-            :return-type(FunctionConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-aliases(
-    FunctionName :$function-name!,
-    Version :$function-version,
-    MaxListItems :$max-items,
-    Str :$marker
+        FunctionName :$function-name!,
+        Version :$function-version,
+        MaxListItems :$max-items,
+        Str :$marker
     ) returns ListAliasesResponse is service-operation('ListAliases') {
         my $request-input = ListAliasesRequest.new(
-        :$function-name,
-        :$function-version,
-        :$max-items,
-        :$marker
+            :$function-name,
+            :$function-version,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListAliases>,
-            :return-type(ListAliasesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-alias(
-    FunctionName :$function-name!,
-    Description :$description,
-    Version :$function-version!,
-    Alias :$name!
+        FunctionName :$function-name!,
+        Description :$description,
+        Version :$function-version!,
+        Alias :$name!
     ) returns AliasConfiguration is service-operation('CreateAlias') {
         my $request-input = CreateAliasRequest.new(
-        :$function-name,
-        :$description,
-        :$function-version,
-        :$name
+            :$function-name,
+            :$description,
+            :$function-version,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateAlias>,
-            :return-type(AliasConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-resource(
-    Hash[Str, Str] :$tags!,
-    FunctionArn :$resource!
+        Hash[Str, Str] :$tags!,
+        FunctionArn :$resource!
     ) is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-        :$tags,
-        :$resource
+            :$tags,
+            :$resource
         );
-;
+
         self.perform-operation(
             :api-call<TagResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method publish-version(
-    FunctionName :$function-name!,
-    Description :$description,
-    Str :$code-sha256
+        FunctionName :$function-name!,
+        Description :$description,
+        Str :$code-sha256
     ) returns FunctionConfiguration is service-operation('PublishVersion') {
         my $request-input = PublishVersionRequest.new(
-        :$function-name,
-        :$description,
-        :$code-sha256
+            :$function-name,
+            :$description,
+            :$code-sha256
         );
-;
+
         self.perform-operation(
             :api-call<PublishVersion>,
-            :return-type(FunctionConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-function(
-    FunctionName :$function-name!,
-    Qualifier :$qualifier
+        FunctionName :$function-name!,
+        Qualifier :$qualifier
     ) is service-operation('DeleteFunction') {
         my $request-input = DeleteFunctionRequest.new(
-        :$function-name,
-        :$qualifier
+            :$function-name,
+            :$qualifier
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFunction>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-event-source-mapping(
-    Str :$uuid!
+        Str :$uuid!
     ) returns EventSourceMappingConfiguration is service-operation('DeleteEventSourceMapping') {
         my $request-input = DeleteEventSourceMappingRequest.new(
-        :$uuid
+            :$uuid
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEventSourceMapping>,
-            :return-type(EventSourceMappingConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-event-source-mapping(
-    Arn :$event-source-arn!,
-    FunctionName :$function-name!,
-    DateTime :$starting-position-timestamp,
-    Bool :$enabled,
-    EventSourcePosition :$starting-position!,
-    BatchSize :$batch-size
+        Arn :$event-source-arn!,
+        FunctionName :$function-name!,
+        DateTime :$starting-position-timestamp,
+        Bool :$enabled,
+        EventSourcePosition :$starting-position!,
+        BatchSize :$batch-size
     ) returns EventSourceMappingConfiguration is service-operation('CreateEventSourceMapping') {
         my $request-input = CreateEventSourceMappingRequest.new(
-        :$event-source-arn,
-        :$function-name,
-        :$starting-position-timestamp,
-        :$enabled,
-        :$starting-position,
-        :$batch-size
+            :$event-source-arn,
+            :$function-name,
+            :$starting-position-timestamp,
+            :$enabled,
+            :$starting-position,
+            :$batch-size
         );
-;
+
         self.perform-operation(
             :api-call<CreateEventSourceMapping>,
-            :return-type(EventSourceMappingConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-function-code(
-    Bool :$publish,
-    Bool :$dry-run,
-    FunctionName :$function-name!,
-    S3ObjectVersion :$s3-object-version,
-    S3Key :$s3-key,
-    Blob :$zip-file,
-    S3Bucket :$s3-bucket
+        Bool :$publish,
+        Bool :$dry-run,
+        FunctionName :$function-name!,
+        S3ObjectVersion :$s3-object-version,
+        S3Key :$s3-key,
+        Blob :$zip-file,
+        S3Bucket :$s3-bucket
     ) returns FunctionConfiguration is service-operation('UpdateFunctionCode') {
         my $request-input = UpdateFunctionCodeRequest.new(
-        :$publish,
-        :$dry-run,
-        :$function-name,
-        :$s3-object-version,
-        :$s3-key,
-        :$zip-file,
-        :$s3-bucket
+            :$publish,
+            :$dry-run,
+            :$function-name,
+            :$s3-object-version,
+            :$s3-key,
+            :$zip-file,
+            :$s3-bucket
         );
-;
+
         self.perform-operation(
             :api-call<UpdateFunctionCode>,
-            :return-type(FunctionConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-functions(
-    MasterRegion :$master-region,
-    FunctionVersion :$function-version,
-    MaxListItems :$max-items,
-    Str :$marker
+        MasterRegion :$master-region,
+        FunctionVersion :$function-version,
+        MaxListItems :$max-items,
+        Str :$marker
     ) returns ListFunctionsResponse is service-operation('ListFunctions') {
         my $request-input = ListFunctionsRequest.new(
-        :$master-region,
-        :$function-version,
-        :$max-items,
-        :$marker
+            :$master-region,
+            :$function-version,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListFunctions>,
-            :return-type(ListFunctionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method invoke(
-    InvocationType :$invocation-type,
-    NamespacedFunctionName :$function-name!,
-    LogType :$log-type,
-    Qualifier :$qualifier,
-    Blob :$payload,
-    Str :$client-context
+        InvocationType :$invocation-type,
+        NamespacedFunctionName :$function-name!,
+        LogType :$log-type,
+        Qualifier :$qualifier,
+        Blob :$payload,
+        Str :$client-context
     ) returns InvocationResponse is service-operation('Invoke') {
         my $request-input = InvocationRequest.new(
-        :$invocation-type,
-        :$function-name,
-        :$log-type,
-        :$qualifier,
-        :$payload,
-        :$client-context
+            :$invocation-type,
+            :$function-name,
+            :$log-type,
+            :$qualifier,
+            :$payload,
+            :$client-context
         );
-;
+
         self.perform-operation(
             :api-call<Invoke>,
-            :return-type(InvocationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-alias(
-    FunctionName :$function-name!,
-    Alias :$name!
+        FunctionName :$function-name!,
+        Alias :$name!
     ) returns AliasConfiguration is service-operation('GetAlias') {
         my $request-input = GetAliasRequest.new(
-        :$function-name,
-        :$name
+            :$function-name,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetAlias>,
-            :return-type(AliasConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-resource(
-    Array[Str] :$tag-keys!,
-    FunctionArn :$resource!
+        Array[Str] :$tag-keys!,
+        FunctionArn :$resource!
     ) is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-        :$tag-keys,
-        :$resource
+            :$tag-keys,
+            :$resource
         );
-;
+
         self.perform-operation(
             :api-call<UntagResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-function(
-    NamespacedFunctionName :$function-name!,
-    Qualifier :$qualifier
+        NamespacedFunctionName :$function-name!,
+        Qualifier :$qualifier
     ) returns GetFunctionResponse is service-operation('GetFunction') {
         my $request-input = GetFunctionRequest.new(
-        :$function-name,
-        :$qualifier
+            :$function-name,
+            :$qualifier
         );
-;
+
         self.perform-operation(
             :api-call<GetFunction>,
-            :return-type(GetFunctionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-function(
-    Bool :$publish,
-    Timeout :$timeout,
-    KMSKeyArn :$kms-key-arn,
-    RoleArn :$role!,
-    Runtime :$runtime!,
-    FunctionName :$function-name!,
-    Description :$description,
-    Handler :$handler!,
-    Hash[Str, Str] :$tags,
-    TracingConfig :$tracing-config,
-    DeadLetterConfig :$dead-letter-config,
-    VpcConfig :$vpc-config,
-    MemorySize :$memory-size,
-    FunctionCode :$code!,
-    Environment :$environment
+        Bool :$publish,
+        Timeout :$timeout,
+        KMSKeyArn :$kms-key-arn,
+        RoleArn :$role!,
+        Runtime :$runtime!,
+        FunctionName :$function-name!,
+        Description :$description,
+        Handler :$handler!,
+        Hash[Str, Str] :$tags,
+        TracingConfig :$tracing-config,
+        DeadLetterConfig :$dead-letter-config,
+        VpcConfig :$vpc-config,
+        MemorySize :$memory-size,
+        FunctionCode :$code!,
+        Environment :$environment
     ) returns FunctionConfiguration is service-operation('CreateFunction') {
         my $request-input = CreateFunctionRequest.new(
-        :$publish,
-        :$timeout,
-        :$kms-key-arn,
-        :$role,
-        :$runtime,
-        :$function-name,
-        :$description,
-        :$handler,
-        :$tags,
-        :$tracing-config,
-        :$dead-letter-config,
-        :$vpc-config,
-        :$memory-size,
-        :$code,
-        :$environment
+            :$publish,
+            :$timeout,
+            :$kms-key-arn,
+            :$role,
+            :$runtime,
+            :$function-name,
+            :$description,
+            :$handler,
+            :$tags,
+            :$tracing-config,
+            :$dead-letter-config,
+            :$vpc-config,
+            :$memory-size,
+            :$code,
+            :$environment
         );
-;
+
         self.perform-operation(
             :api-call<CreateFunction>,
-            :return-type(FunctionConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-event-source-mappings(
-    Arn :$event-source-arn,
-    FunctionName :$function-name,
-    MaxListItems :$max-items,
-    Str :$marker
+        Arn :$event-source-arn,
+        FunctionName :$function-name,
+        MaxListItems :$max-items,
+        Str :$marker
     ) returns ListEventSourceMappingsResponse is service-operation('ListEventSourceMappings') {
         my $request-input = ListEventSourceMappingsRequest.new(
-        :$event-source-arn,
-        :$function-name,
-        :$max-items,
-        :$marker
+            :$event-source-arn,
+            :$function-name,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListEventSourceMappings>,
-            :return-type(ListEventSourceMappingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-event-source-mapping(
-    FunctionName :$function-name,
-    Bool :$enabled,
-    BatchSize :$batch-size,
-    Str :$uuid!
+        FunctionName :$function-name,
+        Bool :$enabled,
+        BatchSize :$batch-size,
+        Str :$uuid!
     ) returns EventSourceMappingConfiguration is service-operation('UpdateEventSourceMapping') {
         my $request-input = UpdateEventSourceMappingRequest.new(
-        :$function-name,
-        :$enabled,
-        :$batch-size,
-        :$uuid
+            :$function-name,
+            :$enabled,
+            :$batch-size,
+            :$uuid
         );
-;
+
         self.perform-operation(
             :api-call<UpdateEventSourceMapping>,
-            :return-type(EventSourceMappingConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-permission(
-    FunctionName :$function-name!,
-    Qualifier :$qualifier,
-    NamespacedStatementId :$statement-id!
+        FunctionName :$function-name!,
+        Qualifier :$qualifier,
+        NamespacedStatementId :$statement-id!
     ) is service-operation('RemovePermission') {
         my $request-input = RemovePermissionRequest.new(
-        :$function-name,
-        :$qualifier,
-        :$statement-id
+            :$function-name,
+            :$qualifier,
+            :$statement-id
         );
-;
+
         self.perform-operation(
             :api-call<RemovePermission>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-versions-by-function(
-    NamespacedFunctionName :$function-name!,
-    MaxListItems :$max-items,
-    Str :$marker
+        NamespacedFunctionName :$function-name!,
+        MaxListItems :$max-items,
+        Str :$marker
     ) returns ListVersionsByFunctionResponse is service-operation('ListVersionsByFunction') {
         my $request-input = ListVersionsByFunctionRequest.new(
-        :$function-name,
-        :$max-items,
-        :$marker
+            :$function-name,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<ListVersionsByFunction>,
-            :return-type(ListVersionsByFunctionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-event-source-mapping(
-    Str :$uuid!
+        Str :$uuid!
     ) returns EventSourceMappingConfiguration is service-operation('GetEventSourceMapping') {
         my $request-input = GetEventSourceMappingRequest.new(
-        :$uuid
+            :$uuid
         );
-;
+
         self.perform-operation(
             :api-call<GetEventSourceMapping>,
-            :return-type(EventSourceMappingConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1136,74 +1088,66 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         my $request-input = GetAccountSettingsRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetAccountSettings>,
-            :return-type(GetAccountSettingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-permission(
-    EventSourceToken :$event-source-token,
-    FunctionName :$function-name!,
-    Qualifier :$qualifier,
-    Principal :$principal!,
-    Action :$action!,
-    StatementId :$statement-id!,
-    SourceOwner :$source-account,
-    Arn :$source-arn
+        EventSourceToken :$event-source-token,
+        FunctionName :$function-name!,
+        Qualifier :$qualifier,
+        Principal :$principal!,
+        Action :$action!,
+        StatementId :$statement-id!,
+        SourceOwner :$source-account,
+        Arn :$source-arn
     ) returns AddPermissionResponse is service-operation('AddPermission') {
         my $request-input = AddPermissionRequest.new(
-        :$event-source-token,
-        :$function-name,
-        :$qualifier,
-        :$principal,
-        :$action,
-        :$statement-id,
-        :$source-account,
-        :$source-arn
+            :$event-source-token,
+            :$function-name,
+            :$qualifier,
+            :$principal,
+            :$action,
+            :$statement-id,
+            :$source-account,
+            :$source-arn
         );
-;
+
         self.perform-operation(
             :api-call<AddPermission>,
-            :return-type(AddPermissionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method invoke-async(
-    NamespacedFunctionName :$function-name!,
-    Blob :$invoke-args!
+        NamespacedFunctionName :$function-name!,
+        Blob :$invoke-args!
     ) returns InvokeAsyncResponse is service-operation('InvokeAsync') {
         my $request-input = InvokeAsyncRequest.new(
-        :$function-name,
-        :$invoke-args
+            :$function-name,
+            :$invoke-args
         );
-;
+
         self.perform-operation(
             :api-call<InvokeAsync>,
-            :return-type(InvokeAsyncResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-policy(
-    NamespacedFunctionName :$function-name!,
-    Qualifier :$qualifier
+        NamespacedFunctionName :$function-name!,
+        Qualifier :$qualifier
     ) returns GetPolicyResponse is service-operation('GetPolicy') {
         my $request-input = GetPolicyRequest.new(
-        :$function-name,
-        :$qualifier
+            :$function-name,
+            :$qualifier
         );
-;
+
         self.perform-operation(
             :api-call<GetPolicy>,
-            :return-type(GetPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

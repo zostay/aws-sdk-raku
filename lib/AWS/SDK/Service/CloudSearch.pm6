@@ -577,71 +577,63 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     subset PartitionInstanceType of Str where $_ ~~ any('search.m1.small', 'search.m1.large', 'search.m2.xlarge', 'search.m2.2xlarge', 'search.m3.medium', 'search.m3.large', 'search.m3.xlarge', 'search.m3.2xlarge');
 
     method describe-index-fields(
-    DomainName :$domain-name!,
-    Bool :$deployed,
-    Array[DynamicFieldName] :$field-names
+        DomainName :$domain-name!,
+        Bool :$deployed,
+        Array[DynamicFieldName] :$field-names
     ) returns DescribeIndexFieldsResponse is service-operation('DescribeIndexFields') {
         my $request-input = DescribeIndexFieldsRequest.new(
-        :$domain-name,
-        :$deployed,
-        :$field-names
+            :$domain-name,
+            :$deployed,
+            :$field-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeIndexFields>,
-            :return-type(DescribeIndexFieldsResponse),
-            :result-wrapper('DescribeIndexFieldsResult'),
             :$request-input,
         );
     }
 
     method delete-expression(
-    DomainName :$domain-name!,
-    StandardName :$expression-name!
+        DomainName :$domain-name!,
+        StandardName :$expression-name!
     ) returns DeleteExpressionResponse is service-operation('DeleteExpression') {
         my $request-input = DeleteExpressionRequest.new(
-        :$domain-name,
-        :$expression-name
+            :$domain-name,
+            :$expression-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteExpression>,
-            :return-type(DeleteExpressionResponse),
-            :result-wrapper('DeleteExpressionResult'),
             :$request-input,
         );
     }
 
     method update-service-access-policies(
-    DomainName :$domain-name!,
-    Str :$access-policies!
+        DomainName :$domain-name!,
+        Str :$access-policies!
     ) returns UpdateServiceAccessPoliciesResponse is service-operation('UpdateServiceAccessPolicies') {
         my $request-input = UpdateServiceAccessPoliciesRequest.new(
-        :$domain-name,
-        :$access-policies
+            :$domain-name,
+            :$access-policies
         );
-;
+
         self.perform-operation(
             :api-call<UpdateServiceAccessPolicies>,
-            :return-type(UpdateServiceAccessPoliciesResponse),
-            :result-wrapper('UpdateServiceAccessPoliciesResult'),
             :$request-input,
         );
     }
 
     method update-availability-options(
-    DomainName :$domain-name!,
-    Bool :$multi-az!
+        DomainName :$domain-name!,
+        Bool :$multi-az!
     ) returns UpdateAvailabilityOptionsResponse is service-operation('UpdateAvailabilityOptions') {
         my $request-input = UpdateAvailabilityOptionsRequest.new(
-        :$domain-name,
-        :$multi-az
+            :$domain-name,
+            :$multi-az
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAvailabilityOptions>,
-            :return-type(UpdateAvailabilityOptionsResponse),
-            :result-wrapper('UpdateAvailabilityOptionsResult'),
             :$request-input,
         );
     }
@@ -649,328 +641,288 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     method list-domain-names(
 
     ) returns ListDomainNamesResponse is service-operation('ListDomainNames') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<ListDomainNames>,
-            :return-type(ListDomainNamesResponse),
-            :result-wrapper('ListDomainNamesResult'),
             :$request-input,
         );
     }
 
     method delete-domain(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DeleteDomainResponse is service-operation('DeleteDomain') {
         my $request-input = DeleteDomainRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDomain>,
-            :return-type(DeleteDomainResponse),
-            :result-wrapper('DeleteDomainResult'),
             :$request-input,
         );
     }
 
     method create-domain(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns CreateDomainResponse is service-operation('CreateDomain') {
         my $request-input = CreateDomainRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDomain>,
-            :return-type(CreateDomainResponse),
-            :result-wrapper('CreateDomainResult'),
             :$request-input,
         );
     }
 
     method index-documents(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns IndexDocumentsResponse is service-operation('IndexDocuments') {
         my $request-input = IndexDocumentsRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<IndexDocuments>,
-            :return-type(IndexDocumentsResponse),
-            :result-wrapper('IndexDocumentsResult'),
             :$request-input,
         );
     }
 
     method describe-analysis-schemes(
-    DomainName :$domain-name!,
-    Bool :$deployed,
-    Array[StandardName] :$analysis-scheme-names
+        DomainName :$domain-name!,
+        Bool :$deployed,
+        Array[StandardName] :$analysis-scheme-names
     ) returns DescribeAnalysisSchemesResponse is service-operation('DescribeAnalysisSchemes') {
         my $request-input = DescribeAnalysisSchemesRequest.new(
-        :$domain-name,
-        :$deployed,
-        :$analysis-scheme-names
+            :$domain-name,
+            :$deployed,
+            :$analysis-scheme-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAnalysisSchemes>,
-            :return-type(DescribeAnalysisSchemesResponse),
-            :result-wrapper('DescribeAnalysisSchemesResult'),
             :$request-input,
         );
     }
 
     method delete-analysis-scheme(
-    DomainName :$domain-name!,
-    StandardName :$analysis-scheme-name!
+        DomainName :$domain-name!,
+        StandardName :$analysis-scheme-name!
     ) returns DeleteAnalysisSchemeResponse is service-operation('DeleteAnalysisScheme') {
         my $request-input = DeleteAnalysisSchemeRequest.new(
-        :$domain-name,
-        :$analysis-scheme-name
+            :$domain-name,
+            :$analysis-scheme-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAnalysisScheme>,
-            :return-type(DeleteAnalysisSchemeResponse),
-            :result-wrapper('DeleteAnalysisSchemeResult'),
             :$request-input,
         );
     }
 
     method describe-service-access-policies(
-    DomainName :$domain-name!,
-    Bool :$deployed
+        DomainName :$domain-name!,
+        Bool :$deployed
     ) returns DescribeServiceAccessPoliciesResponse is service-operation('DescribeServiceAccessPolicies') {
         my $request-input = DescribeServiceAccessPoliciesRequest.new(
-        :$domain-name,
-        :$deployed
+            :$domain-name,
+            :$deployed
         );
-;
+
         self.perform-operation(
             :api-call<DescribeServiceAccessPolicies>,
-            :return-type(DescribeServiceAccessPoliciesResponse),
-            :result-wrapper('DescribeServiceAccessPoliciesResult'),
             :$request-input,
         );
     }
 
     method describe-domains(
-    Array[DomainName] :$domain-names
+        Array[DomainName] :$domain-names
     ) returns DescribeDomainsResponse is service-operation('DescribeDomains') {
         my $request-input = DescribeDomainsRequest.new(
-        :$domain-names
+            :$domain-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDomains>,
-            :return-type(DescribeDomainsResponse),
-            :result-wrapper('DescribeDomainsResult'),
             :$request-input,
         );
     }
 
     method delete-suggester(
-    DomainName :$domain-name!,
-    StandardName :$suggester-name!
+        DomainName :$domain-name!,
+        StandardName :$suggester-name!
     ) returns DeleteSuggesterResponse is service-operation('DeleteSuggester') {
         my $request-input = DeleteSuggesterRequest.new(
-        :$domain-name,
-        :$suggester-name
+            :$domain-name,
+            :$suggester-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSuggester>,
-            :return-type(DeleteSuggesterResponse),
-            :result-wrapper('DeleteSuggesterResult'),
             :$request-input,
         );
     }
 
     method define-index-field(
-    DomainName :$domain-name!,
-    IndexField :$index-field!
+        DomainName :$domain-name!,
+        IndexField :$index-field!
     ) returns DefineIndexFieldResponse is service-operation('DefineIndexField') {
         my $request-input = DefineIndexFieldRequest.new(
-        :$domain-name,
-        :$index-field
+            :$domain-name,
+            :$index-field
         );
-;
+
         self.perform-operation(
             :api-call<DefineIndexField>,
-            :return-type(DefineIndexFieldResponse),
-            :result-wrapper('DefineIndexFieldResult'),
             :$request-input,
         );
     }
 
     method define-analysis-scheme(
-    DomainName :$domain-name!,
-    AnalysisScheme :$analysis-scheme!
+        DomainName :$domain-name!,
+        AnalysisScheme :$analysis-scheme!
     ) returns DefineAnalysisSchemeResponse is service-operation('DefineAnalysisScheme') {
         my $request-input = DefineAnalysisSchemeRequest.new(
-        :$domain-name,
-        :$analysis-scheme
+            :$domain-name,
+            :$analysis-scheme
         );
-;
+
         self.perform-operation(
             :api-call<DefineAnalysisScheme>,
-            :return-type(DefineAnalysisSchemeResponse),
-            :result-wrapper('DefineAnalysisSchemeResult'),
             :$request-input,
         );
     }
 
     method describe-suggesters(
-    DomainName :$domain-name!,
-    Bool :$deployed,
-    Array[StandardName] :$suggester-names
+        DomainName :$domain-name!,
+        Bool :$deployed,
+        Array[StandardName] :$suggester-names
     ) returns DescribeSuggestersResponse is service-operation('DescribeSuggesters') {
         my $request-input = DescribeSuggestersRequest.new(
-        :$domain-name,
-        :$deployed,
-        :$suggester-names
+            :$domain-name,
+            :$deployed,
+            :$suggester-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSuggesters>,
-            :return-type(DescribeSuggestersResponse),
-            :result-wrapper('DescribeSuggestersResult'),
             :$request-input,
         );
     }
 
     method describe-scaling-parameters(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DescribeScalingParametersResponse is service-operation('DescribeScalingParameters') {
         my $request-input = DescribeScalingParametersRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeScalingParameters>,
-            :return-type(DescribeScalingParametersResponse),
-            :result-wrapper('DescribeScalingParametersResult'),
             :$request-input,
         );
     }
 
     method describe-expressions(
-    DomainName :$domain-name!,
-    Bool :$deployed,
-    Array[StandardName] :$expression-names
+        DomainName :$domain-name!,
+        Bool :$deployed,
+        Array[StandardName] :$expression-names
     ) returns DescribeExpressionsResponse is service-operation('DescribeExpressions') {
         my $request-input = DescribeExpressionsRequest.new(
-        :$domain-name,
-        :$deployed,
-        :$expression-names
+            :$domain-name,
+            :$deployed,
+            :$expression-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeExpressions>,
-            :return-type(DescribeExpressionsResponse),
-            :result-wrapper('DescribeExpressionsResult'),
             :$request-input,
         );
     }
 
     method describe-availability-options(
-    DomainName :$domain-name!,
-    Bool :$deployed
+        DomainName :$domain-name!,
+        Bool :$deployed
     ) returns DescribeAvailabilityOptionsResponse is service-operation('DescribeAvailabilityOptions') {
         my $request-input = DescribeAvailabilityOptionsRequest.new(
-        :$domain-name,
-        :$deployed
+            :$domain-name,
+            :$deployed
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAvailabilityOptions>,
-            :return-type(DescribeAvailabilityOptionsResponse),
-            :result-wrapper('DescribeAvailabilityOptionsResult'),
             :$request-input,
         );
     }
 
     method define-expression(
-    DomainName :$domain-name!,
-    Expression :$expression!
+        DomainName :$domain-name!,
+        Expression :$expression!
     ) returns DefineExpressionResponse is service-operation('DefineExpression') {
         my $request-input = DefineExpressionRequest.new(
-        :$domain-name,
-        :$expression
+            :$domain-name,
+            :$expression
         );
-;
+
         self.perform-operation(
             :api-call<DefineExpression>,
-            :return-type(DefineExpressionResponse),
-            :result-wrapper('DefineExpressionResult'),
             :$request-input,
         );
     }
 
     method update-scaling-parameters(
-    DomainName :$domain-name!,
-    ScalingParameters :$scaling-parameters!
+        DomainName :$domain-name!,
+        ScalingParameters :$scaling-parameters!
     ) returns UpdateScalingParametersResponse is service-operation('UpdateScalingParameters') {
         my $request-input = UpdateScalingParametersRequest.new(
-        :$domain-name,
-        :$scaling-parameters
+            :$domain-name,
+            :$scaling-parameters
         );
-;
+
         self.perform-operation(
             :api-call<UpdateScalingParameters>,
-            :return-type(UpdateScalingParametersResponse),
-            :result-wrapper('UpdateScalingParametersResult'),
             :$request-input,
         );
     }
 
     method delete-index-field(
-    DomainName :$domain-name!,
-    DynamicFieldName :$index-field-name!
+        DomainName :$domain-name!,
+        DynamicFieldName :$index-field-name!
     ) returns DeleteIndexFieldResponse is service-operation('DeleteIndexField') {
         my $request-input = DeleteIndexFieldRequest.new(
-        :$domain-name,
-        :$index-field-name
+            :$domain-name,
+            :$index-field-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteIndexField>,
-            :return-type(DeleteIndexFieldResponse),
-            :result-wrapper('DeleteIndexFieldResult'),
             :$request-input,
         );
     }
 
     method build-suggesters(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns BuildSuggestersResponse is service-operation('BuildSuggesters') {
         my $request-input = BuildSuggestersRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<BuildSuggesters>,
-            :return-type(BuildSuggestersResponse),
-            :result-wrapper('BuildSuggestersResult'),
             :$request-input,
         );
     }
 
     method define-suggester(
-    DomainName :$domain-name!,
-    Suggester :$suggester!
+        DomainName :$domain-name!,
+        Suggester :$suggester!
     ) returns DefineSuggesterResponse is service-operation('DefineSuggester') {
         my $request-input = DefineSuggesterRequest.new(
-        :$domain-name,
-        :$suggester
+            :$domain-name,
+            :$suggester
         );
-;
+
         self.perform-operation(
             :api-call<DefineSuggester>,
-            :return-type(DefineSuggesterResponse),
-            :result-wrapper('DefineSuggesterResult'),
             :$request-input,
         );
     }

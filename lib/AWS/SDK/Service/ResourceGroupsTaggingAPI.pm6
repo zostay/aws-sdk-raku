@@ -141,90 +141,80 @@ class AWS::SDK::Service::ResourceGroupsTaggingAPI does AWS::SDK::Service {
     subset ErrorCode of Str where $_ ~~ any('InternalServiceException', 'InvalidParameterException');
 
     method get-resources(
-    Int :$tags-per-page,
-    PaginationToken :$pagination-token,
-    Int :$resources-per-page,
-    Array[AmazonResourceType] :$resource-type-filters,
-    TagFilterList :$tag-filters
+        Int :$tags-per-page,
+        PaginationToken :$pagination-token,
+        Int :$resources-per-page,
+        Array[AmazonResourceType] :$resource-type-filters,
+        TagFilterList :$tag-filters
     ) returns GetResourcesOutput is service-operation('GetResources') {
         my $request-input = GetResourcesInput.new(
-        :$tags-per-page,
-        :$pagination-token,
-        :$resources-per-page,
-        :$resource-type-filters,
-        :$tag-filters
+            :$tags-per-page,
+            :$pagination-token,
+            :$resources-per-page,
+            :$resource-type-filters,
+            :$tag-filters
         );
-;
+
         self.perform-operation(
             :api-call<GetResources>,
-            :return-type(GetResourcesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-tag-keys(
-    PaginationToken :$pagination-token
+        PaginationToken :$pagination-token
     ) returns GetTagKeysOutput is service-operation('GetTagKeys') {
         my $request-input = GetTagKeysInput.new(
-        :$pagination-token
+            :$pagination-token
         );
-;
+
         self.perform-operation(
             :api-call<GetTagKeys>,
-            :return-type(GetTagKeysOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-tag-values(
-    PaginationToken :$pagination-token,
-    TagKey :$key!
+        PaginationToken :$pagination-token,
+        TagKey :$key!
     ) returns GetTagValuesOutput is service-operation('GetTagValues') {
         my $request-input = GetTagValuesInput.new(
-        :$pagination-token,
-        :$key
+            :$pagination-token,
+            :$key
         );
-;
+
         self.perform-operation(
             :api-call<GetTagValues>,
-            :return-type(GetTagValuesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-resources(
-    ResourceARNList :$resource-arn-list!,
-    TagKeyListForUntag :$tag-keys!
+        ResourceARNList :$resource-arn-list!,
+        TagKeyListForUntag :$tag-keys!
     ) returns UntagResourcesOutput is service-operation('UntagResources') {
         my $request-input = UntagResourcesInput.new(
-        :$resource-arn-list,
-        :$tag-keys
+            :$resource-arn-list,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<UntagResources>,
-            :return-type(UntagResourcesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-resources(
-    ResourceARNList :$resource-arn-list!,
-    TagMap :$tags!
+        ResourceARNList :$resource-arn-list!,
+        TagMap :$tags!
     ) returns TagResourcesOutput is service-operation('TagResources') {
         my $request-input = TagResourcesInput.new(
-        :$resource-arn-list,
-        :$tags
+            :$resource-arn-list,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<TagResources>,
-            :return-type(TagResourcesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

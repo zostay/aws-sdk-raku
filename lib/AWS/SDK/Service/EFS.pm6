@@ -279,200 +279,178 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
     }
 
     method describe-mount-target-security-groups(
-    Str :$mount-target-id!
+        Str :$mount-target-id!
     ) returns DescribeMountTargetSecurityGroupsResponse is service-operation('DescribeMountTargetSecurityGroups') {
         my $request-input = DescribeMountTargetSecurityGroupsRequest.new(
-        :$mount-target-id
+            :$mount-target-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMountTargetSecurityGroups>,
-            :return-type(DescribeMountTargetSecurityGroupsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-file-system(
-    Str :$file-system-id!
+        Str :$file-system-id!
     ) is service-operation('DeleteFileSystem') {
         my $request-input = DeleteFileSystemRequest.new(
-        :$file-system-id
+            :$file-system-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteFileSystem>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-mount-target(
-    Str :$subnet-id!,
-    SecurityGroups :$security-groups,
-    Str :$ip-address,
-    Str :$file-system-id!
+        Str :$subnet-id!,
+        SecurityGroups :$security-groups,
+        Str :$ip-address,
+        Str :$file-system-id!
     ) returns MountTargetDescription is service-operation('CreateMountTarget') {
         my $request-input = CreateMountTargetRequest.new(
-        :$subnet-id,
-        :$security-groups,
-        :$ip-address,
-        :$file-system-id
+            :$subnet-id,
+            :$security-groups,
+            :$ip-address,
+            :$file-system-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateMountTarget>,
-            :return-type(MountTargetDescription),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method modify-mount-target-security-groups(
-    SecurityGroups :$security-groups,
-    Str :$mount-target-id!
+        SecurityGroups :$security-groups,
+        Str :$mount-target-id!
     ) is service-operation('ModifyMountTargetSecurityGroups') {
         my $request-input = ModifyMountTargetSecurityGroupsRequest.new(
-        :$security-groups,
-        :$mount-target-id
+            :$security-groups,
+            :$mount-target-id
         );
-;
+
         self.perform-operation(
             :api-call<ModifyMountTargetSecurityGroups>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-file-systems(
-    Str :$file-system-id,
-    MaxItems :$max-items,
-    Str :$marker,
-    CreationToken :$creation-token
+        Str :$file-system-id,
+        MaxItems :$max-items,
+        Str :$marker,
+        CreationToken :$creation-token
     ) returns DescribeFileSystemsResponse is service-operation('DescribeFileSystems') {
         my $request-input = DescribeFileSystemsRequest.new(
-        :$file-system-id,
-        :$max-items,
-        :$marker,
-        :$creation-token
+            :$file-system-id,
+            :$max-items,
+            :$marker,
+            :$creation-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeFileSystems>,
-            :return-type(DescribeFileSystemsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-mount-target(
-    Str :$mount-target-id!
+        Str :$mount-target-id!
     ) is service-operation('DeleteMountTarget') {
         my $request-input = DeleteMountTargetRequest.new(
-        :$mount-target-id
+            :$mount-target-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteMountTarget>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-file-system(
-    KmsKeyId :$kms-key-id,
-    PerformanceMode :$performance-mode,
-    Bool :$encrypted,
-    CreationToken :$creation-token!
+        KmsKeyId :$kms-key-id,
+        PerformanceMode :$performance-mode,
+        Bool :$encrypted,
+        CreationToken :$creation-token!
     ) returns FileSystemDescription is service-operation('CreateFileSystem') {
         my $request-input = CreateFileSystemRequest.new(
-        :$kms-key-id,
-        :$performance-mode,
-        :$encrypted,
-        :$creation-token
+            :$kms-key-id,
+            :$performance-mode,
+            :$encrypted,
+            :$creation-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateFileSystem>,
-            :return-type(FileSystemDescription),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tags(
-    Str :$file-system-id!,
-    MaxItems :$max-items,
-    Str :$marker
+        Str :$file-system-id!,
+        MaxItems :$max-items,
+        Str :$marker
     ) returns DescribeTagsResponse is service-operation('DescribeTags') {
         my $request-input = DescribeTagsRequest.new(
-        :$file-system-id,
-        :$max-items,
-        :$marker
+            :$file-system-id,
+            :$max-items,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTags>,
-            :return-type(DescribeTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-mount-targets(
-    Str :$file-system-id,
-    MaxItems :$max-items,
-    Str :$mount-target-id,
-    Str :$marker
+        Str :$file-system-id,
+        MaxItems :$max-items,
+        Str :$mount-target-id,
+        Str :$marker
     ) returns DescribeMountTargetsResponse is service-operation('DescribeMountTargets') {
         my $request-input = DescribeMountTargetsRequest.new(
-        :$file-system-id,
-        :$max-items,
-        :$mount-target-id,
-        :$marker
+            :$file-system-id,
+            :$max-items,
+            :$mount-target-id,
+            :$marker
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMountTargets>,
-            :return-type(DescribeMountTargetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-tags(
-    Str :$file-system-id!,
-    Array[TagKey] :$tag-keys!
+        Str :$file-system-id!,
+        Array[TagKey] :$tag-keys!
     ) is service-operation('DeleteTags') {
         my $request-input = DeleteTagsRequest.new(
-        :$file-system-id,
-        :$tag-keys
+            :$file-system-id,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTags>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-tags(
-    Str :$file-system-id!,
-    Array[Tag] :$tags!
+        Str :$file-system-id!,
+        Array[Tag] :$tags!
     ) is service-operation('CreateTags') {
         my $request-input = CreateTagsRequest.new(
-        :$file-system-id,
-        :$tags
+            :$file-system-id,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateTags>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

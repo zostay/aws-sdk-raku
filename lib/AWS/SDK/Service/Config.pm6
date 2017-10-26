@@ -673,343 +673,303 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     }
 
     method describe-config-rule-evaluation-status(
-    RuleLimit :$limit,
-    ConfigRuleNames :$config-rule-names,
-    Str :$next-token
+        RuleLimit :$limit,
+        ConfigRuleNames :$config-rule-names,
+        Str :$next-token
     ) returns DescribeConfigRuleEvaluationStatusResponse is service-operation('DescribeConfigRuleEvaluationStatus') {
         my $request-input = DescribeConfigRuleEvaluationStatusRequest.new(
-        :$limit,
-        :$config-rule-names,
-        :$next-token
+            :$limit,
+            :$config-rule-names,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConfigRuleEvaluationStatus>,
-            :return-type(DescribeConfigRuleEvaluationStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-configuration-recorder(
-    RecorderName :$configuration-recorder-name!
+        RecorderName :$configuration-recorder-name!
     ) is service-operation('StopConfigurationRecorder') {
         my $request-input = StopConfigurationRecorderRequest.new(
-        :$configuration-recorder-name
+            :$configuration-recorder-name
         );
-;
+
         self.perform-operation(
             :api-call<StopConfigurationRecorder>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-config-rule(
-    ConfigRule :$config-rule!
+        ConfigRule :$config-rule!
     ) is service-operation('PutConfigRule') {
         my $request-input = PutConfigRuleRequest.new(
-        :$config-rule
+            :$config-rule
         );
-;
+
         self.perform-operation(
             :api-call<PutConfigRule>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-discovered-resources(
-    Bool :$include-deleted-resources,
-    Limit :$limit,
-    Str :$resource-name,
-    Str :$next-token,
-    ResourceType :$resource-type!,
-    Array[Str] :$resource-ids
+        Bool :$include-deleted-resources,
+        Limit :$limit,
+        Str :$resource-name,
+        Str :$next-token,
+        ResourceType :$resource-type!,
+        Array[Str] :$resource-ids
     ) returns ListDiscoveredResourcesResponse is service-operation('ListDiscoveredResources') {
         my $request-input = ListDiscoveredResourcesRequest.new(
-        :$include-deleted-resources,
-        :$limit,
-        :$resource-name,
-        :$next-token,
-        :$resource-type,
-        :$resource-ids
+            :$include-deleted-resources,
+            :$limit,
+            :$resource-name,
+            :$next-token,
+            :$resource-type,
+            :$resource-ids
         );
-;
+
         self.perform-operation(
             :api-call<ListDiscoveredResources>,
-            :return-type(ListDiscoveredResourcesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-compliance-summary-by-resource-type(
-    ResourceTypes :$resource-types
+        ResourceTypes :$resource-types
     ) returns GetComplianceSummaryByResourceTypeResponse is service-operation('GetComplianceSummaryByResourceType') {
         my $request-input = GetComplianceSummaryByResourceTypeRequest.new(
-        :$resource-types
+            :$resource-types
         );
-;
+
         self.perform-operation(
             :api-call<GetComplianceSummaryByResourceType>,
-            :return-type(GetComplianceSummaryByResourceTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-config-rules-evaluation(
-    ReevaluateConfigRuleNames :$config-rule-names
+        ReevaluateConfigRuleNames :$config-rule-names
     ) returns StartConfigRulesEvaluationResponse is service-operation('StartConfigRulesEvaluation') {
         my $request-input = StartConfigRulesEvaluationRequest.new(
-        :$config-rule-names
+            :$config-rule-names
         );
-;
+
         self.perform-operation(
             :api-call<StartConfigRulesEvaluation>,
-            :return-type(StartConfigRulesEvaluationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-compliance-details-by-resource(
-    BaseResourceId :$resource-id!,
-    Str :$next-token,
-    ComplianceTypes :$compliance-types,
-    StringWithCharLimit256 :$resource-type!
+        BaseResourceId :$resource-id!,
+        Str :$next-token,
+        ComplianceTypes :$compliance-types,
+        StringWithCharLimit256 :$resource-type!
     ) returns GetComplianceDetailsByResourceResponse is service-operation('GetComplianceDetailsByResource') {
         my $request-input = GetComplianceDetailsByResourceRequest.new(
-        :$resource-id,
-        :$next-token,
-        :$compliance-types,
-        :$resource-type
+            :$resource-id,
+            :$next-token,
+            :$compliance-types,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<GetComplianceDetailsByResource>,
-            :return-type(GetComplianceDetailsByResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-delivery-channels(
-    Array[ChannelName] :$delivery-channel-names
+        Array[ChannelName] :$delivery-channel-names
     ) returns DescribeDeliveryChannelsResponse is service-operation('DescribeDeliveryChannels') {
         my $request-input = DescribeDeliveryChannelsRequest.new(
-        :$delivery-channel-names
+            :$delivery-channel-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDeliveryChannels>,
-            :return-type(DescribeDeliveryChannelsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-configuration-recorder-status(
-    Array[RecorderName] :$configuration-recorder-names
+        Array[RecorderName] :$configuration-recorder-names
     ) returns DescribeConfigurationRecorderStatusResponse is service-operation('DescribeConfigurationRecorderStatus') {
         my $request-input = DescribeConfigurationRecorderStatusRequest.new(
-        :$configuration-recorder-names
+            :$configuration-recorder-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConfigurationRecorderStatus>,
-            :return-type(DescribeConfigurationRecorderStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-delivery-channel(
-    ChannelName :$delivery-channel-name!
+        ChannelName :$delivery-channel-name!
     ) is service-operation('DeleteDeliveryChannel') {
         my $request-input = DeleteDeliveryChannelRequest.new(
-        :$delivery-channel-name
+            :$delivery-channel-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDeliveryChannel>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-config-rule(
-    StringWithCharLimit64 :$config-rule-name!
+        StringWithCharLimit64 :$config-rule-name!
     ) is service-operation('DeleteConfigRule') {
         my $request-input = DeleteConfigRuleRequest.new(
-        :$config-rule-name
+            :$config-rule-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteConfigRule>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-evaluations(
-    Bool :$test-mode,
-    Evaluations :$evaluations,
-    Str :$result-token!
+        Bool :$test-mode,
+        Evaluations :$evaluations,
+        Str :$result-token!
     ) returns PutEvaluationsResponse is service-operation('PutEvaluations') {
         my $request-input = PutEvaluationsRequest.new(
-        :$test-mode,
-        :$evaluations,
-        :$result-token
+            :$test-mode,
+            :$evaluations,
+            :$result-token
         );
-;
+
         self.perform-operation(
             :api-call<PutEvaluations>,
-            :return-type(PutEvaluationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-evaluation-results(
-    StringWithCharLimit64 :$config-rule-name!
+        StringWithCharLimit64 :$config-rule-name!
     ) returns DeleteEvaluationResultsResponse is service-operation('DeleteEvaluationResults') {
         my $request-input = DeleteEvaluationResultsRequest.new(
-        :$config-rule-name
+            :$config-rule-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEvaluationResults>,
-            :return-type(DeleteEvaluationResultsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-configuration-recorder(
-    RecorderName :$configuration-recorder-name!
+        RecorderName :$configuration-recorder-name!
     ) is service-operation('DeleteConfigurationRecorder') {
         my $request-input = DeleteConfigurationRecorderRequest.new(
-        :$configuration-recorder-name
+            :$configuration-recorder-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteConfigurationRecorder>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-configuration-recorder(
-    RecorderName :$configuration-recorder-name!
+        RecorderName :$configuration-recorder-name!
     ) is service-operation('StartConfigurationRecorder') {
         my $request-input = StartConfigurationRecorderRequest.new(
-        :$configuration-recorder-name
+            :$configuration-recorder-name
         );
-;
+
         self.perform-operation(
             :api-call<StartConfigurationRecorder>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-delivery-channel(
-    DeliveryChannel :$delivery-channel!
+        DeliveryChannel :$delivery-channel!
     ) is service-operation('PutDeliveryChannel') {
         my $request-input = PutDeliveryChannelRequest.new(
-        :$delivery-channel
+            :$delivery-channel
         );
-;
+
         self.perform-operation(
             :api-call<PutDeliveryChannel>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-config-rules(
-    ConfigRuleNames :$config-rule-names,
-    Str :$next-token
+        ConfigRuleNames :$config-rule-names,
+        Str :$next-token
     ) returns DescribeConfigRulesResponse is service-operation('DescribeConfigRules') {
         my $request-input = DescribeConfigRulesRequest.new(
-        :$config-rule-names,
-        :$next-token
+            :$config-rule-names,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConfigRules>,
-            :return-type(DescribeConfigRulesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-compliance-by-config-rule(
-    ConfigRuleNames :$config-rule-names,
-    Str :$next-token,
-    ComplianceTypes :$compliance-types
+        ConfigRuleNames :$config-rule-names,
+        Str :$next-token,
+        ComplianceTypes :$compliance-types
     ) returns DescribeComplianceByConfigRuleResponse is service-operation('DescribeComplianceByConfigRule') {
         my $request-input = DescribeComplianceByConfigRuleRequest.new(
-        :$config-rule-names,
-        :$next-token,
-        :$compliance-types
+            :$config-rule-names,
+            :$next-token,
+            :$compliance-types
         );
-;
+
         self.perform-operation(
             :api-call<DescribeComplianceByConfigRule>,
-            :return-type(DescribeComplianceByConfigRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-configuration-recorder(
-    ConfigurationRecorder :$configuration-recorder!
+        ConfigurationRecorder :$configuration-recorder!
     ) is service-operation('PutConfigurationRecorder') {
         my $request-input = PutConfigurationRecorderRequest.new(
-        :$configuration-recorder
+            :$configuration-recorder
         );
-;
+
         self.perform-operation(
             :api-call<PutConfigurationRecorder>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-resource-config-history(
-    Limit :$limit,
-    Str :$next-token,
-    ResourceType :$resource-type!,
-    Str :$resource-id!,
-    ChronologicalOrder :$chronological-order,
-    DateTime :$earlier-time,
-    DateTime :$later-time
+        Limit :$limit,
+        Str :$next-token,
+        ResourceType :$resource-type!,
+        Str :$resource-id!,
+        ChronologicalOrder :$chronological-order,
+        DateTime :$earlier-time,
+        DateTime :$later-time
     ) returns GetResourceConfigHistoryResponse is service-operation('GetResourceConfigHistory') {
         my $request-input = GetResourceConfigHistoryRequest.new(
-        :$limit,
-        :$next-token,
-        :$resource-type,
-        :$resource-id,
-        :$chronological-order,
-        :$earlier-time,
-        :$later-time
+            :$limit,
+            :$next-token,
+            :$resource-type,
+            :$resource-id,
+            :$chronological-order,
+            :$earlier-time,
+            :$later-time
         );
-;
+
         self.perform-operation(
             :api-call<GetResourceConfigHistory>,
-            :return-type(GetResourceConfigHistoryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1017,119 +977,105 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     method get-compliance-summary-by-config-rule(
 
     ) returns GetComplianceSummaryByConfigRuleResponse is service-operation('GetComplianceSummaryByConfigRule') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<GetComplianceSummaryByConfigRule>,
-            :return-type(GetComplianceSummaryByConfigRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-discovered-resource-counts(
-    Limit :$limit,
-    Str :$next-token,
-    ResourceTypes :$resource-types
+        Limit :$limit,
+        Str :$next-token,
+        ResourceTypes :$resource-types
     ) returns GetDiscoveredResourceCountsResponse is service-operation('GetDiscoveredResourceCounts') {
         my $request-input = GetDiscoveredResourceCountsRequest.new(
-        :$limit,
-        :$next-token,
-        :$resource-types
+            :$limit,
+            :$next-token,
+            :$resource-types
         );
-;
+
         self.perform-operation(
             :api-call<GetDiscoveredResourceCounts>,
-            :return-type(GetDiscoveredResourceCountsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-compliance-details-by-config-rule(
-    Limit :$limit,
-    Str :$next-token,
-    ComplianceTypes :$compliance-types,
-    StringWithCharLimit64 :$config-rule-name!
+        Limit :$limit,
+        Str :$next-token,
+        ComplianceTypes :$compliance-types,
+        StringWithCharLimit64 :$config-rule-name!
     ) returns GetComplianceDetailsByConfigRuleResponse is service-operation('GetComplianceDetailsByConfigRule') {
         my $request-input = GetComplianceDetailsByConfigRuleRequest.new(
-        :$limit,
-        :$next-token,
-        :$compliance-types,
-        :$config-rule-name
+            :$limit,
+            :$next-token,
+            :$compliance-types,
+            :$config-rule-name
         );
-;
+
         self.perform-operation(
             :api-call<GetComplianceDetailsByConfigRule>,
-            :return-type(GetComplianceDetailsByConfigRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-delivery-channel-status(
-    Array[ChannelName] :$delivery-channel-names
+        Array[ChannelName] :$delivery-channel-names
     ) returns DescribeDeliveryChannelStatusResponse is service-operation('DescribeDeliveryChannelStatus') {
         my $request-input = DescribeDeliveryChannelStatusRequest.new(
-        :$delivery-channel-names
+            :$delivery-channel-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDeliveryChannelStatus>,
-            :return-type(DescribeDeliveryChannelStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-configuration-recorders(
-    Array[RecorderName] :$configuration-recorder-names
+        Array[RecorderName] :$configuration-recorder-names
     ) returns DescribeConfigurationRecordersResponse is service-operation('DescribeConfigurationRecorders') {
         my $request-input = DescribeConfigurationRecordersRequest.new(
-        :$configuration-recorder-names
+            :$configuration-recorder-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConfigurationRecorders>,
-            :return-type(DescribeConfigurationRecordersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-compliance-by-resource(
-    Limit :$limit,
-    BaseResourceId :$resource-id,
-    Str :$next-token,
-    ComplianceTypes :$compliance-types,
-    StringWithCharLimit256 :$resource-type
+        Limit :$limit,
+        BaseResourceId :$resource-id,
+        Str :$next-token,
+        ComplianceTypes :$compliance-types,
+        StringWithCharLimit256 :$resource-type
     ) returns DescribeComplianceByResourceResponse is service-operation('DescribeComplianceByResource') {
         my $request-input = DescribeComplianceByResourceRequest.new(
-        :$limit,
-        :$resource-id,
-        :$next-token,
-        :$compliance-types,
-        :$resource-type
+            :$limit,
+            :$resource-id,
+            :$next-token,
+            :$compliance-types,
+            :$resource-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeComplianceByResource>,
-            :return-type(DescribeComplianceByResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deliver-config-snapshot(
-    ChannelName :$delivery-channel-name!
+        ChannelName :$delivery-channel-name!
     ) returns DeliverConfigSnapshotResponse is service-operation('DeliverConfigSnapshot') {
         my $request-input = DeliverConfigSnapshotRequest.new(
-        :$delivery-channel-name
+            :$delivery-channel-name
         );
-;
+
         self.perform-operation(
             :api-call<DeliverConfigSnapshot>,
-            :return-type(DeliverConfigSnapshotResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

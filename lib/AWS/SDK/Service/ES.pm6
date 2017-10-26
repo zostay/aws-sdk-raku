@@ -342,16 +342,14 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
     }
 
     method list-tags(
-    Str :$arn!
+        Str :$arn!
     ) returns ListTagsResponse is service-operation('ListTags') {
         my $request-input = ListTagsRequest.new(
-        :$arn
+            :$arn
         );
-;
+
         self.perform-operation(
             :api-call<ListTags>,
-            :return-type(ListTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -359,214 +357,190 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
     method list-domain-names(
 
     ) returns ListDomainNamesResponse is service-operation('ListDomainNames') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<ListDomainNames>,
-            :return-type(ListDomainNamesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-elasticsearch-instance-type-limits(
-    DomainName :$domain-name,
-    Str :$elasticsearch-version!,
-    ESPartitionInstanceType :$instance-type!
+        DomainName :$domain-name,
+        Str :$elasticsearch-version!,
+        ESPartitionInstanceType :$instance-type!
     ) returns DescribeElasticsearchInstanceTypeLimitsResponse is service-operation('DescribeElasticsearchInstanceTypeLimits') {
         my $request-input = DescribeElasticsearchInstanceTypeLimitsRequest.new(
-        :$domain-name,
-        :$elasticsearch-version,
-        :$instance-type
+            :$domain-name,
+            :$elasticsearch-version,
+            :$instance-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeElasticsearchInstanceTypeLimits>,
-            :return-type(DescribeElasticsearchInstanceTypeLimitsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-tags(
-    Str :$arn!,
-    Array[Tag] :$tag-list!
+        Str :$arn!,
+        Array[Tag] :$tag-list!
     ) is service-operation('AddTags') {
         my $request-input = AddTagsRequest.new(
-        :$arn,
-        :$tag-list
+            :$arn,
+            :$tag-list
         );
-;
+
         self.perform-operation(
             :api-call<AddTags>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-elasticsearch-domains(
-    Array[DomainName] :$domain-names!
+        Array[DomainName] :$domain-names!
     ) returns DescribeElasticsearchDomainsResponse is service-operation('DescribeElasticsearchDomains') {
         my $request-input = DescribeElasticsearchDomainsRequest.new(
-        :$domain-names
+            :$domain-names
         );
-;
+
         self.perform-operation(
             :api-call<DescribeElasticsearchDomains>,
-            :return-type(DescribeElasticsearchDomainsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-elasticsearch-domain(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DescribeElasticsearchDomainResponse is service-operation('DescribeElasticsearchDomain') {
         my $request-input = DescribeElasticsearchDomainRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeElasticsearchDomain>,
-            :return-type(DescribeElasticsearchDomainResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-elasticsearch-domain(
-    SnapshotOptions :$snapshot-options,
-    DomainName :$domain-name!,
-    Str :$elasticsearch-version,
-    ElasticsearchClusterConfig :$elasticsearch-cluster-config,
-    Hash[Str, Str] :$advanced-options,
-    Str :$access-policies,
-    EBSOptions :$ebs-options
+        SnapshotOptions :$snapshot-options,
+        DomainName :$domain-name!,
+        Str :$elasticsearch-version,
+        ElasticsearchClusterConfig :$elasticsearch-cluster-config,
+        Hash[Str, Str] :$advanced-options,
+        Str :$access-policies,
+        EBSOptions :$ebs-options
     ) returns CreateElasticsearchDomainResponse is service-operation('CreateElasticsearchDomain') {
         my $request-input = CreateElasticsearchDomainRequest.new(
-        :$snapshot-options,
-        :$domain-name,
-        :$elasticsearch-version,
-        :$elasticsearch-cluster-config,
-        :$advanced-options,
-        :$access-policies,
-        :$ebs-options
+            :$snapshot-options,
+            :$domain-name,
+            :$elasticsearch-version,
+            :$elasticsearch-cluster-config,
+            :$advanced-options,
+            :$access-policies,
+            :$ebs-options
         );
-;
+
         self.perform-operation(
             :api-call<CreateElasticsearchDomain>,
-            :return-type(CreateElasticsearchDomainResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-elasticsearch-versions(
-    MaxResults :$max-results,
-    Str :$next-token
+        MaxResults :$max-results,
+        Str :$next-token
     ) returns ListElasticsearchVersionsResponse is service-operation('ListElasticsearchVersions') {
         my $request-input = ListElasticsearchVersionsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListElasticsearchVersions>,
-            :return-type(ListElasticsearchVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-elasticsearch-domain(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DeleteElasticsearchDomainResponse is service-operation('DeleteElasticsearchDomain') {
         my $request-input = DeleteElasticsearchDomainRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteElasticsearchDomain>,
-            :return-type(DeleteElasticsearchDomainResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method remove-tags(
-    Str :$arn!,
-    Array[Str] :$tag-keys!
+        Str :$arn!,
+        Array[Str] :$tag-keys!
     ) is service-operation('RemoveTags') {
         my $request-input = RemoveTagsRequest.new(
-        :$arn,
-        :$tag-keys
+            :$arn,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<RemoveTags>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-elasticsearch-instance-types(
-    MaxResults :$max-results,
-    DomainName :$domain-name,
-    Str :$elasticsearch-version!,
-    Str :$next-token
+        MaxResults :$max-results,
+        DomainName :$domain-name,
+        Str :$elasticsearch-version!,
+        Str :$next-token
     ) returns ListElasticsearchInstanceTypesResponse is service-operation('ListElasticsearchInstanceTypes') {
         my $request-input = ListElasticsearchInstanceTypesRequest.new(
-        :$max-results,
-        :$domain-name,
-        :$elasticsearch-version,
-        :$next-token
+            :$max-results,
+            :$domain-name,
+            :$elasticsearch-version,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListElasticsearchInstanceTypes>,
-            :return-type(ListElasticsearchInstanceTypesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-elasticsearch-domain-config(
-    SnapshotOptions :$snapshot-options,
-    DomainName :$domain-name!,
-    ElasticsearchClusterConfig :$elasticsearch-cluster-config,
-    Str :$access-policies,
-    Hash[Str, Str] :$advanced-options,
-    EBSOptions :$ebs-options
+        SnapshotOptions :$snapshot-options,
+        DomainName :$domain-name!,
+        ElasticsearchClusterConfig :$elasticsearch-cluster-config,
+        Str :$access-policies,
+        Hash[Str, Str] :$advanced-options,
+        EBSOptions :$ebs-options
     ) returns UpdateElasticsearchDomainConfigResponse is service-operation('UpdateElasticsearchDomainConfig') {
         my $request-input = UpdateElasticsearchDomainConfigRequest.new(
-        :$snapshot-options,
-        :$domain-name,
-        :$elasticsearch-cluster-config,
-        :$access-policies,
-        :$advanced-options,
-        :$ebs-options
+            :$snapshot-options,
+            :$domain-name,
+            :$elasticsearch-cluster-config,
+            :$access-policies,
+            :$advanced-options,
+            :$ebs-options
         );
-;
+
         self.perform-operation(
             :api-call<UpdateElasticsearchDomainConfig>,
-            :return-type(UpdateElasticsearchDomainConfigResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-elasticsearch-domain-config(
-    DomainName :$domain-name!
+        DomainName :$domain-name!
     ) returns DescribeElasticsearchDomainConfigResponse is service-operation('DescribeElasticsearchDomainConfig') {
         my $request-input = DescribeElasticsearchDomainConfigRequest.new(
-        :$domain-name
+            :$domain-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeElasticsearchDomainConfig>,
-            :return-type(DescribeElasticsearchDomainConfigResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

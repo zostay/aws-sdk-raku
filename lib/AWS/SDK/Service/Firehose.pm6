@@ -514,157 +514,141 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
     }
 
     method describe-delivery-stream(
-    DestinationId :$exclusive-start-destination-id,
-    DescribeDeliveryStreamInputLimit :$limit,
-    DeliveryStreamName :$delivery-stream-name!
+        DestinationId :$exclusive-start-destination-id,
+        DescribeDeliveryStreamInputLimit :$limit,
+        DeliveryStreamName :$delivery-stream-name!
     ) returns DescribeDeliveryStreamOutput is service-operation('DescribeDeliveryStream') {
         my $request-input = DescribeDeliveryStreamInput.new(
-        :$exclusive-start-destination-id,
-        :$limit,
-        :$delivery-stream-name
+            :$exclusive-start-destination-id,
+            :$limit,
+            :$delivery-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDeliveryStream>,
-            :return-type(DescribeDeliveryStreamOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-delivery-stream(
-    S3DestinationConfiguration :$s3-destination-configuration,
-    RedshiftDestinationConfiguration :$redshift-destination-configuration,
-    DeliveryStreamType :$delivery-stream-type,
-    KinesisStreamSourceConfiguration :$kinesis-stream-source-configuration,
-    ElasticsearchDestinationConfiguration :$elasticsearch-destination-configuration,
-    ExtendedS3DestinationConfiguration :$extended-s3-destination-configuration,
-    DeliveryStreamName :$delivery-stream-name!
+        S3DestinationConfiguration :$s3-destination-configuration,
+        RedshiftDestinationConfiguration :$redshift-destination-configuration,
+        DeliveryStreamType :$delivery-stream-type,
+        KinesisStreamSourceConfiguration :$kinesis-stream-source-configuration,
+        ElasticsearchDestinationConfiguration :$elasticsearch-destination-configuration,
+        ExtendedS3DestinationConfiguration :$extended-s3-destination-configuration,
+        DeliveryStreamName :$delivery-stream-name!
     ) returns CreateDeliveryStreamOutput is service-operation('CreateDeliveryStream') {
         my $request-input = CreateDeliveryStreamInput.new(
-        :$s3-destination-configuration,
-        :$redshift-destination-configuration,
-        :$delivery-stream-type,
-        :$kinesis-stream-source-configuration,
-        :$elasticsearch-destination-configuration,
-        :$extended-s3-destination-configuration,
-        :$delivery-stream-name
+            :$s3-destination-configuration,
+            :$redshift-destination-configuration,
+            :$delivery-stream-type,
+            :$kinesis-stream-source-configuration,
+            :$elasticsearch-destination-configuration,
+            :$extended-s3-destination-configuration,
+            :$delivery-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateDeliveryStream>,
-            :return-type(CreateDeliveryStreamOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-destination(
-    DestinationId :$destination-id!,
-    DeliveryStreamVersionId :$current-delivery-stream-version-id!,
-    ElasticsearchDestinationUpdate :$elasticsearch-destination-update,
-    ExtendedS3DestinationUpdate :$extended-s3-destination-update,
-    S3DestinationUpdate :$s3-destination-update,
-    RedshiftDestinationUpdate :$redshift-destination-update,
-    DeliveryStreamName :$delivery-stream-name!
+        DestinationId :$destination-id!,
+        DeliveryStreamVersionId :$current-delivery-stream-version-id!,
+        ElasticsearchDestinationUpdate :$elasticsearch-destination-update,
+        ExtendedS3DestinationUpdate :$extended-s3-destination-update,
+        S3DestinationUpdate :$s3-destination-update,
+        RedshiftDestinationUpdate :$redshift-destination-update,
+        DeliveryStreamName :$delivery-stream-name!
     ) returns UpdateDestinationOutput is service-operation('UpdateDestination') {
         my $request-input = UpdateDestinationInput.new(
-        :$destination-id,
-        :$current-delivery-stream-version-id,
-        :$elasticsearch-destination-update,
-        :$extended-s3-destination-update,
-        :$s3-destination-update,
-        :$redshift-destination-update,
-        :$delivery-stream-name
+            :$destination-id,
+            :$current-delivery-stream-version-id,
+            :$elasticsearch-destination-update,
+            :$extended-s3-destination-update,
+            :$s3-destination-update,
+            :$redshift-destination-update,
+            :$delivery-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDestination>,
-            :return-type(UpdateDestinationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-record(
-    Record :$record!,
-    DeliveryStreamName :$delivery-stream-name!
+        Record :$record!,
+        DeliveryStreamName :$delivery-stream-name!
     ) returns PutRecordOutput is service-operation('PutRecord') {
         my $request-input = PutRecordInput.new(
-        :$record,
-        :$delivery-stream-name
+            :$record,
+            :$delivery-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<PutRecord>,
-            :return-type(PutRecordOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-delivery-stream(
-    DeliveryStreamName :$delivery-stream-name!
+        DeliveryStreamName :$delivery-stream-name!
     ) returns DeleteDeliveryStreamOutput is service-operation('DeleteDeliveryStream') {
         my $request-input = DeleteDeliveryStreamInput.new(
-        :$delivery-stream-name
+            :$delivery-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDeliveryStream>,
-            :return-type(DeleteDeliveryStreamOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-delivery-streams(
-    ListDeliveryStreamsInputLimit :$limit,
-    DeliveryStreamType :$delivery-stream-type,
-    DeliveryStreamName :$exclusive-start-delivery-stream-name
+        ListDeliveryStreamsInputLimit :$limit,
+        DeliveryStreamType :$delivery-stream-type,
+        DeliveryStreamName :$exclusive-start-delivery-stream-name
     ) returns ListDeliveryStreamsOutput is service-operation('ListDeliveryStreams') {
         my $request-input = ListDeliveryStreamsInput.new(
-        :$limit,
-        :$delivery-stream-type,
-        :$exclusive-start-delivery-stream-name
+            :$limit,
+            :$delivery-stream-type,
+            :$exclusive-start-delivery-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<ListDeliveryStreams>,
-            :return-type(ListDeliveryStreamsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-record-batch(
-    PutRecordBatchRequestEntryList :$records!,
-    DeliveryStreamName :$delivery-stream-name!
+        PutRecordBatchRequestEntryList :$records!,
+        DeliveryStreamName :$delivery-stream-name!
     ) returns PutRecordBatchOutput is service-operation('PutRecordBatch') {
         my $request-input = PutRecordBatchInput.new(
-        :$records,
-        :$delivery-stream-name
+            :$records,
+            :$delivery-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<PutRecordBatch>,
-            :return-type(PutRecordBatchOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-kinesis-stream(
-    DeliveryStreamARN :$delivery-stream-arn!
+        DeliveryStreamARN :$delivery-stream-arn!
     ) returns GetKinesisStreamOutput is service-operation('GetKinesisStream') {
         my $request-input = GetKinesisStreamInput.new(
-        :$delivery-stream-arn
+            :$delivery-stream-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetKinesisStream>,
-            :return-type(GetKinesisStreamOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

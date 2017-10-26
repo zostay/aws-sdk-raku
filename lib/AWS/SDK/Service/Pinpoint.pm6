@@ -1439,911 +1439,803 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     method get-gcm-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns GetGcmChannelResponse is service-operation('GetGcmChannel') {
         my $request-input = GetGcmChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetGcmChannel>,
-            :return-type(GetGcmChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-segment-import-jobs(
-    Str :$segment-id!,
-    Str :$token,
-    Str :$page-size,
-    Str :$application-id!
+        Str :$segment-id!,
+        Str :$token,
+        Str :$page-size,
+        Str :$application-id!
     ) returns GetSegmentImportJobsResponse is service-operation('GetSegmentImportJobs') {
         my $request-input = GetSegmentImportJobsRequest.new(
-        :$segment-id,
-        :$token,
-        :$page-size,
-        :$application-id
+            :$segment-id,
+            :$token,
+            :$page-size,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSegmentImportJobs>,
-            :return-type(GetSegmentImportJobsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-application-settings(
-    WriteApplicationSettingsRequest :$write-application-settings-request!,
-    Str :$application-id!
+        WriteApplicationSettingsRequest :$write-application-settings-request!,
+        Str :$application-id!
     ) returns UpdateApplicationSettingsResponse is service-operation('UpdateApplicationSettings') {
         my $request-input = UpdateApplicationSettingsRequest.new(
-        :$write-application-settings-request,
-        :$application-id
+            :$write-application-settings-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApplicationSettings>,
-            :return-type(UpdateApplicationSettingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-event-stream(
-    Str :$application-id!
+        Str :$application-id!
     ) returns GetEventStreamResponse is service-operation('GetEventStream') {
         my $request-input = GetEventStreamRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetEventStream>,
-            :return-type(GetEventStreamResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-adm-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns DeleteAdmChannelResponse is service-operation('DeleteAdmChannel') {
         my $request-input = DeleteAdmChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteAdmChannel>,
-            :return-type(DeleteAdmChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-apns-sandbox-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns DeleteApnsSandboxChannelResponse is service-operation('DeleteApnsSandboxChannel') {
         my $request-input = DeleteApnsSandboxChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApnsSandboxChannel>,
-            :return-type(DeleteApnsSandboxChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-import-job(
-    Str :$job-id!,
-    Str :$application-id!
+        Str :$job-id!,
+        Str :$application-id!
     ) returns GetImportJobResponse is service-operation('GetImportJob') {
         my $request-input = GetImportJobRequest.new(
-        :$job-id,
-        :$application-id
+            :$job-id,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetImportJob>,
-            :return-type(GetImportJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-sms-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns GetSmsChannelResponse is service-operation('GetSmsChannel') {
         my $request-input = GetSmsChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSmsChannel>,
-            :return-type(GetSmsChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-campaign(
-    WriteCampaignRequest :$write-campaign-request!,
-    Str :$campaign-id!,
-    Str :$application-id!
+        WriteCampaignRequest :$write-campaign-request!,
+        Str :$campaign-id!,
+        Str :$application-id!
     ) returns UpdateCampaignResponse is service-operation('UpdateCampaign') {
         my $request-input = UpdateCampaignRequest.new(
-        :$write-campaign-request,
-        :$campaign-id,
-        :$application-id
+            :$write-campaign-request,
+            :$campaign-id,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateCampaign>,
-            :return-type(UpdateCampaignResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-gcm-channel(
-    GCMChannelRequest :$gcm-channel-request!,
-    Str :$application-id!
+        GCMChannelRequest :$gcm-channel-request!,
+        Str :$application-id!
     ) returns UpdateGcmChannelResponse is service-operation('UpdateGcmChannel') {
         my $request-input = UpdateGcmChannelRequest.new(
-        :$gcm-channel-request,
-        :$application-id
+            :$gcm-channel-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateGcmChannel>,
-            :return-type(UpdateGcmChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-campaign(
-    Str :$campaign-id!,
-    Str :$application-id!
+        Str :$campaign-id!,
+        Str :$application-id!
     ) returns GetCampaignResponse is service-operation('GetCampaign') {
         my $request-input = GetCampaignRequest.new(
-        :$campaign-id,
-        :$application-id
+            :$campaign-id,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetCampaign>,
-            :return-type(GetCampaignResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method send-users-messages(
-    SendUsersMessageRequest :$send-users-message-request!,
-    Str :$application-id!
+        SendUsersMessageRequest :$send-users-message-request!,
+        Str :$application-id!
     ) returns SendUsersMessagesResponse is service-operation('SendUsersMessages') {
         my $request-input = SendUsersMessagesRequest.new(
-        :$send-users-message-request,
-        :$application-id
+            :$send-users-message-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<SendUsersMessages>,
-            :return-type(SendUsersMessagesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-apns-channel(
-    APNSChannelRequest :$apns-channel-request!,
-    Str :$application-id!
+        APNSChannelRequest :$apns-channel-request!,
+        Str :$application-id!
     ) returns UpdateApnsChannelResponse is service-operation('UpdateApnsChannel') {
         my $request-input = UpdateApnsChannelRequest.new(
-        :$apns-channel-request,
-        :$application-id
+            :$apns-channel-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApnsChannel>,
-            :return-type(UpdateApnsChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-endpoint(
-    EndpointRequest :$endpoint-request!,
-    Str :$endpoint-id!,
-    Str :$application-id!
+        EndpointRequest :$endpoint-request!,
+        Str :$endpoint-id!,
+        Str :$application-id!
     ) returns UpdateEndpointResponse is service-operation('UpdateEndpoint') {
         my $request-input = UpdateEndpointRequest.new(
-        :$endpoint-request,
-        :$endpoint-id,
-        :$application-id
+            :$endpoint-request,
+            :$endpoint-id,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateEndpoint>,
-            :return-type(UpdateEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-segment(
-    Str :$segment-id!,
-    WriteSegmentRequest :$write-segment-request!,
-    Str :$application-id!
+        Str :$segment-id!,
+        WriteSegmentRequest :$write-segment-request!,
+        Str :$application-id!
     ) returns UpdateSegmentResponse is service-operation('UpdateSegment') {
         my $request-input = UpdateSegmentRequest.new(
-        :$segment-id,
-        :$write-segment-request,
-        :$application-id
+            :$segment-id,
+            :$write-segment-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSegment>,
-            :return-type(UpdateSegmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-campaign-activities(
-    Str :$campaign-id!,
-    Str :$token,
-    Str :$page-size,
-    Str :$application-id!
+        Str :$campaign-id!,
+        Str :$token,
+        Str :$page-size,
+        Str :$application-id!
     ) returns GetCampaignActivitiesResponse is service-operation('GetCampaignActivities') {
         my $request-input = GetCampaignActivitiesRequest.new(
-        :$campaign-id,
-        :$token,
-        :$page-size,
-        :$application-id
+            :$campaign-id,
+            :$token,
+            :$page-size,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetCampaignActivities>,
-            :return-type(GetCampaignActivitiesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-endpoint(
-    Str :$endpoint-id!,
-    Str :$application-id!
+        Str :$endpoint-id!,
+        Str :$application-id!
     ) returns GetEndpointResponse is service-operation('GetEndpoint') {
         my $request-input = GetEndpointRequest.new(
-        :$endpoint-id,
-        :$application-id
+            :$endpoint-id,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetEndpoint>,
-            :return-type(GetEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-apns-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns DeleteApnsChannelResponse is service-operation('DeleteApnsChannel') {
         my $request-input = DeleteApnsChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApnsChannel>,
-            :return-type(DeleteApnsChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-apps(
-    Str :$token,
-    Str :$page-size
+        Str :$token,
+        Str :$page-size
     ) returns GetAppsResponse is service-operation('GetApps') {
         my $request-input = GetAppsRequest.new(
-        :$token,
-        :$page-size
+            :$token,
+            :$page-size
         );
-;
+
         self.perform-operation(
             :api-call<GetApps>,
-            :return-type(GetAppsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-import-jobs(
-    Str :$token,
-    Str :$page-size,
-    Str :$application-id!
+        Str :$token,
+        Str :$page-size,
+        Str :$application-id!
     ) returns GetImportJobsResponse is service-operation('GetImportJobs') {
         my $request-input = GetImportJobsRequest.new(
-        :$token,
-        :$page-size,
-        :$application-id
+            :$token,
+            :$page-size,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetImportJobs>,
-            :return-type(GetImportJobsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-adm-channel(
-    Str :$application-id!,
-    ADMChannelRequest :$adm-channel-request!
+        Str :$application-id!,
+        ADMChannelRequest :$adm-channel-request!
     ) returns UpdateAdmChannelResponse is service-operation('UpdateAdmChannel') {
         my $request-input = UpdateAdmChannelRequest.new(
-        :$application-id,
-        :$adm-channel-request
+            :$application-id,
+            :$adm-channel-request
         );
-;
+
         self.perform-operation(
             :api-call<UpdateAdmChannel>,
-            :return-type(UpdateAdmChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-segment(
-    WriteSegmentRequest :$write-segment-request!,
-    Str :$application-id!
+        WriteSegmentRequest :$write-segment-request!,
+        Str :$application-id!
     ) returns CreateSegmentResponse is service-operation('CreateSegment') {
         my $request-input = CreateSegmentRequest.new(
-        :$write-segment-request,
-        :$application-id
+            :$write-segment-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateSegment>,
-            :return-type(CreateSegmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-app(
-    Str :$application-id!
+        Str :$application-id!
     ) returns DeleteAppResponse is service-operation('DeleteApp') {
         my $request-input = DeleteAppRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApp>,
-            :return-type(DeleteAppResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-segment(
-    Str :$segment-id!,
-    Str :$application-id!
+        Str :$segment-id!,
+        Str :$application-id!
     ) returns DeleteSegmentResponse is service-operation('DeleteSegment') {
         my $request-input = DeleteSegmentRequest.new(
-        :$segment-id,
-        :$application-id
+            :$segment-id,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSegment>,
-            :return-type(DeleteSegmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-adm-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns GetAdmChannelResponse is service-operation('GetAdmChannel') {
         my $request-input = GetAdmChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetAdmChannel>,
-            :return-type(GetAdmChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-email-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns GetEmailChannelResponse is service-operation('GetEmailChannel') {
         my $request-input = GetEmailChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetEmailChannel>,
-            :return-type(GetEmailChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-event-stream(
-    WriteEventStream :$write-event-stream!,
-    Str :$application-id!
+        WriteEventStream :$write-event-stream!,
+        Str :$application-id!
     ) returns PutEventStreamResponse is service-operation('PutEventStream') {
         my $request-input = PutEventStreamRequest.new(
-        :$write-event-stream,
-        :$application-id
+            :$write-event-stream,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<PutEventStream>,
-            :return-type(PutEventStreamResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-baidu-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns DeleteBaiduChannelResponse is service-operation('DeleteBaiduChannel') {
         my $request-input = DeleteBaiduChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBaiduChannel>,
-            :return-type(DeleteBaiduChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-sms-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns DeleteSmsChannelResponse is service-operation('DeleteSmsChannel') {
         my $request-input = DeleteSmsChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSmsChannel>,
-            :return-type(DeleteSmsChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-baidu-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns GetBaiduChannelResponse is service-operation('GetBaiduChannel') {
         my $request-input = GetBaiduChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetBaiduChannel>,
-            :return-type(GetBaiduChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-segments(
-    Str :$token,
-    Str :$page-size,
-    Str :$application-id!
+        Str :$token,
+        Str :$page-size,
+        Str :$application-id!
     ) returns GetSegmentsResponse is service-operation('GetSegments') {
         my $request-input = GetSegmentsRequest.new(
-        :$token,
-        :$page-size,
-        :$application-id
+            :$token,
+            :$page-size,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSegments>,
-            :return-type(GetSegmentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-apns-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns GetApnsChannelResponse is service-operation('GetApnsChannel') {
         my $request-input = GetApnsChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetApnsChannel>,
-            :return-type(GetApnsChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-campaign-versions(
-    Str :$campaign-id!,
-    Str :$token,
-    Str :$page-size,
-    Str :$application-id!
+        Str :$campaign-id!,
+        Str :$token,
+        Str :$page-size,
+        Str :$application-id!
     ) returns GetCampaignVersionsResponse is service-operation('GetCampaignVersions') {
         my $request-input = GetCampaignVersionsRequest.new(
-        :$campaign-id,
-        :$token,
-        :$page-size,
-        :$application-id
+            :$campaign-id,
+            :$token,
+            :$page-size,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetCampaignVersions>,
-            :return-type(GetCampaignVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-endpoints-batch(
-    EndpointBatchRequest :$endpoint-batch-request!,
-    Str :$application-id!
+        EndpointBatchRequest :$endpoint-batch-request!,
+        Str :$application-id!
     ) returns UpdateEndpointsBatchResponse is service-operation('UpdateEndpointsBatch') {
         my $request-input = UpdateEndpointsBatchRequest.new(
-        :$endpoint-batch-request,
-        :$application-id
+            :$endpoint-batch-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateEndpointsBatch>,
-            :return-type(UpdateEndpointsBatchResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-app(
-    Str :$application-id!
+        Str :$application-id!
     ) returns GetAppResponse is service-operation('GetApp') {
         my $request-input = GetAppRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetApp>,
-            :return-type(GetAppResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-campaign(
-    WriteCampaignRequest :$write-campaign-request!,
-    Str :$application-id!
+        WriteCampaignRequest :$write-campaign-request!,
+        Str :$application-id!
     ) returns CreateCampaignResponse is service-operation('CreateCampaign') {
         my $request-input = CreateCampaignRequest.new(
-        :$write-campaign-request,
-        :$application-id
+            :$write-campaign-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateCampaign>,
-            :return-type(CreateCampaignResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-email-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns DeleteEmailChannelResponse is service-operation('DeleteEmailChannel') {
         my $request-input = DeleteEmailChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEmailChannel>,
-            :return-type(DeleteEmailChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-application-settings(
-    Str :$application-id!
+        Str :$application-id!
     ) returns GetApplicationSettingsResponse is service-operation('GetApplicationSettings') {
         my $request-input = GetApplicationSettingsRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetApplicationSettings>,
-            :return-type(GetApplicationSettingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-campaigns(
-    Str :$token,
-    Str :$page-size,
-    Str :$application-id!
+        Str :$token,
+        Str :$page-size,
+        Str :$application-id!
     ) returns GetCampaignsResponse is service-operation('GetCampaigns') {
         my $request-input = GetCampaignsRequest.new(
-        :$token,
-        :$page-size,
-        :$application-id
+            :$token,
+            :$page-size,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetCampaigns>,
-            :return-type(GetCampaignsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-segment-version(
-    Str :$segment-id!,
-    Str :$version!,
-    Str :$application-id!
+        Str :$segment-id!,
+        Str :$version!,
+        Str :$application-id!
     ) returns GetSegmentVersionResponse is service-operation('GetSegmentVersion') {
         my $request-input = GetSegmentVersionRequest.new(
-        :$segment-id,
-        :$version,
-        :$application-id
+            :$segment-id,
+            :$version,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSegmentVersion>,
-            :return-type(GetSegmentVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-baidu-channel(
-    BaiduChannelRequest :$baidu-channel-request!,
-    Str :$application-id!
+        BaiduChannelRequest :$baidu-channel-request!,
+        Str :$application-id!
     ) returns UpdateBaiduChannelResponse is service-operation('UpdateBaiduChannel') {
         my $request-input = UpdateBaiduChannelRequest.new(
-        :$baidu-channel-request,
-        :$application-id
+            :$baidu-channel-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateBaiduChannel>,
-            :return-type(UpdateBaiduChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-import-job(
-    ImportJobRequest :$import-job-request!,
-    Str :$application-id!
+        ImportJobRequest :$import-job-request!,
+        Str :$application-id!
     ) returns CreateImportJobResponse is service-operation('CreateImportJob') {
         my $request-input = CreateImportJobRequest.new(
-        :$import-job-request,
-        :$application-id
+            :$import-job-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateImportJob>,
-            :return-type(CreateImportJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-event-stream(
-    Str :$application-id!
+        Str :$application-id!
     ) returns DeleteEventStreamResponse is service-operation('DeleteEventStream') {
         my $request-input = DeleteEventStreamRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEventStream>,
-            :return-type(DeleteEventStreamResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-segment(
-    Str :$segment-id!,
-    Str :$application-id!
+        Str :$segment-id!,
+        Str :$application-id!
     ) returns GetSegmentResponse is service-operation('GetSegment') {
         my $request-input = GetSegmentRequest.new(
-        :$segment-id,
-        :$application-id
+            :$segment-id,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSegment>,
-            :return-type(GetSegmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-segment-versions(
-    Str :$segment-id!,
-    Str :$token,
-    Str :$page-size,
-    Str :$application-id!
+        Str :$segment-id!,
+        Str :$token,
+        Str :$page-size,
+        Str :$application-id!
     ) returns GetSegmentVersionsResponse is service-operation('GetSegmentVersions') {
         my $request-input = GetSegmentVersionsRequest.new(
-        :$segment-id,
-        :$token,
-        :$page-size,
-        :$application-id
+            :$segment-id,
+            :$token,
+            :$page-size,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSegmentVersions>,
-            :return-type(GetSegmentVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method send-messages(
-    MessageRequest :$message-request!,
-    Str :$application-id!
+        MessageRequest :$message-request!,
+        Str :$application-id!
     ) returns SendMessagesResponse is service-operation('SendMessages') {
         my $request-input = SendMessagesRequest.new(
-        :$message-request,
-        :$application-id
+            :$message-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<SendMessages>,
-            :return-type(SendMessagesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-app(
-    CreateApplicationRequest :$create-application-request!
+        CreateApplicationRequest :$create-application-request!
     ) returns CreateAppResponse is service-operation('CreateApp') {
         my $request-input = CreateAppRequest.new(
-        :$create-application-request
+            :$create-application-request
         );
-;
+
         self.perform-operation(
             :api-call<CreateApp>,
-            :return-type(CreateAppResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-apns-sandbox-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns GetApnsSandboxChannelResponse is service-operation('GetApnsSandboxChannel') {
         my $request-input = GetApnsSandboxChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetApnsSandboxChannel>,
-            :return-type(GetApnsSandboxChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-sms-channel(
-    SMSChannelRequest :$sms-channel-request!,
-    Str :$application-id!
+        SMSChannelRequest :$sms-channel-request!,
+        Str :$application-id!
     ) returns UpdateSmsChannelResponse is service-operation('UpdateSmsChannel') {
         my $request-input = UpdateSmsChannelRequest.new(
-        :$sms-channel-request,
-        :$application-id
+            :$sms-channel-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSmsChannel>,
-            :return-type(UpdateSmsChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-campaign(
-    Str :$campaign-id!,
-    Str :$application-id!
+        Str :$campaign-id!,
+        Str :$application-id!
     ) returns DeleteCampaignResponse is service-operation('DeleteCampaign') {
         my $request-input = DeleteCampaignRequest.new(
-        :$campaign-id,
-        :$application-id
+            :$campaign-id,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCampaign>,
-            :return-type(DeleteCampaignResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-gcm-channel(
-    Str :$application-id!
+        Str :$application-id!
     ) returns DeleteGcmChannelResponse is service-operation('DeleteGcmChannel') {
         my $request-input = DeleteGcmChannelRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteGcmChannel>,
-            :return-type(DeleteGcmChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-campaign-version(
-    Str :$campaign-id!,
-    Str :$version!,
-    Str :$application-id!
+        Str :$campaign-id!,
+        Str :$version!,
+        Str :$application-id!
     ) returns GetCampaignVersionResponse is service-operation('GetCampaignVersion') {
         my $request-input = GetCampaignVersionRequest.new(
-        :$campaign-id,
-        :$version,
-        :$application-id
+            :$campaign-id,
+            :$version,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<GetCampaignVersion>,
-            :return-type(GetCampaignVersionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-apns-sandbox-channel(
-    APNSSandboxChannelRequest :$apns-sandbox-channel-request!,
-    Str :$application-id!
+        APNSSandboxChannelRequest :$apns-sandbox-channel-request!,
+        Str :$application-id!
     ) returns UpdateApnsSandboxChannelResponse is service-operation('UpdateApnsSandboxChannel') {
         my $request-input = UpdateApnsSandboxChannelRequest.new(
-        :$apns-sandbox-channel-request,
-        :$application-id
+            :$apns-sandbox-channel-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApnsSandboxChannel>,
-            :return-type(UpdateApnsSandboxChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-email-channel(
-    EmailChannelRequest :$email-channel-request!,
-    Str :$application-id!
+        EmailChannelRequest :$email-channel-request!,
+        Str :$application-id!
     ) returns UpdateEmailChannelResponse is service-operation('UpdateEmailChannel') {
         my $request-input = UpdateEmailChannelRequest.new(
-        :$email-channel-request,
-        :$application-id
+            :$email-channel-request,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateEmailChannel>,
-            :return-type(UpdateEmailChannelResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

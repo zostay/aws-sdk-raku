@@ -266,164 +266,150 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
     }
 
     method register-scalable-target(
-    ResourceIdMaxLen1600 :$role-arn,
-    Int :$max-capacity,
-    Int :$min-capacity,
-    ServiceNamespace :$service-namespace!,
-    ResourceIdMaxLen1600 :$resource-id!,
-    ScalableDimension :$scalable-dimension!
+        ResourceIdMaxLen1600 :$role-arn,
+        Int :$max-capacity,
+        Int :$min-capacity,
+        ServiceNamespace :$service-namespace!,
+        ResourceIdMaxLen1600 :$resource-id!,
+        ScalableDimension :$scalable-dimension!
     ) returns RegisterScalableTargetResponse is service-operation('RegisterScalableTarget') {
         my $request-input = RegisterScalableTargetRequest.new(
-        :$role-arn,
-        :$max-capacity,
-        :$min-capacity,
-        :$service-namespace,
-        :$resource-id,
-        :$scalable-dimension
+            :$role-arn,
+            :$max-capacity,
+            :$min-capacity,
+            :$service-namespace,
+            :$resource-id,
+            :$scalable-dimension
         );
-;
+
         self.perform-operation(
             :api-call<RegisterScalableTarget>,
-            :return-type(RegisterScalableTargetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-scaling-policy(
-    ServiceNamespace :$service-namespace!,
-    ResourceIdMaxLen1600 :$resource-id!,
-    ScalableDimension :$scalable-dimension!,
-    ResourceIdMaxLen1600 :$policy-name!
+        ServiceNamespace :$service-namespace!,
+        ResourceIdMaxLen1600 :$resource-id!,
+        ScalableDimension :$scalable-dimension!,
+        ResourceIdMaxLen1600 :$policy-name!
     ) returns DeleteScalingPolicyResponse is service-operation('DeleteScalingPolicy') {
         my $request-input = DeleteScalingPolicyRequest.new(
-        :$service-namespace,
-        :$resource-id,
-        :$scalable-dimension,
-        :$policy-name
+            :$service-namespace,
+            :$resource-id,
+            :$scalable-dimension,
+            :$policy-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteScalingPolicy>,
-            :return-type(DeleteScalingPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-scaling-activities(
-    Int :$max-results,
-    ServiceNamespace :$service-namespace!,
-    ResourceIdMaxLen1600 :$resource-id,
-    XmlString :$next-token,
-    ScalableDimension :$scalable-dimension
+        Int :$max-results,
+        ServiceNamespace :$service-namespace!,
+        ResourceIdMaxLen1600 :$resource-id,
+        XmlString :$next-token,
+        ScalableDimension :$scalable-dimension
     ) returns DescribeScalingActivitiesResponse is service-operation('DescribeScalingActivities') {
         my $request-input = DescribeScalingActivitiesRequest.new(
-        :$max-results,
-        :$service-namespace,
-        :$resource-id,
-        :$next-token,
-        :$scalable-dimension
+            :$max-results,
+            :$service-namespace,
+            :$resource-id,
+            :$next-token,
+            :$scalable-dimension
         );
-;
+
         self.perform-operation(
             :api-call<DescribeScalingActivities>,
-            :return-type(DescribeScalingActivitiesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method deregister-scalable-target(
-    ServiceNamespace :$service-namespace!,
-    ResourceIdMaxLen1600 :$resource-id!,
-    ScalableDimension :$scalable-dimension!
+        ServiceNamespace :$service-namespace!,
+        ResourceIdMaxLen1600 :$resource-id!,
+        ScalableDimension :$scalable-dimension!
     ) returns DeregisterScalableTargetResponse is service-operation('DeregisterScalableTarget') {
         my $request-input = DeregisterScalableTargetRequest.new(
-        :$service-namespace,
-        :$resource-id,
-        :$scalable-dimension
+            :$service-namespace,
+            :$resource-id,
+            :$scalable-dimension
         );
-;
+
         self.perform-operation(
             :api-call<DeregisterScalableTarget>,
-            :return-type(DeregisterScalableTargetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-scaling-policy(
-    ServiceNamespace :$service-namespace!,
-    TargetTrackingScalingPolicyConfiguration :$target-tracking-scaling-policy-configuration,
-    ResourceIdMaxLen1600 :$resource-id!,
-    ScalableDimension :$scalable-dimension!,
-    PolicyType :$policy-type,
-    PolicyName :$policy-name!,
-    StepScalingPolicyConfiguration :$step-scaling-policy-configuration
+        ServiceNamespace :$service-namespace!,
+        TargetTrackingScalingPolicyConfiguration :$target-tracking-scaling-policy-configuration,
+        ResourceIdMaxLen1600 :$resource-id!,
+        ScalableDimension :$scalable-dimension!,
+        PolicyType :$policy-type,
+        PolicyName :$policy-name!,
+        StepScalingPolicyConfiguration :$step-scaling-policy-configuration
     ) returns PutScalingPolicyResponse is service-operation('PutScalingPolicy') {
         my $request-input = PutScalingPolicyRequest.new(
-        :$service-namespace,
-        :$target-tracking-scaling-policy-configuration,
-        :$resource-id,
-        :$scalable-dimension,
-        :$policy-type,
-        :$policy-name,
-        :$step-scaling-policy-configuration
+            :$service-namespace,
+            :$target-tracking-scaling-policy-configuration,
+            :$resource-id,
+            :$scalable-dimension,
+            :$policy-type,
+            :$policy-name,
+            :$step-scaling-policy-configuration
         );
-;
+
         self.perform-operation(
             :api-call<PutScalingPolicy>,
-            :return-type(PutScalingPolicyResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-scaling-policies(
-    Int :$max-results,
-    ServiceNamespace :$service-namespace!,
-    Array[ResourceIdMaxLen1600] :$policy-names,
-    ResourceIdMaxLen1600 :$resource-id,
-    XmlString :$next-token,
-    ScalableDimension :$scalable-dimension
+        Int :$max-results,
+        ServiceNamespace :$service-namespace!,
+        Array[ResourceIdMaxLen1600] :$policy-names,
+        ResourceIdMaxLen1600 :$resource-id,
+        XmlString :$next-token,
+        ScalableDimension :$scalable-dimension
     ) returns DescribeScalingPoliciesResponse is service-operation('DescribeScalingPolicies') {
         my $request-input = DescribeScalingPoliciesRequest.new(
-        :$max-results,
-        :$service-namespace,
-        :$policy-names,
-        :$resource-id,
-        :$next-token,
-        :$scalable-dimension
+            :$max-results,
+            :$service-namespace,
+            :$policy-names,
+            :$resource-id,
+            :$next-token,
+            :$scalable-dimension
         );
-;
+
         self.perform-operation(
             :api-call<DescribeScalingPolicies>,
-            :return-type(DescribeScalingPoliciesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-scalable-targets(
-    Int :$max-results,
-    ServiceNamespace :$service-namespace!,
-    XmlString :$next-token,
-    ScalableDimension :$scalable-dimension,
-    Array[ResourceIdMaxLen1600] :$resource-ids
+        Int :$max-results,
+        ServiceNamespace :$service-namespace!,
+        XmlString :$next-token,
+        ScalableDimension :$scalable-dimension,
+        Array[ResourceIdMaxLen1600] :$resource-ids
     ) returns DescribeScalableTargetsResponse is service-operation('DescribeScalableTargets') {
         my $request-input = DescribeScalableTargetsRequest.new(
-        :$max-results,
-        :$service-namespace,
-        :$next-token,
-        :$scalable-dimension,
-        :$resource-ids
+            :$max-results,
+            :$service-namespace,
+            :$next-token,
+            :$scalable-dimension,
+            :$resource-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeScalableTargets>,
-            :return-type(DescribeScalableTargetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -332,313 +332,281 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
     subset NextUpdateSeconds of Int where 0 <= *;
 
     method delete-progress-update-stream(
-    Bool :$dry-run,
-    ProgressUpdateStream :$progress-update-stream-name!
+        Bool :$dry-run,
+        ProgressUpdateStream :$progress-update-stream-name!
     ) returns DeleteProgressUpdateStreamResult is service-operation('DeleteProgressUpdateStream') {
         my $request-input = DeleteProgressUpdateStreamRequest.new(
-        :$dry-run,
-        :$progress-update-stream-name
+            :$dry-run,
+            :$progress-update-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteProgressUpdateStream>,
-            :return-type(DeleteProgressUpdateStreamResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-progress-update-stream(
-    Bool :$dry-run,
-    ProgressUpdateStream :$progress-update-stream-name!
+        Bool :$dry-run,
+        ProgressUpdateStream :$progress-update-stream-name!
     ) returns CreateProgressUpdateStreamResult is service-operation('CreateProgressUpdateStream') {
         my $request-input = CreateProgressUpdateStreamRequest.new(
-        :$dry-run,
-        :$progress-update-stream-name
+            :$dry-run,
+            :$progress-update-stream-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateProgressUpdateStream>,
-            :return-type(CreateProgressUpdateStreamResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-migration-tasks(
-    MaxResults :$max-results,
-    ResourceName :$resource-name,
-    Str :$next-token
+        MaxResults :$max-results,
+        ResourceName :$resource-name,
+        Str :$next-token
     ) returns ListMigrationTasksResult is service-operation('ListMigrationTasks') {
         my $request-input = ListMigrationTasksRequest.new(
-        :$max-results,
-        :$resource-name,
-        :$next-token
+            :$max-results,
+            :$resource-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListMigrationTasks>,
-            :return-type(ListMigrationTasksResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-discovered-resources(
-    MaxResultsResources :$max-results,
-    MigrationTaskName :$migration-task-name!,
-    Str :$next-token,
-    ProgressUpdateStream :$progress-update-stream!
+        MaxResultsResources :$max-results,
+        MigrationTaskName :$migration-task-name!,
+        Str :$next-token,
+        ProgressUpdateStream :$progress-update-stream!
     ) returns ListDiscoveredResourcesResult is service-operation('ListDiscoveredResources') {
         my $request-input = ListDiscoveredResourcesRequest.new(
-        :$max-results,
-        :$migration-task-name,
-        :$next-token,
-        :$progress-update-stream
+            :$max-results,
+            :$migration-task-name,
+            :$next-token,
+            :$progress-update-stream
         );
-;
+
         self.perform-operation(
             :api-call<ListDiscoveredResources>,
-            :return-type(ListDiscoveredResourcesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-discovered-resource(
-    ConfigurationId :$configuration-id!,
-    Bool :$dry-run,
-    MigrationTaskName :$migration-task-name!,
-    ProgressUpdateStream :$progress-update-stream!
+        ConfigurationId :$configuration-id!,
+        Bool :$dry-run,
+        MigrationTaskName :$migration-task-name!,
+        ProgressUpdateStream :$progress-update-stream!
     ) returns DisassociateDiscoveredResourceResult is service-operation('DisassociateDiscoveredResource') {
         my $request-input = DisassociateDiscoveredResourceRequest.new(
-        :$configuration-id,
-        :$dry-run,
-        :$migration-task-name,
-        :$progress-update-stream
+            :$configuration-id,
+            :$dry-run,
+            :$migration-task-name,
+            :$progress-update-stream
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateDiscoveredResource>,
-            :return-type(DisassociateDiscoveredResourceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-created-artifact(
-    Bool :$dry-run,
-    CreatedArtifact :$created-artifact!,
-    MigrationTaskName :$migration-task-name!,
-    ProgressUpdateStream :$progress-update-stream!
+        Bool :$dry-run,
+        CreatedArtifact :$created-artifact!,
+        MigrationTaskName :$migration-task-name!,
+        ProgressUpdateStream :$progress-update-stream!
     ) returns AssociateCreatedArtifactResult is service-operation('AssociateCreatedArtifact') {
         my $request-input = AssociateCreatedArtifactRequest.new(
-        :$dry-run,
-        :$created-artifact,
-        :$migration-task-name,
-        :$progress-update-stream
+            :$dry-run,
+            :$created-artifact,
+            :$migration-task-name,
+            :$progress-update-stream
         );
-;
+
         self.perform-operation(
             :api-call<AssociateCreatedArtifact>,
-            :return-type(AssociateCreatedArtifactResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method notify-application-state(
-    Bool :$dry-run,
-    ApplicationStatus :$status!,
-    ApplicationId :$application-id!
+        Bool :$dry-run,
+        ApplicationStatus :$status!,
+        ApplicationId :$application-id!
     ) returns NotifyApplicationStateResult is service-operation('NotifyApplicationState') {
         my $request-input = NotifyApplicationStateRequest.new(
-        :$dry-run,
-        :$status,
-        :$application-id
+            :$dry-run,
+            :$status,
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<NotifyApplicationState>,
-            :return-type(NotifyApplicationStateResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-application-state(
-    ApplicationId :$application-id!
+        ApplicationId :$application-id!
     ) returns DescribeApplicationStateResult is service-operation('DescribeApplicationState') {
         my $request-input = DescribeApplicationStateRequest.new(
-        :$application-id
+            :$application-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeApplicationState>,
-            :return-type(DescribeApplicationStateResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-created-artifacts(
-    MaxResultsCreatedArtifacts :$max-results,
-    MigrationTaskName :$migration-task-name!,
-    Str :$next-token,
-    ProgressUpdateStream :$progress-update-stream!
+        MaxResultsCreatedArtifacts :$max-results,
+        MigrationTaskName :$migration-task-name!,
+        Str :$next-token,
+        ProgressUpdateStream :$progress-update-stream!
     ) returns ListCreatedArtifactsResult is service-operation('ListCreatedArtifacts') {
         my $request-input = ListCreatedArtifactsRequest.new(
-        :$max-results,
-        :$migration-task-name,
-        :$next-token,
-        :$progress-update-stream
+            :$max-results,
+            :$migration-task-name,
+            :$next-token,
+            :$progress-update-stream
         );
-;
+
         self.perform-operation(
             :api-call<ListCreatedArtifacts>,
-            :return-type(ListCreatedArtifactsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-resource-attributes(
-    Bool :$dry-run,
-    MigrationTaskName :$migration-task-name!,
-    ResourceAttributeList :$resource-attribute-list!,
-    ProgressUpdateStream :$progress-update-stream!
+        Bool :$dry-run,
+        MigrationTaskName :$migration-task-name!,
+        ResourceAttributeList :$resource-attribute-list!,
+        ProgressUpdateStream :$progress-update-stream!
     ) returns PutResourceAttributesResult is service-operation('PutResourceAttributes') {
         my $request-input = PutResourceAttributesRequest.new(
-        :$dry-run,
-        :$migration-task-name,
-        :$resource-attribute-list,
-        :$progress-update-stream
+            :$dry-run,
+            :$migration-task-name,
+            :$resource-attribute-list,
+            :$progress-update-stream
         );
-;
+
         self.perform-operation(
             :api-call<PutResourceAttributes>,
-            :return-type(PutResourceAttributesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-migration-task(
-    Bool :$dry-run,
-    MigrationTaskName :$migration-task-name!,
-    ProgressUpdateStream :$progress-update-stream!
+        Bool :$dry-run,
+        MigrationTaskName :$migration-task-name!,
+        ProgressUpdateStream :$progress-update-stream!
     ) returns ImportMigrationTaskResult is service-operation('ImportMigrationTask') {
         my $request-input = ImportMigrationTaskRequest.new(
-        :$dry-run,
-        :$migration-task-name,
-        :$progress-update-stream
+            :$dry-run,
+            :$migration-task-name,
+            :$progress-update-stream
         );
-;
+
         self.perform-operation(
             :api-call<ImportMigrationTask>,
-            :return-type(ImportMigrationTaskResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-migration-task(
-    MigrationTaskName :$migration-task-name!,
-    ProgressUpdateStream :$progress-update-stream!
+        MigrationTaskName :$migration-task-name!,
+        ProgressUpdateStream :$progress-update-stream!
     ) returns DescribeMigrationTaskResult is service-operation('DescribeMigrationTask') {
         my $request-input = DescribeMigrationTaskRequest.new(
-        :$migration-task-name,
-        :$progress-update-stream
+            :$migration-task-name,
+            :$progress-update-stream
         );
-;
+
         self.perform-operation(
             :api-call<DescribeMigrationTask>,
-            :return-type(DescribeMigrationTaskResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-discovered-resource(
-    Bool :$dry-run,
-    MigrationTaskName :$migration-task-name!,
-    ProgressUpdateStream :$progress-update-stream!,
-    DiscoveredResource :$discovered-resource!
+        Bool :$dry-run,
+        MigrationTaskName :$migration-task-name!,
+        ProgressUpdateStream :$progress-update-stream!,
+        DiscoveredResource :$discovered-resource!
     ) returns AssociateDiscoveredResourceResult is service-operation('AssociateDiscoveredResource') {
         my $request-input = AssociateDiscoveredResourceRequest.new(
-        :$dry-run,
-        :$migration-task-name,
-        :$progress-update-stream,
-        :$discovered-resource
+            :$dry-run,
+            :$migration-task-name,
+            :$progress-update-stream,
+            :$discovered-resource
         );
-;
+
         self.perform-operation(
             :api-call<AssociateDiscoveredResource>,
-            :return-type(AssociateDiscoveredResourceResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method notify-migration-task-state(
-    Task :$task!,
-    Bool :$dry-run,
-    MigrationTaskName :$migration-task-name!,
-    ProgressUpdateStream :$progress-update-stream!,
-    NextUpdateSeconds :$next-update-seconds!,
-    DateTime :$update-date-time!
+        Task :$task!,
+        Bool :$dry-run,
+        MigrationTaskName :$migration-task-name!,
+        ProgressUpdateStream :$progress-update-stream!,
+        NextUpdateSeconds :$next-update-seconds!,
+        DateTime :$update-date-time!
     ) returns NotifyMigrationTaskStateResult is service-operation('NotifyMigrationTaskState') {
         my $request-input = NotifyMigrationTaskStateRequest.new(
-        :$task,
-        :$dry-run,
-        :$migration-task-name,
-        :$progress-update-stream,
-        :$next-update-seconds,
-        :$update-date-time
+            :$task,
+            :$dry-run,
+            :$migration-task-name,
+            :$progress-update-stream,
+            :$next-update-seconds,
+            :$update-date-time
         );
-;
+
         self.perform-operation(
             :api-call<NotifyMigrationTaskState>,
-            :return-type(NotifyMigrationTaskStateResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-progress-update-streams(
-    MaxResults :$max-results,
-    Str :$next-token
+        MaxResults :$max-results,
+        Str :$next-token
     ) returns ListProgressUpdateStreamsResult is service-operation('ListProgressUpdateStreams') {
         my $request-input = ListProgressUpdateStreamsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListProgressUpdateStreams>,
-            :return-type(ListProgressUpdateStreamsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-created-artifact(
-    Bool :$dry-run,
-    MigrationTaskName :$migration-task-name!,
-    CreatedArtifactName :$created-artifact-name!,
-    ProgressUpdateStream :$progress-update-stream!
+        Bool :$dry-run,
+        MigrationTaskName :$migration-task-name!,
+        CreatedArtifactName :$created-artifact-name!,
+        ProgressUpdateStream :$progress-update-stream!
     ) returns DisassociateCreatedArtifactResult is service-operation('DisassociateCreatedArtifact') {
         my $request-input = DisassociateCreatedArtifactRequest.new(
-        :$dry-run,
-        :$migration-task-name,
-        :$created-artifact-name,
-        :$progress-update-stream
+            :$dry-run,
+            :$migration-task-name,
+            :$created-artifact-name,
+            :$progress-update-stream
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateCreatedArtifact>,
-            :return-type(DisassociateCreatedArtifactResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

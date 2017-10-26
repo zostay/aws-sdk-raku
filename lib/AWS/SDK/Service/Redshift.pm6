@@ -1548,1360 +1548,1234 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     method create-snapshot-copy-grant(
-    Str :$kms-key-id,
-    Str :$snapshot-copy-grant-name!,
-    Array[Tag] :$tags
+        Str :$kms-key-id,
+        Str :$snapshot-copy-grant-name!,
+        Array[Tag] :$tags
     ) returns CreateSnapshotCopyGrantResult is service-operation('CreateSnapshotCopyGrant') {
         my $request-input = CreateSnapshotCopyGrantMessage.new(
-        :$kms-key-id,
-        :$snapshot-copy-grant-name,
-        :$tags
+            :$kms-key-id,
+            :$snapshot-copy-grant-name,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateSnapshotCopyGrant>,
-            :return-type(CreateSnapshotCopyGrantResult),
-            :result-wrapper('CreateSnapshotCopyGrantResult'),
             :$request-input,
         );
     }
 
     method describe-reserved-nodes(
-    Str :$reserved-node-id,
-    Str :$marker,
-    Int :$max-records
+        Str :$reserved-node-id,
+        Str :$marker,
+        Int :$max-records
     ) returns ReservedNodesMessage is service-operation('DescribeReservedNodes') {
         my $request-input = DescribeReservedNodesMessage.new(
-        :$reserved-node-id,
-        :$marker,
-        :$max-records
+            :$reserved-node-id,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReservedNodes>,
-            :return-type(ReservedNodesMessage),
-            :result-wrapper('DescribeReservedNodesResult'),
             :$request-input,
         );
     }
 
     method enable-logging(
-    Str :$cluster-identifier!,
-    Str :$bucket-name!,
-    Str :$s3-key-prefix
+        Str :$cluster-identifier!,
+        Str :$bucket-name!,
+        Str :$s3-key-prefix
     ) returns LoggingStatus is service-operation('EnableLogging') {
         my $request-input = EnableLoggingMessage.new(
-        :$cluster-identifier,
-        :$bucket-name,
-        :$s3-key-prefix
+            :$cluster-identifier,
+            :$bucket-name,
+            :$s3-key-prefix
         );
-;
+
         self.perform-operation(
             :api-call<EnableLogging>,
-            :return-type(LoggingStatus),
-            :result-wrapper('EnableLoggingResult'),
             :$request-input,
         );
     }
 
     method restore-table-from-cluster-snapshot(
-    Str :$cluster-identifier!,
-    Str :$snapshot-identifier!,
-    Str :$target-schema-name,
-    Str :$source-table-name!,
-    Str :$source-database-name!,
-    Str :$target-database-name,
-    Str :$new-table-name!,
-    Str :$source-schema-name
+        Str :$cluster-identifier!,
+        Str :$snapshot-identifier!,
+        Str :$target-schema-name,
+        Str :$source-table-name!,
+        Str :$source-database-name!,
+        Str :$target-database-name,
+        Str :$new-table-name!,
+        Str :$source-schema-name
     ) returns RestoreTableFromClusterSnapshotResult is service-operation('RestoreTableFromClusterSnapshot') {
         my $request-input = RestoreTableFromClusterSnapshotMessage.new(
-        :$cluster-identifier,
-        :$snapshot-identifier,
-        :$target-schema-name,
-        :$source-table-name,
-        :$source-database-name,
-        :$target-database-name,
-        :$new-table-name,
-        :$source-schema-name
+            :$cluster-identifier,
+            :$snapshot-identifier,
+            :$target-schema-name,
+            :$source-table-name,
+            :$source-database-name,
+            :$target-database-name,
+            :$new-table-name,
+            :$source-schema-name
         );
-;
+
         self.perform-operation(
             :api-call<RestoreTableFromClusterSnapshot>,
-            :return-type(RestoreTableFromClusterSnapshotResult),
-            :result-wrapper('RestoreTableFromClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method describe-orderable-cluster-options(
-    Str :$cluster-version,
-    Str :$marker,
-    Int :$max-records,
-    Str :$node-type
+        Str :$cluster-version,
+        Str :$marker,
+        Int :$max-records,
+        Str :$node-type
     ) returns OrderableClusterOptionsMessage is service-operation('DescribeOrderableClusterOptions') {
         my $request-input = DescribeOrderableClusterOptionsMessage.new(
-        :$cluster-version,
-        :$marker,
-        :$max-records,
-        :$node-type
+            :$cluster-version,
+            :$marker,
+            :$max-records,
+            :$node-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeOrderableClusterOptions>,
-            :return-type(OrderableClusterOptionsMessage),
-            :result-wrapper('DescribeOrderableClusterOptionsResult'),
             :$request-input,
         );
     }
 
     method describe-reserved-node-offerings(
-    Str :$reserved-node-offering-id,
-    Str :$marker,
-    Int :$max-records
+        Str :$reserved-node-offering-id,
+        Str :$marker,
+        Int :$max-records
     ) returns ReservedNodeOfferingsMessage is service-operation('DescribeReservedNodeOfferings') {
         my $request-input = DescribeReservedNodeOfferingsMessage.new(
-        :$reserved-node-offering-id,
-        :$marker,
-        :$max-records
+            :$reserved-node-offering-id,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeReservedNodeOfferings>,
-            :return-type(ReservedNodeOfferingsMessage),
-            :result-wrapper('DescribeReservedNodeOfferingsResult'),
             :$request-input,
         );
     }
 
     method modify-cluster(
-    Str :$master-user-password,
-    Array[Str] :$vpc-security-group-ids,
-    Str :$new-cluster-identifier,
-    Str :$cluster-identifier!,
-    Str :$cluster-version,
-    Int :$automated-snapshot-retention-period,
-    Int :$number-of-nodes,
-    Bool :$publicly-accessible,
-    Bool :$allow-version-upgrade,
-    Str :$cluster-parameter-group-name,
-    Bool :$enhanced-vpc-routing,
-    Str :$elastic-ip,
-    Str :$hsm-configuration-identifier,
-    Str :$hsm-client-certificate-identifier,
-    Str :$preferred-maintenance-window,
-    Str :$cluster-type,
-    Array[Str] :$cluster-security-groups,
-    Str :$node-type
+        Str :$master-user-password,
+        Array[Str] :$vpc-security-group-ids,
+        Str :$new-cluster-identifier,
+        Str :$cluster-identifier!,
+        Str :$cluster-version,
+        Int :$automated-snapshot-retention-period,
+        Int :$number-of-nodes,
+        Bool :$publicly-accessible,
+        Bool :$allow-version-upgrade,
+        Str :$cluster-parameter-group-name,
+        Bool :$enhanced-vpc-routing,
+        Str :$elastic-ip,
+        Str :$hsm-configuration-identifier,
+        Str :$hsm-client-certificate-identifier,
+        Str :$preferred-maintenance-window,
+        Str :$cluster-type,
+        Array[Str] :$cluster-security-groups,
+        Str :$node-type
     ) returns ModifyClusterResult is service-operation('ModifyCluster') {
         my $request-input = ModifyClusterMessage.new(
-        :$master-user-password,
-        :$vpc-security-group-ids,
-        :$new-cluster-identifier,
-        :$cluster-identifier,
-        :$cluster-version,
-        :$automated-snapshot-retention-period,
-        :$number-of-nodes,
-        :$publicly-accessible,
-        :$allow-version-upgrade,
-        :$cluster-parameter-group-name,
-        :$enhanced-vpc-routing,
-        :$elastic-ip,
-        :$hsm-configuration-identifier,
-        :$hsm-client-certificate-identifier,
-        :$preferred-maintenance-window,
-        :$cluster-type,
-        :$cluster-security-groups,
-        :$node-type
+            :$master-user-password,
+            :$vpc-security-group-ids,
+            :$new-cluster-identifier,
+            :$cluster-identifier,
+            :$cluster-version,
+            :$automated-snapshot-retention-period,
+            :$number-of-nodes,
+            :$publicly-accessible,
+            :$allow-version-upgrade,
+            :$cluster-parameter-group-name,
+            :$enhanced-vpc-routing,
+            :$elastic-ip,
+            :$hsm-configuration-identifier,
+            :$hsm-client-certificate-identifier,
+            :$preferred-maintenance-window,
+            :$cluster-type,
+            :$cluster-security-groups,
+            :$node-type
         );
-;
+
         self.perform-operation(
             :api-call<ModifyCluster>,
-            :return-type(ModifyClusterResult),
-            :result-wrapper('ModifyClusterResult'),
             :$request-input,
         );
     }
 
     method modify-cluster-iam-roles(
-    Array[Str] :$remove-iam-roles,
-    Str :$cluster-identifier!,
-    Array[Str] :$add-iam-roles
+        Array[Str] :$remove-iam-roles,
+        Str :$cluster-identifier!,
+        Array[Str] :$add-iam-roles
     ) returns ModifyClusterIamRolesResult is service-operation('ModifyClusterIamRoles') {
         my $request-input = ModifyClusterIamRolesMessage.new(
-        :$remove-iam-roles,
-        :$cluster-identifier,
-        :$add-iam-roles
+            :$remove-iam-roles,
+            :$cluster-identifier,
+            :$add-iam-roles
         );
-;
+
         self.perform-operation(
             :api-call<ModifyClusterIamRoles>,
-            :return-type(ModifyClusterIamRolesResult),
-            :result-wrapper('ModifyClusterIamRolesResult'),
             :$request-input,
         );
     }
 
     method modify-snapshot-copy-retention-period(
-    Int :$retention-period!,
-    Str :$cluster-identifier!
+        Int :$retention-period!,
+        Str :$cluster-identifier!
     ) returns ModifySnapshotCopyRetentionPeriodResult is service-operation('ModifySnapshotCopyRetentionPeriod') {
         my $request-input = ModifySnapshotCopyRetentionPeriodMessage.new(
-        :$retention-period,
-        :$cluster-identifier
+            :$retention-period,
+            :$cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<ModifySnapshotCopyRetentionPeriod>,
-            :return-type(ModifySnapshotCopyRetentionPeriodResult),
-            :result-wrapper('ModifySnapshotCopyRetentionPeriodResult'),
             :$request-input,
         );
     }
 
     method copy-cluster-snapshot(
-    Str :$target-snapshot-identifier!,
-    Str :$source-snapshot-cluster-identifier,
-    Str :$source-snapshot-identifier!
+        Str :$target-snapshot-identifier!,
+        Str :$source-snapshot-cluster-identifier,
+        Str :$source-snapshot-identifier!
     ) returns CopyClusterSnapshotResult is service-operation('CopyClusterSnapshot') {
         my $request-input = CopyClusterSnapshotMessage.new(
-        :$target-snapshot-identifier,
-        :$source-snapshot-cluster-identifier,
-        :$source-snapshot-identifier
+            :$target-snapshot-identifier,
+            :$source-snapshot-cluster-identifier,
+            :$source-snapshot-identifier
         );
-;
+
         self.perform-operation(
             :api-call<CopyClusterSnapshot>,
-            :return-type(CopyClusterSnapshotResult),
-            :result-wrapper('CopyClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method describe-event-subscriptions(
-    Str :$subscription-name,
-    Str :$marker,
-    Int :$max-records
+        Str :$subscription-name,
+        Str :$marker,
+        Int :$max-records
     ) returns EventSubscriptionsMessage is service-operation('DescribeEventSubscriptions') {
         my $request-input = DescribeEventSubscriptionsMessage.new(
-        :$subscription-name,
-        :$marker,
-        :$max-records
+            :$subscription-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEventSubscriptions>,
-            :return-type(EventSubscriptionsMessage),
-            :result-wrapper('DescribeEventSubscriptionsResult'),
             :$request-input,
         );
     }
 
     method delete-cluster-parameter-group(
-    Str :$parameter-group-name!
+        Str :$parameter-group-name!
     ) is service-operation('DeleteClusterParameterGroup') {
         my $request-input = DeleteClusterParameterGroupMessage.new(
-        :$parameter-group-name
+            :$parameter-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteClusterParameterGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-snapshot-copy-grants(
-    Str :$snapshot-copy-grant-name,
-    Array[Str] :$tag-values,
-    Array[Str] :$tag-keys,
-    Str :$marker,
-    Int :$max-records
+        Str :$snapshot-copy-grant-name,
+        Array[Str] :$tag-values,
+        Array[Str] :$tag-keys,
+        Str :$marker,
+        Int :$max-records
     ) returns SnapshotCopyGrantMessage is service-operation('DescribeSnapshotCopyGrants') {
         my $request-input = DescribeSnapshotCopyGrantsMessage.new(
-        :$snapshot-copy-grant-name,
-        :$tag-values,
-        :$tag-keys,
-        :$marker,
-        :$max-records
+            :$snapshot-copy-grant-name,
+            :$tag-values,
+            :$tag-keys,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeSnapshotCopyGrants>,
-            :return-type(SnapshotCopyGrantMessage),
-            :result-wrapper('DescribeSnapshotCopyGrantsResult'),
             :$request-input,
         );
     }
 
     method rotate-encryption-key(
-    Str :$cluster-identifier!
+        Str :$cluster-identifier!
     ) returns RotateEncryptionKeyResult is service-operation('RotateEncryptionKey') {
         my $request-input = RotateEncryptionKeyMessage.new(
-        :$cluster-identifier
+            :$cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<RotateEncryptionKey>,
-            :return-type(RotateEncryptionKeyResult),
-            :result-wrapper('RotateEncryptionKeyResult'),
             :$request-input,
         );
     }
 
     method reboot-cluster(
-    Str :$cluster-identifier!
+        Str :$cluster-identifier!
     ) returns RebootClusterResult is service-operation('RebootCluster') {
         my $request-input = RebootClusterMessage.new(
-        :$cluster-identifier
+            :$cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<RebootCluster>,
-            :return-type(RebootClusterResult),
-            :result-wrapper('RebootClusterResult'),
             :$request-input,
         );
     }
 
     method modify-cluster-subnet-group(
-    Str :$description,
-    Array[Str] :$subnet-ids!,
-    Str :$cluster-subnet-group-name!
+        Str :$description,
+        Array[Str] :$subnet-ids!,
+        Str :$cluster-subnet-group-name!
     ) returns ModifyClusterSubnetGroupResult is service-operation('ModifyClusterSubnetGroup') {
         my $request-input = ModifyClusterSubnetGroupMessage.new(
-        :$description,
-        :$subnet-ids,
-        :$cluster-subnet-group-name
+            :$description,
+            :$subnet-ids,
+            :$cluster-subnet-group-name
         );
-;
+
         self.perform-operation(
             :api-call<ModifyClusterSubnetGroup>,
-            :return-type(ModifyClusterSubnetGroupResult),
-            :result-wrapper('ModifyClusterSubnetGroupResult'),
             :$request-input,
         );
     }
 
     method describe-cluster-parameter-groups(
-    Str :$parameter-group-name,
-    Array[Str] :$tag-values,
-    Array[Str] :$tag-keys,
-    Str :$marker,
-    Int :$max-records
+        Str :$parameter-group-name,
+        Array[Str] :$tag-values,
+        Array[Str] :$tag-keys,
+        Str :$marker,
+        Int :$max-records
     ) returns ClusterParameterGroupsMessage is service-operation('DescribeClusterParameterGroups') {
         my $request-input = DescribeClusterParameterGroupsMessage.new(
-        :$parameter-group-name,
-        :$tag-values,
-        :$tag-keys,
-        :$marker,
-        :$max-records
+            :$parameter-group-name,
+            :$tag-values,
+            :$tag-keys,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClusterParameterGroups>,
-            :return-type(ClusterParameterGroupsMessage),
-            :result-wrapper('DescribeClusterParameterGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-table-restore-status(
-    Str :$cluster-identifier,
-    Str :$marker,
-    Str :$table-restore-request-id,
-    Int :$max-records
+        Str :$cluster-identifier,
+        Str :$marker,
+        Str :$table-restore-request-id,
+        Int :$max-records
     ) returns TableRestoreStatusMessage is service-operation('DescribeTableRestoreStatus') {
         my $request-input = DescribeTableRestoreStatusMessage.new(
-        :$cluster-identifier,
-        :$marker,
-        :$table-restore-request-id,
-        :$max-records
+            :$cluster-identifier,
+            :$marker,
+            :$table-restore-request-id,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTableRestoreStatus>,
-            :return-type(TableRestoreStatusMessage),
-            :result-wrapper('DescribeTableRestoreStatusResult'),
             :$request-input,
         );
     }
 
     method create-cluster-subnet-group(
-    Str :$description!,
-    Array[Tag] :$tags,
-    Array[Str] :$subnet-ids!,
-    Str :$cluster-subnet-group-name!
+        Str :$description!,
+        Array[Tag] :$tags,
+        Array[Str] :$subnet-ids!,
+        Str :$cluster-subnet-group-name!
     ) returns CreateClusterSubnetGroupResult is service-operation('CreateClusterSubnetGroup') {
         my $request-input = CreateClusterSubnetGroupMessage.new(
-        :$description,
-        :$tags,
-        :$subnet-ids,
-        :$cluster-subnet-group-name
+            :$description,
+            :$tags,
+            :$subnet-ids,
+            :$cluster-subnet-group-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateClusterSubnetGroup>,
-            :return-type(CreateClusterSubnetGroupResult),
-            :result-wrapper('CreateClusterSubnetGroupResult'),
             :$request-input,
         );
     }
 
     method create-event-subscription(
-    Str :$severity,
-    Str :$subscription-name!,
-    Array[Str] :$source-ids,
-    Array[Tag] :$tags,
-    Bool :$enabled,
-    Str :$sns-topic-arn!,
-    Str :$source-type,
-    Array[Str] :$event-categories
+        Str :$severity,
+        Str :$subscription-name!,
+        Array[Str] :$source-ids,
+        Array[Tag] :$tags,
+        Bool :$enabled,
+        Str :$sns-topic-arn!,
+        Str :$source-type,
+        Array[Str] :$event-categories
     ) returns CreateEventSubscriptionResult is service-operation('CreateEventSubscription') {
         my $request-input = CreateEventSubscriptionMessage.new(
-        :$severity,
-        :$subscription-name,
-        :$source-ids,
-        :$tags,
-        :$enabled,
-        :$sns-topic-arn,
-        :$source-type,
-        :$event-categories
+            :$severity,
+            :$subscription-name,
+            :$source-ids,
+            :$tags,
+            :$enabled,
+            :$sns-topic-arn,
+            :$source-type,
+            :$event-categories
         );
-;
+
         self.perform-operation(
             :api-call<CreateEventSubscription>,
-            :return-type(CreateEventSubscriptionResult),
-            :result-wrapper('CreateEventSubscriptionResult'),
             :$request-input,
         );
     }
 
     method create-tags(
-    Str :$resource-name!,
-    Array[Tag] :$tags!
+        Str :$resource-name!,
+        Array[Tag] :$tags!
     ) is service-operation('CreateTags') {
         my $request-input = CreateTagsMessage.new(
-        :$resource-name,
-        :$tags
+            :$resource-name,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateTags>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-cluster-security-group(
-    Str :$cluster-security-group-name!
+        Str :$cluster-security-group-name!
     ) is service-operation('DeleteClusterSecurityGroup') {
         my $request-input = DeleteClusterSecurityGroupMessage.new(
-        :$cluster-security-group-name
+            :$cluster-security-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteClusterSecurityGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-cluster-versions(
-    Str :$cluster-version,
-    Str :$cluster-parameter-group-family,
-    Str :$marker,
-    Int :$max-records
+        Str :$cluster-version,
+        Str :$cluster-parameter-group-family,
+        Str :$marker,
+        Int :$max-records
     ) returns ClusterVersionsMessage is service-operation('DescribeClusterVersions') {
         my $request-input = DescribeClusterVersionsMessage.new(
-        :$cluster-version,
-        :$cluster-parameter-group-family,
-        :$marker,
-        :$max-records
+            :$cluster-version,
+            :$cluster-parameter-group-family,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClusterVersions>,
-            :return-type(ClusterVersionsMessage),
-            :result-wrapper('DescribeClusterVersionsResult'),
             :$request-input,
         );
     }
 
     method describe-default-cluster-parameters(
-    Str :$parameter-group-family!,
-    Str :$marker,
-    Int :$max-records
+        Str :$parameter-group-family!,
+        Str :$marker,
+        Int :$max-records
     ) returns DescribeDefaultClusterParametersResult is service-operation('DescribeDefaultClusterParameters') {
         my $request-input = DescribeDefaultClusterParametersMessage.new(
-        :$parameter-group-family,
-        :$marker,
-        :$max-records
+            :$parameter-group-family,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeDefaultClusterParameters>,
-            :return-type(DescribeDefaultClusterParametersResult),
-            :result-wrapper('DescribeDefaultClusterParametersResult'),
             :$request-input,
         );
     }
 
     method describe-hsm-configurations(
-    Array[Str] :$tag-values,
-    Array[Str] :$tag-keys,
-    Str :$marker,
-    Str :$hsm-configuration-identifier,
-    Int :$max-records
+        Array[Str] :$tag-values,
+        Array[Str] :$tag-keys,
+        Str :$marker,
+        Str :$hsm-configuration-identifier,
+        Int :$max-records
     ) returns HsmConfigurationMessage is service-operation('DescribeHsmConfigurations') {
         my $request-input = DescribeHsmConfigurationsMessage.new(
-        :$tag-values,
-        :$tag-keys,
-        :$marker,
-        :$hsm-configuration-identifier,
-        :$max-records
+            :$tag-values,
+            :$tag-keys,
+            :$marker,
+            :$hsm-configuration-identifier,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeHsmConfigurations>,
-            :return-type(HsmConfigurationMessage),
-            :result-wrapper('DescribeHsmConfigurationsResult'),
             :$request-input,
         );
     }
 
     method disable-snapshot-copy(
-    Str :$cluster-identifier!
+        Str :$cluster-identifier!
     ) returns DisableSnapshotCopyResult is service-operation('DisableSnapshotCopy') {
         my $request-input = DisableSnapshotCopyMessage.new(
-        :$cluster-identifier
+            :$cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DisableSnapshotCopy>,
-            :return-type(DisableSnapshotCopyResult),
-            :result-wrapper('DisableSnapshotCopyResult'),
             :$request-input,
         );
     }
 
     method modify-cluster-parameter-group(
-    Str :$parameter-group-name!,
-    Array[Parameter] :$parameters!
+        Str :$parameter-group-name!,
+        Array[Parameter] :$parameters!
     ) returns ClusterParameterGroupNameMessage is service-operation('ModifyClusterParameterGroup') {
         my $request-input = ModifyClusterParameterGroupMessage.new(
-        :$parameter-group-name,
-        :$parameters
+            :$parameter-group-name,
+            :$parameters
         );
-;
+
         self.perform-operation(
             :api-call<ModifyClusterParameterGroup>,
-            :return-type(ClusterParameterGroupNameMessage),
-            :result-wrapper('ModifyClusterParameterGroupResult'),
             :$request-input,
         );
     }
 
     method delete-cluster-snapshot(
-    Str :$snapshot-identifier!,
-    Str :$snapshot-cluster-identifier
+        Str :$snapshot-identifier!,
+        Str :$snapshot-cluster-identifier
     ) returns DeleteClusterSnapshotResult is service-operation('DeleteClusterSnapshot') {
         my $request-input = DeleteClusterSnapshotMessage.new(
-        :$snapshot-identifier,
-        :$snapshot-cluster-identifier
+            :$snapshot-identifier,
+            :$snapshot-cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DeleteClusterSnapshot>,
-            :return-type(DeleteClusterSnapshotResult),
-            :result-wrapper('DeleteClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method describe-cluster-subnet-groups(
-    Array[Str] :$tag-values,
-    Array[Str] :$tag-keys,
-    Str :$marker,
-    Int :$max-records,
-    Str :$cluster-subnet-group-name
+        Array[Str] :$tag-values,
+        Array[Str] :$tag-keys,
+        Str :$marker,
+        Int :$max-records,
+        Str :$cluster-subnet-group-name
     ) returns ClusterSubnetGroupMessage is service-operation('DescribeClusterSubnetGroups') {
         my $request-input = DescribeClusterSubnetGroupsMessage.new(
-        :$tag-values,
-        :$tag-keys,
-        :$marker,
-        :$max-records,
-        :$cluster-subnet-group-name
+            :$tag-values,
+            :$tag-keys,
+            :$marker,
+            :$max-records,
+            :$cluster-subnet-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClusterSubnetGroups>,
-            :return-type(ClusterSubnetGroupMessage),
-            :result-wrapper('DescribeClusterSubnetGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-event-categories(
-    Str :$source-type
+        Str :$source-type
     ) returns EventCategoriesMessage is service-operation('DescribeEventCategories') {
         my $request-input = DescribeEventCategoriesMessage.new(
-        :$source-type
+            :$source-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEventCategories>,
-            :return-type(EventCategoriesMessage),
-            :result-wrapper('DescribeEventCategoriesResult'),
             :$request-input,
         );
     }
 
     method purchase-reserved-node-offering(
-    Int :$node-count,
-    Str :$reserved-node-offering-id!
+        Int :$node-count,
+        Str :$reserved-node-offering-id!
     ) returns PurchaseReservedNodeOfferingResult is service-operation('PurchaseReservedNodeOffering') {
         my $request-input = PurchaseReservedNodeOfferingMessage.new(
-        :$node-count,
-        :$reserved-node-offering-id
+            :$node-count,
+            :$reserved-node-offering-id
         );
-;
+
         self.perform-operation(
             :api-call<PurchaseReservedNodeOffering>,
-            :return-type(PurchaseReservedNodeOfferingResult),
-            :result-wrapper('PurchaseReservedNodeOfferingResult'),
             :$request-input,
         );
     }
 
     method modify-event-subscription(
-    Str :$severity,
-    Str :$subscription-name!,
-    Array[Str] :$source-ids,
-    Bool :$enabled,
-    Str :$sns-topic-arn,
-    Str :$source-type,
-    Array[Str] :$event-categories
+        Str :$severity,
+        Str :$subscription-name!,
+        Array[Str] :$source-ids,
+        Bool :$enabled,
+        Str :$sns-topic-arn,
+        Str :$source-type,
+        Array[Str] :$event-categories
     ) returns ModifyEventSubscriptionResult is service-operation('ModifyEventSubscription') {
         my $request-input = ModifyEventSubscriptionMessage.new(
-        :$severity,
-        :$subscription-name,
-        :$source-ids,
-        :$enabled,
-        :$sns-topic-arn,
-        :$source-type,
-        :$event-categories
+            :$severity,
+            :$subscription-name,
+            :$source-ids,
+            :$enabled,
+            :$sns-topic-arn,
+            :$source-type,
+            :$event-categories
         );
-;
+
         self.perform-operation(
             :api-call<ModifyEventSubscription>,
-            :return-type(ModifyEventSubscriptionResult),
-            :result-wrapper('ModifyEventSubscriptionResult'),
             :$request-input,
         );
     }
 
     method create-hsm-client-certificate(
-    Array[Tag] :$tags,
-    Str :$hsm-client-certificate-identifier!
+        Array[Tag] :$tags,
+        Str :$hsm-client-certificate-identifier!
     ) returns CreateHsmClientCertificateResult is service-operation('CreateHsmClientCertificate') {
         my $request-input = CreateHsmClientCertificateMessage.new(
-        :$tags,
-        :$hsm-client-certificate-identifier
+            :$tags,
+            :$hsm-client-certificate-identifier
         );
-;
+
         self.perform-operation(
             :api-call<CreateHsmClientCertificate>,
-            :return-type(CreateHsmClientCertificateResult),
-            :result-wrapper('CreateHsmClientCertificateResult'),
             :$request-input,
         );
     }
 
     method delete-snapshot-copy-grant(
-    Str :$snapshot-copy-grant-name!
+        Str :$snapshot-copy-grant-name!
     ) is service-operation('DeleteSnapshotCopyGrant') {
         my $request-input = DeleteSnapshotCopyGrantMessage.new(
-        :$snapshot-copy-grant-name
+            :$snapshot-copy-grant-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSnapshotCopyGrant>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-cluster-security-groups(
-    Array[Str] :$tag-values,
-    Array[Str] :$tag-keys,
-    Str :$marker,
-    Int :$max-records,
-    Str :$cluster-security-group-name
+        Array[Str] :$tag-values,
+        Array[Str] :$tag-keys,
+        Str :$marker,
+        Int :$max-records,
+        Str :$cluster-security-group-name
     ) returns ClusterSecurityGroupMessage is service-operation('DescribeClusterSecurityGroups') {
         my $request-input = DescribeClusterSecurityGroupsMessage.new(
-        :$tag-values,
-        :$tag-keys,
-        :$marker,
-        :$max-records,
-        :$cluster-security-group-name
+            :$tag-values,
+            :$tag-keys,
+            :$marker,
+            :$max-records,
+            :$cluster-security-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClusterSecurityGroups>,
-            :return-type(ClusterSecurityGroupMessage),
-            :result-wrapper('DescribeClusterSecurityGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-resize(
-    Str :$cluster-identifier!
+        Str :$cluster-identifier!
     ) returns ResizeProgressMessage is service-operation('DescribeResize') {
         my $request-input = DescribeResizeMessage.new(
-        :$cluster-identifier
+            :$cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DescribeResize>,
-            :return-type(ResizeProgressMessage),
-            :result-wrapper('DescribeResizeResult'),
             :$request-input,
         );
     }
 
     method revoke-snapshot-access(
-    Str :$snapshot-identifier!,
-    Str :$account-with-restore-access!,
-    Str :$snapshot-cluster-identifier
+        Str :$snapshot-identifier!,
+        Str :$account-with-restore-access!,
+        Str :$snapshot-cluster-identifier
     ) returns RevokeSnapshotAccessResult is service-operation('RevokeSnapshotAccess') {
         my $request-input = RevokeSnapshotAccessMessage.new(
-        :$snapshot-identifier,
-        :$account-with-restore-access,
-        :$snapshot-cluster-identifier
+            :$snapshot-identifier,
+            :$account-with-restore-access,
+            :$snapshot-cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<RevokeSnapshotAccess>,
-            :return-type(RevokeSnapshotAccessResult),
-            :result-wrapper('RevokeSnapshotAccessResult'),
             :$request-input,
         );
     }
 
     method authorize-cluster-security-group-ingress(
-    Str :$ec2-security-group-name,
-    Str :$cidr-ip,
-    Str :$ec2-security-group-owner-id,
-    Str :$cluster-security-group-name!
+        Str :$ec2-security-group-name,
+        Str :$cidr-ip,
+        Str :$ec2-security-group-owner-id,
+        Str :$cluster-security-group-name!
     ) returns AuthorizeClusterSecurityGroupIngressResult is service-operation('AuthorizeClusterSecurityGroupIngress') {
         my $request-input = AuthorizeClusterSecurityGroupIngressMessage.new(
-        :$ec2-security-group-name,
-        :$cidr-ip,
-        :$ec2-security-group-owner-id,
-        :$cluster-security-group-name
+            :$ec2-security-group-name,
+            :$cidr-ip,
+            :$ec2-security-group-owner-id,
+            :$cluster-security-group-name
         );
-;
+
         self.perform-operation(
             :api-call<AuthorizeClusterSecurityGroupIngress>,
-            :return-type(AuthorizeClusterSecurityGroupIngressResult),
-            :result-wrapper('AuthorizeClusterSecurityGroupIngressResult'),
             :$request-input,
         );
     }
 
     method create-cluster(
-    Str :$kms-key-id,
-    Array[Str] :$vpc-security-group-ids,
-    Str :$master-user-password!,
-    Str :$db-name,
-    Array[Str] :$iam-roles,
-    Str :$cluster-identifier!,
-    Str :$additional-info,
-    Int :$number-of-nodes,
-    Str :$cluster-version,
-    Int :$automated-snapshot-retention-period,
-    Str :$master-username!,
-    Array[Tag] :$tags,
-    Bool :$publicly-accessible,
-    Bool :$allow-version-upgrade,
-    Str :$cluster-parameter-group-name,
-    Str :$availability-zone,
-    Bool :$enhanced-vpc-routing,
-    Str :$elastic-ip,
-    Str :$hsm-configuration-identifier,
-    Str :$hsm-client-certificate-identifier,
-    Int :$port,
-    Str :$preferred-maintenance-window,
-    Str :$cluster-type,
-    Bool :$encrypted,
-    Str :$cluster-subnet-group-name,
-    Array[Str] :$cluster-security-groups,
-    Str :$node-type!
+        Str :$kms-key-id,
+        Array[Str] :$vpc-security-group-ids,
+        Str :$master-user-password!,
+        Str :$db-name,
+        Array[Str] :$iam-roles,
+        Str :$cluster-identifier!,
+        Str :$additional-info,
+        Int :$number-of-nodes,
+        Str :$cluster-version,
+        Int :$automated-snapshot-retention-period,
+        Str :$master-username!,
+        Array[Tag] :$tags,
+        Bool :$publicly-accessible,
+        Bool :$allow-version-upgrade,
+        Str :$cluster-parameter-group-name,
+        Str :$availability-zone,
+        Bool :$enhanced-vpc-routing,
+        Str :$elastic-ip,
+        Str :$hsm-configuration-identifier,
+        Str :$hsm-client-certificate-identifier,
+        Int :$port,
+        Str :$preferred-maintenance-window,
+        Str :$cluster-type,
+        Bool :$encrypted,
+        Str :$cluster-subnet-group-name,
+        Array[Str] :$cluster-security-groups,
+        Str :$node-type!
     ) returns CreateClusterResult is service-operation('CreateCluster') {
         my $request-input = CreateClusterMessage.new(
-        :$kms-key-id,
-        :$vpc-security-group-ids,
-        :$master-user-password,
-        :$db-name,
-        :$iam-roles,
-        :$cluster-identifier,
-        :$additional-info,
-        :$number-of-nodes,
-        :$cluster-version,
-        :$automated-snapshot-retention-period,
-        :$master-username,
-        :$tags,
-        :$publicly-accessible,
-        :$allow-version-upgrade,
-        :$cluster-parameter-group-name,
-        :$availability-zone,
-        :$enhanced-vpc-routing,
-        :$elastic-ip,
-        :$hsm-configuration-identifier,
-        :$hsm-client-certificate-identifier,
-        :$port,
-        :$preferred-maintenance-window,
-        :$cluster-type,
-        :$encrypted,
-        :$cluster-subnet-group-name,
-        :$cluster-security-groups,
-        :$node-type
+            :$kms-key-id,
+            :$vpc-security-group-ids,
+            :$master-user-password,
+            :$db-name,
+            :$iam-roles,
+            :$cluster-identifier,
+            :$additional-info,
+            :$number-of-nodes,
+            :$cluster-version,
+            :$automated-snapshot-retention-period,
+            :$master-username,
+            :$tags,
+            :$publicly-accessible,
+            :$allow-version-upgrade,
+            :$cluster-parameter-group-name,
+            :$availability-zone,
+            :$enhanced-vpc-routing,
+            :$elastic-ip,
+            :$hsm-configuration-identifier,
+            :$hsm-client-certificate-identifier,
+            :$port,
+            :$preferred-maintenance-window,
+            :$cluster-type,
+            :$encrypted,
+            :$cluster-subnet-group-name,
+            :$cluster-security-groups,
+            :$node-type
         );
-;
+
         self.perform-operation(
             :api-call<CreateCluster>,
-            :return-type(CreateClusterResult),
-            :result-wrapper('CreateClusterResult'),
             :$request-input,
         );
     }
 
     method create-cluster-snapshot(
-    Str :$cluster-identifier!,
-    Str :$snapshot-identifier!,
-    Array[Tag] :$tags
+        Str :$cluster-identifier!,
+        Str :$snapshot-identifier!,
+        Array[Tag] :$tags
     ) returns CreateClusterSnapshotResult is service-operation('CreateClusterSnapshot') {
         my $request-input = CreateClusterSnapshotMessage.new(
-        :$cluster-identifier,
-        :$snapshot-identifier,
-        :$tags
+            :$cluster-identifier,
+            :$snapshot-identifier,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateClusterSnapshot>,
-            :return-type(CreateClusterSnapshotResult),
-            :result-wrapper('CreateClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method delete-cluster-subnet-group(
-    Str :$cluster-subnet-group-name!
+        Str :$cluster-subnet-group-name!
     ) is service-operation('DeleteClusterSubnetGroup') {
         my $request-input = DeleteClusterSubnetGroupMessage.new(
-        :$cluster-subnet-group-name
+            :$cluster-subnet-group-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteClusterSubnetGroup>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-events(
-    Int :$duration,
-    DateTime :$end-time,
-    DateTime :$start-time,
-    SourceType :$source-type,
-    Str :$source-identifier,
-    Str :$marker,
-    Int :$max-records
+        Int :$duration,
+        DateTime :$end-time,
+        DateTime :$start-time,
+        SourceType :$source-type,
+        Str :$source-identifier,
+        Str :$marker,
+        Int :$max-records
     ) returns EventsMessage is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsMessage.new(
-        :$duration,
-        :$end-time,
-        :$start-time,
-        :$source-type,
-        :$source-identifier,
-        :$marker,
-        :$max-records
+            :$duration,
+            :$end-time,
+            :$start-time,
+            :$source-type,
+            :$source-identifier,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeEvents>,
-            :return-type(EventsMessage),
-            :result-wrapper('DescribeEventsResult'),
             :$request-input,
         );
     }
 
     method restore-from-cluster-snapshot(
-    Str :$kms-key-id,
-    Array[Str] :$vpc-security-group-ids,
-    Array[Str] :$iam-roles,
-    Str :$cluster-identifier!,
-    Str :$additional-info,
-    Int :$automated-snapshot-retention-period,
-    Str :$snapshot-identifier!,
-    Str :$cluster-parameter-group-name,
-    Str :$owner-account,
-    Bool :$publicly-accessible,
-    Bool :$allow-version-upgrade,
-    Str :$availability-zone,
-    Str :$snapshot-cluster-identifier,
-    Bool :$enhanced-vpc-routing,
-    Str :$preferred-maintenance-window,
-    Str :$elastic-ip,
-    Str :$hsm-configuration-identifier,
-    Str :$hsm-client-certificate-identifier,
-    Int :$port,
-    Str :$node-type,
-    Array[Str] :$cluster-security-groups,
-    Str :$cluster-subnet-group-name
+        Str :$kms-key-id,
+        Array[Str] :$vpc-security-group-ids,
+        Array[Str] :$iam-roles,
+        Str :$cluster-identifier!,
+        Str :$additional-info,
+        Int :$automated-snapshot-retention-period,
+        Str :$snapshot-identifier!,
+        Str :$cluster-parameter-group-name,
+        Str :$owner-account,
+        Bool :$publicly-accessible,
+        Bool :$allow-version-upgrade,
+        Str :$availability-zone,
+        Str :$snapshot-cluster-identifier,
+        Bool :$enhanced-vpc-routing,
+        Str :$preferred-maintenance-window,
+        Str :$elastic-ip,
+        Str :$hsm-configuration-identifier,
+        Str :$hsm-client-certificate-identifier,
+        Int :$port,
+        Str :$node-type,
+        Array[Str] :$cluster-security-groups,
+        Str :$cluster-subnet-group-name
     ) returns RestoreFromClusterSnapshotResult is service-operation('RestoreFromClusterSnapshot') {
         my $request-input = RestoreFromClusterSnapshotMessage.new(
-        :$kms-key-id,
-        :$vpc-security-group-ids,
-        :$iam-roles,
-        :$cluster-identifier,
-        :$additional-info,
-        :$automated-snapshot-retention-period,
-        :$snapshot-identifier,
-        :$cluster-parameter-group-name,
-        :$owner-account,
-        :$publicly-accessible,
-        :$allow-version-upgrade,
-        :$availability-zone,
-        :$snapshot-cluster-identifier,
-        :$enhanced-vpc-routing,
-        :$preferred-maintenance-window,
-        :$elastic-ip,
-        :$hsm-configuration-identifier,
-        :$hsm-client-certificate-identifier,
-        :$port,
-        :$node-type,
-        :$cluster-security-groups,
-        :$cluster-subnet-group-name
+            :$kms-key-id,
+            :$vpc-security-group-ids,
+            :$iam-roles,
+            :$cluster-identifier,
+            :$additional-info,
+            :$automated-snapshot-retention-period,
+            :$snapshot-identifier,
+            :$cluster-parameter-group-name,
+            :$owner-account,
+            :$publicly-accessible,
+            :$allow-version-upgrade,
+            :$availability-zone,
+            :$snapshot-cluster-identifier,
+            :$enhanced-vpc-routing,
+            :$preferred-maintenance-window,
+            :$elastic-ip,
+            :$hsm-configuration-identifier,
+            :$hsm-client-certificate-identifier,
+            :$port,
+            :$node-type,
+            :$cluster-security-groups,
+            :$cluster-subnet-group-name
         );
-;
+
         self.perform-operation(
             :api-call<RestoreFromClusterSnapshot>,
-            :return-type(RestoreFromClusterSnapshotResult),
-            :result-wrapper('RestoreFromClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method authorize-snapshot-access(
-    Str :$snapshot-identifier!,
-    Str :$account-with-restore-access!,
-    Str :$snapshot-cluster-identifier
+        Str :$snapshot-identifier!,
+        Str :$account-with-restore-access!,
+        Str :$snapshot-cluster-identifier
     ) returns AuthorizeSnapshotAccessResult is service-operation('AuthorizeSnapshotAccess') {
         my $request-input = AuthorizeSnapshotAccessMessage.new(
-        :$snapshot-identifier,
-        :$account-with-restore-access,
-        :$snapshot-cluster-identifier
+            :$snapshot-identifier,
+            :$account-with-restore-access,
+            :$snapshot-cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<AuthorizeSnapshotAccess>,
-            :return-type(AuthorizeSnapshotAccessResult),
-            :result-wrapper('AuthorizeSnapshotAccessResult'),
             :$request-input,
         );
     }
 
     method create-cluster-parameter-group(
-    Str :$parameter-group-name!,
-    Str :$description!,
-    Array[Tag] :$tags,
-    Str :$parameter-group-family!
+        Str :$parameter-group-name!,
+        Str :$description!,
+        Array[Tag] :$tags,
+        Str :$parameter-group-family!
     ) returns CreateClusterParameterGroupResult is service-operation('CreateClusterParameterGroup') {
         my $request-input = CreateClusterParameterGroupMessage.new(
-        :$parameter-group-name,
-        :$description,
-        :$tags,
-        :$parameter-group-family
+            :$parameter-group-name,
+            :$description,
+            :$tags,
+            :$parameter-group-family
         );
-;
+
         self.perform-operation(
             :api-call<CreateClusterParameterGroup>,
-            :return-type(CreateClusterParameterGroupResult),
-            :result-wrapper('CreateClusterParameterGroupResult'),
             :$request-input,
         );
     }
 
     method create-cluster-security-group(
-    Str :$description!,
-    Array[Tag] :$tags,
-    Str :$cluster-security-group-name!
+        Str :$description!,
+        Array[Tag] :$tags,
+        Str :$cluster-security-group-name!
     ) returns CreateClusterSecurityGroupResult is service-operation('CreateClusterSecurityGroup') {
         my $request-input = CreateClusterSecurityGroupMessage.new(
-        :$description,
-        :$tags,
-        :$cluster-security-group-name
+            :$description,
+            :$tags,
+            :$cluster-security-group-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateClusterSecurityGroup>,
-            :return-type(CreateClusterSecurityGroupResult),
-            :result-wrapper('CreateClusterSecurityGroupResult'),
             :$request-input,
         );
     }
 
     method disable-logging(
-    Str :$cluster-identifier!
+        Str :$cluster-identifier!
     ) returns LoggingStatus is service-operation('DisableLogging') {
         my $request-input = DisableLoggingMessage.new(
-        :$cluster-identifier
+            :$cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DisableLogging>,
-            :return-type(LoggingStatus),
-            :result-wrapper('DisableLoggingResult'),
             :$request-input,
         );
     }
 
     method reset-cluster-parameter-group(
-    Str :$parameter-group-name!,
-    Array[Parameter] :$parameters,
-    Bool :$reset-all-parameters
+        Str :$parameter-group-name!,
+        Array[Parameter] :$parameters,
+        Bool :$reset-all-parameters
     ) returns ClusterParameterGroupNameMessage is service-operation('ResetClusterParameterGroup') {
         my $request-input = ResetClusterParameterGroupMessage.new(
-        :$parameter-group-name,
-        :$parameters,
-        :$reset-all-parameters
+            :$parameter-group-name,
+            :$parameters,
+            :$reset-all-parameters
         );
-;
+
         self.perform-operation(
             :api-call<ResetClusterParameterGroup>,
-            :return-type(ClusterParameterGroupNameMessage),
-            :result-wrapper('ResetClusterParameterGroupResult'),
             :$request-input,
         );
     }
 
     method delete-hsm-client-certificate(
-    Str :$hsm-client-certificate-identifier!
+        Str :$hsm-client-certificate-identifier!
     ) is service-operation('DeleteHsmClientCertificate') {
         my $request-input = DeleteHsmClientCertificateMessage.new(
-        :$hsm-client-certificate-identifier
+            :$hsm-client-certificate-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DeleteHsmClientCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-cluster-snapshots(
-    DateTime :$end-time,
-    Str :$snapshot-type,
-    Str :$cluster-identifier,
-    Str :$snapshot-identifier,
-    Array[Str] :$tag-values,
-    Array[Str] :$tag-keys,
-    Str :$owner-account,
-    DateTime :$start-time,
-    Str :$marker,
-    Int :$max-records
+        DateTime :$end-time,
+        Str :$snapshot-type,
+        Str :$cluster-identifier,
+        Str :$snapshot-identifier,
+        Array[Str] :$tag-values,
+        Array[Str] :$tag-keys,
+        Str :$owner-account,
+        DateTime :$start-time,
+        Str :$marker,
+        Int :$max-records
     ) returns SnapshotMessage is service-operation('DescribeClusterSnapshots') {
         my $request-input = DescribeClusterSnapshotsMessage.new(
-        :$end-time,
-        :$snapshot-type,
-        :$cluster-identifier,
-        :$snapshot-identifier,
-        :$tag-values,
-        :$tag-keys,
-        :$owner-account,
-        :$start-time,
-        :$marker,
-        :$max-records
+            :$end-time,
+            :$snapshot-type,
+            :$cluster-identifier,
+            :$snapshot-identifier,
+            :$tag-values,
+            :$tag-keys,
+            :$owner-account,
+            :$start-time,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClusterSnapshots>,
-            :return-type(SnapshotMessage),
-            :result-wrapper('DescribeClusterSnapshotsResult'),
             :$request-input,
         );
     }
 
     method describe-hsm-client-certificates(
-    Array[Str] :$tag-values,
-    Array[Str] :$tag-keys,
-    Str :$marker,
-    Str :$hsm-client-certificate-identifier,
-    Int :$max-records
+        Array[Str] :$tag-values,
+        Array[Str] :$tag-keys,
+        Str :$marker,
+        Str :$hsm-client-certificate-identifier,
+        Int :$max-records
     ) returns HsmClientCertificateMessage is service-operation('DescribeHsmClientCertificates') {
         my $request-input = DescribeHsmClientCertificatesMessage.new(
-        :$tag-values,
-        :$tag-keys,
-        :$marker,
-        :$hsm-client-certificate-identifier,
-        :$max-records
+            :$tag-values,
+            :$tag-keys,
+            :$marker,
+            :$hsm-client-certificate-identifier,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeHsmClientCertificates>,
-            :return-type(HsmClientCertificateMessage),
-            :result-wrapper('DescribeHsmClientCertificatesResult'),
             :$request-input,
         );
     }
 
     method revoke-cluster-security-group-ingress(
-    Str :$ec2-security-group-name,
-    Str :$cidr-ip,
-    Str :$ec2-security-group-owner-id,
-    Str :$cluster-security-group-name!
+        Str :$ec2-security-group-name,
+        Str :$cidr-ip,
+        Str :$ec2-security-group-owner-id,
+        Str :$cluster-security-group-name!
     ) returns RevokeClusterSecurityGroupIngressResult is service-operation('RevokeClusterSecurityGroupIngress') {
         my $request-input = RevokeClusterSecurityGroupIngressMessage.new(
-        :$ec2-security-group-name,
-        :$cidr-ip,
-        :$ec2-security-group-owner-id,
-        :$cluster-security-group-name
+            :$ec2-security-group-name,
+            :$cidr-ip,
+            :$ec2-security-group-owner-id,
+            :$cluster-security-group-name
         );
-;
+
         self.perform-operation(
             :api-call<RevokeClusterSecurityGroupIngress>,
-            :return-type(RevokeClusterSecurityGroupIngressResult),
-            :result-wrapper('RevokeClusterSecurityGroupIngressResult'),
             :$request-input,
         );
     }
 
     method create-hsm-configuration(
-    Str :$hsm-server-public-certificate!,
-    Str :$description!,
-    Array[Tag] :$tags,
-    Str :$hsm-partition-password!,
-    Str :$hsm-partition-name!,
-    Str :$hsm-configuration-identifier!,
-    Str :$hsm-ip-address!
+        Str :$hsm-server-public-certificate!,
+        Str :$description!,
+        Array[Tag] :$tags,
+        Str :$hsm-partition-password!,
+        Str :$hsm-partition-name!,
+        Str :$hsm-configuration-identifier!,
+        Str :$hsm-ip-address!
     ) returns CreateHsmConfigurationResult is service-operation('CreateHsmConfiguration') {
         my $request-input = CreateHsmConfigurationMessage.new(
-        :$hsm-server-public-certificate,
-        :$description,
-        :$tags,
-        :$hsm-partition-password,
-        :$hsm-partition-name,
-        :$hsm-configuration-identifier,
-        :$hsm-ip-address
+            :$hsm-server-public-certificate,
+            :$description,
+            :$tags,
+            :$hsm-partition-password,
+            :$hsm-partition-name,
+            :$hsm-configuration-identifier,
+            :$hsm-ip-address
         );
-;
+
         self.perform-operation(
             :api-call<CreateHsmConfiguration>,
-            :return-type(CreateHsmConfigurationResult),
-            :result-wrapper('CreateHsmConfigurationResult'),
             :$request-input,
         );
     }
 
     method delete-hsm-configuration(
-    Str :$hsm-configuration-identifier!
+        Str :$hsm-configuration-identifier!
     ) is service-operation('DeleteHsmConfiguration') {
         my $request-input = DeleteHsmConfigurationMessage.new(
-        :$hsm-configuration-identifier
+            :$hsm-configuration-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DeleteHsmConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-tags(
-    Str :$resource-name!,
-    Array[Str] :$tag-keys!
+        Str :$resource-name!,
+        Array[Str] :$tag-keys!
     ) is service-operation('DeleteTags') {
         my $request-input = DeleteTagsMessage.new(
-        :$resource-name,
-        :$tag-keys
+            :$resource-name,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTags>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-cluster-parameters(
-    Str :$source,
-    Str :$parameter-group-name!,
-    Str :$marker,
-    Int :$max-records
+        Str :$source,
+        Str :$parameter-group-name!,
+        Str :$marker,
+        Int :$max-records
     ) returns ClusterParameterGroupDetails is service-operation('DescribeClusterParameters') {
         my $request-input = DescribeClusterParametersMessage.new(
-        :$source,
-        :$parameter-group-name,
-        :$marker,
-        :$max-records
+            :$source,
+            :$parameter-group-name,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClusterParameters>,
-            :return-type(ClusterParameterGroupDetails),
-            :result-wrapper('DescribeClusterParametersResult'),
             :$request-input,
         );
     }
 
     method describe-tags(
-    Str :$resource-name,
-    Array[Str] :$tag-values,
-    Array[Str] :$tag-keys,
-    Str :$resource-type,
-    Str :$marker,
-    Int :$max-records
+        Str :$resource-name,
+        Array[Str] :$tag-values,
+        Array[Str] :$tag-keys,
+        Str :$resource-type,
+        Str :$marker,
+        Int :$max-records
     ) returns TaggedResourceListMessage is service-operation('DescribeTags') {
         my $request-input = DescribeTagsMessage.new(
-        :$resource-name,
-        :$tag-values,
-        :$tag-keys,
-        :$resource-type,
-        :$marker,
-        :$max-records
+            :$resource-name,
+            :$tag-values,
+            :$tag-keys,
+            :$resource-type,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTags>,
-            :return-type(TaggedResourceListMessage),
-            :result-wrapper('DescribeTagsResult'),
             :$request-input,
         );
     }
 
     method enable-snapshot-copy(
-    Str :$destination-region!,
-    Int :$retention-period,
-    Str :$cluster-identifier!,
-    Str :$snapshot-copy-grant-name
+        Str :$destination-region!,
+        Int :$retention-period,
+        Str :$cluster-identifier!,
+        Str :$snapshot-copy-grant-name
     ) returns EnableSnapshotCopyResult is service-operation('EnableSnapshotCopy') {
         my $request-input = EnableSnapshotCopyMessage.new(
-        :$destination-region,
-        :$retention-period,
-        :$cluster-identifier,
-        :$snapshot-copy-grant-name
+            :$destination-region,
+            :$retention-period,
+            :$cluster-identifier,
+            :$snapshot-copy-grant-name
         );
-;
+
         self.perform-operation(
             :api-call<EnableSnapshotCopy>,
-            :return-type(EnableSnapshotCopyResult),
-            :result-wrapper('EnableSnapshotCopyResult'),
             :$request-input,
         );
     }
 
     method delete-event-subscription(
-    Str :$subscription-name!
+        Str :$subscription-name!
     ) is service-operation('DeleteEventSubscription') {
         my $request-input = DeleteEventSubscriptionMessage.new(
-        :$subscription-name
+            :$subscription-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteEventSubscription>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-cluster(
-    Str :$cluster-identifier!,
-    Bool :$skip-final-cluster-snapshot,
-    Str :$final-cluster-snapshot-identifier
+        Str :$cluster-identifier!,
+        Bool :$skip-final-cluster-snapshot,
+        Str :$final-cluster-snapshot-identifier
     ) returns DeleteClusterResult is service-operation('DeleteCluster') {
         my $request-input = DeleteClusterMessage.new(
-        :$cluster-identifier,
-        :$skip-final-cluster-snapshot,
-        :$final-cluster-snapshot-identifier
+            :$cluster-identifier,
+            :$skip-final-cluster-snapshot,
+            :$final-cluster-snapshot-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCluster>,
-            :return-type(DeleteClusterResult),
-            :result-wrapper('DeleteClusterResult'),
             :$request-input,
         );
     }
 
     method describe-clusters(
-    Str :$cluster-identifier,
-    Array[Str] :$tag-values,
-    Array[Str] :$tag-keys,
-    Str :$marker,
-    Int :$max-records
+        Str :$cluster-identifier,
+        Array[Str] :$tag-values,
+        Array[Str] :$tag-keys,
+        Str :$marker,
+        Int :$max-records
     ) returns ClustersMessage is service-operation('DescribeClusters') {
         my $request-input = DescribeClustersMessage.new(
-        :$cluster-identifier,
-        :$tag-values,
-        :$tag-keys,
-        :$marker,
-        :$max-records
+            :$cluster-identifier,
+            :$tag-values,
+            :$tag-keys,
+            :$marker,
+            :$max-records
         );
-;
+
         self.perform-operation(
             :api-call<DescribeClusters>,
-            :return-type(ClustersMessage),
-            :result-wrapper('DescribeClustersResult'),
             :$request-input,
         );
     }
 
     method describe-logging-status(
-    Str :$cluster-identifier!
+        Str :$cluster-identifier!
     ) returns LoggingStatus is service-operation('DescribeLoggingStatus') {
         my $request-input = DescribeLoggingStatusMessage.new(
-        :$cluster-identifier
+            :$cluster-identifier
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoggingStatus>,
-            :return-type(LoggingStatus),
-            :result-wrapper('DescribeLoggingStatusResult'),
             :$request-input,
         );
     }
 
     method get-cluster-credentials(
-    Bool :$auto-create,
-    Str :$db-name,
-    Int :$duration-seconds,
-    Str :$cluster-identifier!,
-    Str :$db-user!,
-    Array[Str] :$db-groups
+        Bool :$auto-create,
+        Str :$db-name,
+        Int :$duration-seconds,
+        Str :$cluster-identifier!,
+        Str :$db-user!,
+        Array[Str] :$db-groups
     ) returns ClusterCredentials is service-operation('GetClusterCredentials') {
         my $request-input = GetClusterCredentialsMessage.new(
-        :$auto-create,
-        :$db-name,
-        :$duration-seconds,
-        :$cluster-identifier,
-        :$db-user,
-        :$db-groups
+            :$auto-create,
+            :$db-name,
+            :$duration-seconds,
+            :$cluster-identifier,
+            :$db-user,
+            :$db-groups
         );
-;
+
         self.perform-operation(
             :api-call<GetClusterCredentials>,
-            :return-type(ClusterCredentials),
-            :result-wrapper('GetClusterCredentialsResult'),
             :$request-input,
         );
     }

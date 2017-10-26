@@ -737,582 +737,524 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     method list-bonus-payments(
-    ResultSize :$max-results,
-    EntityId :$assignment-id,
-    PaginationToken :$next-token,
-    EntityId :$hit-id
+        ResultSize :$max-results,
+        EntityId :$assignment-id,
+        PaginationToken :$next-token,
+        EntityId :$hit-id
     ) returns ListBonusPaymentsResponse is service-operation('ListBonusPayments') {
         my $request-input = ListBonusPaymentsRequest.new(
-        :$max-results,
-        :$assignment-id,
-        :$next-token,
-        :$hit-id
+            :$max-results,
+            :$assignment-id,
+            :$next-token,
+            :$hit-id
         );
-;
+
         self.perform-operation(
             :api-call<ListBonusPayments>,
-            :return-type(ListBonusPaymentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-hit(
-    Array[HITLayoutParameter] :$hit-layout-parameters,
-    Array[QualificationRequirement] :$qualification-requirements,
-    Str :$question,
-    Int :$assignment-duration-in-seconds!,
-    Int :$auto-approval-delay-in-seconds,
-    EntityId :$hit-layout-id,
-    Str :$description!,
-    Str :$title!,
-    Int :$lifetime-in-seconds!,
-    Int :$max-assignments,
-    ReviewPolicy :$assignment-review-policy,
-    ReviewPolicy :$hit-review-policy,
-    IdempotencyToken :$unique-request-token,
-    Str :$requester-annotation,
-    Str :$keywords,
-    CurrencyAmount :$reward!
+        Array[HITLayoutParameter] :$hit-layout-parameters,
+        Array[QualificationRequirement] :$qualification-requirements,
+        Str :$question,
+        Int :$assignment-duration-in-seconds!,
+        Int :$auto-approval-delay-in-seconds,
+        EntityId :$hit-layout-id,
+        Str :$description!,
+        Str :$title!,
+        Int :$lifetime-in-seconds!,
+        Int :$max-assignments,
+        ReviewPolicy :$assignment-review-policy,
+        ReviewPolicy :$hit-review-policy,
+        IdempotencyToken :$unique-request-token,
+        Str :$requester-annotation,
+        Str :$keywords,
+        CurrencyAmount :$reward!
     ) returns CreateHITResponse is service-operation('CreateHIT') {
         my $request-input = CreateHITRequest.new(
-        :$hit-layout-parameters,
-        :$qualification-requirements,
-        :$question,
-        :$assignment-duration-in-seconds,
-        :$auto-approval-delay-in-seconds,
-        :$hit-layout-id,
-        :$description,
-        :$title,
-        :$lifetime-in-seconds,
-        :$max-assignments,
-        :$assignment-review-policy,
-        :$hit-review-policy,
-        :$unique-request-token,
-        :$requester-annotation,
-        :$keywords,
-        :$reward
+            :$hit-layout-parameters,
+            :$qualification-requirements,
+            :$question,
+            :$assignment-duration-in-seconds,
+            :$auto-approval-delay-in-seconds,
+            :$hit-layout-id,
+            :$description,
+            :$title,
+            :$lifetime-in-seconds,
+            :$max-assignments,
+            :$assignment-review-policy,
+            :$hit-review-policy,
+            :$unique-request-token,
+            :$requester-annotation,
+            :$keywords,
+            :$reward
         );
-;
+
         self.perform-operation(
             :api-call<CreateHIT>,
-            :return-type(CreateHITResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-additional-assignments-for-hit(
-    EntityId :$hit-id!,
-    IdempotencyToken :$unique-request-token,
-    Int :$number-of-additional-assignments!
+        EntityId :$hit-id!,
+        IdempotencyToken :$unique-request-token,
+        Int :$number-of-additional-assignments!
     ) returns CreateAdditionalAssignmentsForHITResponse is service-operation('CreateAdditionalAssignmentsForHIT') {
         my $request-input = CreateAdditionalAssignmentsForHITRequest.new(
-        :$hit-id,
-        :$unique-request-token,
-        :$number-of-additional-assignments
+            :$hit-id,
+            :$unique-request-token,
+            :$number-of-additional-assignments
         );
-;
+
         self.perform-operation(
             :api-call<CreateAdditionalAssignmentsForHIT>,
-            :return-type(CreateAdditionalAssignmentsForHITResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-expiration-for-hit(
-    DateTime :$expire-at!,
-    EntityId :$hit-id!
+        DateTime :$expire-at!,
+        EntityId :$hit-id!
     ) returns UpdateExpirationForHITResponse is service-operation('UpdateExpirationForHIT') {
         my $request-input = UpdateExpirationForHITRequest.new(
-        :$expire-at,
-        :$hit-id
+            :$expire-at,
+            :$hit-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateExpirationForHIT>,
-            :return-type(UpdateExpirationForHITResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method send-test-event-notification(
-    EventType :$test-event-type!,
-    NotificationSpecification :$notification!
+        EventType :$test-event-type!,
+        NotificationSpecification :$notification!
     ) returns SendTestEventNotificationResponse is service-operation('SendTestEventNotification') {
         my $request-input = SendTestEventNotificationRequest.new(
-        :$test-event-type,
-        :$notification
+            :$test-event-type,
+            :$notification
         );
-;
+
         self.perform-operation(
             :api-call<SendTestEventNotification>,
-            :return-type(SendTestEventNotificationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-assignments-for-hit(
-    ResultSize :$max-results,
-    Array[AssignmentStatus] :$assignment-statuses,
-    PaginationToken :$next-token,
-    EntityId :$hit-id!
+        ResultSize :$max-results,
+        Array[AssignmentStatus] :$assignment-statuses,
+        PaginationToken :$next-token,
+        EntityId :$hit-id!
     ) returns ListAssignmentsForHITResponse is service-operation('ListAssignmentsForHIT') {
         my $request-input = ListAssignmentsForHITRequest.new(
-        :$max-results,
-        :$assignment-statuses,
-        :$next-token,
-        :$hit-id
+            :$max-results,
+            :$assignment-statuses,
+            :$next-token,
+            :$hit-id
         );
-;
+
         self.perform-operation(
             :api-call<ListAssignmentsForHIT>,
-            :return-type(ListAssignmentsForHITResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-qualification-type(
-    Int :$retry-delay-in-seconds,
-    Int :$auto-granted-value,
-    QualificationTypeStatus :$qualification-type-status,
-    Str :$description,
-    Int :$test-duration-in-seconds,
-    Bool :$auto-granted,
-    Str :$answer-key,
-    Str :$test,
-    EntityId :$qualification-type-id!
+        Int :$retry-delay-in-seconds,
+        Int :$auto-granted-value,
+        QualificationTypeStatus :$qualification-type-status,
+        Str :$description,
+        Int :$test-duration-in-seconds,
+        Bool :$auto-granted,
+        Str :$answer-key,
+        Str :$test,
+        EntityId :$qualification-type-id!
     ) returns UpdateQualificationTypeResponse is service-operation('UpdateQualificationType') {
         my $request-input = UpdateQualificationTypeRequest.new(
-        :$retry-delay-in-seconds,
-        :$auto-granted-value,
-        :$qualification-type-status,
-        :$description,
-        :$test-duration-in-seconds,
-        :$auto-granted,
-        :$answer-key,
-        :$test,
-        :$qualification-type-id
+            :$retry-delay-in-seconds,
+            :$auto-granted-value,
+            :$qualification-type-status,
+            :$description,
+            :$test-duration-in-seconds,
+            :$auto-granted,
+            :$answer-key,
+            :$test,
+            :$qualification-type-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateQualificationType>,
-            :return-type(UpdateQualificationTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reject-qualification-request(
-    Str :$qualification-request-id!,
-    Str :$reason
+        Str :$qualification-request-id!,
+        Str :$reason
     ) returns RejectQualificationRequestResponse is service-operation('RejectQualificationRequest') {
         my $request-input = RejectQualificationRequestRequest.new(
-        :$qualification-request-id,
-        :$reason
+            :$qualification-request-id,
+            :$reason
         );
-;
+
         self.perform-operation(
             :api-call<RejectQualificationRequest>,
-            :return-type(RejectQualificationRequestResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-worker-blocks(
-    ResultSize :$max-results,
-    PaginationToken :$next-token
+        ResultSize :$max-results,
+        PaginationToken :$next-token
     ) returns ListWorkerBlocksResponse is service-operation('ListWorkerBlocks') {
         my $request-input = ListWorkerBlocksRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListWorkerBlocks>,
-            :return-type(ListWorkerBlocksResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-reviewable-hits(
-    ResultSize :$max-results,
-    PaginationToken :$next-token,
-    ReviewableHITStatus :$status,
-    EntityId :$hit-type-id
+        ResultSize :$max-results,
+        PaginationToken :$next-token,
+        ReviewableHITStatus :$status,
+        EntityId :$hit-type-id
     ) returns ListReviewableHITsResponse is service-operation('ListReviewableHITs') {
         my $request-input = ListReviewableHITsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$status,
-        :$hit-type-id
+            :$max-results,
+            :$next-token,
+            :$status,
+            :$hit-type-id
         );
-;
+
         self.perform-operation(
             :api-call<ListReviewableHITs>,
-            :return-type(ListReviewableHITsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-qualification-type(
-    EntityId :$qualification-type-id!
+        EntityId :$qualification-type-id!
     ) returns GetQualificationTypeResponse is service-operation('GetQualificationType') {
         my $request-input = GetQualificationTypeRequest.new(
-        :$qualification-type-id
+            :$qualification-type-id
         );
-;
+
         self.perform-operation(
             :api-call<GetQualificationType>,
-            :return-type(GetQualificationTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-qualification-from-worker(
-    CustomerId :$worker-id!,
-    Str :$reason,
-    EntityId :$qualification-type-id!
+        CustomerId :$worker-id!,
+        Str :$reason,
+        EntityId :$qualification-type-id!
     ) returns DisassociateQualificationFromWorkerResponse is service-operation('DisassociateQualificationFromWorker') {
         my $request-input = DisassociateQualificationFromWorkerRequest.new(
-        :$worker-id,
-        :$reason,
-        :$qualification-type-id
+            :$worker-id,
+            :$reason,
+            :$qualification-type-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateQualificationFromWorker>,
-            :return-type(DisassociateQualificationFromWorkerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method accept-qualification-request(
-    Str :$qualification-request-id!,
-    Int :$integer-value
+        Str :$qualification-request-id!,
+        Int :$integer-value
     ) returns AcceptQualificationRequestResponse is service-operation('AcceptQualificationRequest') {
         my $request-input = AcceptQualificationRequestRequest.new(
-        :$qualification-request-id,
-        :$integer-value
+            :$qualification-request-id,
+            :$integer-value
         );
-;
+
         self.perform-operation(
             :api-call<AcceptQualificationRequest>,
-            :return-type(AcceptQualificationRequestResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-hit-review-status(
-    Bool :$revert,
-    EntityId :$hit-id!
+        Bool :$revert,
+        EntityId :$hit-id!
     ) returns UpdateHITReviewStatusResponse is service-operation('UpdateHITReviewStatus') {
         my $request-input = UpdateHITReviewStatusRequest.new(
-        :$revert,
-        :$hit-id
+            :$revert,
+            :$hit-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateHITReviewStatus>,
-            :return-type(UpdateHITReviewStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-workers-with-qualification-type(
-    ResultSize :$max-results,
-    PaginationToken :$next-token,
-    QualificationStatus :$status,
-    EntityId :$qualification-type-id!
+        ResultSize :$max-results,
+        PaginationToken :$next-token,
+        QualificationStatus :$status,
+        EntityId :$qualification-type-id!
     ) returns ListWorkersWithQualificationTypeResponse is service-operation('ListWorkersWithQualificationType') {
         my $request-input = ListWorkersWithQualificationTypeRequest.new(
-        :$max-results,
-        :$next-token,
-        :$status,
-        :$qualification-type-id
+            :$max-results,
+            :$next-token,
+            :$status,
+            :$qualification-type-id
         );
-;
+
         self.perform-operation(
             :api-call<ListWorkersWithQualificationType>,
-            :return-type(ListWorkersWithQualificationTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-hits-for-qualification-type(
-    ResultSize :$max-results,
-    PaginationToken :$next-token,
-    EntityId :$qualification-type-id!
+        ResultSize :$max-results,
+        PaginationToken :$next-token,
+        EntityId :$qualification-type-id!
     ) returns ListHITsForQualificationTypeResponse is service-operation('ListHITsForQualificationType') {
         my $request-input = ListHITsForQualificationTypeRequest.new(
-        :$max-results,
-        :$next-token,
-        :$qualification-type-id
+            :$max-results,
+            :$next-token,
+            :$qualification-type-id
         );
-;
+
         self.perform-operation(
             :api-call<ListHITsForQualificationType>,
-            :return-type(ListHITsForQualificationTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-hits(
-    ResultSize :$max-results,
-    PaginationToken :$next-token
+        ResultSize :$max-results,
+        PaginationToken :$next-token
     ) returns ListHITsResponse is service-operation('ListHITs') {
         my $request-input = ListHITsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListHITs>,
-            :return-type(ListHITsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-hit-type-of-hit(
-    EntityId :$hit-id!,
-    EntityId :$hit-type-id!
+        EntityId :$hit-id!,
+        EntityId :$hit-type-id!
     ) returns UpdateHITTypeOfHITResponse is service-operation('UpdateHITTypeOfHIT') {
         my $request-input = UpdateHITTypeOfHITRequest.new(
-        :$hit-id,
-        :$hit-type-id
+            :$hit-id,
+            :$hit-type-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateHITTypeOfHIT>,
-            :return-type(UpdateHITTypeOfHITResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-qualification-requests(
-    ResultSize :$max-results,
-    PaginationToken :$next-token,
-    EntityId :$qualification-type-id
+        ResultSize :$max-results,
+        PaginationToken :$next-token,
+        EntityId :$qualification-type-id
     ) returns ListQualificationRequestsResponse is service-operation('ListQualificationRequests') {
         my $request-input = ListQualificationRequestsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$qualification-type-id
+            :$max-results,
+            :$next-token,
+            :$qualification-type-id
         );
-;
+
         self.perform-operation(
             :api-call<ListQualificationRequests>,
-            :return-type(ListQualificationRequestsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-notification-settings(
-    NotificationSpecification :$notification,
-    Bool :$active,
-    EntityId :$hit-type-id!
+        NotificationSpecification :$notification,
+        Bool :$active,
+        EntityId :$hit-type-id!
     ) returns UpdateNotificationSettingsResponse is service-operation('UpdateNotificationSettings') {
         my $request-input = UpdateNotificationSettingsRequest.new(
-        :$notification,
-        :$active,
-        :$hit-type-id
+            :$notification,
+            :$active,
+            :$hit-type-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateNotificationSettings>,
-            :return-type(UpdateNotificationSettingsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method notify-workers(
-    Str :$subject!,
-    Array[CustomerId] :$worker-ids!,
-    Str :$message-text!
+        Str :$subject!,
+        Array[CustomerId] :$worker-ids!,
+        Str :$message-text!
     ) returns NotifyWorkersResponse is service-operation('NotifyWorkers') {
         my $request-input = NotifyWorkersRequest.new(
-        :$subject,
-        :$worker-ids,
-        :$message-text
+            :$subject,
+            :$worker-ids,
+            :$message-text
         );
-;
+
         self.perform-operation(
             :api-call<NotifyWorkers>,
-            :return-type(NotifyWorkersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-review-policy-results-for-hit(
-    ResultSize :$max-results,
-    Bool :$retrieve-actions,
-    Array[ReviewPolicyLevel] :$policy-levels,
-    PaginationToken :$next-token,
-    EntityId :$hit-id!,
-    Bool :$retrieve-results
+        ResultSize :$max-results,
+        Bool :$retrieve-actions,
+        Array[ReviewPolicyLevel] :$policy-levels,
+        PaginationToken :$next-token,
+        EntityId :$hit-id!,
+        Bool :$retrieve-results
     ) returns ListReviewPolicyResultsForHITResponse is service-operation('ListReviewPolicyResultsForHIT') {
         my $request-input = ListReviewPolicyResultsForHITRequest.new(
-        :$max-results,
-        :$retrieve-actions,
-        :$policy-levels,
-        :$next-token,
-        :$hit-id,
-        :$retrieve-results
+            :$max-results,
+            :$retrieve-actions,
+            :$policy-levels,
+            :$next-token,
+            :$hit-id,
+            :$retrieve-results
         );
-;
+
         self.perform-operation(
             :api-call<ListReviewPolicyResultsForHIT>,
-            :return-type(ListReviewPolicyResultsForHITResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-assignment(
-    EntityId :$assignment-id!
+        EntityId :$assignment-id!
     ) returns GetAssignmentResponse is service-operation('GetAssignment') {
         my $request-input = GetAssignmentRequest.new(
-        :$assignment-id
+            :$assignment-id
         );
-;
+
         self.perform-operation(
             :api-call<GetAssignment>,
-            :return-type(GetAssignmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-worker-block(
-    CustomerId :$worker-id!,
-    Str :$reason!
+        CustomerId :$worker-id!,
+        Str :$reason!
     ) returns CreateWorkerBlockResponse is service-operation('CreateWorkerBlock') {
         my $request-input = CreateWorkerBlockRequest.new(
-        :$worker-id,
-        :$reason
+            :$worker-id,
+            :$reason
         );
-;
+
         self.perform-operation(
             :api-call<CreateWorkerBlock>,
-            :return-type(CreateWorkerBlockResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-hit-type(
-    Array[QualificationRequirement] :$qualification-requirements,
-    Int :$assignment-duration-in-seconds!,
-    Int :$auto-approval-delay-in-seconds,
-    Str :$description!,
-    Str :$title!,
-    Str :$keywords,
-    CurrencyAmount :$reward!
+        Array[QualificationRequirement] :$qualification-requirements,
+        Int :$assignment-duration-in-seconds!,
+        Int :$auto-approval-delay-in-seconds,
+        Str :$description!,
+        Str :$title!,
+        Str :$keywords,
+        CurrencyAmount :$reward!
     ) returns CreateHITTypeResponse is service-operation('CreateHITType') {
         my $request-input = CreateHITTypeRequest.new(
-        :$qualification-requirements,
-        :$assignment-duration-in-seconds,
-        :$auto-approval-delay-in-seconds,
-        :$description,
-        :$title,
-        :$keywords,
-        :$reward
+            :$qualification-requirements,
+            :$assignment-duration-in-seconds,
+            :$auto-approval-delay-in-seconds,
+            :$description,
+            :$title,
+            :$keywords,
+            :$reward
         );
-;
+
         self.perform-operation(
             :api-call<CreateHITType>,
-            :return-type(CreateHITTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method send-bonus(
-    CurrencyAmount :$bonus-amount!,
-    EntityId :$assignment-id!,
-    CustomerId :$worker-id!,
-    Str :$reason!,
-    IdempotencyToken :$unique-request-token
+        CurrencyAmount :$bonus-amount!,
+        EntityId :$assignment-id!,
+        CustomerId :$worker-id!,
+        Str :$reason!,
+        IdempotencyToken :$unique-request-token
     ) returns SendBonusResponse is service-operation('SendBonus') {
         my $request-input = SendBonusRequest.new(
-        :$bonus-amount,
-        :$assignment-id,
-        :$worker-id,
-        :$reason,
-        :$unique-request-token
+            :$bonus-amount,
+            :$assignment-id,
+            :$worker-id,
+            :$reason,
+            :$unique-request-token
         );
-;
+
         self.perform-operation(
             :api-call<SendBonus>,
-            :return-type(SendBonusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-qualification-score(
-    CustomerId :$worker-id!,
-    EntityId :$qualification-type-id!
+        CustomerId :$worker-id!,
+        EntityId :$qualification-type-id!
     ) returns GetQualificationScoreResponse is service-operation('GetQualificationScore') {
         my $request-input = GetQualificationScoreRequest.new(
-        :$worker-id,
-        :$qualification-type-id
+            :$worker-id,
+            :$qualification-type-id
         );
-;
+
         self.perform-operation(
             :api-call<GetQualificationScore>,
-            :return-type(GetQualificationScoreResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-hit(
-    EntityId :$hit-id!
+        EntityId :$hit-id!
     ) returns GetHITResponse is service-operation('GetHIT') {
         my $request-input = GetHITRequest.new(
-        :$hit-id
+            :$hit-id
         );
-;
+
         self.perform-operation(
             :api-call<GetHIT>,
-            :return-type(GetHITResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-file-upload-url(
-    Str :$question-identifier!,
-    EntityId :$assignment-id!
+        Str :$question-identifier!,
+        EntityId :$assignment-id!
     ) returns GetFileUploadURLResponse is service-operation('GetFileUploadURL') {
         my $request-input = GetFileUploadURLRequest.new(
-        :$question-identifier,
-        :$assignment-id
+            :$question-identifier,
+            :$assignment-id
         );
-;
+
         self.perform-operation(
             :api-call<GetFileUploadURL>,
-            :return-type(GetFileUploadURLResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1323,204 +1265,184 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         my $request-input = GetAccountBalanceRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetAccountBalance>,
-            :return-type(GetAccountBalanceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-worker-block(
-    CustomerId :$worker-id!,
-    Str :$reason
+        CustomerId :$worker-id!,
+        Str :$reason
     ) returns DeleteWorkerBlockResponse is service-operation('DeleteWorkerBlock') {
         my $request-input = DeleteWorkerBlockRequest.new(
-        :$worker-id,
-        :$reason
+            :$worker-id,
+            :$reason
         );
-;
+
         self.perform-operation(
             :api-call<DeleteWorkerBlock>,
-            :return-type(DeleteWorkerBlockResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-qualification-type(
-    Int :$retry-delay-in-seconds,
-    Int :$auto-granted-value,
-    QualificationTypeStatus :$qualification-type-status!,
-    Str :$description!,
-    Str :$name!,
-    Int :$test-duration-in-seconds,
-    Bool :$auto-granted,
-    Str :$answer-key,
-    Str :$test,
-    Str :$keywords
+        Int :$retry-delay-in-seconds,
+        Int :$auto-granted-value,
+        QualificationTypeStatus :$qualification-type-status!,
+        Str :$description!,
+        Str :$name!,
+        Int :$test-duration-in-seconds,
+        Bool :$auto-granted,
+        Str :$answer-key,
+        Str :$test,
+        Str :$keywords
     ) returns CreateQualificationTypeResponse is service-operation('CreateQualificationType') {
         my $request-input = CreateQualificationTypeRequest.new(
-        :$retry-delay-in-seconds,
-        :$auto-granted-value,
-        :$qualification-type-status,
-        :$description,
-        :$name,
-        :$test-duration-in-seconds,
-        :$auto-granted,
-        :$answer-key,
-        :$test,
-        :$keywords
+            :$retry-delay-in-seconds,
+            :$auto-granted-value,
+            :$qualification-type-status,
+            :$description,
+            :$name,
+            :$test-duration-in-seconds,
+            :$auto-granted,
+            :$answer-key,
+            :$test,
+            :$keywords
         );
-;
+
         self.perform-operation(
             :api-call<CreateQualificationType>,
-            :return-type(CreateQualificationTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reject-assignment(
-    Str :$requester-feedback!,
-    EntityId :$assignment-id!
+        Str :$requester-feedback!,
+        EntityId :$assignment-id!
     ) returns RejectAssignmentResponse is service-operation('RejectAssignment') {
         my $request-input = RejectAssignmentRequest.new(
-        :$requester-feedback,
-        :$assignment-id
+            :$requester-feedback,
+            :$assignment-id
         );
-;
+
         self.perform-operation(
             :api-call<RejectAssignment>,
-            :return-type(RejectAssignmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-qualification-types(
-    ResultSize :$max-results,
-    Bool :$must-be-requestable!,
-    PaginationToken :$next-token,
-    Bool :$must-be-owned-by-caller,
-    Str :$query
+        ResultSize :$max-results,
+        Bool :$must-be-requestable!,
+        PaginationToken :$next-token,
+        Bool :$must-be-owned-by-caller,
+        Str :$query
     ) returns ListQualificationTypesResponse is service-operation('ListQualificationTypes') {
         my $request-input = ListQualificationTypesRequest.new(
-        :$max-results,
-        :$must-be-requestable,
-        :$next-token,
-        :$must-be-owned-by-caller,
-        :$query
+            :$max-results,
+            :$must-be-requestable,
+            :$next-token,
+            :$must-be-owned-by-caller,
+            :$query
         );
-;
+
         self.perform-operation(
             :api-call<ListQualificationTypes>,
-            :return-type(ListQualificationTypesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-qualification-type(
-    EntityId :$qualification-type-id!
+        EntityId :$qualification-type-id!
     ) returns DeleteQualificationTypeResponse is service-operation('DeleteQualificationType') {
         my $request-input = DeleteQualificationTypeRequest.new(
-        :$qualification-type-id
+            :$qualification-type-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteQualificationType>,
-            :return-type(DeleteQualificationTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-hit(
-    EntityId :$hit-id!
+        EntityId :$hit-id!
     ) returns DeleteHITResponse is service-operation('DeleteHIT') {
         my $request-input = DeleteHITRequest.new(
-        :$hit-id
+            :$hit-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteHIT>,
-            :return-type(DeleteHITResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-hit-with-hit-type(
-    Array[HITLayoutParameter] :$hit-layout-parameters,
-    Str :$question,
-    EntityId :$hit-layout-id,
-    Int :$lifetime-in-seconds!,
-    Int :$max-assignments,
-    ReviewPolicy :$assignment-review-policy,
-    EntityId :$hit-type-id!,
-    ReviewPolicy :$hit-review-policy,
-    IdempotencyToken :$unique-request-token,
-    Str :$requester-annotation
+        Array[HITLayoutParameter] :$hit-layout-parameters,
+        Str :$question,
+        EntityId :$hit-layout-id,
+        Int :$lifetime-in-seconds!,
+        Int :$max-assignments,
+        ReviewPolicy :$assignment-review-policy,
+        EntityId :$hit-type-id!,
+        ReviewPolicy :$hit-review-policy,
+        IdempotencyToken :$unique-request-token,
+        Str :$requester-annotation
     ) returns CreateHITWithHITTypeResponse is service-operation('CreateHITWithHITType') {
         my $request-input = CreateHITWithHITTypeRequest.new(
-        :$hit-layout-parameters,
-        :$question,
-        :$hit-layout-id,
-        :$lifetime-in-seconds,
-        :$max-assignments,
-        :$assignment-review-policy,
-        :$hit-type-id,
-        :$hit-review-policy,
-        :$unique-request-token,
-        :$requester-annotation
+            :$hit-layout-parameters,
+            :$question,
+            :$hit-layout-id,
+            :$lifetime-in-seconds,
+            :$max-assignments,
+            :$assignment-review-policy,
+            :$hit-type-id,
+            :$hit-review-policy,
+            :$unique-request-token,
+            :$requester-annotation
         );
-;
+
         self.perform-operation(
             :api-call<CreateHITWithHITType>,
-            :return-type(CreateHITWithHITTypeResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-qualification-with-worker(
-    Bool :$send-notification,
-    Int :$integer-value,
-    CustomerId :$worker-id!,
-    EntityId :$qualification-type-id!
+        Bool :$send-notification,
+        Int :$integer-value,
+        CustomerId :$worker-id!,
+        EntityId :$qualification-type-id!
     ) returns AssociateQualificationWithWorkerResponse is service-operation('AssociateQualificationWithWorker') {
         my $request-input = AssociateQualificationWithWorkerRequest.new(
-        :$send-notification,
-        :$integer-value,
-        :$worker-id,
-        :$qualification-type-id
+            :$send-notification,
+            :$integer-value,
+            :$worker-id,
+            :$qualification-type-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateQualificationWithWorker>,
-            :return-type(AssociateQualificationWithWorkerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method approve-assignment(
-    Bool :$override-rejection,
-    Str :$requester-feedback,
-    EntityId :$assignment-id!
+        Bool :$override-rejection,
+        Str :$requester-feedback,
+        EntityId :$assignment-id!
     ) returns ApproveAssignmentResponse is service-operation('ApproveAssignment') {
         my $request-input = ApproveAssignmentRequest.new(
-        :$override-rejection,
-        :$requester-feedback,
-        :$assignment-id
+            :$override-rejection,
+            :$requester-feedback,
+            :$assignment-id
         );
-;
+
         self.perform-operation(
             :api-call<ApproveAssignment>,
-            :return-type(ApproveAssignmentResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

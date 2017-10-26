@@ -214,79 +214,71 @@ class AWS::SDK::Service::STS does AWS::SDK::Service {
     }
 
     method assume-role-with-web-identity(
-    roleSessionNameType :$role-session-name!,
-    roleDurationSecondsType :$duration-seconds,
-    arnType :$role-arn!,
-    clientTokenType :$web-identity-token!,
-    sessionPolicyDocumentType :$policy,
-    urlType :$provider-id
+        roleSessionNameType :$role-session-name!,
+        roleDurationSecondsType :$duration-seconds,
+        arnType :$role-arn!,
+        clientTokenType :$web-identity-token!,
+        sessionPolicyDocumentType :$policy,
+        urlType :$provider-id
     ) returns AssumeRoleWithWebIdentityResponse is service-operation('AssumeRoleWithWebIdentity') {
         my $request-input = AssumeRoleWithWebIdentityRequest.new(
-        :$role-session-name,
-        :$duration-seconds,
-        :$role-arn,
-        :$web-identity-token,
-        :$policy,
-        :$provider-id
+            :$role-session-name,
+            :$duration-seconds,
+            :$role-arn,
+            :$web-identity-token,
+            :$policy,
+            :$provider-id
         );
-;
+
         self.perform-operation(
             :api-call<AssumeRoleWithWebIdentity>,
-            :return-type(AssumeRoleWithWebIdentityResponse),
-            :result-wrapper('AssumeRoleWithWebIdentityResult'),
             :$request-input,
         );
     }
 
     method get-federation-token(
-    durationSecondsType :$duration-seconds,
-    userNameType :$name!,
-    sessionPolicyDocumentType :$policy
+        durationSecondsType :$duration-seconds,
+        userNameType :$name!,
+        sessionPolicyDocumentType :$policy
     ) returns GetFederationTokenResponse is service-operation('GetFederationToken') {
         my $request-input = GetFederationTokenRequest.new(
-        :$duration-seconds,
-        :$name,
-        :$policy
+            :$duration-seconds,
+            :$name,
+            :$policy
         );
-;
+
         self.perform-operation(
             :api-call<GetFederationToken>,
-            :return-type(GetFederationTokenResponse),
-            :result-wrapper('GetFederationTokenResult'),
             :$request-input,
         );
     }
 
     method decode-authorization-message(
-    encodedMessageType :$encoded-message!
+        encodedMessageType :$encoded-message!
     ) returns DecodeAuthorizationMessageResponse is service-operation('DecodeAuthorizationMessage') {
         my $request-input = DecodeAuthorizationMessageRequest.new(
-        :$encoded-message
+            :$encoded-message
         );
-;
+
         self.perform-operation(
             :api-call<DecodeAuthorizationMessage>,
-            :return-type(DecodeAuthorizationMessageResponse),
-            :result-wrapper('DecodeAuthorizationMessageResult'),
             :$request-input,
         );
     }
 
     method get-session-token(
-    durationSecondsType :$duration-seconds,
-    tokenCodeType :$token-code,
-    serialNumberType :$serial-number
+        durationSecondsType :$duration-seconds,
+        tokenCodeType :$token-code,
+        serialNumberType :$serial-number
     ) returns GetSessionTokenResponse is service-operation('GetSessionToken') {
         my $request-input = GetSessionTokenRequest.new(
-        :$duration-seconds,
-        :$token-code,
-        :$serial-number
+            :$duration-seconds,
+            :$token-code,
+            :$serial-number
         );
-;
+
         self.perform-operation(
             :api-call<GetSessionToken>,
-            :return-type(GetSessionTokenResponse),
-            :result-wrapper('GetSessionTokenResult'),
             :$request-input,
         );
     }
@@ -297,61 +289,55 @@ class AWS::SDK::Service::STS does AWS::SDK::Service {
         my $request-input = GetCallerIdentityRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetCallerIdentity>,
-            :return-type(GetCallerIdentityResponse),
-            :result-wrapper('GetCallerIdentityResult'),
             :$request-input,
         );
     }
 
     method assume-role-with-saml(
-    SAMLAssertionType :$saml-assertion!,
-    roleDurationSecondsType :$duration-seconds,
-    arnType :$role-arn!,
-    arnType :$principal-arn!,
-    sessionPolicyDocumentType :$policy
+        SAMLAssertionType :$saml-assertion!,
+        roleDurationSecondsType :$duration-seconds,
+        arnType :$role-arn!,
+        arnType :$principal-arn!,
+        sessionPolicyDocumentType :$policy
     ) returns AssumeRoleWithSAMLResponse is service-operation('AssumeRoleWithSAML') {
         my $request-input = AssumeRoleWithSAMLRequest.new(
-        :$saml-assertion,
-        :$duration-seconds,
-        :$role-arn,
-        :$principal-arn,
-        :$policy
+            :$saml-assertion,
+            :$duration-seconds,
+            :$role-arn,
+            :$principal-arn,
+            :$policy
         );
-;
+
         self.perform-operation(
             :api-call<AssumeRoleWithSAML>,
-            :return-type(AssumeRoleWithSAMLResponse),
-            :result-wrapper('AssumeRoleWithSAMLResult'),
             :$request-input,
         );
     }
 
     method assume-role(
-    roleSessionNameType :$role-session-name!,
-    externalIdType :$external-id,
-    roleDurationSecondsType :$duration-seconds,
-    arnType :$role-arn!,
-    tokenCodeType :$token-code,
-    serialNumberType :$serial-number,
-    sessionPolicyDocumentType :$policy
+        roleSessionNameType :$role-session-name!,
+        externalIdType :$external-id,
+        roleDurationSecondsType :$duration-seconds,
+        arnType :$role-arn!,
+        tokenCodeType :$token-code,
+        serialNumberType :$serial-number,
+        sessionPolicyDocumentType :$policy
     ) returns AssumeRoleResponse is service-operation('AssumeRole') {
         my $request-input = AssumeRoleRequest.new(
-        :$role-session-name,
-        :$external-id,
-        :$duration-seconds,
-        :$role-arn,
-        :$token-code,
-        :$serial-number,
-        :$policy
+            :$role-session-name,
+            :$external-id,
+            :$duration-seconds,
+            :$role-arn,
+            :$token-code,
+            :$serial-number,
+            :$policy
         );
-;
+
         self.perform-operation(
             :api-call<AssumeRole>,
-            :return-type(AssumeRoleResponse),
-            :result-wrapper('AssumeRoleResult'),
             :$request-input,
         );
     }

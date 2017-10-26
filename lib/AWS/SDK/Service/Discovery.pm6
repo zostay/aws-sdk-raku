@@ -381,189 +381,169 @@ class AWS::SDK::Service::Discovery does AWS::SDK::Service {
     }
 
     method create-application(
-    Str :$name!,
-    Str :$description
+        Str :$name!,
+        Str :$description
     ) returns CreateApplicationResponse is service-operation('CreateApplication') {
         my $request-input = CreateApplicationRequest.new(
-        :$name,
-        :$description
+            :$name,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<CreateApplication>,
-            :return-type(CreateApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-server-neighbors(
-    Str :$configuration-id!,
-    Str :$next-token,
-    Int :$max-results,
-    Bool :$port-information-needed,
-    Array[Str] :$neighbor-configuration-ids
+        Str :$configuration-id!,
+        Str :$next-token,
+        Int :$max-results,
+        Bool :$port-information-needed,
+        Array[Str] :$neighbor-configuration-ids
     ) returns ListServerNeighborsResponse is service-operation('ListServerNeighbors') {
         my $request-input = ListServerNeighborsRequest.new(
-        :$configuration-id,
-        :$next-token,
-        :$max-results,
-        :$port-information-needed,
-        :$neighbor-configuration-ids
+            :$configuration-id,
+            :$next-token,
+            :$max-results,
+            :$port-information-needed,
+            :$neighbor-configuration-ids
         );
-;
+
         self.perform-operation(
             :api-call<ListServerNeighbors>,
-            :return-type(ListServerNeighborsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-data-collection-by-agent-ids(
-    Array[Str] :$agent-ids!
+        Array[Str] :$agent-ids!
     ) returns StartDataCollectionByAgentIdsResponse is service-operation('StartDataCollectionByAgentIds') {
         my $request-input = StartDataCollectionByAgentIdsRequest.new(
-        :$agent-ids
+            :$agent-ids
         );
-;
+
         self.perform-operation(
             :api-call<StartDataCollectionByAgentIds>,
-            :return-type(StartDataCollectionByAgentIdsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-configuration-items-from-application(
-    Array[Str] :$configuration-ids!,
-    Str :$application-configuration-id!
+        Array[Str] :$configuration-ids!,
+        Str :$application-configuration-id!
     ) returns DisassociateConfigurationItemsFromApplicationResponse is service-operation('DisassociateConfigurationItemsFromApplication') {
         my $request-input = DisassociateConfigurationItemsFromApplicationRequest.new(
-        :$configuration-ids,
-        :$application-configuration-id
+            :$configuration-ids,
+            :$application-configuration-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateConfigurationItemsFromApplication>,
-            :return-type(DisassociateConfigurationItemsFromApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-applications(
-    Array[Str] :$configuration-ids!
+        Array[Str] :$configuration-ids!
     ) returns DeleteApplicationsResponse is service-operation('DeleteApplications') {
         my $request-input = DeleteApplicationsRequest.new(
-        :$configuration-ids
+            :$configuration-ids
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApplications>,
-            :return-type(DeleteApplicationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-export-task(
-    Array[ExportDataFormat] :$export-data-format,
-    Array[ExportFilter] :$filters,
-    DateTime :$end-time,
-    DateTime :$start-time
+        Array[ExportDataFormat] :$export-data-format,
+        Array[ExportFilter] :$filters,
+        DateTime :$end-time,
+        DateTime :$start-time
     ) returns StartExportTaskResponse is service-operation('StartExportTask') {
         my $request-input = StartExportTaskRequest.new(
-        :$export-data-format,
-        :$filters,
-        :$end-time,
-        :$start-time
+            :$export-data-format,
+            :$filters,
+            :$end-time,
+            :$start-time
         );
-;
+
         self.perform-operation(
             :api-call<StartExportTask>,
-            :return-type(StartExportTaskResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-agents(
-    Str :$next-token,
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Array[Str] :$agent-ids
+        Str :$next-token,
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Array[Str] :$agent-ids
     ) returns DescribeAgentsResponse is service-operation('DescribeAgents') {
         my $request-input = DescribeAgentsRequest.new(
-        :$next-token,
-        :$max-results,
-        :$filters,
-        :$agent-ids
+            :$next-token,
+            :$max-results,
+            :$filters,
+            :$agent-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeAgents>,
-            :return-type(DescribeAgentsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-configurations(
-    Str :$next-token,
-    Int :$max-results,
-    Array[Filter] :$filters,
-    Array[OrderByElement] :$order-by,
-    ConfigurationItemType :$configuration-type!
+        Str :$next-token,
+        Int :$max-results,
+        Array[Filter] :$filters,
+        Array[OrderByElement] :$order-by,
+        ConfigurationItemType :$configuration-type!
     ) returns ListConfigurationsResponse is service-operation('ListConfigurations') {
         my $request-input = ListConfigurationsRequest.new(
-        :$next-token,
-        :$max-results,
-        :$filters,
-        :$order-by,
-        :$configuration-type
+            :$next-token,
+            :$max-results,
+            :$filters,
+            :$order-by,
+            :$configuration-type
         );
-;
+
         self.perform-operation(
             :api-call<ListConfigurations>,
-            :return-type(ListConfigurationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tags(
-    Str :$next-token,
-    Int :$max-results,
-    Array[TagFilter] :$filters
+        Str :$next-token,
+        Int :$max-results,
+        Array[TagFilter] :$filters
     ) returns DescribeTagsResponse is service-operation('DescribeTags') {
         my $request-input = DescribeTagsRequest.new(
-        :$next-token,
-        :$max-results,
-        :$filters
+            :$next-token,
+            :$max-results,
+            :$filters
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTags>,
-            :return-type(DescribeTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-tags(
-    Array[Str] :$configuration-ids!,
-    Array[Tag] :$tags
+        Array[Str] :$configuration-ids!,
+        Array[Tag] :$tags
     ) returns DeleteTagsResponse is service-operation('DeleteTags') {
         my $request-input = DeleteTagsRequest.new(
-        :$configuration-ids,
-        :$tags
+            :$configuration-ids,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTags>,
-            :return-type(DeleteTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -574,11 +554,9 @@ class AWS::SDK::Service::Discovery does AWS::SDK::Service {
         my $request-input = GetDiscoverySummaryRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetDiscoverySummary>,
-            :return-type(GetDiscoverySummaryResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -586,134 +564,118 @@ class AWS::SDK::Service::Discovery does AWS::SDK::Service {
     method export-configurations(
 
     ) returns ExportConfigurationsResponse is service-operation('ExportConfigurations') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<ExportConfigurations>,
-            :return-type(ExportConfigurationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-configurations(
-    Array[Str] :$configuration-ids!
+        Array[Str] :$configuration-ids!
     ) returns DescribeConfigurationsResponse is service-operation('DescribeConfigurations') {
         my $request-input = DescribeConfigurationsRequest.new(
-        :$configuration-ids
+            :$configuration-ids
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConfigurations>,
-            :return-type(DescribeConfigurationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-tags(
-    Array[Str] :$configuration-ids!,
-    Array[Tag] :$tags!
+        Array[Str] :$configuration-ids!,
+        Array[Tag] :$tags!
     ) returns CreateTagsResponse is service-operation('CreateTags') {
         my $request-input = CreateTagsRequest.new(
-        :$configuration-ids,
-        :$tags
+            :$configuration-ids,
+            :$tags
         );
-;
+
         self.perform-operation(
             :api-call<CreateTags>,
-            :return-type(CreateTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-application(
-    Str :$name,
-    Str :$configuration-id!,
-    Str :$description
+        Str :$name,
+        Str :$configuration-id!,
+        Str :$description
     ) returns UpdateApplicationResponse is service-operation('UpdateApplication') {
         my $request-input = UpdateApplicationRequest.new(
-        :$name,
-        :$configuration-id,
-        :$description
+            :$name,
+            :$configuration-id,
+            :$description
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApplication>,
-            :return-type(UpdateApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-data-collection-by-agent-ids(
-    Array[Str] :$agent-ids!
+        Array[Str] :$agent-ids!
     ) returns StopDataCollectionByAgentIdsResponse is service-operation('StopDataCollectionByAgentIds') {
         my $request-input = StopDataCollectionByAgentIdsRequest.new(
-        :$agent-ids
+            :$agent-ids
         );
-;
+
         self.perform-operation(
             :api-call<StopDataCollectionByAgentIds>,
-            :return-type(StopDataCollectionByAgentIdsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-export-tasks(
-    Array[Str] :$export-ids,
-    Str :$next-token,
-    Int :$max-results,
-    Array[ExportFilter] :$filters
+        Array[Str] :$export-ids,
+        Str :$next-token,
+        Int :$max-results,
+        Array[ExportFilter] :$filters
     ) returns DescribeExportTasksResponse is service-operation('DescribeExportTasks') {
         my $request-input = DescribeExportTasksRequest.new(
-        :$export-ids,
-        :$next-token,
-        :$max-results,
-        :$filters
+            :$export-ids,
+            :$next-token,
+            :$max-results,
+            :$filters
         );
-;
+
         self.perform-operation(
             :api-call<DescribeExportTasks>,
-            :return-type(DescribeExportTasksResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-export-configurations(
-    Array[Str] :$export-ids,
-    Str :$next-token,
-    Int :$max-results
+        Array[Str] :$export-ids,
+        Str :$next-token,
+        Int :$max-results
     ) returns DescribeExportConfigurationsResponse is service-operation('DescribeExportConfigurations') {
         my $request-input = DescribeExportConfigurationsRequest.new(
-        :$export-ids,
-        :$next-token,
-        :$max-results
+            :$export-ids,
+            :$next-token,
+            :$max-results
         );
-;
+
         self.perform-operation(
             :api-call<DescribeExportConfigurations>,
-            :return-type(DescribeExportConfigurationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-configuration-items-to-application(
-    Array[Str] :$configuration-ids!,
-    Str :$application-configuration-id!
+        Array[Str] :$configuration-ids!,
+        Str :$application-configuration-id!
     ) returns AssociateConfigurationItemsToApplicationResponse is service-operation('AssociateConfigurationItemsToApplication') {
         my $request-input = AssociateConfigurationItemsToApplicationRequest.new(
-        :$configuration-ids,
-        :$application-configuration-id
+            :$configuration-ids,
+            :$application-configuration-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateConfigurationItemsToApplication>,
-            :return-type(AssociateConfigurationItemsToApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

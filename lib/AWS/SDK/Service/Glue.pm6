@@ -1610,1387 +1610,1239 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     method update-dev-endpoint(
-    Str :$public-key,
-    Str :$endpoint-name!,
-    DevEndpointCustomLibraries :$custom-libraries
+        Str :$public-key,
+        Str :$endpoint-name!,
+        DevEndpointCustomLibraries :$custom-libraries
     ) returns UpdateDevEndpointResponse is service-operation('UpdateDevEndpoint') {
         my $request-input = UpdateDevEndpointRequest.new(
-        :$public-key,
-        :$endpoint-name,
-        :$custom-libraries
+            :$public-key,
+            :$endpoint-name,
+            :$custom-libraries
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDevEndpoint>,
-            :return-type(UpdateDevEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-crawler-schedule(
-    NameString :$crawler-name!
+        NameString :$crawler-name!
     ) returns StartCrawlerScheduleResponse is service-operation('StartCrawlerSchedule') {
         my $request-input = StartCrawlerScheduleRequest.new(
-        :$crawler-name
+            :$crawler-name
         );
-;
+
         self.perform-operation(
             :api-call<StartCrawlerSchedule>,
-            :return-type(StartCrawlerScheduleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-crawler(
-    NameString :$name!
+        NameString :$name!
     ) returns DeleteCrawlerResponse is service-operation('DeleteCrawler') {
         my $request-input = DeleteCrawlerRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteCrawler>,
-            :return-type(DeleteCrawlerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-databases(
-    PageSize :$max-results,
-    CatalogIdString :$catalog-id,
-    Str :$next-token
+        PageSize :$max-results,
+        CatalogIdString :$catalog-id,
+        Str :$next-token
     ) returns GetDatabasesResponse is service-operation('GetDatabases') {
         my $request-input = GetDatabasesRequest.new(
-        :$max-results,
-        :$catalog-id,
-        :$next-token
+            :$max-results,
+            :$catalog-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetDatabases>,
-            :return-type(GetDatabasesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-job-run(
-    IdString :$run-id!,
-    Bool :$predecessors-included,
-    NameString :$job-name!
+        IdString :$run-id!,
+        Bool :$predecessors-included,
+        NameString :$job-name!
     ) returns GetJobRunResponse is service-operation('GetJobRun') {
         my $request-input = GetJobRunRequest.new(
-        :$run-id,
-        :$predecessors-included,
-        :$job-name
+            :$run-id,
+            :$predecessors-included,
+            :$job-name
         );
-;
+
         self.perform-operation(
             :api-call<GetJobRun>,
-            :return-type(GetJobRunResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-crawler(
-    NameString :$name!
+        NameString :$name!
     ) returns StartCrawlerResponse is service-operation('StartCrawler') {
         my $request-input = StartCrawlerRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StartCrawler>,
-            :return-type(StartCrawlerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method import-catalog-to-glue(
-    CatalogIdString :$catalog-id
+        CatalogIdString :$catalog-id
     ) returns ImportCatalogToGlueResponse is service-operation('ImportCatalogToGlue') {
         my $request-input = ImportCatalogToGlueRequest.new(
-        :$catalog-id
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<ImportCatalogToGlue>,
-            :return-type(ImportCatalogToGlueResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-crawler(
-    SchemaChangePolicy :$schema-change-policy,
-    TablePrefix :$table-prefix,
-    Str :$schedule,
-    RoleArn :$role!,
-    DescriptionString :$description,
-    Str :$database-name!,
-    Array[NameString] :$classifiers,
-    NameString :$name!,
-    CrawlerTargets :$targets!
+        SchemaChangePolicy :$schema-change-policy,
+        TablePrefix :$table-prefix,
+        Str :$schedule,
+        RoleArn :$role!,
+        DescriptionString :$description,
+        Str :$database-name!,
+        Array[NameString] :$classifiers,
+        NameString :$name!,
+        CrawlerTargets :$targets!
     ) returns CreateCrawlerResponse is service-operation('CreateCrawler') {
         my $request-input = CreateCrawlerRequest.new(
-        :$schema-change-policy,
-        :$table-prefix,
-        :$schedule,
-        :$role,
-        :$description,
-        :$database-name,
-        :$classifiers,
-        :$name,
-        :$targets
+            :$schema-change-policy,
+            :$table-prefix,
+            :$schedule,
+            :$role,
+            :$description,
+            :$database-name,
+            :$classifiers,
+            :$name,
+            :$targets
         );
-;
+
         self.perform-operation(
             :api-call<CreateCrawler>,
-            :return-type(CreateCrawlerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-partition(
-    NameString :$table-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    Array[ValueString] :$partition-values!
+        NameString :$table-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        Array[ValueString] :$partition-values!
     ) returns GetPartitionResponse is service-operation('GetPartition') {
         my $request-input = GetPartitionRequest.new(
-        :$table-name,
-        :$database-name,
-        :$catalog-id,
-        :$partition-values
+            :$table-name,
+            :$database-name,
+            :$catalog-id,
+            :$partition-values
         );
-;
+
         self.perform-operation(
             :api-call<GetPartition>,
-            :return-type(GetPartitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-crawler(
-    NameString :$name!
+        NameString :$name!
     ) returns StopCrawlerResponse is service-operation('StopCrawler') {
         my $request-input = StopCrawlerRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StopCrawler>,
-            :return-type(StopCrawlerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-connection(
-    CatalogIdString :$catalog-id,
-    ConnectionInput :$connection-input!
+        CatalogIdString :$catalog-id,
+        ConnectionInput :$connection-input!
     ) returns CreateConnectionResponse is service-operation('CreateConnection') {
         my $request-input = CreateConnectionRequest.new(
-        :$catalog-id,
-        :$connection-input
+            :$catalog-id,
+            :$connection-input
         );
-;
+
         self.perform-operation(
             :api-call<CreateConnection>,
-            :return-type(CreateConnectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-dev-endpoint(
-    Str :$endpoint-name!
+        Str :$endpoint-name!
     ) returns DeleteDevEndpointResponse is service-operation('DeleteDevEndpoint') {
         my $request-input = DeleteDevEndpointRequest.new(
-        :$endpoint-name
+            :$endpoint-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDevEndpoint>,
-            :return-type(DeleteDevEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-partition(
-    BoundedPartitionValueList :$partition-value-list!,
-    NameString :$table-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    PartitionInput :$partition-input!
+        BoundedPartitionValueList :$partition-value-list!,
+        NameString :$table-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        PartitionInput :$partition-input!
     ) returns UpdatePartitionResponse is service-operation('UpdatePartition') {
         my $request-input = UpdatePartitionRequest.new(
-        :$partition-value-list,
-        :$table-name,
-        :$database-name,
-        :$catalog-id,
-        :$partition-input
+            :$partition-value-list,
+            :$table-name,
+            :$database-name,
+            :$catalog-id,
+            :$partition-input
         );
-;
+
         self.perform-operation(
             :api-call<UpdatePartition>,
-            :return-type(UpdatePartitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-user-defined-function(
-    NameString :$function-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id
+        NameString :$function-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id
     ) returns GetUserDefinedFunctionResponse is service-operation('GetUserDefinedFunction') {
         my $request-input = GetUserDefinedFunctionRequest.new(
-        :$function-name,
-        :$database-name,
-        :$catalog-id
+            :$function-name,
+            :$database-name,
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<GetUserDefinedFunction>,
-            :return-type(GetUserDefinedFunctionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-partition(
-    NameString :$table-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    PartitionInput :$partition-input!
+        NameString :$table-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        PartitionInput :$partition-input!
     ) returns CreatePartitionResponse is service-operation('CreatePartition') {
         my $request-input = CreatePartitionRequest.new(
-        :$table-name,
-        :$database-name,
-        :$catalog-id,
-        :$partition-input
+            :$table-name,
+            :$database-name,
+            :$catalog-id,
+            :$partition-input
         );
-;
+
         self.perform-operation(
             :api-call<CreatePartition>,
-            :return-type(CreatePartitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-user-defined-function(
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    UserDefinedFunctionInput :$function-input!
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        UserDefinedFunctionInput :$function-input!
     ) returns CreateUserDefinedFunctionResponse is service-operation('CreateUserDefinedFunction') {
         my $request-input = CreateUserDefinedFunctionRequest.new(
-        :$database-name,
-        :$catalog-id,
-        :$function-input
+            :$database-name,
+            :$catalog-id,
+            :$function-input
         );
-;
+
         self.perform-operation(
             :api-call<CreateUserDefinedFunction>,
-            :return-type(CreateUserDefinedFunctionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-job-runs(
-    PageSize :$max-results,
-    Str :$next-token,
-    NameString :$job-name!
+        PageSize :$max-results,
+        Str :$next-token,
+        NameString :$job-name!
     ) returns GetJobRunsResponse is service-operation('GetJobRuns') {
         my $request-input = GetJobRunsRequest.new(
-        :$max-results,
-        :$next-token,
-        :$job-name
+            :$max-results,
+            :$next-token,
+            :$job-name
         );
-;
+
         self.perform-operation(
             :api-call<GetJobRuns>,
-            :return-type(GetJobRunsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-classifier(
-    UpdateGrokClassifierRequest :$grok-classifier
+        UpdateGrokClassifierRequest :$grok-classifier
     ) returns UpdateClassifierResponse is service-operation('UpdateClassifier') {
         my $request-input = UpdateClassifierRequest.new(
-        :$grok-classifier
+            :$grok-classifier
         );
-;
+
         self.perform-operation(
             :api-call<UpdateClassifier>,
-            :return-type(UpdateClassifierResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reset-job-bookmark(
-    Str :$job-name!
+        Str :$job-name!
     ) returns ResetJobBookmarkResponse is service-operation('ResetJobBookmark') {
         my $request-input = ResetJobBookmarkRequest.new(
-        :$job-name
+            :$job-name
         );
-;
+
         self.perform-operation(
             :api-call<ResetJobBookmark>,
-            :return-type(ResetJobBookmarkResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-script(
-    Array[CodeGenEdge] :$dag-edges,
-    Array[CodeGenNode] :$dag-nodes
+        Array[CodeGenEdge] :$dag-edges,
+        Array[CodeGenNode] :$dag-nodes
     ) returns CreateScriptResponse is service-operation('CreateScript') {
         my $request-input = CreateScriptRequest.new(
-        :$dag-edges,
-        :$dag-nodes
+            :$dag-edges,
+            :$dag-nodes
         );
-;
+
         self.perform-operation(
             :api-call<CreateScript>,
-            :return-type(CreateScriptResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-dataflow-graph(
-    Str :$python-script
+        Str :$python-script
     ) returns GetDataflowGraphResponse is service-operation('GetDataflowGraph') {
         my $request-input = GetDataflowGraphRequest.new(
-        :$python-script
+            :$python-script
         );
-;
+
         self.perform-operation(
             :api-call<GetDataflowGraph>,
-            :return-type(GetDataflowGraphResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-jobs(
-    PageSize :$max-results,
-    Str :$next-token
+        PageSize :$max-results,
+        Str :$next-token
     ) returns GetJobsResponse is service-operation('GetJobs') {
         my $request-input = GetJobsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetJobs>,
-            :return-type(GetJobsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-table(
-    TableInput :$table-input!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id
+        TableInput :$table-input!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id
     ) returns UpdateTableResponse is service-operation('UpdateTable') {
         my $request-input = UpdateTableRequest.new(
-        :$table-input,
-        :$database-name,
-        :$catalog-id
+            :$table-input,
+            :$database-name,
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTable>,
-            :return-type(UpdateTableResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-crawler(
-    SchemaChangePolicy :$schema-change-policy,
-    TablePrefix :$table-prefix,
-    Str :$schedule,
-    RoleArn :$role,
-    DescriptionStringRemovable :$description,
-    Str :$database-name,
-    Array[NameString] :$classifiers,
-    NameString :$name!,
-    CrawlerTargets :$targets
+        SchemaChangePolicy :$schema-change-policy,
+        TablePrefix :$table-prefix,
+        Str :$schedule,
+        RoleArn :$role,
+        DescriptionStringRemovable :$description,
+        Str :$database-name,
+        Array[NameString] :$classifiers,
+        NameString :$name!,
+        CrawlerTargets :$targets
     ) returns UpdateCrawlerResponse is service-operation('UpdateCrawler') {
         my $request-input = UpdateCrawlerRequest.new(
-        :$schema-change-policy,
-        :$table-prefix,
-        :$schedule,
-        :$role,
-        :$description,
-        :$database-name,
-        :$classifiers,
-        :$name,
-        :$targets
+            :$schema-change-policy,
+            :$table-prefix,
+            :$schedule,
+            :$role,
+            :$description,
+            :$database-name,
+            :$classifiers,
+            :$name,
+            :$targets
         );
-;
+
         self.perform-operation(
             :api-call<UpdateCrawler>,
-            :return-type(UpdateCrawlerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-trigger(
-    NameString :$name!
+        NameString :$name!
     ) returns StartTriggerResponse is service-operation('StartTrigger') {
         my $request-input = StartTriggerRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StartTrigger>,
-            :return-type(StartTriggerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-classifier(
-    CreateGrokClassifierRequest :$grok-classifier
+        CreateGrokClassifierRequest :$grok-classifier
     ) returns CreateClassifierResponse is service-operation('CreateClassifier') {
         my $request-input = CreateClassifierRequest.new(
-        :$grok-classifier
+            :$grok-classifier
         );
-;
+
         self.perform-operation(
             :api-call<CreateClassifier>,
-            :return-type(CreateClassifierResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-database(
-    DatabaseInput :$database-input!,
-    CatalogIdString :$catalog-id
+        DatabaseInput :$database-input!,
+        CatalogIdString :$catalog-id
     ) returns CreateDatabaseResponse is service-operation('CreateDatabase') {
         my $request-input = CreateDatabaseRequest.new(
-        :$database-input,
-        :$catalog-id
+            :$database-input,
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateDatabase>,
-            :return-type(CreateDatabaseResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-dev-endpoint(
-    Array[Str] :$security-group-ids!,
-    Str :$subnet-id!,
-    Str :$extra-jars-s3-path,
-    RoleArn :$role-arn!,
-    Int :$number-of-nodes,
-    Str :$public-key,
-    Str :$endpoint-name!,
-    Str :$extra-python-libs-s3-path
+        Array[Str] :$security-group-ids!,
+        Str :$subnet-id!,
+        Str :$extra-jars-s3-path,
+        RoleArn :$role-arn!,
+        Int :$number-of-nodes,
+        Str :$public-key,
+        Str :$endpoint-name!,
+        Str :$extra-python-libs-s3-path
     ) returns CreateDevEndpointResponse is service-operation('CreateDevEndpoint') {
         my $request-input = CreateDevEndpointRequest.new(
-        :$security-group-ids,
-        :$subnet-id,
-        :$extra-jars-s3-path,
-        :$role-arn,
-        :$number-of-nodes,
-        :$public-key,
-        :$endpoint-name,
-        :$extra-python-libs-s3-path
+            :$security-group-ids,
+            :$subnet-id,
+            :$extra-jars-s3-path,
+            :$role-arn,
+            :$number-of-nodes,
+            :$public-key,
+            :$endpoint-name,
+            :$extra-python-libs-s3-path
         );
-;
+
         self.perform-operation(
             :api-call<CreateDevEndpoint>,
-            :return-type(CreateDevEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-partition(
-    NameString :$table-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    BatchGetPartitionValueList :$partitions-to-get!
+        NameString :$table-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        BatchGetPartitionValueList :$partitions-to-get!
     ) returns BatchGetPartitionResponse is service-operation('BatchGetPartition') {
         my $request-input = BatchGetPartitionRequest.new(
-        :$table-name,
-        :$database-name,
-        :$catalog-id,
-        :$partitions-to-get
+            :$table-name,
+            :$database-name,
+            :$catalog-id,
+            :$partitions-to-get
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetPartition>,
-            :return-type(BatchGetPartitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-database(
-    CatalogIdString :$catalog-id,
-    NameString :$name!
+        CatalogIdString :$catalog-id,
+        NameString :$name!
     ) returns DeleteDatabaseResponse is service-operation('DeleteDatabase') {
         my $request-input = DeleteDatabaseRequest.new(
-        :$catalog-id,
-        :$name
+            :$catalog-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteDatabase>,
-            :return-type(DeleteDatabaseResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-table(
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    NameString :$name!
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        NameString :$name!
     ) returns GetTableResponse is service-operation('GetTable') {
         my $request-input = GetTableRequest.new(
-        :$database-name,
-        :$catalog-id,
-        :$name
+            :$database-name,
+            :$catalog-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetTable>,
-            :return-type(GetTableResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-trigger(
-    NameString :$name!
+        NameString :$name!
     ) returns GetTriggerResponse is service-operation('GetTrigger') {
         my $request-input = GetTriggerRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetTrigger>,
-            :return-type(GetTriggerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-create-partition(
-    NameString :$table-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    PartitionInputList :$partition-input-list!
+        NameString :$table-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        PartitionInputList :$partition-input-list!
     ) returns BatchCreatePartitionResponse is service-operation('BatchCreatePartition') {
         my $request-input = BatchCreatePartitionRequest.new(
-        :$table-name,
-        :$database-name,
-        :$catalog-id,
-        :$partition-input-list
+            :$table-name,
+            :$database-name,
+            :$catalog-id,
+            :$partition-input-list
         );
-;
+
         self.perform-operation(
             :api-call<BatchCreatePartition>,
-            :return-type(BatchCreatePartitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-classifiers(
-    PageSize :$max-results,
-    Str :$next-token
+        PageSize :$max-results,
+        Str :$next-token
     ) returns GetClassifiersResponse is service-operation('GetClassifiers') {
         my $request-input = GetClassifiersRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetClassifiers>,
-            :return-type(GetClassifiersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-user-defined-functions(
-    PageSize :$max-results,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    Str :$next-token,
-    NameString :$pattern!
+        PageSize :$max-results,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        Str :$next-token,
+        NameString :$pattern!
     ) returns GetUserDefinedFunctionsResponse is service-operation('GetUserDefinedFunctions') {
         my $request-input = GetUserDefinedFunctionsRequest.new(
-        :$max-results,
-        :$database-name,
-        :$catalog-id,
-        :$next-token,
-        :$pattern
+            :$max-results,
+            :$database-name,
+            :$catalog-id,
+            :$next-token,
+            :$pattern
         );
-;
+
         self.perform-operation(
             :api-call<GetUserDefinedFunctions>,
-            :return-type(GetUserDefinedFunctionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-delete-partition(
-    BatchDeletePartitionValueList :$partitions-to-delete!,
-    NameString :$table-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id
+        BatchDeletePartitionValueList :$partitions-to-delete!,
+        NameString :$table-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id
     ) returns BatchDeletePartitionResponse is service-operation('BatchDeletePartition') {
         my $request-input = BatchDeletePartitionRequest.new(
-        :$partitions-to-delete,
-        :$table-name,
-        :$database-name,
-        :$catalog-id
+            :$partitions-to-delete,
+            :$table-name,
+            :$database-name,
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<BatchDeletePartition>,
-            :return-type(BatchDeletePartitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-trigger(
-    Str :$schedule,
-    DescriptionString :$description,
-    Array[Action] :$actions!,
-    NameString :$name!,
-    TriggerType :$type!,
-    Predicate :$predicate
+        Str :$schedule,
+        DescriptionString :$description,
+        Array[Action] :$actions!,
+        NameString :$name!,
+        TriggerType :$type!,
+        Predicate :$predicate
     ) returns CreateTriggerResponse is service-operation('CreateTrigger') {
         my $request-input = CreateTriggerRequest.new(
-        :$schedule,
-        :$description,
-        :$actions,
-        :$name,
-        :$type,
-        :$predicate
+            :$schedule,
+            :$description,
+            :$actions,
+            :$name,
+            :$type,
+            :$predicate
         );
-;
+
         self.perform-operation(
             :api-call<CreateTrigger>,
-            :return-type(CreateTriggerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-job(
-    NameString :$job-name!
+        NameString :$job-name!
     ) returns DeleteJobResponse is service-operation('DeleteJob') {
         my $request-input = DeleteJobRequest.new(
-        :$job-name
+            :$job-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteJob>,
-            :return-type(DeleteJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-connections(
-    PageSize :$max-results,
-    GetConnectionsFilter :$filter,
-    CatalogIdString :$catalog-id,
-    Str :$next-token
+        PageSize :$max-results,
+        GetConnectionsFilter :$filter,
+        CatalogIdString :$catalog-id,
+        Str :$next-token
     ) returns GetConnectionsResponse is service-operation('GetConnections') {
         my $request-input = GetConnectionsRequest.new(
-        :$max-results,
-        :$filter,
-        :$catalog-id,
-        :$next-token
+            :$max-results,
+            :$filter,
+            :$catalog-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetConnections>,
-            :return-type(GetConnectionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-crawler-metrics(
-    PageSize :$max-results,
-    CrawlerNameList :$crawler-name-list,
-    Str :$next-token
+        PageSize :$max-results,
+        CrawlerNameList :$crawler-name-list,
+        Str :$next-token
     ) returns GetCrawlerMetricsResponse is service-operation('GetCrawlerMetrics') {
         my $request-input = GetCrawlerMetricsRequest.new(
-        :$max-results,
-        :$crawler-name-list,
-        :$next-token
+            :$max-results,
+            :$crawler-name-list,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetCrawlerMetrics>,
-            :return-type(GetCrawlerMetricsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-connection(
-    CatalogIdString :$catalog-id,
-    ConnectionInput :$connection-input!,
-    NameString :$name!
+        CatalogIdString :$catalog-id,
+        ConnectionInput :$connection-input!,
+        NameString :$name!
     ) returns UpdateConnectionResponse is service-operation('UpdateConnection') {
         my $request-input = UpdateConnectionRequest.new(
-        :$catalog-id,
-        :$connection-input,
-        :$name
+            :$catalog-id,
+            :$connection-input,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateConnection>,
-            :return-type(UpdateConnectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-crawler-schedule(
-    Str :$schedule,
-    NameString :$crawler-name!
+        Str :$schedule,
+        NameString :$crawler-name!
     ) returns UpdateCrawlerScheduleResponse is service-operation('UpdateCrawlerSchedule') {
         my $request-input = UpdateCrawlerScheduleRequest.new(
-        :$schedule,
-        :$crawler-name
+            :$schedule,
+            :$crawler-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateCrawlerSchedule>,
-            :return-type(UpdateCrawlerScheduleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-delete-table(
-    BatchDeleteTableNameList :$tables-to-delete!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id
+        BatchDeleteTableNameList :$tables-to-delete!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id
     ) returns BatchDeleteTableResponse is service-operation('BatchDeleteTable') {
         my $request-input = BatchDeleteTableRequest.new(
-        :$tables-to-delete,
-        :$database-name,
-        :$catalog-id
+            :$tables-to-delete,
+            :$database-name,
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<BatchDeleteTable>,
-            :return-type(BatchDeleteTableResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-classifier(
-    NameString :$name!
+        NameString :$name!
     ) returns DeleteClassifierResponse is service-operation('DeleteClassifier') {
         my $request-input = DeleteClassifierRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteClassifier>,
-            :return-type(DeleteClassifierResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-database(
-    CatalogIdString :$catalog-id,
-    NameString :$name!
+        CatalogIdString :$catalog-id,
+        NameString :$name!
     ) returns GetDatabaseResponse is service-operation('GetDatabase') {
         my $request-input = GetDatabaseRequest.new(
-        :$catalog-id,
-        :$name
+            :$catalog-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetDatabase>,
-            :return-type(GetDatabaseResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-user-defined-function(
-    NameString :$function-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    UserDefinedFunctionInput :$function-input!
+        NameString :$function-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        UserDefinedFunctionInput :$function-input!
     ) returns UpdateUserDefinedFunctionResponse is service-operation('UpdateUserDefinedFunction') {
         my $request-input = UpdateUserDefinedFunctionRequest.new(
-        :$function-name,
-        :$database-name,
-        :$catalog-id,
-        :$function-input
+            :$function-name,
+            :$database-name,
+            :$catalog-id,
+            :$function-input
         );
-;
+
         self.perform-operation(
             :api-call<UpdateUserDefinedFunction>,
-            :return-type(UpdateUserDefinedFunctionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-database(
-    DatabaseInput :$database-input!,
-    CatalogIdString :$catalog-id,
-    NameString :$name!
+        DatabaseInput :$database-input!,
+        CatalogIdString :$catalog-id,
+        NameString :$name!
     ) returns UpdateDatabaseResponse is service-operation('UpdateDatabase') {
         my $request-input = UpdateDatabaseRequest.new(
-        :$database-input,
-        :$catalog-id,
-        :$name
+            :$database-input,
+            :$catalog-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateDatabase>,
-            :return-type(UpdateDatabaseResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-table-versions(
-    PageSize :$max-results,
-    NameString :$table-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    Str :$next-token
+        PageSize :$max-results,
+        NameString :$table-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        Str :$next-token
     ) returns GetTableVersionsResponse is service-operation('GetTableVersions') {
         my $request-input = GetTableVersionsRequest.new(
-        :$max-results,
-        :$table-name,
-        :$database-name,
-        :$catalog-id,
-        :$next-token
+            :$max-results,
+            :$table-name,
+            :$database-name,
+            :$catalog-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetTableVersions>,
-            :return-type(GetTableVersionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-connection(
-    NameString :$connection-name!,
-    CatalogIdString :$catalog-id
+        NameString :$connection-name!,
+        CatalogIdString :$catalog-id
     ) returns DeleteConnectionResponse is service-operation('DeleteConnection') {
         my $request-input = DeleteConnectionRequest.new(
-        :$connection-name,
-        :$catalog-id
+            :$connection-name,
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteConnection>,
-            :return-type(DeleteConnectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-partition(
-    NameString :$table-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    Array[ValueString] :$partition-values!
+        NameString :$table-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        Array[ValueString] :$partition-values!
     ) returns DeletePartitionResponse is service-operation('DeletePartition') {
         my $request-input = DeletePartitionRequest.new(
-        :$table-name,
-        :$database-name,
-        :$catalog-id,
-        :$partition-values
+            :$table-name,
+            :$database-name,
+            :$catalog-id,
+            :$partition-values
         );
-;
+
         self.perform-operation(
             :api-call<DeletePartition>,
-            :return-type(DeletePartitionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-table(
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    NameString :$name!
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        NameString :$name!
     ) returns DeleteTableResponse is service-operation('DeleteTable') {
         my $request-input = DeleteTableRequest.new(
-        :$database-name,
-        :$catalog-id,
-        :$name
+            :$database-name,
+            :$catalog-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTable>,
-            :return-type(DeleteTableResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-dev-endpoints(
-    PageSize :$max-results,
-    Str :$next-token
+        PageSize :$max-results,
+        Str :$next-token
     ) returns GetDevEndpointsResponse is service-operation('GetDevEndpoints') {
         my $request-input = GetDevEndpointsRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetDevEndpoints>,
-            :return-type(GetDevEndpointsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-mapping(
-    CatalogEntry :$source!,
-    Array[CatalogEntry] :$sinks,
-    Location :$location
+        CatalogEntry :$source!,
+        Array[CatalogEntry] :$sinks,
+        Location :$location
     ) returns GetMappingResponse is service-operation('GetMapping') {
         my $request-input = GetMappingRequest.new(
-        :$source,
-        :$sinks,
-        :$location
+            :$source,
+            :$sinks,
+            :$location
         );
-;
+
         self.perform-operation(
             :api-call<GetMapping>,
-            :return-type(GetMappingResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-triggers(
-    PageSize :$max-results,
-    NameString :$dependent-job-name,
-    Str :$next-token
+        PageSize :$max-results,
+        NameString :$dependent-job-name,
+        Str :$next-token
     ) returns GetTriggersResponse is service-operation('GetTriggers') {
         my $request-input = GetTriggersRequest.new(
-        :$max-results,
-        :$dependent-job-name,
-        :$next-token
+            :$max-results,
+            :$dependent-job-name,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetTriggers>,
-            :return-type(GetTriggersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-connection(
-    CatalogIdString :$catalog-id,
-    NameString :$name!
+        CatalogIdString :$catalog-id,
+        NameString :$name!
     ) returns GetConnectionResponse is service-operation('GetConnection') {
         my $request-input = GetConnectionRequest.new(
-        :$catalog-id,
-        :$name
+            :$catalog-id,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetConnection>,
-            :return-type(GetConnectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-job(
-    NameString :$job-name!
+        NameString :$job-name!
     ) returns GetJobResponse is service-operation('GetJob') {
         my $request-input = GetJobRequest.new(
-        :$job-name
+            :$job-name
         );
-;
+
         self.perform-operation(
             :api-call<GetJob>,
-            :return-type(GetJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-partitions(
-    PageSize :$max-results,
-    NameString :$table-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    Segment :$segment,
-    Str :$next-token,
-    PredicateString :$expression
+        PageSize :$max-results,
+        NameString :$table-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        Segment :$segment,
+        Str :$next-token,
+        PredicateString :$expression
     ) returns GetPartitionsResponse is service-operation('GetPartitions') {
         my $request-input = GetPartitionsRequest.new(
-        :$max-results,
-        :$table-name,
-        :$database-name,
-        :$catalog-id,
-        :$segment,
-        :$next-token,
-        :$expression
+            :$max-results,
+            :$table-name,
+            :$database-name,
+            :$catalog-id,
+            :$segment,
+            :$next-token,
+            :$expression
         );
-;
+
         self.perform-operation(
             :api-call<GetPartitions>,
-            :return-type(GetPartitionsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-tables(
-    PageSize :$max-results,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id,
-    Str :$next-token,
-    FilterString :$expression
+        PageSize :$max-results,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id,
+        Str :$next-token,
+        FilterString :$expression
     ) returns GetTablesResponse is service-operation('GetTables') {
         my $request-input = GetTablesRequest.new(
-        :$max-results,
-        :$database-name,
-        :$catalog-id,
-        :$next-token,
-        :$expression
+            :$max-results,
+            :$database-name,
+            :$catalog-id,
+            :$next-token,
+            :$expression
         );
-;
+
         self.perform-operation(
             :api-call<GetTables>,
-            :return-type(GetTablesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-trigger(
-    TriggerUpdate :$trigger-update!,
-    NameString :$name!
+        TriggerUpdate :$trigger-update!,
+        NameString :$name!
     ) returns UpdateTriggerResponse is service-operation('UpdateTrigger') {
         my $request-input = UpdateTriggerRequest.new(
-        :$trigger-update,
-        :$name
+            :$trigger-update,
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTrigger>,
-            :return-type(UpdateTriggerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-trigger(
-    NameString :$name!
+        NameString :$name!
     ) returns StopTriggerResponse is service-operation('StopTrigger') {
         my $request-input = StopTriggerRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<StopTrigger>,
-            :return-type(StopTriggerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-table(
-    TableInput :$table-input!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id
+        TableInput :$table-input!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id
     ) returns CreateTableResponse is service-operation('CreateTable') {
         my $request-input = CreateTableRequest.new(
-        :$table-input,
-        :$database-name,
-        :$catalog-id
+            :$table-input,
+            :$database-name,
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateTable>,
-            :return-type(CreateTableResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-trigger(
-    NameString :$name!
+        NameString :$name!
     ) returns DeleteTriggerResponse is service-operation('DeleteTrigger') {
         my $request-input = DeleteTriggerRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTrigger>,
-            :return-type(DeleteTriggerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-catalog-import-status(
-    CatalogIdString :$catalog-id
+        CatalogIdString :$catalog-id
     ) returns GetCatalogImportStatusResponse is service-operation('GetCatalogImportStatus') {
         my $request-input = GetCatalogImportStatusRequest.new(
-        :$catalog-id
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<GetCatalogImportStatus>,
-            :return-type(GetCatalogImportStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-crawlers(
-    PageSize :$max-results,
-    Str :$next-token
+        PageSize :$max-results,
+        Str :$next-token
     ) returns GetCrawlersResponse is service-operation('GetCrawlers') {
         my $request-input = GetCrawlersRequest.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetCrawlers>,
-            :return-type(GetCrawlersResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-dev-endpoint(
-    Str :$endpoint-name!
+        Str :$endpoint-name!
     ) returns GetDevEndpointResponse is service-operation('GetDevEndpoint') {
         my $request-input = GetDevEndpointRequest.new(
-        :$endpoint-name
+            :$endpoint-name
         );
-;
+
         self.perform-operation(
             :api-call<GetDevEndpoint>,
-            :return-type(GetDevEndpointResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-plan(
-    CatalogEntry :$source!,
-    Array[CatalogEntry] :$sinks,
-    Location :$location,
-    Array[MappingEntry] :$mapping!
+        CatalogEntry :$source!,
+        Array[CatalogEntry] :$sinks,
+        Location :$location,
+        Array[MappingEntry] :$mapping!
     ) returns GetPlanResponse is service-operation('GetPlan') {
         my $request-input = GetPlanRequest.new(
-        :$source,
-        :$sinks,
-        :$location,
-        :$mapping
+            :$source,
+            :$sinks,
+            :$location,
+            :$mapping
         );
-;
+
         self.perform-operation(
             :api-call<GetPlan>,
-            :return-type(GetPlanResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-job(
-    JobUpdate :$job-update!,
-    NameString :$job-name!
+        JobUpdate :$job-update!,
+        NameString :$job-name!
     ) returns UpdateJobResponse is service-operation('UpdateJob') {
         my $request-input = UpdateJobRequest.new(
-        :$job-update,
-        :$job-name
+            :$job-update,
+            :$job-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateJob>,
-            :return-type(UpdateJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-crawler-schedule(
-    NameString :$crawler-name!
+        NameString :$crawler-name!
     ) returns StopCrawlerScheduleResponse is service-operation('StopCrawlerSchedule') {
         my $request-input = StopCrawlerScheduleRequest.new(
-        :$crawler-name
+            :$crawler-name
         );
-;
+
         self.perform-operation(
             :api-call<StopCrawlerSchedule>,
-            :return-type(StopCrawlerScheduleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-job-run(
-    Hash[Str, Str] :$arguments,
-    NameString :$job-name!,
-    Int :$allocated-capacity,
-    IdString :$job-run-id
+        Hash[Str, Str] :$arguments,
+        NameString :$job-name!,
+        Int :$allocated-capacity,
+        IdString :$job-run-id
     ) returns StartJobRunResponse is service-operation('StartJobRun') {
         my $request-input = StartJobRunRequest.new(
-        :$arguments,
-        :$job-name,
-        :$allocated-capacity,
-        :$job-run-id
+            :$arguments,
+            :$job-name,
+            :$allocated-capacity,
+            :$job-run-id
         );
-;
+
         self.perform-operation(
             :api-call<StartJobRun>,
-            :return-type(StartJobRunResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-delete-connection(
-    DeleteConnectionNameList :$connection-name-list!,
-    CatalogIdString :$catalog-id
+        DeleteConnectionNameList :$connection-name-list!,
+        CatalogIdString :$catalog-id
     ) returns BatchDeleteConnectionResponse is service-operation('BatchDeleteConnection') {
         my $request-input = BatchDeleteConnectionRequest.new(
-        :$connection-name-list,
-        :$catalog-id
+            :$connection-name-list,
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<BatchDeleteConnection>,
-            :return-type(BatchDeleteConnectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-job(
-    Int :$max-retries,
-    Str :$role!,
-    ConnectionsList :$connections,
-    DescriptionString :$description,
-    Str :$log-uri,
-    NameString :$name!,
-    Hash[Str, Str] :$default-arguments,
-    JobCommand :$command!,
-    ExecutionProperty :$execution-property,
-    Int :$allocated-capacity
+        Int :$max-retries,
+        Str :$role!,
+        ConnectionsList :$connections,
+        DescriptionString :$description,
+        Str :$log-uri,
+        NameString :$name!,
+        Hash[Str, Str] :$default-arguments,
+        JobCommand :$command!,
+        ExecutionProperty :$execution-property,
+        Int :$allocated-capacity
     ) returns CreateJobResponse is service-operation('CreateJob') {
         my $request-input = CreateJobRequest.new(
-        :$max-retries,
-        :$role,
-        :$connections,
-        :$description,
-        :$log-uri,
-        :$name,
-        :$default-arguments,
-        :$command,
-        :$execution-property,
-        :$allocated-capacity
+            :$max-retries,
+            :$role,
+            :$connections,
+            :$description,
+            :$log-uri,
+            :$name,
+            :$default-arguments,
+            :$command,
+            :$execution-property,
+            :$allocated-capacity
         );
-;
+
         self.perform-operation(
             :api-call<CreateJob>,
-            :return-type(CreateJobResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-user-defined-function(
-    NameString :$function-name!,
-    NameString :$database-name!,
-    CatalogIdString :$catalog-id
+        NameString :$function-name!,
+        NameString :$database-name!,
+        CatalogIdString :$catalog-id
     ) returns DeleteUserDefinedFunctionResponse is service-operation('DeleteUserDefinedFunction') {
         my $request-input = DeleteUserDefinedFunctionRequest.new(
-        :$function-name,
-        :$database-name,
-        :$catalog-id
+            :$function-name,
+            :$database-name,
+            :$catalog-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteUserDefinedFunction>,
-            :return-type(DeleteUserDefinedFunctionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-classifier(
-    NameString :$name!
+        NameString :$name!
     ) returns GetClassifierResponse is service-operation('GetClassifier') {
         my $request-input = GetClassifierRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetClassifier>,
-            :return-type(GetClassifierResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-crawler(
-    NameString :$name!
+        NameString :$name!
     ) returns GetCrawlerResponse is service-operation('GetCrawler') {
         my $request-input = GetCrawlerRequest.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<GetCrawler>,
-            :return-type(GetCrawlerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -497,292 +497,258 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
     }
 
     method describe-activity(
-    Arn :$activity-arn!
+        Arn :$activity-arn!
     ) returns DescribeActivityOutput is service-operation('DescribeActivity') {
         my $request-input = DescribeActivityInput.new(
-        :$activity-arn
+            :$activity-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeActivity>,
-            :return-type(DescribeActivityOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method send-task-heartbeat(
-    TaskToken :$task-token!
+        TaskToken :$task-token!
     ) returns SendTaskHeartbeatOutput is service-operation('SendTaskHeartbeat') {
         my $request-input = SendTaskHeartbeatInput.new(
-        :$task-token
+            :$task-token
         );
-;
+
         self.perform-operation(
             :api-call<SendTaskHeartbeat>,
-            :return-type(SendTaskHeartbeatOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-state-machines(
-    PageToken :$next-token,
-    PageSize :$max-results
+        PageToken :$next-token,
+        PageSize :$max-results
     ) returns ListStateMachinesOutput is service-operation('ListStateMachines') {
         my $request-input = ListStateMachinesInput.new(
-        :$next-token,
-        :$max-results
+            :$next-token,
+            :$max-results
         );
-;
+
         self.perform-operation(
             :api-call<ListStateMachines>,
-            :return-type(ListStateMachinesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-execution(
-    Arn :$execution-arn!
+        Arn :$execution-arn!
     ) returns DescribeExecutionOutput is service-operation('DescribeExecution') {
         my $request-input = DescribeExecutionInput.new(
-        :$execution-arn
+            :$execution-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeExecution>,
-            :return-type(DescribeExecutionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-execution(
-    Error :$error,
-    Arn :$execution-arn!,
-    Cause :$cause
+        Error :$error,
+        Arn :$execution-arn!,
+        Cause :$cause
     ) returns StopExecutionOutput is service-operation('StopExecution') {
         my $request-input = StopExecutionInput.new(
-        :$error,
-        :$execution-arn,
-        :$cause
+            :$error,
+            :$execution-arn,
+            :$cause
         );
-;
+
         self.perform-operation(
             :api-call<StopExecution>,
-            :return-type(StopExecutionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-executions(
-    ExecutionStatus :$status-filter,
-    Arn :$state-machine-arn!,
-    PageToken :$next-token,
-    PageSize :$max-results
+        ExecutionStatus :$status-filter,
+        Arn :$state-machine-arn!,
+        PageToken :$next-token,
+        PageSize :$max-results
     ) returns ListExecutionsOutput is service-operation('ListExecutions') {
         my $request-input = ListExecutionsInput.new(
-        :$status-filter,
-        :$state-machine-arn,
-        :$next-token,
-        :$max-results
+            :$status-filter,
+            :$state-machine-arn,
+            :$next-token,
+            :$max-results
         );
-;
+
         self.perform-operation(
             :api-call<ListExecutions>,
-            :return-type(ListExecutionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-state-machine(
-    Arn :$state-machine-arn!
+        Arn :$state-machine-arn!
     ) returns DescribeStateMachineOutput is service-operation('DescribeStateMachine') {
         my $request-input = DescribeStateMachineInput.new(
-        :$state-machine-arn
+            :$state-machine-arn
         );
-;
+
         self.perform-operation(
             :api-call<DescribeStateMachine>,
-            :return-type(DescribeStateMachineOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-state-machine(
-    Arn :$state-machine-arn!
+        Arn :$state-machine-arn!
     ) returns DeleteStateMachineOutput is service-operation('DeleteStateMachine') {
         my $request-input = DeleteStateMachineInput.new(
-        :$state-machine-arn
+            :$state-machine-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteStateMachine>,
-            :return-type(DeleteStateMachineOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-execution(
-    Name :$name,
-    Arn :$state-machine-arn!,
-    Data :$input
+        Name :$name,
+        Arn :$state-machine-arn!,
+        Data :$input
     ) returns StartExecutionOutput is service-operation('StartExecution') {
         my $request-input = StartExecutionInput.new(
-        :$name,
-        :$state-machine-arn,
-        :$input
+            :$name,
+            :$state-machine-arn,
+            :$input
         );
-;
+
         self.perform-operation(
             :api-call<StartExecution>,
-            :return-type(StartExecutionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method send-task-success(
-    TaskToken :$task-token!,
-    Data :$output!
+        TaskToken :$task-token!,
+        Data :$output!
     ) returns SendTaskSuccessOutput is service-operation('SendTaskSuccess') {
         my $request-input = SendTaskSuccessInput.new(
-        :$task-token,
-        :$output
+            :$task-token,
+            :$output
         );
-;
+
         self.perform-operation(
             :api-call<SendTaskSuccess>,
-            :return-type(SendTaskSuccessOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-execution-history(
-    Bool :$reverse-order,
-    Arn :$execution-arn!,
-    PageToken :$next-token,
-    PageSize :$max-results
+        Bool :$reverse-order,
+        Arn :$execution-arn!,
+        PageToken :$next-token,
+        PageSize :$max-results
     ) returns GetExecutionHistoryOutput is service-operation('GetExecutionHistory') {
         my $request-input = GetExecutionHistoryInput.new(
-        :$reverse-order,
-        :$execution-arn,
-        :$next-token,
-        :$max-results
+            :$reverse-order,
+            :$execution-arn,
+            :$next-token,
+            :$max-results
         );
-;
+
         self.perform-operation(
             :api-call<GetExecutionHistory>,
-            :return-type(GetExecutionHistoryOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-state-machine(
-    Name :$name!,
-    Definition :$definition!,
-    Arn :$role-arn!
+        Name :$name!,
+        Definition :$definition!,
+        Arn :$role-arn!
     ) returns CreateStateMachineOutput is service-operation('CreateStateMachine') {
         my $request-input = CreateStateMachineInput.new(
-        :$name,
-        :$definition,
-        :$role-arn
+            :$name,
+            :$definition,
+            :$role-arn
         );
-;
+
         self.perform-operation(
             :api-call<CreateStateMachine>,
-            :return-type(CreateStateMachineOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-activity-task(
-    Name :$worker-name,
-    Arn :$activity-arn!
+        Name :$worker-name,
+        Arn :$activity-arn!
     ) returns GetActivityTaskOutput is service-operation('GetActivityTask') {
         my $request-input = GetActivityTaskInput.new(
-        :$worker-name,
-        :$activity-arn
+            :$worker-name,
+            :$activity-arn
         );
-;
+
         self.perform-operation(
             :api-call<GetActivityTask>,
-            :return-type(GetActivityTaskOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method send-task-failure(
-    Error :$error,
-    TaskToken :$task-token!,
-    Cause :$cause
+        Error :$error,
+        TaskToken :$task-token!,
+        Cause :$cause
     ) returns SendTaskFailureOutput is service-operation('SendTaskFailure') {
         my $request-input = SendTaskFailureInput.new(
-        :$error,
-        :$task-token,
-        :$cause
+            :$error,
+            :$task-token,
+            :$cause
         );
-;
+
         self.perform-operation(
             :api-call<SendTaskFailure>,
-            :return-type(SendTaskFailureOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-activities(
-    PageToken :$next-token,
-    PageSize :$max-results
+        PageToken :$next-token,
+        PageSize :$max-results
     ) returns ListActivitiesOutput is service-operation('ListActivities') {
         my $request-input = ListActivitiesInput.new(
-        :$next-token,
-        :$max-results
+            :$next-token,
+            :$max-results
         );
-;
+
         self.perform-operation(
             :api-call<ListActivities>,
-            :return-type(ListActivitiesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-activity(
-    Arn :$activity-arn!
+        Arn :$activity-arn!
     ) returns DeleteActivityOutput is service-operation('DeleteActivity') {
         my $request-input = DeleteActivityInput.new(
-        :$activity-arn
+            :$activity-arn
         );
-;
+
         self.perform-operation(
             :api-call<DeleteActivity>,
-            :return-type(DeleteActivityOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-activity(
-    Name :$name!
+        Name :$name!
     ) returns CreateActivityOutput is service-operation('CreateActivity') {
         my $request-input = CreateActivityInput.new(
-        :$name
+            :$name
         );
-;
+
         self.perform-operation(
             :api-call<CreateActivity>,
-            :return-type(CreateActivityOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

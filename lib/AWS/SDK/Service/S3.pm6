@@ -1665,211 +1665,191 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     method list-parts(
-    Str :$upload-id!,
-    Int :$part-number-marker,
-    Str :$bucket!,
-    RequestPayer :$request-payer,
-    Int :$max-parts,
-    ObjectKey :$key!
+        Str :$upload-id!,
+        Int :$part-number-marker,
+        Str :$bucket!,
+        RequestPayer :$request-payer,
+        Int :$max-parts,
+        ObjectKey :$key!
     ) returns ListPartsOutput is service-operation('ListParts') {
         my $request-input = ListPartsRequest.new(
-        :$upload-id,
-        :$part-number-marker,
-        :$bucket,
-        :$request-payer,
-        :$max-parts,
-        :$key
+            :$upload-id,
+            :$part-number-marker,
+            :$bucket,
+            :$request-payer,
+            :$max-parts,
+            :$key
         );
-;
+
         self.perform-operation(
             :api-call<ListParts>,
-            :return-type(ListPartsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bucket-cors(
-    Str :$bucket!
+        Str :$bucket!
     ) is service-operation('DeleteBucketCors') {
         my $request-input = DeleteBucketCorsRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBucketCors>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-acl(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketAclOutput is service-operation('GetBucketAcl') {
         my $request-input = GetBucketAclRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketAcl>,
-            :return-type(GetBucketAclOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-versioning(
-    Str :$content-md5,
-    Str :$bucket!,
-    VersioningConfiguration :$versioning-configuration!,
-    Str :$mfa
+        Str :$content-md5,
+        Str :$bucket!,
+        VersioningConfiguration :$versioning-configuration!,
+        Str :$mfa
     ) is service-operation('PutBucketVersioning') {
         my $request-input = PutBucketVersioningRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$versioning-configuration,
-        :$mfa
+            :$content-md5,
+            :$bucket,
+            :$versioning-configuration,
+            :$mfa
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketVersioning>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method upload-part-copy(
-    Str :$upload-id!,
-    Str :$bucket!,
-    Str :$sse-customer-key,
-    RequestPayer :$request-payer,
-    Str :$copy-source-if-none-match,
-    DateTime :$copy-source-if-modified-since,
-    Str :$copy-source-sse-customer-key,
-    Str :$copy-source-sse-customer-algorithm,
-    Str :$sse-customer-key-md5,
-    Str :$copy-source-if-match,
-    Str :$sse-customer-algorithm,
-    Int :$part-number!,
-    ObjectKey :$key!,
-    DateTime :$copy-source-if-unmodified-since,
-    Str :$copy-source-sse-customer-key-md5,
-    Str :$copy-source-range,
-    CopySource :$copy-source!
+        Str :$upload-id!,
+        Str :$bucket!,
+        Str :$sse-customer-key,
+        RequestPayer :$request-payer,
+        Str :$copy-source-if-none-match,
+        DateTime :$copy-source-if-modified-since,
+        Str :$copy-source-sse-customer-key,
+        Str :$copy-source-sse-customer-algorithm,
+        Str :$sse-customer-key-md5,
+        Str :$copy-source-if-match,
+        Str :$sse-customer-algorithm,
+        Int :$part-number!,
+        ObjectKey :$key!,
+        DateTime :$copy-source-if-unmodified-since,
+        Str :$copy-source-sse-customer-key-md5,
+        Str :$copy-source-range,
+        CopySource :$copy-source!
     ) returns UploadPartCopyOutput is service-operation('UploadPartCopy') {
         my $request-input = UploadPartCopyRequest.new(
-        :$upload-id,
-        :$bucket,
-        :$sse-customer-key,
-        :$request-payer,
-        :$copy-source-if-none-match,
-        :$copy-source-if-modified-since,
-        :$copy-source-sse-customer-key,
-        :$copy-source-sse-customer-algorithm,
-        :$sse-customer-key-md5,
-        :$copy-source-if-match,
-        :$sse-customer-algorithm,
-        :$part-number,
-        :$key,
-        :$copy-source-if-unmodified-since,
-        :$copy-source-sse-customer-key-md5,
-        :$copy-source-range,
-        :$copy-source
+            :$upload-id,
+            :$bucket,
+            :$sse-customer-key,
+            :$request-payer,
+            :$copy-source-if-none-match,
+            :$copy-source-if-modified-since,
+            :$copy-source-sse-customer-key,
+            :$copy-source-sse-customer-algorithm,
+            :$sse-customer-key-md5,
+            :$copy-source-if-match,
+            :$sse-customer-algorithm,
+            :$part-number,
+            :$key,
+            :$copy-source-if-unmodified-since,
+            :$copy-source-sse-customer-key-md5,
+            :$copy-source-range,
+            :$copy-source
         );
-;
+
         self.perform-operation(
             :api-call<UploadPartCopy>,
-            :return-type(UploadPartCopyOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-replication(
-    Str :$content-md5,
-    Str :$bucket!,
-    ReplicationConfiguration :$replication-configuration!
+        Str :$content-md5,
+        Str :$bucket!,
+        ReplicationConfiguration :$replication-configuration!
     ) is service-operation('PutBucketReplication') {
         my $request-input = PutBucketReplicationRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$replication-configuration
+            :$content-md5,
+            :$bucket,
+            :$replication-configuration
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketReplication>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-accelerate-configuration(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketAccelerateConfigurationOutput is service-operation('GetBucketAccelerateConfiguration') {
         my $request-input = GetBucketAccelerateConfigurationRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketAccelerateConfiguration>,
-            :return-type(GetBucketAccelerateConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-lifecycle-configuration(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketLifecycleConfigurationOutput is service-operation('GetBucketLifecycleConfiguration') {
         my $request-input = GetBucketLifecycleConfigurationRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketLifecycleConfiguration>,
-            :return-type(GetBucketLifecycleConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-website(
-    Str :$content-md5,
-    Str :$bucket!,
-    WebsiteConfiguration :$website-configuration!
+        Str :$content-md5,
+        Str :$bucket!,
+        WebsiteConfiguration :$website-configuration!
     ) is service-operation('PutBucketWebsite') {
         my $request-input = PutBucketWebsiteRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$website-configuration
+            :$content-md5,
+            :$bucket,
+            :$website-configuration
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketWebsite>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-request-payment(
-    Str :$content-md5,
-    Str :$bucket!,
-    RequestPaymentConfiguration :$request-payment-configuration!
+        Str :$content-md5,
+        Str :$bucket!,
+        RequestPaymentConfiguration :$request-payment-configuration!
     ) is service-operation('PutBucketRequestPayment') {
         my $request-input = PutBucketRequestPaymentRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$request-payment-configuration
+            :$content-md5,
+            :$bucket,
+            :$request-payment-configuration
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketRequestPayment>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1877,1420 +1857,1292 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     method list-buckets(
 
     ) returns ListBucketsOutput is service-operation('ListBuckets') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<ListBuckets>,
-            :return-type(ListBucketsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bucket(
-    Str :$bucket!
+        Str :$bucket!
     ) is service-operation('DeleteBucket') {
         my $request-input = DeleteBucketRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBucket>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-objects(
-    Str :$bucket!,
-    RequestPayer :$request-payer,
-    Str :$mfa,
-    Delete :$delete!
+        Str :$bucket!,
+        RequestPayer :$request-payer,
+        Str :$mfa,
+        Delete :$delete!
     ) returns DeleteObjectsOutput is service-operation('DeleteObjects') {
         my $request-input = DeleteObjectsRequest.new(
-        :$bucket,
-        :$request-payer,
-        :$mfa,
-        :$delete
+            :$bucket,
+            :$request-payer,
+            :$mfa,
+            :$delete
         );
-;
+
         self.perform-operation(
             :api-call<DeleteObjects>,
-            :return-type(DeleteObjectsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-request-payment(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketRequestPaymentOutput is service-operation('GetBucketRequestPayment') {
         my $request-input = GetBucketRequestPaymentRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketRequestPayment>,
-            :return-type(GetBucketRequestPaymentOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-accelerate-configuration(
-    Str :$bucket!,
-    AccelerateConfiguration :$accelerate-configuration!
+        Str :$bucket!,
+        AccelerateConfiguration :$accelerate-configuration!
     ) is service-operation('PutBucketAccelerateConfiguration') {
         my $request-input = PutBucketAccelerateConfigurationRequest.new(
-        :$bucket,
-        :$accelerate-configuration
+            :$bucket,
+            :$accelerate-configuration
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketAccelerateConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-object-torrent(
-    Str :$bucket!,
-    RequestPayer :$request-payer,
-    ObjectKey :$key!
+        Str :$bucket!,
+        RequestPayer :$request-payer,
+        ObjectKey :$key!
     ) returns GetObjectTorrentOutput is service-operation('GetObjectTorrent') {
         my $request-input = GetObjectTorrentRequest.new(
-        :$bucket,
-        :$request-payer,
-        :$key
+            :$bucket,
+            :$request-payer,
+            :$key
         );
-;
+
         self.perform-operation(
             :api-call<GetObjectTorrent>,
-            :return-type(GetObjectTorrentOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-object-tagging(
-    Str :$bucket!,
-    Str :$version-id,
-    ObjectKey :$key!
+        Str :$bucket!,
+        Str :$version-id,
+        ObjectKey :$key!
     ) returns GetObjectTaggingOutput is service-operation('GetObjectTagging') {
         my $request-input = GetObjectTaggingRequest.new(
-        :$bucket,
-        :$version-id,
-        :$key
+            :$bucket,
+            :$version-id,
+            :$key
         );
-;
+
         self.perform-operation(
             :api-call<GetObjectTagging>,
-            :return-type(GetObjectTaggingOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bucket-inventory-configuration(
-    Str :$bucket!,
-    Str :$id!
+        Str :$bucket!,
+        Str :$id!
     ) is service-operation('DeleteBucketInventoryConfiguration') {
         my $request-input = DeleteBucketInventoryConfigurationRequest.new(
-        :$bucket,
-        :$id
+            :$bucket,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBucketInventoryConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bucket-tagging(
-    Str :$bucket!
+        Str :$bucket!
     ) is service-operation('DeleteBucketTagging') {
         my $request-input = DeleteBucketTaggingRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBucketTagging>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-object-tagging(
-    Str :$bucket!,
-    Str :$version-id,
-    ObjectKey :$key!
+        Str :$bucket!,
+        Str :$version-id,
+        ObjectKey :$key!
     ) returns DeleteObjectTaggingOutput is service-operation('DeleteObjectTagging') {
         my $request-input = DeleteObjectTaggingRequest.new(
-        :$bucket,
-        :$version-id,
-        :$key
+            :$bucket,
+            :$version-id,
+            :$key
         );
-;
+
         self.perform-operation(
             :api-call<DeleteObjectTagging>,
-            :return-type(DeleteObjectTaggingOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-object(
-    Str :$range,
-    Str :$if-match,
-    Str :$bucket!,
-    Str :$sse-customer-key,
-    Str :$response-content-encoding,
-    DateTime :$if-unmodified-since,
-    RequestPayer :$request-payer,
-    DateTime :$response-expires,
-    Str :$response-content-disposition,
-    Str :$sse-customer-key-md5,
-    Str :$response-content-language,
-    Int :$part-number,
-    Str :$sse-customer-algorithm,
-    Str :$version-id,
-    ObjectKey :$key!,
-    Str :$response-content-type,
-    Str :$response-cache-control,
-    Str :$if-none-match,
-    DateTime :$if-modified-since
+        Str :$range,
+        Str :$if-match,
+        Str :$bucket!,
+        Str :$sse-customer-key,
+        Str :$response-content-encoding,
+        DateTime :$if-unmodified-since,
+        RequestPayer :$request-payer,
+        DateTime :$response-expires,
+        Str :$response-content-disposition,
+        Str :$sse-customer-key-md5,
+        Str :$response-content-language,
+        Int :$part-number,
+        Str :$sse-customer-algorithm,
+        Str :$version-id,
+        ObjectKey :$key!,
+        Str :$response-content-type,
+        Str :$response-cache-control,
+        Str :$if-none-match,
+        DateTime :$if-modified-since
     ) returns GetObjectOutput is service-operation('GetObject') {
         my $request-input = GetObjectRequest.new(
-        :$range,
-        :$if-match,
-        :$bucket,
-        :$sse-customer-key,
-        :$response-content-encoding,
-        :$if-unmodified-since,
-        :$request-payer,
-        :$response-expires,
-        :$response-content-disposition,
-        :$sse-customer-key-md5,
-        :$response-content-language,
-        :$part-number,
-        :$sse-customer-algorithm,
-        :$version-id,
-        :$key,
-        :$response-content-type,
-        :$response-cache-control,
-        :$if-none-match,
-        :$if-modified-since
+            :$range,
+            :$if-match,
+            :$bucket,
+            :$sse-customer-key,
+            :$response-content-encoding,
+            :$if-unmodified-since,
+            :$request-payer,
+            :$response-expires,
+            :$response-content-disposition,
+            :$sse-customer-key-md5,
+            :$response-content-language,
+            :$part-number,
+            :$sse-customer-algorithm,
+            :$version-id,
+            :$key,
+            :$response-content-type,
+            :$response-cache-control,
+            :$if-none-match,
+            :$if-modified-since
         );
-;
+
         self.perform-operation(
             :api-call<GetObject>,
-            :return-type(GetObjectOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-notification(
-    Str :$content-md5,
-    Str :$bucket!,
-    NotificationConfigurationDeprecated :$notification-configuration!
+        Str :$content-md5,
+        Str :$bucket!,
+        NotificationConfigurationDeprecated :$notification-configuration!
     ) is service-operation('PutBucketNotification') {
         my $request-input = PutBucketNotificationRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$notification-configuration
+            :$content-md5,
+            :$bucket,
+            :$notification-configuration
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketNotification>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-lifecycle(
-    LifecycleConfiguration :$lifecycle-configuration,
-    Str :$content-md5,
-    Str :$bucket!
+        LifecycleConfiguration :$lifecycle-configuration,
+        Str :$content-md5,
+        Str :$bucket!
     ) is service-operation('PutBucketLifecycle') {
         my $request-input = PutBucketLifecycleRequest.new(
-        :$lifecycle-configuration,
-        :$content-md5,
-        :$bucket
+            :$lifecycle-configuration,
+            :$content-md5,
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketLifecycle>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bucket-policy(
-    Str :$bucket!
+        Str :$bucket!
     ) is service-operation('DeleteBucketPolicy') {
         my $request-input = DeleteBucketPolicyRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBucketPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-notification(
-    Str :$bucket!
+        Str :$bucket!
     ) returns NotificationConfigurationDeprecated is service-operation('GetBucketNotification') {
         my $request-input = GetBucketNotificationConfigurationRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketNotification>,
-            :return-type(NotificationConfigurationDeprecated),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-tagging(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketTaggingOutput is service-operation('GetBucketTagging') {
         my $request-input = GetBucketTaggingRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketTagging>,
-            :return-type(GetBucketTaggingOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-metrics-configuration(
-    Str :$bucket!,
-    Str :$id!,
-    MetricsConfiguration :$metrics-configuration!
+        Str :$bucket!,
+        Str :$id!,
+        MetricsConfiguration :$metrics-configuration!
     ) is service-operation('PutBucketMetricsConfiguration') {
         my $request-input = PutBucketMetricsConfigurationRequest.new(
-        :$bucket,
-        :$id,
-        :$metrics-configuration
+            :$bucket,
+            :$id,
+            :$metrics-configuration
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketMetricsConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-inventory-configuration(
-    Str :$bucket!,
-    InventoryConfiguration :$inventory-configuration!,
-    Str :$id!
+        Str :$bucket!,
+        InventoryConfiguration :$inventory-configuration!,
+        Str :$id!
     ) is service-operation('PutBucketInventoryConfiguration') {
         my $request-input = PutBucketInventoryConfigurationRequest.new(
-        :$bucket,
-        :$inventory-configuration,
-        :$id
+            :$bucket,
+            :$inventory-configuration,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketInventoryConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-analytics-configuration(
-    Str :$bucket!,
-    AnalyticsConfiguration :$analytics-configuration!,
-    Str :$id!
+        Str :$bucket!,
+        AnalyticsConfiguration :$analytics-configuration!,
+        Str :$id!
     ) is service-operation('PutBucketAnalyticsConfiguration') {
         my $request-input = PutBucketAnalyticsConfigurationRequest.new(
-        :$bucket,
-        :$analytics-configuration,
-        :$id
+            :$bucket,
+            :$analytics-configuration,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketAnalyticsConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-objects(
-    EncodingType :$encoding-type,
-    Str :$bucket!,
-    RequestPayer :$request-payer,
-    Str :$prefix,
-    Str :$delimiter,
-    Str :$marker,
-    Int :$max-keys
+        EncodingType :$encoding-type,
+        Str :$bucket!,
+        RequestPayer :$request-payer,
+        Str :$prefix,
+        Str :$delimiter,
+        Str :$marker,
+        Int :$max-keys
     ) returns ListObjectsOutput is service-operation('ListObjects') {
         my $request-input = ListObjectsRequest.new(
-        :$encoding-type,
-        :$bucket,
-        :$request-payer,
-        :$prefix,
-        :$delimiter,
-        :$marker,
-        :$max-keys
+            :$encoding-type,
+            :$bucket,
+            :$request-payer,
+            :$prefix,
+            :$delimiter,
+            :$marker,
+            :$max-keys
         );
-;
+
         self.perform-operation(
             :api-call<ListObjects>,
-            :return-type(ListObjectsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-bucket(
-    Str :$bucket!,
-    Str :$grant-write-acp,
-    Str :$grant-full-control,
-    CreateBucketConfiguration :$create-bucket-configuration,
-    Str :$grant-read-acp,
-    Str :$grant-read,
-    BucketCannedACL :$acl,
-    Str :$grant-write
+        Str :$bucket!,
+        Str :$grant-write-acp,
+        Str :$grant-full-control,
+        CreateBucketConfiguration :$create-bucket-configuration,
+        Str :$grant-read-acp,
+        Str :$grant-read,
+        BucketCannedACL :$acl,
+        Str :$grant-write
     ) returns CreateBucketOutput is service-operation('CreateBucket') {
         my $request-input = CreateBucketRequest.new(
-        :$bucket,
-        :$grant-write-acp,
-        :$grant-full-control,
-        :$create-bucket-configuration,
-        :$grant-read-acp,
-        :$grant-read,
-        :$acl,
-        :$grant-write
+            :$bucket,
+            :$grant-write-acp,
+            :$grant-full-control,
+            :$create-bucket-configuration,
+            :$grant-read-acp,
+            :$grant-read,
+            :$acl,
+            :$grant-write
         );
-;
+
         self.perform-operation(
             :api-call<CreateBucket>,
-            :return-type(CreateBucketOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-cors(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketCorsOutput is service-operation('GetBucketCors') {
         my $request-input = GetBucketCorsRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketCors>,
-            :return-type(GetBucketCorsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-lifecycle(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketLifecycleOutput is service-operation('GetBucketLifecycle') {
         my $request-input = GetBucketLifecycleRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketLifecycle>,
-            :return-type(GetBucketLifecycleOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method upload-part(
-    Str :$upload-id!,
-    Str :$content-md5,
-    Str :$bucket!,
-    Blob :$body,
-    Str :$sse-customer-key,
-    RequestPayer :$request-payer,
-    Str :$sse-customer-key-md5,
-    Str :$sse-customer-algorithm,
-    Int :$part-number!,
-    ObjectKey :$key!,
-    Int :$content-length
+        Str :$upload-id!,
+        Str :$content-md5,
+        Str :$bucket!,
+        Blob :$body,
+        Str :$sse-customer-key,
+        RequestPayer :$request-payer,
+        Str :$sse-customer-key-md5,
+        Str :$sse-customer-algorithm,
+        Int :$part-number!,
+        ObjectKey :$key!,
+        Int :$content-length
     ) returns UploadPartOutput is service-operation('UploadPart') {
         my $request-input = UploadPartRequest.new(
-        :$upload-id,
-        :$content-md5,
-        :$bucket,
-        :$body,
-        :$sse-customer-key,
-        :$request-payer,
-        :$sse-customer-key-md5,
-        :$sse-customer-algorithm,
-        :$part-number,
-        :$key,
-        :$content-length
+            :$upload-id,
+            :$content-md5,
+            :$bucket,
+            :$body,
+            :$sse-customer-key,
+            :$request-payer,
+            :$sse-customer-key-md5,
+            :$sse-customer-algorithm,
+            :$part-number,
+            :$key,
+            :$content-length
         );
-;
+
         self.perform-operation(
             :api-call<UploadPart>,
-            :return-type(UploadPartOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method restore-object(
-    Str :$bucket!,
-    RequestPayer :$request-payer,
-    Str :$version-id,
-    ObjectKey :$key!,
-    RestoreRequest :$restore-request
+        Str :$bucket!,
+        RequestPayer :$request-payer,
+        Str :$version-id,
+        ObjectKey :$key!,
+        RestoreRequest :$restore-request
     ) returns RestoreObjectOutput is service-operation('RestoreObject') {
         my $request-input = RestoreObjectRequest.new(
-        :$bucket,
-        :$request-payer,
-        :$version-id,
-        :$key,
-        :$restore-request
+            :$bucket,
+            :$request-payer,
+            :$version-id,
+            :$key,
+            :$restore-request
         );
-;
+
         self.perform-operation(
             :api-call<RestoreObject>,
-            :return-type(RestoreObjectOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-objects-v2(
-    Str :$start-after,
-    EncodingType :$encoding-type,
-    Str :$bucket!,
-    RequestPayer :$request-payer,
-    Bool :$fetch-owner,
-    Str :$prefix,
-    Str :$delimiter,
-    Str :$continuation-token,
-    Int :$max-keys
+        Str :$start-after,
+        EncodingType :$encoding-type,
+        Str :$bucket!,
+        RequestPayer :$request-payer,
+        Bool :$fetch-owner,
+        Str :$prefix,
+        Str :$delimiter,
+        Str :$continuation-token,
+        Int :$max-keys
     ) returns ListObjectsV2Output is service-operation('ListObjectsV2') {
         my $request-input = ListObjectsV2Request.new(
-        :$start-after,
-        :$encoding-type,
-        :$bucket,
-        :$request-payer,
-        :$fetch-owner,
-        :$prefix,
-        :$delimiter,
-        :$continuation-token,
-        :$max-keys
+            :$start-after,
+            :$encoding-type,
+            :$bucket,
+            :$request-payer,
+            :$fetch-owner,
+            :$prefix,
+            :$delimiter,
+            :$continuation-token,
+            :$max-keys
         );
-;
+
         self.perform-operation(
             :api-call<ListObjectsV2>,
-            :return-type(ListObjectsV2Output),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method head-bucket(
-    Str :$bucket!
+        Str :$bucket!
     ) is service-operation('HeadBucket') {
         my $request-input = HeadBucketRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<HeadBucket>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method abort-multipart-upload(
-    Str :$upload-id!,
-    Str :$bucket!,
-    RequestPayer :$request-payer,
-    ObjectKey :$key!
+        Str :$upload-id!,
+        Str :$bucket!,
+        RequestPayer :$request-payer,
+        ObjectKey :$key!
     ) returns AbortMultipartUploadOutput is service-operation('AbortMultipartUpload') {
         my $request-input = AbortMultipartUploadRequest.new(
-        :$upload-id,
-        :$bucket,
-        :$request-payer,
-        :$key
+            :$upload-id,
+            :$bucket,
+            :$request-payer,
+            :$key
         );
-;
+
         self.perform-operation(
             :api-call<AbortMultipartUpload>,
-            :return-type(AbortMultipartUploadOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bucket-analytics-configuration(
-    Str :$bucket!,
-    Str :$id!
+        Str :$bucket!,
+        Str :$id!
     ) is service-operation('DeleteBucketAnalyticsConfiguration') {
         my $request-input = DeleteBucketAnalyticsConfigurationRequest.new(
-        :$bucket,
-        :$id
+            :$bucket,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBucketAnalyticsConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bucket-replication(
-    Str :$bucket!
+        Str :$bucket!
     ) is service-operation('DeleteBucketReplication') {
         my $request-input = DeleteBucketReplicationRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBucketReplication>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-inventory-configuration(
-    Str :$bucket!,
-    Str :$id!
+        Str :$bucket!,
+        Str :$id!
     ) returns GetBucketInventoryConfigurationOutput is service-operation('GetBucketInventoryConfiguration') {
         my $request-input = GetBucketInventoryConfigurationRequest.new(
-        :$bucket,
-        :$id
+            :$bucket,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketInventoryConfiguration>,
-            :return-type(GetBucketInventoryConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-notification-configuration(
-    Str :$bucket!
+        Str :$bucket!
     ) returns NotificationConfiguration is service-operation('GetBucketNotificationConfiguration') {
         my $request-input = GetBucketNotificationConfigurationRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketNotificationConfiguration>,
-            :return-type(NotificationConfiguration),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-replication(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketReplicationOutput is service-operation('GetBucketReplication') {
         my $request-input = GetBucketReplicationRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketReplication>,
-            :return-type(GetBucketReplicationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-notification-configuration(
-    Str :$bucket!,
-    NotificationConfiguration :$notification-configuration!
+        Str :$bucket!,
+        NotificationConfiguration :$notification-configuration!
     ) is service-operation('PutBucketNotificationConfiguration') {
         my $request-input = PutBucketNotificationConfigurationRequest.new(
-        :$bucket,
-        :$notification-configuration
+            :$bucket,
+            :$notification-configuration
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketNotificationConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-bucket-metrics-configurations(
-    Str :$bucket!,
-    Str :$continuation-token
+        Str :$bucket!,
+        Str :$continuation-token
     ) returns ListBucketMetricsConfigurationsOutput is service-operation('ListBucketMetricsConfigurations') {
         my $request-input = ListBucketMetricsConfigurationsRequest.new(
-        :$bucket,
-        :$continuation-token
+            :$bucket,
+            :$continuation-token
         );
-;
+
         self.perform-operation(
             :api-call<ListBucketMetricsConfigurations>,
-            :return-type(ListBucketMetricsConfigurationsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-multipart-upload(
-    StorageClass :$storage-class,
-    Str :$content-language,
-    Str :$bucket!,
-    Str :$sse-customer-key,
-    ServerSideEncryption :$server-side-encryption,
-    Str :$grant-write-acp,
-    RequestPayer :$request-payer,
-    Str :$grant-full-control,
-    Str :$content-encoding,
-    Str :$cache-control,
-    Str :$grant-read-acp,
-    Str :$content-type,
-    Str :$sse-kms-key-id,
-    Str :$sse-customer-key-md5,
-    Str :$website-redirect-location,
-    Hash[Str, Str] :$metadata,
-    Str :$grant-read,
-    DateTime :$expires,
-    Str :$content-disposition,
-    ObjectCannedACL :$acl,
-    Str :$sse-customer-algorithm,
-    ObjectKey :$key!,
-    Str :$tagging
+        StorageClass :$storage-class,
+        Str :$content-language,
+        Str :$bucket!,
+        Str :$sse-customer-key,
+        ServerSideEncryption :$server-side-encryption,
+        Str :$grant-write-acp,
+        RequestPayer :$request-payer,
+        Str :$grant-full-control,
+        Str :$content-encoding,
+        Str :$cache-control,
+        Str :$grant-read-acp,
+        Str :$content-type,
+        Str :$sse-kms-key-id,
+        Str :$sse-customer-key-md5,
+        Str :$website-redirect-location,
+        Hash[Str, Str] :$metadata,
+        Str :$grant-read,
+        DateTime :$expires,
+        Str :$content-disposition,
+        ObjectCannedACL :$acl,
+        Str :$sse-customer-algorithm,
+        ObjectKey :$key!,
+        Str :$tagging
     ) returns CreateMultipartUploadOutput is service-operation('CreateMultipartUpload') {
         my $request-input = CreateMultipartUploadRequest.new(
-        :$storage-class,
-        :$content-language,
-        :$bucket,
-        :$sse-customer-key,
-        :$server-side-encryption,
-        :$grant-write-acp,
-        :$request-payer,
-        :$grant-full-control,
-        :$content-encoding,
-        :$cache-control,
-        :$grant-read-acp,
-        :$content-type,
-        :$sse-kms-key-id,
-        :$sse-customer-key-md5,
-        :$website-redirect-location,
-        :$metadata,
-        :$grant-read,
-        :$expires,
-        :$content-disposition,
-        :$acl,
-        :$sse-customer-algorithm,
-        :$key,
-        :$tagging
+            :$storage-class,
+            :$content-language,
+            :$bucket,
+            :$sse-customer-key,
+            :$server-side-encryption,
+            :$grant-write-acp,
+            :$request-payer,
+            :$grant-full-control,
+            :$content-encoding,
+            :$cache-control,
+            :$grant-read-acp,
+            :$content-type,
+            :$sse-kms-key-id,
+            :$sse-customer-key-md5,
+            :$website-redirect-location,
+            :$metadata,
+            :$grant-read,
+            :$expires,
+            :$content-disposition,
+            :$acl,
+            :$sse-customer-algorithm,
+            :$key,
+            :$tagging
         );
-;
+
         self.perform-operation(
             :api-call<CreateMultipartUpload>,
-            :return-type(CreateMultipartUploadOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-metrics-configuration(
-    Str :$bucket!,
-    Str :$id!
+        Str :$bucket!,
+        Str :$id!
     ) returns GetBucketMetricsConfigurationOutput is service-operation('GetBucketMetricsConfiguration') {
         my $request-input = GetBucketMetricsConfigurationRequest.new(
-        :$bucket,
-        :$id
+            :$bucket,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketMetricsConfiguration>,
-            :return-type(GetBucketMetricsConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-versioning(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketVersioningOutput is service-operation('GetBucketVersioning') {
         my $request-input = GetBucketVersioningRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketVersioning>,
-            :return-type(GetBucketVersioningOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-logging(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketLoggingOutput is service-operation('GetBucketLogging') {
         my $request-input = GetBucketLoggingRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketLogging>,
-            :return-type(GetBucketLoggingOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-tagging(
-    Str :$content-md5,
-    Str :$bucket!,
-    Tagging :$tagging!
+        Str :$content-md5,
+        Str :$bucket!,
+        Tagging :$tagging!
     ) is service-operation('PutBucketTagging') {
         my $request-input = PutBucketTaggingRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$tagging
+            :$content-md5,
+            :$bucket,
+            :$tagging
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketTagging>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-logging(
-    Str :$content-md5,
-    Str :$bucket!,
-    BucketLoggingStatus :$bucket-logging-status!
+        Str :$content-md5,
+        Str :$bucket!,
+        BucketLoggingStatus :$bucket-logging-status!
     ) is service-operation('PutBucketLogging') {
         my $request-input = PutBucketLoggingRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$bucket-logging-status
+            :$content-md5,
+            :$bucket,
+            :$bucket-logging-status
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketLogging>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-acl(
-    Str :$content-md5,
-    Str :$bucket!,
-    AccessControlPolicy :$access-control-policy,
-    Str :$grant-write-acp,
-    Str :$grant-full-control,
-    Str :$grant-read-acp,
-    Str :$grant-read,
-    BucketCannedACL :$acl,
-    Str :$grant-write
+        Str :$content-md5,
+        Str :$bucket!,
+        AccessControlPolicy :$access-control-policy,
+        Str :$grant-write-acp,
+        Str :$grant-full-control,
+        Str :$grant-read-acp,
+        Str :$grant-read,
+        BucketCannedACL :$acl,
+        Str :$grant-write
     ) is service-operation('PutBucketAcl') {
         my $request-input = PutBucketAclRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$access-control-policy,
-        :$grant-write-acp,
-        :$grant-full-control,
-        :$grant-read-acp,
-        :$grant-read,
-        :$acl,
-        :$grant-write
+            :$content-md5,
+            :$bucket,
+            :$access-control-policy,
+            :$grant-write-acp,
+            :$grant-full-control,
+            :$grant-read-acp,
+            :$grant-read,
+            :$acl,
+            :$grant-write
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketAcl>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-bucket-inventory-configurations(
-    Str :$bucket!,
-    Str :$continuation-token
+        Str :$bucket!,
+        Str :$continuation-token
     ) returns ListBucketInventoryConfigurationsOutput is service-operation('ListBucketInventoryConfigurations') {
         my $request-input = ListBucketInventoryConfigurationsRequest.new(
-        :$bucket,
-        :$continuation-token
+            :$bucket,
+            :$continuation-token
         );
-;
+
         self.perform-operation(
             :api-call<ListBucketInventoryConfigurations>,
-            :return-type(ListBucketInventoryConfigurationsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method head-object(
-    Str :$range,
-    Str :$if-match,
-    Str :$bucket!,
-    Str :$sse-customer-key,
-    DateTime :$if-unmodified-since,
-    RequestPayer :$request-payer,
-    Str :$sse-customer-key-md5,
-    Int :$part-number,
-    Str :$sse-customer-algorithm,
-    Str :$version-id,
-    ObjectKey :$key!,
-    Str :$if-none-match,
-    DateTime :$if-modified-since
+        Str :$range,
+        Str :$if-match,
+        Str :$bucket!,
+        Str :$sse-customer-key,
+        DateTime :$if-unmodified-since,
+        RequestPayer :$request-payer,
+        Str :$sse-customer-key-md5,
+        Int :$part-number,
+        Str :$sse-customer-algorithm,
+        Str :$version-id,
+        ObjectKey :$key!,
+        Str :$if-none-match,
+        DateTime :$if-modified-since
     ) returns HeadObjectOutput is service-operation('HeadObject') {
         my $request-input = HeadObjectRequest.new(
-        :$range,
-        :$if-match,
-        :$bucket,
-        :$sse-customer-key,
-        :$if-unmodified-since,
-        :$request-payer,
-        :$sse-customer-key-md5,
-        :$part-number,
-        :$sse-customer-algorithm,
-        :$version-id,
-        :$key,
-        :$if-none-match,
-        :$if-modified-since
+            :$range,
+            :$if-match,
+            :$bucket,
+            :$sse-customer-key,
+            :$if-unmodified-since,
+            :$request-payer,
+            :$sse-customer-key-md5,
+            :$part-number,
+            :$sse-customer-algorithm,
+            :$version-id,
+            :$key,
+            :$if-none-match,
+            :$if-modified-since
         );
-;
+
         self.perform-operation(
             :api-call<HeadObject>,
-            :return-type(HeadObjectOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-analytics-configuration(
-    Str :$bucket!,
-    Str :$id!
+        Str :$bucket!,
+        Str :$id!
     ) returns GetBucketAnalyticsConfigurationOutput is service-operation('GetBucketAnalyticsConfiguration') {
         my $request-input = GetBucketAnalyticsConfigurationRequest.new(
-        :$bucket,
-        :$id
+            :$bucket,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketAnalyticsConfiguration>,
-            :return-type(GetBucketAnalyticsConfigurationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-object-acl(
-    Str :$content-md5,
-    Str :$bucket!,
-    AccessControlPolicy :$access-control-policy,
-    Str :$grant-write-acp,
-    RequestPayer :$request-payer,
-    Str :$grant-full-control,
-    Str :$grant-read-acp,
-    Str :$grant-read,
-    ObjectCannedACL :$acl,
-    Str :$version-id,
-    ObjectKey :$key!,
-    Str :$grant-write
+        Str :$content-md5,
+        Str :$bucket!,
+        AccessControlPolicy :$access-control-policy,
+        Str :$grant-write-acp,
+        RequestPayer :$request-payer,
+        Str :$grant-full-control,
+        Str :$grant-read-acp,
+        Str :$grant-read,
+        ObjectCannedACL :$acl,
+        Str :$version-id,
+        ObjectKey :$key!,
+        Str :$grant-write
     ) returns PutObjectAclOutput is service-operation('PutObjectAcl') {
         my $request-input = PutObjectAclRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$access-control-policy,
-        :$grant-write-acp,
-        :$request-payer,
-        :$grant-full-control,
-        :$grant-read-acp,
-        :$grant-read,
-        :$acl,
-        :$version-id,
-        :$key,
-        :$grant-write
+            :$content-md5,
+            :$bucket,
+            :$access-control-policy,
+            :$grant-write-acp,
+            :$request-payer,
+            :$grant-full-control,
+            :$grant-read-acp,
+            :$grant-read,
+            :$acl,
+            :$version-id,
+            :$key,
+            :$grant-write
         );
-;
+
         self.perform-operation(
             :api-call<PutObjectAcl>,
-            :return-type(PutObjectAclOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-cors(
-    Str :$content-md5,
-    Str :$bucket!,
-    CORSConfiguration :$cors-configuration!
+        Str :$content-md5,
+        Str :$bucket!,
+        CORSConfiguration :$cors-configuration!
     ) is service-operation('PutBucketCors') {
         my $request-input = PutBucketCorsRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$cors-configuration
+            :$content-md5,
+            :$bucket,
+            :$cors-configuration
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketCors>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method complete-multipart-upload(
-    Str :$upload-id!,
-    Str :$bucket!,
-    RequestPayer :$request-payer,
-    CompletedMultipartUpload :$multipart-upload,
-    ObjectKey :$key!
+        Str :$upload-id!,
+        Str :$bucket!,
+        RequestPayer :$request-payer,
+        CompletedMultipartUpload :$multipart-upload,
+        ObjectKey :$key!
     ) returns CompleteMultipartUploadOutput is service-operation('CompleteMultipartUpload') {
         my $request-input = CompleteMultipartUploadRequest.new(
-        :$upload-id,
-        :$bucket,
-        :$request-payer,
-        :$multipart-upload,
-        :$key
+            :$upload-id,
+            :$bucket,
+            :$request-payer,
+            :$multipart-upload,
+            :$key
         );
-;
+
         self.perform-operation(
             :api-call<CompleteMultipartUpload>,
-            :return-type(CompleteMultipartUploadOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bucket-lifecycle(
-    Str :$bucket!
+        Str :$bucket!
     ) is service-operation('DeleteBucketLifecycle') {
         my $request-input = DeleteBucketLifecycleRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBucketLifecycle>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bucket-metrics-configuration(
-    Str :$bucket!,
-    Str :$id!
+        Str :$bucket!,
+        Str :$id!
     ) is service-operation('DeleteBucketMetricsConfiguration') {
         my $request-input = DeleteBucketMetricsConfigurationRequest.new(
-        :$bucket,
-        :$id
+            :$bucket,
+            :$id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBucketMetricsConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bucket-website(
-    Str :$bucket!
+        Str :$bucket!
     ) is service-operation('DeleteBucketWebsite') {
         my $request-input = DeleteBucketWebsiteRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBucketWebsite>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-location(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketLocationOutput is service-operation('GetBucketLocation') {
         my $request-input = GetBucketLocationRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketLocation>,
-            :return-type(GetBucketLocationOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-policy(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketPolicyOutput is service-operation('GetBucketPolicy') {
         my $request-input = GetBucketPolicyRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketPolicy>,
-            :return-type(GetBucketPolicyOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-object-acl(
-    Str :$bucket!,
-    RequestPayer :$request-payer,
-    Str :$version-id,
-    ObjectKey :$key!
+        Str :$bucket!,
+        RequestPayer :$request-payer,
+        Str :$version-id,
+        ObjectKey :$key!
     ) returns GetObjectAclOutput is service-operation('GetObjectAcl') {
         my $request-input = GetObjectAclRequest.new(
-        :$bucket,
-        :$request-payer,
-        :$version-id,
-        :$key
+            :$bucket,
+            :$request-payer,
+            :$version-id,
+            :$key
         );
-;
+
         self.perform-operation(
             :api-call<GetObjectAcl>,
-            :return-type(GetObjectAclOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-object-tagging(
-    Str :$content-md5,
-    Str :$bucket!,
-    Str :$version-id,
-    ObjectKey :$key!,
-    Tagging :$tagging!
+        Str :$content-md5,
+        Str :$bucket!,
+        Str :$version-id,
+        ObjectKey :$key!,
+        Tagging :$tagging!
     ) returns PutObjectTaggingOutput is service-operation('PutObjectTagging') {
         my $request-input = PutObjectTaggingRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$version-id,
-        :$key,
-        :$tagging
+            :$content-md5,
+            :$bucket,
+            :$version-id,
+            :$key,
+            :$tagging
         );
-;
+
         self.perform-operation(
             :api-call<PutObjectTagging>,
-            :return-type(PutObjectTaggingOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-lifecycle-configuration(
-    BucketLifecycleConfiguration :$lifecycle-configuration,
-    Str :$bucket!
+        BucketLifecycleConfiguration :$lifecycle-configuration,
+        Str :$bucket!
     ) is service-operation('PutBucketLifecycleConfiguration') {
         my $request-input = PutBucketLifecycleConfigurationRequest.new(
-        :$lifecycle-configuration,
-        :$bucket
+            :$lifecycle-configuration,
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketLifecycleConfiguration>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-object-versions(
-    Str :$key-marker,
-    EncodingType :$encoding-type,
-    Str :$bucket!,
-    Str :$version-id-marker,
-    Str :$prefix,
-    Str :$delimiter,
-    Int :$max-keys
+        Str :$key-marker,
+        EncodingType :$encoding-type,
+        Str :$bucket!,
+        Str :$version-id-marker,
+        Str :$prefix,
+        Str :$delimiter,
+        Int :$max-keys
     ) returns ListObjectVersionsOutput is service-operation('ListObjectVersions') {
         my $request-input = ListObjectVersionsRequest.new(
-        :$key-marker,
-        :$encoding-type,
-        :$bucket,
-        :$version-id-marker,
-        :$prefix,
-        :$delimiter,
-        :$max-keys
+            :$key-marker,
+            :$encoding-type,
+            :$bucket,
+            :$version-id-marker,
+            :$prefix,
+            :$delimiter,
+            :$max-keys
         );
-;
+
         self.perform-operation(
             :api-call<ListObjectVersions>,
-            :return-type(ListObjectVersionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-bucket-analytics-configurations(
-    Str :$bucket!,
-    Str :$continuation-token
+        Str :$bucket!,
+        Str :$continuation-token
     ) returns ListBucketAnalyticsConfigurationsOutput is service-operation('ListBucketAnalyticsConfigurations') {
         my $request-input = ListBucketAnalyticsConfigurationsRequest.new(
-        :$bucket,
-        :$continuation-token
+            :$bucket,
+            :$continuation-token
         );
-;
+
         self.perform-operation(
             :api-call<ListBucketAnalyticsConfigurations>,
-            :return-type(ListBucketAnalyticsConfigurationsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method copy-object(
-    Str :$bucket!,
-    StorageClass :$storage-class,
-    ServerSideEncryption :$server-side-encryption,
-    Str :$sse-customer-key,
-    Str :$content-encoding,
-    Str :$content-type,
-    TaggingDirective :$tagging-directive,
-    Str :$content-disposition,
-    Str :$copy-source-if-match,
-    Str :$grant-read,
-    Hash[Str, Str] :$metadata,
-    MetadataDirective :$metadata-directive,
-    Str :$sse-customer-algorithm,
-    Str :$tagging,
-    DateTime :$copy-source-if-unmodified-since,
-    Str :$copy-source-sse-customer-key-md5,
-    Str :$content-language,
-    Str :$grant-write-acp,
-    RequestPayer :$request-payer,
-    Str :$cache-control,
-    DateTime :$copy-source-if-modified-since,
-    Str :$copy-source-if-none-match,
-    Str :$grant-full-control,
-    Str :$grant-read-acp,
-    Str :$website-redirect-location,
-    DateTime :$expires,
-    Str :$sse-kms-key-id,
-    Str :$sse-customer-key-md5,
-    Str :$copy-source-sse-customer-key,
-    Str :$copy-source-sse-customer-algorithm,
-    ObjectCannedACL :$acl,
-    ObjectKey :$key!,
-    CopySource :$copy-source!
+        Str :$bucket!,
+        StorageClass :$storage-class,
+        ServerSideEncryption :$server-side-encryption,
+        Str :$sse-customer-key,
+        Str :$content-encoding,
+        Str :$content-type,
+        TaggingDirective :$tagging-directive,
+        Str :$content-disposition,
+        Str :$copy-source-if-match,
+        Str :$grant-read,
+        Hash[Str, Str] :$metadata,
+        MetadataDirective :$metadata-directive,
+        Str :$sse-customer-algorithm,
+        Str :$tagging,
+        DateTime :$copy-source-if-unmodified-since,
+        Str :$copy-source-sse-customer-key-md5,
+        Str :$content-language,
+        Str :$grant-write-acp,
+        RequestPayer :$request-payer,
+        Str :$cache-control,
+        DateTime :$copy-source-if-modified-since,
+        Str :$copy-source-if-none-match,
+        Str :$grant-full-control,
+        Str :$grant-read-acp,
+        Str :$website-redirect-location,
+        DateTime :$expires,
+        Str :$sse-kms-key-id,
+        Str :$sse-customer-key-md5,
+        Str :$copy-source-sse-customer-key,
+        Str :$copy-source-sse-customer-algorithm,
+        ObjectCannedACL :$acl,
+        ObjectKey :$key!,
+        CopySource :$copy-source!
     ) returns CopyObjectOutput is service-operation('CopyObject') {
         my $request-input = CopyObjectRequest.new(
-        :$bucket,
-        :$storage-class,
-        :$server-side-encryption,
-        :$sse-customer-key,
-        :$content-encoding,
-        :$content-type,
-        :$tagging-directive,
-        :$content-disposition,
-        :$copy-source-if-match,
-        :$grant-read,
-        :$metadata,
-        :$metadata-directive,
-        :$sse-customer-algorithm,
-        :$tagging,
-        :$copy-source-if-unmodified-since,
-        :$copy-source-sse-customer-key-md5,
-        :$content-language,
-        :$grant-write-acp,
-        :$request-payer,
-        :$cache-control,
-        :$copy-source-if-modified-since,
-        :$copy-source-if-none-match,
-        :$grant-full-control,
-        :$grant-read-acp,
-        :$website-redirect-location,
-        :$expires,
-        :$sse-kms-key-id,
-        :$sse-customer-key-md5,
-        :$copy-source-sse-customer-key,
-        :$copy-source-sse-customer-algorithm,
-        :$acl,
-        :$key,
-        :$copy-source
+            :$bucket,
+            :$storage-class,
+            :$server-side-encryption,
+            :$sse-customer-key,
+            :$content-encoding,
+            :$content-type,
+            :$tagging-directive,
+            :$content-disposition,
+            :$copy-source-if-match,
+            :$grant-read,
+            :$metadata,
+            :$metadata-directive,
+            :$sse-customer-algorithm,
+            :$tagging,
+            :$copy-source-if-unmodified-since,
+            :$copy-source-sse-customer-key-md5,
+            :$content-language,
+            :$grant-write-acp,
+            :$request-payer,
+            :$cache-control,
+            :$copy-source-if-modified-since,
+            :$copy-source-if-none-match,
+            :$grant-full-control,
+            :$grant-read-acp,
+            :$website-redirect-location,
+            :$expires,
+            :$sse-kms-key-id,
+            :$sse-customer-key-md5,
+            :$copy-source-sse-customer-key,
+            :$copy-source-sse-customer-algorithm,
+            :$acl,
+            :$key,
+            :$copy-source
         );
-;
+
         self.perform-operation(
             :api-call<CopyObject>,
-            :return-type(CopyObjectOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-object(
-    StorageClass :$storage-class,
-    Str :$content-md5,
-    Str :$content-language,
-    Str :$bucket!,
-    Blob :$body,
-    Str :$sse-customer-key,
-    ServerSideEncryption :$server-side-encryption,
-    Str :$grant-write-acp,
-    RequestPayer :$request-payer,
-    Str :$grant-full-control,
-    Str :$content-encoding,
-    Str :$cache-control,
-    Str :$grant-read-acp,
-    Str :$content-type,
-    Str :$sse-kms-key-id,
-    Str :$sse-customer-key-md5,
-    Str :$website-redirect-location,
-    Hash[Str, Str] :$metadata,
-    Str :$grant-read,
-    DateTime :$expires,
-    Str :$content-disposition,
-    ObjectCannedACL :$acl,
-    Str :$sse-customer-algorithm,
-    ObjectKey :$key!,
-    Str :$tagging,
-    Int :$content-length
+        StorageClass :$storage-class,
+        Str :$content-md5,
+        Str :$content-language,
+        Str :$bucket!,
+        Blob :$body,
+        Str :$sse-customer-key,
+        ServerSideEncryption :$server-side-encryption,
+        Str :$grant-write-acp,
+        RequestPayer :$request-payer,
+        Str :$grant-full-control,
+        Str :$content-encoding,
+        Str :$cache-control,
+        Str :$grant-read-acp,
+        Str :$content-type,
+        Str :$sse-kms-key-id,
+        Str :$sse-customer-key-md5,
+        Str :$website-redirect-location,
+        Hash[Str, Str] :$metadata,
+        Str :$grant-read,
+        DateTime :$expires,
+        Str :$content-disposition,
+        ObjectCannedACL :$acl,
+        Str :$sse-customer-algorithm,
+        ObjectKey :$key!,
+        Str :$tagging,
+        Int :$content-length
     ) returns PutObjectOutput is service-operation('PutObject') {
         my $request-input = PutObjectRequest.new(
-        :$storage-class,
-        :$content-md5,
-        :$content-language,
-        :$bucket,
-        :$body,
-        :$sse-customer-key,
-        :$server-side-encryption,
-        :$grant-write-acp,
-        :$request-payer,
-        :$grant-full-control,
-        :$content-encoding,
-        :$cache-control,
-        :$grant-read-acp,
-        :$content-type,
-        :$sse-kms-key-id,
-        :$sse-customer-key-md5,
-        :$website-redirect-location,
-        :$metadata,
-        :$grant-read,
-        :$expires,
-        :$content-disposition,
-        :$acl,
-        :$sse-customer-algorithm,
-        :$key,
-        :$tagging,
-        :$content-length
+            :$storage-class,
+            :$content-md5,
+            :$content-language,
+            :$bucket,
+            :$body,
+            :$sse-customer-key,
+            :$server-side-encryption,
+            :$grant-write-acp,
+            :$request-payer,
+            :$grant-full-control,
+            :$content-encoding,
+            :$cache-control,
+            :$grant-read-acp,
+            :$content-type,
+            :$sse-kms-key-id,
+            :$sse-customer-key-md5,
+            :$website-redirect-location,
+            :$metadata,
+            :$grant-read,
+            :$expires,
+            :$content-disposition,
+            :$acl,
+            :$sse-customer-algorithm,
+            :$key,
+            :$tagging,
+            :$content-length
         );
-;
+
         self.perform-operation(
             :api-call<PutObject>,
-            :return-type(PutObjectOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-bucket-policy(
-    Str :$content-md5,
-    Str :$bucket!,
-    Str :$policy!
+        Str :$content-md5,
+        Str :$bucket!,
+        Str :$policy!
     ) is service-operation('PutBucketPolicy') {
         my $request-input = PutBucketPolicyRequest.new(
-        :$content-md5,
-        :$bucket,
-        :$policy
+            :$content-md5,
+            :$bucket,
+            :$policy
         );
-;
+
         self.perform-operation(
             :api-call<PutBucketPolicy>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-multipart-uploads(
-    Str :$key-marker,
-    EncodingType :$encoding-type,
-    Str :$bucket!,
-    Str :$upload-id-marker,
-    Str :$prefix,
-    Int :$max-uploads,
-    Str :$delimiter
+        Str :$key-marker,
+        EncodingType :$encoding-type,
+        Str :$bucket!,
+        Str :$upload-id-marker,
+        Str :$prefix,
+        Int :$max-uploads,
+        Str :$delimiter
     ) returns ListMultipartUploadsOutput is service-operation('ListMultipartUploads') {
         my $request-input = ListMultipartUploadsRequest.new(
-        :$key-marker,
-        :$encoding-type,
-        :$bucket,
-        :$upload-id-marker,
-        :$prefix,
-        :$max-uploads,
-        :$delimiter
+            :$key-marker,
+            :$encoding-type,
+            :$bucket,
+            :$upload-id-marker,
+            :$prefix,
+            :$max-uploads,
+            :$delimiter
         );
-;
+
         self.perform-operation(
             :api-call<ListMultipartUploads>,
-            :return-type(ListMultipartUploadsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-object(
-    Str :$bucket!,
-    RequestPayer :$request-payer,
-    Str :$mfa,
-    Str :$version-id,
-    ObjectKey :$key!
+        Str :$bucket!,
+        RequestPayer :$request-payer,
+        Str :$mfa,
+        Str :$version-id,
+        ObjectKey :$key!
     ) returns DeleteObjectOutput is service-operation('DeleteObject') {
         my $request-input = DeleteObjectRequest.new(
-        :$bucket,
-        :$request-payer,
-        :$mfa,
-        :$version-id,
-        :$key
+            :$bucket,
+            :$request-payer,
+            :$mfa,
+            :$version-id,
+            :$key
         );
-;
+
         self.perform-operation(
             :api-call<DeleteObject>,
-            :return-type(DeleteObjectOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-bucket-website(
-    Str :$bucket!
+        Str :$bucket!
     ) returns GetBucketWebsiteOutput is service-operation('GetBucketWebsite') {
         my $request-input = GetBucketWebsiteRequest.new(
-        :$bucket
+            :$bucket
         );
-;
+
         self.perform-operation(
             :api-call<GetBucketWebsite>,
-            :return-type(GetBucketWebsiteOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

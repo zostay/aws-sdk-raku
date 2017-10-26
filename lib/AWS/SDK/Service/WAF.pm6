@@ -860,94 +860,84 @@ class AWS::SDK::Service::WAF does AWS::SDK::Service {
     }
 
     method update-web-acl(
-    ResourceId :$web-acl-id!,
-    WafAction :$default-action,
-    Array[WebACLUpdate] :$updates,
-    ChangeToken :$change-token!
+        ResourceId :$web-acl-id!,
+        WafAction :$default-action,
+        Array[WebACLUpdate] :$updates,
+        ChangeToken :$change-token!
     ) returns UpdateWebACLResponse is service-operation('UpdateWebACL') {
         my $request-input = UpdateWebACLRequest.new(
-        :$web-acl-id,
-        :$default-action,
-        :$updates,
-        :$change-token
+            :$web-acl-id,
+            :$default-action,
+            :$updates,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<UpdateWebACL>,
-            :return-type(UpdateWebACLResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-rate-based-rule(
-    ResourceId :$rule-id!,
-    RateLimit :$rate-limit!,
-    Array[RuleUpdate] :$updates!,
-    ChangeToken :$change-token!
+        ResourceId :$rule-id!,
+        RateLimit :$rate-limit!,
+        Array[RuleUpdate] :$updates!,
+        ChangeToken :$change-token!
     ) returns UpdateRateBasedRuleResponse is service-operation('UpdateRateBasedRule') {
         my $request-input = UpdateRateBasedRuleRequest.new(
-        :$rule-id,
-        :$rate-limit,
-        :$updates,
-        :$change-token
+            :$rule-id,
+            :$rate-limit,
+            :$updates,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRateBasedRule>,
-            :return-type(UpdateRateBasedRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-ip-set(
-    Array[IPSetUpdate] :$updates!,
-    ChangeToken :$change-token!,
-    ResourceId :$ip-set-id!
+        Array[IPSetUpdate] :$updates!,
+        ChangeToken :$change-token!,
+        ResourceId :$ip-set-id!
     ) returns UpdateIPSetResponse is service-operation('UpdateIPSet') {
         my $request-input = UpdateIPSetRequest.new(
-        :$updates,
-        :$change-token,
-        :$ip-set-id
+            :$updates,
+            :$change-token,
+            :$ip-set-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateIPSet>,
-            :return-type(UpdateIPSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-size-constraint-sets(
-    PaginationLimit :$limit,
-    NextMarker :$next-marker
+        PaginationLimit :$limit,
+        NextMarker :$next-marker
     ) returns ListSizeConstraintSetsResponse is service-operation('ListSizeConstraintSets') {
         my $request-input = ListSizeConstraintSetsRequest.new(
-        :$limit,
-        :$next-marker
+            :$limit,
+            :$next-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListSizeConstraintSets>,
-            :return-type(ListSizeConstraintSetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-sql-injection-match-set(
-    ResourceId :$sql-injection-match-set-id!
+        ResourceId :$sql-injection-match-set-id!
     ) returns GetSqlInjectionMatchSetResponse is service-operation('GetSqlInjectionMatchSet') {
         my $request-input = GetSqlInjectionMatchSetRequest.new(
-        :$sql-injection-match-set-id
+            :$sql-injection-match-set-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSqlInjectionMatchSet>,
-            :return-type(GetSqlInjectionMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -958,667 +948,589 @@ class AWS::SDK::Service::WAF does AWS::SDK::Service {
         my $request-input = GetChangeTokenRequest.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<GetChangeToken>,
-            :return-type(GetChangeTokenResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-xss-match-set(
-    ResourceId :$xss-match-set-id!,
-    ChangeToken :$change-token!
+        ResourceId :$xss-match-set-id!,
+        ChangeToken :$change-token!
     ) returns DeleteXssMatchSetResponse is service-operation('DeleteXssMatchSet') {
         my $request-input = DeleteXssMatchSetRequest.new(
-        :$xss-match-set-id,
-        :$change-token
+            :$xss-match-set-id,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<DeleteXssMatchSet>,
-            :return-type(DeleteXssMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-byte-match-set(
-    ResourceName :$name!,
-    ChangeToken :$change-token!
+        ResourceName :$name!,
+        ChangeToken :$change-token!
     ) returns CreateByteMatchSetResponse is service-operation('CreateByteMatchSet') {
         my $request-input = CreateByteMatchSetRequest.new(
-        :$name,
-        :$change-token
+            :$name,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateByteMatchSet>,
-            :return-type(CreateByteMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-rule(
-    ResourceId :$rule-id!
+        ResourceId :$rule-id!
     ) returns GetRuleResponse is service-operation('GetRule') {
         my $request-input = GetRuleRequest.new(
-        :$rule-id
+            :$rule-id
         );
-;
+
         self.perform-operation(
             :api-call<GetRule>,
-            :return-type(GetRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-ip-set(
-    ResourceId :$ip-set-id!
+        ResourceId :$ip-set-id!
     ) returns GetIPSetResponse is service-operation('GetIPSet') {
         my $request-input = GetIPSetRequest.new(
-        :$ip-set-id
+            :$ip-set-id
         );
-;
+
         self.perform-operation(
             :api-call<GetIPSet>,
-            :return-type(GetIPSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-rule(
-    ResourceId :$rule-id!,
-    ChangeToken :$change-token!
+        ResourceId :$rule-id!,
+        ChangeToken :$change-token!
     ) returns DeleteRuleResponse is service-operation('DeleteRule') {
         my $request-input = DeleteRuleRequest.new(
-        :$rule-id,
-        :$change-token
+            :$rule-id,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRule>,
-            :return-type(DeleteRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-sql-injection-match-set(
-    ResourceName :$name!,
-    ChangeToken :$change-token!
+        ResourceName :$name!,
+        ChangeToken :$change-token!
     ) returns CreateSqlInjectionMatchSetResponse is service-operation('CreateSqlInjectionMatchSet') {
         my $request-input = CreateSqlInjectionMatchSetRequest.new(
-        :$name,
-        :$change-token
+            :$name,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateSqlInjectionMatchSet>,
-            :return-type(CreateSqlInjectionMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-size-constraint-set(
-    ResourceName :$name!,
-    ChangeToken :$change-token!
+        ResourceName :$name!,
+        ChangeToken :$change-token!
     ) returns CreateSizeConstraintSetResponse is service-operation('CreateSizeConstraintSet') {
         my $request-input = CreateSizeConstraintSetRequest.new(
-        :$name,
-        :$change-token
+            :$name,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateSizeConstraintSet>,
-            :return-type(CreateSizeConstraintSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-web-acls(
-    PaginationLimit :$limit,
-    NextMarker :$next-marker
+        PaginationLimit :$limit,
+        NextMarker :$next-marker
     ) returns ListWebACLsResponse is service-operation('ListWebACLs') {
         my $request-input = ListWebACLsRequest.new(
-        :$limit,
-        :$next-marker
+            :$limit,
+            :$next-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListWebACLs>,
-            :return-type(ListWebACLsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-sql-injection-match-sets(
-    PaginationLimit :$limit,
-    NextMarker :$next-marker
+        PaginationLimit :$limit,
+        NextMarker :$next-marker
     ) returns ListSqlInjectionMatchSetsResponse is service-operation('ListSqlInjectionMatchSets') {
         my $request-input = ListSqlInjectionMatchSetsRequest.new(
-        :$limit,
-        :$next-marker
+            :$limit,
+            :$next-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListSqlInjectionMatchSets>,
-            :return-type(ListSqlInjectionMatchSetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-rate-based-rule-managed-keys(
-    ResourceId :$rule-id!,
-    NextMarker :$next-marker
+        ResourceId :$rule-id!,
+        NextMarker :$next-marker
     ) returns GetRateBasedRuleManagedKeysResponse is service-operation('GetRateBasedRuleManagedKeys') {
         my $request-input = GetRateBasedRuleManagedKeysRequest.new(
-        :$rule-id,
-        :$next-marker
+            :$rule-id,
+            :$next-marker
         );
-;
+
         self.perform-operation(
             :api-call<GetRateBasedRuleManagedKeys>,
-            :return-type(GetRateBasedRuleManagedKeysResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-change-token-status(
-    ChangeToken :$change-token!
+        ChangeToken :$change-token!
     ) returns GetChangeTokenStatusResponse is service-operation('GetChangeTokenStatus') {
         my $request-input = GetChangeTokenStatusRequest.new(
-        :$change-token
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<GetChangeTokenStatus>,
-            :return-type(GetChangeTokenStatusResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-byte-match-set(
-    ResourceId :$byte-match-set-id!,
-    ChangeToken :$change-token!
+        ResourceId :$byte-match-set-id!,
+        ChangeToken :$change-token!
     ) returns DeleteByteMatchSetResponse is service-operation('DeleteByteMatchSet') {
         my $request-input = DeleteByteMatchSetRequest.new(
-        :$byte-match-set-id,
-        :$change-token
+            :$byte-match-set-id,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<DeleteByteMatchSet>,
-            :return-type(DeleteByteMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-rate-based-rule(
-    RateKey :$rate-key!,
-    Str :$metric-name!,
-    ResourceName :$name!,
-    ChangeToken :$change-token!,
-    RateLimit :$rate-limit!
+        RateKey :$rate-key!,
+        Str :$metric-name!,
+        ResourceName :$name!,
+        ChangeToken :$change-token!,
+        RateLimit :$rate-limit!
     ) returns CreateRateBasedRuleResponse is service-operation('CreateRateBasedRule') {
         my $request-input = CreateRateBasedRuleRequest.new(
-        :$rate-key,
-        :$metric-name,
-        :$name,
-        :$change-token,
-        :$rate-limit
+            :$rate-key,
+            :$metric-name,
+            :$name,
+            :$change-token,
+            :$rate-limit
         );
-;
+
         self.perform-operation(
             :api-call<CreateRateBasedRule>,
-            :return-type(CreateRateBasedRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-sql-injection-match-set(
-    Array[SqlInjectionMatchSetUpdate] :$updates!,
-    ChangeToken :$change-token!,
-    ResourceId :$sql-injection-match-set-id!
+        Array[SqlInjectionMatchSetUpdate] :$updates!,
+        ChangeToken :$change-token!,
+        ResourceId :$sql-injection-match-set-id!
     ) returns UpdateSqlInjectionMatchSetResponse is service-operation('UpdateSqlInjectionMatchSet') {
         my $request-input = UpdateSqlInjectionMatchSetRequest.new(
-        :$updates,
-        :$change-token,
-        :$sql-injection-match-set-id
+            :$updates,
+            :$change-token,
+            :$sql-injection-match-set-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSqlInjectionMatchSet>,
-            :return-type(UpdateSqlInjectionMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-web-acl(
-    ResourceId :$web-acl-id!,
-    ChangeToken :$change-token!
+        ResourceId :$web-acl-id!,
+        ChangeToken :$change-token!
     ) returns DeleteWebACLResponse is service-operation('DeleteWebACL') {
         my $request-input = DeleteWebACLRequest.new(
-        :$web-acl-id,
-        :$change-token
+            :$web-acl-id,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<DeleteWebACL>,
-            :return-type(DeleteWebACLResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-size-constraint-set(
-    ResourceId :$size-constraint-set-id!,
-    ChangeToken :$change-token!
+        ResourceId :$size-constraint-set-id!,
+        ChangeToken :$change-token!
     ) returns DeleteSizeConstraintSetResponse is service-operation('DeleteSizeConstraintSet') {
         my $request-input = DeleteSizeConstraintSetRequest.new(
-        :$size-constraint-set-id,
-        :$change-token
+            :$size-constraint-set-id,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSizeConstraintSet>,
-            :return-type(DeleteSizeConstraintSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-rate-based-rule(
-    ResourceId :$rule-id!,
-    ChangeToken :$change-token!
+        ResourceId :$rule-id!,
+        ChangeToken :$change-token!
     ) returns DeleteRateBasedRuleResponse is service-operation('DeleteRateBasedRule') {
         my $request-input = DeleteRateBasedRuleRequest.new(
-        :$rule-id,
-        :$change-token
+            :$rule-id,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<DeleteRateBasedRule>,
-            :return-type(DeleteRateBasedRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-rules(
-    PaginationLimit :$limit,
-    NextMarker :$next-marker
+        PaginationLimit :$limit,
+        NextMarker :$next-marker
     ) returns ListRulesResponse is service-operation('ListRules') {
         my $request-input = ListRulesRequest.new(
-        :$limit,
-        :$next-marker
+            :$limit,
+            :$next-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListRules>,
-            :return-type(ListRulesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-web-acl(
-    ResourceId :$web-acl-id!
+        ResourceId :$web-acl-id!
     ) returns GetWebACLResponse is service-operation('GetWebACL') {
         my $request-input = GetWebACLRequest.new(
-        :$web-acl-id
+            :$web-acl-id
         );
-;
+
         self.perform-operation(
             :api-call<GetWebACL>,
-            :return-type(GetWebACLResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-size-constraint-set(
-    ResourceId :$size-constraint-set-id!,
-    Array[SizeConstraintSetUpdate] :$updates!,
-    ChangeToken :$change-token!
+        ResourceId :$size-constraint-set-id!,
+        Array[SizeConstraintSetUpdate] :$updates!,
+        ChangeToken :$change-token!
     ) returns UpdateSizeConstraintSetResponse is service-operation('UpdateSizeConstraintSet') {
         my $request-input = UpdateSizeConstraintSetRequest.new(
-        :$size-constraint-set-id,
-        :$updates,
-        :$change-token
+            :$size-constraint-set-id,
+            :$updates,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<UpdateSizeConstraintSet>,
-            :return-type(UpdateSizeConstraintSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-rate-based-rules(
-    PaginationLimit :$limit,
-    NextMarker :$next-marker
+        PaginationLimit :$limit,
+        NextMarker :$next-marker
     ) returns ListRateBasedRulesResponse is service-operation('ListRateBasedRules') {
         my $request-input = ListRateBasedRulesRequest.new(
-        :$limit,
-        :$next-marker
+            :$limit,
+            :$next-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListRateBasedRules>,
-            :return-type(ListRateBasedRulesResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-ip-sets(
-    PaginationLimit :$limit,
-    NextMarker :$next-marker
+        PaginationLimit :$limit,
+        NextMarker :$next-marker
     ) returns ListIPSetsResponse is service-operation('ListIPSets') {
         my $request-input = ListIPSetsRequest.new(
-        :$limit,
-        :$next-marker
+            :$limit,
+            :$next-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListIPSets>,
-            :return-type(ListIPSetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-size-constraint-set(
-    ResourceId :$size-constraint-set-id!
+        ResourceId :$size-constraint-set-id!
     ) returns GetSizeConstraintSetResponse is service-operation('GetSizeConstraintSet') {
         my $request-input = GetSizeConstraintSetRequest.new(
-        :$size-constraint-set-id
+            :$size-constraint-set-id
         );
-;
+
         self.perform-operation(
             :api-call<GetSizeConstraintSet>,
-            :return-type(GetSizeConstraintSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-xss-match-set(
-    ResourceName :$name!,
-    ChangeToken :$change-token!
+        ResourceName :$name!,
+        ChangeToken :$change-token!
     ) returns CreateXssMatchSetResponse is service-operation('CreateXssMatchSet') {
         my $request-input = CreateXssMatchSetRequest.new(
-        :$name,
-        :$change-token
+            :$name,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateXssMatchSet>,
-            :return-type(CreateXssMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-xss-match-set(
-    ResourceId :$xss-match-set-id!,
-    Array[XssMatchSetUpdate] :$updates!,
-    ChangeToken :$change-token!
+        ResourceId :$xss-match-set-id!,
+        Array[XssMatchSetUpdate] :$updates!,
+        ChangeToken :$change-token!
     ) returns UpdateXssMatchSetResponse is service-operation('UpdateXssMatchSet') {
         my $request-input = UpdateXssMatchSetRequest.new(
-        :$xss-match-set-id,
-        :$updates,
-        :$change-token
+            :$xss-match-set-id,
+            :$updates,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<UpdateXssMatchSet>,
-            :return-type(UpdateXssMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-rule(
-    ResourceId :$rule-id!,
-    Array[RuleUpdate] :$updates!,
-    ChangeToken :$change-token!
+        ResourceId :$rule-id!,
+        Array[RuleUpdate] :$updates!,
+        ChangeToken :$change-token!
     ) returns UpdateRuleResponse is service-operation('UpdateRule') {
         my $request-input = UpdateRuleRequest.new(
-        :$rule-id,
-        :$updates,
-        :$change-token
+            :$rule-id,
+            :$updates,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<UpdateRule>,
-            :return-type(UpdateRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-xss-match-sets(
-    PaginationLimit :$limit,
-    NextMarker :$next-marker
+        PaginationLimit :$limit,
+        NextMarker :$next-marker
     ) returns ListXssMatchSetsResponse is service-operation('ListXssMatchSets') {
         my $request-input = ListXssMatchSetsRequest.new(
-        :$limit,
-        :$next-marker
+            :$limit,
+            :$next-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListXssMatchSets>,
-            :return-type(ListXssMatchSetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-xss-match-set(
-    ResourceId :$xss-match-set-id!
+        ResourceId :$xss-match-set-id!
     ) returns GetXssMatchSetResponse is service-operation('GetXssMatchSet') {
         my $request-input = GetXssMatchSetRequest.new(
-        :$xss-match-set-id
+            :$xss-match-set-id
         );
-;
+
         self.perform-operation(
             :api-call<GetXssMatchSet>,
-            :return-type(GetXssMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-sampled-requests(
-    ResourceId :$rule-id!,
-    ResourceId :$web-acl-id!,
-    TimeWindow :$time-window!,
-    GetSampledRequestsMaxItems :$max-items!
+        ResourceId :$rule-id!,
+        ResourceId :$web-acl-id!,
+        TimeWindow :$time-window!,
+        GetSampledRequestsMaxItems :$max-items!
     ) returns GetSampledRequestsResponse is service-operation('GetSampledRequests') {
         my $request-input = GetSampledRequestsRequest.new(
-        :$rule-id,
-        :$web-acl-id,
-        :$time-window,
-        :$max-items
+            :$rule-id,
+            :$web-acl-id,
+            :$time-window,
+            :$max-items
         );
-;
+
         self.perform-operation(
             :api-call<GetSampledRequests>,
-            :return-type(GetSampledRequestsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-rate-based-rule(
-    ResourceId :$rule-id!
+        ResourceId :$rule-id!
     ) returns GetRateBasedRuleResponse is service-operation('GetRateBasedRule') {
         my $request-input = GetRateBasedRuleRequest.new(
-        :$rule-id
+            :$rule-id
         );
-;
+
         self.perform-operation(
             :api-call<GetRateBasedRule>,
-            :return-type(GetRateBasedRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-ip-set(
-    ChangeToken :$change-token!,
-    ResourceId :$ip-set-id!
+        ChangeToken :$change-token!,
+        ResourceId :$ip-set-id!
     ) returns DeleteIPSetResponse is service-operation('DeleteIPSet') {
         my $request-input = DeleteIPSetRequest.new(
-        :$change-token,
-        :$ip-set-id
+            :$change-token,
+            :$ip-set-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteIPSet>,
-            :return-type(DeleteIPSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-byte-match-set(
-    ResourceId :$byte-match-set-id!,
-    Array[ByteMatchSetUpdate] :$updates!,
-    ChangeToken :$change-token!
+        ResourceId :$byte-match-set-id!,
+        Array[ByteMatchSetUpdate] :$updates!,
+        ChangeToken :$change-token!
     ) returns UpdateByteMatchSetResponse is service-operation('UpdateByteMatchSet') {
         my $request-input = UpdateByteMatchSetRequest.new(
-        :$byte-match-set-id,
-        :$updates,
-        :$change-token
+            :$byte-match-set-id,
+            :$updates,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<UpdateByteMatchSet>,
-            :return-type(UpdateByteMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-byte-match-sets(
-    PaginationLimit :$limit,
-    NextMarker :$next-marker
+        PaginationLimit :$limit,
+        NextMarker :$next-marker
     ) returns ListByteMatchSetsResponse is service-operation('ListByteMatchSets') {
         my $request-input = ListByteMatchSetsRequest.new(
-        :$limit,
-        :$next-marker
+            :$limit,
+            :$next-marker
         );
-;
+
         self.perform-operation(
             :api-call<ListByteMatchSets>,
-            :return-type(ListByteMatchSetsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-byte-match-set(
-    ResourceId :$byte-match-set-id!
+        ResourceId :$byte-match-set-id!
     ) returns GetByteMatchSetResponse is service-operation('GetByteMatchSet') {
         my $request-input = GetByteMatchSetRequest.new(
-        :$byte-match-set-id
+            :$byte-match-set-id
         );
-;
+
         self.perform-operation(
             :api-call<GetByteMatchSet>,
-            :return-type(GetByteMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-sql-injection-match-set(
-    ChangeToken :$change-token!,
-    ResourceId :$sql-injection-match-set-id!
+        ChangeToken :$change-token!,
+        ResourceId :$sql-injection-match-set-id!
     ) returns DeleteSqlInjectionMatchSetResponse is service-operation('DeleteSqlInjectionMatchSet') {
         my $request-input = DeleteSqlInjectionMatchSetRequest.new(
-        :$change-token,
-        :$sql-injection-match-set-id
+            :$change-token,
+            :$sql-injection-match-set-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteSqlInjectionMatchSet>,
-            :return-type(DeleteSqlInjectionMatchSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-web-acl(
-    Str :$metric-name!,
-    ResourceName :$name!,
-    WafAction :$default-action!,
-    ChangeToken :$change-token!
+        Str :$metric-name!,
+        ResourceName :$name!,
+        WafAction :$default-action!,
+        ChangeToken :$change-token!
     ) returns CreateWebACLResponse is service-operation('CreateWebACL') {
         my $request-input = CreateWebACLRequest.new(
-        :$metric-name,
-        :$name,
-        :$default-action,
-        :$change-token
+            :$metric-name,
+            :$name,
+            :$default-action,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateWebACL>,
-            :return-type(CreateWebACLResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-rule(
-    Str :$metric-name!,
-    ResourceName :$name!,
-    ChangeToken :$change-token!
+        Str :$metric-name!,
+        ResourceName :$name!,
+        ChangeToken :$change-token!
     ) returns CreateRuleResponse is service-operation('CreateRule') {
         my $request-input = CreateRuleRequest.new(
-        :$metric-name,
-        :$name,
-        :$change-token
+            :$metric-name,
+            :$name,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateRule>,
-            :return-type(CreateRuleResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-ip-set(
-    ResourceName :$name!,
-    ChangeToken :$change-token!
+        ResourceName :$name!,
+        ChangeToken :$change-token!
     ) returns CreateIPSetResponse is service-operation('CreateIPSet') {
         my $request-input = CreateIPSetRequest.new(
-        :$name,
-        :$change-token
+            :$name,
+            :$change-token
         );
-;
+
         self.perform-operation(
             :api-call<CreateIPSet>,
-            :return-type(CreateIPSetResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

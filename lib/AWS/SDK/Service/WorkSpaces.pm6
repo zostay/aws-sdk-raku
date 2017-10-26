@@ -398,235 +398,207 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     subset DirectoryId of Str where rx:P5/^d-[0-9a-f]{8,63}$/;
 
     method modify-workspace-properties(
-    WorkspaceId :$workspace-id!,
-    WorkspaceProperties :$workspace-properties!
+        WorkspaceId :$workspace-id!,
+        WorkspaceProperties :$workspace-properties!
     ) returns ModifyWorkspacePropertiesResult is service-operation('ModifyWorkspaceProperties') {
         my $request-input = ModifyWorkspacePropertiesRequest.new(
-        :$workspace-id,
-        :$workspace-properties
+            :$workspace-id,
+            :$workspace-properties
         );
-;
+
         self.perform-operation(
             :api-call<ModifyWorkspaceProperties>,
-            :return-type(ModifyWorkspacePropertiesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-workspaces(
-    WorkspaceIdList :$workspace-ids,
-    Limit :$limit,
-    UserName :$user-name,
-    PaginationToken :$next-token,
-    BundleId :$bundle-id,
-    DirectoryId :$directory-id
+        WorkspaceIdList :$workspace-ids,
+        Limit :$limit,
+        UserName :$user-name,
+        PaginationToken :$next-token,
+        BundleId :$bundle-id,
+        DirectoryId :$directory-id
     ) returns DescribeWorkspacesResult is service-operation('DescribeWorkspaces') {
         my $request-input = DescribeWorkspacesRequest.new(
-        :$workspace-ids,
-        :$limit,
-        :$user-name,
-        :$next-token,
-        :$bundle-id,
-        :$directory-id
+            :$workspace-ids,
+            :$limit,
+            :$user-name,
+            :$next-token,
+            :$bundle-id,
+            :$directory-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeWorkspaces>,
-            :return-type(DescribeWorkspacesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method terminate-workspaces(
-    TerminateWorkspaceRequests :$terminate-workspace-requests!
+        TerminateWorkspaceRequests :$terminate-workspace-requests!
     ) returns TerminateWorkspacesResult is service-operation('TerminateWorkspaces') {
         my $request-input = TerminateWorkspacesRequest.new(
-        :$terminate-workspace-requests
+            :$terminate-workspace-requests
         );
-;
+
         self.perform-operation(
             :api-call<TerminateWorkspaces>,
-            :return-type(TerminateWorkspacesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-workspaces(
-    StopWorkspaceRequests :$stop-workspace-requests!
+        StopWorkspaceRequests :$stop-workspace-requests!
     ) returns StopWorkspacesResult is service-operation('StopWorkspaces') {
         my $request-input = StopWorkspacesRequest.new(
-        :$stop-workspace-requests
+            :$stop-workspace-requests
         );
-;
+
         self.perform-operation(
             :api-call<StopWorkspaces>,
-            :return-type(StopWorkspacesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-workspaces(
-    StartWorkspaceRequests :$start-workspace-requests!
+        StartWorkspaceRequests :$start-workspace-requests!
     ) returns StartWorkspacesResult is service-operation('StartWorkspaces') {
         my $request-input = StartWorkspacesRequest.new(
-        :$start-workspace-requests
+            :$start-workspace-requests
         );
-;
+
         self.perform-operation(
             :api-call<StartWorkspaces>,
-            :return-type(StartWorkspacesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-workspaces(
-    WorkspaceRequestList :$workspaces!
+        WorkspaceRequestList :$workspaces!
     ) returns CreateWorkspacesResult is service-operation('CreateWorkspaces') {
         my $request-input = CreateWorkspacesRequest.new(
-        :$workspaces
+            :$workspaces
         );
-;
+
         self.perform-operation(
             :api-call<CreateWorkspaces>,
-            :return-type(CreateWorkspacesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-workspace-bundles(
-    Str :$owner,
-    BundleIdList :$bundle-ids,
-    PaginationToken :$next-token
+        Str :$owner,
+        BundleIdList :$bundle-ids,
+        PaginationToken :$next-token
     ) returns DescribeWorkspaceBundlesResult is service-operation('DescribeWorkspaceBundles') {
         my $request-input = DescribeWorkspaceBundlesRequest.new(
-        :$owner,
-        :$bundle-ids,
-        :$next-token
+            :$owner,
+            :$bundle-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeWorkspaceBundles>,
-            :return-type(DescribeWorkspaceBundlesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-workspace-directories(
-    DirectoryIdList :$directory-ids,
-    PaginationToken :$next-token
+        DirectoryIdList :$directory-ids,
+        PaginationToken :$next-token
     ) returns DescribeWorkspaceDirectoriesResult is service-operation('DescribeWorkspaceDirectories') {
         my $request-input = DescribeWorkspaceDirectoriesRequest.new(
-        :$directory-ids,
-        :$next-token
+            :$directory-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeWorkspaceDirectories>,
-            :return-type(DescribeWorkspaceDirectoriesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tags(
-    NonEmptyString :$resource-id!
+        NonEmptyString :$resource-id!
     ) returns DescribeTagsResult is service-operation('DescribeTags') {
         my $request-input = DescribeTagsRequest.new(
-        :$resource-id
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTags>,
-            :return-type(DescribeTagsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-tags(
-    Array[NonEmptyString] :$tag-keys!,
-    NonEmptyString :$resource-id!
+        Array[NonEmptyString] :$tag-keys!,
+        NonEmptyString :$resource-id!
     ) returns DeleteTagsResult is service-operation('DeleteTags') {
         my $request-input = DeleteTagsRequest.new(
-        :$tag-keys,
-        :$resource-id
+            :$tag-keys,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTags>,
-            :return-type(DeleteTagsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method rebuild-workspaces(
-    RebuildWorkspaceRequests :$rebuild-workspace-requests!
+        RebuildWorkspaceRequests :$rebuild-workspace-requests!
     ) returns RebuildWorkspacesResult is service-operation('RebuildWorkspaces') {
         my $request-input = RebuildWorkspacesRequest.new(
-        :$rebuild-workspace-requests
+            :$rebuild-workspace-requests
         );
-;
+
         self.perform-operation(
             :api-call<RebuildWorkspaces>,
-            :return-type(RebuildWorkspacesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-workspaces-connection-status(
-    WorkspaceIdList :$workspace-ids,
-    PaginationToken :$next-token
+        WorkspaceIdList :$workspace-ids,
+        PaginationToken :$next-token
     ) returns DescribeWorkspacesConnectionStatusResult is service-operation('DescribeWorkspacesConnectionStatus') {
         my $request-input = DescribeWorkspacesConnectionStatusRequest.new(
-        :$workspace-ids,
-        :$next-token
+            :$workspace-ids,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<DescribeWorkspacesConnectionStatus>,
-            :return-type(DescribeWorkspacesConnectionStatusResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-tags(
-    Array[Tag] :$tags!,
-    NonEmptyString :$resource-id!
+        Array[Tag] :$tags!,
+        NonEmptyString :$resource-id!
     ) returns CreateTagsResult is service-operation('CreateTags') {
         my $request-input = CreateTagsRequest.new(
-        :$tags,
-        :$resource-id
+            :$tags,
+            :$resource-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateTags>,
-            :return-type(CreateTagsResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method reboot-workspaces(
-    RebootWorkspaceRequests :$reboot-workspace-requests!
+        RebootWorkspaceRequests :$reboot-workspace-requests!
     ) returns RebootWorkspacesResult is service-operation('RebootWorkspaces') {
         my $request-input = RebootWorkspacesRequest.new(
-        :$reboot-workspace-requests
+            :$reboot-workspace-requests
         );
-;
+
         self.perform-operation(
             :api-call<RebootWorkspaces>,
-            :return-type(RebootWorkspacesResult),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

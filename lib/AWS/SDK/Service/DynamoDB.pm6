@@ -624,331 +624,303 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     method update-item(
-    Str :$update-expression,
-    Hash[AttributeValue, Str] :$expression-attribute-values,
-    TableName :$table-name!,
-    ReturnItemCollectionMetrics :$return-item-collection-metrics,
-    ConditionalOperator :$conditional-operator,
-    Hash[ExpectedAttributeValue, AttributeName] :$expected,
-    Hash[AttributeName, Str] :$expression-attribute-names,
-    Hash[AttributeValueUpdate, AttributeName] :$attribute-updates,
-    Hash[AttributeValue, AttributeName] :$key!,
-    Str :$condition-expression,
-    ReturnValue :$return-values,
-    ReturnConsumedCapacity :$return-consumed-capacity
+        Str :$update-expression,
+        Hash[AttributeValue, Str] :$expression-attribute-values,
+        TableName :$table-name!,
+        ReturnItemCollectionMetrics :$return-item-collection-metrics,
+        ConditionalOperator :$conditional-operator,
+        Hash[ExpectedAttributeValue, AttributeName] :$expected,
+        Hash[AttributeName, Str] :$expression-attribute-names,
+        Hash[AttributeValueUpdate, AttributeName] :$attribute-updates,
+        Hash[AttributeValue, AttributeName] :$key!,
+        Str :$condition-expression,
+        ReturnValue :$return-values,
+        ReturnConsumedCapacity :$return-consumed-capacity
     ) returns UpdateItemOutput is service-operation('UpdateItem') {
         my $request-input = UpdateItemInput.new(
-        :$update-expression,
-        :$expression-attribute-values,
-        :$table-name,
-        :$return-item-collection-metrics,
-        :$conditional-operator,
-        :$expected,
-        :$expression-attribute-names,
-        :$attribute-updates,
-        :$key,
-        :$condition-expression,
-        :$return-values,
-        :$return-consumed-capacity
+            :$update-expression,
+            :$expression-attribute-values,
+            :$table-name,
+            :$return-item-collection-metrics,
+            :$conditional-operator,
+            :$expected,
+            :$expression-attribute-names,
+            :$attribute-updates,
+            :$key,
+            :$condition-expression,
+            :$return-values,
+            :$return-consumed-capacity
         );
-;
+
         self.perform-operation(
             :api-call<UpdateItem>,
-            :return-type(UpdateItemOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method put-item(
-    Hash[AttributeValue, Str] :$expression-attribute-values,
-    Hash[AttributeValue, AttributeName] :$item!,
-    TableName :$table-name!,
-    ReturnItemCollectionMetrics :$return-item-collection-metrics,
-    ConditionalOperator :$conditional-operator,
-    Hash[ExpectedAttributeValue, AttributeName] :$expected,
-    Hash[AttributeName, Str] :$expression-attribute-names,
-    Str :$condition-expression,
-    ReturnValue :$return-values,
-    ReturnConsumedCapacity :$return-consumed-capacity
+        Hash[AttributeValue, Str] :$expression-attribute-values,
+        Hash[AttributeValue, AttributeName] :$item!,
+        TableName :$table-name!,
+        ReturnItemCollectionMetrics :$return-item-collection-metrics,
+        ConditionalOperator :$conditional-operator,
+        Hash[ExpectedAttributeValue, AttributeName] :$expected,
+        Hash[AttributeName, Str] :$expression-attribute-names,
+        Str :$condition-expression,
+        ReturnValue :$return-values,
+        ReturnConsumedCapacity :$return-consumed-capacity
     ) returns PutItemOutput is service-operation('PutItem') {
         my $request-input = PutItemInput.new(
-        :$expression-attribute-values,
-        :$item,
-        :$table-name,
-        :$return-item-collection-metrics,
-        :$conditional-operator,
-        :$expected,
-        :$expression-attribute-names,
-        :$condition-expression,
-        :$return-values,
-        :$return-consumed-capacity
+            :$expression-attribute-values,
+            :$item,
+            :$table-name,
+            :$return-item-collection-metrics,
+            :$conditional-operator,
+            :$expected,
+            :$expression-attribute-names,
+            :$condition-expression,
+            :$return-values,
+            :$return-consumed-capacity
         );
-;
+
         self.perform-operation(
             :api-call<PutItem>,
-            :return-type(PutItemOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-time-to-live(
-    TableName :$table-name!
+        TableName :$table-name!
     ) returns DescribeTimeToLiveOutput is service-operation('DescribeTimeToLive') {
         my $request-input = DescribeTimeToLiveInput.new(
-        :$table-name
+            :$table-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTimeToLive>,
-            :return-type(DescribeTimeToLiveOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-resource(
-    Array[Tag] :$tags!,
-    ResourceArnString :$resource-arn!
+        Array[Tag] :$tags!,
+        ResourceArnString :$resource-arn!
     ) is service-operation('TagResource') {
         my $request-input = TagResourceInput.new(
-        :$tags,
-        :$resource-arn
+            :$tags,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<TagResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-item(
-    Str :$projection-expression,
-    Bool :$consistent-read,
-    TableName :$table-name!,
-    AttributeNameList :$attributes-to-get,
-    Hash[AttributeName, Str] :$expression-attribute-names,
-    Hash[AttributeValue, AttributeName] :$key!,
-    ReturnConsumedCapacity :$return-consumed-capacity
+        Str :$projection-expression,
+        Bool :$consistent-read,
+        TableName :$table-name!,
+        AttributeNameList :$attributes-to-get,
+        Hash[AttributeName, Str] :$expression-attribute-names,
+        Hash[AttributeValue, AttributeName] :$key!,
+        ReturnConsumedCapacity :$return-consumed-capacity
     ) returns GetItemOutput is service-operation('GetItem') {
         my $request-input = GetItemInput.new(
-        :$projection-expression,
-        :$consistent-read,
-        :$table-name,
-        :$attributes-to-get,
-        :$expression-attribute-names,
-        :$key,
-        :$return-consumed-capacity
+            :$projection-expression,
+            :$consistent-read,
+            :$table-name,
+            :$attributes-to-get,
+            :$expression-attribute-names,
+            :$key,
+            :$return-consumed-capacity
         );
-;
+
         self.perform-operation(
             :api-call<GetItem>,
-            :return-type(GetItemOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-table(
-    TableName :$table-name!
+        TableName :$table-name!
     ) returns DescribeTableOutput is service-operation('DescribeTable') {
         my $request-input = DescribeTableInput.new(
-        :$table-name
+            :$table-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTable>,
-            :return-type(DescribeTableOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-write-item(
-    ReturnItemCollectionMetrics :$return-item-collection-metrics,
-    BatchWriteItemRequestMap :$request-items!,
-    ReturnConsumedCapacity :$return-consumed-capacity
+        ReturnItemCollectionMetrics :$return-item-collection-metrics,
+        BatchWriteItemRequestMap :$request-items!,
+        ReturnConsumedCapacity :$return-consumed-capacity
     ) returns BatchWriteItemOutput is service-operation('BatchWriteItem') {
         my $request-input = BatchWriteItemInput.new(
-        :$return-item-collection-metrics,
-        :$request-items,
-        :$return-consumed-capacity
+            :$return-item-collection-metrics,
+            :$request-items,
+            :$return-consumed-capacity
         );
-;
+
         self.perform-operation(
             :api-call<BatchWriteItem>,
-            :return-type(BatchWriteItemOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-item(
-    Hash[AttributeValue, Str] :$expression-attribute-values,
-    TableName :$table-name!,
-    ReturnItemCollectionMetrics :$return-item-collection-metrics,
-    ConditionalOperator :$conditional-operator,
-    Hash[ExpectedAttributeValue, AttributeName] :$expected,
-    Hash[AttributeName, Str] :$expression-attribute-names,
-    Hash[AttributeValue, AttributeName] :$key!,
-    Str :$condition-expression,
-    ReturnValue :$return-values,
-    ReturnConsumedCapacity :$return-consumed-capacity
+        Hash[AttributeValue, Str] :$expression-attribute-values,
+        TableName :$table-name!,
+        ReturnItemCollectionMetrics :$return-item-collection-metrics,
+        ConditionalOperator :$conditional-operator,
+        Hash[ExpectedAttributeValue, AttributeName] :$expected,
+        Hash[AttributeName, Str] :$expression-attribute-names,
+        Hash[AttributeValue, AttributeName] :$key!,
+        Str :$condition-expression,
+        ReturnValue :$return-values,
+        ReturnConsumedCapacity :$return-consumed-capacity
     ) returns DeleteItemOutput is service-operation('DeleteItem') {
         my $request-input = DeleteItemInput.new(
-        :$expression-attribute-values,
-        :$table-name,
-        :$return-item-collection-metrics,
-        :$conditional-operator,
-        :$expected,
-        :$expression-attribute-names,
-        :$key,
-        :$condition-expression,
-        :$return-values,
-        :$return-consumed-capacity
+            :$expression-attribute-values,
+            :$table-name,
+            :$return-item-collection-metrics,
+            :$conditional-operator,
+            :$expected,
+            :$expression-attribute-names,
+            :$key,
+            :$condition-expression,
+            :$return-values,
+            :$return-consumed-capacity
         );
-;
+
         self.perform-operation(
             :api-call<DeleteItem>,
-            :return-type(DeleteItemOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-resource(
-    Array[TagKeyString] :$tag-keys!,
-    ResourceArnString :$resource-arn!
+        Array[TagKeyString] :$tag-keys!,
+        ResourceArnString :$resource-arn!
     ) is service-operation('UntagResource') {
         my $request-input = UntagResourceInput.new(
-        :$tag-keys,
-        :$resource-arn
+            :$tag-keys,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<UntagResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method scan(
-    Bool :$consistent-read,
-    Str :$projection-expression,
-    Hash[AttributeValue, Str] :$expression-attribute-values,
-    Select :$select,
-    PositiveIntegerObject :$limit,
-    IndexName :$index-name,
-    TableName :$table-name!,
-    ScanTotalSegments :$total-segments,
-    ConditionalOperator :$conditional-operator,
-    AttributeNameList :$attributes-to-get,
-    Hash[AttributeName, Str] :$expression-attribute-names,
-    Str :$filter-expression,
-    ScanSegment :$segment,
-    Hash[Condition, AttributeName] :$scan-filter,
-    ReturnConsumedCapacity :$return-consumed-capacity,
-    Hash[AttributeValue, AttributeName] :$exclusive-start-key
+        Bool :$consistent-read,
+        Str :$projection-expression,
+        Hash[AttributeValue, Str] :$expression-attribute-values,
+        Select :$select,
+        PositiveIntegerObject :$limit,
+        IndexName :$index-name,
+        TableName :$table-name!,
+        ScanTotalSegments :$total-segments,
+        ConditionalOperator :$conditional-operator,
+        AttributeNameList :$attributes-to-get,
+        Hash[AttributeName, Str] :$expression-attribute-names,
+        Str :$filter-expression,
+        ScanSegment :$segment,
+        Hash[Condition, AttributeName] :$scan-filter,
+        ReturnConsumedCapacity :$return-consumed-capacity,
+        Hash[AttributeValue, AttributeName] :$exclusive-start-key
     ) returns ScanOutput is service-operation('Scan') {
         my $request-input = ScanInput.new(
-        :$consistent-read,
-        :$projection-expression,
-        :$expression-attribute-values,
-        :$select,
-        :$limit,
-        :$index-name,
-        :$table-name,
-        :$total-segments,
-        :$conditional-operator,
-        :$attributes-to-get,
-        :$expression-attribute-names,
-        :$filter-expression,
-        :$segment,
-        :$scan-filter,
-        :$return-consumed-capacity,
-        :$exclusive-start-key
+            :$consistent-read,
+            :$projection-expression,
+            :$expression-attribute-values,
+            :$select,
+            :$limit,
+            :$index-name,
+            :$table-name,
+            :$total-segments,
+            :$conditional-operator,
+            :$attributes-to-get,
+            :$expression-attribute-names,
+            :$filter-expression,
+            :$segment,
+            :$scan-filter,
+            :$return-consumed-capacity,
+            :$exclusive-start-key
         );
-;
+
         self.perform-operation(
             :api-call<Scan>,
-            :return-type(ScanOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tables(
-    ListTablesInputLimit :$limit,
-    TableName :$exclusive-start-table-name
+        ListTablesInputLimit :$limit,
+        TableName :$exclusive-start-table-name
     ) returns ListTablesOutput is service-operation('ListTables') {
         my $request-input = ListTablesInput.new(
-        :$limit,
-        :$exclusive-start-table-name
+            :$limit,
+            :$exclusive-start-table-name
         );
-;
+
         self.perform-operation(
             :api-call<ListTables>,
-            :return-type(ListTablesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-table(
-    TableName :$table-name!
+        TableName :$table-name!
     ) returns DeleteTableOutput is service-operation('DeleteTable') {
         my $request-input = DeleteTableInput.new(
-        :$table-name
+            :$table-name
         );
-;
+
         self.perform-operation(
             :api-call<DeleteTable>,
-            :return-type(DeleteTableOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-table(
-    StreamSpecification :$stream-specification,
-    TableName :$table-name!,
-    Array[GlobalSecondaryIndexUpdate] :$global-secondary-index-updates,
-    ProvisionedThroughput :$provisioned-throughput,
-    Array[AttributeDefinition] :$attribute-definitions
+        StreamSpecification :$stream-specification,
+        TableName :$table-name!,
+        Array[GlobalSecondaryIndexUpdate] :$global-secondary-index-updates,
+        ProvisionedThroughput :$provisioned-throughput,
+        Array[AttributeDefinition] :$attribute-definitions
     ) returns UpdateTableOutput is service-operation('UpdateTable') {
         my $request-input = UpdateTableInput.new(
-        :$stream-specification,
-        :$table-name,
-        :$global-secondary-index-updates,
-        :$provisioned-throughput,
-        :$attribute-definitions
+            :$stream-specification,
+            :$table-name,
+            :$global-secondary-index-updates,
+            :$provisioned-throughput,
+            :$attribute-definitions
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTable>,
-            :return-type(UpdateTableOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-tags-of-resource(
-    Str :$next-token,
-    ResourceArnString :$resource-arn!
+        Str :$next-token,
+        ResourceArnString :$resource-arn!
     ) returns ListTagsOfResourceOutput is service-operation('ListTagsOfResource') {
         my $request-input = ListTagsOfResourceInput.new(
-        :$next-token,
-        :$resource-arn
+            :$next-token,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<ListTagsOfResource>,
-            :return-type(ListTagsOfResourceOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -959,119 +931,109 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         my $request-input = DescribeLimitsInput.new(
 
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLimits>,
-            :return-type(DescribeLimitsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-table(
-    Array[GlobalSecondaryIndex] :$global-secondary-indexes,
-    StreamSpecification :$stream-specification,
-    TableName :$table-name!,
-    Array[LocalSecondaryIndex] :$local-secondary-indexes,
-    ProvisionedThroughput :$provisioned-throughput!,
-    KeySchema :$key-schema!,
-    Array[AttributeDefinition] :$attribute-definitions!
+        Array[GlobalSecondaryIndex] :$global-secondary-indexes,
+        StreamSpecification :$stream-specification,
+        TableName :$table-name!,
+        Array[LocalSecondaryIndex] :$local-secondary-indexes,
+        ProvisionedThroughput :$provisioned-throughput!,
+        KeySchema :$key-schema!,
+        Array[AttributeDefinition] :$attribute-definitions!
     ) returns CreateTableOutput is service-operation('CreateTable') {
         my $request-input = CreateTableInput.new(
-        :$global-secondary-indexes,
-        :$stream-specification,
-        :$table-name,
-        :$local-secondary-indexes,
-        :$provisioned-throughput,
-        :$key-schema,
-        :$attribute-definitions
+            :$global-secondary-indexes,
+            :$stream-specification,
+            :$table-name,
+            :$local-secondary-indexes,
+            :$provisioned-throughput,
+            :$key-schema,
+            :$attribute-definitions
         );
-;
+
         self.perform-operation(
             :api-call<CreateTable>,
-            :return-type(CreateTableOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-time-to-live(
-    TimeToLiveSpecification :$time-to-live-specification!,
-    TableName :$table-name!
+        TimeToLiveSpecification :$time-to-live-specification!,
+        TableName :$table-name!
     ) returns UpdateTimeToLiveOutput is service-operation('UpdateTimeToLive') {
         my $request-input = UpdateTimeToLiveInput.new(
-        :$time-to-live-specification,
-        :$table-name
+            :$time-to-live-specification,
+            :$table-name
         );
-;
+
         self.perform-operation(
             :api-call<UpdateTimeToLive>,
-            :return-type(UpdateTimeToLiveOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method query(
-    Str :$projection-expression,
-    Bool :$consistent-read,
-    Hash[AttributeValue, Str] :$expression-attribute-values,
-    Hash[Condition, AttributeName] :$query-filter,
-    Select :$select,
-    PositiveIntegerObject :$limit,
-    IndexName :$index-name,
-    TableName :$table-name!,
-    Str :$key-condition-expression,
-    Hash[Condition, AttributeName] :$key-conditions,
-    ConditionalOperator :$conditional-operator,
-    AttributeNameList :$attributes-to-get,
-    Hash[AttributeName, Str] :$expression-attribute-names,
-    Str :$filter-expression,
-    Bool :$scan-index-forward,
-    ReturnConsumedCapacity :$return-consumed-capacity,
-    Hash[AttributeValue, AttributeName] :$exclusive-start-key
+        Str :$projection-expression,
+        Bool :$consistent-read,
+        Hash[AttributeValue, Str] :$expression-attribute-values,
+        Hash[Condition, AttributeName] :$query-filter,
+        Select :$select,
+        PositiveIntegerObject :$limit,
+        IndexName :$index-name,
+        TableName :$table-name!,
+        Str :$key-condition-expression,
+        Hash[Condition, AttributeName] :$key-conditions,
+        ConditionalOperator :$conditional-operator,
+        AttributeNameList :$attributes-to-get,
+        Hash[AttributeName, Str] :$expression-attribute-names,
+        Str :$filter-expression,
+        Bool :$scan-index-forward,
+        ReturnConsumedCapacity :$return-consumed-capacity,
+        Hash[AttributeValue, AttributeName] :$exclusive-start-key
     ) returns QueryOutput is service-operation('Query') {
         my $request-input = QueryInput.new(
-        :$projection-expression,
-        :$consistent-read,
-        :$expression-attribute-values,
-        :$query-filter,
-        :$select,
-        :$limit,
-        :$index-name,
-        :$table-name,
-        :$key-condition-expression,
-        :$key-conditions,
-        :$conditional-operator,
-        :$attributes-to-get,
-        :$expression-attribute-names,
-        :$filter-expression,
-        :$scan-index-forward,
-        :$return-consumed-capacity,
-        :$exclusive-start-key
+            :$projection-expression,
+            :$consistent-read,
+            :$expression-attribute-values,
+            :$query-filter,
+            :$select,
+            :$limit,
+            :$index-name,
+            :$table-name,
+            :$key-condition-expression,
+            :$key-conditions,
+            :$conditional-operator,
+            :$attributes-to-get,
+            :$expression-attribute-names,
+            :$filter-expression,
+            :$scan-index-forward,
+            :$return-consumed-capacity,
+            :$exclusive-start-key
         );
-;
+
         self.perform-operation(
             :api-call<Query>,
-            :return-type(QueryOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-item(
-    BatchGetRequestMap :$request-items!,
-    ReturnConsumedCapacity :$return-consumed-capacity
+        BatchGetRequestMap :$request-items!,
+        ReturnConsumedCapacity :$return-consumed-capacity
     ) returns BatchGetItemOutput is service-operation('BatchGetItem') {
         my $request-input = BatchGetItemInput.new(
-        :$request-items,
-        :$return-consumed-capacity
+            :$request-items,
+            :$return-consumed-capacity
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetItem>,
-            :return-type(BatchGetItemOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

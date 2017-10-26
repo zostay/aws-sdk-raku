@@ -282,188 +282,166 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
     }
 
     method batch-get-named-query(
-    NamedQueryIdList :$named-query-ids!
+        NamedQueryIdList :$named-query-ids!
     ) returns BatchGetNamedQueryOutput is service-operation('BatchGetNamedQuery') {
         my $request-input = BatchGetNamedQueryInput.new(
-        :$named-query-ids
+            :$named-query-ids
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetNamedQuery>,
-            :return-type(BatchGetNamedQueryOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-query-execution(
-    Str :$query-execution-id!
+        Str :$query-execution-id!
     ) returns StopQueryExecutionOutput is service-operation('StopQueryExecution') {
         my $request-input = StopQueryExecutionInput.new(
-        :$query-execution-id
+            :$query-execution-id
         );
-;
+
         self.perform-operation(
             :api-call<StopQueryExecution>,
-            :return-type(StopQueryExecutionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-named-query(
-    Str :$named-query-id!
+        Str :$named-query-id!
     ) returns DeleteNamedQueryOutput is service-operation('DeleteNamedQuery') {
         my $request-input = DeleteNamedQueryInput.new(
-        :$named-query-id
+            :$named-query-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteNamedQuery>,
-            :return-type(DeleteNamedQueryOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-named-query(
-    IdempotencyToken :$client-request-token,
-    DatabaseString :$database!,
-    DescriptionString :$description,
-    NameString :$name!,
-    QueryString :$query-string!
+        IdempotencyToken :$client-request-token,
+        DatabaseString :$database!,
+        DescriptionString :$description,
+        NameString :$name!,
+        QueryString :$query-string!
     ) returns CreateNamedQueryOutput is service-operation('CreateNamedQuery') {
         my $request-input = CreateNamedQueryInput.new(
-        :$client-request-token,
-        :$database,
-        :$description,
-        :$name,
-        :$query-string
+            :$client-request-token,
+            :$database,
+            :$description,
+            :$name,
+            :$query-string
         );
-;
+
         self.perform-operation(
             :api-call<CreateNamedQuery>,
-            :return-type(CreateNamedQueryOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method batch-get-query-execution(
-    QueryExecutionIdList :$query-execution-ids!
+        QueryExecutionIdList :$query-execution-ids!
     ) returns BatchGetQueryExecutionOutput is service-operation('BatchGetQueryExecution') {
         my $request-input = BatchGetQueryExecutionInput.new(
-        :$query-execution-ids
+            :$query-execution-ids
         );
-;
+
         self.perform-operation(
             :api-call<BatchGetQueryExecution>,
-            :return-type(BatchGetQueryExecutionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-named-queries(
-    MaxNamedQueriesCount :$max-results,
-    Str :$next-token
+        MaxNamedQueriesCount :$max-results,
+        Str :$next-token
     ) returns ListNamedQueriesOutput is service-operation('ListNamedQueries') {
         my $request-input = ListNamedQueriesInput.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListNamedQueries>,
-            :return-type(ListNamedQueriesOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-query-results(
-    MaxQueryResults :$max-results,
-    Str :$query-execution-id!,
-    Str :$next-token
+        MaxQueryResults :$max-results,
+        Str :$query-execution-id!,
+        Str :$next-token
     ) returns GetQueryResultsOutput is service-operation('GetQueryResults') {
         my $request-input = GetQueryResultsInput.new(
-        :$max-results,
-        :$query-execution-id,
-        :$next-token
+            :$max-results,
+            :$query-execution-id,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<GetQueryResults>,
-            :return-type(GetQueryResultsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-named-query(
-    Str :$named-query-id!
+        Str :$named-query-id!
     ) returns GetNamedQueryOutput is service-operation('GetNamedQuery') {
         my $request-input = GetNamedQueryInput.new(
-        :$named-query-id
+            :$named-query-id
         );
-;
+
         self.perform-operation(
             :api-call<GetNamedQuery>,
-            :return-type(GetNamedQueryOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-query-executions(
-    MaxQueryExecutionsCount :$max-results,
-    Str :$next-token
+        MaxQueryExecutionsCount :$max-results,
+        Str :$next-token
     ) returns ListQueryExecutionsOutput is service-operation('ListQueryExecutions') {
         my $request-input = ListQueryExecutionsInput.new(
-        :$max-results,
-        :$next-token
+            :$max-results,
+            :$next-token
         );
-;
+
         self.perform-operation(
             :api-call<ListQueryExecutions>,
-            :return-type(ListQueryExecutionsOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-query-execution(
-    IdempotencyToken :$client-request-token,
-    QueryExecutionContext :$query-execution-context,
-    QueryString :$query-string!,
-    ResultConfiguration :$result-configuration!
+        IdempotencyToken :$client-request-token,
+        QueryExecutionContext :$query-execution-context,
+        QueryString :$query-string!,
+        ResultConfiguration :$result-configuration!
     ) returns StartQueryExecutionOutput is service-operation('StartQueryExecution') {
         my $request-input = StartQueryExecutionInput.new(
-        :$client-request-token,
-        :$query-execution-context,
-        :$query-string,
-        :$result-configuration
+            :$client-request-token,
+            :$query-execution-context,
+            :$query-string,
+            :$result-configuration
         );
-;
+
         self.perform-operation(
             :api-call<StartQueryExecution>,
-            :return-type(StartQueryExecutionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-query-execution(
-    Str :$query-execution-id!
+        Str :$query-execution-id!
     ) returns GetQueryExecutionOutput is service-operation('GetQueryExecution') {
         my $request-input = GetQueryExecutionInput.new(
-        :$query-execution-id
+            :$query-execution-id
         );
-;
+
         self.perform-operation(
             :api-call<GetQueryExecution>,
-            :return-type(GetQueryExecutionOutput),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

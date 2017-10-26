@@ -526,139 +526,123 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     }
 
     method describe-virtual-interfaces(
-    Str :$connection-id,
-    Str :$virtual-interface-id
+        Str :$connection-id,
+        Str :$virtual-interface-id
     ) returns VirtualInterfaces is service-operation('DescribeVirtualInterfaces') {
         my $request-input = DescribeVirtualInterfacesRequest.new(
-        :$connection-id,
-        :$virtual-interface-id
+            :$connection-id,
+            :$virtual-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeVirtualInterfaces>,
-            :return-type(VirtualInterfaces),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-lags(
-    Str :$lag-id
+        Str :$lag-id
     ) returns Lags is service-operation('DescribeLags') {
         my $request-input = DescribeLagsRequest.new(
-        :$lag-id
+            :$lag-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLags>,
-            :return-type(Lags),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-connection-loa(
-    Str :$connection-id!,
-    Str :$provider-name,
-    LoaContentType :$loa-content-type
+        Str :$connection-id!,
+        Str :$provider-name,
+        LoaContentType :$loa-content-type
     ) returns DescribeConnectionLoaResponse is service-operation('DescribeConnectionLoa') {
         my $request-input = DescribeConnectionLoaRequest.new(
-        :$connection-id,
-        :$provider-name,
-        :$loa-content-type
+            :$connection-id,
+            :$provider-name,
+            :$loa-content-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConnectionLoa>,
-            :return-type(DescribeConnectionLoaResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-bgp-peer(
-    Int :$asn,
-    Str :$customer-address,
-    Str :$virtual-interface-id
+        Int :$asn,
+        Str :$customer-address,
+        Str :$virtual-interface-id
     ) returns DeleteBGPPeerResponse is service-operation('DeleteBGPPeer') {
         my $request-input = DeleteBGPPeerRequest.new(
-        :$asn,
-        :$customer-address,
-        :$virtual-interface-id
+            :$asn,
+            :$customer-address,
+            :$virtual-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteBGPPeer>,
-            :return-type(DeleteBGPPeerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method confirm-connection(
-    Str :$connection-id!
+        Str :$connection-id!
     ) returns ConfirmConnectionResponse is service-operation('ConfirmConnection') {
         my $request-input = ConfirmConnectionRequest.new(
-        :$connection-id
+            :$connection-id
         );
-;
+
         self.perform-operation(
             :api-call<ConfirmConnection>,
-            :return-type(ConfirmConnectionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-virtual-interface(
-    Str :$connection-id!,
-    Str :$virtual-interface-id!
+        Str :$connection-id!,
+        Str :$virtual-interface-id!
     ) returns VirtualInterface is service-operation('AssociateVirtualInterface') {
         my $request-input = AssociateVirtualInterfaceRequest.new(
-        :$connection-id,
-        :$virtual-interface-id
+            :$connection-id,
+            :$virtual-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateVirtualInterface>,
-            :return-type(VirtualInterface),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-connection-with-lag(
-    Str :$connection-id!,
-    Str :$lag-id!
+        Str :$connection-id!,
+        Str :$lag-id!
     ) returns Connection is service-operation('AssociateConnectionWithLag') {
         my $request-input = AssociateConnectionWithLagRequest.new(
-        :$connection-id,
-        :$lag-id
+            :$connection-id,
+            :$lag-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateConnectionWithLag>,
-            :return-type(Connection),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method allocate-public-virtual-interface(
-    Str :$connection-id!,
-    Str :$owner-account!,
-    NewPublicVirtualInterfaceAllocation :$new-public-virtual-interface-allocation!
+        Str :$connection-id!,
+        Str :$owner-account!,
+        NewPublicVirtualInterfaceAllocation :$new-public-virtual-interface-allocation!
     ) returns VirtualInterface is service-operation('AllocatePublicVirtualInterface') {
         my $request-input = AllocatePublicVirtualInterfaceRequest.new(
-        :$connection-id,
-        :$owner-account,
-        :$new-public-virtual-interface-allocation
+            :$connection-id,
+            :$owner-account,
+            :$new-public-virtual-interface-allocation
         );
-;
+
         self.perform-operation(
             :api-call<AllocatePublicVirtualInterface>,
-            :return-type(VirtualInterface),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -666,306 +650,270 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     method describe-locations(
 
     ) returns Locations is service-operation('DescribeLocations') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeLocations>,
-            :return-type(Locations),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-hosted-connections(
-    Str :$connection-id!
+        Str :$connection-id!
     ) returns Connections is service-operation('DescribeHostedConnections') {
         my $request-input = DescribeHostedConnectionsRequest.new(
-        :$connection-id
+            :$connection-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeHostedConnections>,
-            :return-type(Connections),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-interconnect(
-    Str :$interconnect-id!
+        Str :$interconnect-id!
     ) returns DeleteInterconnectResponse is service-operation('DeleteInterconnect') {
         my $request-input = DeleteInterconnectRequest.new(
-        :$interconnect-id
+            :$interconnect-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteInterconnect>,
-            :return-type(DeleteInterconnectResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method confirm-public-virtual-interface(
-    Str :$virtual-interface-id!
+        Str :$virtual-interface-id!
     ) returns ConfirmPublicVirtualInterfaceResponse is service-operation('ConfirmPublicVirtualInterface') {
         my $request-input = ConfirmPublicVirtualInterfaceRequest.new(
-        :$virtual-interface-id
+            :$virtual-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<ConfirmPublicVirtualInterface>,
-            :return-type(ConfirmPublicVirtualInterfaceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method tag-resource(
-    TagList :$tags!,
-    Str :$resource-arn!
+        TagList :$tags!,
+        Str :$resource-arn!
     ) returns TagResourceResponse is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-        :$tags,
-        :$resource-arn
+            :$tags,
+            :$resource-arn
         );
-;
+
         self.perform-operation(
             :api-call<TagResource>,
-            :return-type(TagResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-loa(
-    Str :$connection-id!,
-    Str :$provider-name,
-    LoaContentType :$loa-content-type
+        Str :$connection-id!,
+        Str :$provider-name,
+        LoaContentType :$loa-content-type
     ) returns Loa is service-operation('DescribeLoa') {
         my $request-input = DescribeLoaRequest.new(
-        :$connection-id,
-        :$provider-name,
-        :$loa-content-type
+            :$connection-id,
+            :$provider-name,
+            :$loa-content-type
         );
-;
+
         self.perform-operation(
             :api-call<DescribeLoa>,
-            :return-type(Loa),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-private-virtual-interface(
-    Str :$connection-id!,
-    NewPrivateVirtualInterface :$new-private-virtual-interface!
+        Str :$connection-id!,
+        NewPrivateVirtualInterface :$new-private-virtual-interface!
     ) returns VirtualInterface is service-operation('CreatePrivateVirtualInterface') {
         my $request-input = CreatePrivateVirtualInterfaceRequest.new(
-        :$connection-id,
-        :$new-private-virtual-interface
+            :$connection-id,
+            :$new-private-virtual-interface
         );
-;
+
         self.perform-operation(
             :api-call<CreatePrivateVirtualInterface>,
-            :return-type(VirtualInterface),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-lag(
-    Str :$connections-bandwidth!,
-    Int :$number-of-connections!,
-    Str :$connection-id,
-    Str :$lag-name!,
-    Str :$location!
+        Str :$connections-bandwidth!,
+        Int :$number-of-connections!,
+        Str :$connection-id,
+        Str :$lag-name!,
+        Str :$location!
     ) returns Lag is service-operation('CreateLag') {
         my $request-input = CreateLagRequest.new(
-        :$connections-bandwidth,
-        :$number-of-connections,
-        :$connection-id,
-        :$lag-name,
-        :$location
+            :$connections-bandwidth,
+            :$number-of-connections,
+            :$connection-id,
+            :$lag-name,
+            :$location
         );
-;
+
         self.perform-operation(
             :api-call<CreateLag>,
-            :return-type(Lag),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-connection(
-    Str :$lag-id,
-    Str :$bandwidth!,
-    Str :$location!,
-    Str :$connection-name!
+        Str :$lag-id,
+        Str :$bandwidth!,
+        Str :$location!,
+        Str :$connection-name!
     ) returns Connection is service-operation('CreateConnection') {
         my $request-input = CreateConnectionRequest.new(
-        :$lag-id,
-        :$bandwidth,
-        :$location,
-        :$connection-name
+            :$lag-id,
+            :$bandwidth,
+            :$location,
+            :$connection-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateConnection>,
-            :return-type(Connection),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-bgp-peer(
-    NewBGPPeer :$new-bgp-peer,
-    Str :$virtual-interface-id
+        NewBGPPeer :$new-bgp-peer,
+        Str :$virtual-interface-id
     ) returns CreateBGPPeerResponse is service-operation('CreateBGPPeer') {
         my $request-input = CreateBGPPeerRequest.new(
-        :$new-bgp-peer,
-        :$virtual-interface-id
+            :$new-bgp-peer,
+            :$virtual-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<CreateBGPPeer>,
-            :return-type(CreateBGPPeerResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method associate-hosted-connection(
-    Str :$connection-id!,
-    Str :$parent-connection-id!
+        Str :$connection-id!,
+        Str :$parent-connection-id!
     ) returns Connection is service-operation('AssociateHostedConnection') {
         my $request-input = AssociateHostedConnectionRequest.new(
-        :$connection-id,
-        :$parent-connection-id
+            :$connection-id,
+            :$parent-connection-id
         );
-;
+
         self.perform-operation(
             :api-call<AssociateHostedConnection>,
-            :return-type(Connection),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method allocate-private-virtual-interface(
-    Str :$connection-id!,
-    NewPrivateVirtualInterfaceAllocation :$new-private-virtual-interface-allocation!,
-    Str :$owner-account!
+        Str :$connection-id!,
+        NewPrivateVirtualInterfaceAllocation :$new-private-virtual-interface-allocation!,
+        Str :$owner-account!
     ) returns VirtualInterface is service-operation('AllocatePrivateVirtualInterface') {
         my $request-input = AllocatePrivateVirtualInterfaceRequest.new(
-        :$connection-id,
-        :$new-private-virtual-interface-allocation,
-        :$owner-account
+            :$connection-id,
+            :$new-private-virtual-interface-allocation,
+            :$owner-account
         );
-;
+
         self.perform-operation(
             :api-call<AllocatePrivateVirtualInterface>,
-            :return-type(VirtualInterface),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-interconnects(
-    Str :$interconnect-id
+        Str :$interconnect-id
     ) returns Interconnects is service-operation('DescribeInterconnects') {
         my $request-input = DescribeInterconnectsRequest.new(
-        :$interconnect-id
+            :$interconnect-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInterconnects>,
-            :return-type(Interconnects),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-interconnect-loa(
-    Str :$provider-name,
-    LoaContentType :$loa-content-type,
-    Str :$interconnect-id!
+        Str :$provider-name,
+        LoaContentType :$loa-content-type,
+        Str :$interconnect-id!
     ) returns DescribeInterconnectLoaResponse is service-operation('DescribeInterconnectLoa') {
         my $request-input = DescribeInterconnectLoaRequest.new(
-        :$provider-name,
-        :$loa-content-type,
-        :$interconnect-id
+            :$provider-name,
+            :$loa-content-type,
+            :$interconnect-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeInterconnectLoa>,
-            :return-type(DescribeInterconnectLoaResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-connections-on-interconnect(
-    Str :$interconnect-id!
+        Str :$interconnect-id!
     ) returns Connections is service-operation('DescribeConnectionsOnInterconnect') {
         my $request-input = DescribeConnectionsOnInterconnectRequest.new(
-        :$interconnect-id
+            :$interconnect-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConnectionsOnInterconnect>,
-            :return-type(Connections),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-public-virtual-interface(
-    NewPublicVirtualInterface :$new-public-virtual-interface!,
-    Str :$connection-id!
+        NewPublicVirtualInterface :$new-public-virtual-interface!,
+        Str :$connection-id!
     ) returns VirtualInterface is service-operation('CreatePublicVirtualInterface') {
         my $request-input = CreatePublicVirtualInterfaceRequest.new(
-        :$new-public-virtual-interface,
-        :$connection-id
+            :$new-public-virtual-interface,
+            :$connection-id
         );
-;
+
         self.perform-operation(
             :api-call<CreatePublicVirtualInterface>,
-            :return-type(VirtualInterface),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method untag-resource(
-    Str :$resource-arn!,
-    Array[TagKey] :$tag-keys!
+        Str :$resource-arn!,
+        Array[TagKey] :$tag-keys!
     ) returns UntagResourceResponse is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-        :$resource-arn,
-        :$tag-keys
+            :$resource-arn,
+            :$tag-keys
         );
-;
+
         self.perform-operation(
             :api-call<UntagResource>,
-            :return-type(UntagResourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method disassociate-connection-from-lag(
-    Str :$connection-id!,
-    Str :$lag-id!
+        Str :$connection-id!,
+        Str :$lag-id!
     ) returns Connection is service-operation('DisassociateConnectionFromLag') {
         my $request-input = DisassociateConnectionFromLagRequest.new(
-        :$connection-id,
-        :$lag-id
+            :$connection-id,
+            :$lag-id
         );
-;
+
         self.perform-operation(
             :api-call<DisassociateConnectionFromLag>,
-            :return-type(Connection),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -973,189 +921,167 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     method describe-virtual-gateways(
 
     ) returns VirtualGateways is service-operation('DescribeVirtualGateways') {
-        my $request-input = Nil;
+        my $request-input = Nil
         self.perform-operation(
             :api-call<DescribeVirtualGateways>,
-            :return-type(VirtualGateways),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-connections(
-    Str :$connection-id
+        Str :$connection-id
     ) returns Connections is service-operation('DescribeConnections') {
         my $request-input = DescribeConnectionsRequest.new(
-        :$connection-id
+            :$connection-id
         );
-;
+
         self.perform-operation(
             :api-call<DescribeConnections>,
-            :return-type(Connections),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-lag(
-    Str :$lag-id!
+        Str :$lag-id!
     ) returns Lag is service-operation('DeleteLag') {
         my $request-input = DeleteLagRequest.new(
-        :$lag-id
+            :$lag-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteLag>,
-            :return-type(Lag),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-connection(
-    Str :$connection-id!
+        Str :$connection-id!
     ) returns Connection is service-operation('DeleteConnection') {
         my $request-input = DeleteConnectionRequest.new(
-        :$connection-id
+            :$connection-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteConnection>,
-            :return-type(Connection),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-tags(
-    Array[Str] :$resource-arns!
+        Array[Str] :$resource-arns!
     ) returns DescribeTagsResponse is service-operation('DescribeTags') {
         my $request-input = DescribeTagsRequest.new(
-        :$resource-arns
+            :$resource-arns
         );
-;
+
         self.perform-operation(
             :api-call<DescribeTags>,
-            :return-type(DescribeTagsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method allocate-connection-on-interconnect(
-    Str :$bandwidth!,
-    Str :$owner-account!,
-    Int :$vlan!,
-    Str :$interconnect-id!,
-    Str :$connection-name!
+        Str :$bandwidth!,
+        Str :$owner-account!,
+        Int :$vlan!,
+        Str :$interconnect-id!,
+        Str :$connection-name!
     ) returns Connection is service-operation('AllocateConnectionOnInterconnect') {
         my $request-input = AllocateConnectionOnInterconnectRequest.new(
-        :$bandwidth,
-        :$owner-account,
-        :$vlan,
-        :$interconnect-id,
-        :$connection-name
+            :$bandwidth,
+            :$owner-account,
+            :$vlan,
+            :$interconnect-id,
+            :$connection-name
         );
-;
+
         self.perform-operation(
             :api-call<AllocateConnectionOnInterconnect>,
-            :return-type(Connection),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-lag(
-    Str :$lag-name,
-    Str :$lag-id!,
-    Int :$minimum-links
+        Str :$lag-name,
+        Str :$lag-id!,
+        Int :$minimum-links
     ) returns Lag is service-operation('UpdateLag') {
         my $request-input = UpdateLagRequest.new(
-        :$lag-name,
-        :$lag-id,
-        :$minimum-links
+            :$lag-name,
+            :$lag-id,
+            :$minimum-links
         );
-;
+
         self.perform-operation(
             :api-call<UpdateLag>,
-            :return-type(Lag),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-virtual-interface(
-    Str :$virtual-interface-id!
+        Str :$virtual-interface-id!
     ) returns DeleteVirtualInterfaceResponse is service-operation('DeleteVirtualInterface') {
         my $request-input = DeleteVirtualInterfaceRequest.new(
-        :$virtual-interface-id
+            :$virtual-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteVirtualInterface>,
-            :return-type(DeleteVirtualInterfaceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method create-interconnect(
-    Str :$lag-id,
-    Str :$location!,
-    Str :$bandwidth!,
-    Str :$interconnect-name!
+        Str :$lag-id,
+        Str :$location!,
+        Str :$bandwidth!,
+        Str :$interconnect-name!
     ) returns Interconnect is service-operation('CreateInterconnect') {
         my $request-input = CreateInterconnectRequest.new(
-        :$lag-id,
-        :$location,
-        :$bandwidth,
-        :$interconnect-name
+            :$lag-id,
+            :$location,
+            :$bandwidth,
+            :$interconnect-name
         );
-;
+
         self.perform-operation(
             :api-call<CreateInterconnect>,
-            :return-type(Interconnect),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method confirm-private-virtual-interface(
-    Str :$virtual-gateway-id!,
-    Str :$virtual-interface-id!
+        Str :$virtual-gateway-id!,
+        Str :$virtual-interface-id!
     ) returns ConfirmPrivateVirtualInterfaceResponse is service-operation('ConfirmPrivateVirtualInterface') {
         my $request-input = ConfirmPrivateVirtualInterfaceRequest.new(
-        :$virtual-gateway-id,
-        :$virtual-interface-id
+            :$virtual-gateway-id,
+            :$virtual-interface-id
         );
-;
+
         self.perform-operation(
             :api-call<ConfirmPrivateVirtualInterface>,
-            :return-type(ConfirmPrivateVirtualInterfaceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method allocate-hosted-connection(
-    Str :$connection-id!,
-    Str :$bandwidth!,
-    Str :$owner-account!,
-    Int :$vlan!,
-    Str :$connection-name!
+        Str :$connection-id!,
+        Str :$bandwidth!,
+        Str :$owner-account!,
+        Int :$vlan!,
+        Str :$connection-name!
     ) returns Connection is service-operation('AllocateHostedConnection') {
         my $request-input = AllocateHostedConnectionRequest.new(
-        :$connection-id,
-        :$bandwidth,
-        :$owner-account,
-        :$vlan,
-        :$connection-name
+            :$connection-id,
+            :$bandwidth,
+            :$owner-account,
+            :$vlan,
+            :$connection-name
         );
-;
+
         self.perform-operation(
             :api-call<AllocateHostedConnection>,
-            :return-type(Connection),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }

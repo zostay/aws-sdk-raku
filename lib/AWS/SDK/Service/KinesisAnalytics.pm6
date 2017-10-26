@@ -568,278 +568,248 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
     }
 
     method create-application(
-    ApplicationName :$application-name!,
-    Array[CloudWatchLoggingOption] :$cloud-watch-logging-options,
-    ApplicationCode :$application-code,
-    Array[Input] :$inputs,
-    Array[Output] :$outputs,
-    ApplicationDescription :$application-description
+        ApplicationName :$application-name!,
+        Array[CloudWatchLoggingOption] :$cloud-watch-logging-options,
+        ApplicationCode :$application-code,
+        Array[Input] :$inputs,
+        Array[Output] :$outputs,
+        ApplicationDescription :$application-description
     ) returns CreateApplicationResponse is service-operation('CreateApplication') {
         my $request-input = CreateApplicationRequest.new(
-        :$application-name,
-        :$cloud-watch-logging-options,
-        :$application-code,
-        :$inputs,
-        :$outputs,
-        :$application-description
+            :$application-name,
+            :$cloud-watch-logging-options,
+            :$application-code,
+            :$inputs,
+            :$outputs,
+            :$application-description
         );
-;
+
         self.perform-operation(
             :api-call<CreateApplication>,
-            :return-type(CreateApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-application-input(
-    Input :$input!,
-    ApplicationName :$application-name!,
-    ApplicationVersionId :$current-application-version-id!
+        Input :$input!,
+        ApplicationName :$application-name!,
+        ApplicationVersionId :$current-application-version-id!
     ) returns AddApplicationInputResponse is service-operation('AddApplicationInput') {
         my $request-input = AddApplicationInputRequest.new(
-        :$input,
-        :$application-name,
-        :$current-application-version-id
+            :$input,
+            :$application-name,
+            :$current-application-version-id
         );
-;
+
         self.perform-operation(
             :api-call<AddApplicationInput>,
-            :return-type(AddApplicationInputResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-application-cloud-watch-logging-option(
-    ApplicationName :$application-name!,
-    ApplicationVersionId :$current-application-version-id!,
-    CloudWatchLoggingOption :$cloud-watch-logging-option!
+        ApplicationName :$application-name!,
+        ApplicationVersionId :$current-application-version-id!,
+        CloudWatchLoggingOption :$cloud-watch-logging-option!
     ) returns AddApplicationCloudWatchLoggingOptionResponse is service-operation('AddApplicationCloudWatchLoggingOption') {
         my $request-input = AddApplicationCloudWatchLoggingOptionRequest.new(
-        :$application-name,
-        :$current-application-version-id,
-        :$cloud-watch-logging-option
+            :$application-name,
+            :$current-application-version-id,
+            :$cloud-watch-logging-option
         );
-;
+
         self.perform-operation(
             :api-call<AddApplicationCloudWatchLoggingOption>,
-            :return-type(AddApplicationCloudWatchLoggingOptionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method stop-application(
-    ApplicationName :$application-name!
+        ApplicationName :$application-name!
     ) returns StopApplicationResponse is service-operation('StopApplication') {
         my $request-input = StopApplicationRequest.new(
-        :$application-name
+            :$application-name
         );
-;
+
         self.perform-operation(
             :api-call<StopApplication>,
-            :return-type(StopApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-application(
-    ApplicationName :$application-name!,
-    DateTime :$create-timestamp!
+        ApplicationName :$application-name!,
+        DateTime :$create-timestamp!
     ) returns DeleteApplicationResponse is service-operation('DeleteApplication') {
         my $request-input = DeleteApplicationRequest.new(
-        :$application-name,
-        :$create-timestamp
+            :$application-name,
+            :$create-timestamp
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApplication>,
-            :return-type(DeleteApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-application-output(
-    Output :$output!,
-    ApplicationName :$application-name!,
-    ApplicationVersionId :$current-application-version-id!
+        Output :$output!,
+        ApplicationName :$application-name!,
+        ApplicationVersionId :$current-application-version-id!
     ) returns AddApplicationOutputResponse is service-operation('AddApplicationOutput') {
         my $request-input = AddApplicationOutputRequest.new(
-        :$output,
-        :$application-name,
-        :$current-application-version-id
+            :$output,
+            :$application-name,
+            :$current-application-version-id
         );
-;
+
         self.perform-operation(
             :api-call<AddApplicationOutput>,
-            :return-type(AddApplicationOutputResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method list-applications(
-    ApplicationName :$exclusive-start-application-name,
-    ListApplicationsInputLimit :$limit
+        ApplicationName :$exclusive-start-application-name,
+        ListApplicationsInputLimit :$limit
     ) returns ListApplicationsResponse is service-operation('ListApplications') {
         my $request-input = ListApplicationsRequest.new(
-        :$exclusive-start-application-name,
-        :$limit
+            :$exclusive-start-application-name,
+            :$limit
         );
-;
+
         self.perform-operation(
             :api-call<ListApplications>,
-            :return-type(ListApplicationsResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method discover-input-schema(
-    RoleARN :$role-arn!,
-    ResourceARN :$resource-arn!,
-    InputStartingPositionConfiguration :$input-starting-position-configuration!
+        RoleARN :$role-arn!,
+        ResourceARN :$resource-arn!,
+        InputStartingPositionConfiguration :$input-starting-position-configuration!
     ) returns DiscoverInputSchemaResponse is service-operation('DiscoverInputSchema') {
         my $request-input = DiscoverInputSchemaRequest.new(
-        :$role-arn,
-        :$resource-arn,
-        :$input-starting-position-configuration
+            :$role-arn,
+            :$resource-arn,
+            :$input-starting-position-configuration
         );
-;
+
         self.perform-operation(
             :api-call<DiscoverInputSchema>,
-            :return-type(DiscoverInputSchemaResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-application-cloud-watch-logging-option(
-    ApplicationName :$application-name!,
-    ApplicationVersionId :$current-application-version-id!,
-    Id :$cloud-watch-logging-option-id!
+        ApplicationName :$application-name!,
+        ApplicationVersionId :$current-application-version-id!,
+        Id :$cloud-watch-logging-option-id!
     ) returns DeleteApplicationCloudWatchLoggingOptionResponse is service-operation('DeleteApplicationCloudWatchLoggingOption') {
         my $request-input = DeleteApplicationCloudWatchLoggingOptionRequest.new(
-        :$application-name,
-        :$current-application-version-id,
-        :$cloud-watch-logging-option-id
+            :$application-name,
+            :$current-application-version-id,
+            :$cloud-watch-logging-option-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApplicationCloudWatchLoggingOption>,
-            :return-type(DeleteApplicationCloudWatchLoggingOptionResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method add-application-reference-data-source(
-    ReferenceDataSource :$reference-data-source!,
-    ApplicationName :$application-name!,
-    ApplicationVersionId :$current-application-version-id!
+        ReferenceDataSource :$reference-data-source!,
+        ApplicationName :$application-name!,
+        ApplicationVersionId :$current-application-version-id!
     ) returns AddApplicationReferenceDataSourceResponse is service-operation('AddApplicationReferenceDataSource') {
         my $request-input = AddApplicationReferenceDataSourceRequest.new(
-        :$reference-data-source,
-        :$application-name,
-        :$current-application-version-id
+            :$reference-data-source,
+            :$application-name,
+            :$current-application-version-id
         );
-;
+
         self.perform-operation(
             :api-call<AddApplicationReferenceDataSource>,
-            :return-type(AddApplicationReferenceDataSourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method start-application(
-    ApplicationName :$application-name!,
-    Array[InputConfiguration] :$input-configurations!
+        ApplicationName :$application-name!,
+        Array[InputConfiguration] :$input-configurations!
     ) returns StartApplicationResponse is service-operation('StartApplication') {
         my $request-input = StartApplicationRequest.new(
-        :$application-name,
-        :$input-configurations
+            :$application-name,
+            :$input-configurations
         );
-;
+
         self.perform-operation(
             :api-call<StartApplication>,
-            :return-type(StartApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-application-reference-data-source(
-    ApplicationName :$application-name!,
-    Id :$reference-id!,
-    ApplicationVersionId :$current-application-version-id!
+        ApplicationName :$application-name!,
+        Id :$reference-id!,
+        ApplicationVersionId :$current-application-version-id!
     ) returns DeleteApplicationReferenceDataSourceResponse is service-operation('DeleteApplicationReferenceDataSource') {
         my $request-input = DeleteApplicationReferenceDataSourceRequest.new(
-        :$application-name,
-        :$reference-id,
-        :$current-application-version-id
+            :$application-name,
+            :$reference-id,
+            :$current-application-version-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApplicationReferenceDataSource>,
-            :return-type(DeleteApplicationReferenceDataSourceResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-application(
-    ApplicationUpdate :$application-update!,
-    ApplicationName :$application-name!,
-    ApplicationVersionId :$current-application-version-id!
+        ApplicationUpdate :$application-update!,
+        ApplicationName :$application-name!,
+        ApplicationVersionId :$current-application-version-id!
     ) returns UpdateApplicationResponse is service-operation('UpdateApplication') {
         my $request-input = UpdateApplicationRequest.new(
-        :$application-update,
-        :$application-name,
-        :$current-application-version-id
+            :$application-update,
+            :$application-name,
+            :$current-application-version-id
         );
-;
+
         self.perform-operation(
             :api-call<UpdateApplication>,
-            :return-type(UpdateApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method describe-application(
-    ApplicationName :$application-name!
+        ApplicationName :$application-name!
     ) returns DescribeApplicationResponse is service-operation('DescribeApplication') {
         my $request-input = DescribeApplicationRequest.new(
-        :$application-name
+            :$application-name
         );
-;
+
         self.perform-operation(
             :api-call<DescribeApplication>,
-            :return-type(DescribeApplicationResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-application-output(
-    ApplicationName :$application-name!,
-    ApplicationVersionId :$current-application-version-id!,
-    Id :$output-id!
+        ApplicationName :$application-name!,
+        ApplicationVersionId :$current-application-version-id!,
+        Id :$output-id!
     ) returns DeleteApplicationOutputResponse is service-operation('DeleteApplicationOutput') {
         my $request-input = DeleteApplicationOutputRequest.new(
-        :$application-name,
-        :$current-application-version-id,
-        :$output-id
+            :$application-name,
+            :$current-application-version-id,
+            :$output-id
         );
-;
+
         self.perform-operation(
             :api-call<DeleteApplicationOutput>,
-            :return-type(DeleteApplicationOutputResponse),
-            :result-wrapper(Nil),
             :$request-input,
         );
     }
