@@ -1,19 +1,25 @@
 use v6;
 
 role AWS::SDK::Shape {
-    role Parameter[Str $aws-parameter] {
-        method aws-parameter { $aws-parameter }
+    role Member[Str $shape-member] {
+        method shape-member { $shape-member }
     }
 
+    method shape-members() { self.^attributes(:local).grep(Member) }
+
     method Hash() returns Hash {
-        % = gather for self.^attributes.grep(AWS::SDK::Parameter) -> $attr {
-            my $key = $attr.name;
+        % = gather for $.shape-members -> $attr {
+            my $attr = $attr.name.substr(2);
+
+            my $key = $attr.shape-member;
             take $key;
-            take self."$key";
+
+            my $value = self."$attr";
+            take $value ~~ Shape ?? $value.Hash !! $value;
         }
     }
 }
 
-sub trait:<is> (Attribute $a, Str :$aws-parameter!) is export {
-    $a does AWS::SDK::Shape::Parameter[$aws-parameter];
+multi trait_mod:<is> (Attribute $a, Str :$shape-member!) is export {
+    $a does AWS::SDK::Shape::Member[$shape-member];
 }
