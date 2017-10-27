@@ -60,6 +60,45 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
 
     subset ConfigurationId of Str where 1 <= .chars;
 
+    subset MaxResultsCreatedArtifacts of Int where 1 <= * <= 10;
+
+    subset ApplicationStatus of Str where $_ eq any('NOT_STARTED', 'IN_PROGRESS', 'COMPLETED');
+
+    subset LatestResourceAttributeList of Array[ResourceAttribute] where 0 <= *.elems <= 100;
+
+    subset StatusDetail of Str where 0 <= .chars <= 500;
+
+    subset Status of Str where $_ eq any('NOT_STARTED', 'IN_PROGRESS', 'FAILED', 'COMPLETED');
+
+    subset CreatedArtifactName of Str where 1 <= .chars <= 1600 && rx:P5/arn:[a-z-]+:[a-z0-9-]+:(?:[a-z0-9-]+|):(?:[0-9]{12}|):.*/;
+
+    subset ResourceAttributeType of Str where $_ eq any('IPV4_ADDRESS', 'IPV6_ADDRESS', 'MAC_ADDRESS', 'FQDN', 'VM_MANAGER_ID', 'VM_MANAGED_OBJECT_REFERENCE', 'VM_NAME', 'VM_PATH', 'BIOS_ID', 'MOTHERBOARD_SERIAL_NUMBER', 'LABEL');
+
+    subset ProgressUpdateStream of Str where 1 <= .chars <= 50 && rx:P5/[^\/:|\000-\037]+/;
+
+    subset ResourceAttributeValue of Str where 1 <= .chars <= 256;
+
+    subset ApplicationId of Str where 1 <= .chars <= 1600;
+
+    subset CreatedArtifactDescription of Str where 0 <= .chars <= 500;
+
+    subset MaxResults of Int where 1 <= * <= 100;
+
+    subset ProgressPercent of Int where 0 <= * <= 100;
+
+    subset MigrationTaskName of Str where 1 <= .chars <= 256 && rx:P5/[^:|]+/;
+
+    subset ResourceName of Str where 1 <= .chars <= 1600;
+
+    subset DiscoveredResourceDescription of Str where 0 <= .chars <= 500;
+
+    subset MaxResultsResources of Int where 1 <= * <= 10;
+
+    subset ResourceAttributeList of Array[ResourceAttribute] where 1 <= *.elems <= 100;
+
+    subset NextUpdateSeconds of Int where 0 <= *;
+
+
     class DescribeApplicationStateRequest does AWS::SDK::Shape {
         has ApplicationId $.application-id is required is shape-member('ApplicationId');
     }
@@ -68,8 +107,6 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
         has MigrationTaskName $.migration-task-name is required is shape-member('MigrationTaskName');
         has ProgressUpdateStream $.progress-update-stream is required is shape-member('ProgressUpdateStream');
     }
-
-    subset MaxResultsCreatedArtifacts of Int where 1 <= * <= 10;
 
     class PutResourceAttributesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -80,8 +117,6 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
 
     class NotifyApplicationStateResult does AWS::SDK::Shape {
     }
-
-    subset ApplicationStatus of Str where $_ ~~ any('NOT_STARTED', 'IN_PROGRESS', 'COMPLETED');
 
     class CreateProgressUpdateStreamRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -109,8 +144,6 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
         has CreatedArtifactName $.name is required is shape-member('Name');
     }
 
-    subset LatestResourceAttributeList of Array[ResourceAttribute] where 0 <= *.elems <= 100;
-
     class ResourceAttribute does AWS::SDK::Shape {
         has ResourceAttributeValue $.value is required is shape-member('Value');
         has ResourceAttributeType $.type is required is shape-member('Type');
@@ -127,8 +160,6 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
 
     class DeleteProgressUpdateStreamResult does AWS::SDK::Shape {
     }
-
-    subset StatusDetail of Str where 0 <= .chars <= 500;
 
     class NotifyApplicationStateRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -152,7 +183,7 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
     }
 
     class ListCreatedArtifactsResult does AWS::SDK::Shape {
-        has Array[CreatedArtifact] $.created-artifact-list is shape-member('CreatedArtifactList');
+        has CreatedArtifact @.created-artifact-list is shape-member('CreatedArtifactList');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -162,19 +193,15 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset Status of Str where $_ ~~ any('NOT_STARTED', 'IN_PROGRESS', 'FAILED', 'COMPLETED');
-
     class NotifyMigrationTaskStateResult does AWS::SDK::Shape {
     }
-
-    subset CreatedArtifactName of Str where 1 <= .chars <= 1600 && rx:P5/arn:[a-z-]+:[a-z0-9-]+:(?:[a-z0-9-]+|):(?:[0-9]{12}|):.*/;
 
     class DryRunOperation does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
 
     class ListDiscoveredResourcesResult does AWS::SDK::Shape {
-        has Array[DiscoveredResource] $.discovered-resource-list is shape-member('DiscoveredResourceList');
+        has DiscoveredResource @.discovered-resource-list is shape-member('DiscoveredResourceList');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -183,22 +210,12 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset ResourceAttributeType of Str where $_ ~~ any('IPV4_ADDRESS', 'IPV6_ADDRESS', 'MAC_ADDRESS', 'FQDN', 'VM_MANAGER_ID', 'VM_MANAGED_OBJECT_REFERENCE', 'VM_NAME', 'VM_PATH', 'BIOS_ID', 'MOTHERBOARD_SERIAL_NUMBER', 'LABEL');
-
     class PutResourceAttributesResult does AWS::SDK::Shape {
     }
-
-    subset ProgressUpdateStream of Str where 1 <= .chars <= 50 && rx:P5/[^\/:|\000-\037]+/;
 
     class DescribeMigrationTaskResult does AWS::SDK::Shape {
         has MigrationTask $.migration-task is shape-member('MigrationTask');
     }
-
-    subset ResourceAttributeValue of Str where 1 <= .chars <= 256;
-
-    subset ApplicationId of Str where 1 <= .chars <= 1600;
-
-    subset CreatedArtifactDescription of Str where 0 <= .chars <= 500;
 
     class DisassociateCreatedArtifactRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -220,7 +237,7 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
     }
 
     class ListProgressUpdateStreamsResult does AWS::SDK::Shape {
-        has Array[ProgressUpdateStreamSummary] $.progress-update-stream-summary-list is shape-member('ProgressUpdateStreamSummaryList');
+        has ProgressUpdateStreamSummary @.progress-update-stream-summary-list is shape-member('ProgressUpdateStreamSummaryList');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -236,8 +253,6 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
         has MigrationTaskName $.migration-task-name is required is shape-member('MigrationTaskName');
         has ProgressUpdateStream $.progress-update-stream is required is shape-member('ProgressUpdateStream');
     }
-
-    subset MaxResults of Int where 1 <= * <= 100;
 
     class MigrationTask does AWS::SDK::Shape {
         has Task $.task is shape-member('Task');
@@ -265,16 +280,10 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
         has ProgressUpdateStream $.progress-update-stream is required is shape-member('ProgressUpdateStream');
     }
 
-    subset ProgressPercent of Int where 0 <= * <= 100;
-
-    subset MigrationTaskName of Str where 1 <= .chars <= 256 && rx:P5/[^:|]+/;
-
     class DeleteProgressUpdateStreamRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
         has ProgressUpdateStream $.progress-update-stream-name is required is shape-member('ProgressUpdateStreamName');
     }
-
-    subset ResourceName of Str where 1 <= .chars <= 1600;
 
     class ImportMigrationTaskRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -284,7 +293,7 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
 
     class ListMigrationTasksResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[MigrationTaskSummary] $.migration-task-summary-list is shape-member('MigrationTaskSummaryList');
+        has MigrationTaskSummary @.migration-task-summary-list is shape-member('MigrationTaskSummaryList');
     }
 
     class ServiceUnavailableException does AWS::SDK::Shape {
@@ -312,12 +321,6 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
     class DisassociateDiscoveredResourceResult does AWS::SDK::Shape {
     }
 
-    subset DiscoveredResourceDescription of Str where 0 <= .chars <= 500;
-
-    subset MaxResultsResources of Int where 1 <= * <= 10;
-
-    subset ResourceAttributeList of Array[ResourceAttribute] where 1 <= *.elems <= 100;
-
     class PolicyErrorException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -329,7 +332,6 @@ class AWS::SDK::Service::MGH does AWS::SDK::Service {
         has ProgressUpdateStream $.progress-update-stream is required is shape-member('ProgressUpdateStream');
     }
 
-    subset NextUpdateSeconds of Int where 0 <= *;
 
     method delete-progress-update-stream(
         Bool :$dry-run,

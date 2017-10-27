@@ -72,6 +72,47 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
     class DeleteRepositoryPolicyRequest { ... }
     class LayerPartTooSmallException { ... }
 
+    subset UploadId of Str where rx:P5/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
+
+    subset ImageIdentifierList of Array[ImageIdentifier] where 1 <= *.elems <= 100;
+
+    subset LayerFailureCode of Str where $_ eq any('InvalidLayerDigest', 'MissingLayerDigest');
+
+    subset RepositoryPolicyText of Str where 0 <= .chars <= 10240;
+
+    subset LayerAvailability of Str where $_ eq any('AVAILABLE', 'UNAVAILABLE');
+
+    subset LayerDigestList of Array[LayerDigest] where 1 <= *.elems <= 100;
+
+    subset MediaType of Str where rx:P5/\w{1,127}\\/[-+.\w]{1,127}/;
+
+    subset RepositoryNameList of Array[RepositoryName] where 1 <= *.elems <= 100;
+
+    subset BatchedOperationLayerDigest of Str where 0 <= .chars <= 1000;
+
+    subset RepositoryName of Str where 2 <= .chars <= 256 && rx:P5/(?:[a-z0-9]+(?:[._-][a-z0-9]+)*\/)*[a-z0-9]+(?:[._-][a-z0-9]+)*/;
+
+    subset ImageFailureCode of Str where $_ eq any('InvalidImageDigest', 'InvalidImageTag', 'ImageTagDoesNotMatchDigest', 'ImageNotFound', 'MissingDigestAndTag');
+
+    subset GetAuthorizationTokenRegistryIdList of Array[RegistryId] where 1 <= *.elems <= 10;
+
+    subset LayerDigest of Str where rx:P5/[a-zA-Z0-9-_+.]+:[a-fA-F0-9]+/;
+
+    subset MaxResults of Int where 1 <= * <= 100;
+
+    subset TagStatus of Str where $_ eq any('TAGGED', 'UNTAGGED');
+
+    subset Base64 of Str where rx:P5/^\S+$/;
+
+    subset BatchedOperationLayerDigestList of Array[BatchedOperationLayerDigest] where 1 <= *.elems <= 100;
+
+    subset RegistryId of Str where rx:P5/[0-9]{12}/;
+
+    subset MediaTypeList of Array[MediaType] where 1 <= *.elems <= 100;
+
+    subset PartSize of Int where 0 <= *;
+
+
     class InitiateLayerUploadRequest does AWS::SDK::Shape {
         has RepositoryName $.repository-name is required is shape-member('repositoryName');
         has RegistryId $.registry-id is shape-member('registryId');
@@ -95,8 +136,6 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
     class LayersNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset UploadId of Str where rx:P5/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
 
     class ImageIdentifier does AWS::SDK::Shape {
         has Str $.image-tag is shape-member('imageTag');
@@ -134,8 +173,6 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
         has TagStatus $.tag-status is shape-member('tagStatus');
     }
 
-    subset ImageIdentifierList of Array[ImageIdentifier] where 1 <= *.elems <= 100;
-
     class RepositoryAlreadyExistsException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -153,16 +190,12 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
 
     class DescribeImagesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[ImageDetail] $.image-details is shape-member('imageDetails');
+        has ImageDetail @.image-details is shape-member('imageDetails');
     }
-
-    subset LayerFailureCode of Str where $_ ~~ any('InvalidLayerDigest', 'MissingLayerDigest');
 
     class RepositoryNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset RepositoryPolicyText of Str where 0 <= .chars <= 10240;
 
     class CompleteLayerUploadResponse does AWS::SDK::Shape {
         has LayerDigest $.layer-digest is shape-member('layerDigest');
@@ -172,11 +205,9 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
     }
 
     class BatchDeleteImageResponse does AWS::SDK::Shape {
-        has Array[ImageFailure] $.failures is shape-member('failures');
+        has ImageFailure @.failures is shape-member('failures');
         has ImageIdentifierList $.image-ids is shape-member('imageIds');
     }
-
-    subset LayerAvailability of Str where $_ ~~ any('AVAILABLE', 'UNAVAILABLE');
 
     class UploadLayerPartRequest does AWS::SDK::Shape {
         has PartSize $.part-first-byte is required is shape-member('partFirstByte');
@@ -198,20 +229,16 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
     }
 
     class BatchCheckLayerAvailabilityResponse does AWS::SDK::Shape {
-        has Array[LayerFailure] $.failures is shape-member('failures');
-        has Array[Layer] $.layers is shape-member('layers');
+        has LayerFailure @.failures is shape-member('failures');
+        has Layer @.layers is shape-member('layers');
     }
-
-    subset LayerDigestList of Array[LayerDigest] where 1 <= *.elems <= 100;
 
     class CreateRepositoryRequest does AWS::SDK::Shape {
         has RepositoryName $.repository-name is required is shape-member('repositoryName');
     }
 
-    subset MediaType of Str where rx:P5/\w{1,127}\\/[-+.\w]{1,127}/;
-
     class ImageDetail does AWS::SDK::Shape {
-        has Array[Str] $.image-tags is shape-member('imageTags');
+        has Str @.image-tags is shape-member('imageTags');
         has RepositoryName $.repository-name is shape-member('repositoryName');
         has RegistryId $.registry-id is shape-member('registryId');
         has Int $.image-size-in-bytes is shape-member('imageSizeInBytes');
@@ -223,15 +250,11 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset RepositoryNameList of Array[RepositoryName] where 1 <= *.elems <= 100;
-
     class GetDownloadUrlForLayerRequest does AWS::SDK::Shape {
         has LayerDigest $.layer-digest is required is shape-member('layerDigest');
         has RepositoryName $.repository-name is required is shape-member('repositoryName');
         has RegistryId $.registry-id is shape-member('registryId');
     }
-
-    subset BatchedOperationLayerDigest of Str where 0 <= .chars <= 1000;
 
     class BatchGetImageRequest does AWS::SDK::Shape {
         has MediaTypeList $.accepted-media-types is shape-member('acceptedMediaTypes');
@@ -249,11 +272,9 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
     }
 
     class BatchGetImageResponse does AWS::SDK::Shape {
-        has Array[Image] $.images is shape-member('images');
-        has Array[ImageFailure] $.failures is shape-member('failures');
+        has Image @.images is shape-member('images');
+        has ImageFailure @.failures is shape-member('failures');
     }
-
-    subset RepositoryName of Str where 2 <= .chars <= 256 && rx:P5/(?:[a-z0-9]+(?:[._-][a-z0-9]+)*\/)*[a-z0-9]+(?:[._-][a-z0-9]+)*/;
 
     class AuthorizationData does AWS::SDK::Shape {
         has Str $.proxy-endpoint is shape-member('proxyEndpoint');
@@ -261,10 +282,8 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
         has Base64 $.authorization-token is shape-member('authorizationToken');
     }
 
-    subset ImageFailureCode of Str where $_ ~~ any('InvalidImageDigest', 'InvalidImageTag', 'ImageTagDoesNotMatchDigest', 'ImageNotFound', 'MissingDigestAndTag');
-
     class GetAuthorizationTokenResponse does AWS::SDK::Shape {
-        has Array[AuthorizationData] $.authorization-data is shape-member('authorizationData');
+        has AuthorizationData @.authorization-data is shape-member('authorizationData');
     }
 
     class BatchCheckLayerAvailabilityRequest does AWS::SDK::Shape {
@@ -308,8 +327,6 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset GetAuthorizationTokenRegistryIdList of Array[RegistryId] where 1 <= *.elems <= 10;
-
     class GetRepositoryPolicyRequest does AWS::SDK::Shape {
         has RepositoryName $.repository-name is required is shape-member('repositoryName');
         has RegistryId $.registry-id is shape-member('registryId');
@@ -339,8 +356,6 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
         has Str $.repository-arn is shape-member('repositoryArn');
     }
 
-    subset LayerDigest of Str where rx:P5/[a-zA-Z0-9-_+.]+:[a-fA-F0-9]+/;
-
     class InvalidLayerPartException does AWS::SDK::Shape {
         has RepositoryName $.repository-name is shape-member('repositoryName');
         has RegistryId $.registry-id is shape-member('registryId');
@@ -351,10 +366,8 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
 
     class DescribeRepositoriesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Repository] $.repositories is shape-member('repositories');
+        has Repository @.repositories is shape-member('repositories');
     }
-
-    subset MaxResults of Int where 1 <= * <= 100;
 
     class CreateRepositoryResponse does AWS::SDK::Shape {
         has Repository $.repository is shape-member('repository');
@@ -382,8 +395,6 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
         has UploadId $.upload-id is shape-member('uploadId');
     }
 
-    subset TagStatus of Str where $_ ~~ any('TAGGED', 'UNTAGGED');
-
     class RepositoryNotEmptyException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -399,8 +410,6 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
     class ListImagesFilter does AWS::SDK::Shape {
         has TagStatus $.tag-status is shape-member('tagStatus');
     }
-
-    subset Base64 of Str where rx:P5/^\S+$/;
 
     class ListImagesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
@@ -430,17 +439,10 @@ class AWS::SDK::Service::ECR does AWS::SDK::Service {
         has RegistryId $.registry-id is shape-member('registryId');
     }
 
-    subset BatchedOperationLayerDigestList of Array[BatchedOperationLayerDigest] where 1 <= *.elems <= 100;
-
     class LayerPartTooSmallException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
-    subset RegistryId of Str where rx:P5/[0-9]{12}/;
-
-    subset MediaTypeList of Array[MediaType] where 1 <= *.elems <= 100;
-
-    subset PartSize of Int where 0 <= *;
 
     method get-download-url-for-layer(
         LayerDigest :$layer-digest!,

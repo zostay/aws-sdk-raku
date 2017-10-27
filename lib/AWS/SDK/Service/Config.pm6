@@ -113,6 +113,61 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
 
     subset ChannelName of Str where 1 <= .chars <= 256;
 
+    subset Limit of Int where 0 <= * <= 100;
+
+    subset ComplianceResourceTypes of Array[StringWithCharLimit256] where 0 <= *.elems <= 100;
+
+    subset ConfigRuleState of Str where $_ eq any('ACTIVE', 'DELETING', 'DELETING_RESULTS', 'EVALUATING');
+
+    subset ReevaluateConfigRuleNames of Array[StringWithCharLimit64] where 1 <= *.elems <= 25;
+
+    subset SourceDetails of Array[SourceDetail] where 0 <= *.elems <= 25;
+
+    subset ConfigurationItemStatus of Str where $_ eq any('Ok', 'Failed', 'Discovered', 'Deleted');
+
+    subset RecorderStatus of Str where $_ eq any('Pending', 'Success', 'Failure');
+
+    subset StringWithCharLimit256 of Str where 1 <= .chars <= 256;
+
+    subset MessageType of Str where $_ eq any('ConfigurationItemChangeNotification', 'ConfigurationSnapshotDeliveryCompleted', 'ScheduledNotification', 'OversizedConfigurationItemChangeNotification');
+
+    subset ResourceTypes of Array[StringWithCharLimit256] where 0 <= *.elems <= 20;
+
+    subset ResourceType of Str where $_ eq any('AWS::EC2::CustomerGateway', 'AWS::EC2::EIP', 'AWS::EC2::Host', 'AWS::EC2::Instance', 'AWS::EC2::InternetGateway', 'AWS::EC2::NetworkAcl', 'AWS::EC2::NetworkInterface', 'AWS::EC2::RouteTable', 'AWS::EC2::SecurityGroup', 'AWS::EC2::Subnet', 'AWS::CloudTrail::Trail', 'AWS::EC2::Volume', 'AWS::EC2::VPC', 'AWS::EC2::VPNConnection', 'AWS::EC2::VPNGateway', 'AWS::IAM::Group', 'AWS::IAM::Policy', 'AWS::IAM::Role', 'AWS::IAM::User', 'AWS::ACM::Certificate', 'AWS::RDS::DBInstance', 'AWS::RDS::DBSubnetGroup', 'AWS::RDS::DBSecurityGroup', 'AWS::RDS::DBSnapshot', 'AWS::RDS::EventSubscription', 'AWS::ElasticLoadBalancingV2::LoadBalancer', 'AWS::S3::Bucket', 'AWS::SSM::ManagedInstanceInventory', 'AWS::Redshift::Cluster', 'AWS::Redshift::ClusterSnapshot', 'AWS::Redshift::ClusterParameterGroup', 'AWS::Redshift::ClusterSecurityGroup', 'AWS::Redshift::ClusterSubnetGroup', 'AWS::Redshift::EventSubscription', 'AWS::CloudWatch::Alarm', 'AWS::CloudFormation::Stack', 'AWS::DynamoDB::Table', 'AWS::AutoScaling::AutoScalingGroup', 'AWS::AutoScaling::LaunchConfiguration', 'AWS::AutoScaling::ScalingPolicy', 'AWS::AutoScaling::ScheduledAction');
+
+    subset EventSource of Str where $_ eq any('aws.config');
+
+    subset EmptiableStringWithCharLimit256 of Str where 0 <= .chars <= 256;
+
+    subset MaximumExecutionFrequency of Str where $_ eq any('One_Hour', 'Three_Hours', 'Six_Hours', 'Twelve_Hours', 'TwentyFour_Hours');
+
+    subset StringWithCharLimit64 of Str where 1 <= .chars <= 64;
+
+    subset Owner of Str where $_ eq any('CUSTOM_LAMBDA', 'AWS');
+
+    subset ComplianceType of Str where $_ eq any('COMPLIANT', 'NON_COMPLIANT', 'NOT_APPLICABLE', 'INSUFFICIENT_DATA');
+
+    subset RuleLimit of Int where 0 <= * <= 50;
+
+    subset ConfigRuleNames of Array[StringWithCharLimit64] where 0 <= *.elems <= 25;
+
+    subset RecorderName of Str where 1 <= .chars <= 256;
+
+    subset StringWithCharLimit128 of Str where 1 <= .chars <= 128;
+
+    subset BaseResourceId of Str where 1 <= .chars <= 768;
+
+    subset ChronologicalOrder of Str where $_ eq any('Reverse', 'Forward');
+
+    subset DeliveryStatus of Str where $_ eq any('Success', 'Failure', 'Not_Applicable');
+
+    subset StringWithCharLimit1024 of Str where 1 <= .chars <= 1024;
+
+    subset ComplianceTypes of Array[ComplianceType] where 0 <= *.elems <= 3;
+
+    subset Evaluations of Array[Evaluation] where 0 <= *.elems <= 100;
+
+
     class ComplianceByConfigRule does AWS::SDK::Shape {
         has Compliance $.compliance is shape-member('Compliance');
         has StringWithCharLimit64 $.config-rule-name is shape-member('ConfigRuleName');
@@ -145,19 +200,13 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
         has StringWithCharLimit64 $.config-rule-name is required is shape-member('ConfigRuleName');
     }
 
-    subset Limit of Int where 0 <= * <= 100;
-
     class DescribeDeliveryChannelsResponse does AWS::SDK::Shape {
-        has Array[DeliveryChannel] $.delivery-channels is shape-member('DeliveryChannels');
+        has DeliveryChannel @.delivery-channels is shape-member('DeliveryChannels');
     }
 
     class DescribeDeliveryChannelStatusRequest does AWS::SDK::Shape {
-        has Array[ChannelName] $.delivery-channel-names is shape-member('DeliveryChannelNames');
+        has ChannelName @.delivery-channel-names is shape-member('DeliveryChannelNames');
     }
-
-    subset ComplianceResourceTypes of Array[StringWithCharLimit256] where 0 <= *.elems <= 100;
-
-    subset ConfigRuleState of Str where $_ ~~ any('ACTIVE', 'DELETING', 'DELETING_RESULTS', 'EVALUATING');
 
     class ConfigSnapshotDeliveryProperties does AWS::SDK::Shape {
         has MaximumExecutionFrequency $.delivery-frequency is shape-member('deliveryFrequency');
@@ -170,7 +219,7 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     class RecordingGroup does AWS::SDK::Shape {
         has Bool $.include-global-resource-types is shape-member('includeGlobalResourceTypes');
         has Bool $.all-supported is shape-member('allSupported');
-        has Array[ResourceType] $.resource-types is shape-member('resourceTypes');
+        has ResourceType @.resource-types is shape-member('resourceTypes');
     }
 
     class NoAvailableConfigurationRecorderException does AWS::SDK::Shape {
@@ -186,14 +235,12 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     }
 
     class DescribeConfigurationRecorderStatusResponse does AWS::SDK::Shape {
-        has Array[ConfigurationRecorderStatus] $.configuration-recorders-status is shape-member('ConfigurationRecordersStatus');
+        has ConfigurationRecorderStatus @.configuration-recorders-status is shape-member('ConfigurationRecordersStatus');
     }
 
     class DeleteDeliveryChannelRequest does AWS::SDK::Shape {
         has ChannelName $.delivery-channel-name is required is shape-member('DeliveryChannelName');
     }
-
-    subset ReevaluateConfigRuleNames of Array[StringWithCharLimit64] where 1 <= *.elems <= 25;
 
     class GetComplianceDetailsByResourceRequest does AWS::SDK::Shape {
         has BaseResourceId $.resource-id is required is shape-member('ResourceId');
@@ -222,8 +269,6 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
         has Str $.config-rule-arn is shape-member('ConfigRuleArn');
     }
 
-    subset SourceDetails of Array[SourceDetail] where 0 <= *.elems <= 25;
-
     class StopConfigurationRecorderRequest does AWS::SDK::Shape {
         has RecorderName $.configuration-recorder-name is required is shape-member('ConfigurationRecorderName');
     }
@@ -244,8 +289,6 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
 
     class MaxNumberOfConfigRulesExceededException does AWS::SDK::Shape {
     }
-
-    subset ConfigurationItemStatus of Str where $_ ~~ any('Ok', 'Failed', 'Discovered', 'Deleted');
 
     class ConfigRuleEvaluationStatus does AWS::SDK::Shape {
         has Str $.config-rule-id is shape-member('ConfigRuleId');
@@ -293,17 +336,17 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
         has Str $.configuration-state-id is shape-member('configurationStateId');
         has Str $.availability-zone is shape-member('availabilityZone');
         has Str $.resource-name is shape-member('resourceName');
-        has Array[Relationship] $.relationships is shape-member('relationships');
+        has Relationship @.relationships is shape-member('relationships');
         has Str $.account-id is shape-member('accountId');
-        has Hash[Str, Str] $.supplementary-configuration is shape-member('supplementaryConfiguration');
+        has Str %.supplementary-configuration{Str} is shape-member('supplementaryConfiguration');
         has Str $.configuration is shape-member('configuration');
         has ResourceType $.resource-type is shape-member('resourceType');
         has Str $.resource-id is shape-member('resourceId');
-        has Hash[Str, Str] $.tags is shape-member('tags');
+        has Str %.tags{Str} is shape-member('tags');
         has Str $.configuration-item-md5-hash is shape-member('configurationItemMD5Hash');
         has ConfigurationItemStatus $.configuration-item-status is shape-member('configurationItemStatus');
         has Str $.version is shape-member('version');
-        has Array[Str] $.related-events is shape-member('relatedEvents');
+        has Str @.related-events is shape-member('relatedEvents');
         has DateTime $.resource-creation-time is shape-member('resourceCreationTime');
         has DateTime $.configuration-item-capture-time is shape-member('configurationItemCaptureTime');
     }
@@ -314,8 +357,6 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
         has ConfigStreamDeliveryInfo $.config-stream-delivery-info is shape-member('configStreamDeliveryInfo');
         has ConfigExportDeliveryInfo $.config-snapshot-delivery-info is shape-member('configSnapshotDeliveryInfo');
     }
-
-    subset RecorderStatus of Str where $_ ~~ any('Pending', 'Success', 'Failure');
 
     class ConfigurationRecorderStatus does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
@@ -337,10 +378,8 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     class NoSuchDeliveryChannelException does AWS::SDK::Shape {
     }
 
-    subset StringWithCharLimit256 of Str where 1 <= .chars <= 256;
-
     class GetComplianceSummaryByResourceTypeResponse does AWS::SDK::Shape {
-        has Array[ComplianceSummaryByResourceType] $.compliance-summaries-by-resource-type is shape-member('ComplianceSummariesByResourceType');
+        has ComplianceSummaryByResourceType @.compliance-summaries-by-resource-type is shape-member('ComplianceSummariesByResourceType');
     }
 
     class GetDiscoveredResourceCountsRequest does AWS::SDK::Shape {
@@ -351,8 +390,6 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
 
     class DeleteEvaluationResultsResponse does AWS::SDK::Shape {
     }
-
-    subset MessageType of Str where $_ ~~ any('ConfigurationItemChangeNotification', 'ConfigurationSnapshotDeliveryCompleted', 'ScheduledNotification', 'OversizedConfigurationItemChangeNotification');
 
     class ResourceCount does AWS::SDK::Shape {
         has ResourceType $.resource-type is shape-member('resourceType');
@@ -383,21 +420,15 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
         has ReevaluateConfigRuleNames $.config-rule-names is shape-member('ConfigRuleNames');
     }
 
-    subset ResourceTypes of Array[StringWithCharLimit256] where 0 <= *.elems <= 20;
-
     class ComplianceSummary does AWS::SDK::Shape {
         has DateTime $.compliance-summary-timestamp is shape-member('ComplianceSummaryTimestamp');
         has ComplianceContributorCount $.non-compliant-resource-count is shape-member('NonCompliantResourceCount');
         has ComplianceContributorCount $.compliant-resource-count is shape-member('CompliantResourceCount');
     }
 
-    subset ResourceType of Str where $_ ~~ any('AWS::EC2::CustomerGateway', 'AWS::EC2::EIP', 'AWS::EC2::Host', 'AWS::EC2::Instance', 'AWS::EC2::InternetGateway', 'AWS::EC2::NetworkAcl', 'AWS::EC2::NetworkInterface', 'AWS::EC2::RouteTable', 'AWS::EC2::SecurityGroup', 'AWS::EC2::Subnet', 'AWS::CloudTrail::Trail', 'AWS::EC2::Volume', 'AWS::EC2::VPC', 'AWS::EC2::VPNConnection', 'AWS::EC2::VPNGateway', 'AWS::IAM::Group', 'AWS::IAM::Policy', 'AWS::IAM::Role', 'AWS::IAM::User', 'AWS::ACM::Certificate', 'AWS::RDS::DBInstance', 'AWS::RDS::DBSubnetGroup', 'AWS::RDS::DBSecurityGroup', 'AWS::RDS::DBSnapshot', 'AWS::RDS::EventSubscription', 'AWS::ElasticLoadBalancingV2::LoadBalancer', 'AWS::S3::Bucket', 'AWS::SSM::ManagedInstanceInventory', 'AWS::Redshift::Cluster', 'AWS::Redshift::ClusterSnapshot', 'AWS::Redshift::ClusterParameterGroup', 'AWS::Redshift::ClusterSecurityGroup', 'AWS::Redshift::ClusterSubnetGroup', 'AWS::Redshift::EventSubscription', 'AWS::CloudWatch::Alarm', 'AWS::CloudFormation::Stack', 'AWS::DynamoDB::Table', 'AWS::AutoScaling::AutoScalingGroup', 'AWS::AutoScaling::LaunchConfiguration', 'AWS::AutoScaling::ScalingPolicy', 'AWS::AutoScaling::ScheduledAction');
-
     class PutEvaluationsResponse does AWS::SDK::Shape {
         has Evaluations $.failed-evaluations is shape-member('FailedEvaluations');
     }
-
-    subset EventSource of Str where $_ ~~ any('aws.config');
 
     class DeleteEvaluationResultsRequest does AWS::SDK::Shape {
         has StringWithCharLimit64 $.config-rule-name is required is shape-member('ConfigRuleName');
@@ -405,7 +436,7 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
 
     class DescribeComplianceByResourceResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[ComplianceByResource] $.compliance-by-resources is shape-member('ComplianceByResources');
+        has ComplianceByResource @.compliance-by-resources is shape-member('ComplianceByResources');
     }
 
     class Compliance does AWS::SDK::Shape {
@@ -423,15 +454,9 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     }
 
     class DescribeConfigRulesResponse does AWS::SDK::Shape {
-        has Array[ConfigRule] $.config-rules is shape-member('ConfigRules');
+        has ConfigRule @.config-rules is shape-member('ConfigRules');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset EmptiableStringWithCharLimit256 of Str where 0 <= .chars <= 256;
-
-    subset MaximumExecutionFrequency of Str where $_ ~~ any('One_Hour', 'Three_Hours', 'Six_Hours', 'Twelve_Hours', 'TwentyFour_Hours');
-
-    subset StringWithCharLimit64 of Str where 1 <= .chars <= 64;
 
     class GetComplianceDetailsByConfigRuleRequest does AWS::SDK::Shape {
         has Limit $.limit is shape-member('Limit');
@@ -443,19 +468,15 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     class InvalidTimeRangeException does AWS::SDK::Shape {
     }
 
-    subset Owner of Str where $_ ~~ any('CUSTOM_LAMBDA', 'AWS');
-
-    subset ComplianceType of Str where $_ ~~ any('COMPLIANT', 'NON_COMPLIANT', 'NOT_APPLICABLE', 'INSUFFICIENT_DATA');
-
     class DescribeConfigurationRecorderStatusRequest does AWS::SDK::Shape {
-        has Array[RecorderName] $.configuration-recorder-names is shape-member('ConfigurationRecorderNames');
+        has RecorderName @.configuration-recorder-names is shape-member('ConfigurationRecorderNames');
     }
 
     class InvalidDeliveryChannelNameException does AWS::SDK::Shape {
     }
 
     class DescribeConfigurationRecordersRequest does AWS::SDK::Shape {
-        has Array[RecorderName] $.configuration-recorder-names is shape-member('ConfigurationRecorderNames');
+        has RecorderName @.configuration-recorder-names is shape-member('ConfigurationRecorderNames');
     }
 
     class Relationship does AWS::SDK::Shape {
@@ -477,18 +498,14 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
 
     class GetDiscoveredResourceCountsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[ResourceCount] $.resource-counts is shape-member('resourceCounts');
+        has ResourceCount @.resource-counts is shape-member('resourceCounts');
         has Int $.total-discovered-resources is shape-member('totalDiscoveredResources');
     }
-
-    subset RuleLimit of Int where 0 <= * <= 50;
 
     class ComplianceContributorCount does AWS::SDK::Shape {
         has Bool $.cap-exceeded is shape-member('CapExceeded');
         has Int $.capped-count is shape-member('CappedCount');
     }
-
-    subset ConfigRuleNames of Array[StringWithCharLimit64] where 0 <= *.elems <= 25;
 
     class StartConfigurationRecorderRequest does AWS::SDK::Shape {
         has RecorderName $.configuration-recorder-name is required is shape-member('ConfigurationRecorderName');
@@ -497,16 +514,12 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     class InvalidS3KeyPrefixException does AWS::SDK::Shape {
     }
 
-    subset RecorderName of Str where 1 <= .chars <= 256;
-
     class ResourceIdentifier does AWS::SDK::Shape {
         has Str $.resource-name is shape-member('resourceName');
         has ResourceType $.resource-type is shape-member('resourceType');
         has DateTime $.resource-deletion-time is shape-member('resourceDeletionTime');
         has Str $.resource-id is shape-member('resourceId');
     }
-
-    subset StringWithCharLimit128 of Str where 1 <= .chars <= 128;
 
     class ValidationException does AWS::SDK::Shape {
     }
@@ -525,7 +538,7 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     }
 
     class GetComplianceDetailsByConfigRuleResponse does AWS::SDK::Shape {
-        has Array[EvaluationResult] $.evaluation-results is shape-member('EvaluationResults');
+        has EvaluationResult @.evaluation-results is shape-member('EvaluationResults');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -545,8 +558,6 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
         has StringWithCharLimit256 $.resource-type is shape-member('ResourceType');
     }
 
-    subset BaseResourceId of Str where 1 <= .chars <= 768;
-
     class PutEvaluationsRequest does AWS::SDK::Shape {
         has Bool $.test-mode is shape-member('TestMode');
         has Evaluations $.evaluations is shape-member('Evaluations');
@@ -560,7 +571,7 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     }
 
     class DescribeDeliveryChannelsRequest does AWS::SDK::Shape {
-        has Array[ChannelName] $.delivery-channel-names is shape-member('DeliveryChannelNames');
+        has ChannelName @.delivery-channel-names is shape-member('DeliveryChannelNames');
     }
 
     class EvaluationResultIdentifier does AWS::SDK::Shape {
@@ -572,10 +583,8 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
         has DeliveryChannel $.delivery-channel is required is shape-member('DeliveryChannel');
     }
 
-    subset ChronologicalOrder of Str where $_ ~~ any('Reverse', 'Forward');
-
     class GetComplianceDetailsByResourceResponse does AWS::SDK::Shape {
-        has Array[EvaluationResult] $.evaluation-results is shape-member('EvaluationResults');
+        has EvaluationResult @.evaluation-results is shape-member('EvaluationResults');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -594,7 +603,7 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
         has Str $.resource-name is shape-member('resourceName');
         has Str $.next-token is shape-member('nextToken');
         has ResourceType $.resource-type is required is shape-member('resourceType');
-        has Array[Str] $.resource-ids is shape-member('resourceIds');
+        has Str @.resource-ids is shape-member('resourceIds');
     }
 
     class DeliverConfigSnapshotResponse does AWS::SDK::Shape {
@@ -606,7 +615,7 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
 
     class DescribeComplianceByConfigRuleResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[ComplianceByConfigRule] $.compliance-by-config-rules is shape-member('ComplianceByConfigRules');
+        has ComplianceByConfigRule @.compliance-by-config-rules is shape-member('ComplianceByConfigRules');
     }
 
     class ResourceNotDiscoveredException does AWS::SDK::Shape {
@@ -619,7 +628,7 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     }
 
     class DescribeDeliveryChannelStatusResponse does AWS::SDK::Shape {
-        has Array[DeliveryChannelStatus] $.delivery-channels-status is shape-member('DeliveryChannelsStatus');
+        has DeliveryChannelStatus @.delivery-channels-status is shape-member('DeliveryChannelsStatus');
     }
 
     class DeliveryChannel does AWS::SDK::Shape {
@@ -635,19 +644,11 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
 
     class GetResourceConfigHistoryResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[ConfigurationItem] $.configuration-items is shape-member('configurationItems');
+        has ConfigurationItem @.configuration-items is shape-member('configurationItems');
     }
 
-    subset DeliveryStatus of Str where $_ ~~ any('Success', 'Failure', 'Not_Applicable');
-
-    subset StringWithCharLimit1024 of Str where 1 <= .chars <= 1024;
-
-    subset ComplianceTypes of Array[ComplianceType] where 0 <= *.elems <= 3;
-
-    subset Evaluations of Array[Evaluation] where 0 <= *.elems <= 100;
-
     class DescribeConfigRuleEvaluationStatusResponse does AWS::SDK::Shape {
-        has Array[ConfigRuleEvaluationStatus] $.config-rules-evaluation-status is shape-member('ConfigRulesEvaluationStatus');
+        has ConfigRuleEvaluationStatus @.config-rules-evaluation-status is shape-member('ConfigRulesEvaluationStatus');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -662,15 +663,16 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
 
     class ListDiscoveredResourcesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[ResourceIdentifier] $.resource-identifiers is shape-member('resourceIdentifiers');
+        has ResourceIdentifier @.resource-identifiers is shape-member('resourceIdentifiers');
     }
 
     class DescribeConfigurationRecordersResponse does AWS::SDK::Shape {
-        has Array[ConfigurationRecorder] $.configuration-recorders is shape-member('ConfigurationRecorders');
+        has ConfigurationRecorder @.configuration-recorders is shape-member('ConfigurationRecorders');
     }
 
     class InvalidLimitException does AWS::SDK::Shape {
     }
+
 
     method describe-config-rule-evaluation-status(
         RuleLimit :$limit,
@@ -721,7 +723,7 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
         Str :$resource-name,
         Str :$next-token,
         ResourceType :$resource-type!,
-        Array[Str] :$resource-ids
+        Str :@resource-ids
     ) returns ListDiscoveredResourcesResponse is service-operation('ListDiscoveredResources') {
         my $request-input = ListDiscoveredResourcesRequest.new(
             :$include-deleted-resources,
@@ -729,7 +731,7 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
             :$resource-name,
             :$next-token,
             :$resource-type,
-            :$resource-ids
+            :@resource-ids
         );
 
         self.perform-operation(
@@ -784,10 +786,10 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     }
 
     method describe-delivery-channels(
-        Array[ChannelName] :$delivery-channel-names
+        ChannelName :@delivery-channel-names
     ) returns DescribeDeliveryChannelsResponse is service-operation('DescribeDeliveryChannels') {
         my $request-input = DescribeDeliveryChannelsRequest.new(
-            :$delivery-channel-names
+            :@delivery-channel-names
         );
 
         self.perform-operation(
@@ -797,10 +799,10 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     }
 
     method describe-configuration-recorder-status(
-        Array[RecorderName] :$configuration-recorder-names
+        RecorderName :@configuration-recorder-names
     ) returns DescribeConfigurationRecorderStatusResponse is service-operation('DescribeConfigurationRecorderStatus') {
         my $request-input = DescribeConfigurationRecorderStatusRequest.new(
-            :$configuration-recorder-names
+            :@configuration-recorder-names
         );
 
         self.perform-operation(
@@ -1021,10 +1023,10 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     }
 
     method describe-delivery-channel-status(
-        Array[ChannelName] :$delivery-channel-names
+        ChannelName :@delivery-channel-names
     ) returns DescribeDeliveryChannelStatusResponse is service-operation('DescribeDeliveryChannelStatus') {
         my $request-input = DescribeDeliveryChannelStatusRequest.new(
-            :$delivery-channel-names
+            :@delivery-channel-names
         );
 
         self.perform-operation(
@@ -1034,10 +1036,10 @@ class AWS::SDK::Service::Config does AWS::SDK::Service {
     }
 
     method describe-configuration-recorders(
-        Array[RecorderName] :$configuration-recorder-names
+        RecorderName :@configuration-recorder-names
     ) returns DescribeConfigurationRecordersResponse is service-operation('DescribeConfigurationRecorders') {
         my $request-input = DescribeConfigurationRecordersRequest.new(
-            :$configuration-recorder-names
+            :@configuration-recorder-names
         );
 
         self.perform-operation(

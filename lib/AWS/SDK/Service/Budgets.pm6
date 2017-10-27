@@ -52,7 +52,34 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
     class CreationLimitExceededException { ... }
     class DescribeSubscribersForNotificationRequest { ... }
 
-    subset TimeUnit of Str where $_ ~~ any('DAILY', 'MONTHLY', 'QUARTERLY', 'ANNUALLY');
+    subset TimeUnit of Str where $_ eq any('DAILY', 'MONTHLY', 'QUARTERLY', 'ANNUALLY');
+
+    subset BudgetName of Str where .chars <= 100 && rx:P5/[^:\\]+/;
+
+    subset BudgetType of Str where $_ eq any('USAGE', 'COST', 'RI_UTILIZATION');
+
+    subset NotificationWithSubscribersList of Array[NotificationWithSubscribers] where *.elems <= 5;
+
+    subset UnitValue of Str where 1 <= .chars;
+
+    subset NotificationThreshold of Numeric where 0.1 <= * <= 1000000000;
+
+    subset NotificationType of Str where $_ eq any('ACTUAL', 'FORECASTED');
+
+    subset MaxResults of Int where 1 <= * <= 100;
+
+    subset SubscriptionType of Str where $_ eq any('SNS', 'EMAIL');
+
+    subset Subscribers of Array[Subscriber] where 1 <= *.elems <= 11;
+
+    subset NumericValue of Str where rx:P5/[0-9]*(\.)?[0-9]+/;
+
+    subset ThresholdType of Str where $_ eq any('PERCENTAGE', 'ABSOLUTE_VALUE');
+
+    subset AccountId of Str where 12 <= .chars <= 12;
+
+    subset ComparisonOperator of Str where $_ eq any('GREATER_THAN', 'LESS_THAN', 'EQUAL_TO');
+
 
     class DescribeNotificationsForBudgetRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
@@ -67,12 +94,10 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
         has BudgetType $.budget-type is required is shape-member('BudgetType');
         has CostTypes $.cost-types is required is shape-member('CostTypes');
         has TimePeriod $.time-period is required is shape-member('TimePeriod');
-        has Hash[Array[Str], Str] $.cost-filters is shape-member('CostFilters');
+        has Array[Str] %.cost-filters{Str} is shape-member('CostFilters');
         has CalculatedSpend $.calculated-spend is shape-member('CalculatedSpend');
         has Spend $.budget-limit is required is shape-member('BudgetLimit');
     }
-
-    subset BudgetName of Str where .chars <= 100 && rx:P5/[^:\\]+/;
 
     class DescribeBudgetsRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
@@ -83,8 +108,6 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
     class InternalErrorException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset BudgetType of Str where $_ ~~ any('USAGE', 'COST', 'RI_UTILIZATION');
 
     class Spend does AWS::SDK::Shape {
         has UnitValue $.unit is required is shape-member('Unit');
@@ -101,8 +124,6 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
     class CreateNotificationResponse does AWS::SDK::Shape {
     }
 
-    subset NotificationWithSubscribersList of Array[NotificationWithSubscribers] where *.elems <= 5;
-
     class DeleteSubscriberRequest does AWS::SDK::Shape {
         has Subscriber $.subscriber is required is shape-member('Subscriber');
         has BudgetName $.budget-name is required is shape-member('BudgetName');
@@ -112,10 +133,8 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
 
     class DescribeNotificationsForBudgetResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Notification] $.notifications is shape-member('Notifications');
+        has Notification @.notifications is shape-member('Notifications');
     }
-
-    subset UnitValue of Str where 1 <= .chars;
 
     class CreateSubscriberResponse does AWS::SDK::Shape {
     }
@@ -141,10 +160,6 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset NotificationThreshold of Numeric where 0.1 <= * <= 1000000000;
-
-    subset NotificationType of Str where $_ ~~ any('ACTUAL', 'FORECASTED');
-
     class DeleteNotificationRequest does AWS::SDK::Shape {
         has BudgetName $.budget-name is required is shape-member('BudgetName');
         has Notification $.notification is required is shape-member('Notification');
@@ -152,7 +167,7 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
     }
 
     class DescribeBudgetsResponse does AWS::SDK::Shape {
-        has Array[Budget] $.budgets is shape-member('Budgets');
+        has Budget @.budgets is shape-member('Budgets');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -177,8 +192,6 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset MaxResults of Int where 1 <= * <= 100;
-
     class Subscriber does AWS::SDK::Shape {
         has Str $.address is required is shape-member('Address');
         has SubscriptionType $.subscription-type is required is shape-member('SubscriptionType');
@@ -200,12 +213,6 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
         has ComparisonOperator $.comparison-operator is required is shape-member('ComparisonOperator');
         has NotificationType $.notification-type is required is shape-member('NotificationType');
     }
-
-    subset SubscriptionType of Str where $_ ~~ any('SNS', 'EMAIL');
-
-    subset Subscribers of Array[Subscriber] where 1 <= *.elems <= 11;
-
-    subset NumericValue of Str where rx:P5/[0-9]*(\.)?[0-9]+/;
 
     class DescribeSubscribersForNotificationResponse does AWS::SDK::Shape {
         has Subscribers $.subscribers is shape-member('Subscribers');
@@ -234,10 +241,6 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
         has Budget $.new-budget is required is shape-member('NewBudget');
     }
 
-    subset ThresholdType of Str where $_ ~~ any('PERCENTAGE', 'ABSOLUTE_VALUE');
-
-    subset AccountId of Str where 12 <= .chars <= 12;
-
     class CostTypes does AWS::SDK::Shape {
         has Bool $.use-blended is required is shape-member('UseBlended');
         has Bool $.include-subscription is required is shape-member('IncludeSubscription');
@@ -258,8 +261,6 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
         has DateTime $.start is required is shape-member('Start');
         has DateTime $.end is required is shape-member('End');
     }
-
-    subset ComparisonOperator of Str where $_ ~~ any('GREATER_THAN', 'LESS_THAN', 'EQUAL_TO');
 
     class CreateBudgetRequest does AWS::SDK::Shape {
         has Budget $.budget is required is shape-member('Budget');
@@ -286,6 +287,7 @@ class AWS::SDK::Service::Budgets does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
         has AccountId $.account-id is required is shape-member('AccountId');
     }
+
 
     method delete-subscriber(
         Subscriber :$subscriber!,

@@ -204,6 +204,11 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     class DeleteDBSubnetGroupMessage { ... }
     class DBSnapshotNotFoundFault { ... }
 
+    subset ApplyMethod of Str where $_ eq any('immediate', 'pending-reboot');
+
+    subset SourceType of Str where $_ eq any('db-instance', 'db-parameter-group', 'db-security-group', 'db-snapshot');
+
+
     class DBSecurityGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
@@ -212,14 +217,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class DescribeEventSubscriptionsMessage does AWS::SDK::Shape {
         has Str $.subscription-name is shape-member('SubscriptionName');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
     class DescribeOptionGroupsMessage does AWS::SDK::Shape {
         has Str $.engine-name is shape-member('EngineName');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.major-engine-version is shape-member('MajorEngineVersion');
         has Str $.marker is shape-member('Marker');
         has Str $.option-group-name is shape-member('OptionGroupName');
@@ -243,7 +248,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.db-parameter-group-family is required is shape-member('DBParameterGroupFamily');
         has Str $.db-parameter-group-name is required is shape-member('DBParameterGroupName');
         has Str $.description is required is shape-member('Description');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
     }
 
     class CreateEventSubscriptionResult does AWS::SDK::Shape {
@@ -270,7 +275,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class OrderableDBInstanceOptionsMessage does AWS::SDK::Shape {
-        has Array[OrderableDBInstanceOption] $.orderable-db-instance-options is shape-member('OrderableDBInstanceOptions');
+        has OrderableDBInstanceOption @.orderable-db-instance-options is shape-member('OrderableDBInstanceOptions');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -280,7 +285,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class ResetDBParameterGroupMessage does AWS::SDK::Shape {
         has Str $.db-parameter-group-name is required is shape-member('DBParameterGroupName');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Bool $.reset-all-parameters is shape-member('ResetAllParameters');
     }
 
@@ -288,7 +293,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class DBEngineVersionMessage does AWS::SDK::Shape {
-        has Array[DBEngineVersion] $.db-engine-versions is shape-member('DBEngineVersions');
+        has DBEngineVersion @.db-engine-versions is shape-member('DBEngineVersions');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -296,7 +301,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has DateTime $.date is shape-member('Date');
         has SourceType $.source-type is shape-member('SourceType');
         has Str $.source-identifier is shape-member('SourceIdentifier');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
         has Str $.message is shape-member('Message');
     }
 
@@ -311,12 +316,12 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class CreateEventSubscriptionMessage does AWS::SDK::Shape {
         has Str $.subscription-name is required is shape-member('SubscriptionName');
-        has Array[Str] $.source-ids is shape-member('SourceIds');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Str @.source-ids is shape-member('SourceIds');
+        has Tag @.tags is shape-member('Tags');
         has Bool $.enabled is shape-member('Enabled');
         has Str $.sns-topic-arn is required is shape-member('SnsTopicArn');
         has Str $.source-type is shape-member('SourceType');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
     class PurchaseReservedDBInstancesOfferingResult does AWS::SDK::Shape {
@@ -327,7 +332,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.offering-type is shape-member('OfferingType');
         has Str $.product-description is shape-member('ProductDescription');
         has Int $.duration is shape-member('Duration');
-        has Array[RecurringCharge] $.recurring-charges is shape-member('RecurringCharges');
+        has RecurringCharge @.recurring-charges is shape-member('RecurringCharges');
         has Numeric $.usage-price is shape-member('UsagePrice');
         has Str $.state is shape-member('State');
         has Numeric $.fixed-price is shape-member('FixedPrice');
@@ -341,7 +346,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class EventsMessage does AWS::SDK::Shape {
-        has Array[Event] $.events is shape-member('Events');
+        has Event @.events is shape-member('Events');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -350,7 +355,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class DescribeEventCategoriesMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.source-type is shape-member('SourceType');
     }
 
@@ -362,7 +367,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class DescribeDBLogFilesMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Int $.file-last-written is shape-member('FileLastWritten');
         has Str $.filename-contains is shape-member('FilenameContains');
         has Str $.db-instance-identifier is required is shape-member('DBInstanceIdentifier');
@@ -378,7 +383,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class EventCategoriesMessage does AWS::SDK::Shape {
-        has Array[EventCategoriesMap] $.event-categories-map-list is shape-member('EventCategoriesMapList');
+        has EventCategoriesMap @.event-categories-map-list is shape-member('EventCategoriesMapList');
     }
 
     class Tag does AWS::SDK::Shape {
@@ -406,7 +411,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class DBSnapshotMessage does AWS::SDK::Shape {
-        has Array[DBSnapshot] $.db-snapshots is shape-member('DBSnapshots');
+        has DBSnapshot @.db-snapshots is shape-member('DBSnapshots');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -426,13 +431,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class AddTagsToResourceMessage does AWS::SDK::Shape {
         has Str $.resource-name is required is shape-member('ResourceName');
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
     }
 
     class OptionConfiguration does AWS::SDK::Shape {
-        has Array[OptionSetting] $.option-settings is shape-member('OptionSettings');
-        has Array[Str] $.vpc-security-group-memberships is shape-member('VpcSecurityGroupMemberships');
-        has Array[Str] $.db-security-group-memberships is shape-member('DBSecurityGroupMemberships');
+        has OptionSetting @.option-settings is shape-member('OptionSettings');
+        has Str @.vpc-security-group-memberships is shape-member('VpcSecurityGroupMemberships');
+        has Str @.db-security-group-memberships is shape-member('DBSecurityGroupMemberships');
         has Str $.option-name is required is shape-member('OptionName');
         has Int $.port is shape-member('Port');
     }
@@ -452,7 +457,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class DescribeDBEngineVersionsMessage does AWS::SDK::Shape {
         has Str $.db-parameter-group-family is shape-member('DBParameterGroupFamily');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.list-supported-character-sets is shape-member('ListSupportedCharacterSets');
         has Str $.engine is shape-member('Engine');
         has Bool $.default-only is shape-member('DefaultOnly');
@@ -463,7 +468,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class DBSubnetGroupMessage does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[DBSubnetGroup] $.db-subnet-groups is shape-member('DBSubnetGroups');
+        has DBSubnetGroup @.db-subnet-groups is shape-member('DBSubnetGroups');
     }
 
     class DBEngineVersion does AWS::SDK::Shape {
@@ -471,14 +476,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.db-engine-description is shape-member('DBEngineDescription');
         has Str $.db-parameter-group-family is shape-member('DBParameterGroupFamily');
         has CharacterSet $.default-character-set is shape-member('DefaultCharacterSet');
-        has Array[CharacterSet] $.supported-character-sets is shape-member('SupportedCharacterSets');
+        has CharacterSet @.supported-character-sets is shape-member('SupportedCharacterSets');
         has Str $.engine is shape-member('Engine');
         has Str $.engine-version is shape-member('EngineVersion');
     }
 
     class DBSubnetGroup does AWS::SDK::Shape {
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[Subnet] $.subnets is shape-member('Subnets');
+        has Subnet @.subnets is shape-member('Subnets');
         has Str $.db-subnet-group-description is shape-member('DBSubnetGroupDescription');
         has Str $.db-subnet-group-name is shape-member('DBSubnetGroupName');
         has Str $.subnet-group-status is shape-member('SubnetGroupStatus');
@@ -491,7 +496,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class ModifyDBParameterGroupMessage does AWS::SDK::Shape {
         has Str $.db-parameter-group-name is required is shape-member('DBParameterGroupName');
-        has Array[Parameter] $.parameters is required is shape-member('Parameters');
+        has Parameter @.parameters is required is shape-member('Parameters');
     }
 
     class PendingModifiedValues does AWS::SDK::Shape {
@@ -510,8 +515,8 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     class CreateDBSubnetGroupMessage does AWS::SDK::Shape {
         has Str $.db-subnet-group-description is required is shape-member('DBSubnetGroupDescription');
         has Str $.db-subnet-group-name is required is shape-member('DBSubnetGroupName');
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[Str] $.subnet-ids is required is shape-member('SubnetIds');
+        has Tag @.tags is shape-member('Tags');
+        has Str @.subnet-ids is required is shape-member('SubnetIds');
     }
 
     class RestoreDBInstanceToPointInTimeResult does AWS::SDK::Shape {
@@ -523,7 +528,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class ReservedDBInstancesOfferingMessage does AWS::SDK::Shape {
-        has Array[ReservedDBInstancesOffering] $.reserved-db-instances-offerings is shape-member('ReservedDBInstancesOfferings');
+        has ReservedDBInstancesOffering @.reserved-db-instances-offerings is shape-member('ReservedDBInstancesOfferings');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -532,7 +537,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Bool $.enabled is shape-member('Enabled');
         has Str $.sns-topic-arn is shape-member('SnsTopicArn');
         has Str $.source-type is shape-member('SourceType');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
     class Parameter does AWS::SDK::Shape {
@@ -553,31 +558,31 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class TagListMessage does AWS::SDK::Shape {
-        has Array[Tag] $.tag-list is shape-member('TagList');
+        has Tag @.tag-list is shape-member('TagList');
     }
 
     class RemoveTagsFromResourceMessage does AWS::SDK::Shape {
         has Str $.resource-name is required is shape-member('ResourceName');
-        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.tag-keys is required is shape-member('TagKeys');
     }
 
     class CopyOptionGroupMessage does AWS::SDK::Shape {
         has Str $.target-option-group-description is required is shape-member('TargetOptionGroupDescription');
         has Str $.target-option-group-identifier is required is shape-member('TargetOptionGroupIdentifier');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.source-option-group-identifier is required is shape-member('SourceOptionGroupIdentifier');
     }
 
     class DescribeEventsMessage does AWS::SDK::Shape {
         has Int $.duration is shape-member('Duration');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has DateTime $.end-time is shape-member('EndTime');
         has DateTime $.start-time is shape-member('StartTime');
         has SourceType $.source-type is shape-member('SourceType');
         has Str $.source-identifier is shape-member('SourceIdentifier');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
     class DescribeEngineDefaultParametersResult does AWS::SDK::Shape {
@@ -594,7 +599,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.license-model is shape-member('LicenseModel');
         has Int $.backup-retention-period is shape-member('BackupRetentionPeriod');
         has Str $.db-parameter-group-name is shape-member('DBParameterGroupName');
-        has Array[Str] $.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
+        has Str @.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
         has Str $.master-user-password is required is shape-member('MasterUserPassword');
         has Str $.db-name is shape-member('DBName');
         has Str $.character-set-name is shape-member('CharacterSetName');
@@ -602,7 +607,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.master-username is required is shape-member('MasterUsername');
         has Str $.tde-credential-password is shape-member('TdeCredentialPassword');
         has Str $.storage-type is shape-member('StorageType');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
         has Str $.engine is required is shape-member('Engine');
         has Str $.db-instance-class is required is shape-member('DBInstanceClass');
@@ -618,23 +623,23 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Bool $.multi-az is shape-member('MultiAZ');
         has Int $.port is shape-member('Port');
         has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
-        has Array[Str] $.db-security-groups is shape-member('DBSecurityGroups');
+        has Str @.db-security-groups is shape-member('DBSecurityGroups');
     }
 
     class EventCategoriesMap does AWS::SDK::Shape {
         has Str $.source-type is shape-member('SourceType');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
     class Filter does AWS::SDK::Shape {
-        has Array[Str] $.values is required is shape-member('Values');
+        has Str @.values is required is shape-member('Values');
         has Str $.name is required is shape-member('Name');
     }
 
     class OrderableDBInstanceOption does AWS::SDK::Shape {
         has Bool $.multi-az-capable is shape-member('MultiAZCapable');
         has Str $.license-model is shape-member('LicenseModel');
-        has Array[AvailabilityZone] $.availability-zones is shape-member('AvailabilityZones');
+        has AvailabilityZone @.availability-zones is shape-member('AvailabilityZones');
         has Str $.storage-type is shape-member('StorageType');
         has Str $.db-instance-class is shape-member('DBInstanceClass');
         has Str $.engine is shape-member('Engine');
@@ -646,14 +651,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class DescribeDBParametersMessage does AWS::SDK::Shape {
         has Str $.db-parameter-group-name is required is shape-member('DBParameterGroupName');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.source is shape-member('Source');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
     class DBParameterGroupsMessage does AWS::SDK::Shape {
-        has Array[DBParameterGroup] $.db-parameter-groups is shape-member('DBParameterGroups');
+        has DBParameterGroup @.db-parameter-groups is shape-member('DBParameterGroups');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -689,7 +694,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     class ModifyDBSubnetGroupMessage does AWS::SDK::Shape {
         has Str $.db-subnet-group-description is shape-member('DBSubnetGroupDescription');
         has Str $.db-subnet-group-name is required is shape-member('DBSubnetGroupName');
-        has Array[Str] $.subnet-ids is required is shape-member('SubnetIds');
+        has Str @.subnet-ids is required is shape-member('SubnetIds');
     }
 
     class OptionGroupAlreadyExistsFault does AWS::SDK::Shape {
@@ -704,7 +709,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class CreateDBSecurityGroupMessage does AWS::SDK::Shape {
         has Str $.db-security-group-name is required is shape-member('DBSecurityGroupName');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.db-security-group-description is required is shape-member('DBSecurityGroupDescription');
     }
 
@@ -719,7 +724,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     class CreateOptionGroupMessage does AWS::SDK::Shape {
         has Str $.engine-name is required is shape-member('EngineName');
         has Str $.major-engine-version is required is shape-member('MajorEngineVersion');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.option-group-description is required is shape-member('OptionGroupDescription');
         has Str $.option-group-name is required is shape-member('OptionGroupName');
     }
@@ -735,13 +740,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class ListTagsForResourceMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.resource-name is required is shape-member('ResourceName');
     }
 
     class ModifyOptionGroupMessage does AWS::SDK::Shape {
-        has Array[Str] $.options-to-remove is shape-member('OptionsToRemove');
-        has Array[OptionConfiguration] $.options-to-include is shape-member('OptionsToInclude');
+        has Str @.options-to-remove is shape-member('OptionsToRemove');
+        has OptionConfiguration @.options-to-include is shape-member('OptionsToInclude');
         has Str $.option-group-name is required is shape-member('OptionGroupName');
         has Bool $.apply-immediately is shape-member('ApplyImmediately');
     }
@@ -750,7 +755,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.offering-type is shape-member('OfferingType');
         has Str $.product-description is shape-member('ProductDescription');
         has Str $.duration is shape-member('Duration');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.db-instance-class is shape-member('DBInstanceClass');
         has Str $.reserved-db-instance-id is shape-member('ReservedDBInstanceId');
         has Str $.marker is shape-member('Marker');
@@ -775,7 +780,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class DescribeDBSnapshotsMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.db-snapshot-identifier is shape-member('DBSnapshotIdentifier');
         has Str $.snapshot-type is shape-member('SnapshotType');
         has Str $.db-instance-identifier is shape-member('DBInstanceIdentifier');
@@ -787,7 +792,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class OptionGroupOptionsMessage does AWS::SDK::Shape {
-        has Array[OptionGroupOption] $.option-group-options is shape-member('OptionGroupOptions');
+        has OptionGroupOption @.option-group-options is shape-member('OptionGroupOptions');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -795,7 +800,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.offering-type is shape-member('OfferingType');
         has Str $.product-description is shape-member('ProductDescription');
         has Int $.duration is shape-member('Duration');
-        has Array[RecurringCharge] $.recurring-charges is shape-member('RecurringCharges');
+        has RecurringCharge @.recurring-charges is shape-member('RecurringCharges');
         has Numeric $.usage-price is shape-member('UsagePrice');
         has Numeric $.fixed-price is shape-member('FixedPrice');
         has Str $.db-instance-class is shape-member('DBInstanceClass');
@@ -821,13 +826,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class DescribeDBParameterGroupsMessage does AWS::SDK::Shape {
         has Str $.db-parameter-group-name is shape-member('DBParameterGroupName');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
     class EventSubscriptionsMessage does AWS::SDK::Shape {
-        has Array[EventSubscription] $.event-subscriptions-list is shape-member('EventSubscriptionsList');
+        has EventSubscription @.event-subscriptions-list is shape-member('EventSubscriptionsList');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -839,7 +844,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class ReservedDBInstanceMessage does AWS::SDK::Shape {
-        has Array[ReservedDBInstance] $.reserved-db-instances is shape-member('ReservedDBInstances');
+        has ReservedDBInstance @.reserved-db-instances is shape-member('ReservedDBInstances');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -848,7 +853,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class CopyDBParameterGroupMessage does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.target-db-parameter-group-description is required is shape-member('TargetDBParameterGroupDescription');
         has Str $.target-db-parameter-group-identifier is required is shape-member('TargetDBParameterGroupIdentifier');
         has Str $.source-db-parameter-group-identifier is required is shape-member('SourceDBParameterGroupIdentifier');
@@ -861,7 +866,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.source-db-instance-identifier is required is shape-member('SourceDBInstanceIdentifier');
         has Str $.db-subnet-group-name is shape-member('DBSubnetGroupName');
         has Str $.storage-type is shape-member('StorageType');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
         has Str $.db-instance-class is shape-member('DBInstanceClass');
         has Str $.availability-zone is shape-member('AvailabilityZone');
@@ -885,7 +890,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class PurchaseReservedDBInstancesOfferingMessage does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.reserved-db-instance-id is shape-member('ReservedDBInstanceId');
         has Int $.db-instance-count is shape-member('DBInstanceCount');
         has Str $.reserved-db-instances-offering-id is required is shape-member('ReservedDBInstancesOfferingId');
@@ -896,7 +901,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class EngineDefaults does AWS::SDK::Shape {
         has Str $.db-parameter-group-family is shape-member('DBParameterGroupFamily');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -905,7 +910,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.vpc-id is shape-member('VpcId');
         has Bool $.allows-vpc-and-non-vpc-instance-memberships is shape-member('AllowsVpcAndNonVpcInstanceMemberships');
         has Str $.major-engine-version is shape-member('MajorEngineVersion');
-        has Array[Option] $.options is shape-member('Options');
+        has Option @.options is shape-member('Options');
         has Str $.option-group-description is shape-member('OptionGroupDescription');
         has Str $.option-group-name is shape-member('OptionGroupName');
     }
@@ -917,7 +922,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class DescribeDBSecurityGroupsMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.db-security-group-name is shape-member('DBSecurityGroupName');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
@@ -951,7 +956,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class DescribeOptionGroupOptionsMessage does AWS::SDK::Shape {
         has Str $.engine-name is required is shape-member('EngineName');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.major-engine-version is shape-member('MajorEngineVersion');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
@@ -975,19 +980,19 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.license-model is shape-member('LicenseModel');
         has Int $.backup-retention-period is shape-member('BackupRetentionPeriod');
         has Str $.db-name is shape-member('DBName');
-        has Array[DBInstanceStatusInfo] $.status-infos is shape-member('StatusInfos');
-        has Array[OptionGroupMembership] $.option-group-memberships is shape-member('OptionGroupMemberships');
+        has DBInstanceStatusInfo @.status-infos is shape-member('StatusInfos');
+        has OptionGroupMembership @.option-group-memberships is shape-member('OptionGroupMemberships');
         has DateTime $.latest-restorable-time is shape-member('LatestRestorableTime');
-        has Array[VpcSecurityGroupMembership] $.vpc-security-groups is shape-member('VpcSecurityGroups');
+        has VpcSecurityGroupMembership @.vpc-security-groups is shape-member('VpcSecurityGroups');
         has Str $.db-instance-status is shape-member('DBInstanceStatus');
         has Str $.character-set-name is shape-member('CharacterSetName');
-        has Array[DBParameterGroupStatus] $.db-parameter-groups is shape-member('DBParameterGroups');
+        has DBParameterGroupStatus @.db-parameter-groups is shape-member('DBParameterGroups');
         has DateTime $.instance-create-time is shape-member('InstanceCreateTime');
         has Endpoint $.endpoint is shape-member('Endpoint');
         has Str $.master-username is shape-member('MasterUsername');
         has Str $.storage-type is shape-member('StorageType');
         has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
-        has Array[Str] $.read-replica-db-instance-identifiers is shape-member('ReadReplicaDBInstanceIdentifiers');
+        has Str @.read-replica-db-instance-identifiers is shape-member('ReadReplicaDBInstanceIdentifiers');
         has DBSubnetGroup $.db-subnet-group is shape-member('DBSubnetGroup');
         has Int $.allocated-storage is shape-member('AllocatedStorage');
         has Str $.engine is shape-member('Engine');
@@ -1004,7 +1009,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Bool $.multi-az is shape-member('MultiAZ');
         has PendingModifiedValues $.pending-modified-values is shape-member('PendingModifiedValues');
         has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
-        has Array[DBSecurityGroupMembership] $.db-security-groups is shape-member('DBSecurityGroups');
+        has DBSecurityGroupMembership @.db-security-groups is shape-member('DBSecurityGroups');
     }
 
     class CreateDBInstanceReadReplicaResult does AWS::SDK::Shape {
@@ -1030,7 +1035,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.db-subnet-group-name is shape-member('DBSubnetGroupName');
         has Str $.tde-credential-password is shape-member('TdeCredentialPassword');
         has Str $.storage-type is shape-member('StorageType');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.engine is shape-member('Engine');
         has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
         has Str $.db-instance-class is shape-member('DBInstanceClass');
@@ -1058,7 +1063,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.db-subnet-group-name is shape-member('DBSubnetGroupName');
         has Str $.tde-credential-password is shape-member('TdeCredentialPassword');
         has Str $.storage-type is shape-member('StorageType');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.engine is shape-member('Engine');
         has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
         has Str $.db-instance-class is shape-member('DBInstanceClass');
@@ -1074,7 +1079,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class DescribeEngineDefaultParametersMessage does AWS::SDK::Shape {
         has Str $.db-parameter-group-family is required is shape-member('DBParameterGroupFamily');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
@@ -1093,14 +1098,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class DescribeDBSubnetGroupsMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.db-subnet-group-name is shape-member('DBSubnetGroupName');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
     class DescribeDBLogFilesResponse does AWS::SDK::Shape {
-        has Array[DescribeDBLogFilesDetails] $.describe-db-log-files is shape-member('DescribeDBLogFiles');
+        has DescribeDBLogFilesDetails @.describe-db-log-files is shape-member('DescribeDBLogFiles');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -1113,13 +1118,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class CopyDBSnapshotMessage does AWS::SDK::Shape {
         has Str $.target-db-snapshot-identifier is required is shape-member('TargetDBSnapshotIdentifier');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.source-db-snapshot-identifier is required is shape-member('SourceDBSnapshotIdentifier');
     }
 
     class CreateDBSnapshotMessage does AWS::SDK::Shape {
         has Str $.db-snapshot-identifier is required is shape-member('DBSnapshotIdentifier');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.db-instance-identifier is required is shape-member('DBInstanceIdentifier');
     }
 
@@ -1128,7 +1133,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Int $.backup-retention-period is shape-member('BackupRetentionPeriod');
         has Str $.db-parameter-group-name is shape-member('DBParameterGroupName');
         has Str $.master-user-password is shape-member('MasterUserPassword');
-        has Array[Str] $.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
+        has Str @.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
         has Str $.tde-credential-password is shape-member('TdeCredentialPassword');
         has Str $.storage-type is shape-member('StorageType');
         has Str $.db-instance-class is shape-member('DBInstanceClass');
@@ -1144,7 +1149,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Bool $.multi-az is shape-member('MultiAZ');
         has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
         has Bool $.apply-immediately is shape-member('ApplyImmediately');
-        has Array[Str] $.db-security-groups is shape-member('DBSecurityGroups');
+        has Str @.db-security-groups is shape-member('DBSecurityGroups');
     }
 
     class OptionGroupMembership does AWS::SDK::Shape {
@@ -1160,7 +1165,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class DBInstanceMessage does AWS::SDK::Shape {
-        has Array[DBInstance] $.db-instances is shape-member('DBInstances');
+        has DBInstance @.db-instances is shape-member('DBInstances');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -1168,8 +1173,6 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.address is shape-member('Address');
         has Int $.port is shape-member('Port');
     }
-
-    subset ApplyMethod of Str where $_ ~~ any('immediate', 'pending-reboot');
 
     class DBInstanceNotFoundFault does AWS::SDK::Shape {
     }
@@ -1183,11 +1186,11 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class DBSecurityGroupMessage does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[DBSecurityGroup] $.db-security-groups is shape-member('DBSecurityGroups');
+        has DBSecurityGroup @.db-security-groups is shape-member('DBSecurityGroups');
     }
 
     class DescribeDBInstancesMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.db-instance-identifier is shape-member('DBInstanceIdentifier');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
@@ -1198,7 +1201,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     class DBParameterGroupDetails does AWS::SDK::Shape {
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -1229,7 +1232,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class DescribeOrderableDBInstanceOptionsMessage does AWS::SDK::Shape {
         has Str $.license-model is shape-member('LicenseModel');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.db-instance-class is shape-member('DBInstanceClass');
         has Str $.engine is required is shape-member('Engine');
         has Bool $.vpc is shape-member('Vpc');
@@ -1242,7 +1245,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.offering-type is shape-member('OfferingType');
         has Str $.product-description is shape-member('ProductDescription');
         has Str $.duration is shape-member('Duration');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.db-instance-class is shape-member('DBInstanceClass');
         has Str $.marker is shape-member('Marker');
         has Bool $.multi-az is shape-member('MultiAZ');
@@ -1261,10 +1264,10 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class Option does AWS::SDK::Shape {
         has Str $.option-description is shape-member('OptionDescription');
-        has Array[VpcSecurityGroupMembership] $.vpc-security-group-memberships is shape-member('VpcSecurityGroupMemberships');
-        has Array[OptionSetting] $.option-settings is shape-member('OptionSettings');
+        has VpcSecurityGroupMembership @.vpc-security-group-memberships is shape-member('VpcSecurityGroupMemberships');
+        has OptionSetting @.option-settings is shape-member('OptionSettings');
         has Bool $.permanent is shape-member('Permanent');
-        has Array[DBSecurityGroupMembership] $.db-security-group-memberships is shape-member('DBSecurityGroupMemberships');
+        has DBSecurityGroupMembership @.db-security-group-memberships is shape-member('DBSecurityGroupMemberships');
         has Bool $.persistent is shape-member('Persistent');
         has Str $.option-name is shape-member('OptionName');
         has Int $.port is shape-member('Port');
@@ -1284,24 +1287,24 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.subscription-creation-time is shape-member('SubscriptionCreationTime');
         has Str $.customer-aws-id is shape-member('CustomerAwsId');
         has Bool $.enabled is shape-member('Enabled');
-        has Array[Str] $.source-ids-list is shape-member('SourceIdsList');
+        has Str @.source-ids-list is shape-member('SourceIdsList');
         has Str $.sns-topic-arn is shape-member('SnsTopicArn');
         has Str $.source-type is shape-member('SourceType');
         has Str $.status is shape-member('Status');
         has Str $.cust-subscription-id is shape-member('CustSubscriptionId');
-        has Array[Str] $.event-categories-list is shape-member('EventCategoriesList');
+        has Str @.event-categories-list is shape-member('EventCategoriesList');
     }
 
     class InsufficientDBInstanceCapacityFault does AWS::SDK::Shape {
     }
 
     class OptionGroupOption does AWS::SDK::Shape {
-        has Array[OptionGroupOptionSetting] $.option-group-option-settings is shape-member('OptionGroupOptionSettings');
+        has OptionGroupOptionSetting @.option-group-option-settings is shape-member('OptionGroupOptionSettings');
         has Str $.engine-name is shape-member('EngineName');
         has Bool $.permanent is shape-member('Permanent');
         has Int $.default-port is shape-member('DefaultPort');
         has Bool $.port-required is shape-member('PortRequired');
-        has Array[Str] $.options-depended-on is shape-member('OptionsDependedOn');
+        has Str @.options-depended-on is shape-member('OptionsDependedOn');
         has Str $.major-engine-version is shape-member('MajorEngineVersion');
         has Str $.description is shape-member('Description');
         has Bool $.persistent is shape-member('Persistent');
@@ -1320,8 +1323,8 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.db-security-group-name is shape-member('DBSecurityGroupName');
         has Str $.owner-id is shape-member('OwnerId');
-        has Array[IPRange] $.ip-ranges is shape-member('IPRanges');
-        has Array[EC2SecurityGroup] $.ec2-security-groups is shape-member('EC2SecurityGroups');
+        has IPRange @.ip-ranges is shape-member('IPRanges');
+        has EC2SecurityGroup @.ec2-security-groups is shape-member('EC2SecurityGroups');
         has Str $.db-security-group-description is shape-member('DBSecurityGroupDescription');
     }
 
@@ -1330,14 +1333,12 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     class OptionGroups does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[OptionGroup] $.option-groups-list is shape-member('OptionGroupsList');
+        has OptionGroup @.option-groups-list is shape-member('OptionGroupsList');
     }
 
     class CreateDBSnapshotResult does AWS::SDK::Shape {
         has DBSnapshot $.db-snapshot is shape-member('DBSnapshot');
     }
-
-    subset SourceType of Str where $_ ~~ any('db-instance', 'db-parameter-group', 'db-security-group', 'db-snapshot');
 
     class DBParameterGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
@@ -1373,6 +1374,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     class DBSnapshotNotFoundFault does AWS::SDK::Shape {
     }
 
+
     method remove-source-identifier-from-subscription(
         Str :$subscription-name!,
         Str :$source-identifier!
@@ -1389,14 +1391,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     method modify-option-group(
-        Array[Str] :$options-to-remove,
-        Array[OptionConfiguration] :$options-to-include,
+        Str :@options-to-remove,
+        OptionConfiguration :@options-to-include,
         Str :$option-group-name!,
         Bool :$apply-immediately
     ) returns ModifyOptionGroupResult is service-operation('ModifyOptionGroup') {
         my $request-input = ModifyOptionGroupMessage.new(
-            :$options-to-remove,
-            :$options-to-include,
+            :@options-to-remove,
+            :@options-to-include,
             :$option-group-name,
             :$apply-immediately
         );
@@ -1409,13 +1411,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method describe-db-parameter-groups(
         Str :$db-parameter-group-name,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns DBParameterGroupsMessage is service-operation('DescribeDBParameterGroups') {
         my $request-input = DescribeDBParameterGroupsMessage.new(
             :$db-parameter-group-name,
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -1428,14 +1430,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method describe-db-parameters(
         Str :$db-parameter-group-name!,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$source,
         Str :$marker,
         Int :$max-records
     ) returns DBParameterGroupDetails is service-operation('DescribeDBParameters') {
         my $request-input = DescribeDBParametersMessage.new(
             :$db-parameter-group-name,
-            :$filters,
+            :@filters,
             :$source,
             :$marker,
             :$max-records
@@ -1464,11 +1466,11 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method add-tags-to-resource(
         Str :$resource-name!,
-        Array[Tag] :$tags!
+        Tag :@tags!
     ) is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceMessage.new(
             :$resource-name,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -1499,13 +1501,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     method describe-db-security-groups(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$db-security-group-name,
         Str :$marker,
         Int :$max-records
     ) returns DBSecurityGroupMessage is service-operation('DescribeDBSecurityGroups') {
         my $request-input = DescribeDBSecurityGroupsMessage.new(
-            :$filters,
+            :@filters,
             :$db-security-group-name,
             :$marker,
             :$max-records
@@ -1519,11 +1521,11 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method remove-tags-from-resource(
         Str :$resource-name!,
-        Array[Str] :$tag-keys!
+        Str :@tag-keys!
     ) is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceMessage.new(
             :$resource-name,
-            :$tag-keys
+            :@tag-keys
         );
 
         self.perform-operation(
@@ -1534,12 +1536,12 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method copy-db-snapshot(
         Str :$target-db-snapshot-identifier!,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$source-db-snapshot-identifier!
     ) returns CopyDBSnapshotResult is service-operation('CopyDBSnapshot') {
         my $request-input = CopyDBSnapshotMessage.new(
             :$target-db-snapshot-identifier,
-            :$tags,
+            :@tags,
             :$source-db-snapshot-identifier
         );
 
@@ -1553,13 +1555,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Str :$db-parameter-group-family!,
         Str :$db-parameter-group-name!,
         Str :$description!,
-        Array[Tag] :$tags
+        Tag :@tags
     ) returns CreateDBParameterGroupResult is service-operation('CreateDBParameterGroup') {
         my $request-input = CreateDBParameterGroupMessage.new(
             :$db-parameter-group-family,
             :$db-parameter-group-name,
             :$description,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -1570,13 +1572,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method describe-event-subscriptions(
         Str :$subscription-name,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns EventSubscriptionsMessage is service-operation('DescribeEventSubscriptions') {
         my $request-input = DescribeEventSubscriptionsMessage.new(
             :$subscription-name,
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -1594,7 +1596,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Str :$db-subnet-group-name,
         Str :$tde-credential-password,
         Str :$storage-type,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$engine,
         Bool :$publicly-accessible,
         Str :$db-instance-class,
@@ -1614,7 +1616,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
             :$db-subnet-group-name,
             :$tde-credential-password,
             :$storage-type,
-            :$tags,
+            :@tags,
             :$engine,
             :$publicly-accessible,
             :$db-instance-class,
@@ -1635,13 +1637,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     method purchase-reserved-db-instances-offering(
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$reserved-db-instance-id,
         Int :$db-instance-count,
         Str :$reserved-db-instances-offering-id!
     ) returns PurchaseReservedDBInstancesOfferingResult is service-operation('PurchaseReservedDBInstancesOffering') {
         my $request-input = PurchaseReservedDBInstancesOfferingMessage.new(
-            :$tags,
+            :@tags,
             :$reserved-db-instance-id,
             :$db-instance-count,
             :$reserved-db-instances-offering-id
@@ -1656,14 +1658,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     method create-db-subnet-group(
         Str :$db-subnet-group-description!,
         Str :$db-subnet-group-name!,
-        Array[Tag] :$tags,
-        Array[Str] :$subnet-ids!
+        Tag :@tags,
+        Str :@subnet-ids!
     ) returns CreateDBSubnetGroupResult is service-operation('CreateDBSubnetGroup') {
         my $request-input = CreateDBSubnetGroupMessage.new(
             :$db-subnet-group-description,
             :$db-subnet-group-name,
-            :$tags,
-            :$subnet-ids
+            :@tags,
+            :@subnet-ids
         );
 
         self.perform-operation(
@@ -1706,12 +1708,12 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method create-db-security-group(
         Str :$db-security-group-name!,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$db-security-group-description!
     ) returns CreateDBSecurityGroupResult is service-operation('CreateDBSecurityGroup') {
         my $request-input = CreateDBSecurityGroupMessage.new(
             :$db-security-group-name,
-            :$tags,
+            :@tags,
             :$db-security-group-description
         );
 
@@ -1723,12 +1725,12 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method create-db-snapshot(
         Str :$db-snapshot-identifier!,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$db-instance-identifier!
     ) returns CreateDBSnapshotResult is service-operation('CreateDBSnapshot') {
         my $request-input = CreateDBSnapshotMessage.new(
             :$db-snapshot-identifier,
-            :$tags,
+            :@tags,
             :$db-instance-identifier
         );
 
@@ -1752,7 +1754,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     method describe-db-snapshots(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$db-snapshot-identifier,
         Str :$snapshot-type,
         Str :$db-instance-identifier,
@@ -1760,7 +1762,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Int :$max-records
     ) returns DBSnapshotMessage is service-operation('DescribeDBSnapshots') {
         my $request-input = DescribeDBSnapshotsMessage.new(
-            :$filters,
+            :@filters,
             :$db-snapshot-identifier,
             :$snapshot-type,
             :$db-instance-identifier,
@@ -1776,7 +1778,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method describe-option-groups(
         Str :$engine-name,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$major-engine-version,
         Str :$marker,
         Str :$option-group-name,
@@ -1784,7 +1786,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     ) returns OptionGroups is service-operation('DescribeOptionGroups') {
         my $request-input = DescribeOptionGroupsMessage.new(
             :$engine-name,
-            :$filters,
+            :@filters,
             :$major-engine-version,
             :$marker,
             :$option-group-name,
@@ -1838,13 +1840,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     method copy-option-group(
         Str :$target-option-group-description!,
         Str :$target-option-group-identifier!,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$source-option-group-identifier!
     ) returns CopyOptionGroupResult is service-operation('CopyOptionGroup') {
         my $request-input = CopyOptionGroupMessage.new(
             :$target-option-group-description,
             :$target-option-group-identifier,
-            :$tags,
+            :@tags,
             :$source-option-group-identifier
         );
 
@@ -1858,7 +1860,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Str :$license-model,
         Int :$backup-retention-period,
         Str :$db-parameter-group-name,
-        Array[Str] :$vpc-security-group-ids,
+        Str :@vpc-security-group-ids,
         Str :$master-user-password!,
         Str :$db-name,
         Str :$character-set-name,
@@ -1866,7 +1868,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Str :$master-username!,
         Str :$tde-credential-password,
         Str :$storage-type,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Bool :$publicly-accessible,
         Str :$engine!,
         Str :$db-instance-class!,
@@ -1882,13 +1884,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Bool :$multi-az,
         Int :$port,
         Str :$preferred-maintenance-window,
-        Array[Str] :$db-security-groups
+        Str :@db-security-groups
     ) returns CreateDBInstanceResult is service-operation('CreateDBInstance') {
         my $request-input = CreateDBInstanceMessage.new(
             :$license-model,
             :$backup-retention-period,
             :$db-parameter-group-name,
-            :$vpc-security-group-ids,
+            :@vpc-security-group-ids,
             :$master-user-password,
             :$db-name,
             :$character-set-name,
@@ -1896,7 +1898,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
             :$master-username,
             :$tde-credential-password,
             :$storage-type,
-            :$tags,
+            :@tags,
             :$publicly-accessible,
             :$engine,
             :$db-instance-class,
@@ -1912,7 +1914,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
             :$multi-az,
             :$port,
             :$preferred-maintenance-window,
-            :$db-security-groups
+            :@db-security-groups
         );
 
         self.perform-operation(
@@ -1923,21 +1925,21 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method create-event-subscription(
         Str :$subscription-name!,
-        Array[Str] :$source-ids,
-        Array[Tag] :$tags,
+        Str :@source-ids,
+        Tag :@tags,
         Bool :$enabled,
         Str :$sns-topic-arn!,
         Str :$source-type,
-        Array[Str] :$event-categories
+        Str :@event-categories
     ) returns CreateEventSubscriptionResult is service-operation('CreateEventSubscription') {
         my $request-input = CreateEventSubscriptionMessage.new(
             :$subscription-name,
-            :$source-ids,
-            :$tags,
+            :@source-ids,
+            :@tags,
             :$enabled,
             :$sns-topic-arn,
             :$source-type,
-            :$event-categories
+            :@event-categories
         );
 
         self.perform-operation(
@@ -1950,7 +1952,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Str :$offering-type,
         Str :$product-description,
         Str :$duration,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$db-instance-class,
         Str :$marker,
         Bool :$multi-az,
@@ -1961,7 +1963,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
             :$offering-type,
             :$product-description,
             :$duration,
-            :$filters,
+            :@filters,
             :$db-instance-class,
             :$marker,
             :$multi-az,
@@ -1976,11 +1978,11 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     method describe-event-categories(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$source-type
     ) returns EventCategoriesMessage is service-operation('DescribeEventCategories') {
         my $request-input = DescribeEventCategoriesMessage.new(
-            :$filters,
+            :@filters,
             :$source-type
         );
 
@@ -2006,14 +2008,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     method create-option-group(
         Str :$engine-name!,
         Str :$major-engine-version!,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$option-group-description!,
         Str :$option-group-name!
     ) returns CreateOptionGroupResult is service-operation('CreateOptionGroup') {
         my $request-input = CreateOptionGroupMessage.new(
             :$engine-name,
             :$major-engine-version,
-            :$tags,
+            :@tags,
             :$option-group-description,
             :$option-group-name
         );
@@ -2025,7 +2027,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     method describe-db-log-files(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Int :$file-last-written,
         Str :$filename-contains,
         Str :$db-instance-identifier!,
@@ -2034,7 +2036,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Int :$file-size
     ) returns DescribeDBLogFilesResponse is service-operation('DescribeDBLogFiles') {
         my $request-input = DescribeDBLogFilesMessage.new(
-            :$filters,
+            :@filters,
             :$file-last-written,
             :$filename-contains,
             :$db-instance-identifier,
@@ -2051,14 +2053,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method describe-option-group-options(
         Str :$engine-name!,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$major-engine-version,
         Str :$marker,
         Int :$max-records
     ) returns OptionGroupOptionsMessage is service-operation('DescribeOptionGroupOptions') {
         my $request-input = DescribeOptionGroupOptionsMessage.new(
             :$engine-name,
-            :$filters,
+            :@filters,
             :$major-engine-version,
             :$marker,
             :$max-records
@@ -2072,7 +2074,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method describe-orderable-db-instance-options(
         Str :$license-model,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$db-instance-class,
         Str :$engine!,
         Bool :$vpc,
@@ -2082,7 +2084,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     ) returns OrderableDBInstanceOptionsMessage is service-operation('DescribeOrderableDBInstanceOptions') {
         my $request-input = DescribeOrderableDBInstanceOptionsMessage.new(
             :$license-model,
-            :$filters,
+            :@filters,
             :$db-instance-class,
             :$engine,
             :$vpc,
@@ -2100,12 +2102,12 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     method modify-db-subnet-group(
         Str :$db-subnet-group-description,
         Str :$db-subnet-group-name!,
-        Array[Str] :$subnet-ids!
+        Str :@subnet-ids!
     ) returns ModifyDBSubnetGroupResult is service-operation('ModifyDBSubnetGroup') {
         my $request-input = ModifyDBSubnetGroupMessage.new(
             :$db-subnet-group-description,
             :$db-subnet-group-name,
-            :$subnet-ids
+            :@subnet-ids
         );
 
         self.perform-operation(
@@ -2119,14 +2121,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Bool :$enabled,
         Str :$sns-topic-arn,
         Str :$source-type,
-        Array[Str] :$event-categories
+        Str :@event-categories
     ) returns ModifyEventSubscriptionResult is service-operation('ModifyEventSubscription') {
         my $request-input = ModifyEventSubscriptionMessage.new(
             :$subscription-name,
             :$enabled,
             :$sns-topic-arn,
             :$source-type,
-            :$event-categories
+            :@event-categories
         );
 
         self.perform-operation(
@@ -2143,7 +2145,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Str :$db-subnet-group-name,
         Str :$tde-credential-password,
         Str :$storage-type,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$engine,
         Bool :$publicly-accessible,
         Str :$db-instance-class,
@@ -2165,7 +2167,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
             :$db-subnet-group-name,
             :$tde-credential-password,
             :$storage-type,
-            :$tags,
+            :@tags,
             :$engine,
             :$publicly-accessible,
             :$db-instance-class,
@@ -2190,7 +2192,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Str :$source-db-instance-identifier!,
         Str :$db-subnet-group-name,
         Str :$storage-type,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Bool :$publicly-accessible,
         Str :$db-instance-class,
         Str :$availability-zone,
@@ -2204,7 +2206,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
             :$source-db-instance-identifier,
             :$db-subnet-group-name,
             :$storage-type,
-            :$tags,
+            :@tags,
             :$publicly-accessible,
             :$db-instance-class,
             :$availability-zone,
@@ -2223,25 +2225,25 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method describe-events(
         Int :$duration,
-        Array[Filter] :$filters,
+        Filter :@filters,
         DateTime :$end-time,
         DateTime :$start-time,
         SourceType :$source-type,
         Str :$source-identifier,
         Str :$marker,
         Int :$max-records,
-        Array[Str] :$event-categories
+        Str :@event-categories
     ) returns EventsMessage is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsMessage.new(
             :$duration,
-            :$filters,
+            :@filters,
             :$end-time,
             :$start-time,
             :$source-type,
             :$source-identifier,
             :$marker,
             :$max-records,
-            :$event-categories
+            :@event-categories
         );
 
         self.perform-operation(
@@ -2300,7 +2302,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Int :$backup-retention-period,
         Str :$db-parameter-group-name,
         Str :$master-user-password,
-        Array[Str] :$vpc-security-group-ids,
+        Str :@vpc-security-group-ids,
         Str :$tde-credential-password,
         Str :$storage-type,
         Str :$db-instance-class,
@@ -2316,14 +2318,14 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Bool :$multi-az,
         Str :$preferred-maintenance-window,
         Bool :$apply-immediately,
-        Array[Str] :$db-security-groups
+        Str :@db-security-groups
     ) returns ModifyDBInstanceResult is service-operation('ModifyDBInstance') {
         my $request-input = ModifyDBInstanceMessage.new(
             :$new-db-instance-identifier,
             :$backup-retention-period,
             :$db-parameter-group-name,
             :$master-user-password,
-            :$vpc-security-group-ids,
+            :@vpc-security-group-ids,
             :$tde-credential-password,
             :$storage-type,
             :$db-instance-class,
@@ -2339,7 +2341,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
             :$multi-az,
             :$preferred-maintenance-window,
             :$apply-immediately,
-            :$db-security-groups
+            :@db-security-groups
         );
 
         self.perform-operation(
@@ -2350,11 +2352,11 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method modify-db-parameter-group(
         Str :$db-parameter-group-name!,
-        Array[Parameter] :$parameters!
+        Parameter :@parameters!
     ) returns DBParameterGroupNameMessage is service-operation('ModifyDBParameterGroup') {
         my $request-input = ModifyDBParameterGroupMessage.new(
             :$db-parameter-group-name,
-            :$parameters
+            :@parameters
         );
 
         self.perform-operation(
@@ -2364,13 +2366,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     method describe-db-subnet-groups(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$db-subnet-group-name,
         Str :$marker,
         Int :$max-records
     ) returns DBSubnetGroupMessage is service-operation('DescribeDBSubnetGroups') {
         my $request-input = DescribeDBSubnetGroupsMessage.new(
-            :$filters,
+            :@filters,
             :$db-subnet-group-name,
             :$marker,
             :$max-records
@@ -2384,13 +2386,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method describe-engine-default-parameters(
         Str :$db-parameter-group-family!,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns DescribeEngineDefaultParametersResult is service-operation('DescribeEngineDefaultParameters') {
         my $request-input = DescribeEngineDefaultParametersMessage.new(
             :$db-parameter-group-family,
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -2403,12 +2405,12 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method reset-db-parameter-group(
         Str :$db-parameter-group-name!,
-        Array[Parameter] :$parameters,
+        Parameter :@parameters,
         Bool :$reset-all-parameters
     ) returns DBParameterGroupNameMessage is service-operation('ResetDBParameterGroup') {
         my $request-input = ResetDBParameterGroupMessage.new(
             :$db-parameter-group-name,
-            :$parameters,
+            :@parameters,
             :$reset-all-parameters
         );
 
@@ -2420,7 +2422,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
 
     method describe-db-engine-versions(
         Str :$db-parameter-group-family,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Bool :$list-supported-character-sets,
         Str :$engine,
         Bool :$default-only,
@@ -2430,7 +2432,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     ) returns DBEngineVersionMessage is service-operation('DescribeDBEngineVersions') {
         my $request-input = DescribeDBEngineVersionsMessage.new(
             :$db-parameter-group-family,
-            :$filters,
+            :@filters,
             :$list-supported-character-sets,
             :$engine,
             :$default-only,
@@ -2449,7 +2451,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
         Str :$offering-type,
         Str :$product-description,
         Str :$duration,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$db-instance-class,
         Str :$reserved-db-instance-id,
         Str :$marker,
@@ -2461,7 +2463,7 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
             :$offering-type,
             :$product-description,
             :$duration,
-            :$filters,
+            :@filters,
             :$db-instance-class,
             :$reserved-db-instance-id,
             :$marker,
@@ -2477,11 +2479,11 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     method list-tags-for-resource(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$resource-name!
     ) returns TagListMessage is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceMessage.new(
-            :$filters,
+            :@filters,
             :$resource-name
         );
 
@@ -2492,13 +2494,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     method copy-db-parameter-group(
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$target-db-parameter-group-description!,
         Str :$target-db-parameter-group-identifier!,
         Str :$source-db-parameter-group-identifier!
     ) returns CopyDBParameterGroupResult is service-operation('CopyDBParameterGroup') {
         my $request-input = CopyDBParameterGroupMessage.new(
-            :$tags,
+            :@tags,
             :$target-db-parameter-group-description,
             :$target-db-parameter-group-identifier,
             :$source-db-parameter-group-identifier
@@ -2537,13 +2539,13 @@ class AWS::SDK::Service::RDS20140901 does AWS::SDK::Service {
     }
 
     method describe-db-instances(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$db-instance-identifier,
         Str :$marker,
         Int :$max-records
     ) returns DBInstanceMessage is service-operation('DescribeDBInstances') {
         my $request-input = DescribeDBInstancesMessage.new(
-            :$filters,
+            :@filters,
             :$db-instance-identifier,
             :$marker,
             :$max-records

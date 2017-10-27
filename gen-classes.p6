@@ -57,22 +57,21 @@ sub generate-service($service, :$past) {
         method service() \{ '$service.metadata.endpoint-prefix()' }
     END_OF_SERVICE_PREFIX
 
-    # First, declare stubs for each of the structure shapes
-    for $service.shapes.kv -> $shape-name, $shape {
-        next unless $shape.has-pre-declaration;
-        $pm6.put: $shape.pre-declaration.indent(4);
-    }
+    # Iterate through the shape declarations. There are multiple stages to this
+    # since Perl6 object names must be declared before use. This proceeds as
+    # follows:
+    #
+    # 1. Provide stub definitions for all classes.
+    # 2. Provide subset definitions (which refer to classes).
+    # 3. Provide class definitions (which refer to subsets and classes).
+    #
+    for AWS::SDK::Meta::Stage::.values.sort -> $stage {
+        for $service.shapes.kv -> $shape-name, $shape {
+            next unless $shape.has-declaration($stage);
+            $pm6.put: $shape.declaration($stage).indent(4);
+        }
 
-    $pm6.put: '';
-
-    my %shape-as-input;
-    my %shape-as-passthru;
-
-    # Now, define the shapes as classes or subset, preferring a plain Perl 6
-    # type when there are no special constraints.
-    SHAPE: for $service.shapes.kv -> $shape-name, $shape {
-        next unless $shape.has-declaration;
-        $pm6.put: $shape.declaration.indent(4);
+        $pm6.put: '';
     }
 
     for $service.operations.kv -> $op-name, $op {

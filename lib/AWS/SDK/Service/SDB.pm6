@@ -48,6 +48,7 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
     class DeleteAttributesRequest { ... }
     class AttributeDoesNotExist { ... }
 
+
     class ReplaceableAttribute does AWS::SDK::Shape {
         has Bool $.replace is shape-member('Replace');
         has Str $.name is required is shape-member('Name');
@@ -63,7 +64,7 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
     }
 
     class ListDomainsResult does AWS::SDK::Shape {
-        has Array[Str] $.domain-names is shape-member('DomainNames');
+        has Str @.domain-names is shape-member('DomainNames');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -78,7 +79,7 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
     class Item does AWS::SDK::Shape {
         has Str $.alternate-name-encoding is shape-member('AlternateNameEncoding');
         has Str $.name is required is shape-member('Name');
-        has Array[Attribute] $.attributes is required is shape-member('Attributes');
+        has Attribute @.attributes is required is shape-member('Attributes');
     }
 
     class CreateDomainRequest does AWS::SDK::Shape {
@@ -91,7 +92,7 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
 
     class ReplaceableItem does AWS::SDK::Shape {
         has Str $.name is required is shape-member('Name');
-        has Array[ReplaceableAttribute] $.attributes is required is shape-member('Attributes');
+        has ReplaceableAttribute @.attributes is required is shape-member('Attributes');
     }
 
     class NumberSubmittedAttributesExceeded does AWS::SDK::Shape {
@@ -112,7 +113,7 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
 
     class SelectResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Item] $.items is shape-member('Items');
+        has Item @.items is shape-member('Items');
     }
 
     class NumberDomainBytesExceeded does AWS::SDK::Shape {
@@ -152,19 +153,19 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
 
     class BatchPutAttributesRequest does AWS::SDK::Shape {
         has Str $.domain-name is required is shape-member('DomainName');
-        has Array[ReplaceableItem] $.items is required is shape-member('Items');
+        has ReplaceableItem @.items is required is shape-member('Items');
     }
 
     class BatchDeleteAttributesRequest does AWS::SDK::Shape {
         has Str $.domain-name is required is shape-member('DomainName');
-        has Array[DeletableItem] $.items is required is shape-member('Items');
+        has DeletableItem @.items is required is shape-member('Items');
     }
 
     class GetAttributesRequest does AWS::SDK::Shape {
         has Bool $.consistent-read is shape-member('ConsistentRead');
         has Str $.domain-name is required is shape-member('DomainName');
         has Str $.item-name is required is shape-member('ItemName');
-        has Array[Str] $.attribute-names is shape-member('AttributeNames');
+        has Str @.attribute-names is shape-member('AttributeNames');
     }
 
     class Attribute does AWS::SDK::Shape {
@@ -188,7 +189,7 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
         has Str $.domain-name is required is shape-member('DomainName');
         has UpdateCondition $.expected is shape-member('Expected');
         has Str $.item-name is required is shape-member('ItemName');
-        has Array[ReplaceableAttribute] $.attributes is required is shape-member('Attributes');
+        has ReplaceableAttribute @.attributes is required is shape-member('Attributes');
     }
 
     class InvalidParameterValue does AWS::SDK::Shape {
@@ -196,7 +197,7 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
     }
 
     class GetAttributesResult does AWS::SDK::Shape {
-        has Array[Attribute] $.attributes is shape-member('Attributes');
+        has Attribute @.attributes is shape-member('Attributes');
     }
 
     class DeleteDomainRequest does AWS::SDK::Shape {
@@ -205,7 +206,7 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
 
     class DeletableItem does AWS::SDK::Shape {
         has Str $.name is required is shape-member('Name');
-        has Array[Attribute] $.attributes is shape-member('Attributes');
+        has Attribute @.attributes is shape-member('Attributes');
     }
 
     class SelectRequest does AWS::SDK::Shape {
@@ -222,24 +223,25 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
         has Str $.domain-name is required is shape-member('DomainName');
         has UpdateCondition $.expected is shape-member('Expected');
         has Str $.item-name is required is shape-member('ItemName');
-        has Array[Attribute] $.attributes is shape-member('Attributes');
+        has Attribute @.attributes is shape-member('Attributes');
     }
 
     class AttributeDoesNotExist does AWS::SDK::Shape {
         has Numeric $.box-usage is shape-member('BoxUsage');
     }
 
+
     method put-attributes(
         Str :$domain-name!,
         UpdateCondition :$expected,
         Str :$item-name!,
-        Array[ReplaceableAttribute] :$attributes!
+        ReplaceableAttribute :@attributes!
     ) is service-operation('PutAttributes') {
         my $request-input = PutAttributesRequest.new(
             :$domain-name,
             :$expected,
             :$item-name,
-            :$attributes
+            :@attributes
         );
 
         self.perform-operation(
@@ -250,11 +252,11 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
 
     method batch-put-attributes(
         Str :$domain-name!,
-        Array[ReplaceableItem] :$items!
+        ReplaceableItem :@items!
     ) is service-operation('BatchPutAttributes') {
         my $request-input = BatchPutAttributesRequest.new(
             :$domain-name,
-            :$items
+            :@items
         );
 
         self.perform-operation(
@@ -308,11 +310,11 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
 
     method batch-delete-attributes(
         Str :$domain-name!,
-        Array[DeletableItem] :$items!
+        DeletableItem :@items!
     ) is service-operation('BatchDeleteAttributes') {
         my $request-input = BatchDeleteAttributesRequest.new(
             :$domain-name,
-            :$items
+            :@items
         );
 
         self.perform-operation(
@@ -325,13 +327,13 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
         Str :$domain-name!,
         UpdateCondition :$expected,
         Str :$item-name!,
-        Array[Attribute] :$attributes
+        Attribute :@attributes
     ) is service-operation('DeleteAttributes') {
         my $request-input = DeleteAttributesRequest.new(
             :$domain-name,
             :$expected,
             :$item-name,
-            :$attributes
+            :@attributes
         );
 
         self.perform-operation(
@@ -359,13 +361,13 @@ class AWS::SDK::Service::SDB does AWS::SDK::Service {
         Bool :$consistent-read,
         Str :$domain-name!,
         Str :$item-name!,
-        Array[Str] :$attribute-names
+        Str :@attribute-names
     ) returns GetAttributesResult is service-operation('GetAttributes') {
         my $request-input = GetAttributesRequest.new(
             :$consistent-read,
             :$domain-name,
             :$item-name,
-            :$attribute-names
+            :@attribute-names
         );
 
         self.perform-operation(

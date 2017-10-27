@@ -71,6 +71,55 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
     class UpdateDomainContactPrivacyResponse { ... }
     class InvalidInput { ... }
 
+    subset PageMaxItems of Int where * <= 100;
+
+    subset DomainAuthCode of Str where .chars <= 1024;
+
+    subset Email of Str where .chars <= 254;
+
+    subset ZipCode of Str where .chars <= 255;
+
+    subset ReachabilityStatus of Str where $_ eq any('PENDING', 'DONE', 'EXPIRED');
+
+    subset ExtraParamName of Str where $_ eq any('DUNS_NUMBER', 'BRAND_NUMBER', 'BIRTH_DEPARTMENT', 'BIRTH_DATE_IN_YYYY_MM_DD', 'BIRTH_COUNTRY', 'BIRTH_CITY', 'DOCUMENT_NUMBER', 'AU_ID_NUMBER', 'AU_ID_TYPE', 'CA_LEGAL_TYPE', 'CA_BUSINESS_ENTITY_TYPE', 'ES_IDENTIFICATION', 'ES_IDENTIFICATION_TYPE', 'ES_LEGAL_FORM', 'FI_BUSINESS_NUMBER', 'FI_ID_NUMBER', 'IT_PIN', 'RU_PASSPORT_DATA', 'SE_ID_NUMBER', 'SG_ID_NUMBER', 'VAT_NUMBER');
+
+    subset OperationStatus of Str where $_ eq any('SUBMITTED', 'IN_PROGRESS', 'ERROR', 'SUCCESSFUL', 'FAILED');
+
+    subset OperationType of Str where $_ eq any('REGISTER_DOMAIN', 'DELETE_DOMAIN', 'TRANSFER_IN_DOMAIN', 'UPDATE_DOMAIN_CONTACT', 'UPDATE_NAMESERVER', 'CHANGE_PRIVACY_PROTECTION', 'DOMAIN_LOCK');
+
+    subset ContactName of Str where .chars <= 255;
+
+    subset HostName of Str where .chars <= 255 && rx:P5/[a-zA-Z0-9_\-.]*/;
+
+    subset DurationInYears of Int where 1 <= * <= 10;
+
+    subset AddressLine of Str where .chars <= 255;
+
+    subset DomainAvailability of Str where $_ eq any('AVAILABLE', 'AVAILABLE_RESERVED', 'AVAILABLE_PREORDER', 'UNAVAILABLE', 'UNAVAILABLE_PREMIUM', 'UNAVAILABLE_RESTRICTED', 'RESERVED', 'DONT_KNOW');
+
+    subset OperationId of Str where .chars <= 255;
+
+    subset CountryCode of Str where $_ eq any('AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AN', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BR', 'BS', 'BT', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GH', 'GI', 'GL', 'GM', 'GN', 'GQ', 'GR', 'GT', 'GU', 'GW', 'GY', 'HK', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IQ', 'IR', 'IS', 'IT', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PT', 'PW', 'PY', 'QA', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'ST', 'SV', 'SY', 'SZ', 'TC', 'TD', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW');
+
+    subset State of Str where .chars <= 255;
+
+    subset ExtraParamValue of Str where .chars <= 2048;
+
+    subset LangCode of Str where .chars <= 3;
+
+    subset City of Str where .chars <= 255;
+
+    subset ContactType of Str where $_ eq any('PERSON', 'COMPANY', 'ASSOCIATION', 'PUBLIC_BODY', 'RESELLER');
+
+    subset ContactNumber of Str where .chars <= 30;
+
+    subset GlueIp of Str where .chars <= 45;
+
+    subset DomainName of Str where .chars <= 255 && rx:P5/[a-zA-Z0-9_\-.]*/;
+
+    subset PageMarker of Str where .chars <= 4096;
+
+
     class RegisterDomainRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
         has ContactDetail $.registrant-contact is required is shape-member('RegistrantContact');
@@ -97,8 +146,6 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    subset PageMaxItems of Int where * <= 100;
-
     class OperationSummary does AWS::SDK::Shape {
         has DateTime $.submitted-date is required is shape-member('SubmittedDate');
         has OperationId $.operation-id is required is shape-member('OperationId');
@@ -110,11 +157,9 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    subset DomainAuthCode of Str where .chars <= 1024;
-
     class ListOperationsResponse does AWS::SDK::Shape {
         has PageMarker $.next-page-marker is shape-member('NextPageMarker');
-        has Array[OperationSummary] $.operations is required is shape-member('Operations');
+        has OperationSummary @.operations is required is shape-member('Operations');
     }
 
     class ContactDetail does AWS::SDK::Shape {
@@ -123,7 +168,7 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has ContactNumber $.fax is shape-member('Fax');
         has ContactName $.last-name is shape-member('LastName');
         has ContactName $.first-name is shape-member('FirstName');
-        has Array[ExtraParam] $.extra-params is shape-member('ExtraParams');
+        has ExtraParam @.extra-params is shape-member('ExtraParams');
         has Email $.email is shape-member('Email');
         has ZipCode $.zip-code is shape-member('ZipCode');
         has CountryCode $.country-code is shape-member('CountryCode');
@@ -133,12 +178,6 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has ContactType $.contact-type is shape-member('ContactType');
         has AddressLine $.address-line2 is shape-member('AddressLine2');
     }
-
-    subset Email of Str where .chars <= 254;
-
-    subset ZipCode of Str where .chars <= 255;
-
-    subset ReachabilityStatus of Str where $_ ~~ any('PENDING', 'DONE', 'EXPIRED');
 
     class DisableDomainAutoRenewResponse does AWS::SDK::Shape {
     }
@@ -153,12 +192,6 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has Bool $.auto-renew is shape-member('AutoRenew');
         has DateTime $.expiry is shape-member('Expiry');
     }
-
-    subset ExtraParamName of Str where $_ ~~ any('DUNS_NUMBER', 'BRAND_NUMBER', 'BIRTH_DEPARTMENT', 'BIRTH_DATE_IN_YYYY_MM_DD', 'BIRTH_COUNTRY', 'BIRTH_CITY', 'DOCUMENT_NUMBER', 'AU_ID_NUMBER', 'AU_ID_TYPE', 'CA_LEGAL_TYPE', 'CA_BUSINESS_ENTITY_TYPE', 'ES_IDENTIFICATION', 'ES_IDENTIFICATION_TYPE', 'ES_LEGAL_FORM', 'FI_BUSINESS_NUMBER', 'FI_ID_NUMBER', 'IT_PIN', 'RU_PASSPORT_DATA', 'SE_ID_NUMBER', 'SG_ID_NUMBER', 'VAT_NUMBER');
-
-    subset OperationStatus of Str where $_ ~~ any('SUBMITTED', 'IN_PROGRESS', 'ERROR', 'SUCCESSFUL', 'FAILED');
-
-    subset OperationType of Str where $_ ~~ any('REGISTER_DOMAIN', 'DELETE_DOMAIN', 'TRANSFER_IN_DOMAIN', 'UPDATE_DOMAIN_CONTACT', 'UPDATE_NAMESERVER', 'CHANGE_PRIVACY_PROTECTION', 'DOMAIN_LOCK');
 
     class ExtraParam does AWS::SDK::Shape {
         has ExtraParamName $.name is required is shape-member('Name');
@@ -177,8 +210,6 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has OperationId $.operation-id is required is shape-member('OperationId');
     }
 
-    subset ContactName of Str where .chars <= 255;
-
     class DuplicateRequest does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -191,8 +222,6 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has OperationType $.operation is shape-member('Operation');
     }
 
-    subset HostName of Str where .chars <= 255 && rx:P5/[a-zA-Z0-9_\-.]*/;
-
     class CheckDomainAvailabilityResponse does AWS::SDK::Shape {
         has DomainAvailability $.availability is required is shape-member('Availability');
     }
@@ -203,7 +232,7 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
     }
 
     class GetDomainDetailResponse does AWS::SDK::Shape {
-        has Array[Str] $.status-list is shape-member('StatusList');
+        has Str @.status-list is shape-member('StatusList');
         has DateTime $.creation-date is shape-member('CreationDate');
         has Str $.registrar-url is shape-member('RegistrarUrl');
         has Str $.registrar-name is shape-member('RegistrarName');
@@ -223,7 +252,7 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has Bool $.registrant-privacy is shape-member('RegistrantPrivacy');
         has DateTime $.updated-date is shape-member('UpdatedDate');
         has Str $.reseller is shape-member('Reseller');
-        has Array[Nameserver] $.nameservers is required is shape-member('Nameservers');
+        has Nameserver @.nameservers is required is shape-member('Nameservers');
     }
 
     class ViewBillingRequest does AWS::SDK::Shape {
@@ -243,7 +272,7 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
     }
 
     class ListTagsForDomainResponse does AWS::SDK::Shape {
-        has Array[Tag] $.tag-list is required is shape-member('TagList');
+        has Tag @.tag-list is required is shape-member('TagList');
     }
 
     class DomainSuggestion does AWS::SDK::Shape {
@@ -251,12 +280,8 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has Str $.availability is shape-member('Availability');
     }
 
-    subset DurationInYears of Int where 1 <= * <= 10;
-
-    subset AddressLine of Str where .chars <= 255;
-
     class GetDomainSuggestionsResponse does AWS::SDK::Shape {
-        has Array[DomainSuggestion] $.suggestions-list is shape-member('SuggestionsList');
+        has DomainSuggestion @.suggestions-list is shape-member('SuggestionsList');
     }
 
     class TransferDomainResponse does AWS::SDK::Shape {
@@ -279,7 +304,7 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
     }
 
     class ViewBillingResponse does AWS::SDK::Shape {
-        has Array[BillingRecord] $.billing-records is shape-member('BillingRecords');
+        has BillingRecord @.billing-records is shape-member('BillingRecords');
         has PageMarker $.next-page-marker is shape-member('NextPageMarker');
     }
 
@@ -287,8 +312,6 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has Str $.value is shape-member('Value');
         has Str $.key is shape-member('Key');
     }
-
-    subset DomainAvailability of Str where $_ ~~ any('AVAILABLE', 'AVAILABLE_RESERVED', 'AVAILABLE_PREORDER', 'UNAVAILABLE', 'UNAVAILABLE_PREMIUM', 'UNAVAILABLE_RESTRICTED', 'RESERVED', 'DONT_KNOW');
 
     class ResendContactReachabilityEmailRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is shape-member('domainName');
@@ -305,20 +328,18 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has OperationId $.operation-id is required is shape-member('OperationId');
     }
 
-    subset OperationId of Str where .chars <= 255;
-
     class Nameserver does AWS::SDK::Shape {
-        has Array[GlueIp] $.glue-ips is shape-member('GlueIps');
+        has GlueIp @.glue-ips is shape-member('GlueIps');
         has HostName $.name is required is shape-member('Name');
     }
 
     class DeleteTagsForDomainRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
-        has Array[Str] $.tags-to-delete is required is shape-member('TagsToDelete');
+        has Str @.tags-to-delete is required is shape-member('TagsToDelete');
     }
 
     class ListDomainsResponse does AWS::SDK::Shape {
-        has Array[DomainSummary] $.domains is required is shape-member('Domains');
+        has DomainSummary @.domains is required is shape-member('Domains');
         has PageMarker $.next-page-marker is shape-member('NextPageMarker');
     }
 
@@ -327,10 +348,6 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has Bool $.only-available is required is shape-member('OnlyAvailable');
         has Int $.suggestion-count is required is shape-member('SuggestionCount');
     }
-
-    subset CountryCode of Str where $_ ~~ any('AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AN', 'AO', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AW', 'AZ', 'BA', 'BB', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BR', 'BS', 'BT', 'BW', 'BY', 'BZ', 'CA', 'CC', 'CD', 'CF', 'CG', 'CH', 'CI', 'CK', 'CL', 'CM', 'CN', 'CO', 'CR', 'CU', 'CV', 'CX', 'CY', 'CZ', 'DE', 'DJ', 'DK', 'DM', 'DO', 'DZ', 'EC', 'EE', 'EG', 'ER', 'ES', 'ET', 'FI', 'FJ', 'FK', 'FM', 'FO', 'FR', 'GA', 'GB', 'GD', 'GE', 'GH', 'GI', 'GL', 'GM', 'GN', 'GQ', 'GR', 'GT', 'GU', 'GW', 'GY', 'HK', 'HN', 'HR', 'HT', 'HU', 'ID', 'IE', 'IL', 'IM', 'IN', 'IQ', 'IR', 'IS', 'IT', 'JM', 'JO', 'JP', 'KE', 'KG', 'KH', 'KI', 'KM', 'KN', 'KP', 'KR', 'KW', 'KY', 'KZ', 'LA', 'LB', 'LC', 'LI', 'LK', 'LR', 'LS', 'LT', 'LU', 'LV', 'LY', 'MA', 'MC', 'MD', 'ME', 'MF', 'MG', 'MH', 'MK', 'ML', 'MM', 'MN', 'MO', 'MP', 'MR', 'MS', 'MT', 'MU', 'MV', 'MW', 'MX', 'MY', 'MZ', 'NA', 'NC', 'NE', 'NG', 'NI', 'NL', 'NO', 'NP', 'NR', 'NU', 'NZ', 'OM', 'PA', 'PE', 'PF', 'PG', 'PH', 'PK', 'PL', 'PM', 'PN', 'PR', 'PT', 'PW', 'PY', 'QA', 'RO', 'RS', 'RU', 'RW', 'SA', 'SB', 'SC', 'SD', 'SE', 'SG', 'SH', 'SI', 'SK', 'SL', 'SM', 'SN', 'SO', 'SR', 'ST', 'SV', 'SY', 'SZ', 'TC', 'TD', 'TG', 'TH', 'TJ', 'TK', 'TL', 'TM', 'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU', 'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW');
-
-    subset State of Str where .chars <= 255;
 
     class TransferDomainRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
@@ -344,7 +361,7 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has Bool $.privacy-protect-admin-contact is shape-member('PrivacyProtectAdminContact');
         has DomainAuthCode $.auth-code is shape-member('AuthCode');
         has DurationInYears $.duration-in-years is required is shape-member('DurationInYears');
-        has Array[Nameserver] $.nameservers is shape-member('Nameservers');
+        has Nameserver @.nameservers is shape-member('Nameservers');
     }
 
     class RegisterDomainResponse does AWS::SDK::Shape {
@@ -354,14 +371,6 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
     class OperationLimitExceeded does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset ExtraParamValue of Str where .chars <= 2048;
-
-    subset LangCode of Str where .chars <= 3;
-
-    subset City of Str where .chars <= 255;
-
-    subset ContactType of Str where $_ ~~ any('PERSON', 'COMPANY', 'ASSOCIATION', 'PUBLIC_BODY', 'RESELLER');
 
     class GetDomainDetailRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
@@ -379,11 +388,9 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has OperationId $.operation-id is required is shape-member('OperationId');
     }
 
-    subset ContactNumber of Str where .chars <= 30;
-
     class UpdateDomainNameserversRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
-        has Array[Nameserver] $.nameservers is required is shape-member('Nameservers');
+        has Nameserver @.nameservers is required is shape-member('Nameservers');
         has Str $.fi-auth-key is shape-member('FIAuthKey');
     }
 
@@ -397,15 +404,9 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has OperationId $.operation-id is required is shape-member('OperationId');
     }
 
-    subset GlueIp of Str where .chars <= 45;
-
-    subset DomainName of Str where .chars <= 255 && rx:P5/[a-zA-Z0-9_\-.]*/;
-
-    subset PageMarker of Str where .chars <= 4096;
-
     class UpdateTagsForDomainRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
-        has Array[Tag] $.tags-to-update is shape-member('TagsToUpdate');
+        has Tag @.tags-to-update is shape-member('TagsToUpdate');
     }
 
     class RetrieveDomainAuthCodeRequest does AWS::SDK::Shape {
@@ -453,13 +454,14 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
+
     method update-tags-for-domain(
         DomainName :$domain-name!,
-        Array[Tag] :$tags-to-update
+        Tag :@tags-to-update
     ) returns UpdateTagsForDomainResponse is service-operation('UpdateTagsForDomain') {
         my $request-input = UpdateTagsForDomainRequest.new(
             :$domain-name,
-            :$tags-to-update
+            :@tags-to-update
         );
 
         self.perform-operation(
@@ -525,7 +527,7 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
         Bool :$privacy-protect-admin-contact,
         DomainAuthCode :$auth-code,
         DurationInYears :$duration-in-years!,
-        Array[Nameserver] :$nameservers
+        Nameserver :@nameservers
     ) returns TransferDomainResponse is service-operation('TransferDomain') {
         my $request-input = TransferDomainRequest.new(
             :$domain-name,
@@ -539,7 +541,7 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
             :$privacy-protect-admin-contact,
             :$auth-code,
             :$duration-in-years,
-            :$nameservers
+            :@nameservers
         );
 
         self.perform-operation(
@@ -582,12 +584,12 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
 
     method update-domain-nameservers(
         DomainName :$domain-name!,
-        Array[Nameserver] :$nameservers!,
+        Nameserver :@nameservers!,
         Str :$fi-auth-key
     ) returns UpdateDomainNameserversResponse is service-operation('UpdateDomainNameservers') {
         my $request-input = UpdateDomainNameserversRequest.new(
             :$domain-name,
-            :$nameservers,
+            :@nameservers,
             :$fi-auth-key
         );
 
@@ -642,11 +644,11 @@ class AWS::SDK::Service::Route53Domains does AWS::SDK::Service {
 
     method delete-tags-for-domain(
         DomainName :$domain-name!,
-        Array[Str] :$tags-to-delete!
+        Str :@tags-to-delete!
     ) returns DeleteTagsForDomainResponse is service-operation('DeleteTagsForDomain') {
         my $request-input = DeleteTagsForDomainRequest.new(
             :$domain-name,
-            :$tags-to-delete
+            :@tags-to-delete
         );
 
         self.perform-operation(

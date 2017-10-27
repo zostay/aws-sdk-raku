@@ -97,22 +97,71 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     class DeleteStackRequest { ... }
     class DeleteDirectoryConfigResult { ... }
 
+    subset ImageState of Str where $_ eq any('PENDING', 'AVAILABLE', 'FAILED', 'DELETING');
+
+    subset AccountPassword of Str where 1 <= .chars <= 127;
+
+    subset StorageConnectorType of Str where $_ eq any('HOMEFOLDERS');
+
+    subset Description of Str where .chars <= 256;
+
+    subset FleetAttribute of Str where $_ eq any('VPC_CONFIGURATION', 'VPC_CONFIGURATION_SECURITY_GROUP_IDS', 'DOMAIN_JOIN_INFO');
+
+    subset OrganizationalUnitDistinguishedName of Str where .chars <= 2000;
+
+    subset StackErrorCode of Str where $_ eq any('STORAGE_CONNECTOR_ERROR', 'INTERNAL_SERVICE_ERROR');
+
+    subset DisplayName of Str where .chars <= 100;
+
+    subset ImageStateChangeReasonCode of Str where $_ eq any('INTERNAL_ERROR', 'IMAGE_BUILDER_NOT_AVAILABLE');
+
+    subset ImageBuilderState of Str where $_ eq any('PENDING', 'RUNNING', 'STOPPING', 'STOPPED', 'REBOOTING', 'SNAPSHOTTING', 'DELETING', 'FAILED');
+
+    subset SecurityGroupIdList of Array[String] where *.elems <= 5;
+
+    subset String of Str where 1 <= .chars;
+
+    subset UserId of Str where 2 <= .chars <= 32;
+
+    subset Arn of Str where rx:P5/^arn:aws:[A-Za-z0-9][A-Za-z0-9_\/.-]{0,62}:[A-Za-z0-9_\/.-]{0,63}:[A-Za-z0-9_\/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_\/+=,@.-]{0,1023}$/;
+
+    subset FleetErrorCode of Str where $_ eq any('IAM_SERVICE_ROLE_MISSING_ENI_DESCRIBE_ACTION', 'IAM_SERVICE_ROLE_MISSING_ENI_CREATE_ACTION', 'IAM_SERVICE_ROLE_MISSING_ENI_DELETE_ACTION', 'NETWORK_INTERFACE_LIMIT_EXCEEDED', 'INTERNAL_SERVICE_ERROR', 'IAM_SERVICE_ROLE_IS_MISSING', 'SUBNET_HAS_INSUFFICIENT_IP_ADDRESSES', 'IAM_SERVICE_ROLE_MISSING_DESCRIBE_SUBNET_ACTION', 'SUBNET_NOT_FOUND', 'IMAGE_NOT_FOUND', 'INVALID_SUBNET_CONFIGURATION', 'SECURITY_GROUPS_NOT_FOUND', 'IGW_NOT_ATTACHED', 'IAM_SERVICE_ROLE_MISSING_DESCRIBE_SECURITY_GROUPS_ACTION', 'DOMAIN_JOIN_ERROR_FILE_NOT_FOUND', 'DOMAIN_JOIN_ERROR_ACCESS_DENIED', 'DOMAIN_JOIN_ERROR_LOGON_FAILURE', 'DOMAIN_JOIN_ERROR_INVALID_PARAMETER', 'DOMAIN_JOIN_ERROR_MORE_DATA', 'DOMAIN_JOIN_ERROR_NO_SUCH_DOMAIN', 'DOMAIN_JOIN_ERROR_NOT_SUPPORTED', 'DOMAIN_JOIN_NERR_INVALID_WORKGROUP_NAME', 'DOMAIN_JOIN_NERR_WORKSTATION_NOT_STARTED', 'DOMAIN_JOIN_ERROR_DS_MACHINE_ACCOUNT_QUOTA_EXCEEDED', 'DOMAIN_JOIN_NERR_PASSWORD_EXPIRED', 'DOMAIN_JOIN_INTERNAL_SERVICE_ERROR');
+
+    subset VisibilityType of Str where $_ eq any('PUBLIC', 'PRIVATE');
+
+    subset SessionState of Str where $_ eq any('ACTIVE', 'PENDING', 'EXPIRED');
+
+    subset ResourceIdentifier of Str where 1 <= .chars;
+
+    subset AccountName of Str where 1 <= .chars;
+
+    subset ImageBuilderStateChangeReasonCode of Str where $_ eq any('INTERNAL_ERROR', 'IMAGE_UNAVAILABLE');
+
+    subset StreamingUrlUserId of Str where 2 <= .chars <= 32 && rx:P5/[\w+=,.@-]*/;
+
+    subset FleetState of Str where $_ eq any('STARTING', 'RUNNING', 'STOPPING', 'STOPPED');
+
+    subset FleetType of Str where $_ eq any('ALWAYS_ON', 'ON_DEMAND');
+
+    subset AuthenticationType of Str where $_ eq any('API', 'SAML', 'USERPOOL');
+
+    subset Name of Str where rx:P5/^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,100}$/;
+
+    subset PlatformType of Str where $_ eq any('WINDOWS');
+
+
     class AssociateFleetRequest does AWS::SDK::Shape {
         has String $.stack-name is required is shape-member('StackName');
         has String $.fleet-name is required is shape-member('FleetName');
     }
 
-    subset ImageState of Str where $_ ~~ any('PENDING', 'AVAILABLE', 'FAILED', 'DELETING');
-
     class DescribeImagesRequest does AWS::SDK::Shape {
-        has Array[String] $.names is shape-member('Names');
+        has String @.names is shape-member('Names');
     }
 
     class DeleteImageBuilderRequest does AWS::SDK::Shape {
         has Name $.name is required is shape-member('Name');
     }
-
-    subset AccountPassword of Str where 1 <= .chars <= 127;
 
     class DisassociateFleetResult does AWS::SDK::Shape {
     }
@@ -123,25 +172,19 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     }
 
     class ListAssociatedStacksResult does AWS::SDK::Shape {
-        has Array[String] $.names is shape-member('Names');
+        has String @.names is shape-member('Names');
         has String $.next-token is shape-member('NextToken');
     }
-
-    subset StorageConnectorType of Str where $_ ~~ any('HOMEFOLDERS');
 
     class DescribeFleetsRequest does AWS::SDK::Shape {
-        has Array[String] $.names is shape-member('Names');
+        has String @.names is shape-member('Names');
         has String $.next-token is shape-member('NextToken');
     }
-
-    subset Description of Str where .chars <= 256;
 
     class DomainJoinInfo does AWS::SDK::Shape {
         has Str $.directory-name is shape-member('DirectoryName');
         has OrganizationalUnitDistinguishedName $.organizational-unit-distinguished-name is shape-member('OrganizationalUnitDistinguishedName');
     }
-
-    subset FleetAttribute of Str where $_ ~~ any('VPC_CONFIGURATION', 'VPC_CONFIGURATION_SECURITY_GROUP_IDS', 'DOMAIN_JOIN_INFO');
 
     class StackError does AWS::SDK::Shape {
         has String $.error-message is shape-member('ErrorMessage');
@@ -158,14 +201,12 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
 
     class VpcConfig does AWS::SDK::Shape {
         has SecurityGroupIdList $.security-group-ids is shape-member('SecurityGroupIds');
-        has Array[String] $.subnet-ids is shape-member('SubnetIds');
+        has String @.subnet-ids is shape-member('SubnetIds');
     }
-
-    subset OrganizationalUnitDistinguishedName of Str where .chars <= 2000;
 
     class DescribeDirectoryConfigsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Str] $.directory-names is shape-member('DirectoryNames');
+        has Str @.directory-names is shape-member('DirectoryNames');
         has String $.next-token is shape-member('NextToken');
     }
 
@@ -180,8 +221,6 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     class ResourceNotAvailableException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset StackErrorCode of Str where $_ ~~ any('STORAGE_CONNECTOR_ERROR', 'INTERNAL_SERVICE_ERROR');
 
     class DeleteImageRequest does AWS::SDK::Shape {
         has Name $.name is required is shape-member('Name');
@@ -207,7 +246,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     }
 
     class DescribeStacksRequest does AWS::SDK::Shape {
-        has Array[String] $.names is shape-member('Names');
+        has String @.names is shape-member('Names');
         has String $.next-token is shape-member('NextToken');
     }
 
@@ -223,16 +262,12 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     }
 
     class DescribeStacksResult does AWS::SDK::Shape {
-        has Array[Stack] $.stacks is shape-member('Stacks');
+        has Stack @.stacks is shape-member('Stacks');
         has String $.next-token is shape-member('NextToken');
     }
 
-    subset DisplayName of Str where .chars <= 100;
-
-    subset ImageStateChangeReasonCode of Str where $_ ~~ any('INTERNAL_ERROR', 'IMAGE_BUILDER_NOT_AVAILABLE');
-
     class DescribeSessionsResult does AWS::SDK::Shape {
-        has Array[Session] $.sessions is shape-member('Sessions');
+        has Session @.sessions is shape-member('Sessions');
         has String $.next-token is shape-member('NextToken');
     }
 
@@ -249,7 +284,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     }
 
     class ListAssociatedFleetsResult does AWS::SDK::Shape {
-        has Array[String] $.names is shape-member('Names');
+        has String @.names is shape-member('Names');
         has String $.next-token is shape-member('NextToken');
     }
 
@@ -261,21 +296,13 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has String $.session-id is required is shape-member('SessionId');
     }
 
-    subset ImageBuilderState of Str where $_ ~~ any('PENDING', 'RUNNING', 'STOPPING', 'STOPPED', 'REBOOTING', 'SNAPSHOTTING', 'DELETING', 'FAILED');
-
-    subset SecurityGroupIdList of Array[String] where *.elems <= 5;
-
     class UpdateStackRequest does AWS::SDK::Shape {
         has DisplayName $.display-name is shape-member('DisplayName');
         has Description $.description is shape-member('Description');
-        has Array[StorageConnector] $.storage-connectors is shape-member('StorageConnectors');
+        has StorageConnector @.storage-connectors is shape-member('StorageConnectors');
         has String $.name is required is shape-member('Name');
         has Bool $.delete-storage-connectors is shape-member('DeleteStorageConnectors');
     }
-
-    subset String of Str where 1 <= .chars;
-
-    subset UserId of Str where 2 <= .chars <= 32;
 
     class StopFleetRequest does AWS::SDK::Shape {
         has String $.name is required is shape-member('Name');
@@ -306,7 +333,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     }
 
     class DescribeImagesResult does AWS::SDK::Shape {
-        has Array[Image] $.images is shape-member('Images');
+        has Image @.images is shape-member('Images');
     }
 
     class Session does AWS::SDK::Shape {
@@ -328,7 +355,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
 
     class DescribeImageBuildersRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[String] $.names is shape-member('Names');
+        has String @.names is shape-member('Names');
         has String $.next-token is shape-member('NextToken');
     }
 
@@ -346,14 +373,8 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has Bool $.enable-default-internet-access is shape-member('EnableDefaultInternetAccess');
     }
 
-    subset Arn of Str where rx:P5/^arn:aws:[A-Za-z0-9][A-Za-z0-9_\/.-]{0,62}:[A-Za-z0-9_\/.-]{0,63}:[A-Za-z0-9_\/.-]{0,63}:[A-Za-z0-9][A-Za-z0-9:_\/+=,@.-]{0,1023}$/;
-
-    subset FleetErrorCode of Str where $_ ~~ any('IAM_SERVICE_ROLE_MISSING_ENI_DESCRIBE_ACTION', 'IAM_SERVICE_ROLE_MISSING_ENI_CREATE_ACTION', 'IAM_SERVICE_ROLE_MISSING_ENI_DELETE_ACTION', 'NETWORK_INTERFACE_LIMIT_EXCEEDED', 'INTERNAL_SERVICE_ERROR', 'IAM_SERVICE_ROLE_IS_MISSING', 'SUBNET_HAS_INSUFFICIENT_IP_ADDRESSES', 'IAM_SERVICE_ROLE_MISSING_DESCRIBE_SUBNET_ACTION', 'SUBNET_NOT_FOUND', 'IMAGE_NOT_FOUND', 'INVALID_SUBNET_CONFIGURATION', 'SECURITY_GROUPS_NOT_FOUND', 'IGW_NOT_ATTACHED', 'IAM_SERVICE_ROLE_MISSING_DESCRIBE_SECURITY_GROUPS_ACTION', 'DOMAIN_JOIN_ERROR_FILE_NOT_FOUND', 'DOMAIN_JOIN_ERROR_ACCESS_DENIED', 'DOMAIN_JOIN_ERROR_LOGON_FAILURE', 'DOMAIN_JOIN_ERROR_INVALID_PARAMETER', 'DOMAIN_JOIN_ERROR_MORE_DATA', 'DOMAIN_JOIN_ERROR_NO_SUCH_DOMAIN', 'DOMAIN_JOIN_ERROR_NOT_SUPPORTED', 'DOMAIN_JOIN_NERR_INVALID_WORKGROUP_NAME', 'DOMAIN_JOIN_NERR_WORKSTATION_NOT_STARTED', 'DOMAIN_JOIN_ERROR_DS_MACHINE_ACCOUNT_QUOTA_EXCEEDED', 'DOMAIN_JOIN_NERR_PASSWORD_EXPIRED', 'DOMAIN_JOIN_INTERNAL_SERVICE_ERROR');
-
-    subset VisibilityType of Str where $_ ~~ any('PUBLIC', 'PRIVATE');
-
     class DescribeFleetsResult does AWS::SDK::Shape {
-        has Array[Fleet] $.fleets is shape-member('Fleets');
+        has Fleet @.fleets is shape-member('Fleets');
         has String $.next-token is shape-member('NextToken');
     }
 
@@ -385,7 +406,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has String $.image-name is shape-member('ImageName');
         has VpcConfig $.vpc-config is shape-member('VpcConfig');
         has String $.name is required is shape-member('Name');
-        has Array[FleetAttribute] $.attributes-to-delete is shape-member('AttributesToDelete');
+        has FleetAttribute @.attributes-to-delete is shape-member('AttributesToDelete');
         has String $.instance-type is shape-member('InstanceType');
         has Bool $.enable-default-internet-access is shape-member('EnableDefaultInternetAccess');
     }
@@ -401,7 +422,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     class Application does AWS::SDK::Shape {
         has String $.icon-url is shape-member('IconURL');
         has String $.display-name is shape-member('DisplayName');
-        has Hash[String, String] $.metadata is shape-member('Metadata');
+        has String %.metadata{String} is shape-member('Metadata');
         has Bool $.enabled is shape-member('Enabled');
         has String $.name is shape-member('Name');
         has String $.launch-path is shape-member('LaunchPath');
@@ -412,12 +433,10 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset SessionState of Str where $_ ~~ any('ACTIVE', 'PENDING', 'EXPIRED');
-
     class CreateStackRequest does AWS::SDK::Shape {
         has DisplayName $.display-name is shape-member('DisplayName');
         has Description $.description is shape-member('Description');
-        has Array[StorageConnector] $.storage-connectors is shape-member('StorageConnectors');
+        has StorageConnector @.storage-connectors is shape-member('StorageConnectors');
         has String $.name is required is shape-member('Name');
     }
 
@@ -429,8 +448,6 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has String $.fleet-name is required is shape-member('FleetName');
     }
 
-    subset ResourceIdentifier of Str where 1 <= .chars;
-
     class UpdateStackResult does AWS::SDK::Shape {
         has Stack $.stack is shape-member('Stack');
     }
@@ -441,19 +458,13 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
 
     class DescribeImageBuildersResult does AWS::SDK::Shape {
         has String $.next-token is shape-member('NextToken');
-        has Array[ImageBuilder] $.image-builders is shape-member('ImageBuilders');
+        has ImageBuilder @.image-builders is shape-member('ImageBuilders');
     }
-
-    subset AccountName of Str where 1 <= .chars;
 
     class DescribeDirectoryConfigsResult does AWS::SDK::Shape {
-        has Array[DirectoryConfig] $.directory-configs is shape-member('DirectoryConfigs');
+        has DirectoryConfig @.directory-configs is shape-member('DirectoryConfigs');
         has String $.next-token is shape-member('NextToken');
     }
-
-    subset ImageBuilderStateChangeReasonCode of Str where $_ ~~ any('INTERNAL_ERROR', 'IMAGE_UNAVAILABLE');
-
-    subset StreamingUrlUserId of Str where 2 <= .chars <= 32 && rx:P5/[\w+=,.@-]*/;
 
     class DescribeSessionsRequest does AWS::SDK::Shape {
         has AuthenticationType $.authentication-type is shape-member('AuthenticationType');
@@ -463,10 +474,6 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has UserId $.user-id is shape-member('UserId');
         has String $.fleet-name is required is shape-member('FleetName');
     }
-
-    subset FleetState of Str where $_ ~~ any('STARTING', 'RUNNING', 'STOPPING', 'STOPPED');
-
-    subset FleetType of Str where $_ ~~ any('ALWAYS_ON', 'ON_DEMAND');
 
     class ResourceInUseException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -481,8 +488,6 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has ImageBuilder $.image-builder is shape-member('ImageBuilder');
     }
 
-    subset AuthenticationType of Str where $_ ~~ any('API', 'SAML', 'USERPOOL');
-
     class DisassociateFleetRequest does AWS::SDK::Shape {
         has String $.stack-name is required is shape-member('StackName');
         has String $.fleet-name is required is shape-member('FleetName');
@@ -492,7 +497,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has String $.display-name is shape-member('DisplayName');
         has Arn $.arn is shape-member('Arn');
         has Arn $.base-image-arn is shape-member('BaseImageArn');
-        has Array[Application] $.applications is shape-member('Applications');
+        has Application @.applications is shape-member('Applications');
         has String $.description is shape-member('Description');
         has PlatformType $.platform is shape-member('Platform');
         has DateTime $.public-base-image-released-date is shape-member('PublicBaseImageReleasedDate');
@@ -506,7 +511,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
 
     class UpdateDirectoryConfigRequest does AWS::SDK::Shape {
         has Str $.directory-name is required is shape-member('DirectoryName');
-        has Array[OrganizationalUnitDistinguishedName] $.organizational-unit-distinguished-names is shape-member('OrganizationalUnitDistinguishedNames');
+        has OrganizationalUnitDistinguishedName @.organizational-unit-distinguished-names is shape-member('OrganizationalUnitDistinguishedNames');
         has ServiceAccountCredentials $.service-account-credentials is shape-member('ServiceAccountCredentials');
     }
 
@@ -532,13 +537,13 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
 
     class DirectoryConfig does AWS::SDK::Shape {
         has Str $.directory-name is required is shape-member('DirectoryName');
-        has Array[OrganizationalUnitDistinguishedName] $.organizational-unit-distinguished-names is shape-member('OrganizationalUnitDistinguishedNames');
+        has OrganizationalUnitDistinguishedName @.organizational-unit-distinguished-names is shape-member('OrganizationalUnitDistinguishedNames');
         has ServiceAccountCredentials $.service-account-credentials is shape-member('ServiceAccountCredentials');
         has DateTime $.created-time is shape-member('CreatedTime');
     }
 
     class Fleet does AWS::SDK::Shape {
-        has Array[FleetError] $.fleet-errors is shape-member('FleetErrors');
+        has FleetError @.fleet-errors is shape-member('FleetErrors');
         has String $.display-name is shape-member('DisplayName');
         has Arn $.arn is required is shape-member('Arn');
         has DomainJoinInfo $.domain-join-info is shape-member('DomainJoinInfo');
@@ -562,11 +567,11 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     }
 
     class Stack does AWS::SDK::Shape {
-        has Array[StackError] $.stack-errors is shape-member('StackErrors');
+        has StackError @.stack-errors is shape-member('StackErrors');
         has String $.display-name is shape-member('DisplayName');
         has Arn $.arn is shape-member('Arn');
         has String $.description is shape-member('Description');
-        has Array[StorageConnector] $.storage-connectors is shape-member('StorageConnectors');
+        has StorageConnector @.storage-connectors is shape-member('StorageConnectors');
         has String $.name is required is shape-member('Name');
         has DateTime $.created-time is shape-member('CreatedTime');
     }
@@ -575,11 +580,9 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has String $.name is required is shape-member('Name');
     }
 
-    subset Name of Str where rx:P5/^[a-zA-Z0-9][a-zA-Z0-9_.-]{0,100}$/;
-
     class CreateDirectoryConfigRequest does AWS::SDK::Shape {
         has Str $.directory-name is required is shape-member('DirectoryName');
-        has Array[OrganizationalUnitDistinguishedName] $.organizational-unit-distinguished-names is required is shape-member('OrganizationalUnitDistinguishedNames');
+        has OrganizationalUnitDistinguishedName @.organizational-unit-distinguished-names is required is shape-member('OrganizationalUnitDistinguishedNames');
         has ServiceAccountCredentials $.service-account-credentials is required is shape-member('ServiceAccountCredentials');
     }
 
@@ -601,7 +604,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has ImageBuilderState $.state is shape-member('State');
         has VpcConfig $.vpc-config is shape-member('VpcConfig');
         has String $.name is required is shape-member('Name');
-        has Array[ResourceError] $.image-builder-errors is shape-member('ImageBuilderErrors');
+        has ResourceError @.image-builder-errors is shape-member('ImageBuilderErrors');
         has String $.instance-type is shape-member('InstanceType');
         has DateTime $.created-time is shape-member('CreatedTime');
         has Bool $.enable-default-internet-access is shape-member('EnableDefaultInternetAccess');
@@ -620,14 +623,13 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         has AccountName $.account-name is required is shape-member('AccountName');
     }
 
-    subset PlatformType of Str where $_ ~~ any('WINDOWS');
-
     class DeleteStackRequest does AWS::SDK::Shape {
         has String $.name is required is shape-member('Name');
     }
 
     class DeleteDirectoryConfigResult does AWS::SDK::Shape {
     }
+
 
     method describe-sessions(
         AuthenticationType :$authentication-type,
@@ -682,12 +684,12 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
 
     method describe-directory-configs(
         Int :$max-results,
-        Array[Str] :$directory-names,
+        Str :@directory-names,
         String :$next-token
     ) returns DescribeDirectoryConfigsResult is service-operation('DescribeDirectoryConfigs') {
         my $request-input = DescribeDirectoryConfigsRequest.new(
             :$max-results,
-            :$directory-names,
+            :@directory-names,
             :$next-token
         );
 
@@ -713,13 +715,13 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     method create-stack(
         DisplayName :$display-name,
         Description :$description,
-        Array[StorageConnector] :$storage-connectors,
+        StorageConnector :@storage-connectors,
         String :$name!
     ) returns CreateStackResult is service-operation('CreateStack') {
         my $request-input = CreateStackRequest.new(
             :$display-name,
             :$description,
-            :$storage-connectors,
+            :@storage-connectors,
             :$name
         );
 
@@ -732,14 +734,14 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     method update-stack(
         DisplayName :$display-name,
         Description :$description,
-        Array[StorageConnector] :$storage-connectors,
+        StorageConnector :@storage-connectors,
         String :$name!,
         Bool :$delete-storage-connectors
     ) returns UpdateStackResult is service-operation('UpdateStack') {
         my $request-input = UpdateStackRequest.new(
             :$display-name,
             :$description,
-            :$storage-connectors,
+            :@storage-connectors,
             :$name,
             :$delete-storage-connectors
         );
@@ -820,12 +822,12 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
 
     method create-directory-config(
         Str :$directory-name!,
-        Array[OrganizationalUnitDistinguishedName] :$organizational-unit-distinguished-names!,
+        OrganizationalUnitDistinguishedName :@organizational-unit-distinguished-names!,
         ServiceAccountCredentials :$service-account-credentials!
     ) returns CreateDirectoryConfigResult is service-operation('CreateDirectoryConfig') {
         my $request-input = CreateDirectoryConfigRequest.new(
             :$directory-name,
-            :$organizational-unit-distinguished-names,
+            :@organizational-unit-distinguished-names,
             :$service-account-credentials
         );
 
@@ -846,7 +848,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
         String :$image-name,
         VpcConfig :$vpc-config,
         String :$name!,
-        Array[FleetAttribute] :$attributes-to-delete,
+        FleetAttribute :@attributes-to-delete,
         String :$instance-type,
         Bool :$enable-default-internet-access
     ) returns UpdateFleetResult is service-operation('UpdateFleet') {
@@ -861,7 +863,7 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
             :$image-name,
             :$vpc-config,
             :$name,
-            :$attributes-to-delete,
+            :@attributes-to-delete,
             :$instance-type,
             :$enable-default-internet-access
         );
@@ -947,10 +949,10 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     }
 
     method describe-images(
-        Array[String] :$names
+        String :@names
     ) returns DescribeImagesResult is service-operation('DescribeImages') {
         my $request-input = DescribeImagesRequest.new(
-            :$names
+            :@names
         );
 
         self.perform-operation(
@@ -961,12 +963,12 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
 
     method describe-image-builders(
         Int :$max-results,
-        Array[String] :$names,
+        String :@names,
         String :$next-token
     ) returns DescribeImageBuildersResult is service-operation('DescribeImageBuilders') {
         my $request-input = DescribeImageBuildersRequest.new(
             :$max-results,
-            :$names,
+            :@names,
             :$next-token
         );
 
@@ -977,11 +979,11 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     }
 
     method describe-fleets(
-        Array[String] :$names,
+        String :@names,
         String :$next-token
     ) returns DescribeFleetsResult is service-operation('DescribeFleets') {
         my $request-input = DescribeFleetsRequest.new(
-            :$names,
+            :@names,
             :$next-token
         );
 
@@ -1044,12 +1046,12 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
 
     method update-directory-config(
         Str :$directory-name!,
-        Array[OrganizationalUnitDistinguishedName] :$organizational-unit-distinguished-names,
+        OrganizationalUnitDistinguishedName :@organizational-unit-distinguished-names,
         ServiceAccountCredentials :$service-account-credentials
     ) returns UpdateDirectoryConfigResult is service-operation('UpdateDirectoryConfig') {
         my $request-input = UpdateDirectoryConfigRequest.new(
             :$directory-name,
-            :$organizational-unit-distinguished-names,
+            :@organizational-unit-distinguished-names,
             :$service-account-credentials
         );
 
@@ -1103,11 +1105,11 @@ class AWS::SDK::Service::AppStream does AWS::SDK::Service {
     }
 
     method describe-stacks(
-        Array[String] :$names,
+        String :@names,
         String :$next-token
     ) returns DescribeStacksResult is service-operation('DescribeStacks') {
         my $request-input = DescribeStacksRequest.new(
-            :$names,
+            :@names,
             :$next-token
         );
 

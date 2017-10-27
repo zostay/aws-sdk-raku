@@ -64,6 +64,17 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     class ResolveCaseResponse { ... }
     class AddCommunicationToCaseRequest { ... }
 
+    subset ServiceCodeList of Array[Str] where 0 <= *.elems <= 100;
+
+    subset CaseIdList of Array[Str] where 0 <= *.elems <= 100;
+
+    subset CcEmailAddressList of Array[Str] where 0 <= *.elems <= 10;
+
+    subset CommunicationBody of Str where 1 <= .chars <= 8000;
+
+    subset MaxResults of Int where 10 <= * <= 100;
+
+
     class DescribeAttachmentRequest does AWS::SDK::Shape {
         has Str $.attachment-id is required is shape-member('attachmentId');
     }
@@ -97,7 +108,7 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     }
 
     class TrustedAdvisorCheckDescription does AWS::SDK::Shape {
-        has Array[Str] $.metadata is required is shape-member('metadata');
+        has Str @.metadata is required is shape-member('metadata');
         has Str $.name is required is shape-member('name');
         has Str $.category is required is shape-member('category');
         has Str $.id is required is shape-member('id');
@@ -106,30 +117,24 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
 
     class AddAttachmentsToSetRequest does AWS::SDK::Shape {
         has Str $.attachment-set-id is shape-member('attachmentSetId');
-        has Array[Attachment] $.attachments is required is shape-member('attachments');
+        has Attachment @.attachments is required is shape-member('attachments');
     }
 
     class DescribeTrustedAdvisorCheckRefreshStatusesResponse does AWS::SDK::Shape {
-        has Array[TrustedAdvisorCheckRefreshStatus] $.statuses is required is shape-member('statuses');
+        has TrustedAdvisorCheckRefreshStatus @.statuses is required is shape-member('statuses');
     }
 
     class DescribeTrustedAdvisorChecksResponse does AWS::SDK::Shape {
-        has Array[TrustedAdvisorCheckDescription] $.checks is required is shape-member('checks');
+        has TrustedAdvisorCheckDescription @.checks is required is shape-member('checks');
     }
 
     class DescribeTrustedAdvisorChecksRequest does AWS::SDK::Shape {
         has Str $.language is required is shape-member('language');
     }
 
-    subset ServiceCodeList of Array[Str] where 0 <= *.elems <= 100;
-
     class DescribeTrustedAdvisorCheckResultResponse does AWS::SDK::Shape {
         has TrustedAdvisorCheckResult $.result is shape-member('result');
     }
-
-    subset CaseIdList of Array[Str] where 0 <= *.elems <= 100;
-
-    subset CcEmailAddressList of Array[Str] where 0 <= *.elems <= 10;
 
     class TrustedAdvisorCheckRefreshStatus does AWS::SDK::Shape {
         has Str $.status is required is shape-member('status');
@@ -138,7 +143,7 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     }
 
     class DescribeServicesResponse does AWS::SDK::Shape {
-        has Array[Service] $.services is shape-member('services');
+        has Service @.services is shape-member('services');
     }
 
     class AddCommunicationToCaseResponse does AWS::SDK::Shape {
@@ -175,13 +180,13 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
         has Str $.status is required is shape-member('status');
         has Str $.timestamp is required is shape-member('timestamp');
         has Str $.check-id is required is shape-member('checkId');
-        has Array[TrustedAdvisorResourceDetail] $.flagged-resources is required is shape-member('flaggedResources');
+        has TrustedAdvisorResourceDetail @.flagged-resources is required is shape-member('flaggedResources');
         has TrustedAdvisorCategorySpecificSummary $.category-specific-summary is required is shape-member('categorySpecificSummary');
         has TrustedAdvisorResourcesSummary $.resources-summary is required is shape-member('resourcesSummary');
     }
 
     class TrustedAdvisorResourceDetail does AWS::SDK::Shape {
-        has Array[Str] $.metadata is required is shape-member('metadata');
+        has Str @.metadata is required is shape-member('metadata');
         has Str $.status is required is shape-member('status');
         has Bool $.is-suppressed is shape-member('isSuppressed');
         has Str $.region is shape-member('region');
@@ -209,7 +214,7 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
 
     class DescribeCasesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[CaseDetails] $.cases is shape-member('cases');
+        has CaseDetails @.cases is shape-member('cases');
     }
 
     class AttachmentDetails does AWS::SDK::Shape {
@@ -218,7 +223,7 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     }
 
     class DescribeTrustedAdvisorCheckSummariesRequest does AWS::SDK::Shape {
-        has Array[Str] $.check-ids is required is shape-member('checkIds');
+        has Str @.check-ids is required is shape-member('checkIds');
     }
 
     class AttachmentSetExpired does AWS::SDK::Shape {
@@ -226,14 +231,12 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     }
 
     class DescribeTrustedAdvisorCheckRefreshStatusesRequest does AWS::SDK::Shape {
-        has Array[Str] $.check-ids is required is shape-member('checkIds');
+        has Str @.check-ids is required is shape-member('checkIds');
     }
 
     class TrustedAdvisorCategorySpecificSummary does AWS::SDK::Shape {
         has TrustedAdvisorCostOptimizingSummary $.cost-optimizing is shape-member('costOptimizing');
     }
-
-    subset CommunicationBody of Str where 1 <= .chars <= 8000;
 
     class DescribeCasesRequest does AWS::SDK::Shape {
         has Str $.language is shape-member('language');
@@ -248,14 +251,12 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     }
 
     class DescribeTrustedAdvisorCheckSummariesResponse does AWS::SDK::Shape {
-        has Array[TrustedAdvisorCheckSummary] $.summaries is required is shape-member('summaries');
+        has TrustedAdvisorCheckSummary @.summaries is required is shape-member('summaries');
     }
 
     class DescribeAttachmentLimitExceeded does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset MaxResults of Int where 10 <= * <= 100;
 
     class InternalServerError does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -263,7 +264,7 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
 
     class Communication does AWS::SDK::Shape {
         has CommunicationBody $.body is shape-member('body');
-        has Array[AttachmentDetails] $.attachment-set is shape-member('attachmentSet');
+        has AttachmentDetails @.attachment-set is shape-member('attachmentSet');
         has Str $.submitted-by is shape-member('submittedBy');
         has Str $.time-created is shape-member('timeCreated');
         has Str $.case-id is shape-member('caseId');
@@ -292,7 +293,7 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
 
     class RecentCaseCommunications does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Communication] $.communications is shape-member('communications');
+        has Communication @.communications is shape-member('communications');
     }
 
     class RefreshTrustedAdvisorCheckResponse does AWS::SDK::Shape {
@@ -310,7 +311,7 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
 
     class DescribeCommunicationsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Communication] $.communications is shape-member('communications');
+        has Communication @.communications is shape-member('communications');
     }
 
     class Attachment does AWS::SDK::Shape {
@@ -325,7 +326,7 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     class Service does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
         has Str $.code is shape-member('code');
-        has Array[Category] $.categories is shape-member('categories');
+        has Category @.categories is shape-member('categories');
     }
 
     class AttachmentSetIdNotFound does AWS::SDK::Shape {
@@ -338,7 +339,7 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     }
 
     class DescribeSeverityLevelsResponse does AWS::SDK::Shape {
-        has Array[SeverityLevel] $.severity-levels is shape-member('severityLevels');
+        has SeverityLevel @.severity-levels is shape-member('severityLevels');
     }
 
     class TrustedAdvisorCheckSummary does AWS::SDK::Shape {
@@ -361,6 +362,7 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
         has CommunicationBody $.communication-body is required is shape-member('communicationBody');
         has Str $.case-id is shape-member('caseId');
     }
+
 
     method describe-services(
         Str :$language,
@@ -425,10 +427,10 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     }
 
     method describe-trusted-advisor-check-summaries(
-        Array[Str] :$check-ids!
+        Str :@check-ids!
     ) returns DescribeTrustedAdvisorCheckSummariesResponse is service-operation('DescribeTrustedAdvisorCheckSummaries') {
         my $request-input = DescribeTrustedAdvisorCheckSummariesRequest.new(
-            :$check-ids
+            :@check-ids
         );
 
         self.perform-operation(
@@ -509,11 +511,11 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
 
     method add-attachments-to-set(
         Str :$attachment-set-id,
-        Array[Attachment] :$attachments!
+        Attachment :@attachments!
     ) returns AddAttachmentsToSetResponse is service-operation('AddAttachmentsToSet') {
         my $request-input = AddAttachmentsToSetRequest.new(
             :$attachment-set-id,
-            :$attachments
+            :@attachments
         );
 
         self.perform-operation(
@@ -565,10 +567,10 @@ class AWS::SDK::Service::Support does AWS::SDK::Service {
     }
 
     method describe-trusted-advisor-check-refresh-statuses(
-        Array[Str] :$check-ids!
+        Str :@check-ids!
     ) returns DescribeTrustedAdvisorCheckRefreshStatusesResponse is service-operation('DescribeTrustedAdvisorCheckRefreshStatuses') {
         my $request-input = DescribeTrustedAdvisorCheckRefreshStatusesRequest.new(
-            :$check-ids
+            :@check-ids
         );
 
         self.perform-operation(

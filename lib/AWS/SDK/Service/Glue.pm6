@@ -236,6 +236,121 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     class Segment { ... }
     class GetJobRequest { ... }
 
+    subset CommentString of Str where 0 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
+
+    subset TotalSegmentsInteger of Int where 1 <= * <= 10;
+
+    subset IntegerFlag of Int where 0 <= * <= 1;
+
+    subset LastCrawlStatus of Str where $_ eq any('SUCCEEDED', 'CANCELLED', 'FAILED');
+
+    subset TableTypeString of Str where .chars <= 255;
+
+    subset DeleteConnectionNameList of Array[NameString] where 0 <= *.elems <= 25;
+
+    subset DescriptionStringRemovable of Str where 0 <= .chars <= 2048 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset MessagePrefix of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
+
+    subset NameString of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
+
+    subset IdString of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
+
+    subset FormatString of Str where .chars <= 128 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
+
+    subset CrawlerState of Str where $_ eq any('READY', 'RUNNING', 'STOPPING');
+
+    subset TablePrefix of Str where 0 <= .chars <= 128;
+
+    subset NonNegativeDouble of Numeric where 0 <= *;
+
+    subset BatchDeleteTableNameList of Array[NameString] where 0 <= *.elems <= 100;
+
+    subset CustomPatterns of Str where 0 <= .chars <= 16000 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset LocationString of Str where .chars <= 2056 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset SecurityGroupIdList of Array[NameString] where 0 <= *.elems <= 50;
+
+    subset ResourceType of Str where $_ eq any('JAR', 'FILE', 'ARCHIVE');
+
+    subset ViewTextString of Str where .chars <= 2048;
+
+    subset BoundedPartitionValueList of Array[ValueString] where 0 <= *.elems <= 100;
+
+    subset PrincipalType of Str where $_ eq any('USER', 'ROLE', 'GROUP');
+
+    subset URI of Str where 1 <= .chars <= 1024 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset ConnectionProperties of Hash[ValueString, ConnectionPropertyKey] where 0 <= *.elems <= 100;
+
+    subset CrawlerNameList of Array[NameString] where 0 <= *.elems <= 100;
+
+    subset BatchDeletePartitionValueList of Array[PartitionValueList] where 0 <= *.elems <= 25;
+
+    subset ScheduleState of Str where $_ eq any('SCHEDULED', 'NOT_SCHEDULED', 'TRANSITIONING');
+
+    subset CatalogIdString of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
+
+    subset KeyString of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
+
+    subset TriggerType of Str where $_ eq any('SCHEDULED', 'CONDITIONAL', 'ON_DEMAND');
+
+    subset UpdateBehavior of Str where $_ eq any('LOG', 'UPDATE_IN_DATABASE');
+
+    subset GrokPattern of Str where 1 <= .chars <= 2048 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\t]*/;
+
+    subset ResourceUriList of Array[ResourceUri] where 0 <= *.elems <= 1000;
+
+    subset ConnectionType of Str where $_ eq any('JDBC', 'SFTP');
+
+    subset ParametersMapValue of Str where .chars <= 51200;
+
+    subset LogStream of Str where 1 <= .chars <= 512 && rx:P5/[^:*]*/;
+
+    subset DescriptionString of Str where 0 <= .chars <= 2048 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset VersionString of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
+
+    subset TriggerState of Str where $_ eq any('CREATING', 'CREATED', 'ACTIVATING', 'ACTIVATED', 'DEACTIVATING', 'DEACTIVATED', 'DELETING', 'UPDATING');
+
+    subset PredicateString of Str where 0 <= .chars <= 2048 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset PageSize of Int where 1 <= * <= 1000;
+
+    subset DeleteBehavior of Str where $_ eq any('LOG', 'DELETE_FROM_DATABASE', 'DEPRECATE_IN_DATABASE');
+
+    subset RoleArn of Str where rx:P5/arn:aws:iam::\d{12}:role\/.*/;
+
+    subset NonNegativeInteger of Int where 0 <= *;
+
+    subset FilterString of Str where 0 <= .chars <= 2048 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
+
+    subset Logical of Str where $_ eq any('AND');
+
+    subset CodeGenNodeArgs of Array[CodeGenNodeArg] where 0 <= *.elems <= 50;
+
+    subset CodeGenIdentifier of Str where 1 <= .chars <= 255 && rx:P5/[A-Za-z_][A-Za-z0-9_]*/;
+
+    subset ConnectionPropertyKey of Str where $_ eq any('HOST', 'PORT', 'USERNAME', 'PASSWORD', 'JDBC_DRIVER_JAR_URI', 'JDBC_DRIVER_CLASS_NAME', 'JDBC_ENGINE', 'JDBC_ENGINE_VERSION', 'CONFIG_FILES', 'INSTANCE_ID', 'JDBC_CONNECTION_URL');
+
+    subset BatchGetPartitionValueList of Array[PartitionValueList] where 0 <= *.elems <= 1000;
+
+    subset MatchCriteria of Array[NameString] where 0 <= *.elems <= 10;
+
+    subset JobRunState of Str where $_ eq any('STARTING', 'RUNNING', 'STOPPING', 'STOPPED', 'SUCCEEDED', 'FAILED');
+
+    subset LogGroup of Str where 1 <= .chars <= 512 && rx:P5/[\.\-_\/#A-Za-z0-9]+/;
+
+    subset LogicalOperator of Str where $_ eq any('EQUALS');
+
+    subset ColumnTypeString of Str where 0 <= .chars <= 131072 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
+
+    subset ValueString of Str where .chars <= 1024;
+
+    subset PartitionInputList of Array[PartitionInput] where 0 <= *.elems <= 100;
+
+
     class UpdateTableResponse does AWS::SDK::Shape {
     }
 
@@ -246,8 +361,6 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     class StartCrawlerScheduleRequest does AWS::SDK::Shape {
         has NameString $.crawler-name is required is shape-member('CrawlerName');
     }
-
-    subset CommentString of Str where 0 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
 
     class DeleteDevEndpointResponse does AWS::SDK::Shape {
     }
@@ -268,18 +381,16 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class CreateScriptRequest does AWS::SDK::Shape {
-        has Array[CodeGenEdge] $.dag-edges is shape-member('DagEdges');
-        has Array[CodeGenNode] $.dag-nodes is shape-member('DagNodes');
+        has CodeGenEdge @.dag-edges is shape-member('DagEdges');
+        has CodeGenNode @.dag-nodes is shape-member('DagNodes');
     }
 
     class CreateTriggerResponse does AWS::SDK::Shape {
         has NameString $.name is shape-member('Name');
     }
 
-    subset TotalSegmentsInteger of Int where 1 <= * <= 10;
-
     class GetJobRunsResponse does AWS::SDK::Shape {
-        has Array[JobRun] $.job-runs is shape-member('JobRuns');
+        has JobRun @.job-runs is shape-member('JobRuns');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -293,15 +404,13 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has CodeGenIdentifier $.target is required is shape-member('Target');
     }
 
-    subset IntegerFlag of Int where 0 <= * <= 1;
-
     class GetCrawlerResponse does AWS::SDK::Shape {
         has Crawler $.crawler is shape-member('Crawler');
     }
 
     class GetMappingRequest does AWS::SDK::Shape {
         has CatalogEntry $.source is required is shape-member('Source');
-        has Array[CatalogEntry] $.sinks is shape-member('Sinks');
+        has CatalogEntry @.sinks is shape-member('Sinks');
         has Location $.location is shape-member('Location');
     }
 
@@ -343,16 +452,10 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class SkewedInfo does AWS::SDK::Shape {
-        has Array[Str] $.skewed-column-values is shape-member('SkewedColumnValues');
-        has Hash[Str, Str] $.skewed-column-value-location-maps is shape-member('SkewedColumnValueLocationMaps');
-        has Array[NameString] $.skewed-column-names is shape-member('SkewedColumnNames');
+        has Str @.skewed-column-values is shape-member('SkewedColumnValues');
+        has Str %.skewed-column-value-location-maps{Str} is shape-member('SkewedColumnValueLocationMaps');
+        has NameString @.skewed-column-names is shape-member('SkewedColumnNames');
     }
-
-    subset LastCrawlStatus of Str where $_ ~~ any('SUCCEEDED', 'CANCELLED', 'FAILED');
-
-    subset TableTypeString of Str where .chars <= 255;
-
-    subset DeleteConnectionNameList of Array[NameString] where 0 <= *.elems <= 25;
 
     class GetTablesRequest does AWS::SDK::Shape {
         has PageSize $.max-results is shape-member('MaxResults');
@@ -368,14 +471,12 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
 
     class GetTablesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Table] $.table-list is shape-member('TableList');
+        has Table @.table-list is shape-member('TableList');
     }
 
-    subset DescriptionStringRemovable of Str where 0 <= .chars <= 2048 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class CrawlerTargets does AWS::SDK::Shape {
-        has Array[JdbcTarget] $.jdbc-targets is shape-member('JdbcTargets');
-        has Array[S3Target] $.s3-targets is shape-member('S3Targets');
+        has JdbcTarget @.jdbc-targets is shape-member('JdbcTargets');
+        has S3Target @.s3-targets is shape-member('S3Targets');
     }
 
     class CreateTableRequest does AWS::SDK::Shape {
@@ -384,8 +485,6 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has CatalogIdString $.catalog-id is shape-member('CatalogId');
     }
 
-    subset MessagePrefix of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
-
     class UpdateCrawlerRequest does AWS::SDK::Shape {
         has SchemaChangePolicy $.schema-change-policy is shape-member('SchemaChangePolicy');
         has TablePrefix $.table-prefix is shape-member('TablePrefix');
@@ -393,7 +492,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has RoleArn $.role is shape-member('Role');
         has DescriptionStringRemovable $.description is shape-member('Description');
         has Str $.database-name is shape-member('DatabaseName');
-        has Array[NameString] $.classifiers is shape-member('Classifiers');
+        has NameString @.classifiers is shape-member('Classifiers');
         has NameString $.name is required is shape-member('Name');
         has CrawlerTargets $.targets is shape-member('Targets');
     }
@@ -409,7 +508,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class GetDevEndpointsResponse does AWS::SDK::Shape {
-        has Array[DevEndpoint] $.dev-endpoints is shape-member('DevEndpoints');
+        has DevEndpoint @.dev-endpoints is shape-member('DevEndpoints');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -426,7 +525,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class GetTableVersionsResponse does AWS::SDK::Shape {
-        has Array[TableVersion] $.table-versions is shape-member('TableVersions');
+        has TableVersion @.table-versions is shape-member('TableVersions');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -442,7 +541,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has ConnectionType $.connection-type is shape-member('ConnectionType');
         has MatchCriteria $.match-criteria is shape-member('MatchCriteria');
         has DescriptionString $.description is shape-member('Description');
-        has ConnectionProperties $.connection-properties is shape-member('ConnectionProperties');
+        has ValueString $.connection-properties{ConnectionPropertyKey} is shape-member('ConnectionProperties');
         has NameString $.name is shape-member('Name');
         has PhysicalConnectionRequirements $.physical-connection-requirements is shape-member('PhysicalConnectionRequirements');
     }
@@ -485,22 +584,20 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset NameString of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
-
     class BatchDeletePartitionResponse does AWS::SDK::Shape {
-        has Array[PartitionError] $.errors is shape-member('Errors');
+        has PartitionError @.errors is shape-member('Errors');
     }
 
     class DatabaseInput does AWS::SDK::Shape {
         has URI $.location-uri is shape-member('LocationUri');
         has DescriptionString $.description is shape-member('Description');
-        has Hash[ParametersMapValue, KeyString] $.parameters is shape-member('Parameters');
+        has ParametersMapValue %.parameters{KeyString} is shape-member('Parameters');
         has NameString $.name is required is shape-member('Name');
     }
 
     class GetUserDefinedFunctionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[UserDefinedFunction] $.user-defined-functions is shape-member('UserDefinedFunctions');
+        has UserDefinedFunction @.user-defined-functions is shape-member('UserDefinedFunctions');
     }
 
     class GetUserDefinedFunctionResponse does AWS::SDK::Shape {
@@ -508,7 +605,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class GetClassifiersResponse does AWS::SDK::Shape {
-        has Array[Classifier] $.classifiers is shape-member('Classifiers');
+        has Classifier @.classifiers is shape-member('Classifiers');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -516,14 +613,10 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has CatalogImportStatus $.import-status is shape-member('ImportStatus');
     }
 
-    subset IdString of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
-
     class GetDatabasesResponse does AWS::SDK::Shape {
-        has Array[Database] $.database-list is required is shape-member('DatabaseList');
+        has Database @.database-list is required is shape-member('DatabaseList');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset FormatString of Str where .chars <= 128 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
 
     class StopTriggerResponse does AWS::SDK::Shape {
         has NameString $.name is shape-member('Name');
@@ -531,15 +624,13 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
 
     class GetCrawlersResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Crawler] $.crawlers is shape-member('Crawlers');
+        has Crawler @.crawlers is shape-member('Crawlers');
     }
 
     class BatchDeleteConnectionResponse does AWS::SDK::Shape {
-        has Hash[ErrorDetail, NameString] $.errors is shape-member('Errors');
-        has Array[NameString] $.succeeded is shape-member('Succeeded');
+        has ErrorDetail %.errors{NameString} is shape-member('Errors');
+        has NameString @.succeeded is shape-member('Succeeded');
     }
-
-    subset CrawlerState of Str where $_ ~~ any('READY', 'RUNNING', 'STOPPING');
 
     class GetConnectionRequest does AWS::SDK::Shape {
         has CatalogIdString $.catalog-id is shape-member('CatalogId');
@@ -547,7 +638,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class DevEndpoint does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has DateTime $.last-modified-timestamp is shape-member('LastModifiedTimestamp');
         has Str $.failure-reason is shape-member('FailureReason');
         has Str $.vpc-id is shape-member('VpcId');
@@ -592,22 +683,18 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has NameString $.job-name is shape-member('JobName');
     }
 
-    subset TablePrefix of Str where 0 <= .chars <= 128;
-
     class InternalServiceException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
 
     class JdbcTarget does AWS::SDK::Shape {
-        has Array[Str] $.exclusions is shape-member('Exclusions');
+        has Str @.exclusions is shape-member('Exclusions');
         has Str $.connection-name is shape-member('ConnectionName');
         has Str $.path is shape-member('Path');
     }
 
-    subset NonNegativeDouble of Numeric where 0 <= *;
-
     class PartitionError does AWS::SDK::Shape {
-        has Array[ValueString] $.partition-values is shape-member('PartitionValues');
+        has ValueString @.partition-values is shape-member('PartitionValues');
         has ErrorDetail $.error-detail is shape-member('ErrorDetail');
     }
 
@@ -639,7 +726,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     class Trigger does AWS::SDK::Shape {
         has Str $.schedule is shape-member('Schedule');
         has DescriptionString $.description is shape-member('Description');
-        has Array[Action] $.actions is shape-member('Actions');
+        has Action @.actions is shape-member('Actions');
         has IdString $.id is shape-member('Id');
         has TriggerState $.state is shape-member('State');
         has NameString $.name is shape-member('Name');
@@ -685,18 +772,16 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has Str $.python-script is shape-member('PythonScript');
     }
 
-    subset BatchDeleteTableNameList of Array[NameString] where 0 <= *.elems <= 100;
-
     class PartitionValueList does AWS::SDK::Shape {
-        has Array[ValueString] $.values is required is shape-member('Values');
+        has ValueString @.values is required is shape-member('Values');
     }
 
     class TableInput does AWS::SDK::Shape {
-        has Array[Column] $.partition-keys is shape-member('PartitionKeys');
+        has Column @.partition-keys is shape-member('PartitionKeys');
         has DateTime $.last-access-time is shape-member('LastAccessTime');
         has NameString $.owner is shape-member('Owner');
         has DescriptionString $.description is shape-member('Description');
-        has Hash[ParametersMapValue, KeyString] $.parameters is shape-member('Parameters');
+        has ParametersMapValue %.parameters{KeyString} is shape-member('Parameters');
         has TableTypeString $.table-type is shape-member('TableType');
         has ViewTextString $.view-expanded-text is shape-member('ViewExpandedText');
         has NameString $.name is required is shape-member('Name');
@@ -723,17 +808,15 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has NameString $.name is required is shape-member('Name');
     }
 
-    subset CustomPatterns of Str where 0 <= .chars <= 16000 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class Table does AWS::SDK::Shape {
-        has Array[Column] $.partition-keys is shape-member('PartitionKeys');
+        has Column @.partition-keys is shape-member('PartitionKeys');
         has DateTime $.last-access-time is shape-member('LastAccessTime');
         has NameString $.owner is shape-member('Owner');
         has NameString $.created-by is shape-member('CreatedBy');
         has DateTime $.update-time is shape-member('UpdateTime');
         has DescriptionString $.description is shape-member('Description');
         has NameString $.database-name is shape-member('DatabaseName');
-        has Hash[ParametersMapValue, KeyString] $.parameters is shape-member('Parameters');
+        has ParametersMapValue %.parameters{KeyString} is shape-member('Parameters');
         has TableTypeString $.table-type is shape-member('TableType');
         has ViewTextString $.view-expanded-text is shape-member('ViewExpandedText');
         has NameString $.name is required is shape-member('Name');
@@ -757,12 +840,8 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has UserDefinedFunctionInput $.function-input is required is shape-member('FunctionInput');
     }
 
-    subset LocationString of Str where .chars <= 2056 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
-    subset SecurityGroupIdList of Array[NameString] where 0 <= *.elems <= 50;
-
     class GetJobsResponse does AWS::SDK::Shape {
-        has Array[Job] $.jobs is shape-member('Jobs');
+        has Job @.jobs is shape-member('Jobs');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -773,7 +852,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class ConnectionsList does AWS::SDK::Shape {
-        has Array[Str] $.connections is shape-member('Connections');
+        has Str @.connections is shape-member('Connections');
     }
 
     class CrawlerNotRunningException does AWS::SDK::Shape {
@@ -784,16 +863,8 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has NameString $.name is required is shape-member('Name');
     }
 
-    subset ResourceType of Str where $_ ~~ any('JAR', 'FILE', 'ARCHIVE');
-
-    subset ViewTextString of Str where .chars <= 2048;
-
-    subset BoundedPartitionValueList of Array[ValueString] where 0 <= *.elems <= 100;
-
     class CreateTableResponse does AWS::SDK::Shape {
     }
-
-    subset PrincipalType of Str where $_ ~~ any('USER', 'ROLE', 'GROUP');
 
     class UpdateClassifierResponse does AWS::SDK::Shape {
     }
@@ -805,7 +876,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has DescriptionString $.description is shape-member('Description');
         has DateTime $.last-updated-time is shape-member('LastUpdatedTime');
         has DateTime $.creation-time is shape-member('CreationTime');
-        has ConnectionProperties $.connection-properties is shape-member('ConnectionProperties');
+        has ValueString $.connection-properties{ConnectionPropertyKey} is shape-member('ConnectionProperties');
         has NameString $.name is shape-member('Name');
         has PhysicalConnectionRequirements $.physical-connection-requirements is shape-member('PhysicalConnectionRequirements');
     }
@@ -816,14 +887,14 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     class Database does AWS::SDK::Shape {
         has URI $.location-uri is shape-member('LocationUri');
         has DescriptionString $.description is shape-member('Description');
-        has Hash[ParametersMapValue, KeyString] $.parameters is shape-member('Parameters');
+        has ParametersMapValue %.parameters{KeyString} is shape-member('Parameters');
         has NameString $.name is required is shape-member('Name');
         has DateTime $.create-time is shape-member('CreateTime');
     }
 
     class GetDataflowGraphResponse does AWS::SDK::Shape {
-        has Array[CodeGenEdge] $.dag-edges is shape-member('DagEdges');
-        has Array[CodeGenNode] $.dag-nodes is shape-member('DagNodes');
+        has CodeGenEdge @.dag-edges is shape-member('DagEdges');
+        has CodeGenNode @.dag-nodes is shape-member('DagNodes');
     }
 
     class CreateGrokClassifierRequest does AWS::SDK::Shape {
@@ -855,7 +926,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class GetTriggersResponse does AWS::SDK::Shape {
-        has Array[Trigger] $.triggers is shape-member('Triggers');
+        has Trigger @.triggers is shape-member('Triggers');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -866,7 +937,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class Action does AWS::SDK::Shape {
-        has Hash[Str, Str] $.arguments is shape-member('Arguments');
+        has Str %.arguments{Str} is shape-member('Arguments');
         has NameString $.job-name is shape-member('JobName');
     }
 
@@ -892,7 +963,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class GetMappingResponse does AWS::SDK::Shape {
-        has Array[MappingEntry] $.mapping is required is shape-member('Mapping');
+        has MappingEntry @.mapping is required is shape-member('Mapping');
     }
 
     class Predecessor does AWS::SDK::Shape {
@@ -901,7 +972,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class StartJobRunRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.arguments is shape-member('Arguments');
+        has Str %.arguments{Str} is shape-member('Arguments');
         has NameString $.job-name is required is shape-member('JobName');
         has Int $.allocated-capacity is shape-member('AllocatedCapacity');
         has IdString $.job-run-id is shape-member('JobRunId');
@@ -926,17 +997,15 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class GetConnectionsResponse does AWS::SDK::Shape {
-        has Array[Connection] $.connection-list is shape-member('ConnectionList');
+        has Connection @.connection-list is shape-member('ConnectionList');
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset URI of Str where 1 <= .chars <= 1024 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class GetPlanRequest does AWS::SDK::Shape {
         has CatalogEntry $.source is required is shape-member('Source');
-        has Array[CatalogEntry] $.sinks is shape-member('Sinks');
+        has CatalogEntry @.sinks is shape-member('Sinks');
         has Location $.location is shape-member('Location');
-        has Array[MappingEntry] $.mapping is required is shape-member('Mapping');
+        has MappingEntry @.mapping is required is shape-member('Mapping');
     }
 
     class GetJobRunResponse does AWS::SDK::Shape {
@@ -945,20 +1014,12 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
 
     class GetCrawlerMetricsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[CrawlerMetrics] $.crawler-metrics-list is shape-member('CrawlerMetricsList');
+        has CrawlerMetrics @.crawler-metrics-list is shape-member('CrawlerMetricsList');
     }
 
     class GetCatalogImportStatusRequest does AWS::SDK::Shape {
         has CatalogIdString $.catalog-id is shape-member('CatalogId');
     }
-
-    subset ConnectionProperties of Hash[ValueString, ConnectionPropertyKey] where 0 <= *.elems <= 100;
-
-    subset CrawlerNameList of Array[NameString] where 0 <= *.elems <= 100;
-
-    subset BatchDeletePartitionValueList of Array[PartitionValueList] where 0 <= *.elems <= 25;
-
-    subset ScheduleState of Str where $_ ~~ any('SCHEDULED', 'NOT_SCHEDULED', 'TRANSITIONING');
 
     class ErrorDetail does AWS::SDK::Shape {
         has DescriptionString $.error-message is shape-member('ErrorMessage');
@@ -968,18 +1029,12 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     class UpdateDevEndpointResponse does AWS::SDK::Shape {
     }
 
-    subset CatalogIdString of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
-
     class BatchGetPartitionRequest does AWS::SDK::Shape {
         has NameString $.table-name is required is shape-member('TableName');
         has NameString $.database-name is required is shape-member('DatabaseName');
         has CatalogIdString $.catalog-id is shape-member('CatalogId');
         has BatchGetPartitionValueList $.partitions-to-get is required is shape-member('PartitionsToGet');
     }
-
-    subset KeyString of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
-
-    subset TriggerType of Str where $_ ~~ any('SCHEDULED', 'CONDITIONAL', 'ON_DEMAND');
 
     class GetConnectionsRequest does AWS::SDK::Shape {
         has PageSize $.max-results is shape-member('MaxResults');
@@ -1005,12 +1060,8 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has NameString $.database-name is required is shape-member('DatabaseName');
     }
 
-    subset UpdateBehavior of Str where $_ ~~ any('LOG', 'UPDATE_IN_DATABASE');
-
     class UpdateCrawlerResponse does AWS::SDK::Shape {
     }
-
-    subset GrokPattern of Str where 1 <= .chars <= 2048 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\t]*/;
 
     class ExecutionProperty does AWS::SDK::Shape {
         has Int $.max-concurrent-runs is shape-member('MaxConcurrentRuns');
@@ -1076,8 +1127,6 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has NameString $.availability-zone is shape-member('AvailabilityZone');
     }
 
-    subset ResourceUriList of Array[ResourceUri] where 0 <= *.elems <= 1000;
-
     class CreateDatabaseRequest does AWS::SDK::Shape {
         has DatabaseInput $.database-input is required is shape-member('DatabaseInput');
         has CatalogIdString $.catalog-id is shape-member('CatalogId');
@@ -1092,15 +1141,11 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
 
     class Predicate does AWS::SDK::Shape {
         has Logical $.logical is shape-member('Logical');
-        has Array[Condition] $.conditions is shape-member('Conditions');
+        has Condition @.conditions is shape-member('Conditions');
     }
-
-    subset ConnectionType of Str where $_ ~~ any('JDBC', 'SFTP');
 
     class DeleteConnectionResponse does AWS::SDK::Shape {
     }
-
-    subset ParametersMapValue of Str where .chars <= 51200;
 
     class SchedulerNotRunningException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -1131,17 +1176,13 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has Str $.endpoint-name is required is shape-member('EndpointName');
     }
 
-    subset LogStream of Str where 1 <= .chars <= 512 && rx:P5/[^:*]*/;
-
     class TriggerUpdate does AWS::SDK::Shape {
         has Str $.schedule is shape-member('Schedule');
         has DescriptionString $.description is shape-member('Description');
-        has Array[Action] $.actions is shape-member('Actions');
+        has Action @.actions is shape-member('Actions');
         has NameString $.name is shape-member('Name');
         has Predicate $.predicate is shape-member('Predicate');
     }
-
-    subset DescriptionString of Str where 0 <= .chars <= 2048 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class Job does AWS::SDK::Shape {
         has Int $.max-retries is shape-member('MaxRetries');
@@ -1150,7 +1191,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has DescriptionString $.description is shape-member('Description');
         has Str $.log-uri is shape-member('LogUri');
         has NameString $.name is shape-member('Name');
-        has Hash[Str, Str] $.default-arguments is shape-member('DefaultArguments');
+        has Str %.default-arguments{Str} is shape-member('DefaultArguments');
         has JobCommand $.command is shape-member('Command');
         has ExecutionProperty $.execution-property is shape-member('ExecutionProperty');
         has DateTime $.last-modified-on is shape-member('LastModifiedOn');
@@ -1160,10 +1201,8 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
 
     class GetPartitionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Partition] $.partitions is shape-member('Partitions');
+        has Partition @.partitions is shape-member('Partitions');
     }
-
-    subset VersionString of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
 
     class JobUpdate does AWS::SDK::Shape {
         has Int $.max-retries is shape-member('MaxRetries');
@@ -1171,16 +1210,14 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has ConnectionsList $.connections is shape-member('Connections');
         has DescriptionString $.description is shape-member('Description');
         has Str $.log-uri is shape-member('LogUri');
-        has Hash[Str, Str] $.default-arguments is shape-member('DefaultArguments');
+        has Str %.default-arguments{Str} is shape-member('DefaultArguments');
         has JobCommand $.command is shape-member('Command');
         has ExecutionProperty $.execution-property is shape-member('ExecutionProperty');
         has Int $.allocated-capacity is shape-member('AllocatedCapacity');
     }
 
-    subset TriggerState of Str where $_ ~~ any('CREATING', 'CREATED', 'ACTIVATING', 'ACTIVATED', 'DEACTIVATING', 'DEACTIVATED', 'DELETING', 'UPDATING');
-
     class BatchDeleteTableResponse does AWS::SDK::Shape {
-        has Array[TableError] $.errors is shape-member('Errors');
+        has TableError @.errors is shape-member('Errors');
     }
 
     class SchemaChangePolicy does AWS::SDK::Shape {
@@ -1192,11 +1229,11 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has NameString $.table-name is required is shape-member('TableName');
         has NameString $.database-name is required is shape-member('DatabaseName');
         has CatalogIdString $.catalog-id is shape-member('CatalogId');
-        has Array[ValueString] $.partition-values is required is shape-member('PartitionValues');
+        has ValueString @.partition-values is required is shape-member('PartitionValues');
     }
 
     class JobRun does AWS::SDK::Shape {
-        has Hash[Str, Str] $.arguments is shape-member('Arguments');
+        has Str %.arguments{Str} is shape-member('Arguments');
         has NameString $.trigger-name is shape-member('TriggerName');
         has IdString $.previous-run-id is shape-member('PreviousRunId');
         has DateTime $.started-on is shape-member('StartedOn');
@@ -1204,7 +1241,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has Str $.error-message is shape-member('ErrorMessage');
         has IdString $.id is shape-member('Id');
         has JobRunState $.job-run-state is shape-member('JobRunState');
-        has Array[Predecessor] $.predecessor-runs is shape-member('PredecessorRuns');
+        has Predecessor @.predecessor-runs is shape-member('PredecessorRuns');
         has DateTime $.last-modified-on is shape-member('LastModifiedOn');
         has NameString $.job-name is shape-member('JobName');
         has Int $.allocated-capacity is shape-member('AllocatedCapacity');
@@ -1212,7 +1249,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class SerDeInfo does AWS::SDK::Shape {
-        has Hash[ParametersMapValue, KeyString] $.parameters is shape-member('Parameters');
+        has ParametersMapValue %.parameters{KeyString} is shape-member('Parameters');
         has NameString $.serialization-library is shape-member('SerializationLibrary');
         has NameString $.name is shape-member('Name');
     }
@@ -1222,7 +1259,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class CreateDevEndpointRequest does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is required is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is required is shape-member('SecurityGroupIds');
         has Str $.subnet-id is required is shape-member('SubnetId');
         has Str $.extra-jars-s3-path is shape-member('ExtraJarsS3Path');
         has RoleArn $.role-arn is required is shape-member('RoleArn');
@@ -1236,10 +1273,8 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has NameString $.table-name is required is shape-member('TableName');
         has NameString $.database-name is required is shape-member('DatabaseName');
         has CatalogIdString $.catalog-id is shape-member('CatalogId');
-        has Array[ValueString] $.partition-values is required is shape-member('PartitionValues');
+        has ValueString @.partition-values is required is shape-member('PartitionValues');
     }
-
-    subset PredicateString of Str where 0 <= .chars <= 2048 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class GetClassifierRequest does AWS::SDK::Shape {
         has NameString $.name is required is shape-member('Name');
@@ -1250,10 +1285,8 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class BatchCreatePartitionResponse does AWS::SDK::Shape {
-        has Array[PartitionError] $.errors is shape-member('Errors');
+        has PartitionError @.errors is shape-member('Errors');
     }
-
-    subset PageSize of Int where 1 <= * <= 1000;
 
     class VersionMismatchException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -1285,14 +1318,10 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset DeleteBehavior of Str where $_ ~~ any('LOG', 'DELETE_FROM_DATABASE', 'DEPRECATE_IN_DATABASE');
-
     class ResourceUri does AWS::SDK::Shape {
         has URI $.uri is shape-member('Uri');
         has ResourceType $.resource-type is shape-member('ResourceType');
     }
-
-    subset RoleArn of Str where rx:P5/arn:aws:iam::\d{12}:role\/.*/;
 
     class UpdateConnectionRequest does AWS::SDK::Shape {
         has CatalogIdString $.catalog-id is shape-member('CatalogId');
@@ -1325,13 +1354,13 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has FormatString $.input-format is shape-member('InputFormat');
         has Int $.number-of-buckets is shape-member('NumberOfBuckets');
         has SkewedInfo $.skewed-info is shape-member('SkewedInfo');
-        has Hash[ParametersMapValue, KeyString] $.parameters is shape-member('Parameters');
-        has Array[NameString] $.bucket-columns is shape-member('BucketColumns');
+        has ParametersMapValue %.parameters{KeyString} is shape-member('Parameters');
+        has NameString @.bucket-columns is shape-member('BucketColumns');
         has Bool $.stored-as-sub-directories is shape-member('StoredAsSubDirectories');
         has LocationString $.location is shape-member('Location');
-        has Array[Order] $.sort-columns is shape-member('SortColumns');
+        has Order @.sort-columns is shape-member('SortColumns');
         has SerDeInfo $.serde-info is shape-member('SerdeInfo');
-        has Array[Column] $.columns is shape-member('Columns');
+        has Column @.columns is shape-member('Columns');
         has Bool $.compressed is shape-member('Compressed');
     }
 
@@ -1344,7 +1373,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has DescriptionString $.description is shape-member('Description');
         has Str $.database-name is shape-member('DatabaseName');
         has DateTime $.creation-time is shape-member('CreationTime');
-        has Array[NameString] $.classifiers is shape-member('Classifiers');
+        has NameString @.classifiers is shape-member('Classifiers');
         has Int $.version is shape-member('Version');
         has LastCrawlInfo $.last-crawl is shape-member('LastCrawl');
         has CrawlerState $.state is shape-member('State');
@@ -1357,12 +1386,6 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset NonNegativeInteger of Int where 0 <= *;
-
-    subset FilterString of Str where 0 <= .chars <= 2048 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
-
-    subset Logical of Str where $_ ~~ any('AND');
-
     class UpdateTriggerResponse does AWS::SDK::Shape {
         has Trigger $.trigger is shape-member('Trigger');
     }
@@ -1372,21 +1395,17 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has Str $.script-location is shape-member('ScriptLocation');
     }
 
-    subset CodeGenNodeArgs of Array[CodeGenNodeArg] where 0 <= *.elems <= 50;
-
     class DeleteTriggerResponse does AWS::SDK::Shape {
         has NameString $.name is shape-member('Name');
     }
 
     class PartitionInput does AWS::SDK::Shape {
         has DateTime $.last-access-time is shape-member('LastAccessTime');
-        has Array[ValueString] $.values is shape-member('Values');
-        has Hash[ParametersMapValue, KeyString] $.parameters is shape-member('Parameters');
+        has ValueString @.values is shape-member('Values');
+        has ParametersMapValue %.parameters{KeyString} is shape-member('Parameters');
         has StorageDescriptor $.storage-descriptor is shape-member('StorageDescriptor');
         has DateTime $.last-analyzed-time is shape-member('LastAnalyzedTime');
     }
-
-    subset CodeGenIdentifier of Str where 1 <= .chars <= 255 && rx:P5/[A-Za-z_][A-Za-z0-9_]*/;
 
     class DeleteClassifierResponse does AWS::SDK::Shape {
     }
@@ -1413,13 +1432,13 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has RoleArn $.role is required is shape-member('Role');
         has DescriptionString $.description is shape-member('Description');
         has Str $.database-name is required is shape-member('DatabaseName');
-        has Array[NameString] $.classifiers is shape-member('Classifiers');
+        has NameString @.classifiers is shape-member('Classifiers');
         has NameString $.name is required is shape-member('Name');
         has CrawlerTargets $.targets is required is shape-member('Targets');
     }
 
     class CreateDevEndpointResponse does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.failure-reason is shape-member('FailureReason');
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.subnet-id is shape-member('SubnetId');
@@ -1435,11 +1454,9 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     class S3Target does AWS::SDK::Shape {
-        has Array[Str] $.exclusions is shape-member('Exclusions');
+        has Str @.exclusions is shape-member('Exclusions');
         has Str $.path is shape-member('Path');
     }
-
-    subset ConnectionPropertyKey of Str where $_ ~~ any('HOST', 'PORT', 'USERNAME', 'PASSWORD', 'JDBC_DRIVER_JAR_URI', 'JDBC_DRIVER_CLASS_NAME', 'JDBC_ENGINE', 'JDBC_ENGINE_VERSION', 'CONFIG_FILES', 'INSTANCE_ID', 'JDBC_CONNECTION_URL');
 
     class GetJobsRequest does AWS::SDK::Shape {
         has PageSize $.max-results is shape-member('MaxResults');
@@ -1455,14 +1472,12 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has DateTime $.last-access-time is shape-member('LastAccessTime');
         has NameString $.table-name is shape-member('TableName');
         has NameString $.database-name is shape-member('DatabaseName');
-        has Array[ValueString] $.values is shape-member('Values');
-        has Hash[ParametersMapValue, KeyString] $.parameters is shape-member('Parameters');
+        has ValueString @.values is shape-member('Values');
+        has ParametersMapValue %.parameters{KeyString} is shape-member('Parameters');
         has DateTime $.creation-time is shape-member('CreationTime');
         has StorageDescriptor $.storage-descriptor is shape-member('StorageDescriptor');
         has DateTime $.last-analyzed-time is shape-member('LastAnalyzedTime');
     }
-
-    subset BatchGetPartitionValueList of Array[PartitionValueList] where 0 <= *.elems <= 1000;
 
     class OperationTimeoutException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -1482,13 +1497,11 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     class CreateTriggerRequest does AWS::SDK::Shape {
         has Str $.schedule is shape-member('Schedule');
         has DescriptionString $.description is shape-member('Description');
-        has Array[Action] $.actions is required is shape-member('Actions');
+        has Action @.actions is required is shape-member('Actions');
         has NameString $.name is required is shape-member('Name');
         has TriggerType $.type is required is shape-member('Type');
         has Predicate $.predicate is shape-member('Predicate');
     }
-
-    subset MatchCriteria of Array[NameString] where 0 <= *.elems <= 10;
 
     class ResetJobBookmarkRequest does AWS::SDK::Shape {
         has Str $.job-name is required is shape-member('JobName');
@@ -1505,7 +1518,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has DescriptionString $.description is shape-member('Description');
         has Str $.log-uri is shape-member('LogUri');
         has NameString $.name is required is shape-member('Name');
-        has Hash[Str, Str] $.default-arguments is shape-member('DefaultArguments');
+        has Str %.default-arguments{Str} is shape-member('DefaultArguments');
         has JobCommand $.command is required is shape-member('Command');
         has ExecutionProperty $.execution-property is shape-member('ExecutionProperty');
         has Int $.allocated-capacity is shape-member('AllocatedCapacity');
@@ -1514,8 +1527,6 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     class StopCrawlerRequest does AWS::SDK::Shape {
         has NameString $.name is required is shape-member('Name');
     }
-
-    subset JobRunState of Str where $_ ~~ any('STARTING', 'RUNNING', 'STOPPING', 'STOPPED', 'SUCCEEDED', 'FAILED');
 
     class GetTriggerResponse does AWS::SDK::Shape {
         has Trigger $.trigger is shape-member('Trigger');
@@ -1573,7 +1584,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
 
     class BatchGetPartitionResponse does AWS::SDK::Shape {
         has BatchGetPartitionValueList $.unprocessed-keys is shape-member('UnprocessedKeys');
-        has Array[Partition] $.partitions is shape-member('Partitions');
+        has Partition @.partitions is shape-member('Partitions');
     }
 
     class Schedule does AWS::SDK::Shape {
@@ -1581,20 +1592,10 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         has ScheduleState $.state is shape-member('State');
     }
 
-    subset LogGroup of Str where 1 <= .chars <= 512 && rx:P5/[\.\-_\/#A-Za-z0-9]+/;
-
-    subset LogicalOperator of Str where $_ ~~ any('EQUALS');
-
-    subset ColumnTypeString of Str where 0 <= .chars <= 131072 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\t]*/;
-
     class CreateConnectionRequest does AWS::SDK::Shape {
         has CatalogIdString $.catalog-id is shape-member('CatalogId');
         has ConnectionInput $.connection-input is required is shape-member('ConnectionInput');
     }
-
-    subset ValueString of Str where .chars <= 1024;
-
-    subset PartitionInputList of Array[PartitionInput] where 0 <= *.elems <= 100;
 
     class ResetJobBookmarkResponse does AWS::SDK::Shape {
         has JobBookmarkEntry $.job-bookmark-entry is shape-member('JobBookmarkEntry');
@@ -1608,6 +1609,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     class GetJobRequest does AWS::SDK::Shape {
         has NameString $.job-name is required is shape-member('JobName');
     }
+
 
     method update-dev-endpoint(
         Str :$public-key,
@@ -1719,7 +1721,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         RoleArn :$role!,
         DescriptionString :$description,
         Str :$database-name!,
-        Array[NameString] :$classifiers,
+        NameString :@classifiers,
         NameString :$name!,
         CrawlerTargets :$targets!
     ) returns CreateCrawlerResponse is service-operation('CreateCrawler') {
@@ -1730,7 +1732,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
             :$role,
             :$description,
             :$database-name,
-            :$classifiers,
+            :@classifiers,
             :$name,
             :$targets
         );
@@ -1745,13 +1747,13 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         NameString :$table-name!,
         NameString :$database-name!,
         CatalogIdString :$catalog-id,
-        Array[ValueString] :$partition-values!
+        ValueString :@partition-values!
     ) returns GetPartitionResponse is service-operation('GetPartition') {
         my $request-input = GetPartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
-            :$partition-values
+            :@partition-values
         );
 
         self.perform-operation(
@@ -1919,12 +1921,12 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     method create-script(
-        Array[CodeGenEdge] :$dag-edges,
-        Array[CodeGenNode] :$dag-nodes
+        CodeGenEdge :@dag-edges,
+        CodeGenNode :@dag-nodes
     ) returns CreateScriptResponse is service-operation('CreateScript') {
         my $request-input = CreateScriptRequest.new(
-            :$dag-edges,
-            :$dag-nodes
+            :@dag-edges,
+            :@dag-nodes
         );
 
         self.perform-operation(
@@ -1985,7 +1987,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         RoleArn :$role,
         DescriptionStringRemovable :$description,
         Str :$database-name,
-        Array[NameString] :$classifiers,
+        NameString :@classifiers,
         NameString :$name!,
         CrawlerTargets :$targets
     ) returns UpdateCrawlerResponse is service-operation('UpdateCrawler') {
@@ -1996,7 +1998,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
             :$role,
             :$description,
             :$database-name,
-            :$classifiers,
+            :@classifiers,
             :$name,
             :$targets
         );
@@ -2049,7 +2051,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     method create-dev-endpoint(
-        Array[Str] :$security-group-ids!,
+        Str :@security-group-ids!,
         Str :$subnet-id!,
         Str :$extra-jars-s3-path,
         RoleArn :$role-arn!,
@@ -2059,7 +2061,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         Str :$extra-python-libs-s3-path
     ) returns CreateDevEndpointResponse is service-operation('CreateDevEndpoint') {
         my $request-input = CreateDevEndpointRequest.new(
-            :$security-group-ids,
+            :@security-group-ids,
             :$subnet-id,
             :$extra-jars-s3-path,
             :$role-arn,
@@ -2216,7 +2218,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     method create-trigger(
         Str :$schedule,
         DescriptionString :$description,
-        Array[Action] :$actions!,
+        Action :@actions!,
         NameString :$name!,
         TriggerType :$type!,
         Predicate :$predicate
@@ -2224,7 +2226,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         my $request-input = CreateTriggerRequest.new(
             :$schedule,
             :$description,
-            :$actions,
+            :@actions,
             :$name,
             :$type,
             :$predicate
@@ -2438,13 +2440,13 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         NameString :$table-name!,
         NameString :$database-name!,
         CatalogIdString :$catalog-id,
-        Array[ValueString] :$partition-values!
+        ValueString :@partition-values!
     ) returns DeletePartitionResponse is service-operation('DeletePartition') {
         my $request-input = DeletePartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
-            :$partition-values
+            :@partition-values
         );
 
         self.perform-operation(
@@ -2487,12 +2489,12 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
 
     method get-mapping(
         CatalogEntry :$source!,
-        Array[CatalogEntry] :$sinks,
+        CatalogEntry :@sinks,
         Location :$location
     ) returns GetMappingResponse is service-operation('GetMapping') {
         my $request-input = GetMappingRequest.new(
             :$source,
-            :$sinks,
+            :@sinks,
             :$location
         );
 
@@ -2694,15 +2696,15 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
 
     method get-plan(
         CatalogEntry :$source!,
-        Array[CatalogEntry] :$sinks,
+        CatalogEntry :@sinks,
         Location :$location,
-        Array[MappingEntry] :$mapping!
+        MappingEntry :@mapping!
     ) returns GetPlanResponse is service-operation('GetPlan') {
         my $request-input = GetPlanRequest.new(
             :$source,
-            :$sinks,
+            :@sinks,
             :$location,
-            :$mapping
+            :@mapping
         );
 
         self.perform-operation(
@@ -2740,13 +2742,13 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
     }
 
     method start-job-run(
-        Hash[Str, Str] :$arguments,
+        Str :%arguments,
         NameString :$job-name!,
         Int :$allocated-capacity,
         IdString :$job-run-id
     ) returns StartJobRunResponse is service-operation('StartJobRun') {
         my $request-input = StartJobRunRequest.new(
-            :$arguments,
+            :%arguments,
             :$job-name,
             :$allocated-capacity,
             :$job-run-id
@@ -2780,7 +2782,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
         DescriptionString :$description,
         Str :$log-uri,
         NameString :$name!,
-        Hash[Str, Str] :$default-arguments,
+        Str :%default-arguments,
         JobCommand :$command!,
         ExecutionProperty :$execution-property,
         Int :$allocated-capacity
@@ -2792,7 +2794,7 @@ class AWS::SDK::Service::Glue does AWS::SDK::Service {
             :$description,
             :$log-uri,
             :$name,
-            :$default-arguments,
+            :%default-arguments,
             :$command,
             :$execution-property,
             :$allocated-capacity

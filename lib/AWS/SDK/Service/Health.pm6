@@ -43,6 +43,69 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
 
     subset eventTypeCode of Str where 3 <= .chars <= 100;
 
+    subset tagValue of Str where .chars <= 255;
+
+    subset regionList of Array[region] where 1 <= *.elems <= 10;
+
+    subset eventTypeList of Array[eventType] where 1 <= *.elems <= 10;
+
+    subset eventAggregateField of Str where $_ eq any('eventTypeCategory');
+
+    subset region of Str where rx:P5/[^:\/]{2,25}/;
+
+    subset nextToken of Str where rx:P5/[a-zA-Z0-9=\/+_.-]{4,512}/;
+
+    subset eventTypeCategory of Str where 3 <= .chars <= 255 && $_ eq any('issue', 'accountNotification', 'scheduledChange');
+
+    subset eventArnList of Array[eventArn] where 1 <= *.elems <= 10;
+
+    subset dateTimeRangeList of Array[DateTimeRange] where 1 <= *.elems <= 10;
+
+    subset accountId of Str where rx:P5/[0-9]{12}/;
+
+    subset serviceList of Array[service] where 1 <= *.elems <= 10;
+
+    subset eventType of Str where 3 <= .chars <= 100;
+
+    subset entityValueList of Array[entityValue] where 1 <= *.elems <= 100;
+
+    subset tagSet of Hash[tagValue, tagKey] where *.elems <= 50;
+
+    subset tagFilter of Array[tagSet] where *.elems <= 50;
+
+    subset eventStatusCodeList of Array[eventStatusCode] where 1 <= *.elems <= 6;
+
+    subset entityStatusCode of Str where $_ eq any('IMPAIRED', 'UNIMPAIRED', 'UNKNOWN');
+
+    subset EventTypeCodeList of Array[eventTypeCode] where 1 <= *.elems <= 10;
+
+    subset eventArn of Str where .chars <= 1600 && rx:P5/arn:aws:health:[^:]*:[^:]*:event\/[\w-]+/;
+
+    subset availabilityZone of Str where rx:P5/[a-z]{2}\-[0-9a-z\-]{4,16}/;
+
+    subset maxResults of Int where 10 <= * <= 100;
+
+    subset eventStatusCode of Str where $_ eq any('open', 'closed', 'upcoming');
+
+    subset entityValue of Str where .chars <= 256;
+
+    subset entityArn of Str where .chars <= 1600;
+
+    subset entityStatusCodeList of Array[entityStatusCode] where 1 <= *.elems <= 3;
+
+    subset tagKey of Str where .chars <= 127;
+
+    subset eventTypeCategoryList of Array[eventTypeCategory] where 1 <= *.elems <= 10;
+
+    subset EventTypeCategoryList of Array[eventTypeCategory] where 1 <= *.elems <= 10;
+
+    subset locale of Str where 2 <= .chars <= 256;
+
+    subset entityArnList of Array[entityArn] where 1 <= *.elems <= 100;
+
+    subset EventArnsList of Array[eventArn] where 1 <= *.elems <= 50;
+
+
     class DescribeAffectedEntitiesRequest does AWS::SDK::Shape {
         has EntityFilter $.filter is required is shape-member('filter');
         has maxResults $.max-results is shape-member('maxResults');
@@ -54,31 +117,13 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset tagValue of Str where .chars <= 255;
-
-    subset regionList of Array[region] where 1 <= *.elems <= 10;
-
-    subset eventTypeList of Array[eventType] where 1 <= *.elems <= 10;
-
-    subset eventAggregateField of Str where $_ ~~ any('eventTypeCategory');
-
     class EventDescription does AWS::SDK::Shape {
         has Str $.latest-description is shape-member('latestDescription');
     }
 
-    subset region of Str where rx:P5/[^:\/]{2,25}/;
-
-    subset nextToken of Str where rx:P5/[a-zA-Z0-9=\/+_.-]{4,512}/;
-
-    subset eventTypeCategory of Str where 3 <= .chars <= 255 && $_ ~~ any('issue', 'accountNotification', 'scheduledChange');
-
-    subset eventArnList of Array[eventArn] where 1 <= *.elems <= 10;
-
-    subset dateTimeRangeList of Array[DateTimeRange] where 1 <= *.elems <= 10;
-
     class DescribeEventDetailsResponse does AWS::SDK::Shape {
-        has Array[EventDetailsErrorItem] $.failed-set is shape-member('failedSet');
-        has Array[EventDetails] $.successful-set is shape-member('successfulSet');
+        has EventDetailsErrorItem @.failed-set is shape-member('failedSet');
+        has EventDetails @.successful-set is shape-member('successfulSet');
     }
 
     class EventAggregate does AWS::SDK::Shape {
@@ -90,7 +135,7 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
         has entityArnList $.entity-arns is shape-member('entityArns');
         has dateTimeRangeList $.last-updated-times is shape-member('lastUpdatedTimes');
         has dateTimeRangeList $.end-times is shape-member('endTimes');
-        has Array[availabilityZone] $.availability-zones is shape-member('availabilityZones');
+        has availabilityZone @.availability-zones is shape-member('availabilityZones');
         has tagFilter $.tags is shape-member('tags');
         has eventTypeCategoryList $.event-type-categories is shape-member('eventTypeCategories');
         has dateTimeRangeList $.start-times is shape-member('startTimes');
@@ -102,24 +147,16 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
         has eventArnList $.event-arns is shape-member('eventArns');
     }
 
-    subset accountId of Str where rx:P5/[0-9]{12}/;
-
     class DescribeEventTypesResponse does AWS::SDK::Shape {
         has nextToken $.next-token is shape-member('nextToken');
-        has Array[EventType] $.event-types is shape-member('eventTypes');
+        has EventType @.event-types is shape-member('eventTypes');
     }
-
-    subset serviceList of Array[service] where 1 <= *.elems <= 10;
-
-    subset eventType of Str where 3 <= .chars <= 100;
-
-    subset entityValueList of Array[entityValue] where 1 <= *.elems <= 100;
 
     class AffectedEntity does AWS::SDK::Shape {
         has entityValue $.entity-value is shape-member('entityValue');
         has entityArn $.entity-arn is shape-member('entityArn');
         has DateTime $.last-updated-time is shape-member('lastUpdatedTime');
-        has tagSet $.tags is shape-member('tags');
+        has tagValue $.tags{tagKey} is shape-member('tags');
         has entityStatusCode $.status-code is shape-member('statusCode');
         has accountId $.aws-account-id is shape-member('awsAccountId');
         has eventArn $.event-arn is shape-member('eventArn');
@@ -136,10 +173,8 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
         has eventArn $.event-arn is shape-member('eventArn');
     }
 
-    subset tagSet of Hash[tagValue, tagKey] where *.elems <= 50;
-
     class DescribeEventsResponse does AWS::SDK::Shape {
-        has Array[Event] $.events is shape-member('events');
+        has Event @.events is shape-member('events');
         has nextToken $.next-token is shape-member('nextToken');
     }
 
@@ -147,20 +182,10 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset tagFilter of Array[tagSet] where *.elems <= 50;
-
-    subset eventStatusCodeList of Array[eventStatusCode] where 1 <= *.elems <= 6;
-
-    subset entityStatusCode of Str where $_ ~~ any('IMPAIRED', 'UNIMPAIRED', 'UNKNOWN');
-
     class DescribeEventAggregatesResponse does AWS::SDK::Shape {
-        has Array[EventAggregate] $.event-aggregates is shape-member('eventAggregates');
+        has EventAggregate @.event-aggregates is shape-member('eventAggregates');
         has nextToken $.next-token is shape-member('nextToken');
     }
-
-    subset EventTypeCodeList of Array[eventTypeCode] where 1 <= *.elems <= 10;
-
-    subset eventArn of Str where .chars <= 1600 && rx:P5/arn:aws:health:[^:]*:[^:]*:event\/[\w-]+/;
 
     class DescribeEventsRequest does AWS::SDK::Shape {
         has EventFilter $.filter is shape-member('filter');
@@ -182,27 +207,11 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
         has DateTime $.start-time is shape-member('startTime');
     }
 
-    subset availabilityZone of Str where rx:P5/[a-z]{2}\-[0-9a-z\-]{4,16}/;
-
-    subset maxResults of Int where 10 <= * <= 100;
-
-    subset eventStatusCode of Str where $_ ~~ any('open', 'closed', 'upcoming');
-
-    subset entityValue of Str where .chars <= 256;
-
-    subset entityArn of Str where .chars <= 1600;
-
-    subset entityStatusCodeList of Array[entityStatusCode] where 1 <= *.elems <= 3;
-
     class EventDetails does AWS::SDK::Shape {
-        has Hash[metadataValue, Str] $.event-metadata is shape-member('eventMetadata');
+        has metadataValue %.event-metadata{Str} is shape-member('eventMetadata');
         has EventDescription $.event-description is shape-member('eventDescription');
         has Event $.event is shape-member('event');
     }
-
-    subset tagKey of Str where .chars <= 127;
-
-    subset eventTypeCategoryList of Array[eventTypeCategory] where 1 <= *.elems <= 10;
 
     class DateTimeRange does AWS::SDK::Shape {
         has DateTime $.to is shape-member('to');
@@ -211,7 +220,7 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
 
     class DescribeAffectedEntitiesResponse does AWS::SDK::Shape {
         has nextToken $.next-token is shape-member('nextToken');
-        has Array[AffectedEntity] $.entities is shape-member('entities');
+        has AffectedEntity @.entities is shape-member('entities');
     }
 
     class EntityFilter does AWS::SDK::Shape {
@@ -230,7 +239,7 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
     }
 
     class DescribeEntityAggregatesResponse does AWS::SDK::Shape {
-        has Array[EntityAggregate] $.entity-aggregates is shape-member('entityAggregates');
+        has EntityAggregate @.entity-aggregates is shape-member('entityAggregates');
     }
 
     class DescribeEventTypesRequest does AWS::SDK::Shape {
@@ -245,12 +254,6 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
         has eventTypeCategory $.category is shape-member('category');
         has eventTypeCode $.code is shape-member('code');
     }
-
-    subset EventTypeCategoryList of Array[eventTypeCategory] where 1 <= *.elems <= 10;
-
-    subset locale of Str where 2 <= .chars <= 256;
-
-    subset entityArnList of Array[entityArn] where 1 <= *.elems <= 100;
 
     class DescribeEntityAggregatesRequest does AWS::SDK::Shape {
         has EventArnsList $.event-arns is shape-member('eventArns');
@@ -268,7 +271,6 @@ class AWS::SDK::Service::Health does AWS::SDK::Service {
         has eventArn $.event-arn is shape-member('eventArn');
     }
 
-    subset EventArnsList of Array[eventArn] where 1 <= *.elems <= 50;
 
     method describe-event-details(
         locale :$locale,

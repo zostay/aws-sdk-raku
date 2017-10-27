@@ -153,6 +153,123 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
     class DefaultUndefinedFault { ... }
     class OperationNotPermittedFault { ... }
 
+    subset SignalExternalWorkflowExecutionFailedCause of Str where $_ eq any('UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION', 'SIGNAL_EXTERNAL_WORKFLOW_EXECUTION_RATE_EXCEEDED', 'OPERATION_NOT_PERMITTED');
+
+    subset CloseStatus of Str where $_ eq any('COMPLETED', 'FAILED', 'CANCELED', 'TERMINATED', 'CONTINUED_AS_NEW', 'TIMED_OUT');
+
+    subset Description of Str where .chars <= 1024;
+
+    subset Identity of Str where .chars <= 256;
+
+    subset OpenDecisionTasksCount of Int where 0 <= * <= 1;
+
+    subset RecordMarkerFailedCause of Str where $_ eq any('OPERATION_NOT_PERMITTED');
+
+    subset TagList of Array[Tag] where *.elems <= 5;
+
+    subset ExecutionStatus of Str where $_ eq any('OPEN', 'CLOSED');
+
+    subset WorkflowExecutionCancelRequestedCause of Str where $_ eq any('CHILD_POLICY_APPLIED');
+
+    subset WorkflowExecutionTerminatedCause of Str where $_ eq any('CHILD_POLICY_APPLIED', 'EVENT_LIMIT_EXCEEDED', 'OPERATOR_INITIATED');
+
+    subset TaskToken of Str where 1 <= .chars <= 1024;
+
+    subset FunctionId of Str where 1 <= .chars <= 256;
+
+    subset LimitedData of Str where .chars <= 2048;
+
+    subset WorkflowRunIdOptional of Str where .chars <= 64;
+
+    subset WorkflowId of Str where 1 <= .chars <= 256;
+
+    subset FailWorkflowExecutionFailedCause of Str where $_ eq any('UNHANDLED_DECISION', 'OPERATION_NOT_PERMITTED');
+
+    subset ScheduleLambdaFunctionFailedCause of Str where $_ eq any('ID_ALREADY_IN_USE', 'OPEN_LAMBDA_FUNCTIONS_LIMIT_EXCEEDED', 'LAMBDA_FUNCTION_CREATION_RATE_EXCEEDED', 'LAMBDA_SERVICE_NOT_AVAILABLE_IN_REGION');
+
+    subset SignalName of Str where 1 <= .chars <= 256;
+
+    subset FailureReason of Str where .chars <= 256;
+
+    subset RegistrationStatus of Str where $_ eq any('REGISTERED', 'DEPRECATED');
+
+    subset DecisionType of Str where $_ eq any('ScheduleActivityTask', 'RequestCancelActivityTask', 'CompleteWorkflowExecution', 'FailWorkflowExecution', 'CancelWorkflowExecution', 'ContinueAsNewWorkflowExecution', 'RecordMarker', 'StartTimer', 'CancelTimer', 'SignalExternalWorkflowExecution', 'RequestCancelExternalWorkflowExecution', 'StartChildWorkflowExecution', 'ScheduleLambdaFunction');
+
+    subset Version of Str where 1 <= .chars <= 64;
+
+    subset RequestCancelActivityTaskFailedCause of Str where $_ eq any('ACTIVITY_ID_UNKNOWN', 'OPERATION_NOT_PERMITTED');
+
+    subset Count of Int where 0 <= *;
+
+    subset DurationInSeconds of Str where 1 <= .chars <= 8;
+
+    subset ActivityTaskTimeoutType of Str where $_ eq any('START_TO_CLOSE', 'SCHEDULE_TO_START', 'SCHEDULE_TO_CLOSE', 'HEARTBEAT');
+
+    subset EventType of Str where $_ eq any('WorkflowExecutionStarted', 'WorkflowExecutionCancelRequested', 'WorkflowExecutionCompleted', 'CompleteWorkflowExecutionFailed', 'WorkflowExecutionFailed', 'FailWorkflowExecutionFailed', 'WorkflowExecutionTimedOut', 'WorkflowExecutionCanceled', 'CancelWorkflowExecutionFailed', 'WorkflowExecutionContinuedAsNew', 'ContinueAsNewWorkflowExecutionFailed', 'WorkflowExecutionTerminated', 'DecisionTaskScheduled', 'DecisionTaskStarted', 'DecisionTaskCompleted', 'DecisionTaskTimedOut', 'ActivityTaskScheduled', 'ScheduleActivityTaskFailed', 'ActivityTaskStarted', 'ActivityTaskCompleted', 'ActivityTaskFailed', 'ActivityTaskTimedOut', 'ActivityTaskCanceled', 'ActivityTaskCancelRequested', 'RequestCancelActivityTaskFailed', 'WorkflowExecutionSignaled', 'MarkerRecorded', 'RecordMarkerFailed', 'TimerStarted', 'StartTimerFailed', 'TimerFired', 'TimerCanceled', 'CancelTimerFailed', 'StartChildWorkflowExecutionInitiated', 'StartChildWorkflowExecutionFailed', 'ChildWorkflowExecutionStarted', 'ChildWorkflowExecutionCompleted', 'ChildWorkflowExecutionFailed', 'ChildWorkflowExecutionTimedOut', 'ChildWorkflowExecutionCanceled', 'ChildWorkflowExecutionTerminated', 'SignalExternalWorkflowExecutionInitiated', 'SignalExternalWorkflowExecutionFailed', 'ExternalWorkflowExecutionSignaled', 'RequestCancelExternalWorkflowExecutionInitiated', 'RequestCancelExternalWorkflowExecutionFailed', 'ExternalWorkflowExecutionCancelRequested', 'LambdaFunctionScheduled', 'LambdaFunctionStarted', 'LambdaFunctionCompleted', 'LambdaFunctionFailed', 'LambdaFunctionTimedOut', 'ScheduleLambdaFunctionFailed', 'StartLambdaFunctionFailed');
+
+    subset WorkflowExecutionTimeoutType of Str where $_ eq any('START_TO_CLOSE');
+
+    subset Tag of Str where 0 <= .chars <= 256;
+
+    subset ScheduleActivityTaskFailedCause of Str where $_ eq any('ACTIVITY_TYPE_DEPRECATED', 'ACTIVITY_TYPE_DOES_NOT_EXIST', 'ACTIVITY_ID_ALREADY_IN_USE', 'OPEN_ACTIVITIES_LIMIT_EXCEEDED', 'ACTIVITY_CREATION_RATE_EXCEEDED', 'DEFAULT_SCHEDULE_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_TASK_LIST_UNDEFINED', 'DEFAULT_SCHEDULE_TO_START_TIMEOUT_UNDEFINED', 'DEFAULT_START_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_HEARTBEAT_TIMEOUT_UNDEFINED', 'OPERATION_NOT_PERMITTED');
+
+    subset Arn of Str where 1 <= .chars <= 1600;
+
+    subset ActivityId of Str where 1 <= .chars <= 256;
+
+    subset Data of Str where .chars <= 32768;
+
+    subset FunctionName of Str where 1 <= .chars <= 64;
+
+    subset TerminateReason of Str where .chars <= 256;
+
+    subset ChildPolicy of Str where $_ eq any('TERMINATE', 'REQUEST_CANCEL', 'ABANDON');
+
+    subset FunctionInput of Str where 0 <= .chars <= 32768;
+
+    subset LambdaFunctionTimeoutType of Str where $_ eq any('START_TO_CLOSE');
+
+    subset StartTimerFailedCause of Str where $_ eq any('TIMER_ID_ALREADY_IN_USE', 'OPEN_TIMERS_LIMIT_EXCEEDED', 'TIMER_CREATION_RATE_EXCEEDED', 'OPERATION_NOT_PERMITTED');
+
+    subset RequestCancelExternalWorkflowExecutionFailedCause of Str where $_ eq any('UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION', 'REQUEST_CANCEL_EXTERNAL_WORKFLOW_EXECUTION_RATE_EXCEEDED', 'OPERATION_NOT_PERMITTED');
+
+    subset DecisionTaskTimeoutType of Str where $_ eq any('START_TO_CLOSE');
+
+    subset DomainName of Str where 1 <= .chars <= 256;
+
+    subset MarkerName of Str where 1 <= .chars <= 256;
+
+    subset DurationInDays of Str where 1 <= .chars <= 8;
+
+    subset DurationInSecondsOptional of Str where .chars <= 8;
+
+    subset StartLambdaFunctionFailedCause of Str where $_ eq any('ASSUME_ROLE_FAILED');
+
+    subset CancelTimerFailedCause of Str where $_ eq any('TIMER_ID_UNKNOWN', 'OPERATION_NOT_PERMITTED');
+
+    subset TimerId of Str where 1 <= .chars <= 256;
+
+    subset Name of Str where 1 <= .chars <= 256;
+
+    subset StartChildWorkflowExecutionFailedCause of Str where $_ eq any('WORKFLOW_TYPE_DOES_NOT_EXIST', 'WORKFLOW_TYPE_DEPRECATED', 'OPEN_CHILDREN_LIMIT_EXCEEDED', 'OPEN_WORKFLOWS_LIMIT_EXCEEDED', 'CHILD_CREATION_RATE_EXCEEDED', 'WORKFLOW_ALREADY_RUNNING', 'DEFAULT_EXECUTION_START_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_TASK_LIST_UNDEFINED', 'DEFAULT_TASK_START_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_CHILD_POLICY_UNDEFINED', 'OPERATION_NOT_PERMITTED');
+
+    subset ContinueAsNewWorkflowExecutionFailedCause of Str where $_ eq any('UNHANDLED_DECISION', 'WORKFLOW_TYPE_DEPRECATED', 'WORKFLOW_TYPE_DOES_NOT_EXIST', 'DEFAULT_EXECUTION_START_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_TASK_START_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_TASK_LIST_UNDEFINED', 'DEFAULT_CHILD_POLICY_UNDEFINED', 'CONTINUE_AS_NEW_WORKFLOW_EXECUTION_RATE_EXCEEDED', 'OPERATION_NOT_PERMITTED');
+
+    subset WorkflowRunId of Str where 1 <= .chars <= 64;
+
+    subset CompleteWorkflowExecutionFailedCause of Str where $_ eq any('UNHANDLED_DECISION', 'OPERATION_NOT_PERMITTED');
+
+    subset PageSize of Int where 0 <= * <= 1000;
+
+    subset PageToken of Str where .chars <= 2048;
+
+    subset VersionOptional of Str where .chars <= 64;
+
+    subset CauseMessage of Str where .chars <= 1728;
+
+    subset CancelWorkflowExecutionFailedCause of Str where $_ eq any('UNHANDLED_DECISION', 'OPERATION_NOT_PERMITTED');
+
+
     class WorkflowExecutionCompletedEventAttributes does AWS::SDK::Shape {
         has Data $.result is shape-member('result');
         has Int $.decision-task-completed-event-id is required is shape-member('decisionTaskCompletedEventId');
@@ -178,7 +295,7 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
 
     class DecisionTask does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('nextPageToken');
-        has Array[HistoryEvent] $.events is required is shape-member('events');
+        has HistoryEvent @.events is required is shape-member('events');
         has Int $.previous-started-event-id is shape-member('previousStartedEventId');
         has TaskToken $.task-token is required is shape-member('taskToken');
         has WorkflowExecution $.workflow-execution is required is shape-member('workflowExecution');
@@ -222,8 +339,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Data $.input is shape-member('input');
     }
 
-    subset SignalExternalWorkflowExecutionFailedCause of Str where $_ ~~ any('UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION', 'SIGNAL_EXTERNAL_WORKFLOW_EXECUTION_RATE_EXCEEDED', 'OPERATION_NOT_PERMITTED');
-
     class ActivityTaskFailedEventAttributes does AWS::SDK::Shape {
         has Data $.details is shape-member('details');
         has Int $.started-event-id is required is shape-member('startedEventId');
@@ -247,20 +362,14 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has DateTime $.oldest-date is required is shape-member('oldestDate');
     }
 
-    subset CloseStatus of Str where $_ ~~ any('COMPLETED', 'FAILED', 'CANCELED', 'TERMINATED', 'CONTINUED_AS_NEW', 'TIMED_OUT');
-
     class CompleteWorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
         has Int $.decision-task-completed-event-id is required is shape-member('decisionTaskCompletedEventId');
         has CompleteWorkflowExecutionFailedCause $.cause is required is shape-member('cause');
     }
 
-    subset Description of Str where .chars <= 1024;
-
     class DomainAlreadyExistsFault does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset Identity of Str where .chars <= 256;
 
     class LambdaFunctionCompletedEventAttributes does AWS::SDK::Shape {
         has Data $.result is shape-member('result');
@@ -339,17 +448,11 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Int $.decision-task-completed-event-id is required is shape-member('decisionTaskCompletedEventId');
     }
 
-    subset OpenDecisionTasksCount of Int where 0 <= * <= 1;
-
-    subset RecordMarkerFailedCause of Str where $_ ~~ any('OPERATION_NOT_PERMITTED');
-
     class WorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
         has Data $.details is shape-member('details');
         has Int $.decision-task-completed-event-id is required is shape-member('decisionTaskCompletedEventId');
         has FailureReason $.reason is shape-member('reason');
     }
-
-    subset TagList of Array[Tag] where *.elems <= 5;
 
     class TagFilter does AWS::SDK::Shape {
         has Tag $.tag is required is shape-member('tag');
@@ -372,8 +475,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
     class DescribeDomainInput does AWS::SDK::Shape {
         has DomainName $.name is required is shape-member('name');
     }
-
-    subset ExecutionStatus of Str where $_ ~~ any('OPEN', 'CLOSED');
 
     class ListActivityTypesInput does AWS::SDK::Shape {
         has Bool $.reverse-order is shape-member('reverseOrder');
@@ -398,8 +499,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has WorkflowExecutionTimeoutType $.timeout-type is required is shape-member('timeoutType');
     }
 
-    subset WorkflowExecutionCancelRequestedCause of Str where $_ ~~ any('CHILD_POLICY_APPLIED');
-
     class TypeDeprecatedFault does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -418,8 +517,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has DurationInDays $.workflow-execution-retention-period-in-days is required is shape-member('workflowExecutionRetentionPeriodInDays');
     }
 
-    subset WorkflowExecutionTerminatedCause of Str where $_ ~~ any('CHILD_POLICY_APPLIED', 'EVENT_LIMIT_EXCEEDED', 'OPERATOR_INITIATED');
-
     class WorkflowExecutionConfiguration does AWS::SDK::Shape {
         has ChildPolicy $.child-policy is required is shape-member('childPolicy');
         has TaskList $.task-list is required is shape-member('taskList');
@@ -434,19 +531,9 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Int $.decision-task-completed-event-id is required is shape-member('decisionTaskCompletedEventId');
     }
 
-    subset TaskToken of Str where 1 <= .chars <= 1024;
-
     class CancelTimerDecisionAttributes does AWS::SDK::Shape {
         has TimerId $.timer-id is required is shape-member('timerId');
     }
-
-    subset FunctionId of Str where 1 <= .chars <= 256;
-
-    subset LimitedData of Str where .chars <= 2048;
-
-    subset WorkflowRunIdOptional of Str where .chars <= 64;
-
-    subset WorkflowId of Str where 1 <= .chars <= 256;
 
     class TimerFiredEventAttributes does AWS::SDK::Shape {
         has TimerId $.timer-id is required is shape-member('timerId');
@@ -479,8 +566,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Int $.scheduled-event-id is required is shape-member('scheduledEventId');
         has DecisionTaskTimeoutType $.timeout-type is required is shape-member('timeoutType');
     }
-
-    subset FailWorkflowExecutionFailedCause of Str where $_ ~~ any('UNHANDLED_DECISION', 'OPERATION_NOT_PERMITTED');
 
     class RespondActivityTaskCanceledInput does AWS::SDK::Shape {
         has Data $.details is shape-member('details');
@@ -515,14 +600,8 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
 
     class ActivityTypeInfos does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('nextPageToken');
-        has Array[ActivityTypeInfo] $.type-infos is required is shape-member('typeInfos');
+        has ActivityTypeInfo @.type-infos is required is shape-member('typeInfos');
     }
-
-    subset ScheduleLambdaFunctionFailedCause of Str where $_ ~~ any('ID_ALREADY_IN_USE', 'OPEN_LAMBDA_FUNCTIONS_LIMIT_EXCEEDED', 'LAMBDA_FUNCTION_CREATION_RATE_EXCEEDED', 'LAMBDA_SERVICE_NOT_AVAILABLE_IN_REGION');
-
-    subset SignalName of Str where 1 <= .chars <= 256;
-
-    subset FailureReason of Str where .chars <= 256;
 
     class HistoryEvent does AWS::SDK::Shape {
         has StartLambdaFunctionFailedEventAttributes $.start-lambda-function-failed-event-attributes is shape-member('startLambdaFunctionFailedEventAttributes');
@@ -584,8 +663,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has ChildWorkflowExecutionFailedEventAttributes $.child-workflow-execution-failed-event-attributes is shape-member('childWorkflowExecutionFailedEventAttributes');
     }
 
-    subset RegistrationStatus of Str where $_ ~~ any('REGISTERED', 'DEPRECATED');
-
     class RequestCancelExternalWorkflowExecutionDecisionAttributes does AWS::SDK::Shape {
         has WorkflowRunIdOptional $.run-id is shape-member('runId');
         has WorkflowId $.workflow-id is required is shape-member('workflowId');
@@ -618,11 +695,9 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has WorkflowType $.workflow-type is required is shape-member('workflowType');
     }
 
-    subset DecisionType of Str where $_ ~~ any('ScheduleActivityTask', 'RequestCancelActivityTask', 'CompleteWorkflowExecution', 'FailWorkflowExecution', 'CancelWorkflowExecution', 'ContinueAsNewWorkflowExecution', 'RecordMarker', 'StartTimer', 'CancelTimer', 'SignalExternalWorkflowExecution', 'RequestCancelExternalWorkflowExecution', 'StartChildWorkflowExecution', 'ScheduleLambdaFunction');
-
     class DomainInfos does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('nextPageToken');
-        has Array[DomainInfo] $.domain-infos is required is shape-member('domainInfos');
+        has DomainInfo @.domain-infos is required is shape-member('domainInfos');
     }
 
     class ListWorkflowTypesInput does AWS::SDK::Shape {
@@ -638,8 +713,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Count $.count is required is shape-member('count');
         has Bool $.truncated is shape-member('truncated');
     }
-
-    subset Version of Str where 1 <= .chars <= 64;
 
     class StartChildWorkflowExecutionInitiatedEventAttributes does AWS::SDK::Shape {
         has ChildPolicy $.child-policy is required is shape-member('childPolicy');
@@ -671,24 +744,10 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has StartTimerFailedCause $.cause is required is shape-member('cause');
     }
 
-    subset RequestCancelActivityTaskFailedCause of Str where $_ ~~ any('ACTIVITY_ID_UNKNOWN', 'OPERATION_NOT_PERMITTED');
-
-    subset Count of Int where 0 <= *;
-
-    subset DurationInSeconds of Str where 1 <= .chars <= 8;
-
     class WorkflowTypeDetail does AWS::SDK::Shape {
         has WorkflowTypeInfo $.type-info is required is shape-member('typeInfo');
         has WorkflowTypeConfiguration $.configuration is required is shape-member('configuration');
     }
-
-    subset ActivityTaskTimeoutType of Str where $_ ~~ any('START_TO_CLOSE', 'SCHEDULE_TO_START', 'SCHEDULE_TO_CLOSE', 'HEARTBEAT');
-
-    subset EventType of Str where $_ ~~ any('WorkflowExecutionStarted', 'WorkflowExecutionCancelRequested', 'WorkflowExecutionCompleted', 'CompleteWorkflowExecutionFailed', 'WorkflowExecutionFailed', 'FailWorkflowExecutionFailed', 'WorkflowExecutionTimedOut', 'WorkflowExecutionCanceled', 'CancelWorkflowExecutionFailed', 'WorkflowExecutionContinuedAsNew', 'ContinueAsNewWorkflowExecutionFailed', 'WorkflowExecutionTerminated', 'DecisionTaskScheduled', 'DecisionTaskStarted', 'DecisionTaskCompleted', 'DecisionTaskTimedOut', 'ActivityTaskScheduled', 'ScheduleActivityTaskFailed', 'ActivityTaskStarted', 'ActivityTaskCompleted', 'ActivityTaskFailed', 'ActivityTaskTimedOut', 'ActivityTaskCanceled', 'ActivityTaskCancelRequested', 'RequestCancelActivityTaskFailed', 'WorkflowExecutionSignaled', 'MarkerRecorded', 'RecordMarkerFailed', 'TimerStarted', 'StartTimerFailed', 'TimerFired', 'TimerCanceled', 'CancelTimerFailed', 'StartChildWorkflowExecutionInitiated', 'StartChildWorkflowExecutionFailed', 'ChildWorkflowExecutionStarted', 'ChildWorkflowExecutionCompleted', 'ChildWorkflowExecutionFailed', 'ChildWorkflowExecutionTimedOut', 'ChildWorkflowExecutionCanceled', 'ChildWorkflowExecutionTerminated', 'SignalExternalWorkflowExecutionInitiated', 'SignalExternalWorkflowExecutionFailed', 'ExternalWorkflowExecutionSignaled', 'RequestCancelExternalWorkflowExecutionInitiated', 'RequestCancelExternalWorkflowExecutionFailed', 'ExternalWorkflowExecutionCancelRequested', 'LambdaFunctionScheduled', 'LambdaFunctionStarted', 'LambdaFunctionCompleted', 'LambdaFunctionFailed', 'LambdaFunctionTimedOut', 'ScheduleLambdaFunctionFailed', 'StartLambdaFunctionFailed');
-
-    subset WorkflowExecutionTimeoutType of Str where $_ ~~ any('START_TO_CLOSE');
-
-    subset Tag of Str where 0 <= .chars <= 256;
 
     class ActivityTypeInfo does AWS::SDK::Shape {
         has RegistrationStatus $.status is required is shape-member('status');
@@ -700,16 +759,12 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
 
     class History does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('nextPageToken');
-        has Array[HistoryEvent] $.events is required is shape-member('events');
+        has HistoryEvent @.events is required is shape-member('events');
     }
 
     class LambdaFunctionStartedEventAttributes does AWS::SDK::Shape {
         has Int $.scheduled-event-id is required is shape-member('scheduledEventId');
     }
-
-    subset ScheduleActivityTaskFailedCause of Str where $_ ~~ any('ACTIVITY_TYPE_DEPRECATED', 'ACTIVITY_TYPE_DOES_NOT_EXIST', 'ACTIVITY_ID_ALREADY_IN_USE', 'OPEN_ACTIVITIES_LIMIT_EXCEEDED', 'ACTIVITY_CREATION_RATE_EXCEEDED', 'DEFAULT_SCHEDULE_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_TASK_LIST_UNDEFINED', 'DEFAULT_SCHEDULE_TO_START_TIMEOUT_UNDEFINED', 'DEFAULT_START_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_HEARTBEAT_TIMEOUT_UNDEFINED', 'OPERATION_NOT_PERMITTED');
-
-    subset Arn of Str where 1 <= .chars <= 1600;
 
     class ActivityTask does AWS::SDK::Shape {
         has ActivityType $.activity-type is required is shape-member('activityType');
@@ -833,8 +888,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Int $.scheduled-event-id is required is shape-member('scheduledEventId');
     }
 
-    subset ActivityId of Str where 1 <= .chars <= 256;
-
     class ChildWorkflowExecutionTimedOutEventAttributes does AWS::SDK::Shape {
         has Int $.initiated-event-id is required is shape-member('initiatedEventId');
         has WorkflowExecution $.workflow-execution is required is shape-member('workflowExecution');
@@ -847,10 +900,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has TaskList $.task-list is required is shape-member('taskList');
         has DomainName $.domain is required is shape-member('domain');
     }
-
-    subset Data of Str where .chars <= 32768;
-
-    subset FunctionName of Str where 1 <= .chars <= 64;
 
     class WorkflowExecutionTerminatedEventAttributes does AWS::SDK::Shape {
         has ChildPolicy $.child-policy is required is shape-member('childPolicy');
@@ -886,8 +935,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Int $.scheduled-event-id is required is shape-member('scheduledEventId');
         has Data $.execution-context is shape-member('executionContext');
     }
-
-    subset TerminateReason of Str where .chars <= 256;
 
     class RequestCancelWorkflowExecutionInput does AWS::SDK::Shape {
         has WorkflowRunIdOptional $.run-id is shape-member('runId');
@@ -938,16 +985,10 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has FunctionInput $.input is shape-member('input');
     }
 
-    subset ChildPolicy of Str where $_ ~~ any('TERMINATE', 'REQUEST_CANCEL', 'ABANDON');
-
     class DeprecateWorkflowTypeInput does AWS::SDK::Shape {
         has DomainName $.domain is required is shape-member('domain');
         has WorkflowType $.workflow-type is required is shape-member('workflowType');
     }
-
-    subset FunctionInput of Str where 0 <= .chars <= 32768;
-
-    subset LambdaFunctionTimeoutType of Str where $_ ~~ any('START_TO_CLOSE');
 
     class RecordMarkerFailedEventAttributes does AWS::SDK::Shape {
         has MarkerName $.marker-name is required is shape-member('markerName');
@@ -1038,7 +1079,7 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
 
     class WorkflowTypeInfos does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('nextPageToken');
-        has Array[WorkflowTypeInfo] $.type-infos is required is shape-member('typeInfos');
+        has WorkflowTypeInfo @.type-infos is required is shape-member('typeInfos');
     }
 
     class WorkflowExecutionInfo does AWS::SDK::Shape {
@@ -1053,15 +1094,11 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has WorkflowType $.workflow-type is required is shape-member('workflowType');
     }
 
-    subset StartTimerFailedCause of Str where $_ ~~ any('TIMER_ID_ALREADY_IN_USE', 'OPEN_TIMERS_LIMIT_EXCEEDED', 'TIMER_CREATION_RATE_EXCEEDED', 'OPERATION_NOT_PERMITTED');
-
     class StartTimerDecisionAttributes does AWS::SDK::Shape {
         has DurationInSeconds $.start-to-fire-timeout is required is shape-member('startToFireTimeout');
         has TimerId $.timer-id is required is shape-member('timerId');
         has Data $.control is shape-member('control');
     }
-
-    subset RequestCancelExternalWorkflowExecutionFailedCause of Str where $_ ~~ any('UNKNOWN_EXTERNAL_WORKFLOW_EXECUTION', 'REQUEST_CANCEL_EXTERNAL_WORKFLOW_EXECUTION_RATE_EXCEEDED', 'OPERATION_NOT_PERMITTED');
 
     class RegisterActivityTypeInput does AWS::SDK::Shape {
         has DurationInSecondsOptional $.default-task-schedule-to-close-timeout is shape-member('defaultTaskScheduleToCloseTimeout');
@@ -1087,15 +1124,9 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has CloseStatus $.status is required is shape-member('status');
     }
 
-    subset DecisionTaskTimeoutType of Str where $_ ~~ any('START_TO_CLOSE');
-
-    subset DomainName of Str where 1 <= .chars <= 256;
-
-    subset MarkerName of Str where 1 <= .chars <= 256;
-
     class WorkflowExecutionInfos does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('nextPageToken');
-        has Array[WorkflowExecutionInfo] $.execution-infos is required is shape-member('executionInfos');
+        has WorkflowExecutionInfo @.execution-infos is required is shape-member('executionInfos');
     }
 
     class TypeAlreadyExistsFault does AWS::SDK::Shape {
@@ -1117,10 +1148,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Bool $.cancel-requested is required is shape-member('cancelRequested');
     }
 
-    subset DurationInDays of Str where 1 <= .chars <= 8;
-
-    subset DurationInSecondsOptional of Str where .chars <= 8;
-
     class ExternalWorkflowExecutionCancelRequestedEventAttributes does AWS::SDK::Shape {
         has Int $.initiated-event-id is required is shape-member('initiatedEventId');
         has WorkflowExecution $.workflow-execution is required is shape-member('workflowExecution');
@@ -1130,8 +1157,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Name $.name is required is shape-member('name');
     }
 
-    subset StartLambdaFunctionFailedCause of Str where $_ ~~ any('ASSUME_ROLE_FAILED');
-
     class ChildWorkflowExecutionCanceledEventAttributes does AWS::SDK::Shape {
         has Int $.initiated-event-id is required is shape-member('initiatedEventId');
         has Data $.details is shape-member('details');
@@ -1139,8 +1164,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Int $.started-event-id is required is shape-member('startedEventId');
         has WorkflowType $.workflow-type is required is shape-member('workflowType');
     }
-
-    subset CancelTimerFailedCause of Str where $_ ~~ any('TIMER_ID_UNKNOWN', 'OPERATION_NOT_PERMITTED');
 
     class SignalWorkflowExecutionInput does AWS::SDK::Shape {
         has WorkflowRunIdOptional $.run-id is shape-member('runId');
@@ -1170,8 +1193,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset TimerId of Str where 1 <= .chars <= 256;
-
     class ScheduleActivityTaskFailedEventAttributes does AWS::SDK::Shape {
         has ActivityType $.activity-type is required is shape-member('activityType');
         has ActivityId $.activity-id is required is shape-member('activityId');
@@ -1180,7 +1201,7 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
     }
 
     class RespondDecisionTaskCompletedInput does AWS::SDK::Shape {
-        has Array[Decision] $.decisions is shape-member('decisions');
+        has Decision @.decisions is shape-member('decisions');
         has TaskToken $.task-token is required is shape-member('taskToken');
         has Data $.execution-context is shape-member('executionContext');
     }
@@ -1217,8 +1238,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has FunctionInput $.input is shape-member('input');
     }
 
-    subset Name of Str where 1 <= .chars <= 256;
-
     class StartWorkflowExecutionInput does AWS::SDK::Shape {
         has ChildPolicy $.child-policy is shape-member('childPolicy');
         has DurationInSecondsOptional $.execution-start-to-close-timeout is shape-member('executionStartToCloseTimeout');
@@ -1233,18 +1252,10 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has WorkflowType $.workflow-type is required is shape-member('workflowType');
     }
 
-    subset StartChildWorkflowExecutionFailedCause of Str where $_ ~~ any('WORKFLOW_TYPE_DOES_NOT_EXIST', 'WORKFLOW_TYPE_DEPRECATED', 'OPEN_CHILDREN_LIMIT_EXCEEDED', 'OPEN_WORKFLOWS_LIMIT_EXCEEDED', 'CHILD_CREATION_RATE_EXCEEDED', 'WORKFLOW_ALREADY_RUNNING', 'DEFAULT_EXECUTION_START_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_TASK_LIST_UNDEFINED', 'DEFAULT_TASK_START_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_CHILD_POLICY_UNDEFINED', 'OPERATION_NOT_PERMITTED');
-
-    subset ContinueAsNewWorkflowExecutionFailedCause of Str where $_ ~~ any('UNHANDLED_DECISION', 'WORKFLOW_TYPE_DEPRECATED', 'WORKFLOW_TYPE_DOES_NOT_EXIST', 'DEFAULT_EXECUTION_START_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_TASK_START_TO_CLOSE_TIMEOUT_UNDEFINED', 'DEFAULT_TASK_LIST_UNDEFINED', 'DEFAULT_CHILD_POLICY_UNDEFINED', 'CONTINUE_AS_NEW_WORKFLOW_EXECUTION_RATE_EXCEEDED', 'OPERATION_NOT_PERMITTED');
-
     class DomainDetail does AWS::SDK::Shape {
         has DomainInfo $.domain-info is required is shape-member('domainInfo');
         has DomainConfiguration $.configuration is required is shape-member('configuration');
     }
-
-    subset WorkflowRunId of Str where 1 <= .chars <= 64;
-
-    subset CompleteWorkflowExecutionFailedCause of Str where $_ ~~ any('UNHANDLED_DECISION', 'OPERATION_NOT_PERMITTED');
 
     class LambdaFunctionFailedEventAttributes does AWS::SDK::Shape {
         has Data $.details is shape-member('details');
@@ -1252,16 +1263,6 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
         has Int $.scheduled-event-id is required is shape-member('scheduledEventId');
         has FailureReason $.reason is shape-member('reason');
     }
-
-    subset PageSize of Int where 0 <= * <= 1000;
-
-    subset PageToken of Str where .chars <= 2048;
-
-    subset VersionOptional of Str where .chars <= 64;
-
-    subset CauseMessage of Str where .chars <= 1728;
-
-    subset CancelWorkflowExecutionFailedCause of Str where $_ ~~ any('UNHANDLED_DECISION', 'OPERATION_NOT_PERMITTED');
 
     class CountClosedWorkflowExecutionsInput does AWS::SDK::Shape {
         has WorkflowTypeFilter $.type-filter is shape-member('typeFilter');
@@ -1280,6 +1281,7 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
     class OperationNotPermittedFault does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
+
 
     method start-workflow-execution(
         ChildPolicy :$child-policy,
@@ -1599,12 +1601,12 @@ class AWS::SDK::Service::SWF does AWS::SDK::Service {
     }
 
     method respond-decision-task-completed(
-        Array[Decision] :$decisions,
+        Decision :@decisions,
         TaskToken :$task-token!,
         Data :$execution-context
     ) is service-operation('RespondDecisionTaskCompleted') {
         my $request-input = RespondDecisionTaskCompletedInput.new(
-            :$decisions,
+            :@decisions,
             :$task-token,
             :$execution-context
         );

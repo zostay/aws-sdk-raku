@@ -161,6 +161,41 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     class SslConfiguration { ... }
     class UnassignInstanceRequest { ... }
 
+    subset StackAttributesKeys of Str where $_ eq any('Color');
+
+    subset VirtualizationType of Str where $_ eq any('paravirtual', 'hvm');
+
+    subset AppType of Str where $_ eq any('aws-flow-ruby', 'java', 'rails', 'php', 'nodejs', 'static', 'other');
+
+    subset AutoScalingType of Str where $_ eq any('load', 'timer');
+
+    subset VolumeType of Str where $_ eq any('gp2', 'io1', 'standard');
+
+    subset ValidForInMinutes of Int where 60 <= * <= 1440;
+
+    subset CloudWatchLogsEncoding of Str where $_ eq any('ascii', 'big5', 'big5hkscs', 'cp037', 'cp424', 'cp437', 'cp500', 'cp720', 'cp737', 'cp775', 'cp850', 'cp852', 'cp855', 'cp856', 'cp857', 'cp858', 'cp860', 'cp861', 'cp862', 'cp863', 'cp864', 'cp865', 'cp866', 'cp869', 'cp874', 'cp875', 'cp932', 'cp949', 'cp950', 'cp1006', 'cp1026', 'cp1140', 'cp1250', 'cp1251', 'cp1252', 'cp1253', 'cp1254', 'cp1255', 'cp1256', 'cp1257', 'cp1258', 'euc_jp', 'euc_jis_2004', 'euc_jisx0213', 'euc_kr', 'gb2312', 'gbk', 'gb18030', 'hz', 'iso2022_jp', 'iso2022_jp_1', 'iso2022_jp_2', 'iso2022_jp_2004', 'iso2022_jp_3', 'iso2022_jp_ext', 'iso2022_kr', 'latin_1', 'iso8859_2', 'iso8859_3', 'iso8859_4', 'iso8859_5', 'iso8859_6', 'iso8859_7', 'iso8859_8', 'iso8859_9', 'iso8859_10', 'iso8859_13', 'iso8859_14', 'iso8859_15', 'iso8859_16', 'johab', 'koi8_r', 'koi8_u', 'mac_cyrillic', 'mac_greek', 'mac_iceland', 'mac_latin2', 'mac_roman', 'mac_turkish', 'ptcp154', 'shift_jis', 'shift_jis_2004', 'shift_jisx0213', 'utf_32', 'utf_32_be', 'utf_32_le', 'utf_16', 'utf_16_be', 'utf_16_le', 'utf_7', 'utf_8', 'utf_8_sig');
+
+    subset LayerAttributesKeys of Str where $_ eq any('EcsClusterArn', 'EnableHaproxyStats', 'HaproxyStatsUrl', 'HaproxyStatsUser', 'HaproxyStatsPassword', 'HaproxyHealthCheckUrl', 'HaproxyHealthCheckMethod', 'MysqlRootPassword', 'MysqlRootPasswordUbiquitous', 'GangliaUrl', 'GangliaUser', 'GangliaPassword', 'MemcachedMemory', 'NodejsVersion', 'RubyVersion', 'RubygemsVersion', 'ManageBundler', 'BundlerVersion', 'RailsStack', 'PassengerVersion', 'Jvm', 'JvmVersion', 'JvmOptions', 'JavaAppServer', 'JavaAppServerVersion');
+
+    subset CloudWatchLogsInitialPosition of Str where $_ eq any('start_of_file', 'end_of_file');
+
+    subset Minute of Int where 1 <= * <= 100;
+
+    subset AppAttributesKeys of Str where $_ eq any('DocumentRoot', 'RailsEnv', 'AutoBundleOnDeploy', 'AwsFlowRubySettings');
+
+    subset RootDeviceType of Str where $_ eq any('ebs', 'instance-store');
+
+    subset CloudWatchLogsTimeZone of Str where $_ eq any('LOCAL', 'UTC');
+
+    subset Architecture of Str where $_ eq any('x86_64', 'i386');
+
+    subset LayerType of Str where $_ eq any('aws-flow-ruby', 'ecs-cluster', 'java-app', 'lb', 'web', 'php-app', 'rails-app', 'nodejs-app', 'memcached', 'db-master', 'monitoring-master', 'custom');
+
+    subset DeploymentCommandName of Str where $_ eq any('install_dependencies', 'update_dependencies', 'update_custom_cookbooks', 'execute_recipes', 'configure', 'setup', 'deploy', 'rollback', 'start', 'stop', 'restart', 'undeploy');
+
+    subset SourceType of Str where $_ eq any('git', 'svn', 'archive', 's3');
+
+
     class DeregisterRdsDbInstanceRequest does AWS::SDK::Shape {
         has Str $.rds-db-instance-arn is required is shape-member('RdsDbInstanceArn');
     }
@@ -170,7 +205,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class CloudWatchLogsConfiguration does AWS::SDK::Shape {
-        has Array[CloudWatchLogsLogStream] $.log-streams is shape-member('LogStreams');
+        has CloudWatchLogsLogStream @.log-streams is shape-member('LogStreams');
         has Bool $.enabled is shape-member('Enabled');
     }
 
@@ -195,15 +230,15 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
 
     class UpdateAppRequest does AWS::SDK::Shape {
         has Source $.app-source is shape-member('AppSource');
-        has Array[DataSource] $.data-sources is shape-member('DataSources');
+        has DataSource @.data-sources is shape-member('DataSources');
         has Bool $.enable-ssl is shape-member('EnableSsl');
-        has Array[Str] $.domains is shape-member('Domains');
+        has Str @.domains is shape-member('Domains');
         has Str $.description is shape-member('Description');
         has Str $.app-id is required is shape-member('AppId');
         has Str $.name is shape-member('Name');
-        has Hash[Str, AppAttributesKeys] $.attributes is shape-member('Attributes');
+        has Str %.attributes{AppAttributesKeys} is shape-member('Attributes');
         has AppType $.type is shape-member('Type');
-        has Array[EnvironmentVariable] $.environment is shape-member('Environment');
+        has EnvironmentVariable @.environment is shape-member('Environment');
         has SslConfiguration $.ssl-configuration is shape-member('SslConfiguration');
     }
 
@@ -215,7 +250,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeLayersResult does AWS::SDK::Shape {
-        has Array[Layer] $.layers is shape-member('Layers');
+        has Layer @.layers is shape-member('Layers');
     }
 
     class CloneStackRequest does AWS::SDK::Shape {
@@ -227,7 +262,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.custom-json is shape-member('CustomJson');
         has Str $.default-subnet-id is shape-member('DefaultSubnetId');
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[Str] $.clone-app-ids is shape-member('CloneAppIds');
+        has Str @.clone-app-ids is shape-member('CloneAppIds');
         has Str $.service-role-arn is required is shape-member('ServiceRoleArn');
         has Source $.custom-cookbooks-source is shape-member('CustomCookbooksSource');
         has Bool $.use-opsworks-security-groups is shape-member('UseOpsworksSecurityGroups');
@@ -236,7 +271,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.name is shape-member('Name');
         has Bool $.use-custom-cookbooks is shape-member('UseCustomCookbooks');
         has Str $.default-os is shape-member('DefaultOs');
-        has Hash[Str, StackAttributesKeys] $.attributes is shape-member('Attributes');
+        has Str %.attributes{StackAttributesKeys} is shape-member('Attributes');
         has Str $.source-stack-id is required is shape-member('SourceStackId');
         has Bool $.clone-permissions is shape-member('ClonePermissions');
         has Str $.default-availability-zone is shape-member('DefaultAvailabilityZone');
@@ -282,7 +317,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeStacksRequest does AWS::SDK::Shape {
-        has Array[Str] $.stack-ids is shape-member('StackIds');
+        has Str @.stack-ids is shape-member('StackIds');
     }
 
     class AssignVolumeRequest does AWS::SDK::Shape {
@@ -291,24 +326,22 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeStacksResult does AWS::SDK::Shape {
-        has Array[Stack] $.stacks is shape-member('Stacks');
+        has Stack @.stacks is shape-member('Stacks');
     }
 
     class DescribeCommandsRequest does AWS::SDK::Shape {
-        has Array[Str] $.command-ids is shape-member('CommandIds');
+        has Str @.command-ids is shape-member('CommandIds');
         has Str $.instance-id is shape-member('InstanceId');
         has Str $.deployment-id is shape-member('DeploymentId');
     }
 
-    subset StackAttributesKeys of Str where $_ ~~ any('Color');
-
     class UpdateLayerRequest does AWS::SDK::Shape {
         has LifecycleEventConfiguration $.lifecycle-event-configuration is shape-member('LifecycleEventConfiguration');
         has Bool $.enable-auto-healing is shape-member('EnableAutoHealing');
-        has Array[Str] $.custom-security-group-ids is shape-member('CustomSecurityGroupIds');
+        has Str @.custom-security-group-ids is shape-member('CustomSecurityGroupIds');
         has Str $.custom-json is shape-member('CustomJson');
-        has Array[VolumeConfiguration] $.volume-configurations is shape-member('VolumeConfigurations');
-        has Array[Str] $.packages is shape-member('Packages');
+        has VolumeConfiguration @.volume-configurations is shape-member('VolumeConfigurations');
+        has Str @.packages is shape-member('Packages');
         has CloudWatchLogsConfiguration $.cloud-watch-logs-configuration is shape-member('CloudWatchLogsConfiguration');
         has Bool $.auto-assign-public-ips is shape-member('AutoAssignPublicIps');
         has Str $.custom-instance-profile-arn is shape-member('CustomInstanceProfileArn');
@@ -317,12 +350,10 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Bool $.install-updates-on-boot is shape-member('InstallUpdatesOnBoot');
         has Recipes $.custom-recipes is shape-member('CustomRecipes');
         has Bool $.auto-assign-elastic-ips is shape-member('AutoAssignElasticIps');
-        has Hash[Str, LayerAttributesKeys] $.attributes is shape-member('Attributes');
+        has Str %.attributes{LayerAttributesKeys} is shape-member('Attributes');
         has Str $.layer-id is required is shape-member('LayerId');
         has Str $.shortname is shape-member('Shortname');
     }
-
-    subset VirtualizationType of Str where $_ ~~ any('paravirtual', 'hvm');
 
     class DescribeMyUserProfileResult does AWS::SDK::Shape {
         has SelfUserProfile $.user-profile is shape-member('UserProfile');
@@ -333,13 +364,13 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class WeeklyAutoScalingSchedule does AWS::SDK::Shape {
-        has Hash[Str, Str] $.tuesday is shape-member('Tuesday');
-        has Hash[Str, Str] $.friday is shape-member('Friday');
-        has Hash[Str, Str] $.wednesday is shape-member('Wednesday');
-        has Hash[Str, Str] $.thursday is shape-member('Thursday');
-        has Hash[Str, Str] $.sunday is shape-member('Sunday');
-        has Hash[Str, Str] $.monday is shape-member('Monday');
-        has Hash[Str, Str] $.saturday is shape-member('Saturday');
+        has Str %.tuesday{Str} is shape-member('Tuesday');
+        has Str %.friday{Str} is shape-member('Friday');
+        has Str %.wednesday{Str} is shape-member('Wednesday');
+        has Str %.thursday{Str} is shape-member('Thursday');
+        has Str %.sunday{Str} is shape-member('Sunday');
+        has Str %.monday{Str} is shape-member('Monday');
+        has Str %.saturday{Str} is shape-member('Saturday');
     }
 
     class GrantAccessResult does AWS::SDK::Shape {
@@ -378,7 +409,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.name is shape-member('Name');
         has Bool $.use-custom-cookbooks is shape-member('UseCustomCookbooks');
         has Str $.default-os is shape-member('DefaultOs');
-        has Hash[Str, StackAttributesKeys] $.attributes is shape-member('Attributes');
+        has Str %.attributes{StackAttributesKeys} is shape-member('Attributes');
         has Str $.default-availability-zone is shape-member('DefaultAvailabilityZone');
         has Str $.default-instance-profile-arn is shape-member('DefaultInstanceProfileArn');
         has Str $.stack-id is required is shape-member('StackId');
@@ -402,7 +433,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.agent-version is shape-member('AgentVersion');
         has Str $.arn is shape-member('Arn');
         has Str $.reported-agent-version is shape-member('ReportedAgentVersion');
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.ssh-key-name is shape-member('SshKeyName');
         has Str $.platform is shape-member('Platform');
         has Str $.private-ip is shape-member('PrivateIp');
@@ -418,7 +449,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.os is shape-member('Os');
         has Str $.private-dns is shape-member('PrivateDns');
         has Str $.infrastructure-class is shape-member('InfrastructureClass');
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has Str $.ec2-instance-id is shape-member('Ec2InstanceId');
         has Str $.ecs-cluster-arn is shape-member('EcsClusterArn');
         has Str $.ecs-container-instance-arn is shape-member('EcsContainerInstanceArn');
@@ -428,7 +459,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.public-ip is shape-member('PublicIp');
         has VirtualizationType $.virtualization-type is shape-member('VirtualizationType');
         has Str $.last-service-error-id is shape-member('LastServiceErrorId');
-        has Array[Str] $.layer-ids is shape-member('LayerIds');
+        has Str @.layer-ids is shape-member('LayerIds');
         has Str $.created-at is shape-member('CreatedAt');
         has Bool $.install-updates-on-boot is shape-member('InstallUpdatesOnBoot');
         has Str $.instance-type is shape-member('InstanceType');
@@ -452,29 +483,25 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.layer-id is shape-member('LayerId');
     }
 
-    subset AppType of Str where $_ ~~ any('aws-flow-ruby', 'java', 'rails', 'php', 'nodejs', 'static', 'other');
-
-    subset AutoScalingType of Str where $_ ~~ any('load', 'timer');
-
     class DescribeRaidArraysRequest does AWS::SDK::Shape {
         has Str $.stack-id is shape-member('StackId');
         has Str $.instance-id is shape-member('InstanceId');
-        has Array[Str] $.raid-array-ids is shape-member('RaidArrayIds');
+        has Str @.raid-array-ids is shape-member('RaidArrayIds');
     }
 
     class DescribeEcsClustersResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[EcsCluster] $.ecs-clusters is shape-member('EcsClusters');
+        has EcsCluster @.ecs-clusters is shape-member('EcsClusters');
     }
 
     class CreateDeploymentRequest does AWS::SDK::Shape {
         has Str $.custom-json is shape-member('CustomJson');
-        has Array[Str] $.layer-ids is shape-member('LayerIds');
+        has Str @.layer-ids is shape-member('LayerIds');
         has Str $.app-id is shape-member('AppId');
         has Str $.comment is shape-member('Comment');
         has DeploymentCommand $.command is required is shape-member('Command');
         has Str $.stack-id is required is shape-member('StackId');
-        has Array[Str] $.instance-ids is shape-member('InstanceIds');
+        has Str @.instance-ids is shape-member('InstanceIds');
     }
 
     class RebootInstanceRequest does AWS::SDK::Shape {
@@ -482,15 +509,15 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeRaidArraysResult does AWS::SDK::Shape {
-        has Array[RaidArray] $.raid-arrays is shape-member('RaidArrays');
+        has RaidArray @.raid-arrays is shape-member('RaidArrays');
     }
 
     class DescribeAppsResult does AWS::SDK::Shape {
-        has Array[App] $.apps is shape-member('Apps');
+        has App @.apps is shape-member('Apps');
     }
 
     class DescribeUserProfilesRequest does AWS::SDK::Shape {
-        has Array[Str] $.iam-user-arns is shape-member('IamUserArns');
+        has Str @.iam-user-arns is shape-member('IamUserArns');
     }
 
     class AssociateElasticIpRequest does AWS::SDK::Shape {
@@ -541,17 +568,17 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
 
     class App does AWS::SDK::Shape {
         has Source $.app-source is shape-member('AppSource');
-        has Array[DataSource] $.data-sources is shape-member('DataSources');
+        has DataSource @.data-sources is shape-member('DataSources');
         has Bool $.enable-ssl is shape-member('EnableSsl');
-        has Array[Str] $.domains is shape-member('Domains');
+        has Str @.domains is shape-member('Domains');
         has Str $.description is shape-member('Description');
         has Str $.app-id is shape-member('AppId');
         has Str $.created-at is shape-member('CreatedAt');
         has Str $.name is shape-member('Name');
-        has Hash[Str, AppAttributesKeys] $.attributes is shape-member('Attributes');
+        has Str %.attributes{AppAttributesKeys} is shape-member('Attributes');
         has AppType $.type is shape-member('Type');
         has Str $.stack-id is shape-member('StackId');
-        has Array[EnvironmentVariable] $.environment is shape-member('Environment');
+        has EnvironmentVariable @.environment is shape-member('Environment');
         has SslConfiguration $.ssl-configuration is shape-member('SslConfiguration');
         has Str $.shortname is shape-member('Shortname');
     }
@@ -560,22 +587,16 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.volume-id is required is shape-member('VolumeId');
     }
 
-    subset VolumeType of Str where $_ ~~ any('gp2', 'io1', 'standard');
-
     class DescribeStackProvisioningParametersResult does AWS::SDK::Shape {
-        has Hash[Str, Str] $.parameters is shape-member('Parameters');
+        has Str %.parameters{Str} is shape-member('Parameters');
         has Str $.agent-installer-url is shape-member('AgentInstallerUrl');
     }
-
-    subset ValidForInMinutes of Int where 60 <= * <= 1440;
 
     class DescribeInstancesRequest does AWS::SDK::Shape {
         has Str $.layer-id is shape-member('LayerId');
         has Str $.stack-id is shape-member('StackId');
-        has Array[Str] $.instance-ids is shape-member('InstanceIds');
+        has Str @.instance-ids is shape-member('InstanceIds');
     }
-
-    subset CloudWatchLogsEncoding of Str where $_ ~~ any('ascii', 'big5', 'big5hkscs', 'cp037', 'cp424', 'cp437', 'cp500', 'cp720', 'cp737', 'cp775', 'cp850', 'cp852', 'cp855', 'cp856', 'cp857', 'cp858', 'cp860', 'cp861', 'cp862', 'cp863', 'cp864', 'cp865', 'cp866', 'cp869', 'cp874', 'cp875', 'cp932', 'cp949', 'cp950', 'cp1006', 'cp1026', 'cp1140', 'cp1250', 'cp1251', 'cp1252', 'cp1253', 'cp1254', 'cp1255', 'cp1256', 'cp1257', 'cp1258', 'euc_jp', 'euc_jis_2004', 'euc_jisx0213', 'euc_kr', 'gb2312', 'gbk', 'gb18030', 'hz', 'iso2022_jp', 'iso2022_jp_1', 'iso2022_jp_2', 'iso2022_jp_2004', 'iso2022_jp_3', 'iso2022_jp_ext', 'iso2022_kr', 'latin_1', 'iso8859_2', 'iso8859_3', 'iso8859_4', 'iso8859_5', 'iso8859_6', 'iso8859_7', 'iso8859_8', 'iso8859_9', 'iso8859_10', 'iso8859_13', 'iso8859_14', 'iso8859_15', 'iso8859_16', 'johab', 'koi8_r', 'koi8_u', 'mac_cyrillic', 'mac_greek', 'mac_iceland', 'mac_latin2', 'mac_roman', 'mac_turkish', 'ptcp154', 'shift_jis', 'shift_jis_2004', 'shift_jisx0213', 'utf_32', 'utf_32_be', 'utf_32_le', 'utf_16', 'utf_16_be', 'utf_16_le', 'utf_7', 'utf_8', 'utf_8_sig');
 
     class RdsDbInstance does AWS::SDK::Shape {
         has Str $.address is shape-member('Address');
@@ -605,8 +626,6 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.mount-point is shape-member('MountPoint');
     }
 
-    subset LayerAttributesKeys of Str where $_ ~~ any('EcsClusterArn', 'EnableHaproxyStats', 'HaproxyStatsUrl', 'HaproxyStatsUser', 'HaproxyStatsPassword', 'HaproxyHealthCheckUrl', 'HaproxyHealthCheckMethod', 'MysqlRootPassword', 'MysqlRootPasswordUbiquitous', 'GangliaUrl', 'GangliaUser', 'GangliaPassword', 'MemcachedMemory', 'NodejsVersion', 'RubyVersion', 'RubygemsVersion', 'ManageBundler', 'BundlerVersion', 'RailsStack', 'PassengerVersion', 'Jvm', 'JvmVersion', 'JvmOptions', 'JavaAppServer', 'JavaAppServerVersion');
-
     class RegisterInstanceResult does AWS::SDK::Shape {
         has Str $.instance-id is shape-member('InstanceId');
     }
@@ -625,7 +644,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeVolumesRequest does AWS::SDK::Shape {
-        has Array[Str] $.volume-ids is shape-member('VolumeIds');
+        has Str @.volume-ids is shape-member('VolumeIds');
         has Str $.raid-array-id is shape-member('RaidArrayId');
         has Str $.stack-id is shape-member('StackId');
         has Str $.instance-id is shape-member('InstanceId');
@@ -634,8 +653,6 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     class DeregisterInstanceRequest does AWS::SDK::Shape {
         has Str $.instance-id is required is shape-member('InstanceId');
     }
-
-    subset CloudWatchLogsInitialPosition of Str where $_ ~~ any('start_of_file', 'end_of_file');
 
     class CreateUserProfileRequest does AWS::SDK::Shape {
         has Bool $.allow-self-management is shape-member('AllowSelfManagement');
@@ -652,11 +669,11 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class Recipes does AWS::SDK::Shape {
-        has Array[Str] $.undeploy is shape-member('Undeploy');
-        has Array[Str] $.configure is shape-member('Configure');
-        has Array[Str] $.shutdown is shape-member('Shutdown');
-        has Array[Str] $.setup is shape-member('Setup');
-        has Array[Str] $.deploy is shape-member('Deploy');
+        has Str @.undeploy is shape-member('Undeploy');
+        has Str @.configure is shape-member('Configure');
+        has Str @.shutdown is shape-member('Shutdown');
+        has Str @.setup is shape-member('Setup');
+        has Str @.deploy is shape-member('Deploy');
     }
 
     class Stack does AWS::SDK::Shape {
@@ -678,14 +695,14 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.name is shape-member('Name');
         has Bool $.use-custom-cookbooks is shape-member('UseCustomCookbooks');
         has Str $.default-os is shape-member('DefaultOs');
-        has Hash[Str, StackAttributesKeys] $.attributes is shape-member('Attributes');
+        has Str %.attributes{StackAttributesKeys} is shape-member('Attributes');
         has Str $.default-availability-zone is shape-member('DefaultAvailabilityZone');
         has Str $.default-instance-profile-arn is shape-member('DefaultInstanceProfileArn');
         has Str $.stack-id is shape-member('StackId');
     }
 
     class TagResourceRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.tags is required is shape-member('Tags');
+        has Str %.tags{Str} is required is shape-member('Tags');
         has Str $.resource-arn is required is shape-member('ResourceArn');
     }
 
@@ -696,7 +713,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class ListTagsResult does AWS::SDK::Shape {
-        has Hash[Str, Str] $.tags is shape-member('Tags');
+        has Str %.tags{Str} is shape-member('Tags');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -710,10 +727,10 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     class CreateLayerRequest does AWS::SDK::Shape {
         has LifecycleEventConfiguration $.lifecycle-event-configuration is shape-member('LifecycleEventConfiguration');
         has Bool $.enable-auto-healing is shape-member('EnableAutoHealing');
-        has Array[Str] $.custom-security-group-ids is shape-member('CustomSecurityGroupIds');
+        has Str @.custom-security-group-ids is shape-member('CustomSecurityGroupIds');
         has Str $.custom-json is shape-member('CustomJson');
-        has Array[VolumeConfiguration] $.volume-configurations is shape-member('VolumeConfigurations');
-        has Array[Str] $.packages is shape-member('Packages');
+        has VolumeConfiguration @.volume-configurations is shape-member('VolumeConfigurations');
+        has Str @.packages is shape-member('Packages');
         has CloudWatchLogsConfiguration $.cloud-watch-logs-configuration is shape-member('CloudWatchLogsConfiguration');
         has Bool $.auto-assign-public-ips is shape-member('AutoAssignPublicIps');
         has Str $.custom-instance-profile-arn is shape-member('CustomInstanceProfileArn');
@@ -722,7 +739,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Bool $.install-updates-on-boot is shape-member('InstallUpdatesOnBoot');
         has Recipes $.custom-recipes is shape-member('CustomRecipes');
         has Bool $.auto-assign-elastic-ips is shape-member('AutoAssignElasticIps');
-        has Hash[Str, LayerAttributesKeys] $.attributes is shape-member('Attributes');
+        has Str %.attributes{LayerAttributesKeys} is shape-member('Attributes');
         has LayerType $.type is required is shape-member('Type');
         has Str $.stack-id is required is shape-member('StackId');
         has Str $.shortname is required is shape-member('Shortname');
@@ -733,15 +750,15 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeElasticIpsResult does AWS::SDK::Shape {
-        has Array[ElasticIp] $.elastic-ips is shape-member('ElasticIps');
+        has ElasticIp @.elastic-ips is shape-member('ElasticIps');
     }
 
     class DescribeAgentVersionsResult does AWS::SDK::Shape {
-        has Array[AgentVersion] $.agent-versions is shape-member('AgentVersions');
+        has AgentVersion @.agent-versions is shape-member('AgentVersions');
     }
 
     class AutoScalingThresholds does AWS::SDK::Shape {
-        has Array[Str] $.alarms is shape-member('Alarms');
+        has Str @.alarms is shape-member('Alarms');
         has Minute $.ignore-metrics-time is shape-member('IgnoreMetricsTime');
         has Numeric $.cpu-threshold is shape-member('CpuThreshold');
         has Numeric $.memory-threshold is shape-member('MemoryThreshold');
@@ -768,10 +785,10 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Recipes $.default-recipes is shape-member('DefaultRecipes');
         has Str $.arn is shape-member('Arn');
         has Bool $.enable-auto-healing is shape-member('EnableAutoHealing');
-        has Array[Str] $.custom-security-group-ids is shape-member('CustomSecurityGroupIds');
+        has Str @.custom-security-group-ids is shape-member('CustomSecurityGroupIds');
         has Str $.custom-json is shape-member('CustomJson');
-        has Array[VolumeConfiguration] $.volume-configurations is shape-member('VolumeConfigurations');
-        has Array[Str] $.packages is shape-member('Packages');
+        has VolumeConfiguration @.volume-configurations is shape-member('VolumeConfigurations');
+        has Str @.packages is shape-member('Packages');
         has CloudWatchLogsConfiguration $.cloud-watch-logs-configuration is shape-member('CloudWatchLogsConfiguration');
         has Bool $.auto-assign-public-ips is shape-member('AutoAssignPublicIps');
         has Str $.custom-instance-profile-arn is shape-member('CustomInstanceProfileArn');
@@ -781,16 +798,16 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Bool $.install-updates-on-boot is shape-member('InstallUpdatesOnBoot');
         has Recipes $.custom-recipes is shape-member('CustomRecipes');
         has Bool $.auto-assign-elastic-ips is shape-member('AutoAssignElasticIps');
-        has Hash[Str, LayerAttributesKeys] $.attributes is shape-member('Attributes');
+        has Str %.attributes{LayerAttributesKeys} is shape-member('Attributes');
         has LayerType $.type is shape-member('Type');
         has Str $.layer-id is shape-member('LayerId');
         has Str $.stack-id is shape-member('StackId');
-        has Array[Str] $.default-security-group-names is shape-member('DefaultSecurityGroupNames');
+        has Str @.default-security-group-names is shape-member('DefaultSecurityGroupNames');
         has Str $.shortname is shape-member('Shortname');
     }
 
     class DescribeElasticIpsRequest does AWS::SDK::Shape {
-        has Array[Str] $.ips is shape-member('Ips');
+        has Str @.ips is shape-member('Ips');
         has Str $.stack-id is shape-member('StackId');
         has Str $.instance-id is shape-member('InstanceId');
     }
@@ -825,28 +842,26 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeLoadBasedAutoScalingRequest does AWS::SDK::Shape {
-        has Array[Str] $.layer-ids is required is shape-member('LayerIds');
+        has Str @.layer-ids is required is shape-member('LayerIds');
     }
 
     class DescribeDeploymentsRequest does AWS::SDK::Shape {
-        has Array[Str] $.deployment-ids is shape-member('DeploymentIds');
+        has Str @.deployment-ids is shape-member('DeploymentIds');
         has Str $.app-id is shape-member('AppId');
         has Str $.stack-id is shape-member('StackId');
     }
 
     class DescribeCommandsResult does AWS::SDK::Shape {
-        has Array[Command] $.commands is shape-member('Commands');
+        has Command @.commands is shape-member('Commands');
     }
 
     class DescribeTimeBasedAutoScalingRequest does AWS::SDK::Shape {
-        has Array[Str] $.instance-ids is required is shape-member('InstanceIds');
+        has Str @.instance-ids is required is shape-member('InstanceIds');
     }
 
     class StartStackRequest does AWS::SDK::Shape {
         has Str $.stack-id is required is shape-member('StackId');
     }
-
-    subset Minute of Int where 1 <= * <= 100;
 
     class DescribePermissionsRequest does AWS::SDK::Shape {
         has Str $.stack-id is shape-member('StackId');
@@ -854,17 +869,13 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeElasticLoadBalancersRequest does AWS::SDK::Shape {
-        has Array[Str] $.layer-ids is shape-member('LayerIds');
+        has Str @.layer-ids is shape-member('LayerIds');
         has Str $.stack-id is shape-member('StackId');
     }
-
-    subset AppAttributesKeys of Str where $_ ~~ any('DocumentRoot', 'RailsEnv', 'AutoBundleOnDeploy', 'AwsFlowRubySettings');
 
     class CreateLayerResult does AWS::SDK::Shape {
         has Str $.layer-id is shape-member('LayerId');
     }
-
-    subset RootDeviceType of Str where $_ ~~ any('ebs', 'instance-store');
 
     class SetLoadBasedAutoScalingRequest does AWS::SDK::Shape {
         has AutoScalingThresholds $.up-scaling is shape-member('UpScaling');
@@ -874,7 +885,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DeploymentCommand does AWS::SDK::Shape {
-        has Hash[Array[Str], Str] $.args is shape-member('Args');
+        has Array[Str] %.args{Str} is shape-member('Args');
         has DeploymentCommandName $.name is required is shape-member('Name');
     }
 
@@ -903,16 +914,14 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.layer-id is shape-member('LayerId');
     }
 
-    subset CloudWatchLogsTimeZone of Str where $_ ~~ any('LOCAL', 'UTC');
-
     class CreateInstanceRequest does AWS::SDK::Shape {
         has Str $.agent-version is shape-member('AgentVersion');
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has RootDeviceType $.root-device-type is shape-member('RootDeviceType');
         has Str $.subnet-id is shape-member('SubnetId');
         has Str $.ssh-key-name is shape-member('SshKeyName');
         has Str $.virtualization-type is shape-member('VirtualizationType');
-        has Array[Str] $.layer-ids is required is shape-member('LayerIds');
+        has Str @.layer-ids is required is shape-member('LayerIds');
         has Str $.tenancy is shape-member('Tenancy');
         has Bool $.ebs-optimized is shape-member('EbsOptimized');
         has Str $.hostname is shape-member('Hostname');
@@ -963,18 +972,16 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeVolumesResult does AWS::SDK::Shape {
-        has Array[Volume] $.volumes is shape-member('Volumes');
+        has Volume @.volumes is shape-member('Volumes');
     }
 
     class DescribeTimeBasedAutoScalingResult does AWS::SDK::Shape {
-        has Array[TimeBasedAutoScalingConfiguration] $.time-based-auto-scaling-configurations is shape-member('TimeBasedAutoScalingConfigurations');
+        has TimeBasedAutoScalingConfiguration @.time-based-auto-scaling-configurations is shape-member('TimeBasedAutoScalingConfigurations');
     }
 
     class DescribeElasticLoadBalancersResult does AWS::SDK::Shape {
-        has Array[ElasticLoadBalancer] $.elastic-load-balancers is shape-member('ElasticLoadBalancers');
+        has ElasticLoadBalancer @.elastic-load-balancers is shape-member('ElasticLoadBalancers');
     }
-
-    subset Architecture of Str where $_ ~~ any('x86_64', 'i386');
 
     class ReportedOs does AWS::SDK::Shape {
         has Str $.version is shape-member('Version');
@@ -992,12 +999,12 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class UntagResourceRequest does AWS::SDK::Shape {
-        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.tag-keys is required is shape-member('TagKeys');
         has Str $.resource-arn is required is shape-member('ResourceArn');
     }
 
     class DescribeServiceErrorsRequest does AWS::SDK::Shape {
-        has Array[Str] $.service-error-ids is shape-member('ServiceErrorIds');
+        has Str @.service-error-ids is shape-member('ServiceErrorIds');
         has Str $.instance-id is shape-member('InstanceId');
         has Str $.stack-id is shape-member('StackId');
     }
@@ -1016,7 +1023,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeDeploymentsResult does AWS::SDK::Shape {
-        has Array[Deployment] $.deployments is shape-member('Deployments');
+        has Deployment @.deployments is shape-member('Deployments');
     }
 
     class CreateUserProfileResult does AWS::SDK::Shape {
@@ -1024,7 +1031,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeUserProfilesResult does AWS::SDK::Shape {
-        has Array[UserProfile] $.user-profiles is shape-member('UserProfiles');
+        has UserProfile @.user-profiles is shape-member('UserProfiles');
     }
 
     class DescribeStackSummaryRequest does AWS::SDK::Shape {
@@ -1032,7 +1039,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeInstancesResult does AWS::SDK::Shape {
-        has Array[Instance] $.instances is shape-member('Instances');
+        has Instance @.instances is shape-member('Instances');
     }
 
     class CreateDeploymentResult does AWS::SDK::Shape {
@@ -1056,7 +1063,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.name is required is shape-member('Name');
         has Bool $.use-custom-cookbooks is shape-member('UseCustomCookbooks');
         has Str $.default-os is shape-member('DefaultOs');
-        has Hash[Str, StackAttributesKeys] $.attributes is shape-member('Attributes');
+        has Str %.attributes{StackAttributesKeys} is shape-member('Attributes');
         has Str $.default-availability-zone is shape-member('DefaultAvailabilityZone');
         has Str $.default-instance-profile-arn is required is shape-member('DefaultInstanceProfileArn');
     }
@@ -1066,15 +1073,13 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has Str $.instance-id is shape-member('InstanceId');
     }
 
-    subset LayerType of Str where $_ ~~ any('aws-flow-ruby', 'ecs-cluster', 'java-app', 'lb', 'web', 'php-app', 'rails-app', 'nodejs-app', 'memcached', 'db-master', 'monitoring-master', 'custom');
-
     class ElasticLoadBalancer does AWS::SDK::Shape {
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[Str] $.availability-zones is shape-member('AvailabilityZones');
+        has Str @.availability-zones is shape-member('AvailabilityZones');
         has Str $.elastic-load-balancer-name is shape-member('ElasticLoadBalancerName');
         has Str $.region is shape-member('Region');
-        has Array[Str] $.ec2-instance-ids is shape-member('Ec2InstanceIds');
-        has Array[Str] $.subnet-ids is shape-member('SubnetIds');
+        has Str @.ec2-instance-ids is shape-member('Ec2InstanceIds');
+        has Str @.subnet-ids is shape-member('SubnetIds');
         has Str $.layer-id is shape-member('LayerId');
         has Str $.stack-id is shape-member('StackId');
         has Str $.dns-name is shape-member('DnsName');
@@ -1089,7 +1094,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeServiceErrorsResult does AWS::SDK::Shape {
-        has Array[ServiceError] $.service-errors is shape-member('ServiceErrors');
+        has ServiceError @.service-errors is shape-member('ServiceErrors');
     }
 
     class DescribeAgentVersionsRequest does AWS::SDK::Shape {
@@ -1099,15 +1104,15 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
 
     class CreateAppRequest does AWS::SDK::Shape {
         has Source $.app-source is shape-member('AppSource');
-        has Array[DataSource] $.data-sources is shape-member('DataSources');
+        has DataSource @.data-sources is shape-member('DataSources');
         has Bool $.enable-ssl is shape-member('EnableSsl');
-        has Array[Str] $.domains is shape-member('Domains');
+        has Str @.domains is shape-member('Domains');
         has Str $.description is shape-member('Description');
         has Str $.name is required is shape-member('Name');
-        has Hash[Str, AppAttributesKeys] $.attributes is shape-member('Attributes');
+        has Str %.attributes{AppAttributesKeys} is shape-member('Attributes');
         has AppType $.type is required is shape-member('Type');
         has Str $.stack-id is required is shape-member('StackId');
-        has Array[EnvironmentVariable] $.environment is shape-member('Environment');
+        has EnvironmentVariable @.environment is shape-member('Environment');
         has SslConfiguration $.ssl-configuration is shape-member('SslConfiguration');
         has Str $.shortname is shape-member('Shortname');
     }
@@ -1126,17 +1131,17 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeAppsRequest does AWS::SDK::Shape {
-        has Array[Str] $.app-ids is shape-member('AppIds');
+        has Str @.app-ids is shape-member('AppIds');
         has Str $.stack-id is shape-member('StackId');
     }
 
     class AssignInstanceRequest does AWS::SDK::Shape {
-        has Array[Str] $.layer-ids is required is shape-member('LayerIds');
+        has Str @.layer-ids is required is shape-member('LayerIds');
         has Str $.instance-id is required is shape-member('InstanceId');
     }
 
     class DescribeLayersRequest does AWS::SDK::Shape {
-        has Array[Str] $.layer-ids is shape-member('LayerIds');
+        has Str @.layer-ids is shape-member('LayerIds');
         has Str $.stack-id is shape-member('StackId');
     }
 
@@ -1170,18 +1175,16 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeRdsDbInstancesRequest does AWS::SDK::Shape {
-        has Array[Str] $.rds-db-instance-arns is shape-member('RdsDbInstanceArns');
+        has Str @.rds-db-instance-arns is shape-member('RdsDbInstanceArns');
         has Str $.stack-id is required is shape-member('StackId');
     }
 
     class DescribeEcsClustersRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Str] $.ecs-cluster-arns is shape-member('EcsClusterArns');
+        has Str @.ecs-cluster-arns is shape-member('EcsClusterArns');
         has Str $.next-token is shape-member('NextToken');
         has Str $.stack-id is shape-member('StackId');
     }
-
-    subset DeploymentCommandName of Str where $_ ~~ any('install_dependencies', 'update_dependencies', 'update_custom_cookbooks', 'execute_recipes', 'configure', 'setup', 'deploy', 'rollback', 'start', 'stop', 'restart', 'undeploy');
 
     class UpdateElasticIpRequest does AWS::SDK::Shape {
         has Str $.name is shape-member('Name');
@@ -1189,7 +1192,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribePermissionsResult does AWS::SDK::Shape {
-        has Array[Permission] $.permissions is shape-member('Permissions');
+        has Permission @.permissions is shape-member('Permissions');
     }
 
     class DetachElasticLoadBalancerRequest does AWS::SDK::Shape {
@@ -1212,7 +1215,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         has DeploymentCommand $.command is shape-member('Command');
         has Str $.iam-user-arn is shape-member('IamUserArn');
         has Str $.stack-id is shape-member('StackId');
-        has Array[Str] $.instance-ids is shape-member('InstanceIds');
+        has Str @.instance-ids is shape-member('InstanceIds');
         has Str $.deployment-id is shape-member('DeploymentId');
     }
 
@@ -1224,7 +1227,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     class UpdateInstanceRequest does AWS::SDK::Shape {
         has Str $.agent-version is shape-member('AgentVersion');
         has Str $.ssh-key-name is shape-member('SshKeyName');
-        has Array[Str] $.layer-ids is shape-member('LayerIds');
+        has Str @.layer-ids is shape-member('LayerIds');
         has Bool $.ebs-optimized is shape-member('EbsOptimized');
         has Str $.hostname is shape-member('Hostname');
         has Bool $.install-updates-on-boot is shape-member('InstallUpdatesOnBoot');
@@ -1237,14 +1240,12 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeLoadBasedAutoScalingResult does AWS::SDK::Shape {
-        has Array[LoadBasedAutoScalingConfiguration] $.load-based-auto-scaling-configurations is shape-member('LoadBasedAutoScalingConfigurations');
+        has LoadBasedAutoScalingConfiguration @.load-based-auto-scaling-configurations is shape-member('LoadBasedAutoScalingConfigurations');
     }
 
     class CreateAppResult does AWS::SDK::Shape {
         has Str $.app-id is shape-member('AppId');
     }
-
-    subset SourceType of Str where $_ ~~ any('git', 'svn', 'archive', 's3');
 
     class DeleteAppRequest does AWS::SDK::Shape {
         has Str $.app-id is required is shape-member('AppId');
@@ -1255,7 +1256,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     class DescribeRdsDbInstancesResult does AWS::SDK::Shape {
-        has Array[RdsDbInstance] $.rds-db-instances is shape-member('RdsDbInstances');
+        has RdsDbInstance @.rds-db-instances is shape-member('RdsDbInstances');
     }
 
     class AttachElasticLoadBalancerRequest does AWS::SDK::Shape {
@@ -1276,6 +1277,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     class UnassignInstanceRequest does AWS::SDK::Shape {
         has Str $.instance-id is required is shape-member('InstanceId');
     }
+
 
     method attach-elastic-load-balancer(
         Str :$elastic-load-balancer-name!,
@@ -1301,7 +1303,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         Str :$custom-json,
         Str :$default-subnet-id,
         Str :$vpc-id,
-        Array[Str] :$clone-app-ids,
+        Str :@clone-app-ids,
         Str :$service-role-arn!,
         Source :$custom-cookbooks-source,
         Bool :$use-opsworks-security-groups,
@@ -1310,7 +1312,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         Str :$name,
         Bool :$use-custom-cookbooks,
         Str :$default-os,
-        Hash[Str, StackAttributesKeys] :$attributes,
+        Str :%attributes,
         Str :$source-stack-id!,
         Bool :$clone-permissions,
         Str :$default-availability-zone,
@@ -1325,7 +1327,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
             :$custom-json,
             :$default-subnet-id,
             :$vpc-id,
-            :$clone-app-ids,
+            :@clone-app-ids,
             :$service-role-arn,
             :$custom-cookbooks-source,
             :$use-opsworks-security-groups,
@@ -1334,7 +1336,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
             :$name,
             :$use-custom-cookbooks,
             :$default-os,
-            :$attributes,
+            :%attributes,
             :$source-stack-id,
             :$clone-permissions,
             :$default-availability-zone,
@@ -1361,11 +1363,11 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-apps(
-        Array[Str] :$app-ids,
+        Str :@app-ids,
         Str :$stack-id
     ) returns DescribeAppsResult is service-operation('DescribeApps') {
         my $request-input = DescribeAppsRequest.new(
-            :$app-ids,
+            :@app-ids,
             :$stack-id
         );
 
@@ -1376,12 +1378,12 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-service-errors(
-        Array[Str] :$service-error-ids,
+        Str :@service-error-ids,
         Str :$instance-id,
         Str :$stack-id
     ) returns DescribeServiceErrorsResult is service-operation('DescribeServiceErrors') {
         my $request-input = DescribeServiceErrorsRequest.new(
-            :$service-error-ids,
+            :@service-error-ids,
             :$instance-id,
             :$stack-id
         );
@@ -1455,10 +1457,10 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     method update-layer(
         LifecycleEventConfiguration :$lifecycle-event-configuration,
         Bool :$enable-auto-healing,
-        Array[Str] :$custom-security-group-ids,
+        Str :@custom-security-group-ids,
         Str :$custom-json,
-        Array[VolumeConfiguration] :$volume-configurations,
-        Array[Str] :$packages,
+        VolumeConfiguration :@volume-configurations,
+        Str :@packages,
         CloudWatchLogsConfiguration :$cloud-watch-logs-configuration,
         Bool :$auto-assign-public-ips,
         Str :$custom-instance-profile-arn,
@@ -1467,17 +1469,17 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         Bool :$install-updates-on-boot,
         Recipes :$custom-recipes,
         Bool :$auto-assign-elastic-ips,
-        Hash[Str, LayerAttributesKeys] :$attributes,
+        Str :%attributes,
         Str :$layer-id!,
         Str :$shortname
     ) is service-operation('UpdateLayer') {
         my $request-input = UpdateLayerRequest.new(
             :$lifecycle-event-configuration,
             :$enable-auto-healing,
-            :$custom-security-group-ids,
+            :@custom-security-group-ids,
             :$custom-json,
-            :$volume-configurations,
-            :$packages,
+            :@volume-configurations,
+            :@packages,
             :$cloud-watch-logs-configuration,
             :$auto-assign-public-ips,
             :$custom-instance-profile-arn,
@@ -1486,7 +1488,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
             :$install-updates-on-boot,
             :$custom-recipes,
             :$auto-assign-elastic-ips,
-            :$attributes,
+            :%attributes,
             :$layer-id,
             :$shortname
         );
@@ -1531,28 +1533,28 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
 
     method update-app(
         Source :$app-source,
-        Array[DataSource] :$data-sources,
+        DataSource :@data-sources,
         Bool :$enable-ssl,
-        Array[Str] :$domains,
+        Str :@domains,
         Str :$description,
         Str :$app-id!,
         Str :$name,
-        Hash[Str, AppAttributesKeys] :$attributes,
+        Str :%attributes,
         AppType :$type,
-        Array[EnvironmentVariable] :$environment,
+        EnvironmentVariable :@environment,
         SslConfiguration :$ssl-configuration
     ) is service-operation('UpdateApp') {
         my $request-input = UpdateAppRequest.new(
             :$app-source,
-            :$data-sources,
+            :@data-sources,
             :$enable-ssl,
-            :$domains,
+            :@domains,
             :$description,
             :$app-id,
             :$name,
-            :$attributes,
+            :%attributes,
             :$type,
-            :$environment,
+            :@environment,
             :$ssl-configuration
         );
 
@@ -1592,21 +1594,21 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
 
     method create-deployment(
         Str :$custom-json,
-        Array[Str] :$layer-ids,
+        Str :@layer-ids,
         Str :$app-id,
         Str :$comment,
         DeploymentCommand :$command!,
         Str :$stack-id!,
-        Array[Str] :$instance-ids
+        Str :@instance-ids
     ) returns CreateDeploymentResult is service-operation('CreateDeployment') {
         my $request-input = CreateDeploymentRequest.new(
             :$custom-json,
-            :$layer-ids,
+            :@layer-ids,
             :$app-id,
             :$comment,
             :$command,
             :$stack-id,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -1616,12 +1618,12 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-elastic-ips(
-        Array[Str] :$ips,
+        Str :@ips,
         Str :$stack-id,
         Str :$instance-id
     ) returns DescribeElasticIpsResult is service-operation('DescribeElasticIps') {
         my $request-input = DescribeElasticIpsRequest.new(
-            :$ips,
+            :@ips,
             :$stack-id,
             :$instance-id
         );
@@ -1633,11 +1635,11 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-elastic-load-balancers(
-        Array[Str] :$layer-ids,
+        Str :@layer-ids,
         Str :$stack-id
     ) returns DescribeElasticLoadBalancersResult is service-operation('DescribeElasticLoadBalancers') {
         my $request-input = DescribeElasticLoadBalancersRequest.new(
-            :$layer-ids,
+            :@layer-ids,
             :$stack-id
         );
 
@@ -1650,7 +1652,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     method update-instance(
         Str :$agent-version,
         Str :$ssh-key-name,
-        Array[Str] :$layer-ids,
+        Str :@layer-ids,
         Bool :$ebs-optimized,
         Str :$hostname,
         Bool :$install-updates-on-boot,
@@ -1664,7 +1666,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         my $request-input = UpdateInstanceRequest.new(
             :$agent-version,
             :$ssh-key-name,
-            :$layer-ids,
+            :@layer-ids,
             :$ebs-optimized,
             :$hostname,
             :$install-updates-on-boot,
@@ -1683,11 +1685,11 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method untag-resource(
-        Array[Str] :$tag-keys!,
+        Str :@tag-keys!,
         Str :$resource-arn!
     ) is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-            :$tag-keys,
+            :@tag-keys,
             :$resource-arn
         );
 
@@ -1713,11 +1715,11 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method assign-instance(
-        Array[Str] :$layer-ids!,
+        Str :@layer-ids!,
         Str :$instance-id!
     ) is service-operation('AssignInstance') {
         my $request-input = AssignInstanceRequest.new(
-            :$layer-ids,
+            :@layer-ids,
             :$instance-id
         );
 
@@ -1795,10 +1797,10 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-user-profiles(
-        Array[Str] :$iam-user-arns
+        Str :@iam-user-arns
     ) returns DescribeUserProfilesResult is service-operation('DescribeUserProfiles') {
         my $request-input = DescribeUserProfilesRequest.new(
-            :$iam-user-arns
+            :@iam-user-arns
         );
 
         self.perform-operation(
@@ -1880,13 +1882,13 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
 
     method describe-ecs-clusters(
         Int :$max-results,
-        Array[Str] :$ecs-cluster-arns,
+        Str :@ecs-cluster-arns,
         Str :$next-token,
         Str :$stack-id
     ) returns DescribeEcsClustersResult is service-operation('DescribeEcsClusters') {
         my $request-input = DescribeEcsClustersRequest.new(
             :$max-results,
-            :$ecs-cluster-arns,
+            :@ecs-cluster-arns,
             :$next-token,
             :$stack-id
         );
@@ -1913,10 +1915,10 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-time-based-auto-scaling(
-        Array[Str] :$instance-ids!
+        Str :@instance-ids!
     ) returns DescribeTimeBasedAutoScalingResult is service-operation('DescribeTimeBasedAutoScaling') {
         my $request-input = DescribeTimeBasedAutoScalingRequest.new(
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -1957,7 +1959,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         Str :$name!,
         Bool :$use-custom-cookbooks,
         Str :$default-os,
-        Hash[Str, StackAttributesKeys] :$attributes,
+        Str :%attributes,
         Str :$default-availability-zone,
         Str :$default-instance-profile-arn!
     ) returns CreateStackResult is service-operation('CreateStack') {
@@ -1978,7 +1980,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
             :$name,
             :$use-custom-cookbooks,
             :$default-os,
-            :$attributes,
+            :%attributes,
             :$default-availability-zone,
             :$default-instance-profile-arn
         );
@@ -2004,7 +2006,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         Str :$name,
         Bool :$use-custom-cookbooks,
         Str :$default-os,
-        Hash[Str, StackAttributesKeys] :$attributes,
+        Str :%attributes,
         Str :$default-availability-zone,
         Str :$default-instance-profile-arn,
         Str :$stack-id!
@@ -2024,7 +2026,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
             :$name,
             :$use-custom-cookbooks,
             :$default-os,
-            :$attributes,
+            :%attributes,
             :$default-availability-zone,
             :$default-instance-profile-arn,
             :$stack-id
@@ -2050,11 +2052,11 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method tag-resource(
-        Hash[Str, Str] :$tags!,
+        Str :%tags!,
         Str :$resource-arn!
     ) is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-            :$tags,
+            :%tags,
             :$resource-arn
         );
 
@@ -2067,10 +2069,10 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     method create-layer(
         LifecycleEventConfiguration :$lifecycle-event-configuration,
         Bool :$enable-auto-healing,
-        Array[Str] :$custom-security-group-ids,
+        Str :@custom-security-group-ids,
         Str :$custom-json,
-        Array[VolumeConfiguration] :$volume-configurations,
-        Array[Str] :$packages,
+        VolumeConfiguration :@volume-configurations,
+        Str :@packages,
         CloudWatchLogsConfiguration :$cloud-watch-logs-configuration,
         Bool :$auto-assign-public-ips,
         Str :$custom-instance-profile-arn,
@@ -2079,7 +2081,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         Bool :$install-updates-on-boot,
         Recipes :$custom-recipes,
         Bool :$auto-assign-elastic-ips,
-        Hash[Str, LayerAttributesKeys] :$attributes,
+        Str :%attributes,
         LayerType :$type!,
         Str :$stack-id!,
         Str :$shortname!
@@ -2087,10 +2089,10 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
         my $request-input = CreateLayerRequest.new(
             :$lifecycle-event-configuration,
             :$enable-auto-healing,
-            :$custom-security-group-ids,
+            :@custom-security-group-ids,
             :$custom-json,
-            :$volume-configurations,
-            :$packages,
+            :@volume-configurations,
+            :@packages,
             :$cloud-watch-logs-configuration,
             :$auto-assign-public-ips,
             :$custom-instance-profile-arn,
@@ -2099,7 +2101,7 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
             :$install-updates-on-boot,
             :$custom-recipes,
             :$auto-assign-elastic-ips,
-            :$attributes,
+            :%attributes,
             :$type,
             :$stack-id,
             :$shortname
@@ -2112,12 +2114,12 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-commands(
-        Array[Str] :$command-ids,
+        Str :@command-ids,
         Str :$instance-id,
         Str :$deployment-id
     ) returns DescribeCommandsResult is service-operation('DescribeCommands') {
         my $request-input = DescribeCommandsRequest.new(
-            :$command-ids,
+            :@command-ids,
             :$instance-id,
             :$deployment-id
         );
@@ -2179,12 +2181,12 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
 
     method create-instance(
         Str :$agent-version,
-        Array[BlockDeviceMapping] :$block-device-mappings,
+        BlockDeviceMapping :@block-device-mappings,
         RootDeviceType :$root-device-type,
         Str :$subnet-id,
         Str :$ssh-key-name,
         Str :$virtualization-type,
-        Array[Str] :$layer-ids!,
+        Str :@layer-ids!,
         Str :$tenancy,
         Bool :$ebs-optimized,
         Str :$hostname,
@@ -2199,12 +2201,12 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     ) returns CreateInstanceResult is service-operation('CreateInstance') {
         my $request-input = CreateInstanceRequest.new(
             :$agent-version,
-            :$block-device-mappings,
+            :@block-device-mappings,
             :$root-device-type,
             :$subnet-id,
             :$ssh-key-name,
             :$virtualization-type,
-            :$layer-ids,
+            :@layer-ids,
             :$tenancy,
             :$ebs-optimized,
             :$hostname,
@@ -2227,12 +2229,12 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     method describe-instances(
         Str :$layer-id,
         Str :$stack-id,
-        Array[Str] :$instance-ids
+        Str :@instance-ids
     ) returns DescribeInstancesResult is service-operation('DescribeInstances') {
         my $request-input = DescribeInstancesRequest.new(
             :$layer-id,
             :$stack-id,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -2242,10 +2244,10 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-load-based-auto-scaling(
-        Array[Str] :$layer-ids!
+        Str :@layer-ids!
     ) returns DescribeLoadBasedAutoScalingResult is service-operation('DescribeLoadBasedAutoScaling') {
         my $request-input = DescribeLoadBasedAutoScalingRequest.new(
-            :$layer-ids
+            :@layer-ids
         );
 
         self.perform-operation(
@@ -2380,13 +2382,13 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-volumes(
-        Array[Str] :$volume-ids,
+        Str :@volume-ids,
         Str :$raid-array-id,
         Str :$stack-id,
         Str :$instance-id
     ) returns DescribeVolumesResult is service-operation('DescribeVolumes') {
         my $request-input = DescribeVolumesRequest.new(
-            :$volume-ids,
+            :@volume-ids,
             :$raid-array-id,
             :$stack-id,
             :$instance-id
@@ -2435,11 +2437,11 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-rds-db-instances(
-        Array[Str] :$rds-db-instance-arns,
+        Str :@rds-db-instance-arns,
         Str :$stack-id!
     ) returns DescribeRdsDbInstancesResult is service-operation('DescribeRdsDbInstances') {
         my $request-input = DescribeRdsDbInstancesRequest.new(
-            :$rds-db-instance-arns,
+            :@rds-db-instance-arns,
             :$stack-id
         );
 
@@ -2464,29 +2466,29 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
 
     method create-app(
         Source :$app-source,
-        Array[DataSource] :$data-sources,
+        DataSource :@data-sources,
         Bool :$enable-ssl,
-        Array[Str] :$domains,
+        Str :@domains,
         Str :$description,
         Str :$name!,
-        Hash[Str, AppAttributesKeys] :$attributes,
+        Str :%attributes,
         AppType :$type!,
         Str :$stack-id!,
-        Array[EnvironmentVariable] :$environment,
+        EnvironmentVariable :@environment,
         SslConfiguration :$ssl-configuration,
         Str :$shortname
     ) returns CreateAppResult is service-operation('CreateApp') {
         my $request-input = CreateAppRequest.new(
             :$app-source,
-            :$data-sources,
+            :@data-sources,
             :$enable-ssl,
-            :$domains,
+            :@domains,
             :$description,
             :$name,
-            :$attributes,
+            :%attributes,
             :$type,
             :$stack-id,
-            :$environment,
+            :@environment,
             :$ssl-configuration,
             :$shortname
         );
@@ -2530,12 +2532,12 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-deployments(
-        Array[Str] :$deployment-ids,
+        Str :@deployment-ids,
         Str :$app-id,
         Str :$stack-id
     ) returns DescribeDeploymentsResult is service-operation('DescribeDeployments') {
         my $request-input = DescribeDeploymentsRequest.new(
-            :$deployment-ids,
+            :@deployment-ids,
             :$app-id,
             :$stack-id
         );
@@ -2547,11 +2549,11 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-layers(
-        Array[Str] :$layer-ids,
+        Str :@layer-ids,
         Str :$stack-id
     ) returns DescribeLayersResult is service-operation('DescribeLayers') {
         my $request-input = DescribeLayersRequest.new(
-            :$layer-ids,
+            :@layer-ids,
             :$stack-id
         );
 
@@ -2564,12 +2566,12 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     method describe-raid-arrays(
         Str :$stack-id,
         Str :$instance-id,
-        Array[Str] :$raid-array-ids
+        Str :@raid-array-ids
     ) returns DescribeRaidArraysResult is service-operation('DescribeRaidArrays') {
         my $request-input = DescribeRaidArraysRequest.new(
             :$stack-id,
             :$instance-id,
-            :$raid-array-ids
+            :@raid-array-ids
         );
 
         self.perform-operation(
@@ -2633,10 +2635,10 @@ class AWS::SDK::Service::OpsWorks does AWS::SDK::Service {
     }
 
     method describe-stacks(
-        Array[Str] :$stack-ids
+        Str :@stack-ids
     ) returns DescribeStacksResult is service-operation('DescribeStacks') {
         my $request-input = DescribeStacksRequest.new(
-            :$stack-ids
+            :@stack-ids
         );
 
         self.perform-operation(

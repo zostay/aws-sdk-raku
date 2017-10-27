@@ -76,6 +76,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     class ListPhoneNumbersOptedOutResponse { ... }
     class SetEndpointAttributesInput { ... }
 
+
     class ConfirmSubscriptionInput does AWS::SDK::Shape {
         has Str $.authenticate-on-unsubscribe is shape-member('AuthenticateOnUnsubscribe');
         has Str $.topic-arn is required is shape-member('TopicArn');
@@ -87,7 +88,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     class GetSubscriptionAttributesResponse does AWS::SDK::Shape {
-        has Hash[Str, Str] $.attributes is shape-member('Attributes');
+        has Str %.attributes{Str} is shape-member('Attributes');
     }
 
     class GetSubscriptionAttributesInput does AWS::SDK::Shape {
@@ -97,7 +98,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     class CreatePlatformEndpointInput does AWS::SDK::Shape {
         has Str $.custom-user-data is shape-member('CustomUserData');
         has Str $.platform-application-arn is required is shape-member('PlatformApplicationArn');
-        has Hash[Str, Str] $.attributes is shape-member('Attributes');
+        has Str %.attributes{Str} is shape-member('Attributes');
         has Str $.token is required is shape-member('Token');
     }
 
@@ -110,7 +111,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     class ListTopicsResponse does AWS::SDK::Shape {
-        has Array[Topic] $.topics is shape-member('Topics');
+        has Topic @.topics is shape-member('Topics');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -122,15 +123,15 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
 
     class ListEndpointsByPlatformApplicationResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Endpoint] $.endpoints is shape-member('Endpoints');
+        has Endpoint @.endpoints is shape-member('Endpoints');
     }
 
     class GetPlatformApplicationAttributesResponse does AWS::SDK::Shape {
-        has Hash[Str, Str] $.attributes is shape-member('Attributes');
+        has Str %.attributes{Str} is shape-member('Attributes');
     }
 
     class Endpoint does AWS::SDK::Shape {
-        has Hash[Str, Str] $.attributes is shape-member('Attributes');
+        has Str %.attributes{Str} is shape-member('Attributes');
         has Str $.endpoint-arn is shape-member('EndpointArn');
     }
 
@@ -145,7 +146,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     class ListSubscriptionsResponse does AWS::SDK::Shape {
-        has Array[Subscription] $.subscriptions is shape-member('Subscriptions');
+        has Subscription @.subscriptions is shape-member('Subscriptions');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -164,7 +165,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     class PublishInput does AWS::SDK::Shape {
         has Str $.subject is shape-member('Subject');
         has Str $.phone-number is shape-member('PhoneNumber');
-        has Hash[MessageAttributeValue, Str] $.message-attributes is shape-member('MessageAttributes');
+        has MessageAttributeValue %.message-attributes{Str} is shape-member('MessageAttributes');
         has Str $.message-structure is shape-member('MessageStructure');
         has Str $.target-arn is shape-member('TargetArn');
         has Str $.topic-arn is shape-member('TopicArn');
@@ -181,15 +182,15 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     class ListSubscriptionsByTopicResponse does AWS::SDK::Shape {
-        has Array[Subscription] $.subscriptions is shape-member('Subscriptions');
+        has Subscription @.subscriptions is shape-member('Subscriptions');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class AddPermissionInput does AWS::SDK::Shape {
         has Str $.topic-arn is required is shape-member('TopicArn');
         has Str $.label is required is shape-member('Label');
-        has Array[Str] $.action-name is required is shape-member('ActionName');
-        has Array[Str] $.aws-account-id is required is shape-member('AWSAccountId');
+        has Str @.action-name is required is shape-member('ActionName');
+        has Str @.aws-account-id is required is shape-member('AWSAccountId');
     }
 
     class NotFoundException does AWS::SDK::Shape {
@@ -208,7 +209,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
 
     class ListPlatformApplicationsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[PlatformApplication] $.platform-applications is shape-member('PlatformApplications');
+        has PlatformApplication @.platform-applications is shape-member('PlatformApplications');
     }
 
     class ListTopicsInput does AWS::SDK::Shape {
@@ -226,7 +227,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     class CreatePlatformApplicationInput does AWS::SDK::Shape {
         has Str $.platform is required is shape-member('Platform');
         has Str $.name is required is shape-member('Name');
-        has Hash[Str, Str] $.attributes is required is shape-member('Attributes');
+        has Str %.attributes{Str} is required is shape-member('Attributes');
     }
 
     class GetTopicAttributesInput does AWS::SDK::Shape {
@@ -234,7 +235,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     class GetTopicAttributesResponse does AWS::SDK::Shape {
-        has Hash[Str, Str] $.attributes is shape-member('Attributes');
+        has Str %.attributes{Str} is shape-member('Attributes');
     }
 
     class GetEndpointAttributesInput does AWS::SDK::Shape {
@@ -273,7 +274,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     class SetSMSAttributesInput does AWS::SDK::Shape {
-        has Hash[Str, Str] $.attributes is required is shape-member('attributes');
+        has Str %.attributes{Str} is required is shape-member('attributes');
     }
 
     class ListSubscriptionsInput does AWS::SDK::Shape {
@@ -290,11 +291,11 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
 
     class PlatformApplication does AWS::SDK::Shape {
         has Str $.platform-application-arn is shape-member('PlatformApplicationArn');
-        has Hash[Str, Str] $.attributes is shape-member('Attributes');
+        has Str %.attributes{Str} is shape-member('Attributes');
     }
 
     class GetSMSAttributesResponse does AWS::SDK::Shape {
-        has Hash[Str, Str] $.attributes is shape-member('attributes');
+        has Str %.attributes{Str} is shape-member('attributes');
     }
 
     class CreatePlatformApplicationResponse does AWS::SDK::Shape {
@@ -315,7 +316,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
 
     class SetPlatformApplicationAttributesInput does AWS::SDK::Shape {
         has Str $.platform-application-arn is required is shape-member('PlatformApplicationArn');
-        has Hash[Str, Str] $.attributes is required is shape-member('Attributes');
+        has Str %.attributes{Str} is required is shape-member('Attributes');
     }
 
     class InvalidParameterValueException does AWS::SDK::Shape {
@@ -335,7 +336,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     class GetEndpointAttributesResponse does AWS::SDK::Shape {
-        has Hash[Str, Str] $.attributes is shape-member('Attributes');
+        has Str %.attributes{Str} is shape-member('Attributes');
     }
 
     class ListPlatformApplicationsInput does AWS::SDK::Shape {
@@ -357,7 +358,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     class GetSMSAttributesInput does AWS::SDK::Shape {
-        has Array[Str] $.attributes is shape-member('attributes');
+        has Str @.attributes is shape-member('attributes');
     }
 
     class ListSubscriptionsByTopicInput does AWS::SDK::Shape {
@@ -367,18 +368,19 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
 
     class ListPhoneNumbersOptedOutResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.phone-numbers is shape-member('phoneNumbers');
+        has Str @.phone-numbers is shape-member('phoneNumbers');
     }
 
     class SetEndpointAttributesInput does AWS::SDK::Shape {
-        has Hash[Str, Str] $.attributes is required is shape-member('Attributes');
+        has Str %.attributes{Str} is required is shape-member('Attributes');
         has Str $.endpoint-arn is required is shape-member('EndpointArn');
     }
+
 
     method publish(
         Str :$subject,
         Str :$phone-number,
-        Hash[MessageAttributeValue, Str] :$message-attributes,
+        MessageAttributeValue :%message-attributes,
         Str :$message-structure,
         Str :$target-arn,
         Str :$topic-arn,
@@ -387,7 +389,7 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
         my $request-input = PublishInput.new(
             :$subject,
             :$phone-number,
-            :$message-attributes,
+            :%message-attributes,
             :$message-structure,
             :$target-arn,
             :$topic-arn,
@@ -431,10 +433,10 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     method get-sms-attributes(
-        Array[Str] :$attributes
+        Str :@attributes
     ) returns GetSMSAttributesResponse is service-operation('GetSMSAttributes') {
         my $request-input = GetSMSAttributesInput.new(
-            :$attributes
+            :@attributes
         );
 
         self.perform-operation(
@@ -459,12 +461,12 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     method create-platform-application(
         Str :$platform!,
         Str :$name!,
-        Hash[Str, Str] :$attributes!
+        Str :%attributes!
     ) returns CreatePlatformApplicationResponse is service-operation('CreatePlatformApplication') {
         my $request-input = CreatePlatformApplicationInput.new(
             :$platform,
             :$name,
-            :$attributes
+            :%attributes
         );
 
         self.perform-operation(
@@ -531,11 +533,11 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
 
     method set-platform-application-attributes(
         Str :$platform-application-arn!,
-        Hash[Str, Str] :$attributes!
+        Str :%attributes!
     ) is service-operation('SetPlatformApplicationAttributes') {
         my $request-input = SetPlatformApplicationAttributesInput.new(
             :$platform-application-arn,
-            :$attributes
+            :%attributes
         );
 
         self.perform-operation(
@@ -601,11 +603,11 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     method set-endpoint-attributes(
-        Hash[Str, Str] :$attributes!,
+        Str :%attributes!,
         Str :$endpoint-arn!
     ) is service-operation('SetEndpointAttributes') {
         my $request-input = SetEndpointAttributesInput.new(
-            :$attributes,
+            :%attributes,
             :$endpoint-arn
         );
 
@@ -670,13 +672,13 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     method create-platform-endpoint(
         Str :$custom-user-data,
         Str :$platform-application-arn!,
-        Hash[Str, Str] :$attributes,
+        Str :%attributes,
         Str :$token!
     ) returns CreateEndpointResponse is service-operation('CreatePlatformEndpoint') {
         my $request-input = CreatePlatformEndpointInput.new(
             :$custom-user-data,
             :$platform-application-arn,
-            :$attributes,
+            :%attributes,
             :$token
         );
 
@@ -687,10 +689,10 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     }
 
     method set-sms-attributes(
-        Hash[Str, Str] :$attributes!
+        Str :%attributes!
     ) returns SetSMSAttributesResponse is service-operation('SetSMSAttributes') {
         my $request-input = SetSMSAttributesInput.new(
-            :$attributes
+            :%attributes
         );
 
         self.perform-operation(
@@ -743,14 +745,14 @@ class AWS::SDK::Service::SNS does AWS::SDK::Service {
     method add-permission(
         Str :$topic-arn!,
         Str :$label!,
-        Array[Str] :$action-name!,
-        Array[Str] :$aws-account-id!
+        Str :@action-name!,
+        Str :@aws-account-id!
     ) is service-operation('AddPermission') {
         my $request-input = AddPermissionInput.new(
             :$topic-arn,
             :$label,
-            :$action-name,
-            :$aws-account-id
+            :@action-name,
+            :@aws-account-id
         );
 
         self.perform-operation(

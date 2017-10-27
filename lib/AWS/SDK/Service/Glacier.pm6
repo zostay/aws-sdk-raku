@@ -83,11 +83,14 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
     class InsufficientCapacityException { ... }
     class InventoryRetrievalJobDescription { ... }
 
+    subset ActionCode of Str where $_ eq any('ArchiveRetrieval', 'InventoryRetrieval');
+
+    subset StatusCode of Str where $_ eq any('InProgress', 'Succeeded', 'Failed');
+
+
     class GetDataRetrievalPolicyOutput does AWS::SDK::Shape {
         has DataRetrievalPolicy $.policy is shape-member('Policy');
     }
-
-    subset ActionCode of Str where $_ ~~ any('ArchiveRetrieval', 'InventoryRetrieval');
 
     class RequestTimeoutException does AWS::SDK::Shape {
         has Str $.code is shape-member('code');
@@ -136,16 +139,16 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
 
     class AddTagsToVaultInput does AWS::SDK::Shape {
         has Str $.account-id is required is shape-member('accountId');
-        has Hash[Str, Str] $.tags is shape-member('Tags');
+        has Str %.tags{Str} is shape-member('Tags');
         has Str $.vault-name is required is shape-member('vaultName');
     }
 
     class ListProvisionedCapacityOutput does AWS::SDK::Shape {
-        has Array[ProvisionedCapacityDescription] $.provisioned-capacity-list is shape-member('ProvisionedCapacityList');
+        has ProvisionedCapacityDescription @.provisioned-capacity-list is shape-member('ProvisionedCapacityList');
     }
 
     class VaultNotificationConfig does AWS::SDK::Shape {
-        has Array[Str] $.events is shape-member('Events');
+        has Str @.events is shape-member('Events');
         has Str $.sns-topic is shape-member('SNSTopic');
     }
 
@@ -174,7 +177,7 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
 
     class ListVaultsOutput does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[DescribeVaultOutput] $.vault-list is shape-member('VaultList');
+        has DescribeVaultOutput @.vault-list is shape-member('VaultList');
     }
 
     class PartListElement does AWS::SDK::Shape {
@@ -258,7 +261,7 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
 
     class ListJobsOutput does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[GlacierJobDescription] $.job-list is shape-member('JobList');
+        has GlacierJobDescription @.job-list is shape-member('JobList');
     }
 
     class DeleteVaultAccessPolicyInput does AWS::SDK::Shape {
@@ -308,7 +311,7 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
     }
 
     class DataRetrievalPolicy does AWS::SDK::Shape {
-        has Array[DataRetrievalRule] $.rules is shape-member('Rules');
+        has DataRetrievalRule @.rules is shape-member('Rules');
     }
 
     class AbortMultipartUploadInput does AWS::SDK::Shape {
@@ -323,7 +326,7 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
     }
 
     class ListTagsForVaultOutput does AWS::SDK::Shape {
-        has Hash[Str, Str] $.tags is shape-member('Tags');
+        has Str %.tags{Str} is shape-member('Tags');
     }
 
     class DeleteArchiveInput does AWS::SDK::Shape {
@@ -348,11 +351,9 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
     }
 
     class ListMultipartUploadsOutput does AWS::SDK::Shape {
-        has Array[UploadListElement] $.uploads-list is shape-member('UploadsList');
+        has UploadListElement @.uploads-list is shape-member('UploadsList');
         has Str $.marker is shape-member('Marker');
     }
-
-    subset StatusCode of Str where $_ ~~ any('InProgress', 'Succeeded', 'Failed');
 
     class CreateVaultInput does AWS::SDK::Shape {
         has Str $.account-id is required is shape-member('accountId');
@@ -365,7 +366,7 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
 
     class RemoveTagsFromVaultInput does AWS::SDK::Shape {
         has Str $.account-id is required is shape-member('accountId');
-        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str @.tag-keys is shape-member('TagKeys');
         has Str $.vault-name is required is shape-member('vaultName');
     }
 
@@ -433,7 +434,7 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
     class ListPartsOutput does AWS::SDK::Shape {
         has Str $.creation-date is shape-member('CreationDate');
         has Int $.part-size-in-bytes is shape-member('PartSizeInBytes');
-        has Array[PartListElement] $.parts is shape-member('Parts');
+        has PartListElement @.parts is shape-member('Parts');
         has Str $.vault-arn is shape-member('VaultARN');
         has Str $.multipart-upload-id is shape-member('MultipartUploadId');
         has Str $.marker is shape-member('Marker');
@@ -522,14 +523,15 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
         has Str $.format is shape-member('Format');
     }
 
+
     method remove-tags-from-vault(
         Str :$account-id!,
-        Array[Str] :$tag-keys,
+        Str :@tag-keys,
         Str :$vault-name!
     ) is service-operation('RemoveTagsFromVault') {
         my $request-input = RemoveTagsFromVaultInput.new(
             :$account-id,
-            :$tag-keys,
+            :@tag-keys,
             :$vault-name
         );
 
@@ -877,12 +879,12 @@ class AWS::SDK::Service::Glacier does AWS::SDK::Service {
 
     method add-tags-to-vault(
         Str :$account-id!,
-        Hash[Str, Str] :$tags,
+        Str :%tags,
         Str :$vault-name!
     ) is service-operation('AddTagsToVault') {
         my $request-input = AddTagsToVaultInput.new(
             :$account-id,
-            :$tags,
+            :%tags,
             :$vault-name
         );
 

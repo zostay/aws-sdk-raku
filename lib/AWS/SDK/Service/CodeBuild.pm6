@@ -61,7 +61,52 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
     class OAuthProviderException { ... }
     class EnvironmentLanguage { ... }
 
-    subset ArtifactNamespace of Str where $_ ~~ any('NONE', 'BUILD_ID');
+    subset ArtifactNamespace of Str where $_ eq any('NONE', 'BUILD_ID');
+
+    subset ComputeType of Str where $_ eq any('BUILD_GENERAL1_SMALL', 'BUILD_GENERAL1_MEDIUM', 'BUILD_GENERAL1_LARGE');
+
+    subset TimeOut of Int where 5 <= * <= 480;
+
+    subset SortOrderType of Str where $_ eq any('ASCENDING', 'DESCENDING');
+
+    subset ArtifactsType of Str where $_ eq any('CODEPIPELINE', 'S3', 'NO_ARTIFACTS');
+
+    subset ProjectSortByType of Str where $_ eq any('NAME', 'CREATED_TIME', 'LAST_MODIFIED_TIME');
+
+    subset NonEmptyString of Str where 1 <= .chars;
+
+    subset EnvironmentVariableType of Str where $_ eq any('PLAINTEXT', 'PARAMETER_STORE');
+
+    subset TagList of Array[Tag] where 0 <= *.elems <= 50;
+
+    subset ProjectDescription of Str where 0 <= .chars <= 255;
+
+    subset ProjectNames of Array[NonEmptyString] where 1 <= *.elems <= 100;
+
+    subset ProjectName of Str where 2 <= .chars <= 255 && rx:P5/[A-Za-z0-9][A-Za-z0-9\-_]{1,254}/;
+
+    subset LanguageType of Str where $_ eq any('JAVA', 'PYTHON', 'NODE_JS', 'RUBY', 'GOLANG', 'DOCKER', 'ANDROID', 'DOTNET', 'BASE');
+
+    subset ValueInput of Str where 1 <= .chars <= 255 && rx:P5/^([\\p{L}\\p{Z}\\p{N}_.:\/=@+\\-]*)$/;
+
+    subset EnvironmentType of Str where $_ eq any('LINUX_CONTAINER');
+
+    subset BuildIds of Array[NonEmptyString] where 1 <= *.elems <= 100;
+
+    subset BuildPhaseType of Str where $_ eq any('SUBMITTED', 'PROVISIONING', 'DOWNLOAD_SOURCE', 'INSTALL', 'PRE_BUILD', 'BUILD', 'POST_BUILD', 'UPLOAD_ARTIFACTS', 'FINALIZING', 'COMPLETED');
+
+    subset SourceAuthType of Str where $_ eq any('OAUTH');
+
+    subset ArtifactPackaging of Str where $_ eq any('NONE', 'ZIP');
+
+    subset SourceType of Str where $_ eq any('CODECOMMIT', 'CODEPIPELINE', 'GITHUB', 'S3', 'BITBUCKET');
+
+    subset KeyInput of Str where 1 <= .chars <= 127 && rx:P5/^([\\p{L}\\p{Z}\\p{N}_.:\/=@+\\-]*)$/;
+
+    subset StatusType of Str where $_ eq any('SUCCEEDED', 'FAILED', 'FAULT', 'TIMED_OUT', 'IN_PROGRESS', 'STOPPED');
+
+    subset PlatformType of Str where $_ eq any('DEBIAN', 'AMAZON_LINUX', 'UBUNTU');
+
 
     class BatchDeleteBuildsInput does AWS::SDK::Shape {
         has BuildIds $.ids is required is shape-member('ids');
@@ -84,13 +129,11 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
         has BuildArtifacts $.artifacts is shape-member('artifacts');
         has StatusType $.build-status is shape-member('buildStatus');
         has Bool $.build-complete is shape-member('buildComplete');
-        has Array[BuildPhase] $.phases is shape-member('phases');
+        has BuildPhase @.phases is shape-member('phases');
         has LogsLocation $.logs is shape-member('logs');
         has DateTime $.end-time is shape-member('endTime');
         has DateTime $.start-time is shape-member('startTime');
     }
-
-    subset ComputeType of Str where $_ ~~ any('BUILD_GENERAL1_SMALL', 'BUILD_GENERAL1_MEDIUM', 'BUILD_GENERAL1_LARGE');
 
     class CreateProjectInput does AWS::SDK::Shape {
         has ProjectEnvironment $.environment is required is shape-member('environment');
@@ -103,8 +146,6 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
         has NonEmptyString $.encryption-key is shape-member('encryptionKey');
         has ProjectDescription $.description is shape-member('description');
     }
-
-    subset TimeOut of Int where 5 <= * <= 480;
 
     class ProjectSource does AWS::SDK::Shape {
         has Str $.buildspec is shape-member('buildspec');
@@ -126,8 +167,6 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
         has Str $.next-token is shape-member('nextToken');
     }
 
-    subset SortOrderType of Str where $_ ~~ any('ASCENDING', 'DESCENDING');
-
     class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
@@ -137,16 +176,10 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
         has ProjectSortByType $.sort-by is shape-member('sortBy');
     }
 
-    subset ArtifactsType of Str where $_ ~~ any('CODEPIPELINE', 'S3', 'NO_ARTIFACTS');
-
     class SourceAuth does AWS::SDK::Shape {
         has Str $.resource is shape-member('resource');
         has SourceAuthType $.type is required is shape-member('type');
     }
-
-    subset ProjectSortByType of Str where $_ ~~ any('NAME', 'CREATED_TIME', 'LAST_MODIFIED_TIME');
-
-    subset NonEmptyString of Str where 1 <= .chars;
 
     class LogsLocation does AWS::SDK::Shape {
         has Str $.group-name is shape-member('groupName');
@@ -156,21 +189,17 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
 
     class BatchGetProjectsOutput does AWS::SDK::Shape {
         has ProjectNames $.projects-not-found is shape-member('projectsNotFound');
-        has Array[Project] $.projects is shape-member('projects');
+        has Project @.projects is shape-member('projects');
     }
 
     class BuildPhase does AWS::SDK::Shape {
         has Int $.duration-in-seconds is shape-member('durationInSeconds');
         has StatusType $.phase-status is shape-member('phaseStatus');
         has BuildPhaseType $.phase-type is shape-member('phaseType');
-        has Array[PhaseContext] $.contexts is shape-member('contexts');
+        has PhaseContext @.contexts is shape-member('contexts');
         has DateTime $.end-time is shape-member('endTime');
         has DateTime $.start-time is shape-member('startTime');
     }
-
-    subset EnvironmentVariableType of Str where $_ ~~ any('PLAINTEXT', 'PARAMETER_STORE');
-
-    subset TagList of Array[Tag] where 0 <= *.elems <= 50;
 
     class AccountLimitExceededException does AWS::SDK::Shape {
     }
@@ -184,24 +213,18 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
         has ComputeType $.compute-type is required is shape-member('computeType');
         has EnvironmentType $.type is required is shape-member('type');
         has Bool $.privileged-mode is shape-member('privilegedMode');
-        has Array[EnvironmentVariable] $.environment-variables is shape-member('environmentVariables');
+        has EnvironmentVariable @.environment-variables is shape-member('environmentVariables');
     }
-
-    subset ProjectDescription of Str where 0 <= .chars <= 255;
 
     class BatchDeleteBuildsOutput does AWS::SDK::Shape {
         has BuildIds $.builds-deleted is shape-member('buildsDeleted');
-        has Array[BuildNotDeleted] $.builds-not-deleted is shape-member('buildsNotDeleted');
+        has BuildNotDeleted @.builds-not-deleted is shape-member('buildsNotDeleted');
     }
 
     class EnvironmentImage does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
         has Str $.description is shape-member('description');
     }
-
-    subset ProjectNames of Array[NonEmptyString] where 1 <= *.elems <= 100;
-
-    subset ProjectName of Str where 2 <= .chars <= 255 && rx:P5/[A-Za-z0-9][A-Za-z0-9\-_]{1,254}/;
 
     class ProjectArtifacts does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
@@ -234,8 +257,6 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
     class DeleteProjectOutput does AWS::SDK::Shape {
     }
 
-    subset LanguageType of Str where $_ ~~ any('JAVA', 'PYTHON', 'NODE_JS', 'RUBY', 'GOLANG', 'DOCKER', 'ANDROID', 'DOTNET', 'BASE');
-
     class StopBuildOutput does AWS::SDK::Shape {
         has Build $.build is shape-member('build');
     }
@@ -257,12 +278,12 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
         has Str $.source-version is shape-member('sourceVersion');
         has ProjectArtifacts $.artifacts-override is shape-member('artifactsOverride');
         has TimeOut $.timeout-in-minutes-override is shape-member('timeoutInMinutesOverride');
-        has Array[EnvironmentVariable] $.environment-variables-override is shape-member('environmentVariablesOverride');
+        has EnvironmentVariable @.environment-variables-override is shape-member('environmentVariablesOverride');
         has Str $.buildspec-override is shape-member('buildspecOverride');
     }
 
     class ListCuratedEnvironmentImagesOutput does AWS::SDK::Shape {
-        has Array[EnvironmentPlatform] $.platforms is shape-member('platforms');
+        has EnvironmentPlatform @.platforms is shape-member('platforms');
     }
 
     class CreateWebhookInput does AWS::SDK::Shape {
@@ -271,8 +292,6 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
 
     class InvalidInputException does AWS::SDK::Shape {
     }
-
-    subset ValueInput of Str where 1 <= .chars <= 255 && rx:P5/^([\\p{L}\\p{Z}\\p{N}_.:\/=@+\\-]*)$/;
 
     class UpdateProjectInput does AWS::SDK::Shape {
         has ProjectEnvironment $.environment is shape-member('environment');
@@ -287,22 +306,14 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
     }
 
     class EnvironmentPlatform does AWS::SDK::Shape {
-        has Array[EnvironmentLanguage] $.languages is shape-member('languages');
+        has EnvironmentLanguage @.languages is shape-member('languages');
         has PlatformType $.platform is shape-member('platform');
     }
 
-    subset EnvironmentType of Str where $_ ~~ any('LINUX_CONTAINER');
-
     class BatchGetBuildsOutput does AWS::SDK::Shape {
-        has Array[Build] $.builds is shape-member('builds');
+        has Build @.builds is shape-member('builds');
         has BuildIds $.builds-not-found is shape-member('buildsNotFound');
     }
-
-    subset BuildIds of Array[NonEmptyString] where 1 <= *.elems <= 100;
-
-    subset BuildPhaseType of Str where $_ ~~ any('SUBMITTED', 'PROVISIONING', 'DOWNLOAD_SOURCE', 'INSTALL', 'PRE_BUILD', 'BUILD', 'POST_BUILD', 'UPLOAD_ARTIFACTS', 'FINALIZING', 'COMPLETED');
-
-    subset SourceAuthType of Str where $_ ~~ any('OAUTH');
 
     class Project does AWS::SDK::Shape {
         has ProjectEnvironment $.environment is shape-member('environment');
@@ -325,8 +336,6 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
         has SortOrderType $.sort-order is shape-member('sortOrder');
     }
 
-    subset ArtifactPackaging of Str where $_ ~~ any('NONE', 'ZIP');
-
     class DeleteProjectInput does AWS::SDK::Shape {
         has NonEmptyString $.name is required is shape-member('name');
     }
@@ -344,8 +353,6 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
     class UpdateProjectOutput does AWS::SDK::Shape {
         has Project $.project is shape-member('project');
     }
-
-    subset SourceType of Str where $_ ~~ any('CODECOMMIT', 'CODEPIPELINE', 'GITHUB', 'S3', 'BITBUCKET');
 
     class ResourceAlreadyExistsException does AWS::SDK::Shape {
     }
@@ -369,12 +376,6 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
     class DeleteWebhookOutput does AWS::SDK::Shape {
     }
 
-    subset KeyInput of Str where 1 <= .chars <= 127 && rx:P5/^([\\p{L}\\p{Z}\\p{N}_.:\/=@+\\-]*)$/;
-
-    subset StatusType of Str where $_ ~~ any('SUCCEEDED', 'FAILED', 'FAULT', 'TIMED_OUT', 'IN_PROGRESS', 'STOPPED');
-
-    subset PlatformType of Str where $_ ~~ any('DEBIAN', 'AMAZON_LINUX', 'UBUNTU');
-
     class Tag does AWS::SDK::Shape {
         has ValueInput $.value is shape-member('value');
         has KeyInput $.key is shape-member('key');
@@ -384,16 +385,17 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
     }
 
     class EnvironmentLanguage does AWS::SDK::Shape {
-        has Array[EnvironmentImage] $.images is shape-member('images');
+        has EnvironmentImage @.images is shape-member('images');
         has LanguageType $.language is shape-member('language');
     }
+
 
     method start-build(
         NonEmptyString :$project-name!,
         Str :$source-version,
         ProjectArtifacts :$artifacts-override,
         TimeOut :$timeout-in-minutes-override,
-        Array[EnvironmentVariable] :$environment-variables-override,
+        EnvironmentVariable :@environment-variables-override,
         Str :$buildspec-override
     ) returns StartBuildOutput is service-operation('StartBuild') {
         my $request-input = StartBuildInput.new(
@@ -401,7 +403,7 @@ class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
             :$source-version,
             :$artifacts-override,
             :$timeout-in-minutes-override,
-            :$environment-variables-override,
+            :@environment-variables-override,
             :$buildspec-override
         );
 

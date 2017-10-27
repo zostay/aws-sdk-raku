@@ -376,6 +376,449 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     class UnsupportedInventoryItemContextException { ... }
     class UnsupportedInventorySchemaVersionException { ... }
 
+    subset DocumentFilterKey of Str where $_ eq any('Name', 'Owner', 'PlatformTypes', 'DocumentType');
+
+    subset CommandInvocationStatus of Str where $_ eq any('Pending', 'InProgress', 'Delayed', 'Success', 'Cancelled', 'TimedOut', 'Failed', 'Cancelling');
+
+    subset ParameterStringQueryOption of Str where 1 <= .chars <= 10;
+
+    subset DocumentPermissionType of Str where $_ eq any('Share');
+
+    subset BaselineName of Str where 3 <= .chars <= 128 && rx:P5/^[a-zA-Z0-9_\-.]{3,128}$/;
+
+    subset OperatingSystem of Str where $_ eq any('WINDOWS', 'AMAZON_LINUX', 'UBUNTU', 'REDHAT_ENTERPRISE_LINUX');
+
+    subset ResultAttributeList of Array[ResultAttribute] where 1 <= *.elems <= 1;
+
+    subset MaintenanceWindowStepFunctionsInput of Str where .chars <= 4096;
+
+    subset ParametersFilterValue of Str where 1 <= .chars <= 1024;
+
+    subset ComplianceResourceIdList of Array[ComplianceResourceId] where 1 <= *.elems;
+
+    subset ComplianceResourceId of Str where 1 <= .chars <= 100;
+
+    subset AccountIdList of Array[AccountId] where *.elems <= 20;
+
+    subset ActivationCode of Str where 20 <= .chars <= 250;
+
+    subset MaintenanceWindowTaskType of Str where $_ eq any('RUN_COMMAND', 'AUTOMATION', 'STEP_FUNCTIONS', 'LAMBDA');
+
+    subset DocumentStatus of Str where $_ eq any('Creating', 'Active', 'Updating', 'Deleting');
+
+    subset ComplianceStringFilterValueList of Array[Str] where 1 <= *.elems <= 20;
+
+    subset MaxResultsEC2Compatible of Int where 5 <= * <= 50;
+
+    subset S3KeyPrefix of Str where .chars <= 500;
+
+    subset S3Region of Str where 3 <= .chars <= 20;
+
+    subset InvocationTraceOutput of Str where .chars <= 2500;
+
+    subset PatchComplianceDataState of Str where $_ eq any('INSTALLED', 'INSTALLED_OTHER', 'MISSING', 'NOT_APPLICABLE', 'FAILED');
+
+    subset MaintenanceWindowLambdaClientContext of Str where 1 <= .chars <= 8000;
+
+    subset Fault of Str where $_ eq any('Client', 'Server', 'Unknown');
+
+    subset PatchBaselineMaxResults of Int where 1 <= * <= 100;
+
+    subset InstanceInformationFilterList of Array[InstanceInformationFilter] where 0 <= *.elems;
+
+    subset AssociationVersionList of Array[AssociationVersionInfo] where 1 <= *.elems;
+
+    subset ComplianceItemId of Str where 1 <= .chars <= 100;
+
+    subset AssociationFilterValue of Str where 1 <= .chars;
+
+    subset InstancePatchStatesList of Array[InstancePatchState] where 1 <= *.elems <= 5;
+
+    subset InventoryFilterList of Array[InventoryFilter] where 1 <= *.elems <= 5;
+
+    subset PatchComplianceLevel of Str where $_ eq any('CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'INFORMATIONAL', 'UNSPECIFIED');
+
+    subset StatusMessage of Str where 1 <= .chars <= 1024;
+
+    subset PatchOrchestratorFilterValue of Str where 1 <= .chars <= 256;
+
+    subset ApproveAfterDays of Int where 0 <= * <= 100;
+
+    subset AssociationFilterList of Array[AssociationFilter] where 1 <= *.elems;
+
+    subset InventoryItemSchemaVersion of Str where rx:P5/^([0-9]{1,6})(\.[0-9]{1,6})$/;
+
+    subset ComplianceStatus of Str where $_ eq any('COMPLIANT', 'NON_COMPLIANT');
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^(?!^(?i)aws:)(?=^[\p{L}\p{Z}\p{N}_.:\/=+\-@]*$).*$/;
+
+    subset ClientToken of Str where 1 <= .chars <= 64;
+
+    subset MaintenanceWindowTaskParameterName of Str where 1 <= .chars <= 255;
+
+    subset RegistrationLimit of Int where 1 <= * <= 1000;
+
+    subset DocumentFilterList of Array[DocumentFilter] where 1 <= *.elems;
+
+    subset InventoryFilterKey of Str where 1 <= .chars <= 200;
+
+    subset ParameterType of Str where $_ eq any('String', 'StringList', 'SecureString');
+
+    subset SignalType of Str where $_ eq any('Approve', 'Reject');
+
+    subset CommandFilterKey of Str where $_ eq any('InvokedAfter', 'InvokedBefore', 'Status');
+
+    subset CommandFilterValue of Str where 1 <= .chars;
+
+    subset PatchRuleList of Array[PatchRule] where 0 <= *.elems <= 10;
+
+    subset LastResourceDataSyncStatus of Str where $_ eq any('Successful', 'Failed', 'InProgress');
+
+    subset CommandFilterList of Array[CommandFilter] where 1 <= *.elems <= 3;
+
+    subset InventoryAttributeDataType of Str where $_ eq any('string', 'number');
+
+    subset InstancePatchStateOperatorType of Str where $_ eq any('Equal', 'NotEqual', 'LessThan', 'GreaterThan');
+
+    subset InstanceInformationFilterValue of Str where 1 <= .chars;
+
+    subset InventoryQueryOperatorType of Str where $_ eq any('Equal', 'NotEqual', 'BeginWith', 'LessThan', 'GreaterThan');
+
+    subset TimeoutSeconds of Int where 30 <= * <= 2592000;
+
+    subset PatchIdList of Array[PatchId] where 0 <= *.elems <= 50;
+
+    subset ComplianceExecutionId of Str where .chars <= 100;
+
+    subset MaintenanceWindowTaskPriority of Int where 0 <= *;
+
+    subset ComplianceQueryOperatorType of Str where $_ eq any('EQUAL', 'NOT_EQUAL', 'BEGIN_WITH', 'LESS_THAN', 'GREATER_THAN');
+
+    subset PatchFilterValue of Str where 1 <= .chars <= 64;
+
+    subset InstanceAssociationExecutionSummary of Str where 1 <= .chars <= 512;
+
+    subset PatchOperationType of Str where $_ eq any('Scan', 'Install');
+
+    subset ComplianceResourceTypeList of Array[ComplianceResourceType] where 1 <= *.elems;
+
+    subset MaintenanceWindowLambdaQualifier of Str where 1 <= .chars <= 128;
+
+    subset ParameterStringFilterValueList of Array[ParameterStringFilterValue] where 1 <= *.elems <= 50;
+
+    subset ParametersFilterValueList of Array[ParametersFilterValue] where 1 <= *.elems <= 50;
+
+    subset PatchOrchestratorFilterList of Array[PatchOrchestratorFilter] where 0 <= *.elems <= 5;
+
+    subset AccountId of Str where rx:P5/(?i)all|[0-9]{12}/;
+
+    subset AllowedPattern of Str where 0 <= .chars <= 1024;
+
+    subset InventoryItemTypeNameFilter of Str where 0 <= .chars <= 100;
+
+    subset AutomationExecutionMetadataList of Array[AutomationExecutionMetadata] where 0 <= *.elems <= 50;
+
+    subset InventoryItemList of Array[InventoryItem] where 1 <= *.elems <= 30;
+
+    subset MaintenanceWindowExecutionStatusDetails of Str where 0 <= .chars <= 250;
+
+    subset PatchOrchestratorFilterKey of Str where 1 <= .chars <= 128;
+
+    subset AutomationParameterMap of Hash[AutomationParameterValueList, AutomationParameterKey] where 1 <= *.elems <= 200;
+
+    subset InventoryFilterValueList of Array[Str] where 1 <= *.elems <= 20;
+
+    subset PatchId of Str where 1 <= .chars <= 100;
+
+    subset AutomationParameterValue of Str where 1 <= .chars <= 512;
+
+    subset GetParametersByPathMaxResults of Int where 1 <= * <= 10;
+
+    subset MaintenanceWindowTaskId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
+
+    subset InstanceTagName of Str where .chars <= 255;
+
+    subset ComputerName of Str where 1 <= .chars <= 255;
+
+    subset ComplianceItemEntryList of Array[ComplianceItemEntry] where 0 <= *.elems <= 10000;
+
+    subset ResourceDataSyncS3Prefix of Str where 1 <= .chars <= 256;
+
+    subset DocumentSchemaVersion of Str where rx:P5/([0-9]+)\.([0-9]+)/;
+
+    subset AutomationExecutionFilterValue of Str where 1 <= .chars <= 150;
+
+    subset MaintenanceWindowLambdaPayload of Blob where *.bytes <= 4096;
+
+    subset MaintenanceWindowExecutionId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
+
+    subset DocumentName of Str where rx:P5/^[a-zA-Z0-9_\-.]{3,128}$/;
+
+    subset ActivationId of Str where rx:P5/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
+
+    subset ParameterKeyId of Str where 1 <= .chars <= 256 && rx:P5/^([a-zA-Z0-9:\/_-]+)$/;
+
+    subset MaintenanceWindowExecutionStatus of Str where $_ eq any('PENDING', 'IN_PROGRESS', 'SUCCESS', 'FAILED', 'TIMED_OUT', 'CANCELLING', 'CANCELLED', 'SKIPPED_OVERLAPPING');
+
+    subset MaintenanceWindowTaskParameterValue of Str where 1 <= .chars <= 255;
+
+    subset PingStatus of Str where $_ eq any('Online', 'ConnectionLost', 'Inactive');
+
+    subset InventoryItemContentContext of Hash[AttributeValue, AttributeName] where 0 <= *.elems <= 50;
+
+    subset RegistrationsCount of Int where 1 <= * <= 1000;
+
+    subset StatusAdditionalInfo of Str where .chars <= 1024;
+
+    subset GetInventorySchemaMaxResults of Int where 50 <= * <= 200;
+
+    subset InstanceInformationStringFilterList of Array[InstanceInformationStringFilter] where 0 <= *.elems;
+
+    subset MaintenanceWindowDurationHours of Int where 1 <= * <= 24;
+
+    subset ResourceDataSyncS3Format of Str where $_ eq any('JsonSerDe');
+
+    subset ResourceTypeForTagging of Str where $_ eq any('ManagedInstance', 'MaintenanceWindow', 'Parameter');
+
+    subset DocumentHashType of Str where $_ eq any('Sha256', 'Sha1');
+
+    subset CommandId of Str where 36 <= .chars <= 36;
+
+    subset AutomationExecutionStatus of Str where $_ eq any('Pending', 'InProgress', 'Waiting', 'Success', 'TimedOut', 'Cancelled', 'Failed');
+
+    subset ParameterStringFilterValue of Str where 1 <= .chars <= 1024;
+
+    subset NotificationEvent of Str where $_ eq any('All', 'InProgress', 'Success', 'TimedOut', 'Cancelled', 'Failed');
+
+    subset DocumentContent of Str where 1 <= .chars;
+
+    subset PatchFilterList of Array[PatchFilter] where 0 <= *.elems <= 4;
+
+    subset AgentErrorCode of Str where .chars <= 10;
+
+    subset InventoryItemEntry of Hash[AttributeValue, AttributeName] where 0 <= *.elems <= 50;
+
+    subset ComplianceSeverity of Str where $_ eq any('CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'INFORMATIONAL', 'UNSPECIFIED');
+
+    subset CommandPluginStatus of Str where $_ eq any('Pending', 'InProgress', 'Success', 'TimedOut', 'Cancelled', 'Failed');
+
+    subset ResourceDataSyncS3BucketName of Str where 1 <= .chars <= 2048;
+
+    subset ParameterStringFilterKey of Str where 1 <= .chars <= 132 && rx:P5/tag:.+|Name|Type|KeyId|Path/;
+
+    subset AssociationId of Str where rx:P5/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
+
+    subset ComplianceResourceType of Str where 1 <= .chars <= 50;
+
+    subset PlatformType of Str where $_ eq any('Windows', 'Linux');
+
+    subset MaxConcurrency of Str where 1 <= .chars <= 7 && rx:P5/^([1-9][0-9]*|[1-9][0-9]%|[1-9]%|100%)$/;
+
+    subset CommandPluginName of Str where 4 <= .chars;
+
+    subset MaintenanceWindowDescription of Str where 1 <= .chars <= 128;
+
+    subset MaxErrors of Str where 1 <= .chars <= 7 && rx:P5/^([1-9][0-9]*|[0]|[1-9][0-9]%|[0-9]%|100%)$/;
+
+    subset InstancePatchStateFilterKey of Str where 1 <= .chars <= 200;
+
+    subset Version of Str where rx:P5/^[0-9]{1,6}(\.[0-9]{1,6}){2,3}$/;
+
+    subset PatchGroup of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset ScheduleExpression of Str where 1 <= .chars <= 256;
+
+    subset EffectiveInstanceAssociationMaxResults of Int where 1 <= * <= 5;
+
+    subset Comment of Str where .chars <= 100;
+
+    subset InventoryItemTypeName of Str where 1 <= .chars <= 100 && rx:P5/^(AWS|Custom):.*$/;
+
+    subset StandardErrorContent of Str where .chars <= 8000;
+
+    subset DocumentVersionList of Array[DocumentVersionInfo] where 1 <= *.elems;
+
+    subset StepExecutionList of Array[StepExecution] where 0 <= *.elems <= 100;
+
+    subset ResourceDataSyncS3Region of Str where 1 <= .chars <= 64;
+
+    subset TagValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset CommandPluginOutput of Str where .chars <= 2500;
+
+    subset AssociationFilterKey of Str where $_ eq any('InstanceId', 'Name', 'AssociationId', 'AssociationStatusName', 'LastExecutedBefore', 'LastExecutedAfter', 'AssociationName');
+
+    subset CreateAssociationBatchRequestEntries of Array[CreateAssociationBatchRequestEntry] where 1 <= *.elems;
+
+    subset InventoryItemAttributeList of Array[InventoryItemAttribute] where 1 <= *.elems <= 50;
+
+    subset BaselineId of Str where 20 <= .chars <= 128 && rx:P5/^[a-zA-Z0-9_\-:\/]{20,128}$/;
+
+    subset MaintenanceWindowCutoff of Int where 0 <= * <= 23;
+
+    subset ComplianceItemTitle of Str where .chars <= 500;
+
+    subset InstanceIdList of Array[InstanceId] where 0 <= *.elems <= 50;
+
+    subset StringDateTime of Str where rx:P5/^([\-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d(?!:))?)?(\17[0-5]\d([\.,]\d)?)?([zZ]|([\-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
+
+    subset MaintenanceWindowFilterKey of Str where 1 <= .chars <= 128;
+
+    subset SnapshotId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+
+    subset IamRole of Str where .chars <= 64;
+
+    subset AutomationActionName of Str where rx:P5/^aws:[a-zA-Z]{3,25}$/;
+
+    subset MaintenanceWindowMaxResults of Int where 10 <= * <= 100;
+
+    subset ResourceType of Str where $_ eq any('ManagedInstance', 'Document', 'EC2Instance');
+
+    subset IdempotencyToken of Str where 36 <= .chars <= 36 && rx:P5/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/;
+
+    subset ActivationDescription of Str where 0 <= .chars <= 256;
+
+    subset AutomationExecutionFilterKey of Str where $_ eq any('DocumentNamePrefix', 'ExecutionStatus');
+
+    subset ResourceDataSyncAWSKMSKeyARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
+
+    subset IPAddress of Str where 1 <= .chars <= 46;
+
+    subset AssociationStatusName of Str where $_ eq any('Pending', 'Success', 'Failed');
+
+    subset InstancePatchStateFilterList of Array[InstancePatchStateFilter] where 0 <= *.elems <= 4;
+
+    subset DefaultInstanceName of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset InstanceInformationFilterKey of Str where $_ eq any('InstanceIds', 'AgentVersion', 'PingStatus', 'PlatformTypes', 'ActivationIds', 'IamRole', 'ResourceType', 'AssociationStatus');
+
+    subset ParametersFilterKey of Str where $_ eq any('Name', 'Type', 'KeyId');
+
+    subset AutomationParameterValueList of Array[AutomationParameterValue] where 0 <= *.elems <= 10;
+
+    subset MaxResults of Int where 1 <= * <= 50;
+
+    subset ResourceDataSyncName of Str where 1 <= .chars <= 64;
+
+    subset DocumentARN of Str where rx:P5/^[a-zA-Z0-9_\-.:\/]{3,128}$/;
+
+    subset MaintenanceWindowExecutionTaskInvocationId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
+
+    subset DocumentFilterValue of Str where 1 <= .chars;
+
+    subset AssociationVersion of Str where rx:P5/([$]LATEST)|([1-9][0-9]*)/;
+
+    subset AttributeName of Str where 1 <= .chars <= 64;
+
+    subset MaintenanceWindowId of Str where 20 <= .chars <= 20 && rx:P5/^mw-[0-9a-f]{17}$/;
+
+    subset TargetKey of Str where 1 <= .chars <= 128 && rx:P5/^[\p{L}\p{Z}\p{N}_.:\/=\-@]*$/;
+
+    subset AutomationExecutionId of Str where 36 <= .chars <= 36;
+
+    subset PSParameterValue of Str where 1 <= .chars <= 4096;
+
+    subset AutomationExecutionFilterList of Array[AutomationExecutionFilter] where 1 <= *.elems <= 10;
+
+    subset MaintenanceWindowTaskTargetId of Str where .chars <= 36;
+
+    subset InventoryItemContentHash of Str where .chars <= 256;
+
+    subset DocumentVersion of Str where rx:P5/([$]LATEST|[$]DEFAULT|^[1-9][0-9]*$)/;
+
+    subset MaintenanceWindowFilterList of Array[MaintenanceWindowFilter] where 0 <= *.elems <= 5;
+
+    subset ComplianceItemContentHash of Str where .chars <= 256;
+
+    subset ComplianceExecutionType of Str where .chars <= 50;
+
+    subset InventoryItemCaptureTime of Str where rx:P5/^(20)[0-9][0-9]-(0[1-9]|1[012])-([12][0-9]|3[01]|0[1-9])(T)(2[0-3]|[0-1][0-9])(:[0-5][0-9])(:[0-5][0-9])(Z)$/;
+
+    subset InstanceInformationStringFilterKey of Str where 1 <= .chars;
+
+    subset ManagedInstanceId of Str where rx:P5/^mi-[0-9a-f]{17}$/;
+
+    subset MaintenanceWindowExecutionTaskId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
+
+    subset MaintenanceWindowTargetId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
+
+    subset StandardOutputContent of Str where .chars <= 24000;
+
+    subset StatusDetails of Str where 0 <= .chars <= 100;
+
+    subset DocumentParameterType of Str where $_ eq any('String', 'StringList');
+
+    subset MaintenanceWindowSchedule of Str where 1 <= .chars <= 256;
+
+    subset CommandStatus of Str where $_ eq any('Pending', 'InProgress', 'Success', 'Cancelled', 'Failed', 'TimedOut', 'Cancelling');
+
+    subset InstanceInformationFilterValueSet of Array[InstanceInformationFilterValue] where 1 <= *.elems <= 100;
+
+    subset AttributeValue of Str where 0 <= .chars <= 4096;
+
+    subset InstancePatchStateFilterValues of Array[Str] where 1 <= *.elems <= 1;
+
+    subset PatchFilterValueList of Array[PatchFilterValue] where 1 <= *.elems <= 20;
+
+    subset OwnerInformation of Str where 1 <= .chars <= 128;
+
+    subset InstanceId of Str where rx:P5/(^i-(\w{8}|\w{17})$)|(^mi-\w{17}$)/;
+
+    subset ComplianceStringFilterKey of Str where 1 <= .chars <= 200;
+
+    subset BaselineDescription of Str where 1 <= .chars <= 1024;
+
+    subset PatchComplianceMaxResults of Int where 10 <= * <= 100;
+
+    subset DocumentVersionNumber of Str where rx:P5/(^[1-9][0-9]*$)/;
+
+    subset ParameterNameList of Array[PSParameterName] where 1 <= *.elems <= 10;
+
+    subset DocumentHash of Str where .chars <= 256;
+
+    subset DocumentType of Str where $_ eq any('Command', 'Policy', 'Automation');
+
+    subset MaintenanceWindowStepFunctionsName of Str where 1 <= .chars <= 80;
+
+    subset NotificationType of Str where $_ eq any('Command', 'Invocation');
+
+    subset InventoryItemEntryList of Array[InventoryItemEntry] where 0 <= *.elems <= 10000;
+
+    subset CommandMaxResults of Int where 1 <= * <= 50;
+
+    subset AutomationExecutionFilterValueList of Array[AutomationExecutionFilterValue] where 1 <= *.elems <= 10;
+
+    subset MaintenanceWindowTaskArn of Str where 1 <= .chars <= 1600;
+
+    subset PSParameterName of Str where 1 <= .chars <= 1024;
+
+    subset ComplianceTypeName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9_\-]\w+|Custom:[a-zA-Z0-9_\-]\w+/;
+
+    subset AutomationParameterKey of Str where 1 <= .chars <= 30;
+
+    subset AssociationName of Str where rx:P5/^[a-zA-Z0-9_\-.]{3,128}$/;
+
+    subset ParameterDescription of Str where 1 <= .chars <= 1024;
+
+    subset DescribeActivationsFilterKeys of Str where $_ eq any('ActivationIds', 'DefaultInstanceName', 'IamRole');
+
+    subset MaintenanceWindowFilterValue of Str where 1 <= .chars <= 256;
+
+    subset MaintenanceWindowName of Str where 3 <= .chars <= 128 && rx:P5/^[a-zA-Z0-9_\-.]{3,128}$/;
+
+    subset Targets of Array[Target] where 0 <= *.elems <= 5;
+
+    subset S3BucketName of Str where 3 <= .chars <= 63;
+
+    subset PatchFilterKey of Str where $_ eq any('PRODUCT', 'CLASSIFICATION', 'MSRC_SEVERITY', 'PATCH_ID', 'SECTION', 'PRIORITY', 'SEVERITY');
+
+    subset MaintenanceWindowResourceType of Str where $_ eq any('INSTANCE');
+
+    subset PatchDeploymentStatus of Str where $_ eq any('APPROVED', 'PENDING_APPROVAL', 'EXPLICIT_APPROVED', 'EXPLICIT_REJECTED');
+
+    subset TargetValues of Array[Str] where 0 <= *.elems <= 50;
+
+
     class GetMaintenanceWindowExecutionTaskRequest does AWS::SDK::Shape {
         has MaintenanceWindowExecutionId $.window-execution-id is required is shape-member('WindowExecutionId');
         has MaintenanceWindowExecutionTaskId $.task-id is required is shape-member('TaskId');
@@ -412,10 +855,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has DocumentType $.document-type is shape-member('DocumentType');
     }
 
-    subset DocumentFilterKey of Str where $_ ~~ any('Name', 'Owner', 'PlatformTypes', 'DocumentType');
-
-    subset CommandInvocationStatus of Str where $_ ~~ any('Pending', 'InProgress', 'Delayed', 'Success', 'Cancelled', 'TimedOut', 'Failed', 'Cancelling');
-
     class AutomationDefinitionVersionNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -424,8 +863,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has InstancePatchStatesList $.instance-patch-states is shape-member('InstancePatchStates');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset ParameterStringQueryOption of Str where 1 <= .chars <= 10;
 
     class ParameterAlreadyExists does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -447,11 +884,9 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class DescribeInstanceAssociationsStatusResult does AWS::SDK::Shape {
-        has Array[InstanceAssociationStatusInfo] $.instance-association-status-infos is shape-member('InstanceAssociationStatusInfos');
+        has InstanceAssociationStatusInfo @.instance-association-status-infos is shape-member('InstanceAssociationStatusInfos');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset DocumentPermissionType of Str where $_ ~~ any('Share');
 
     class UpdateMaintenanceWindowTargetRequest does AWS::SDK::Shape {
         has Bool $.replace is shape-member('Replace');
@@ -463,8 +898,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowId $.window-id is required is shape-member('WindowId');
     }
 
-    subset BaselineName of Str where 3 <= .chars <= 128 && rx:P5/^[a-zA-Z0-9_\-.]{3,128}$/;
-
     class UnsupportedOperatingSystem does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -473,16 +906,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset OperatingSystem of Str where $_ ~~ any('WINDOWS', 'AMAZON_LINUX', 'UBUNTU', 'REDHAT_ENTERPRISE_LINUX');
-
     class MaintenanceWindowTaskInvocationParameters does AWS::SDK::Shape {
         has MaintenanceWindowLambdaParameters $.lambda is shape-member('Lambda');
         has MaintenanceWindowStepFunctionsParameters $.step-functions is shape-member('StepFunctions');
         has MaintenanceWindowRunCommandParameters $.run-command is shape-member('RunCommand');
         has MaintenanceWindowAutomationParameters $.automation is shape-member('Automation');
     }
-
-    subset ResultAttributeList of Array[ResultAttribute] where 1 <= *.elems <= 1;
 
     class CancelCommandResult does AWS::SDK::Shape {
     }
@@ -497,23 +926,13 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class DescribeParametersResult does AWS::SDK::Shape {
-        has Array[ParameterMetadata] $.parameters is shape-member('Parameters');
+        has ParameterMetadata @.parameters is shape-member('Parameters');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset MaintenanceWindowStepFunctionsInput of Str where .chars <= 4096;
-
-    subset ParametersFilterValue of Str where 1 <= .chars <= 1024;
 
     class InstanceAssociationOutputUrl does AWS::SDK::Shape {
         has S3OutputUrl $.s3-output-url is shape-member('S3OutputUrl');
     }
-
-    subset ComplianceResourceIdList of Array[ComplianceResourceId] where 1 <= *.elems;
-
-    subset ComplianceResourceId of Str where 1 <= .chars <= 100;
-
-    subset AccountIdList of Array[AccountId] where *.elems <= 20;
 
     class DeleteDocumentResult does AWS::SDK::Shape {
     }
@@ -532,10 +951,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.standard-error-url is shape-member('StandardErrorUrl');
         has Str $.standard-output-url is shape-member('StandardOutputUrl');
     }
-
-    subset ActivationCode of Str where 20 <= .chars <= 250;
-
-    subset MaintenanceWindowTaskType of Str where $_ ~~ any('RUN_COMMAND', 'AUTOMATION', 'STEP_FUNCTIONS', 'LAMBDA');
 
     class MaxDocumentSizeExceeded does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -559,19 +974,11 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     class AssociationAlreadyExists does AWS::SDK::Shape {
     }
 
-    subset DocumentStatus of Str where $_ ~~ any('Creating', 'Active', 'Updating', 'Deleting');
-
-    subset ComplianceStringFilterValueList of Array[Str] where 1 <= *.elems <= 20;
-
-    subset MaxResultsEC2Compatible of Int where 5 <= * <= 50;
-
     class AssociationOverview does AWS::SDK::Shape {
-        has Hash[Int, Str] $.association-status-aggregated-count is shape-member('AssociationStatusAggregatedCount');
+        has Int %.association-status-aggregated-count{Str} is shape-member('AssociationStatusAggregatedCount');
         has Str $.status is shape-member('Status');
         has Str $.detailed-status is shape-member('DetailedStatus');
     }
-
-    subset S3KeyPrefix of Str where .chars <= 500;
 
     class CreateAssociationBatchRequest does AWS::SDK::Shape {
         has CreateAssociationBatchRequestEntries $.entries is required is shape-member('Entries');
@@ -586,8 +993,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowId $.window-id is shape-member('WindowId');
     }
 
-    subset S3Region of Str where 3 <= .chars <= 20;
-
     class UpdateAssociationResult does AWS::SDK::Shape {
         has AssociationDescription $.association-description is shape-member('AssociationDescription');
     }
@@ -596,17 +1001,9 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset InvocationTraceOutput of Str where .chars <= 2500;
-
-    subset PatchComplianceDataState of Str where $_ ~~ any('INSTALLED', 'INSTALLED_OTHER', 'MISSING', 'NOT_APPLICABLE', 'FAILED');
-
-    subset MaintenanceWindowLambdaClientContext of Str where 1 <= .chars <= 8000;
-
     class ParameterLimitExceeded does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset Fault of Str where $_ ~~ any('Client', 'Server', 'Unknown');
 
     class ResourceDataSyncInvalidConfigurationException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -624,32 +1021,18 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset PatchBaselineMaxResults of Int where 1 <= * <= 100;
-
     class SendCommandResult does AWS::SDK::Shape {
         has Command $.command is shape-member('Command');
     }
 
-    subset InstanceInformationFilterList of Array[InstanceInformationFilter] where 0 <= *.elems;
-
-    subset AssociationVersionList of Array[AssociationVersionInfo] where 1 <= *.elems;
-
-    subset ComplianceItemId of Str where 1 <= .chars <= 100;
-
     class InvocationDoesNotExist does AWS::SDK::Shape {
     }
-
-    subset AssociationFilterValue of Str where 1 <= .chars;
-
-    subset InstancePatchStatesList of Array[InstancePatchState] where 1 <= *.elems <= 5;
 
     class InstancePatchStateFilter does AWS::SDK::Shape {
         has InstancePatchStateFilterValues $.values is required is shape-member('Values');
         has InstancePatchStateOperatorType $.type is required is shape-member('Type');
         has InstancePatchStateFilterKey $.key is required is shape-member('Key');
     }
-
-    subset InventoryFilterList of Array[InventoryFilter] where 1 <= *.elems <= 5;
 
     class UpdatePatchBaselineRequest does AWS::SDK::Shape {
         has PatchIdList $.approved-patches is shape-member('ApprovedPatches');
@@ -668,12 +1051,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
         has PatchGroup $.patch-group is required is shape-member('PatchGroup');
     }
-
-    subset PatchComplianceLevel of Str where $_ ~~ any('CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'INFORMATIONAL', 'UNSPECIFIED');
-
-    subset StatusMessage of Str where 1 <= .chars <= 1024;
-
-    subset PatchOrchestratorFilterValue of Str where 1 <= .chars <= 256;
 
     class GetCommandInvocationResult does AWS::SDK::Shape {
         has CommandId $.command-id is shape-member('CommandId');
@@ -697,37 +1074,19 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset ApproveAfterDays of Int where 0 <= * <= 100;
-
-    subset AssociationFilterList of Array[AssociationFilter] where 1 <= *.elems;
-
-    subset InventoryItemSchemaVersion of Str where rx:P5/^([0-9]{1,6})(\.[0-9]{1,6})$/;
-
     class InstanceAggregatedAssociationOverview does AWS::SDK::Shape {
         has Str $.detailed-status is shape-member('DetailedStatus');
-        has Hash[Int, Str] $.instance-association-status-aggregated-count is shape-member('InstanceAssociationStatusAggregatedCount');
+        has Int %.instance-association-status-aggregated-count{Str} is shape-member('InstanceAssociationStatusAggregatedCount');
     }
 
     class GetParametersByPathResult does AWS::SDK::Shape {
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset ComplianceStatus of Str where $_ ~~ any('COMPLIANT', 'NON_COMPLIANT');
-
-    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^(?!^(?i)aws:)(?=^[\p{L}\p{Z}\p{N}_.:\/=+\-@]*$).*$/;
-
-    subset ClientToken of Str where 1 <= .chars <= 64;
 
     class InvalidResultAttributeException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset MaintenanceWindowTaskParameterName of Str where 1 <= .chars <= 255;
-
-    subset RegistrationLimit of Int where 1 <= * <= 1000;
-
-    subset DocumentFilterList of Array[DocumentFilter] where 1 <= *.elems;
 
     class DeleteDocumentRequest does AWS::SDK::Shape {
         has DocumentName $.name is required is shape-member('Name');
@@ -737,8 +1096,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset InventoryFilterKey of Str where 1 <= .chars <= 200;
-
     class StepExecution does AWS::SDK::Shape {
         has Str $.failure-message is shape-member('FailureMessage');
         has Str $.response is shape-member('Response');
@@ -747,9 +1104,9 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has AutomationExecutionStatus $.step-status is shape-member('StepStatus');
         has Str $.response-code is shape-member('ResponseCode');
         has AutomationActionName $.action is shape-member('Action');
-        has Hash[Str, Str] $.inputs is shape-member('Inputs');
+        has Str %.inputs{Str} is shape-member('Inputs');
         has FailureDetails $.failure-details is shape-member('FailureDetails');
-        has AutomationParameterMap $.outputs is shape-member('Outputs');
+        has AutomationParameterValueList $.outputs{AutomationParameterKey} is shape-member('Outputs');
         has DateTime $.execution-start-time is shape-member('ExecutionStartTime');
     }
 
@@ -764,7 +1121,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.owner is shape-member('Owner');
         has DocumentSchemaVersion $.schema-version is shape-member('SchemaVersion');
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
-        has Array[PlatformType] $.platform-types is shape-member('PlatformTypes');
+        has PlatformType @.platform-types is shape-member('PlatformTypes');
         has DocumentARN $.name is shape-member('Name');
         has DocumentType $.document-type is shape-member('DocumentType');
     }
@@ -773,15 +1130,13 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has AccountIdList $.account-ids is shape-member('AccountIds');
     }
 
-    subset ParameterType of Str where $_ ~~ any('String', 'StringList', 'SecureString');
-
     class UpdateAssociationRequest does AWS::SDK::Shape {
         has AssociationName $.association-name is shape-member('AssociationName');
         has InstanceAssociationOutputLocation $.output-location is shape-member('OutputLocation');
         has ScheduleExpression $.schedule-expression is shape-member('ScheduleExpression');
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
         has AssociationId $.association-id is required is shape-member('AssociationId');
-        has Hash[Array[Str], Str] $.parameters is shape-member('Parameters');
+        has Array[Str] %.parameters{Str} is shape-member('Parameters');
         has AssociationVersion $.association-version is shape-member('AssociationVersion');
         has DocumentName $.name is shape-member('Name');
         has Targets $.targets is shape-member('Targets');
@@ -802,14 +1157,10 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.execution-id is shape-member('ExecutionId');
     }
 
-    subset SignalType of Str where $_ ~~ any('Approve', 'Reject');
-
     class DescribeMaintenanceWindowTasksResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[MaintenanceWindowTask] $.tasks is shape-member('Tasks');
+        has MaintenanceWindowTask @.tasks is shape-member('Tasks');
     }
-
-    subset CommandFilterKey of Str where $_ ~~ any('InvokedAfter', 'InvokedBefore', 'Status');
 
     class GetPatchBaselineForPatchGroupResult does AWS::SDK::Shape {
         has BaselineId $.baseline-id is shape-member('BaselineId');
@@ -821,12 +1172,10 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowExecutionId $.window-execution-id is shape-member('WindowExecutionId');
         has DateTime $.end-time is shape-member('EndTime');
         has MaintenanceWindowExecutionStatusDetails $.status-details is shape-member('StatusDetails');
-        has Array[MaintenanceWindowExecutionTaskId] $.task-ids is shape-member('TaskIds');
+        has MaintenanceWindowExecutionTaskId @.task-ids is shape-member('TaskIds');
         has DateTime $.start-time is shape-member('StartTime');
         has MaintenanceWindowExecutionStatus $.status is shape-member('Status');
     }
-
-    subset CommandFilterValue of Str where 1 <= .chars;
 
     class DescribeAutomationExecutionsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
@@ -834,7 +1183,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class DescribeMaintenanceWindowsResult does AWS::SDK::Shape {
-        has Array[MaintenanceWindowIdentity] $.window-identities is shape-member('WindowIdentities');
+        has MaintenanceWindowIdentity @.window-identities is shape-member('WindowIdentities');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -846,16 +1195,14 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.executed-by is shape-member('ExecutedBy');
         has DocumentName $.document-name is shape-member('DocumentName');
         has AutomationExecutionId $.automation-execution-id is shape-member('AutomationExecutionId');
-        has AutomationParameterMap $.outputs is shape-member('Outputs');
+        has AutomationParameterValueList $.outputs{AutomationParameterKey} is shape-member('Outputs');
         has DateTime $.execution-start-time is shape-member('ExecutionStartTime');
     }
 
     class DescribeMaintenanceWindowTargetsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[MaintenanceWindowTarget] $.targets is shape-member('Targets');
+        has MaintenanceWindowTarget @.targets is shape-member('Targets');
     }
-
-    subset PatchRuleList of Array[PatchRule] where 0 <= *.elems <= 10;
 
     class SeveritySummary does AWS::SDK::Shape {
         has Int $.critical-count is shape-member('CriticalCount');
@@ -876,26 +1223,14 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has PatchFilterKey $.key is required is shape-member('Key');
     }
 
-    subset LastResourceDataSyncStatus of Str where $_ ~~ any('Successful', 'Failed', 'InProgress');
-
-    subset CommandFilterList of Array[CommandFilter] where 1 <= *.elems <= 3;
-
-    subset InventoryAttributeDataType of Str where $_ ~~ any('string', 'number');
-
     class InventoryItem does AWS::SDK::Shape {
         has InventoryItemContentHash $.content-hash is shape-member('ContentHash');
         has InventoryItemCaptureTime $.capture-time is required is shape-member('CaptureTime');
         has InventoryItemSchemaVersion $.schema-version is required is shape-member('SchemaVersion');
         has InventoryItemEntryList $.content is shape-member('Content');
-        has InventoryItemContentContext $.context is shape-member('Context');
+        has AttributeValue $.context{AttributeName} is shape-member('Context');
         has InventoryItemTypeName $.type-name is required is shape-member('TypeName');
     }
-
-    subset InstancePatchStateOperatorType of Str where $_ ~~ any('Equal', 'NotEqual', 'LessThan', 'GreaterThan');
-
-    subset InstanceInformationFilterValue of Str where 1 <= .chars;
-
-    subset InventoryQueryOperatorType of Str where $_ ~~ any('Equal', 'NotEqual', 'BeginWith', 'LessThan', 'GreaterThan');
 
     class PutComplianceItemsRequest does AWS::SDK::Shape {
         has ComplianceItemContentHash $.item-content-hash is shape-member('ItemContentHash');
@@ -905,8 +1240,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has ComplianceItemEntryList $.items is required is shape-member('Items');
         has ComplianceResourceType $.resource-type is required is shape-member('ResourceType');
     }
-
-    subset TimeoutSeconds of Int where 30 <= * <= 2592000;
 
     class DescribeAssociationResult does AWS::SDK::Shape {
         has AssociationDescription $.association-description is shape-member('AssociationDescription');
@@ -925,7 +1258,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     class ListAssociationsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Association] $.associations is shape-member('Associations');
+        has Association @.associations is shape-member('Associations');
     }
 
     class InvalidDocumentOperation does AWS::SDK::Shape {
@@ -951,10 +1284,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowStepFunctionsName $.name is shape-member('Name');
     }
 
-    subset PatchIdList of Array[PatchId] where 0 <= *.elems <= 50;
-
-    subset ComplianceExecutionId of Str where .chars <= 100;
-
     class InvalidPermissionType does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -972,12 +1301,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class GetParametersResult does AWS::SDK::Shape {
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has ParameterNameList $.invalid-parameters is shape-member('InvalidParameters');
     }
 
     class DescribeEffectivePatchesForPatchBaselineResult does AWS::SDK::Shape {
-        has Array[EffectivePatch] $.effective-patches is shape-member('EffectivePatches');
+        has EffectivePatch @.effective-patches is shape-member('EffectivePatches');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -995,12 +1324,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has PatchComplianceLevel $.approved-patches-compliance-level is shape-member('ApprovedPatchesComplianceLevel');
     }
 
-    subset MaintenanceWindowTaskPriority of Int where 0 <= *;
-
-    subset ComplianceQueryOperatorType of Str where $_ ~~ any('EQUAL', 'NOT_EQUAL', 'BEGIN_WITH', 'LESS_THAN', 'GREATER_THAN');
-
-    subset PatchFilterValue of Str where 1 <= .chars <= 64;
-
     class UpdateMaintenanceWindowTargetResult does AWS::SDK::Shape {
         has MaintenanceWindowTargetId $.window-target-id is shape-member('WindowTargetId');
         has MaintenanceWindowDescription $.description is shape-member('Description');
@@ -1013,14 +1336,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     class InvalidAssociationVersion does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset InstanceAssociationExecutionSummary of Str where 1 <= .chars <= 512;
-
-    subset PatchOperationType of Str where $_ ~~ any('Scan', 'Install');
-
-    subset ComplianceResourceTypeList of Array[ComplianceResourceType] where 1 <= *.elems;
-
-    subset MaintenanceWindowLambdaQualifier of Str where 1 <= .chars <= 128;
 
     class PatchFilterGroup does AWS::SDK::Shape {
         has PatchFilterList $.patch-filters is required is shape-member('PatchFilters');
@@ -1045,25 +1360,11 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has ParameterStringQueryOption $.option is shape-member('Option');
     }
 
-    subset ParameterStringFilterValueList of Array[ParameterStringFilterValue] where 1 <= *.elems <= 50;
-
     class DeregisterTargetFromMaintenanceWindowRequest does AWS::SDK::Shape {
         has MaintenanceWindowTargetId $.window-target-id is required is shape-member('WindowTargetId');
         has Bool $.safe is shape-member('Safe');
         has MaintenanceWindowId $.window-id is required is shape-member('WindowId');
     }
-
-    subset ParametersFilterValueList of Array[ParametersFilterValue] where 1 <= *.elems <= 50;
-
-    subset PatchOrchestratorFilterList of Array[PatchOrchestratorFilter] where 0 <= *.elems <= 5;
-
-    subset AccountId of Str where rx:P5/(?i)all|[0-9]{12}/;
-
-    subset AllowedPattern of Str where 0 <= .chars <= 1024;
-
-    subset InventoryItemTypeNameFilter of Str where 0 <= .chars <= 100;
-
-    subset AutomationExecutionMetadataList of Array[AutomationExecutionMetadata] where 0 <= *.elems <= 50;
 
     class StatusUnchanged does AWS::SDK::Shape {
     }
@@ -1077,8 +1378,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset InventoryItemList of Array[InventoryItem] where 1 <= *.elems <= 30;
-
     class ListCommandsRequest does AWS::SDK::Shape {
         has CommandMaxResults $.max-results is shape-member('MaxResults');
         has CommandFilterList $.filters is shape-member('Filters');
@@ -1091,16 +1390,10 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset MaintenanceWindowExecutionStatusDetails of Str where 0 <= .chars <= 250;
-
     class DeleteParametersResult does AWS::SDK::Shape {
         has ParameterNameList $.deleted-parameters is shape-member('DeletedParameters');
         has ParameterNameList $.invalid-parameters is shape-member('InvalidParameters');
     }
-
-    subset PatchOrchestratorFilterKey of Str where 1 <= .chars <= 128;
-
-    subset AutomationParameterMap of Hash[AutomationParameterValueList, AutomationParameterKey] where 1 <= *.elems <= 200;
 
     class DescribePatchGroupsRequest does AWS::SDK::Shape {
         has PatchBaselineMaxResults $.max-results is shape-member('MaxResults');
@@ -1122,11 +1415,9 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset InventoryFilterValueList of Array[Str] where 1 <= *.elems <= 20;
-
     class FailureDetails does AWS::SDK::Shape {
         has Str $.failure-type is shape-member('FailureType');
-        has AutomationParameterMap $.details is shape-member('Details');
+        has AutomationParameterValueList $.details{AutomationParameterKey} is shape-member('Details');
         has Str $.failure-stage is shape-member('FailureStage');
     }
 
@@ -1140,15 +1431,9 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has ParameterType $.type is shape-member('Type');
     }
 
-    subset PatchId of Str where 1 <= .chars <= 100;
-
-    subset AutomationParameterValue of Str where 1 <= .chars <= 512;
-
     class ResourceLimitExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset GetParametersByPathMaxResults of Int where 1 <= * <= 10;
 
     class GetMaintenanceWindowExecutionTaskResult does AWS::SDK::Shape {
         has MaxConcurrency $.max-concurrency is shape-member('MaxConcurrency');
@@ -1157,7 +1442,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has DateTime $.end-time is shape-member('EndTime');
         has MaintenanceWindowExecutionStatusDetails $.status-details is shape-member('StatusDetails');
         has DateTime $.start-time is shape-member('StartTime');
-        has Array[Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName]] $.task-parameters is shape-member('TaskParameters');
+        has Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] @.task-parameters is shape-member('TaskParameters');
         has MaintenanceWindowExecutionTaskId $.task-execution-id is shape-member('TaskExecutionId');
         has MaintenanceWindowExecutionStatus $.status is shape-member('Status');
         has MaintenanceWindowTaskType $.type is shape-member('Type');
@@ -1181,14 +1466,8 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset MaintenanceWindowTaskId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
-
-    subset InstanceTagName of Str where .chars <= 255;
-
-    subset ComputerName of Str where 1 <= .chars <= 255;
-
     class NotificationConfig does AWS::SDK::Shape {
-        has Array[NotificationEvent] $.notification-events is shape-member('NotificationEvents');
+        has NotificationEvent @.notification-events is shape-member('NotificationEvents');
         has NotificationType $.notification-type is shape-member('NotificationType');
         has Str $.notification-arn is shape-member('NotificationArn');
     }
@@ -1196,14 +1475,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     class IdempotentParameterMismatch does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset ComplianceItemEntryList of Array[ComplianceItemEntry] where 0 <= *.elems <= 10000;
-
-    subset ResourceDataSyncS3Prefix of Str where 1 <= .chars <= 256;
-
-    subset DocumentSchemaVersion of Str where rx:P5/([0-9]+)\.([0-9]+)/;
-
-    subset AutomationExecutionFilterValue of Str where 1 <= .chars <= 150;
 
     class CreateResourceDataSyncResult does AWS::SDK::Shape {
     }
@@ -1214,8 +1485,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
         has InstanceId $.instance-id is required is shape-member('InstanceId');
     }
-
-    subset MaintenanceWindowLambdaPayload of Blob where *.bytes <= 4096;
 
     class UpdateAssociationStatusRequest does AWS::SDK::Shape {
         has AssociationStatus $.association-status is required is shape-member('AssociationStatus');
@@ -1258,15 +1527,13 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class DescribeMaintenanceWindowExecutionTasksResult does AWS::SDK::Shape {
-        has Array[MaintenanceWindowExecutionTaskIdentity] $.window-execution-task-identities is shape-member('WindowExecutionTaskIdentities');
+        has MaintenanceWindowExecutionTaskIdentity @.window-execution-task-identities is shape-member('WindowExecutionTaskIdentities');
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset MaintenanceWindowExecutionId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
-
     class MaintenanceWindowRunCommandParameters does AWS::SDK::Shape {
         has Str $.service-role-arn is shape-member('ServiceRoleArn');
-        has Hash[Array[Str], Str] $.parameters is shape-member('Parameters');
+        has Array[Str] %.parameters{Str} is shape-member('Parameters');
         has S3BucketName $.output-s3-bucket-name is shape-member('OutputS3BucketName');
         has Comment $.comment is shape-member('Comment');
         has DocumentHash $.document-hash is shape-member('DocumentHash');
@@ -1282,7 +1549,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     class DescribeActivationsRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
-        has Array[DescribeActivationsFilter] $.filters is shape-member('Filters');
+        has DescribeActivationsFilter @.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1299,25 +1566,19 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has ParameterType $.type is shape-member('Type');
     }
 
-    subset DocumentName of Str where rx:P5/^[a-zA-Z0-9_\-.]{3,128}$/;
-
-    subset ActivationId of Str where rx:P5/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-
-    subset ParameterKeyId of Str where 1 <= .chars <= 256 && rx:P5/^([a-zA-Z0-9:\/_-]+)$/;
-
     class CreateAssociationBatchRequestEntry does AWS::SDK::Shape {
         has AssociationName $.association-name is shape-member('AssociationName');
         has InstanceAssociationOutputLocation $.output-location is shape-member('OutputLocation');
         has ScheduleExpression $.schedule-expression is shape-member('ScheduleExpression');
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
-        has Hash[Array[Str], Str] $.parameters is shape-member('Parameters');
+        has Array[Str] %.parameters{Str} is shape-member('Parameters');
         has DocumentName $.name is required is shape-member('Name');
         has InstanceId $.instance-id is shape-member('InstanceId');
         has Targets $.targets is shape-member('Targets');
     }
 
     class ListTagsForResourceResult does AWS::SDK::Shape {
-        has Array[Tag] $.tag-list is shape-member('TagList');
+        has Tag @.tag-list is shape-member('TagList');
     }
 
     class InstanceInformationStringFilter does AWS::SDK::Shape {
@@ -1327,25 +1588,17 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     class ListCommandInvocationsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[CommandInvocation] $.command-invocations is shape-member('CommandInvocations');
+        has CommandInvocation @.command-invocations is shape-member('CommandInvocations');
     }
-
-    subset MaintenanceWindowExecutionStatus of Str where $_ ~~ any('PENDING', 'IN_PROGRESS', 'SUCCESS', 'FAILED', 'TIMED_OUT', 'CANCELLING', 'CANCELLED', 'SKIPPED_OVERLAPPING');
-
-    subset MaintenanceWindowTaskParameterValue of Str where 1 <= .chars <= 255;
 
     class PatchGroupPatchBaselineMapping does AWS::SDK::Shape {
         has PatchBaselineIdentity $.baseline-identity is shape-member('BaselineIdentity');
         has PatchGroup $.patch-group is shape-member('PatchGroup');
     }
 
-    subset PingStatus of Str where $_ ~~ any('Online', 'ConnectionLost', 'Inactive');
-
     class RegisterDefaultPatchBaselineRequest does AWS::SDK::Shape {
         has BaselineId $.baseline-id is required is shape-member('BaselineId');
     }
-
-    subset InventoryItemContentContext of Hash[AttributeValue, AttributeName] where 0 <= *.elems <= 50;
 
     class InventoryResultItem does AWS::SDK::Shape {
         has InventoryItemContentHash $.content-hash is shape-member('ContentHash');
@@ -1354,14 +1607,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has InventoryItemEntryList $.content is required is shape-member('Content');
         has InventoryItemTypeName $.type-name is required is shape-member('TypeName');
     }
-
-    subset RegistrationsCount of Int where 1 <= * <= 1000;
-
-    subset StatusAdditionalInfo of Str where .chars <= 1024;
-
-    subset GetInventorySchemaMaxResults of Int where 50 <= * <= 200;
-
-    subset InstanceInformationStringFilterList of Array[InstanceInformationStringFilter] where 0 <= *.elems;
 
     class DeleteActivationResult does AWS::SDK::Shape {
     }
@@ -1375,12 +1620,10 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class AddTagsToResourceRequest does AWS::SDK::Shape {
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
         has Str $.resource-id is required is shape-member('ResourceId');
         has ResourceTypeForTagging $.resource-type is required is shape-member('ResourceType');
     }
-
-    subset MaintenanceWindowDurationHours of Int where 1 <= * <= 24;
 
     class PutInventoryRequest does AWS::SDK::Shape {
         has InventoryItemList $.items is required is shape-member('Items');
@@ -1388,7 +1631,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class GetParameterHistoryResult does AWS::SDK::Shape {
-        has Array[ParameterHistory] $.parameters is shape-member('Parameters');
+        has ParameterHistory @.parameters is shape-member('Parameters');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1397,18 +1640,16 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
         has Str $.failure-message is shape-member('FailureMessage');
         has DateTime $.execution-end-time is shape-member('ExecutionEndTime');
-        has AutomationParameterMap $.parameters is shape-member('Parameters');
+        has AutomationParameterValueList $.parameters{AutomationParameterKey} is shape-member('Parameters');
         has DocumentName $.document-name is shape-member('DocumentName');
         has AutomationExecutionId $.automation-execution-id is shape-member('AutomationExecutionId');
-        has AutomationParameterMap $.outputs is shape-member('Outputs');
+        has AutomationParameterValueList $.outputs{AutomationParameterKey} is shape-member('Outputs');
         has StepExecutionList $.step-executions is shape-member('StepExecutions');
         has DateTime $.execution-start-time is shape-member('ExecutionStartTime');
     }
 
-    subset ResourceDataSyncS3Format of Str where $_ ~~ any('JsonSerDe');
-
     class InventoryResultEntity does AWS::SDK::Shape {
-        has Hash[InventoryResultItem, Str] $.data is shape-member('Data');
+        has InventoryResultItem %.data{Str} is shape-member('Data');
         has Str $.id is shape-member('Id');
     }
 
@@ -1430,7 +1671,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has PatchIdList $.rejected-patches is shape-member('RejectedPatches');
         has BaselineDescription $.description is shape-member('Description');
         has PatchRuleGroup $.approval-rules is shape-member('ApprovalRules');
-        has Array[PatchGroup] $.patch-groups is shape-member('PatchGroups');
+        has PatchGroup @.patch-groups is shape-member('PatchGroups');
         has PatchFilterGroup $.global-filters is shape-member('GlobalFilters');
         has BaselineName $.name is shape-member('Name');
         has OperatingSystem $.operating-system is shape-member('OperatingSystem');
@@ -1444,10 +1685,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.product is shape-member('Product');
         has InstanceId $.instance-id is shape-member('InstanceId');
     }
-
-    subset ResourceTypeForTagging of Str where $_ ~~ any('ManagedInstance', 'MaintenanceWindow', 'Parameter');
-
-    subset DocumentHashType of Str where $_ ~~ any('Sha256', 'Sha1');
 
     class AutomationDefinitionNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -1473,10 +1710,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has InventoryItemTypeName $.type-name is required is shape-member('TypeName');
     }
 
-    subset CommandId of Str where 36 <= .chars <= 36;
-
-    subset AutomationExecutionStatus of Str where $_ ~~ any('Pending', 'InProgress', 'Waiting', 'Success', 'TimedOut', 'Cancelled', 'Failed');
-
     class Association does AWS::SDK::Shape {
         has AssociationName $.association-name is shape-member('AssociationName');
         has ScheduleExpression $.schedule-expression is shape-member('ScheduleExpression');
@@ -1490,8 +1723,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Targets $.targets is shape-member('Targets');
     }
 
-    subset ParameterStringFilterValue of Str where 1 <= .chars <= 1024;
-
     class HierarchyTypeMismatchException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -1501,8 +1732,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has PatchOrchestratorFilterList $.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset NotificationEvent of Str where $_ ~~ any('All', 'InProgress', 'Success', 'TimedOut', 'Cancelled', 'Failed');
 
     class CompliantSummary does AWS::SDK::Shape {
         has SeveritySummary $.severity-summary is shape-member('SeveritySummary');
@@ -1515,24 +1744,14 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset DocumentContent of Str where 1 <= .chars;
-
-    subset PatchFilterList of Array[PatchFilter] where 0 <= *.elems <= 4;
-
     class RemoveTagsFromResourceResult does AWS::SDK::Shape {
     }
-
-    subset AgentErrorCode of Str where .chars <= 10;
 
     class DescribeMaintenanceWindowsRequest does AWS::SDK::Shape {
         has MaintenanceWindowMaxResults $.max-results is shape-member('MaxResults');
         has MaintenanceWindowFilterList $.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset InventoryItemEntry of Hash[AttributeValue, AttributeName] where 0 <= *.elems <= 50;
-
-    subset ComplianceSeverity of Str where $_ ~~ any('CRITICAL', 'HIGH', 'MEDIUM', 'LOW', 'INFORMATIONAL', 'UNSPECIFIED');
 
     class EffectivePatch does AWS::SDK::Shape {
         has PatchStatus $.patch-status is shape-member('PatchStatus');
@@ -1543,20 +1762,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset CommandPluginStatus of Str where $_ ~~ any('Pending', 'InProgress', 'Success', 'TimedOut', 'Cancelled', 'Failed');
-
     class InvalidOutputFolder does AWS::SDK::Shape {
     }
 
-    subset ResourceDataSyncS3BucketName of Str where 1 <= .chars <= 2048;
-
-    subset ParameterStringFilterKey of Str where 1 <= .chars <= 132 && rx:P5/tag:.+|Name|Type|KeyId|Path/;
-
-    subset AssociationId of Str where rx:P5/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
-
     class CreateAssociationBatchResult does AWS::SDK::Shape {
-        has Array[AssociationDescription] $.successful is shape-member('Successful');
-        has Array[FailedCreateAssociation] $.failed is shape-member('Failed');
+        has AssociationDescription @.successful is shape-member('Successful');
+        has FailedCreateAssociation @.failed is shape-member('Failed');
     }
 
     class CreateResourceDataSyncRequest does AWS::SDK::Shape {
@@ -1569,8 +1780,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowId $.window-id is required is shape-member('WindowId');
     }
 
-    subset ComplianceResourceType of Str where 1 <= .chars <= 50;
-
     class InventoryFilter does AWS::SDK::Shape {
         has InventoryFilterValueList $.values is required is shape-member('Values');
         has InventoryQueryOperatorType $.type is shape-member('Type');
@@ -1582,15 +1791,13 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class ListCommandsResult does AWS::SDK::Shape {
-        has Array[Command] $.commands is shape-member('Commands');
+        has Command @.commands is shape-member('Commands');
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset PlatformType of Str where $_ ~~ any('Windows', 'Linux');
-
     class GetParametersByPathRequest does AWS::SDK::Shape {
         has GetParametersByPathMaxResults $.max-results is shape-member('MaxResults');
-        has Array[ParameterStringFilter] $.parameter-filters is shape-member('ParameterFilters');
+        has ParameterStringFilter @.parameter-filters is shape-member('ParameterFilters');
         has Bool $.recursive is shape-member('Recursive');
         has PSParameterName $.path is required is shape-member('Path');
         has Bool $.with-decryption is shape-member('WithDecryption');
@@ -1627,8 +1834,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.execution-id is shape-member('ExecutionId');
     }
 
-    subset MaxConcurrency of Str where 1 <= .chars <= 7 && rx:P5/^([1-9][0-9]*|[1-9][0-9]%|[1-9]%|100%)$/;
-
     class AddTagsToResourceResult does AWS::SDK::Shape {
     }
 
@@ -1640,11 +1845,9 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class ListResourceComplianceSummariesResult does AWS::SDK::Shape {
-        has Array[ResourceComplianceSummaryItem] $.resource-compliance-summary-items is shape-member('ResourceComplianceSummaryItems');
+        has ResourceComplianceSummaryItem @.resource-compliance-summary-items is shape-member('ResourceComplianceSummaryItems');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset CommandPluginName of Str where 4 <= .chars;
 
     class DescribeAvailablePatchesRequest does AWS::SDK::Shape {
         has PatchBaselineMaxResults $.max-results is shape-member('MaxResults');
@@ -1666,13 +1869,9 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class DescribeMaintenanceWindowExecutionTaskInvocationsResult does AWS::SDK::Shape {
-        has Array[MaintenanceWindowExecutionTaskInvocationIdentity] $.window-execution-task-invocation-identities is shape-member('WindowExecutionTaskInvocationIdentities');
+        has MaintenanceWindowExecutionTaskInvocationIdentity @.window-execution-task-invocation-identities is shape-member('WindowExecutionTaskInvocationIdentities');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset MaintenanceWindowDescription of Str where 1 <= .chars <= 128;
-
-    subset MaxErrors of Str where 1 <= .chars <= 7 && rx:P5/^([1-9][0-9]*|[0]|[1-9][0-9]%|[0-9]%|100%)$/;
 
     class Patch does AWS::SDK::Shape {
         has Str $.msrc-severity is shape-member('MsrcSeverity');
@@ -1715,8 +1914,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset InstancePatchStateFilterKey of Str where 1 <= .chars <= 200;
-
     class ComplianceTypeCountLimitExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -1748,11 +1945,9 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class GetInventoryResult does AWS::SDK::Shape {
-        has Array[InventoryResultEntity] $.entities is shape-member('Entities');
+        has InventoryResultEntity @.entities is shape-member('Entities');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset Version of Str where rx:P5/^[0-9]{1,6}(\.[0-9]{1,6}){2,3}$/;
 
     class CreateDocumentRequest does AWS::SDK::Shape {
         has DocumentContent $.content is required is shape-member('Content');
@@ -1772,8 +1967,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has InstanceId $.instance-id is shape-member('InstanceId');
         has Bool $.details is shape-member('Details');
     }
-
-    subset PatchGroup of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
     class Target does AWS::SDK::Shape {
         has TargetValues $.values is shape-member('Values');
@@ -1806,12 +1999,8 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     class SendAutomationSignalRequest does AWS::SDK::Shape {
         has SignalType $.signal-type is required is shape-member('SignalType');
         has AutomationExecutionId $.automation-execution-id is required is shape-member('AutomationExecutionId');
-        has AutomationParameterMap $.payload is shape-member('Payload');
+        has AutomationParameterValueList $.payload{AutomationParameterKey} is shape-member('Payload');
     }
-
-    subset ScheduleExpression of Str where 1 <= .chars <= 256;
-
-    subset EffectiveInstanceAssociationMaxResults of Int where 1 <= * <= 5;
 
     class DocumentFilter does AWS::SDK::Shape {
         has DocumentFilterValue $.value is required is shape-member('value');
@@ -1826,30 +2015,22 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has InstanceId $.instance-id is required is shape-member('InstanceId');
     }
 
-    subset Comment of Str where .chars <= 100;
-
     class AlreadyExistsException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
 
-    subset InventoryItemTypeName of Str where 1 <= .chars <= 100 && rx:P5/^(AWS|Custom):.*$/;
-
-    subset StandardErrorContent of Str where .chars <= 8000;
-
     class UpdateManagedInstanceRoleResult does AWS::SDK::Shape {
     }
-
-    subset DocumentVersionList of Array[DocumentVersionInfo] where 1 <= *.elems;
 
     class DocumentDescription does AWS::SDK::Shape {
         has Str $.owner is shape-member('Owner');
         has DocumentHash $.hash is shape-member('Hash');
         has DocumentSchemaVersion $.schema-version is shape-member('SchemaVersion');
-        has Array[PlatformType] $.platform-types is shape-member('PlatformTypes');
+        has PlatformType @.platform-types is shape-member('PlatformTypes');
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
         has Str $.description is shape-member('Description');
         has DocumentVersion $.latest-version is shape-member('LatestVersion');
-        has Array[DocumentParameter] $.parameters is shape-member('Parameters');
+        has DocumentParameter @.parameters is shape-member('Parameters');
         has DocumentVersion $.default-version is shape-member('DefaultVersion');
         has DocumentARN $.name is shape-member('Name');
         has DocumentHashType $.hash-type is shape-member('HashType');
@@ -1868,10 +2049,8 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has ComplianceResourceId $.resource-id is shape-member('ResourceId');
         has ComplianceStatus $.status is shape-member('Status');
         has ComplianceResourceType $.resource-type is shape-member('ResourceType');
-        has Hash[AttributeValue, AttributeName] $.details is shape-member('Details');
+        has AttributeValue %.details{AttributeName} is shape-member('Details');
     }
-
-    subset StepExecutionList of Array[StepExecution] where 0 <= *.elems <= 100;
 
     class UpdateDocumentResult does AWS::SDK::Shape {
         has DocumentDescription $.document-description is shape-member('DocumentDescription');
@@ -1880,8 +2059,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     class DocumentPermissionLimit does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset ResourceDataSyncS3Region of Str where 1 <= .chars <= 64;
 
     class DocumentAlreadyExists does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -1951,24 +2128,14 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset TagValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
-
-    subset CommandPluginOutput of Str where .chars <= 2500;
-
-    subset AssociationFilterKey of Str where $_ ~~ any('InstanceId', 'Name', 'AssociationId', 'AssociationStatusName', 'LastExecutedBefore', 'LastExecutedAfter', 'AssociationName');
-
     class UpdateDocumentDefaultVersionRequest does AWS::SDK::Shape {
         has DocumentVersionNumber $.document-version is required is shape-member('DocumentVersion');
         has DocumentName $.name is required is shape-member('Name');
     }
 
-    subset CreateAssociationBatchRequestEntries of Array[CreateAssociationBatchRequestEntry] where 1 <= *.elems;
-
-    subset InventoryItemAttributeList of Array[InventoryItemAttribute] where 1 <= *.elems <= 50;
-
     class ListComplianceSummariesRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
-        has Array[ComplianceStringFilter] $.filters is shape-member('Filters');
+        has ComplianceStringFilter @.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1976,13 +2143,9 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset BaselineId of Str where 20 <= .chars <= 128 && rx:P5/^[a-zA-Z0-9_\-:\/]{20,128}$/;
-
     class MaintenanceWindowTaskParameterValueExpression does AWS::SDK::Shape {
-        has Array[MaintenanceWindowTaskParameterValue] $.values is shape-member('Values');
+        has MaintenanceWindowTaskParameterValue @.values is shape-member('Values');
     }
-
-    subset MaintenanceWindowCutoff of Int where 0 <= * <= 23;
 
     class PutParameterRequest does AWS::SDK::Shape {
         has ParameterDescription $.description is shape-member('Description');
@@ -2006,24 +2169,20 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset ComplianceItemTitle of Str where .chars <= 500;
-
     class DeleteParameterResult does AWS::SDK::Shape {
     }
-
-    subset InstanceIdList of Array[InstanceId] where 0 <= *.elems <= 50;
 
     class GetPatchBaselineRequest does AWS::SDK::Shape {
         has BaselineId $.baseline-id is required is shape-member('BaselineId');
     }
 
     class DescribeAvailablePatchesResult does AWS::SDK::Shape {
-        has Array[Patch] $.patches is shape-member('Patches');
+        has Patch @.patches is shape-member('Patches');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class GetInventorySchemaResult does AWS::SDK::Shape {
-        has Array[InventoryItemSchema] $.schemas is shape-member('Schemas');
+        has InventoryItemSchema @.schemas is shape-member('Schemas');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2031,21 +2190,13 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset StringDateTime of Str where rx:P5/^([\-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01]))?|W([0-4]\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\d|[12]\d{2}|3([0-5]\d|6[1-6])))([T\s]((([01]\d|2[0-3])((:?)[0-5]\d)?|24\:?00)([\.,]\d(?!:))?)?(\17[0-5]\d([\.,]\d)?)?([zZ]|([\-])([01]\d|2[0-3]):?([0-5]\d)?)?)?)?$/;
-
     class InvalidAutomationExecutionParametersException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
 
-    subset MaintenanceWindowFilterKey of Str where 1 <= .chars <= 128;
-
-    subset SnapshotId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
-
-    subset IamRole of Str where .chars <= 64;
-
     class ListComplianceItemsRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
-        has Array[ComplianceStringFilter] $.filters is shape-member('Filters');
+        has ComplianceStringFilter @.filters is shape-member('Filters');
         has ComplianceResourceTypeList $.resource-types is shape-member('ResourceTypes');
         has Str $.next-token is shape-member('NextToken');
         has ComplianceResourceIdList $.resource-ids is shape-member('ResourceIds');
@@ -2056,31 +2207,15 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has DocumentARN $.name is required is shape-member('Name');
     }
 
-    subset AutomationActionName of Str where rx:P5/^aws:[a-zA-Z]{3,25}$/;
-
     class DeregisterManagedInstanceRequest does AWS::SDK::Shape {
         has ManagedInstanceId $.instance-id is required is shape-member('InstanceId');
     }
-
-    subset MaintenanceWindowMaxResults of Int where 10 <= * <= 100;
-
-    subset ResourceType of Str where $_ ~~ any('ManagedInstance', 'Document', 'EC2Instance');
-
-    subset IdempotencyToken of Str where 36 <= .chars <= 36 && rx:P5/[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}/;
-
-    subset ActivationDescription of Str where 0 <= .chars <= 256;
-
-    subset AutomationExecutionFilterKey of Str where $_ ~~ any('DocumentNamePrefix', 'ExecutionStatus');
-
-    subset ResourceDataSyncAWSKMSKeyARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
-
-    subset IPAddress of Str where 1 <= .chars <= 46;
 
     class SendCommandRequest does AWS::SDK::Shape {
         has MaxConcurrency $.max-concurrency is shape-member('MaxConcurrency');
         has Str $.service-role-arn is shape-member('ServiceRoleArn');
         has S3BucketName $.output-s3-bucket-name is shape-member('OutputS3BucketName');
-        has Hash[Array[Str], Str] $.parameters is shape-member('Parameters');
+        has Array[Str] %.parameters{Str} is shape-member('Parameters');
         has Comment $.comment is shape-member('Comment');
         has DocumentARN $.document-name is required is shape-member('DocumentName');
         has DocumentHash $.document-hash is shape-member('DocumentHash');
@@ -2108,12 +2243,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has CommandFilterKey $.key is required is shape-member('key');
     }
 
-    subset AssociationStatusName of Str where $_ ~~ any('Pending', 'Success', 'Failed');
-
-    subset InstancePatchStateFilterList of Array[InstancePatchStateFilter] where 0 <= *.elems <= 4;
-
-    subset DefaultInstanceName of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
-
     class MaintenanceWindowTarget does AWS::SDK::Shape {
         has MaintenanceWindowTargetId $.window-target-id is shape-member('WindowTargetId');
         has MaintenanceWindowDescription $.description is shape-member('Description');
@@ -2129,8 +2258,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has AssociationFilterKey $.key is required is shape-member('key');
     }
 
-    subset InstanceInformationFilterKey of Str where $_ ~~ any('InstanceIds', 'AgentVersion', 'PingStatus', 'PlatformTypes', 'ActivationIds', 'IamRole', 'ResourceType', 'AssociationStatus');
-
     class DescribeDocumentRequest does AWS::SDK::Shape {
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
         has DocumentARN $.name is required is shape-member('Name');
@@ -2138,14 +2265,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     class DescribePatchGroupsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[PatchGroupPatchBaselineMapping] $.mappings is shape-member('Mappings');
+        has PatchGroupPatchBaselineMapping @.mappings is shape-member('Mappings');
     }
 
     class DescribeDocumentResult does AWS::SDK::Shape {
         has DocumentDescription $.document is shape-member('Document');
     }
-
-    subset ParametersFilterKey of Str where $_ ~~ any('Name', 'Type', 'KeyId');
 
     class PatchComplianceData does AWS::SDK::Shape {
         has Str $.severity is required is shape-member('Severity');
@@ -2161,8 +2286,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowExecutionTaskInvocationId $.invocation-id is required is shape-member('InvocationId');
         has MaintenanceWindowExecutionTaskId $.task-id is required is shape-member('TaskId');
     }
-
-    subset AutomationParameterValueList of Array[AutomationParameterValue] where 0 <= *.elems <= 10;
 
     class PatchRule does AWS::SDK::Shape {
         has PatchFilterGroup $.patch-filter-group is required is shape-member('PatchFilterGroup');
@@ -2190,10 +2313,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has ParameterNameList $.names is required is shape-member('Names');
     }
 
-    subset MaxResults of Int where 1 <= * <= 50;
-
-    subset ResourceDataSyncName of Str where 1 <= .chars <= 64;
-
     class GetMaintenanceWindowTaskResult does AWS::SDK::Shape {
         has MaxConcurrency $.max-concurrency is shape-member('MaxConcurrency');
         has MaintenanceWindowTaskType $.task-type is shape-member('TaskType');
@@ -2204,7 +2323,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters is shape-member('TaskInvocationParameters');
         has MaintenanceWindowName $.name is shape-member('Name');
         has LoggingInfo $.logging-info is shape-member('LoggingInfo');
-        has Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] $.task-parameters is shape-member('TaskParameters');
+        has MaintenanceWindowTaskParameterValueExpression %.task-parameters{MaintenanceWindowTaskParameterName} is shape-member('TaskParameters');
         has MaxErrors $.max-errors is shape-member('MaxErrors');
         has MaintenanceWindowTaskPriority $.priority is shape-member('Priority');
         has Targets $.targets is shape-member('Targets');
@@ -2237,16 +2356,8 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has AssociationDescription $.association-description is shape-member('AssociationDescription');
     }
 
-    subset DocumentARN of Str where rx:P5/^[a-zA-Z0-9_\-.:\/]{3,128}$/;
-
-    subset MaintenanceWindowExecutionTaskInvocationId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
-
-    subset DocumentFilterValue of Str where 1 <= .chars;
-
-    subset AssociationVersion of Str where rx:P5/([$]LATEST)|([1-9][0-9]*)/;
-
     class DescribePatchBaselinesResult does AWS::SDK::Shape {
-        has Array[PatchBaselineIdentity] $.baseline-identities is shape-member('BaselineIdentities');
+        has PatchBaselineIdentity @.baseline-identities is shape-member('BaselineIdentities');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2273,15 +2384,13 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     class ListComplianceItemsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[ComplianceItem] $.compliance-items is shape-member('ComplianceItems');
+        has ComplianceItem @.compliance-items is shape-member('ComplianceItems');
     }
 
     class MaintenanceWindowFilter does AWS::SDK::Shape {
-        has Array[MaintenanceWindowFilterValue] $.values is shape-member('Values');
+        has MaintenanceWindowFilterValue @.values is shape-member('Values');
         has MaintenanceWindowFilterKey $.key is shape-member('Key');
     }
-
-    subset AttributeName of Str where 1 <= .chars <= 64;
 
     class InvalidAllowedPatternException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -2299,16 +2408,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has RegistrationsCount $.registrations-count is shape-member('RegistrationsCount');
     }
 
-    subset MaintenanceWindowId of Str where 20 <= .chars <= 20 && rx:P5/^mw-[0-9a-f]{17}$/;
-
-    subset TargetKey of Str where 1 <= .chars <= 128 && rx:P5/^[\p{L}\p{Z}\p{N}_.:\/=\-@]*$/;
-
-    subset AutomationExecutionId of Str where 36 <= .chars <= 36;
-
-    subset PSParameterValue of Str where 1 <= .chars <= 4096;
-
-    subset AutomationExecutionFilterList of Array[AutomationExecutionFilter] where 1 <= *.elems <= 10;
-
     class Command does AWS::SDK::Shape {
         has Int $.error-count is shape-member('ErrorCount');
         has MaxConcurrency $.max-concurrency is shape-member('MaxConcurrency');
@@ -2317,7 +2416,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has StatusDetails $.status-details is shape-member('StatusDetails');
         has S3BucketName $.output-s3-bucket-name is shape-member('OutputS3BucketName');
         has DateTime $.requested-date-time is shape-member('RequestedDateTime');
-        has Hash[Array[Str], Str] $.parameters is shape-member('Parameters');
+        has Array[Str] %.parameters{Str} is shape-member('Parameters');
         has Comment $.comment is shape-member('Comment');
         has DocumentName $.document-name is shape-member('DocumentName');
         has NotificationConfig $.notification-config is shape-member('NotificationConfig');
@@ -2336,8 +2435,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has BaselineId $.baseline-id is required is shape-member('BaselineId');
         has PatchGroup $.patch-group is required is shape-member('PatchGroup');
     }
-
-    subset MaintenanceWindowTaskTargetId of Str where .chars <= 36;
 
     class InstancePatchState does AWS::SDK::Shape {
         has Int $.installed-count is shape-member('InstalledCount');
@@ -2364,7 +2461,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class DescribeInstancePatchesResult does AWS::SDK::Shape {
-        has Array[PatchComplianceData] $.patches is shape-member('Patches');
+        has PatchComplianceData @.patches is shape-member('Patches');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2392,7 +2489,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters is shape-member('TaskInvocationParameters');
         has MaintenanceWindowName $.name is shape-member('Name');
         has LoggingInfo $.logging-info is shape-member('LoggingInfo');
-        has Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] $.task-parameters is shape-member('TaskParameters');
+        has MaintenanceWindowTaskParameterValueExpression %.task-parameters{MaintenanceWindowTaskParameterName} is shape-member('TaskParameters');
         has MaxErrors $.max-errors is required is shape-member('MaxErrors');
         has MaintenanceWindowTaskPriority $.priority is shape-member('Priority');
         has Targets $.targets is required is shape-member('Targets');
@@ -2409,19 +2506,17 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters is shape-member('TaskInvocationParameters');
         has MaintenanceWindowName $.name is shape-member('Name');
         has LoggingInfo $.logging-info is shape-member('LoggingInfo');
-        has Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] $.task-parameters is shape-member('TaskParameters');
+        has MaintenanceWindowTaskParameterValueExpression %.task-parameters{MaintenanceWindowTaskParameterName} is shape-member('TaskParameters');
         has MaxErrors $.max-errors is shape-member('MaxErrors');
         has MaintenanceWindowTaskPriority $.priority is shape-member('Priority');
         has Targets $.targets is shape-member('Targets');
         has MaintenanceWindowId $.window-id is required is shape-member('WindowId');
     }
 
-    subset InventoryItemContentHash of Str where .chars <= 256;
-
     class StartAutomationExecutionRequest does AWS::SDK::Shape {
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
         has IdempotencyToken $.client-token is shape-member('ClientToken');
-        has AutomationParameterMap $.parameters is shape-member('Parameters');
+        has AutomationParameterValueList $.parameters{AutomationParameterKey} is shape-member('Parameters');
         has DocumentARN $.document-name is required is shape-member('DocumentName');
     }
 
@@ -2430,8 +2525,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has DocumentContent $.content is required is shape-member('Content');
         has DocumentName $.name is required is shape-member('Name');
     }
-
-    subset DocumentVersion of Str where rx:P5/([$]LATEST|[$]DEFAULT|^[1-9][0-9]*$)/;
 
     class PatchStatus does AWS::SDK::Shape {
         has PatchDeploymentStatus $.deployment-status is shape-member('DeploymentStatus');
@@ -2460,14 +2553,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has BaselineId $.baseline-id is shape-member('BaselineId');
     }
 
-    subset MaintenanceWindowFilterList of Array[MaintenanceWindowFilter] where 0 <= *.elems <= 5;
-
-    subset ComplianceItemContentHash of Str where .chars <= 256;
-
-    subset ComplianceExecutionType of Str where .chars <= 50;
-
-    subset InventoryItemCaptureTime of Str where rx:P5/^(20)[0-9][0-9]-(0[1-9]|1[012])-([12][0-9]|3[01]|0[1-9])(T)(2[0-3]|[0-1][0-9])(:[0-5][0-9])(:[0-5][0-9])(Z)$/;
-
     class RegisterDefaultPatchBaselineResult does AWS::SDK::Shape {
         has BaselineId $.baseline-id is shape-member('BaselineId');
     }
@@ -2487,7 +2572,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.service-role-arn is shape-member('ServiceRoleArn');
         has MaintenanceWindowName $.name is shape-member('Name');
         has LoggingInfo $.logging-info is shape-member('LoggingInfo');
-        has Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] $.task-parameters is shape-member('TaskParameters');
+        has MaintenanceWindowTaskParameterValueExpression %.task-parameters{MaintenanceWindowTaskParameterName} is shape-member('TaskParameters');
         has MaintenanceWindowTaskType $.type is shape-member('Type');
         has MaxErrors $.max-errors is shape-member('MaxErrors');
         has MaintenanceWindowTaskPriority $.priority is shape-member('Priority');
@@ -2495,14 +2580,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowId $.window-id is shape-member('WindowId');
     }
 
-    subset InstanceInformationStringFilterKey of Str where 1 <= .chars;
-
     class GetParameterResult does AWS::SDK::Shape {
         has Parameter $.parameter is shape-member('Parameter');
     }
 
     class DescribeActivationsResult does AWS::SDK::Shape {
-        has Array[Activation] $.activation-list is shape-member('ActivationList');
+        has Activation @.activation-list is shape-member('ActivationList');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2511,8 +2594,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
         has InstanceId $.instance-id is required is shape-member('InstanceId');
     }
-
-    subset ManagedInstanceId of Str where rx:P5/^mi-[0-9a-f]{17}$/;
 
     class InstanceAssociation does AWS::SDK::Shape {
         has DocumentContent $.content is shape-member('Content');
@@ -2529,10 +2610,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has InventoryItemTypeName $.type-name is shape-member('TypeName');
         has Str $.message is shape-member('Message');
     }
-
-    subset MaintenanceWindowExecutionTaskId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
-
-    subset MaintenanceWindowTargetId of Str where 36 <= .chars <= 36 && rx:P5/^[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}$/;
 
     class GetMaintenanceWindowResult does AWS::SDK::Shape {
         has DateTime $.modified-date is shape-member('ModifiedDate');
@@ -2559,12 +2636,8 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     class ListResourceDataSyncResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[ResourceDataSyncItem] $.resource-data-sync-items is shape-member('ResourceDataSyncItems');
+        has ResourceDataSyncItem @.resource-data-sync-items is shape-member('ResourceDataSyncItems');
     }
-
-    subset StandardOutputContent of Str where .chars <= 24000;
-
-    subset StatusDetails of Str where 0 <= .chars <= 100;
 
     class GetDefaultPatchBaselineRequest does AWS::SDK::Shape {
         has OperatingSystem $.operating-system is shape-member('OperatingSystem');
@@ -2582,10 +2655,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has InstanceId $.instance-id is shape-member('InstanceId');
     }
 
-    subset DocumentParameterType of Str where $_ ~~ any('String', 'StringList');
-
-    subset MaintenanceWindowSchedule of Str where 1 <= .chars <= 256;
-
     class CommandInvocation does AWS::SDK::Shape {
         has InstanceTagName $.instance-name is shape-member('InstanceName');
         has CommandId $.command-id is shape-member('CommandId');
@@ -2596,7 +2665,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has NotificationConfig $.notification-config is shape-member('NotificationConfig');
         has CommandInvocationStatus $.status is shape-member('Status');
         has Str $.service-role is shape-member('ServiceRole');
-        has Array[CommandPlugin] $.command-plugins is shape-member('CommandPlugins');
+        has CommandPlugin @.command-plugins is shape-member('CommandPlugins');
         has InstanceId $.instance-id is shape-member('InstanceId');
         has Str $.standard-error-url is shape-member('StandardErrorUrl');
         has Str $.standard-output-url is shape-member('StandardOutputUrl');
@@ -2639,14 +2708,8 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has ComplianceItemTitle $.title is shape-member('Title');
         has ComplianceItemId $.id is shape-member('Id');
         has ComplianceStatus $.status is required is shape-member('Status');
-        has Hash[AttributeValue, AttributeName] $.details is shape-member('Details');
+        has AttributeValue %.details{AttributeName} is shape-member('Details');
     }
-
-    subset CommandStatus of Str where $_ ~~ any('Pending', 'InProgress', 'Success', 'Cancelled', 'Failed', 'TimedOut', 'Cancelling');
-
-    subset InstanceInformationFilterValueSet of Array[InstanceInformationFilterValue] where 1 <= *.elems <= 100;
-
-    subset AttributeValue of Str where 0 <= .chars <= 4096;
 
     class CreateActivationRequest does AWS::SDK::Shape {
         has DateTime $.expiration-date is shape-member('ExpirationDate');
@@ -2659,8 +2722,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     class PutParameterResult does AWS::SDK::Shape {
     }
 
-    subset InstancePatchStateFilterValues of Array[Str] where 1 <= *.elems <= 1;
-
     class TotalSizeLimitExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -2669,8 +2730,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset PatchFilterValueList of Array[PatchFilterValue] where 1 <= *.elems <= 20;
-
     class AssociationDescription does AWS::SDK::Shape {
         has AssociationName $.association-name is shape-member('AssociationName');
         has InstanceAssociationOutputLocation $.output-location is shape-member('OutputLocation');
@@ -2678,7 +2737,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
         has AssociationId $.association-id is shape-member('AssociationId');
         has DateTime $.last-execution-date is shape-member('LastExecutionDate');
-        has Hash[Array[Str], Str] $.parameters is shape-member('Parameters');
+        has Array[Str] %.parameters{Str} is shape-member('Parameters');
         has AssociationOverview $.overview is shape-member('Overview');
         has DateTime $.last-update-association-date is shape-member('LastUpdateAssociationDate');
         has AssociationVersion $.association-version is shape-member('AssociationVersion');
@@ -2691,35 +2750,27 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class DescribeMaintenanceWindowExecutionsResult does AWS::SDK::Shape {
-        has Array[MaintenanceWindowExecution] $.window-executions is shape-member('WindowExecutions');
+        has MaintenanceWindowExecution @.window-executions is shape-member('WindowExecutions');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class InvalidPluginName does AWS::SDK::Shape {
     }
 
-    subset OwnerInformation of Str where 1 <= .chars <= 128;
-
-    subset InstanceId of Str where rx:P5/(^i-(\w{8}|\w{17})$)|(^mi-\w{17}$)/;
-
     class DescribeInstancePatchStatesResult does AWS::SDK::Shape {
-        has Array[InstancePatchState] $.instance-patch-states is shape-member('InstancePatchStates');
+        has InstancePatchState @.instance-patch-states is shape-member('InstancePatchStates');
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset ComplianceStringFilterKey of Str where 1 <= .chars <= 200;
-
-    subset BaselineDescription of Str where 1 <= .chars <= 1024;
-
     class DescribeActivationsFilter does AWS::SDK::Shape {
         has DescribeActivationsFilterKeys $.filter-key is shape-member('FilterKey');
-        has Array[Str] $.filter-values is shape-member('FilterValues');
+        has Str @.filter-values is shape-member('FilterValues');
     }
 
     class DescribeParametersRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
-        has Array[ParameterStringFilter] $.parameter-filters is shape-member('ParameterFilters');
-        has Array[ParametersFilter] $.filters is shape-member('Filters');
+        has ParameterStringFilter @.parameter-filters is shape-member('ParameterFilters');
+        has ParametersFilter @.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2732,7 +2783,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters is shape-member('TaskInvocationParameters');
         has MaintenanceWindowName $.name is shape-member('Name');
         has LoggingInfo $.logging-info is shape-member('LoggingInfo');
-        has Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] $.task-parameters is shape-member('TaskParameters');
+        has MaintenanceWindowTaskParameterValueExpression %.task-parameters{MaintenanceWindowTaskParameterName} is shape-member('TaskParameters');
         has MaxErrors $.max-errors is shape-member('MaxErrors');
         has MaintenanceWindowTaskPriority $.priority is shape-member('Priority');
         has Targets $.targets is shape-member('Targets');
@@ -2757,7 +2808,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     class DescribeInstanceInformationResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[InstanceInformation] $.instance-information-list is shape-member('InstanceInformationList');
+        has InstanceInformation @.instance-information-list is shape-member('InstanceInformationList');
     }
 
     class InvalidItemContentException does AWS::SDK::Shape {
@@ -2765,27 +2816,19 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset PatchComplianceMaxResults of Int where 10 <= * <= 100;
-
     class InvalidActivationId does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
 
     class MaintenanceWindowAutomationParameters does AWS::SDK::Shape {
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
-        has AutomationParameterMap $.parameters is shape-member('Parameters');
+        has AutomationParameterValueList $.parameters{AutomationParameterKey} is shape-member('Parameters');
     }
-
-    subset DocumentVersionNumber of Str where rx:P5/(^[1-9][0-9]*$)/;
 
     class ItemSizeLimitExceededException does AWS::SDK::Shape {
         has InventoryItemTypeName $.type-name is shape-member('TypeName');
         has Str $.message is shape-member('Message');
     }
-
-    subset ParameterNameList of Array[PSParameterName] where 1 <= *.elems <= 10;
-
-    subset DocumentHash of Str where .chars <= 256;
 
     class ComplianceStringFilter does AWS::SDK::Shape {
         has ComplianceStringFilterValueList $.values is shape-member('Values');
@@ -2797,7 +2840,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class ListComplianceSummariesResult does AWS::SDK::Shape {
-        has Array[ComplianceSummaryItem] $.compliance-summary-items is shape-member('ComplianceSummaryItems');
+        has ComplianceSummaryItem @.compliance-summary-items is shape-member('ComplianceSummaryItems');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2806,8 +2849,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has S3BucketName $.s3-bucket-name is required is shape-member('S3BucketName');
         has S3KeyPrefix $.s3-key-prefix is shape-member('S3KeyPrefix');
     }
-
-    subset DocumentType of Str where $_ ~~ any('Command', 'Policy', 'Automation');
 
     class ListAssociationsRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
@@ -2827,16 +2868,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Int $.instances-with-installed-patches is shape-member('InstancesWithInstalledPatches');
     }
 
-    subset MaintenanceWindowStepFunctionsName of Str where 1 <= .chars <= 80;
-
-    subset NotificationType of Str where $_ ~~ any('Command', 'Invocation');
-
     class CreateAssociationRequest does AWS::SDK::Shape {
         has AssociationName $.association-name is shape-member('AssociationName');
         has InstanceAssociationOutputLocation $.output-location is shape-member('OutputLocation');
         has ScheduleExpression $.schedule-expression is shape-member('ScheduleExpression');
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
-        has Hash[Array[Str], Str] $.parameters is shape-member('Parameters');
+        has Array[Str] %.parameters{Str} is shape-member('Parameters');
         has DocumentName $.name is required is shape-member('Name');
         has InstanceId $.instance-id is shape-member('InstanceId');
         has Targets $.targets is shape-member('Targets');
@@ -2847,12 +2884,8 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Int $.non-compliant-count is shape-member('NonCompliantCount');
     }
 
-    subset InventoryItemEntryList of Array[InventoryItemEntry] where 0 <= *.elems <= 10000;
-
-    subset CommandMaxResults of Int where 1 <= * <= 50;
-
     class ListDocumentsResult does AWS::SDK::Shape {
-        has Array[DocumentIdentifier] $.document-identifiers is shape-member('DocumentIdentifiers');
+        has DocumentIdentifier @.document-identifiers is shape-member('DocumentIdentifiers');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2883,26 +2916,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset AutomationExecutionFilterValueList of Array[AutomationExecutionFilterValue] where 1 <= *.elems <= 10;
-
     class ModifyDocumentPermissionResponse does AWS::SDK::Shape {
     }
 
     class AssociationDoesNotExist does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset MaintenanceWindowTaskArn of Str where 1 <= .chars <= 1600;
-
-    subset PSParameterName of Str where 1 <= .chars <= 1024;
-
-    subset ComplianceTypeName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9_\-]\w+|Custom:[a-zA-Z0-9_\-]\w+/;
-
-    subset AutomationParameterKey of Str where 1 <= .chars <= 30;
-
-    subset AssociationName of Str where rx:P5/^[a-zA-Z0-9_\-.]{3,128}$/;
-
-    subset ParameterDescription of Str where 1 <= .chars <= 1024;
 
     class DeregisterPatchBaselineForPatchGroupResult does AWS::SDK::Shape {
         has BaselineId $.baseline-id is shape-member('BaselineId');
@@ -2911,7 +2930,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     class ListResourceComplianceSummariesRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
-        has Array[ComplianceStringFilter] $.filters is shape-member('Filters');
+        has ComplianceStringFilter @.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2927,7 +2946,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class PatchOrchestratorFilter does AWS::SDK::Shape {
-        has Array[PatchOrchestratorFilterValue] $.values is shape-member('Values');
+        has PatchOrchestratorFilterValue @.values is shape-member('Values');
         has PatchOrchestratorFilterKey $.key is shape-member('Key');
     }
 
@@ -2940,18 +2959,10 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset DescribeActivationsFilterKeys of Str where $_ ~~ any('ActivationIds', 'DefaultInstanceName', 'IamRole');
-
     class ListTagsForResourceRequest does AWS::SDK::Shape {
         has Str $.resource-id is required is shape-member('ResourceId');
         has ResourceTypeForTagging $.resource-type is required is shape-member('ResourceType');
     }
-
-    subset MaintenanceWindowFilterValue of Str where 1 <= .chars <= 256;
-
-    subset MaintenanceWindowName of Str where 3 <= .chars <= 128 && rx:P5/^[a-zA-Z0-9_\-.]{3,128}$/;
-
-    subset Targets of Array[Target] where 0 <= *.elems <= 5;
 
     class AssociationVersionInfo does AWS::SDK::Shape {
         has AssociationName $.association-name is shape-member('AssociationName');
@@ -2959,7 +2970,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has ScheduleExpression $.schedule-expression is shape-member('ScheduleExpression');
         has DocumentVersion $.document-version is shape-member('DocumentVersion');
         has AssociationId $.association-id is shape-member('AssociationId');
-        has Hash[Array[Str], Str] $.parameters is shape-member('Parameters');
+        has Array[Str] %.parameters{Str} is shape-member('Parameters');
         has DocumentName $.name is shape-member('Name');
         has AssociationVersion $.association-version is shape-member('AssociationVersion');
         has DateTime $.created-date is shape-member('CreatedDate');
@@ -2972,7 +2983,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     class DescribeEffectiveInstanceAssociationsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[InstanceAssociation] $.associations is shape-member('Associations');
+        has InstanceAssociation @.associations is shape-member('Associations');
     }
 
     class InvalidSchedule does AWS::SDK::Shape {
@@ -2988,8 +2999,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has ParametersFilterKey $.key is required is shape-member('Key');
     }
 
-    subset S3BucketName of Str where 3 <= .chars <= 63;
-
     class InvalidDocument does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -2997,8 +3006,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     class InvalidKeyId does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset PatchFilterKey of Str where $_ ~~ any('PRODUCT', 'CLASSIFICATION', 'MSRC_SEVERITY', 'PATCH_ID', 'SECTION', 'PRIORITY', 'SEVERITY');
 
     class ResourceComplianceSummaryItem does AWS::SDK::Shape {
         has ComplianceTypeName $.compliance-type is shape-member('ComplianceType');
@@ -3010,10 +3017,6 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has ComplianceResourceType $.resource-type is shape-member('ResourceType');
         has NonCompliantSummary $.non-compliant-summary is shape-member('NonCompliantSummary');
     }
-
-    subset MaintenanceWindowResourceType of Str where $_ ~~ any('INSTANCE');
-
-    subset PatchDeploymentStatus of Str where $_ ~~ any('APPROVED', 'PENDING_APPROVAL', 'EXPLICIT_APPROVED', 'EXPLICIT_REJECTED');
 
     class ResourceDataSyncS3Destination does AWS::SDK::Shape {
         has ResourceDataSyncS3Format $.sync-format is required is shape-member('SyncFormat');
@@ -3030,12 +3033,10 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     class RemoveTagsFromResourceRequest does AWS::SDK::Shape {
-        has Array[TagKey] $.tag-keys is required is shape-member('TagKeys');
+        has TagKey @.tag-keys is required is shape-member('TagKeys');
         has Str $.resource-id is required is shape-member('ResourceId');
         has ResourceTypeForTagging $.resource-type is required is shape-member('ResourceType');
     }
-
-    subset TargetValues of Array[Str] where 0 <= *.elems <= 50;
 
     class UnsupportedParameterType does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -3050,14 +3051,15 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
+
     method describe-activations(
         MaxResults :$max-results,
-        Array[DescribeActivationsFilter] :$filters,
+        DescribeActivationsFilter :@filters,
         Str :$next-token
     ) returns DescribeActivationsResult is service-operation('DescribeActivations') {
         my $request-input = DescribeActivationsRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$next-token
         );
 
@@ -3173,7 +3175,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     method get-parameters-by-path(
         GetParametersByPathMaxResults :$max-results,
-        Array[ParameterStringFilter] :$parameter-filters,
+        ParameterStringFilter :@parameter-filters,
         Bool :$recursive,
         PSParameterName :$path!,
         Bool :$with-decryption,
@@ -3181,7 +3183,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     ) returns GetParametersByPathResult is service-operation('GetParametersByPath') {
         my $request-input = GetParametersByPathRequest.new(
             :$max-results,
-            :$parameter-filters,
+            :@parameter-filters,
             :$recursive,
             :$path,
             :$with-decryption,
@@ -3195,12 +3197,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     method add-tags-to-resource(
-        Array[Tag] :$tags!,
+        Tag :@tags!,
         Str :$resource-id!,
         ResourceTypeForTagging :$resource-type!
     ) returns AddTagsToResourceResult is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceRequest.new(
-            :$tags,
+            :@tags,
             :$resource-id,
             :$resource-type
         );
@@ -3216,7 +3218,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         InstanceAssociationOutputLocation :$output-location,
         ScheduleExpression :$schedule-expression,
         DocumentVersion :$document-version,
-        Hash[Array[Str], Str] :$parameters,
+        Array[Str] :%parameters,
         DocumentName :$name!,
         InstanceId :$instance-id,
         Targets :$targets
@@ -3226,7 +3228,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
             :$output-location,
             :$schedule-expression,
             :$document-version,
-            :$parameters,
+            :%parameters,
             :$name,
             :$instance-id,
             :$targets
@@ -3309,7 +3311,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     method send-automation-signal(
         SignalType :$signal-type!,
         AutomationExecutionId :$automation-execution-id!,
-        AutomationParameterMap :$payload
+        AutomationParameterValueList :$payload
     ) returns SendAutomationSignalResult is service-operation('SendAutomationSignal') {
         my $request-input = SendAutomationSignalRequest.new(
             :$signal-type,
@@ -3324,12 +3326,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     }
 
     method remove-tags-from-resource(
-        Array[TagKey] :$tag-keys!,
+        TagKey :@tag-keys!,
         Str :$resource-id!,
         ResourceTypeForTagging :$resource-type!
     ) returns RemoveTagsFromResourceResult is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceRequest.new(
-            :$tag-keys,
+            :@tag-keys,
             :$resource-id,
             :$resource-type
         );
@@ -3590,12 +3592,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     method list-compliance-summaries(
         MaxResults :$max-results,
-        Array[ComplianceStringFilter] :$filters,
+        ComplianceStringFilter :@filters,
         Str :$next-token
     ) returns ListComplianceSummariesResult is service-operation('ListComplianceSummaries') {
         my $request-input = ListComplianceSummariesRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$next-token
         );
 
@@ -3653,7 +3655,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         MaintenanceWindowTaskInvocationParameters :$task-invocation-parameters,
         MaintenanceWindowName :$name,
         LoggingInfo :$logging-info,
-        Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] :$task-parameters,
+        MaintenanceWindowTaskParameterValueExpression :%task-parameters,
         MaxErrors :$max-errors!,
         MaintenanceWindowTaskPriority :$priority,
         Targets :$targets!,
@@ -3669,7 +3671,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
             :$task-invocation-parameters,
             :$name,
             :$logging-info,
-            :$task-parameters,
+            :%task-parameters,
             :$max-errors,
             :$priority,
             :$targets,
@@ -3787,14 +3789,14 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     method describe-parameters(
         MaxResults :$max-results,
-        Array[ParameterStringFilter] :$parameter-filters,
-        Array[ParametersFilter] :$filters,
+        ParameterStringFilter :@parameter-filters,
+        ParametersFilter :@filters,
         Str :$next-token
     ) returns DescribeParametersResult is service-operation('DescribeParameters') {
         my $request-input = DescribeParametersRequest.new(
             :$max-results,
-            :$parameter-filters,
-            :$filters,
+            :@parameter-filters,
+            :@filters,
             :$next-token
         );
 
@@ -4097,7 +4099,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         MaintenanceWindowTaskInvocationParameters :$task-invocation-parameters,
         MaintenanceWindowName :$name,
         LoggingInfo :$logging-info,
-        Hash[MaintenanceWindowTaskParameterValueExpression, MaintenanceWindowTaskParameterName] :$task-parameters,
+        MaintenanceWindowTaskParameterValueExpression :%task-parameters,
         MaxErrors :$max-errors,
         MaintenanceWindowTaskPriority :$priority,
         Targets :$targets,
@@ -4113,7 +4115,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
             :$task-invocation-parameters,
             :$name,
             :$logging-info,
-            :$task-parameters,
+            :%task-parameters,
             :$max-errors,
             :$priority,
             :$targets,
@@ -4129,7 +4131,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
     method start-automation-execution(
         DocumentVersion :$document-version,
         IdempotencyToken :$client-token,
-        AutomationParameterMap :$parameters,
+        AutomationParameterValueList :$parameters,
         DocumentARN :$document-name!
     ) returns StartAutomationExecutionResult is service-operation('StartAutomationExecution') {
         my $request-input = StartAutomationExecutionRequest.new(
@@ -4149,7 +4151,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         MaxConcurrency :$max-concurrency,
         Str :$service-role-arn,
         S3BucketName :$output-s3-bucket-name,
-        Hash[Array[Str], Str] :$parameters,
+        Array[Str] :%parameters,
         Comment :$comment,
         DocumentARN :$document-name!,
         DocumentHash :$document-hash,
@@ -4166,7 +4168,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
             :$max-concurrency,
             :$service-role-arn,
             :$output-s3-bucket-name,
-            :$parameters,
+            :%parameters,
             :$comment,
             :$document-name,
             :$document-hash,
@@ -4570,7 +4572,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
         ScheduleExpression :$schedule-expression,
         DocumentVersion :$document-version,
         AssociationId :$association-id!,
-        Hash[Array[Str], Str] :$parameters,
+        Array[Str] :%parameters,
         AssociationVersion :$association-version,
         DocumentName :$name,
         Targets :$targets
@@ -4581,7 +4583,7 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
             :$schedule-expression,
             :$document-version,
             :$association-id,
-            :$parameters,
+            :%parameters,
             :$association-version,
             :$name,
             :$targets
@@ -4618,12 +4620,12 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     method list-resource-compliance-summaries(
         MaxResults :$max-results,
-        Array[ComplianceStringFilter] :$filters,
+        ComplianceStringFilter :@filters,
         Str :$next-token
     ) returns ListResourceComplianceSummariesResult is service-operation('ListResourceComplianceSummaries') {
         my $request-input = ListResourceComplianceSummariesRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$next-token
         );
 
@@ -4688,14 +4690,14 @@ class AWS::SDK::Service::SSM does AWS::SDK::Service {
 
     method list-compliance-items(
         MaxResults :$max-results,
-        Array[ComplianceStringFilter] :$filters,
+        ComplianceStringFilter :@filters,
         ComplianceResourceTypeList :$resource-types,
         Str :$next-token,
         ComplianceResourceIdList :$resource-ids
     ) returns ListComplianceItemsResult is service-operation('ListComplianceItems') {
         my $request-input = ListComplianceItemsRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$resource-types,
             :$next-token,
             :$resource-ids

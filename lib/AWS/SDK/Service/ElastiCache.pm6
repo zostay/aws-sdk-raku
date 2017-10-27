@@ -161,6 +161,17 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     class CacheSecurityGroupAlreadyExistsFault { ... }
     class InvalidCacheClusterStateFault { ... }
 
+    subset AutomaticFailoverStatus of Str where $_ eq any('enabled', 'disabled', 'enabling', 'disabling');
+
+    subset ChangeType of Str where $_ eq any('immediate', 'requires-reboot');
+
+    subset PendingAutomaticFailoverStatus of Str where $_ eq any('enabled', 'disabled');
+
+    subset SourceType of Str where $_ eq any('cache-cluster', 'cache-parameter-group', 'cache-security-group', 'cache-subnet-group', 'replication-group');
+
+    subset AZMode of Str where $_ eq any('single-az', 'cross-az');
+
+
     class CacheNodeTypeSpecificValue does AWS::SDK::Shape {
         has Str $.value is shape-member('Value');
         has Str $.cache-node-type is shape-member('CacheNodeType');
@@ -169,7 +180,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     class CacheSubnetGroup does AWS::SDK::Shape {
         has Str $.cache-subnet-group-name is shape-member('CacheSubnetGroupName');
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[Subnet] $.subnets is shape-member('Subnets');
+        has Subnet @.subnets is shape-member('Subnets');
         has Str $.cache-subnet-group-description is shape-member('CacheSubnetGroupDescription');
     }
 
@@ -241,22 +252,22 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class CreateReplicationGroupMessage does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.cache-subnet-group-name is shape-member('CacheSubnetGroupName');
         has Str $.auth-token is shape-member('AuthToken');
         has Str $.snapshot-window is shape-member('SnapshotWindow');
         has Str $.notification-topic-arn is shape-member('NotificationTopicArn');
-        has Array[Str] $.preferred-cache-cluster-azs is shape-member('PreferredCacheClusterAZs');
+        has Str @.preferred-cache-cluster-azs is shape-member('PreferredCacheClusterAZs');
         has Bool $.automatic-failover-enabled is shape-member('AutomaticFailoverEnabled');
         has Str $.primary-cluster-id is shape-member('PrimaryClusterId');
-        has Array[Str] $.snapshot-arns is shape-member('SnapshotArns');
+        has Str @.snapshot-arns is shape-member('SnapshotArns');
         has Str $.replication-group-description is required is shape-member('ReplicationGroupDescription');
         has Str $.snapshot-name is shape-member('SnapshotName');
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[Str] $.cache-security-group-names is shape-member('CacheSecurityGroupNames');
+        has Tag @.tags is shape-member('Tags');
+        has Str @.cache-security-group-names is shape-member('CacheSecurityGroupNames');
         has Str $.cache-parameter-group-name is shape-member('CacheParameterGroupName');
         has Str $.engine is shape-member('Engine');
-        has Array[NodeGroupConfiguration] $.node-group-configuration is shape-member('NodeGroupConfiguration');
+        has NodeGroupConfiguration @.node-group-configuration is shape-member('NodeGroupConfiguration');
         has Int $.snapshot-retention-limit is shape-member('SnapshotRetentionLimit');
         has Str $.cache-node-type is shape-member('CacheNodeType');
         has Int $.replicas-per-node-group is shape-member('ReplicasPerNodeGroup');
@@ -315,14 +326,14 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class ModifyReplicationGroupMessage does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.snapshot-window is shape-member('SnapshotWindow');
         has Str $.notification-topic-arn is shape-member('NotificationTopicArn');
         has Bool $.automatic-failover-enabled is shape-member('AutomaticFailoverEnabled');
         has Str $.primary-cluster-id is shape-member('PrimaryClusterId');
         has Str $.replication-group-description is shape-member('ReplicationGroupDescription');
         has Str $.cache-parameter-group-name is shape-member('CacheParameterGroupName');
-        has Array[Str] $.cache-security-group-names is shape-member('CacheSecurityGroupNames');
+        has Str @.cache-security-group-names is shape-member('CacheSecurityGroupNames');
         has Str $.cache-node-type is shape-member('CacheNodeType');
         has Int $.snapshot-retention-limit is shape-member('SnapshotRetentionLimit');
         has Str $.snapshotting-cluster-id is shape-member('SnapshottingClusterId');
@@ -365,7 +376,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
 
     class RebootCacheClusterMessage does AWS::SDK::Shape {
         has Str $.cache-cluster-id is required is shape-member('CacheClusterId');
-        has Array[Str] $.cache-node-ids-to-reboot is required is shape-member('CacheNodeIdsToReboot');
+        has Str @.cache-node-ids-to-reboot is required is shape-member('CacheNodeIdsToReboot');
     }
 
     class CacheParameterGroupNameMessage does AWS::SDK::Shape {
@@ -377,10 +388,10 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         has Str $.preferred-availability-zone is shape-member('PreferredAvailabilityZone');
         has Str $.snapshot-window is shape-member('SnapshotWindow');
         has CacheParameterGroupStatus $.cache-parameter-group is shape-member('CacheParameterGroup');
-        has Array[SecurityGroupMembership] $.security-groups is shape-member('SecurityGroups');
+        has SecurityGroupMembership @.security-groups is shape-member('SecurityGroups');
         has DateTime $.cache-cluster-create-time is shape-member('CacheClusterCreateTime');
-        has Array[CacheNode] $.cache-nodes is shape-member('CacheNodes');
-        has Array[CacheSecurityGroupMembership] $.cache-security-groups is shape-member('CacheSecurityGroups');
+        has CacheNode @.cache-nodes is shape-member('CacheNodes');
+        has CacheSecurityGroupMembership @.cache-security-groups is shape-member('CacheSecurityGroups');
         has Str $.cache-cluster-status is shape-member('CacheClusterStatus');
         has NotificationConfiguration $.notification-configuration is shape-member('NotificationConfiguration');
         has Int $.num-cache-nodes is shape-member('NumCacheNodes');
@@ -412,11 +423,9 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         has ChangeType $.change-type is shape-member('ChangeType');
         has Str $.data-type is shape-member('DataType');
         has Bool $.is-modifiable is shape-member('IsModifiable');
-        has Array[CacheNodeTypeSpecificValue] $.cache-node-type-specific-values is shape-member('CacheNodeTypeSpecificValues');
+        has CacheNodeTypeSpecificValue @.cache-node-type-specific-values is shape-member('CacheNodeTypeSpecificValues');
         has Str $.parameter-name is shape-member('ParameterName');
     }
-
-    subset AutomaticFailoverStatus of Str where $_ ~~ any('enabled', 'disabled', 'enabling', 'disabling');
 
     class APICallRateForCustomerExceededFault does AWS::SDK::Shape {
     }
@@ -463,18 +472,18 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         has Int $.port is shape-member('Port');
         has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
         has Str $.engine-version is shape-member('EngineVersion');
-        has Array[NodeSnapshot] $.node-snapshots is shape-member('NodeSnapshots');
+        has NodeSnapshot @.node-snapshots is shape-member('NodeSnapshots');
         has Str $.snapshot-status is shape-member('SnapshotStatus');
     }
 
     class ResetCacheParameterGroupMessage does AWS::SDK::Shape {
-        has Array[ParameterNameValue] $.parameter-name-values is shape-member('ParameterNameValues');
+        has ParameterNameValue @.parameter-name-values is shape-member('ParameterNameValues');
         has Bool $.reset-all-parameters is shape-member('ResetAllParameters');
         has Str $.cache-parameter-group-name is required is shape-member('CacheParameterGroupName');
     }
 
     class ReservedCacheNodeMessage does AWS::SDK::Shape {
-        has Array[ReservedCacheNode] $.reserved-cache-nodes is shape-member('ReservedCacheNodes');
+        has ReservedCacheNode @.reserved-cache-nodes is shape-member('ReservedCacheNodes');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -482,9 +491,9 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class EngineDefaults does AWS::SDK::Shape {
-        has Array[CacheNodeTypeSpecificParameter] $.cache-node-type-specific-parameters is shape-member('CacheNodeTypeSpecificParameters');
+        has CacheNodeTypeSpecificParameter @.cache-node-type-specific-parameters is shape-member('CacheNodeTypeSpecificParameters');
         has Str $.cache-parameter-group-family is shape-member('CacheParameterGroupFamily');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -498,12 +507,12 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
 
     class ReplicationGroup does AWS::SDK::Shape {
         has Str $.snapshot-window is shape-member('SnapshotWindow');
-        has Array[NodeGroup] $.node-groups is shape-member('NodeGroups');
+        has NodeGroup @.node-groups is shape-member('NodeGroups');
         has Str $.description is shape-member('Description');
         has Bool $.cluster-enabled is shape-member('ClusterEnabled');
         has Endpoint $.configuration-endpoint is shape-member('ConfigurationEndpoint');
         has AutomaticFailoverStatus $.automatic-failover is shape-member('AutomaticFailover');
-        has Array[Str] $.member-clusters is shape-member('MemberClusters');
+        has Str @.member-clusters is shape-member('MemberClusters');
         has Str $.cache-node-type is shape-member('CacheNodeType');
         has Int $.snapshot-retention-limit is shape-member('SnapshotRetentionLimit');
         has Str $.snapshotting-cluster-id is shape-member('SnapshottingClusterId');
@@ -533,11 +542,11 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     class ModifyCacheSubnetGroupMessage does AWS::SDK::Shape {
         has Str $.cache-subnet-group-name is required is shape-member('CacheSubnetGroupName');
         has Str $.cache-subnet-group-description is shape-member('CacheSubnetGroupDescription');
-        has Array[Str] $.subnet-ids is shape-member('SubnetIds');
+        has Str @.subnet-ids is shape-member('SubnetIds');
     }
 
     class CacheSubnetGroupMessage does AWS::SDK::Shape {
-        has Array[CacheSubnetGroup] $.cache-subnet-groups is shape-member('CacheSubnetGroups');
+        has CacheSubnetGroup @.cache-subnet-groups is shape-member('CacheSubnetGroups');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -551,7 +560,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         has Str $.primary-availability-zone is shape-member('PrimaryAvailabilityZone');
         has Int $.replica-count is shape-member('ReplicaCount');
         has Str $.slots is shape-member('Slots');
-        has Array[Str] $.replica-availability-zones is shape-member('ReplicaAvailabilityZones');
+        has Str @.replica-availability-zones is shape-member('ReplicaAvailabilityZones');
     }
 
     class CacheSecurityGroupMembership does AWS::SDK::Shape {
@@ -562,11 +571,11 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     class CacheParameterGroupStatus does AWS::SDK::Shape {
         has Str $.parameter-apply-status is shape-member('ParameterApplyStatus');
         has Str $.cache-parameter-group-name is shape-member('CacheParameterGroupName');
-        has Array[Str] $.cache-node-ids-to-reboot is shape-member('CacheNodeIdsToReboot');
+        has Str @.cache-node-ids-to-reboot is shape-member('CacheNodeIdsToReboot');
     }
 
     class EventsMessage does AWS::SDK::Shape {
-        has Array[Event] $.events is shape-member('Events');
+        has Event @.events is shape-member('Events');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -605,7 +614,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         has Int $.cache-node-count is shape-member('CacheNodeCount');
         has Int $.duration is shape-member('Duration');
         has Str $.reserved-cache-nodes-offering-id is shape-member('ReservedCacheNodesOfferingId');
-        has Array[RecurringCharge] $.recurring-charges is shape-member('RecurringCharges');
+        has RecurringCharge @.recurring-charges is shape-member('RecurringCharges');
         has Numeric $.usage-price is shape-member('UsagePrice');
         has Str $.state is shape-member('State');
         has Numeric $.fixed-price is shape-member('FixedPrice');
@@ -623,7 +632,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class ModifyCacheParameterGroupMessage does AWS::SDK::Shape {
-        has Array[ParameterNameValue] $.parameter-name-values is required is shape-member('ParameterNameValues');
+        has ParameterNameValue @.parameter-name-values is required is shape-member('ParameterNameValues');
         has Str $.cache-parameter-group-name is required is shape-member('CacheParameterGroupName');
     }
 
@@ -631,8 +640,8 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class CacheParameterGroupDetails does AWS::SDK::Shape {
-        has Array[CacheNodeTypeSpecificParameter] $.cache-node-type-specific-parameters is shape-member('CacheNodeTypeSpecificParameters');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has CacheNodeTypeSpecificParameter @.cache-node-type-specific-parameters is shape-member('CacheNodeTypeSpecificParameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -643,17 +652,17 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class CreateCacheClusterMessage does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.cache-subnet-group-name is shape-member('CacheSubnetGroupName');
         has Str $.preferred-availability-zone is shape-member('PreferredAvailabilityZone');
         has Str $.auth-token is shape-member('AuthToken');
         has Str $.snapshot-window is shape-member('SnapshotWindow');
         has Str $.notification-topic-arn is shape-member('NotificationTopicArn');
-        has Array[Str] $.snapshot-arns is shape-member('SnapshotArns');
-        has Array[Str] $.preferred-availability-zones is shape-member('PreferredAvailabilityZones');
+        has Str @.snapshot-arns is shape-member('SnapshotArns');
+        has Str @.preferred-availability-zones is shape-member('PreferredAvailabilityZones');
         has Str $.snapshot-name is shape-member('SnapshotName');
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[Str] $.cache-security-group-names is shape-member('CacheSecurityGroupNames');
+        has Tag @.tags is shape-member('Tags');
+        has Str @.cache-security-group-names is shape-member('CacheSecurityGroupNames');
         has Str $.cache-parameter-group-name is shape-member('CacheParameterGroupName');
         has Str $.engine is shape-member('Engine');
         has Int $.num-cache-nodes is shape-member('NumCacheNodes');
@@ -707,7 +716,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class CacheClusterMessage does AWS::SDK::Shape {
-        has Array[CacheCluster] $.cache-clusters is shape-member('CacheClusters');
+        has CacheCluster @.cache-clusters is shape-member('CacheClusters');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -727,14 +736,14 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         has Str $.slots is shape-member('Slots');
         has Endpoint $.primary-endpoint is shape-member('PrimaryEndpoint');
         has Str $.status is shape-member('Status');
-        has Array[NodeGroupMember] $.node-group-members is shape-member('NodeGroupMembers');
+        has NodeGroupMember @.node-group-members is shape-member('NodeGroupMembers');
         has Str $.node-group-id is shape-member('NodeGroupId');
     }
 
     class CacheSecurityGroup does AWS::SDK::Shape {
         has Str $.owner-id is shape-member('OwnerId');
         has Str $.description is shape-member('Description');
-        has Array[EC2SecurityGroup] $.ec2-security-groups is shape-member('EC2SecurityGroups');
+        has EC2SecurityGroup @.ec2-security-groups is shape-member('EC2SecurityGroups');
         has Str $.cache-security-group-name is shape-member('CacheSecurityGroupName');
     }
 
@@ -746,7 +755,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
 
     class AddTagsToResourceMessage does AWS::SDK::Shape {
         has Str $.resource-name is required is shape-member('ResourceName');
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
     }
 
     class CopySnapshotResult does AWS::SDK::Shape {
@@ -756,7 +765,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     class CreateCacheSubnetGroupMessage does AWS::SDK::Shape {
         has Str $.cache-subnet-group-name is required is shape-member('CacheSubnetGroupName');
         has Str $.cache-subnet-group-description is required is shape-member('CacheSubnetGroupDescription');
-        has Array[Str] $.subnet-ids is required is shape-member('SubnetIds');
+        has Str @.subnet-ids is required is shape-member('SubnetIds');
     }
 
     class DeleteReplicationGroupResult does AWS::SDK::Shape {
@@ -772,7 +781,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class ReservedCacheNodesOfferingMessage does AWS::SDK::Shape {
-        has Array[ReservedCacheNodesOffering] $.reserved-cache-nodes-offerings is shape-member('ReservedCacheNodesOfferings');
+        has ReservedCacheNodesOffering @.reserved-cache-nodes-offerings is shape-member('ReservedCacheNodesOfferings');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -781,8 +790,6 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
 
     class SnapshotQuotaExceededFault does AWS::SDK::Shape {
     }
-
-    subset ChangeType of Str where $_ ~~ any('immediate', 'requires-reboot');
 
     class CreateCacheSecurityGroupMessage does AWS::SDK::Shape {
         has Str $.description is required is shape-member('Description');
@@ -798,12 +805,12 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class CacheSecurityGroupMessage does AWS::SDK::Shape {
-        has Array[CacheSecurityGroup] $.cache-security-groups is shape-member('CacheSecurityGroups');
+        has CacheSecurityGroup @.cache-security-groups is shape-member('CacheSecurityGroups');
         has Str $.marker is shape-member('Marker');
     }
 
     class CacheEngineVersionMessage does AWS::SDK::Shape {
-        has Array[CacheEngineVersion] $.cache-engine-versions is shape-member('CacheEngineVersions');
+        has CacheEngineVersion @.cache-engine-versions is shape-member('CacheEngineVersions');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -822,7 +829,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class PendingModifiedValues does AWS::SDK::Shape {
-        has Array[Str] $.cache-node-ids-to-remove is shape-member('CacheNodeIdsToRemove');
+        has Str @.cache-node-ids-to-remove is shape-member('CacheNodeIdsToRemove');
         has Int $.num-cache-nodes is shape-member('NumCacheNodes');
         has Str $.cache-node-type is shape-member('CacheNodeType');
         has Str $.engine-version is shape-member('EngineVersion');
@@ -832,7 +839,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class CacheParameterGroupsMessage does AWS::SDK::Shape {
-        has Array[CacheParameterGroup] $.cache-parameter-groups is shape-member('CacheParameterGroups');
+        has CacheParameterGroup @.cache-parameter-groups is shape-member('CacheParameterGroups');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -858,13 +865,13 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class ModifyCacheClusterMessage does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.snapshot-window is shape-member('SnapshotWindow');
         has Str $.notification-topic-arn is shape-member('NotificationTopicArn');
-        has Array[Str] $.new-availability-zones is shape-member('NewAvailabilityZones');
-        has Array[Str] $.cache-node-ids-to-remove is shape-member('CacheNodeIdsToRemove');
+        has Str @.new-availability-zones is shape-member('NewAvailabilityZones');
+        has Str @.cache-node-ids-to-remove is shape-member('CacheNodeIdsToRemove');
         has Str $.cache-parameter-group-name is shape-member('CacheParameterGroupName');
-        has Array[Str] $.cache-security-group-names is shape-member('CacheSecurityGroupNames');
+        has Str @.cache-security-group-names is shape-member('CacheSecurityGroupNames');
         has Int $.num-cache-nodes is shape-member('NumCacheNodes');
         has Str $.cache-cluster-id is required is shape-member('CacheClusterId');
         has Str $.cache-node-type is shape-member('CacheNodeType');
@@ -885,16 +892,16 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class TagListMessage does AWS::SDK::Shape {
-        has Array[Tag] $.tag-list is shape-member('TagList');
+        has Tag @.tag-list is shape-member('TagList');
     }
 
     class RemoveTagsFromResourceMessage does AWS::SDK::Shape {
         has Str $.resource-name is required is shape-member('ResourceName');
-        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.tag-keys is required is shape-member('TagKeys');
     }
 
     class AllowedNodeTypeModificationsMessage does AWS::SDK::Shape {
-        has Array[Str] $.scale-up-modifications is shape-member('ScaleUpModifications');
+        has Str @.scale-up-modifications is shape-member('ScaleUpModifications');
     }
 
     class CreateCacheParameterGroupMessage does AWS::SDK::Shape {
@@ -918,11 +925,9 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class ReplicationGroupMessage does AWS::SDK::Shape {
-        has Array[ReplicationGroup] $.replication-groups is shape-member('ReplicationGroups');
+        has ReplicationGroup @.replication-groups is shape-member('ReplicationGroups');
         has Str $.marker is shape-member('Marker');
     }
-
-    subset PendingAutomaticFailoverStatus of Str where $_ ~~ any('enabled', 'disabled');
 
     class NodeSnapshot does AWS::SDK::Shape {
         has Str $.cache-size is shape-member('CacheSize');
@@ -945,7 +950,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     class DescribeSnapshotsListMessage does AWS::SDK::Shape {
-        has Array[Snapshot] $.snapshots is shape-member('Snapshots');
+        has Snapshot @.snapshots is shape-member('Snapshots');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -983,18 +988,14 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         has Str $.product-description is shape-member('ProductDescription');
         has Int $.duration is shape-member('Duration');
         has Str $.reserved-cache-nodes-offering-id is shape-member('ReservedCacheNodesOfferingId');
-        has Array[RecurringCharge] $.recurring-charges is shape-member('RecurringCharges');
+        has RecurringCharge @.recurring-charges is shape-member('RecurringCharges');
         has Numeric $.usage-price is shape-member('UsagePrice');
         has Numeric $.fixed-price is shape-member('FixedPrice');
         has Str $.cache-node-type is shape-member('CacheNodeType');
     }
 
-    subset SourceType of Str where $_ ~~ any('cache-cluster', 'cache-parameter-group', 'cache-security-group', 'cache-subnet-group', 'replication-group');
-
     class ReservedCacheNodeAlreadyExistsFault does AWS::SDK::Shape {
     }
-
-    subset AZMode of Str where $_ ~~ any('single-az', 'cross-az');
 
     class DescribeReplicationGroupsMessage does AWS::SDK::Shape {
         has Str $.replication-group-id is shape-member('ReplicationGroupId');
@@ -1042,6 +1043,7 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     class InvalidCacheClusterStateFault does AWS::SDK::Shape {
     }
 
+
     method delete-replication-group(
         Bool :$retain-primary-cluster,
         Str :$final-snapshot-identifier,
@@ -1073,22 +1075,22 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     method create-replication-group(
-        Array[Str] :$security-group-ids,
+        Str :@security-group-ids,
         Str :$cache-subnet-group-name,
         Str :$auth-token,
         Str :$snapshot-window,
         Str :$notification-topic-arn,
-        Array[Str] :$preferred-cache-cluster-azs,
+        Str :@preferred-cache-cluster-azs,
         Bool :$automatic-failover-enabled,
         Str :$primary-cluster-id,
-        Array[Str] :$snapshot-arns,
+        Str :@snapshot-arns,
         Str :$replication-group-description!,
         Str :$snapshot-name,
-        Array[Tag] :$tags,
-        Array[Str] :$cache-security-group-names,
+        Tag :@tags,
+        Str :@cache-security-group-names,
         Str :$cache-parameter-group-name,
         Str :$engine,
-        Array[NodeGroupConfiguration] :$node-group-configuration,
+        NodeGroupConfiguration :@node-group-configuration,
         Int :$snapshot-retention-limit,
         Str :$cache-node-type,
         Int :$replicas-per-node-group,
@@ -1101,22 +1103,22 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         Int :$num-cache-clusters
     ) returns CreateReplicationGroupResult is service-operation('CreateReplicationGroup') {
         my $request-input = CreateReplicationGroupMessage.new(
-            :$security-group-ids,
+            :@security-group-ids,
             :$cache-subnet-group-name,
             :$auth-token,
             :$snapshot-window,
             :$notification-topic-arn,
-            :$preferred-cache-cluster-azs,
+            :@preferred-cache-cluster-azs,
             :$automatic-failover-enabled,
             :$primary-cluster-id,
-            :$snapshot-arns,
+            :@snapshot-arns,
             :$replication-group-description,
             :$snapshot-name,
-            :$tags,
-            :$cache-security-group-names,
+            :@tags,
+            :@cache-security-group-names,
             :$cache-parameter-group-name,
             :$engine,
-            :$node-group-configuration,
+            :@node-group-configuration,
             :$snapshot-retention-limit,
             :$cache-node-type,
             :$replicas-per-node-group,
@@ -1138,12 +1140,12 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     method create-cache-subnet-group(
         Str :$cache-subnet-group-name!,
         Str :$cache-subnet-group-description!,
-        Array[Str] :$subnet-ids!
+        Str :@subnet-ids!
     ) returns CreateCacheSubnetGroupResult is service-operation('CreateCacheSubnetGroup') {
         my $request-input = CreateCacheSubnetGroupMessage.new(
             :$cache-subnet-group-name,
             :$cache-subnet-group-description,
-            :$subnet-ids
+            :@subnet-ids
         );
 
         self.perform-operation(
@@ -1170,12 +1172,12 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     method reset-cache-parameter-group(
-        Array[ParameterNameValue] :$parameter-name-values,
+        ParameterNameValue :@parameter-name-values,
         Bool :$reset-all-parameters,
         Str :$cache-parameter-group-name!
     ) returns CacheParameterGroupNameMessage is service-operation('ResetCacheParameterGroup') {
         my $request-input = ResetCacheParameterGroupMessage.new(
-            :$parameter-name-values,
+            :@parameter-name-values,
             :$reset-all-parameters,
             :$cache-parameter-group-name
         );
@@ -1211,11 +1213,11 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
 
     method add-tags-to-resource(
         Str :$resource-name!,
-        Array[Tag] :$tags!
+        Tag :@tags!
     ) returns TagListMessage is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceMessage.new(
             :$resource-name,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -1226,11 +1228,11 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
 
     method remove-tags-from-resource(
         Str :$resource-name!,
-        Array[Str] :$tag-keys!
+        Str :@tag-keys!
     ) returns TagListMessage is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceMessage.new(
             :$resource-name,
-            :$tag-keys
+            :@tag-keys
         );
 
         self.perform-operation(
@@ -1240,13 +1242,13 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     method modify-cache-cluster(
-        Array[Str] :$security-group-ids,
+        Str :@security-group-ids,
         Str :$snapshot-window,
         Str :$notification-topic-arn,
-        Array[Str] :$new-availability-zones,
-        Array[Str] :$cache-node-ids-to-remove,
+        Str :@new-availability-zones,
+        Str :@cache-node-ids-to-remove,
         Str :$cache-parameter-group-name,
-        Array[Str] :$cache-security-group-names,
+        Str :@cache-security-group-names,
         Int :$num-cache-nodes,
         Str :$cache-cluster-id!,
         Str :$cache-node-type,
@@ -1259,13 +1261,13 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         Str :$notification-topic-status
     ) returns ModifyCacheClusterResult is service-operation('ModifyCacheCluster') {
         my $request-input = ModifyCacheClusterMessage.new(
-            :$security-group-ids,
+            :@security-group-ids,
             :$snapshot-window,
             :$notification-topic-arn,
-            :$new-availability-zones,
-            :$cache-node-ids-to-remove,
+            :@new-availability-zones,
+            :@cache-node-ids-to-remove,
             :$cache-parameter-group-name,
-            :$cache-security-group-names,
+            :@cache-security-group-names,
             :$num-cache-nodes,
             :$cache-cluster-id,
             :$cache-node-type,
@@ -1468,17 +1470,17 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     method create-cache-cluster(
-        Array[Str] :$security-group-ids,
+        Str :@security-group-ids,
         Str :$cache-subnet-group-name,
         Str :$preferred-availability-zone,
         Str :$auth-token,
         Str :$snapshot-window,
         Str :$notification-topic-arn,
-        Array[Str] :$snapshot-arns,
-        Array[Str] :$preferred-availability-zones,
+        Str :@snapshot-arns,
+        Str :@preferred-availability-zones,
         Str :$snapshot-name,
-        Array[Tag] :$tags,
-        Array[Str] :$cache-security-group-names,
+        Tag :@tags,
+        Str :@cache-security-group-names,
         Str :$cache-parameter-group-name,
         Str :$engine,
         Int :$num-cache-nodes,
@@ -1493,17 +1495,17 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         Str :$engine-version
     ) returns CreateCacheClusterResult is service-operation('CreateCacheCluster') {
         my $request-input = CreateCacheClusterMessage.new(
-            :$security-group-ids,
+            :@security-group-ids,
             :$cache-subnet-group-name,
             :$preferred-availability-zone,
             :$auth-token,
             :$snapshot-window,
             :$notification-topic-arn,
-            :$snapshot-arns,
-            :$preferred-availability-zones,
+            :@snapshot-arns,
+            :@preferred-availability-zones,
             :$snapshot-name,
-            :$tags,
-            :$cache-security-group-names,
+            :@tags,
+            :@cache-security-group-names,
             :$cache-parameter-group-name,
             :$engine,
             :$num-cache-nodes,
@@ -1526,11 +1528,11 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
 
     method reboot-cache-cluster(
         Str :$cache-cluster-id!,
-        Array[Str] :$cache-node-ids-to-reboot!
+        Str :@cache-node-ids-to-reboot!
     ) returns RebootCacheClusterResult is service-operation('RebootCacheCluster') {
         my $request-input = RebootCacheClusterMessage.new(
             :$cache-cluster-id,
-            :$cache-node-ids-to-reboot
+            :@cache-node-ids-to-reboot
         );
 
         self.perform-operation(
@@ -1542,12 +1544,12 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     method modify-cache-subnet-group(
         Str :$cache-subnet-group-name!,
         Str :$cache-subnet-group-description,
-        Array[Str] :$subnet-ids
+        Str :@subnet-ids
     ) returns ModifyCacheSubnetGroupResult is service-operation('ModifyCacheSubnetGroup') {
         my $request-input = ModifyCacheSubnetGroupMessage.new(
             :$cache-subnet-group-name,
             :$cache-subnet-group-description,
-            :$subnet-ids
+            :@subnet-ids
         );
 
         self.perform-operation(
@@ -1557,11 +1559,11 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     method modify-cache-parameter-group(
-        Array[ParameterNameValue] :$parameter-name-values!,
+        ParameterNameValue :@parameter-name-values!,
         Str :$cache-parameter-group-name!
     ) returns CacheParameterGroupNameMessage is service-operation('ModifyCacheParameterGroup') {
         my $request-input = ModifyCacheParameterGroupMessage.new(
-            :$parameter-name-values,
+            :@parameter-name-values,
             :$cache-parameter-group-name
         );
 
@@ -1788,14 +1790,14 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
     }
 
     method modify-replication-group(
-        Array[Str] :$security-group-ids,
+        Str :@security-group-ids,
         Str :$snapshot-window,
         Str :$notification-topic-arn,
         Bool :$automatic-failover-enabled,
         Str :$primary-cluster-id,
         Str :$replication-group-description,
         Str :$cache-parameter-group-name,
-        Array[Str] :$cache-security-group-names,
+        Str :@cache-security-group-names,
         Str :$cache-node-type,
         Int :$snapshot-retention-limit,
         Str :$snapshotting-cluster-id,
@@ -1808,14 +1810,14 @@ class AWS::SDK::Service::ElastiCache does AWS::SDK::Service {
         Str :$notification-topic-status
     ) returns ModifyReplicationGroupResult is service-operation('ModifyReplicationGroup') {
         my $request-input = ModifyReplicationGroupMessage.new(
-            :$security-group-ids,
+            :@security-group-ids,
             :$snapshot-window,
             :$notification-topic-arn,
             :$automatic-failover-enabled,
             :$primary-cluster-id,
             :$replication-group-description,
             :$cache-parameter-group-name,
-            :$cache-security-group-names,
+            :@cache-security-group-names,
             :$cache-node-type,
             :$snapshot-retention-limit,
             :$snapshotting-cluster-id,

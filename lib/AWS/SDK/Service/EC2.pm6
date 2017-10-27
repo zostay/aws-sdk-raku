@@ -657,6 +657,225 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class ModifyInstancePlacementResult { ... }
     class Purchase { ... }
 
+    subset ImageState of Str where $_ eq any('pending', 'available', 'invalid', 'deregistered', 'transient', 'failed', 'error');
+
+    subset InstanceInterruptionBehavior of Str where $_ eq any('stop', 'terminate');
+
+    subset VolumeAttachmentState of Str where $_ eq any('attaching', 'attached', 'detaching', 'detached');
+
+    subset ExcessCapacityTerminationPolicy of Str where $_ eq any('noTermination', 'default');
+
+    subset Affinity of Str where $_ eq any('default', 'host');
+
+    subset ProductCodeValues of Str where $_ eq any('devpay', 'marketplace');
+
+    subset RouteState of Str where $_ eq any('active', 'blackhole');
+
+    subset VpnState of Str where $_ eq any('pending', 'available', 'deleting', 'deleted');
+
+    subset CancelSpotInstanceRequestState of Str where $_ eq any('active', 'open', 'closed', 'cancelled', 'completed');
+
+    subset PlatformValues of Str where $_ eq any('Windows');
+
+    subset CancelBatchErrorCode of Str where $_ eq any('fleetRequestIdDoesNotExist', 'fleetRequestIdMalformed', 'fleetRequestNotInCancellableState', 'unexpectedError');
+
+    subset MoveStatus of Str where $_ eq any('movingToVpc', 'restoringToClassic');
+
+    subset IamInstanceProfileAssociationState of Str where $_ eq any('associating', 'associated', 'disassociating', 'disassociated');
+
+    subset DatafeedSubscriptionState of Str where $_ eq any('Active', 'Inactive');
+
+    subset InstanceLifecycleType of Str where $_ eq any('spot', 'scheduled');
+
+    subset PlacementGroupState of Str where $_ eq any('pending', 'available', 'deleting', 'deleted');
+
+    subset PaymentOption of Str where $_ eq any('AllUpfront', 'PartialUpfront', 'NoUpfront');
+
+    subset Tenancy of Str where $_ eq any('default', 'dedicated', 'host');
+
+    subset Status of Str where $_ eq any('MoveInProgress', 'InVpc', 'InClassic');
+
+    subset OperationType of Str where $_ eq any('add', 'remove');
+
+    subset VpcCidrBlockStateCode of Str where $_ eq any('associating', 'associated', 'disassociating', 'disassociated', 'failing', 'failed');
+
+    subset ListingStatus of Str where $_ eq any('active', 'pending', 'cancelled', 'closed');
+
+    subset NextToken of Str where 1 <= .chars <= 1024;
+
+    subset SnapshotAttributeName of Str where $_ eq any('productCodes', 'createVolumePermission');
+
+    subset SummaryStatus of Str where $_ eq any('ok', 'impaired', 'insufficient-data', 'not-applicable', 'initializing');
+
+    subset ConversionTaskState of Str where $_ eq any('active', 'cancelling', 'cancelled', 'completed');
+
+    subset ElasticGpuStatus of Str where $_ eq any('OK', 'IMPAIRED');
+
+    subset OfferingClassType of Str where $_ eq any('standard', 'convertible');
+
+    subset ImageAttributeName of Str where $_ eq any('description', 'kernel', 'ramdisk', 'launchPermission', 'productCodes', 'blockDeviceMapping', 'sriovNetSupport');
+
+    subset DomainType of Str where $_ eq any('vpc', 'standard');
+
+    subset OfferingTypeValues of Str where $_ eq any('Heavy Utilization', 'Medium Utilization', 'Light Utilization', 'No Upfront', 'Partial Upfront', 'All Upfront');
+
+    subset VirtualizationType of Str where $_ eq any('hvm', 'paravirtual');
+
+    subset AttachmentStatus of Str where $_ eq any('attaching', 'attached', 'detaching', 'detached');
+
+    subset RIProductDescription of Str where $_ eq any('Linux/UNIX', 'Linux/UNIX (Amazon VPC)', 'Windows', 'Windows (Amazon VPC)');
+
+    subset ListingState of Str where $_ eq any('available', 'sold', 'cancelled', 'pending');
+
+    subset AllocationStrategy of Str where $_ eq any('lowestPrice', 'diversified');
+
+    subset ReportInstanceReasonCodes of Str where $_ eq any('instance-stuck-in-state', 'unresponsive', 'not-accepting-credentials', 'password-not-available', 'performance-network', 'performance-instance-store', 'performance-ebs-volume', 'performance-other', 'other');
+
+    subset LaunchSpecsList of Array[SpotFleetLaunchSpecification] where 1 <= *.elems;
+
+    subset VpcState of Str where $_ eq any('pending', 'available');
+
+    subset VolumeModificationState of Str where $_ eq any('modifying', 'optimizing', 'completed', 'failed');
+
+    subset TrafficType of Str where $_ eq any('ACCEPT', 'REJECT', 'ALL');
+
+    subset ResourceType of Str where $_ eq any('customer-gateway', 'dhcp-options', 'image', 'instance', 'internet-gateway', 'network-acl', 'network-interface', 'reserved-instances', 'route-table', 'snapshot', 'spot-instances-request', 'subnet', 'security-group', 'volume', 'vpc', 'vpn-connection', 'vpn-gateway');
+
+    subset NetworkInterfacePermissionStateCode of Str where $_ eq any('pending', 'granted', 'revoking', 'revoked');
+
+    subset StatusType of Str where $_ eq any('passed', 'failed', 'insufficient-data', 'initializing');
+
+    subset EventType of Str where $_ eq any('instanceChange', 'fleetRequestChange', 'error');
+
+    subset VpcPeeringConnectionStateReasonCode of Str where $_ eq any('initiating-request', 'pending-acceptance', 'active', 'deleted', 'rejected', 'failed', 'expired', 'provisioning', 'deleting');
+
+    subset RuleAction of Str where $_ eq any('allow', 'deny');
+
+    subset InstanceStateName of Str where $_ eq any('pending', 'running', 'shutting-down', 'terminated', 'stopping', 'stopped');
+
+    subset DiskImageFormat of Str where $_ eq any('VMDK', 'RAW', 'VHD');
+
+    subset TelemetryStatus of Str where $_ eq any('UP', 'DOWN');
+
+    subset CurrencyCodeValues of Str where $_ eq any('USD');
+
+    subset SnapshotState of Str where $_ eq any('pending', 'completed', 'error');
+
+    subset AvailabilityZoneState of Str where $_ eq any('available', 'information', 'impaired', 'unavailable');
+
+    subset VpnStaticRouteSource of Str where $_ eq any('Static');
+
+    subset NetworkInterfaceAttribute of Str where $_ eq any('description', 'groupSet', 'sourceDestCheck', 'attachment');
+
+    subset FlowLogsResourceType of Str where $_ eq any('VPC', 'Subnet', 'NetworkInterface');
+
+    subset ExportEnvironment of Str where $_ eq any('citrix', 'vmware', 'microsoft');
+
+    subset BundleTaskState of Str where $_ eq any('pending', 'waiting-for-shutdown', 'bundling', 'storing', 'cancelling', 'complete', 'failed');
+
+    subset AccountAttributeName of Str where $_ eq any('supported-platforms', 'default-vpc');
+
+    subset InterfacePermissionType of Str where $_ eq any('INSTANCE-ATTACH', 'EIP-ASSOCIATE');
+
+    subset ResetImageAttributeName of Str where $_ eq any('launchPermission');
+
+    subset ReservedInstanceState of Str where $_ eq any('payment-pending', 'active', 'payment-failed', 'retired');
+
+    subset State of Str where $_ eq any('Pending', 'Available', 'Deleting', 'Deleted');
+
+    subset FpgaImageStateCode of Str where $_ eq any('pending', 'failed', 'available', 'unavailable');
+
+    subset VolumeType of Str where $_ eq any('standard', 'io1', 'gp2', 'sc1', 'st1');
+
+    subset scope of Str where $_ eq any('Availability Zone', 'Region');
+
+    subset MonitoringState of Str where $_ eq any('disabled', 'disabling', 'enabled', 'pending');
+
+    subset HostTenancy of Str where $_ eq any('dedicated', 'host');
+
+    subset SubnetState of Str where $_ eq any('pending', 'available');
+
+    subset NetworkInterfaceStatus of Str where $_ eq any('available', 'attaching', 'in-use', 'detaching');
+
+    subset VolumeAttributeName of Str where $_ eq any('autoEnableIO', 'productCodes');
+
+    subset ImageTypeValues of Str where $_ eq any('machine', 'kernel', 'ramdisk');
+
+    subset StatusName of Str where $_ eq any('reachability');
+
+    subset ReservationState of Str where $_ eq any('payment-pending', 'payment-failed', 'active', 'retired');
+
+    subset FleetType of Str where $_ eq any('request', 'maintain');
+
+    subset ShutdownBehavior of Str where $_ eq any('stop', 'terminate');
+
+    subset AutoPlacement of Str where $_ eq any('on', 'off');
+
+    subset ElasticGpuState of Str where $_ eq any('ATTACHED');
+
+    subset ResetFpgaImageAttributeName of Str where $_ eq any('loadPermission');
+
+    subset VolumeStatusName of Str where $_ eq any('io-enabled', 'io-performance');
+
+    subset MaxResults of Int where 5 <= * <= 255;
+
+    subset NatGatewayState of Str where $_ eq any('pending', 'failed', 'available', 'deleting', 'deleted');
+
+    subset SpotInstanceType of Str where $_ eq any('one-time', 'persistent');
+
+    subset InstanceAttributeName of Str where $_ eq any('instanceType', 'kernel', 'ramdisk', 'userData', 'disableApiTermination', 'instanceInitiatedShutdownBehavior', 'rootDeviceName', 'blockDeviceMapping', 'productCodes', 'sourceDestCheck', 'groupSet', 'ebsOptimized', 'sriovNetSupport', 'enaSupport');
+
+    subset ContainerFormat of Str where $_ eq any('ova');
+
+    subset HypervisorType of Str where $_ eq any('ovm', 'xen');
+
+    subset BatchState of Str where $_ eq any('submitted', 'active', 'cancelled', 'failed', 'cancelled_running', 'cancelled_terminating', 'modifying');
+
+    subset VolumeStatusInfoStatus of Str where $_ eq any('ok', 'impaired', 'insufficient-data');
+
+    subset AllocationState of Str where $_ eq any('available', 'under-assessment', 'permanent-failure', 'released', 'released-permanent-failure');
+
+    subset ReportStatusType of Str where $_ eq any('ok', 'impaired');
+
+    subset PlacementStrategy of Str where $_ eq any('cluster');
+
+    subset DeviceType of Str where $_ eq any('ebs', 'instance-store');
+
+    subset FpgaImageAttributeName of Str where $_ eq any('description', 'name', 'loadPermission', 'productCodes');
+
+    subset PermissionGroup of Str where $_ eq any('all');
+
+    subset RouteOrigin of Str where $_ eq any('CreateRouteTable', 'CreateRoute', 'EnableVgwRoutePropagation');
+
+    subset GatewayType of Str where $_ eq any('ipsec.1');
+
+    subset InstanceHealthStatus of Str where $_ eq any('healthy', 'unhealthy');
+
+    subset InstanceType of Str where $_ eq any('t1.micro', 't2.nano', 't2.micro', 't2.small', 't2.medium', 't2.large', 't2.xlarge', 't2.2xlarge', 'm1.small', 'm1.medium', 'm1.large', 'm1.xlarge', 'm3.medium', 'm3.large', 'm3.xlarge', 'm3.2xlarge', 'm4.large', 'm4.xlarge', 'm4.2xlarge', 'm4.4xlarge', 'm4.10xlarge', 'm4.16xlarge', 'm2.xlarge', 'm2.2xlarge', 'm2.4xlarge', 'cr1.8xlarge', 'r3.large', 'r3.xlarge', 'r3.2xlarge', 'r3.4xlarge', 'r3.8xlarge', 'r4.large', 'r4.xlarge', 'r4.2xlarge', 'r4.4xlarge', 'r4.8xlarge', 'r4.16xlarge', 'x1.16xlarge', 'x1.32xlarge', 'x1e.32xlarge', 'i2.xlarge', 'i2.2xlarge', 'i2.4xlarge', 'i2.8xlarge', 'i3.large', 'i3.xlarge', 'i3.2xlarge', 'i3.4xlarge', 'i3.8xlarge', 'i3.16xlarge', 'hi1.4xlarge', 'hs1.8xlarge', 'c1.medium', 'c1.xlarge', 'c3.large', 'c3.xlarge', 'c3.2xlarge', 'c3.4xlarge', 'c3.8xlarge', 'c4.large', 'c4.xlarge', 'c4.2xlarge', 'c4.4xlarge', 'c4.8xlarge', 'cc1.4xlarge', 'cc2.8xlarge', 'g2.2xlarge', 'g2.8xlarge', 'g3.4xlarge', 'g3.8xlarge', 'g3.16xlarge', 'cg1.4xlarge', 'p2.xlarge', 'p2.8xlarge', 'p2.16xlarge', 'd2.xlarge', 'd2.2xlarge', 'd2.4xlarge', 'd2.8xlarge', 'f1.2xlarge', 'f1.16xlarge');
+
+    subset NetworkInterfaceType of Str where $_ eq any('interface', 'natGateway');
+
+    subset SubnetCidrBlockStateCode of Str where $_ eq any('associating', 'associated', 'disassociating', 'disassociated', 'failing', 'failed');
+
+    subset ArchitectureValues of Str where $_ eq any('i386', 'x86_64');
+
+    subset RecurringChargeFrequency of Str where $_ eq any('Hourly');
+
+    subset EventCode of Str where $_ eq any('instance-reboot', 'system-reboot', 'system-maintenance', 'instance-retirement', 'instance-stop');
+
+    subset PurchaseRequestSet of Array[PurchaseRequest] where 1 <= *.elems;
+
+    subset ExportTaskState of Str where $_ eq any('active', 'cancelling', 'cancelled', 'completed');
+
+    subset ActivityStatus of Str where $_ eq any('error', 'pending_fulfillment', 'pending_termination', 'fulfilled');
+
+    subset SpotInstanceState of Str where $_ eq any('open', 'active', 'closed', 'cancelled', 'failed');
+
+    subset VolumeState of Str where $_ eq any('creating', 'available', 'in-use', 'deleting', 'deleted', 'error');
+
+    subset VpcAttributeName of Str where $_ eq any('enableDnsSupport', 'enableDnsHostnames');
+
+
     class Storage does AWS::SDK::Shape {
         has S3Storage $.s3 is shape-member('S3');
     }
@@ -675,10 +894,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Int $.max-results is shape-member('MaxResults');
         has DateTime $.end-time is shape-member('EndTime');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[InstanceType] $.instance-types is shape-member('InstanceTypes');
+        has Filter @.filters is shape-member('Filters');
+        has InstanceType @.instance-types is shape-member('InstanceTypes');
         has DateTime $.start-time is shape-member('StartTime');
-        has Array[Str] $.product-descriptions is shape-member('ProductDescriptions');
+        has Str @.product-descriptions is shape-member('ProductDescriptions');
         has Str $.next-token is shape-member('NextToken');
         has Str $.availability-zone is shape-member('AvailabilityZone');
     }
@@ -688,11 +907,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeClassicLinkInstancesResult does AWS::SDK::Shape {
-        has Array[ClassicLinkInstance] $.instances is shape-member('Instances');
+        has ClassicLinkInstance @.instances is shape-member('Instances');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset ImageState of Str where $_ ~~ any('pending', 'available', 'invalid', 'deregistered', 'transient', 'failed', 'error');
 
     class ModifyNetworkInterfaceAttributeRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -700,12 +917,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has AttributeValue $.description is shape-member('Description');
         has NetworkInterfaceAttachmentChanges $.attachment is shape-member('Attachment');
         has Str $.network-interface-id is required is shape-member('NetworkInterfaceId');
-        has Array[Str] $.groups is shape-member('Groups');
+        has Str @.groups is shape-member('Groups');
     }
 
     class VpcPeeringConnection does AWS::SDK::Shape {
         has VpcPeeringConnectionVpcInfo $.accepter-vpc-info is shape-member('AccepterVpcInfo');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has VpcPeeringConnectionVpcInfo $.requester-vpc-info is shape-member('RequesterVpcInfo');
         has VpcPeeringConnectionStateReason $.status is shape-member('Status');
         has Str $.vpc-peering-connection-id is shape-member('VpcPeeringConnectionId');
@@ -714,8 +931,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeVpcClassicLinkRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.vpc-ids is shape-member('VpcIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.vpc-ids is shape-member('VpcIds');
     }
 
     class ImportVolumeRequest does AWS::SDK::Shape {
@@ -741,7 +958,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.host-reservation-id is shape-member('HostReservationId');
         has Str $.host-id is shape-member('HostId');
         has Str $.client-token is shape-member('ClientToken');
-        has Array[HostInstance] $.instances is shape-member('Instances');
+        has HostInstance @.instances is shape-member('Instances');
         has AllocationState $.state is shape-member('State');
         has HostProperties $.host-properties is shape-member('HostProperties');
         has Str $.availability-zone is shape-member('AvailabilityZone');
@@ -770,15 +987,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class CreateTagsRequest does AWS::SDK::Shape {
-        has Array[Str] $.resources is required is shape-member('Resources');
+        has Str @.resources is required is shape-member('Resources');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
     }
 
-    subset InstanceInterruptionBehavior of Str where $_ ~~ any('stop', 'terminate');
-
     class ModifyInstanceAttributeRequest does AWS::SDK::Shape {
-        has Array[InstanceBlockDeviceMappingSpecification] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has InstanceBlockDeviceMappingSpecification @.block-device-mappings is shape-member('BlockDeviceMappings');
         has AttributeValue $.ramdisk is shape-member('Ramdisk');
         has Bool $.dry-run is shape-member('DryRun');
         has BlobAttributeValue $.user-data is shape-member('UserData');
@@ -786,7 +1001,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has AttributeValue $.instance-initiated-shutdown-behavior is shape-member('InstanceInitiatedShutdownBehavior');
         has AttributeBooleanValue $.ena-support is shape-member('EnaSupport');
         has AttributeBooleanValue $.disable-api-termination is shape-member('DisableApiTermination');
-        has Array[Str] $.groups is shape-member('Groups');
+        has Str @.groups is shape-member('Groups');
         has AttributeBooleanValue $.ebs-optimized is shape-member('EbsOptimized');
         has Str $.value is shape-member('Value');
         has AttributeValue $.instance-type is shape-member('InstanceType');
@@ -816,44 +1031,40 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class CreateReservedInstancesListingRequest does AWS::SDK::Shape {
         has Str $.reserved-instances-id is required is shape-member('ReservedInstancesId');
         has Str $.client-token is required is shape-member('ClientToken');
-        has Array[PriceScheduleSpecification] $.price-schedules is required is shape-member('PriceSchedules');
+        has PriceScheduleSpecification @.price-schedules is required is shape-member('PriceSchedules');
         has Int $.instance-count is required is shape-member('InstanceCount');
     }
 
     class LaunchSpecification does AWS::SDK::Shape {
         has SpotPlacement $.placement is shape-member('Placement');
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has Str $.subnet-id is shape-member('SubnetId');
         has Str $.ramdisk-id is shape-member('RamdiskId');
         has Str $.image-id is shape-member('ImageId');
-        has Array[GroupIdentifier] $.security-groups is shape-member('SecurityGroups');
+        has GroupIdentifier @.security-groups is shape-member('SecurityGroups');
         has Str $.user-data is shape-member('UserData');
         has Bool $.ebs-optimized is shape-member('EbsOptimized');
         has Str $.kernel-id is shape-member('KernelId');
         has InstanceType $.instance-type is shape-member('InstanceType');
         has RunInstancesMonitoringEnabled $.monitoring is shape-member('Monitoring');
-        has Array[InstanceNetworkInterfaceSpecification] $.network-interfaces is shape-member('NetworkInterfaces');
+        has InstanceNetworkInterfaceSpecification @.network-interfaces is shape-member('NetworkInterfaces');
         has IamInstanceProfileSpecification $.iam-instance-profile is shape-member('IamInstanceProfile');
         has Str $.addressing-type is shape-member('AddressingType');
         has Str $.key-name is shape-member('KeyName');
     }
 
-    subset VolumeAttachmentState of Str where $_ ~~ any('attaching', 'attached', 'detaching', 'detached');
-
     class StartInstancesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.additional-info is shape-member('AdditionalInfo');
-        has Array[Str] $.instance-ids is required is shape-member('InstanceIds');
+        has Str @.instance-ids is required is shape-member('InstanceIds');
     }
-
-    subset ExcessCapacityTerminationPolicy of Str where $_ ~~ any('noTermination', 'default');
 
     class DescribeImagesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.executable-users is shape-member('ExecutableUsers');
-        has Array[Str] $.owners is shape-member('Owners');
-        has Array[Str] $.image-ids is shape-member('ImageIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.executable-users is shape-member('ExecutableUsers');
+        has Str @.owners is shape-member('Owners');
+        has Str @.image-ids is shape-member('ImageIds');
     }
 
     class CancelConversionRequest does AWS::SDK::Shape {
@@ -871,8 +1082,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class LoadPermissionModifications does AWS::SDK::Shape {
-        has Array[LoadPermissionRequest] $.remove is shape-member('Remove');
-        has Array[LoadPermissionRequest] $.add is shape-member('Add');
+        has LoadPermissionRequest @.remove is shape-member('Remove');
+        has LoadPermissionRequest @.add is shape-member('Add');
     }
 
     class DescribeNetworkInterfaceAttributeRequest does AWS::SDK::Shape {
@@ -898,7 +1109,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class NewDhcpConfiguration does AWS::SDK::Shape {
-        has Array[Str] $.values is shape-member('Values');
+        has Str @.values is shape-member('Values');
         has Str $.key is shape-member('Key');
     }
 
@@ -924,14 +1135,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.dry-run is shape-member('DryRun');
     }
 
-    subset Affinity of Str where $_ ~~ any('default', 'host');
-
     class ReservedInstanceLimitPrice does AWS::SDK::Shape {
         has Numeric $.amount is shape-member('Amount');
         has CurrencyCodeValues $.currency-code is shape-member('CurrencyCode');
     }
-
-    subset ProductCodeValues of Str where $_ ~~ any('devpay', 'marketplace');
 
     class CancelReservedInstancesListingRequest does AWS::SDK::Shape {
         has Str $.reserved-instances-listing-id is required is shape-member('ReservedInstancesListingId');
@@ -961,10 +1168,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class CancelSpotInstanceRequestsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.spot-instance-request-ids is required is shape-member('SpotInstanceRequestIds');
+        has Str @.spot-instance-request-ids is required is shape-member('SpotInstanceRequestIds');
     }
-
-    subset RouteState of Str where $_ ~~ any('active', 'blackhole');
 
     class CreateInternetGatewayResult does AWS::SDK::Shape {
         has InternetGateway $.internet-gateway is shape-member('InternetGateway');
@@ -979,7 +1184,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeExportTasksResult does AWS::SDK::Shape {
-        has Array[ExportTask] $.export-tasks is shape-member('ExportTasks');
+        has ExportTask @.export-tasks is shape-member('ExportTasks');
     }
 
     class TargetConfigurationRequest does AWS::SDK::Shape {
@@ -988,9 +1193,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class ScheduledInstancesLaunchSpecification does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has ScheduledInstancesPlacement $.placement is shape-member('Placement');
-        has Array[ScheduledInstancesBlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has ScheduledInstancesBlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has Str $.subnet-id is shape-member('SubnetId');
         has Str $.user-data is shape-member('UserData');
         has Str $.ramdisk-id is shape-member('RamdiskId');
@@ -998,20 +1203,20 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.ebs-optimized is shape-member('EbsOptimized');
         has Str $.kernel-id is shape-member('KernelId');
         has Str $.instance-type is shape-member('InstanceType');
-        has Array[ScheduledInstancesNetworkInterface] $.network-interfaces is shape-member('NetworkInterfaces');
+        has ScheduledInstancesNetworkInterface @.network-interfaces is shape-member('NetworkInterfaces');
         has ScheduledInstancesMonitoring $.monitoring is shape-member('Monitoring');
         has ScheduledInstancesIamInstanceProfile $.iam-instance-profile is shape-member('IamInstanceProfile');
         has Str $.key-name is shape-member('KeyName');
     }
 
     class DescribeHostReservationOfferingsResult does AWS::SDK::Shape {
-        has Array[HostOffering] $.offering-set is shape-member('OfferingSet');
+        has HostOffering @.offering-set is shape-member('OfferingSet');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class InternetGateway does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[InternetGatewayAttachment] $.attachments is shape-member('Attachments');
+        has Tag @.tags is shape-member('Tags');
+        has InternetGatewayAttachment @.attachments is shape-member('Attachments');
         has Str $.internet-gateway-id is shape-member('InternetGatewayId');
     }
 
@@ -1019,9 +1224,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has DateTime $.delete-time is shape-member('DeleteTime');
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.subnet-id is shape-member('SubnetId');
-        has Array[NatGatewayAddress] $.nat-gateway-addresses is shape-member('NatGatewayAddresses');
+        has NatGatewayAddress @.nat-gateway-addresses is shape-member('NatGatewayAddresses');
         has Str $.failure-message is shape-member('FailureMessage');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has NatGatewayState $.state is shape-member('State');
         has ProvisionedBandwidth $.provisioned-bandwidth is shape-member('ProvisionedBandwidth');
         has Str $.failure-code is shape-member('FailureCode');
@@ -1050,11 +1255,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class ModifyVpcEndpointRequest does AWS::SDK::Shape {
         has Str $.vpc-endpoint-id is required is shape-member('VpcEndpointId');
-        has Array[Str] $.remove-route-table-ids is shape-member('RemoveRouteTableIds');
+        has Str @.remove-route-table-ids is shape-member('RemoveRouteTableIds');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.policy-document is shape-member('PolicyDocument');
         has Bool $.reset-policy is shape-member('ResetPolicy');
-        has Array[Str] $.add-route-table-ids is shape-member('AddRouteTableIds');
+        has Str @.add-route-table-ids is shape-member('AddRouteTableIds');
     }
 
     class PlacementGroup does AWS::SDK::Shape {
@@ -1079,13 +1284,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class TagSpecification does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has ResourceType $.resource-type is shape-member('ResourceType');
     }
 
     class DescribeSnapshotsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Snapshot] $.snapshots is shape-member('Snapshots');
+        has Snapshot @.snapshots is shape-member('Snapshots');
     }
 
     class CreateSecurityGroupResult does AWS::SDK::Shape {
@@ -1093,7 +1298,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DhcpConfiguration does AWS::SDK::Shape {
-        has Array[AttributeValue] $.values is shape-member('Values');
+        has AttributeValue @.values is shape-member('Values');
         has Str $.key is shape-member('Key');
     }
 
@@ -1106,15 +1311,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeBundleTasksResult does AWS::SDK::Shape {
-        has Array[BundleTask] $.bundle-tasks is shape-member('BundleTasks');
+        has BundleTask @.bundle-tasks is shape-member('BundleTasks');
     }
 
     class DeleteFlowLogsRequest does AWS::SDK::Shape {
-        has Array[Str] $.flow-log-ids is required is shape-member('FlowLogIds');
+        has Str @.flow-log-ids is required is shape-member('FlowLogIds');
     }
 
     class RequestSpotInstancesResult does AWS::SDK::Shape {
-        has Array[SpotInstanceRequest] $.spot-instance-requests is shape-member('SpotInstanceRequests');
+        has SpotInstanceRequest @.spot-instance-requests is shape-member('SpotInstanceRequests');
     }
 
     class UnsuccessfulItemError does AWS::SDK::Shape {
@@ -1130,26 +1335,20 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has NetworkInterface $.network-interface is shape-member('NetworkInterface');
     }
 
-    subset VpnState of Str where $_ ~~ any('pending', 'available', 'deleting', 'deleted');
-
     class DescribeVolumesModificationsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.volume-ids is shape-member('VolumeIds');
+        has Str @.volume-ids is shape-member('VolumeIds');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset CancelSpotInstanceRequestState of Str where $_ ~~ any('active', 'open', 'closed', 'cancelled', 'completed');
 
     class ModifyVolumeResult does AWS::SDK::Shape {
         has VolumeModification $.volume-modification is shape-member('VolumeModification');
     }
 
-    subset PlatformValues of Str where $_ ~~ any('Windows');
-
     class UnassignPrivateIpAddressesRequest does AWS::SDK::Shape {
-        has Array[Str] $.private-ip-addresses is required is shape-member('PrivateIpAddresses');
+        has Str @.private-ip-addresses is required is shape-member('PrivateIpAddresses');
         has Str $.network-interface-id is required is shape-member('NetworkInterfaceId');
     }
 
@@ -1171,21 +1370,17 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Int $.total-scheduled-instance-hours is shape-member('TotalScheduledInstanceHours');
     }
 
-    subset CancelBatchErrorCode of Str where $_ ~~ any('fleetRequestIdDoesNotExist', 'fleetRequestIdMalformed', 'fleetRequestNotInCancellableState', 'unexpectedError');
-
     class ScheduledInstancesPrivateIpAddressConfig does AWS::SDK::Shape {
         has Str $.private-ip-address is shape-member('PrivateIpAddress');
         has Bool $.primary is shape-member('Primary');
     }
-
-    subset MoveStatus of Str where $_ ~~ any('movingToVpc', 'restoringToClassic');
 
     class RequestSpotFleetResponse does AWS::SDK::Shape {
         has Str $.spot-fleet-request-id is required is shape-member('SpotFleetRequestId');
     }
 
     class DescribeCustomerGatewaysResult does AWS::SDK::Shape {
-        has Array[CustomerGateway] $.customer-gateways is shape-member('CustomerGateways');
+        has CustomerGateway @.customer-gateways is shape-member('CustomerGateways');
     }
 
     class ExportToS3TaskSpecification does AWS::SDK::Shape {
@@ -1194,8 +1389,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.s3-bucket is shape-member('S3Bucket');
         has DiskImageFormat $.disk-image-format is shape-member('DiskImageFormat');
     }
-
-    subset IamInstanceProfileAssociationState of Str where $_ ~~ any('associating', 'associated', 'disassociating', 'disassociated');
 
     class ModifyVolumeRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -1222,14 +1415,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.offering-id is required is shape-member('OfferingId');
         has Str $.limit-price is shape-member('LimitPrice');
         has CurrencyCodeValues $.currency-code is shape-member('CurrencyCode');
-        has Array[Str] $.host-id-set is required is shape-member('HostIdSet');
+        has Str @.host-id-set is required is shape-member('HostIdSet');
     }
-
-    subset DatafeedSubscriptionState of Str where $_ ~~ any('Active', 'Inactive');
-
-    subset InstanceLifecycleType of Str where $_ ~~ any('spot', 'scheduled');
-
-    subset PlacementGroupState of Str where $_ ~~ any('pending', 'available', 'deleting', 'deleted');
 
     class DetachVpnGatewayRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -1238,7 +1425,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeAddressesResult does AWS::SDK::Shape {
-        has Array[Address] $.addresses is shape-member('Addresses');
+        has Address @.addresses is shape-member('Addresses');
     }
 
     class HistoryRecord does AWS::SDK::Shape {
@@ -1249,17 +1436,17 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeVpcPeeringConnectionsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.vpc-peering-connection-ids is shape-member('VpcPeeringConnectionIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.vpc-peering-connection-ids is shape-member('VpcPeeringConnectionIds');
     }
 
     class DescribeVolumesModificationsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[VolumeModification] $.volumes-modifications is shape-member('VolumesModifications');
+        has VolumeModification @.volumes-modifications is shape-member('VolumesModifications');
     }
 
     class DescribeSecurityGroupReferencesResult does AWS::SDK::Shape {
-        has Array[SecurityGroupReference] $.security-group-reference-set is shape-member('SecurityGroupReferenceSet');
+        has SecurityGroupReference @.security-group-reference-set is shape-member('SecurityGroupReferenceSet');
     }
 
     class BlockDeviceMapping does AWS::SDK::Shape {
@@ -1285,8 +1472,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.key-fingerprint is shape-member('KeyFingerprint');
     }
 
-    subset PaymentOption of Str where $_ ~~ any('AllUpfront', 'PartialUpfront', 'NoUpfront');
-
     class ResetSnapshotAttributeRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.snapshot-id is required is shape-member('SnapshotId');
@@ -1294,16 +1479,16 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeSpotFleetRequestsResponse does AWS::SDK::Shape {
-        has Array[SpotFleetRequestConfig] $.spot-fleet-request-configs is required is shape-member('SpotFleetRequestConfigs');
+        has SpotFleetRequestConfig @.spot-fleet-request-configs is required is shape-member('SpotFleetRequestConfigs');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class DescribeElasticGpusRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.elastic-gpu-ids is shape-member('ElasticGpuIds');
+        has Str @.elastic-gpu-ids is shape-member('ElasticGpuIds');
     }
 
     class MovingAddressStatus does AWS::SDK::Shape {
@@ -1313,39 +1498,35 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class GetReservedInstancesExchangeQuoteRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[TargetConfigurationRequest] $.target-configurations is shape-member('TargetConfigurations');
-        has Array[Str] $.reserved-instance-ids is required is shape-member('ReservedInstanceIds');
+        has TargetConfigurationRequest @.target-configurations is shape-member('TargetConfigurations');
+        has Str @.reserved-instance-ids is required is shape-member('ReservedInstanceIds');
     }
 
     class RegisterImageResult does AWS::SDK::Shape {
         has Str $.image-id is shape-member('ImageId');
     }
 
-    subset Tenancy of Str where $_ ~~ any('default', 'dedicated', 'host');
-
     class DetachClassicLinkVpcResult does AWS::SDK::Shape {
         has Bool $.return is shape-member('Return');
     }
 
     class DescribeSnapshotsRequest does AWS::SDK::Shape {
-        has Array[Str] $.restorable-by-user-ids is shape-member('RestorableByUserIds');
+        has Str @.restorable-by-user-ids is shape-member('RestorableByUserIds');
         has Int $.max-results is shape-member('MaxResults');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.snapshot-ids is shape-member('SnapshotIds');
-        has Array[Str] $.owner-ids is shape-member('OwnerIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.snapshot-ids is shape-member('SnapshotIds');
+        has Str @.owner-ids is shape-member('OwnerIds');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class MonitorInstancesResult does AWS::SDK::Shape {
-        has Array[InstanceMonitoring] $.instance-monitorings is shape-member('InstanceMonitorings');
+        has InstanceMonitoring @.instance-monitorings is shape-member('InstanceMonitorings');
     }
 
     class RejectVpcPeeringConnectionResult does AWS::SDK::Shape {
         has Bool $.return is shape-member('Return');
     }
-
-    subset Status of Str where $_ ~~ any('MoveInProgress', 'InVpc', 'InClassic');
 
     class DescribeSpotFleetRequestHistoryRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
@@ -1366,7 +1547,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeConversionTasksResult does AWS::SDK::Shape {
-        has Array[ConversionTask] $.conversion-tasks is shape-member('ConversionTasks');
+        has ConversionTask @.conversion-tasks is shape-member('ConversionTasks');
     }
 
     class S3Storage does AWS::SDK::Shape {
@@ -1393,7 +1574,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeInstanceStatusResult does AWS::SDK::Shape {
-        has Array[InstanceStatus] $.instance-statuses is shape-member('InstanceStatuses');
+        has InstanceStatus @.instance-statuses is shape-member('InstanceStatuses');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1406,12 +1587,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.return is shape-member('Return');
     }
 
-    subset OperationType of Str where $_ ~~ any('add', 'remove');
-
-    subset VpcCidrBlockStateCode of Str where $_ ~~ any('associating', 'associated', 'disassociating', 'disassociated', 'failing', 'failed');
-
     class RunScheduledInstancesResult does AWS::SDK::Shape {
-        has Array[Str] $.instance-id-set is shape-member('InstanceIdSet');
+        has Str @.instance-id-set is shape-member('InstanceIdSet');
     }
 
     class CreateInstanceExportTaskRequest does AWS::SDK::Shape {
@@ -1423,18 +1600,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class ModifyReservedInstancesRequest does AWS::SDK::Shape {
         has Str $.client-token is shape-member('ClientToken');
-        has Array[ReservedInstancesConfiguration] $.target-configurations is required is shape-member('TargetConfigurations');
-        has Array[Str] $.reserved-instances-ids is required is shape-member('ReservedInstancesIds');
+        has ReservedInstancesConfiguration @.target-configurations is required is shape-member('TargetConfigurations');
+        has Str @.reserved-instances-ids is required is shape-member('ReservedInstancesIds');
     }
 
     class DescribeReservedInstancesModificationsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[ReservedInstancesModification] $.reserved-instances-modifications is shape-member('ReservedInstancesModifications');
+        has ReservedInstancesModification @.reserved-instances-modifications is shape-member('ReservedInstancesModifications');
     }
 
     class DescribeEgressOnlyInternetGatewaysRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Str] $.egress-only-internet-gateway-ids is shape-member('EgressOnlyInternetGatewayIds');
+        has Str @.egress-only-internet-gateway-ids is shape-member('EgressOnlyInternetGatewayIds');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.next-token is shape-member('NextToken');
     }
@@ -1445,10 +1622,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.dry-run is shape-member('DryRun');
         has Int $.rule-number is required is shape-member('RuleNumber');
     }
-
-    subset ListingStatus of Str where $_ ~~ any('active', 'pending', 'cancelled', 'closed');
-
-    subset NextToken of Str where 1 <= .chars <= 1024;
 
     class CreateNetworkAclEntryRequest does AWS::SDK::Shape {
         has Str $.ipv6-cidr-block is shape-member('Ipv6CidrBlock');
@@ -1468,16 +1641,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.resource-id is shape-member('ResourceId');
     }
 
-    subset SnapshotAttributeName of Str where $_ ~~ any('productCodes', 'createVolumePermission');
-
     class DescribeVpnGatewaysRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.vpn-gateway-ids is shape-member('VpnGatewayIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.vpn-gateway-ids is shape-member('VpnGatewayIds');
     }
 
     class DescribeScheduledInstanceAvailabilityResult does AWS::SDK::Shape {
-        has Array[ScheduledInstanceAvailability] $.scheduled-instance-availability-set is shape-member('ScheduledInstanceAvailabilitySet');
+        has ScheduledInstanceAvailability @.scheduled-instance-availability-set is shape-member('ScheduledInstanceAvailabilitySet');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1490,9 +1661,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class FpgaImageAttribute does AWS::SDK::Shape {
         has Str $.fpga-image-id is shape-member('FpgaImageId');
         has Str $.description is shape-member('Description');
-        has Array[LoadPermission] $.load-permissions is shape-member('LoadPermissions');
+        has LoadPermission @.load-permissions is shape-member('LoadPermissions');
         has Str $.name is shape-member('Name');
-        has Array[ProductCode] $.product-codes is shape-member('ProductCodes');
+        has ProductCode @.product-codes is shape-member('ProductCodes');
     }
 
     class ImportInstanceResult does AWS::SDK::Shape {
@@ -1518,13 +1689,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeSnapshotAttributeResult does AWS::SDK::Shape {
         has Str $.snapshot-id is shape-member('SnapshotId');
-        has Array[CreateVolumePermission] $.create-volume-permissions is shape-member('CreateVolumePermissions');
-        has Array[ProductCode] $.product-codes is shape-member('ProductCodes');
+        has CreateVolumePermission @.create-volume-permissions is shape-member('CreateVolumePermissions');
+        has ProductCode @.product-codes is shape-member('ProductCodes');
     }
 
     class DescribeElasticGpusResult does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[ElasticGpus] $.elastic-gpu-set is shape-member('ElasticGpuSet');
+        has ElasticGpus @.elastic-gpu-set is shape-member('ElasticGpuSet');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1559,7 +1730,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeSecurityGroupsResult does AWS::SDK::Shape {
-        has Array[SecurityGroup] $.security-groups is shape-member('SecurityGroups');
+        has SecurityGroup @.security-groups is shape-member('SecurityGroups');
     }
 
     class CancelledSpotInstanceRequest does AWS::SDK::Shape {
@@ -1589,7 +1760,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class PrefixList does AWS::SDK::Shape {
         has Str $.prefix-list-id is shape-member('PrefixListId');
-        has Array[Str] $.cidrs is shape-member('Cidrs');
+        has Str @.cidrs is shape-member('Cidrs');
         has Str $.prefix-list-name is shape-member('PrefixListName');
     }
 
@@ -1601,8 +1772,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeFlowLogsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Str] $.flow-log-ids is shape-member('FlowLogIds');
-        has Array[Filter] $.filter is shape-member('Filter');
+        has Str @.flow-log-ids is shape-member('FlowLogIds');
+        has Filter @.filter is shape-member('Filter');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1631,12 +1802,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class ReservedInstancesOffering does AWS::SDK::Shape {
-        has Array[PricingDetail] $.pricing-details is shape-member('PricingDetails');
+        has PricingDetail @.pricing-details is shape-member('PricingDetails');
         has OfferingTypeValues $.offering-type is shape-member('OfferingType');
         has RIProductDescription $.product-description is shape-member('ProductDescription');
         has Int $.duration is shape-member('Duration');
         has scope $.scope is shape-member('Scope');
-        has Array[RecurringCharge] $.recurring-charges is shape-member('RecurringCharges');
+        has RecurringCharge @.recurring-charges is shape-member('RecurringCharges');
         has Tenancy $.instance-tenancy is shape-member('InstanceTenancy');
         has Numeric $.usage-price is shape-member('UsagePrice');
         has OfferingClassType $.offering-class is shape-member('OfferingClass');
@@ -1663,7 +1834,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeHostsResult does AWS::SDK::Shape {
-        has Array[Host] $.hosts is shape-member('Hosts');
+        has Host @.hosts is shape-member('Hosts');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1681,13 +1852,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class UnmonitorInstancesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.instance-ids is required is shape-member('InstanceIds');
+        has Str @.instance-ids is required is shape-member('InstanceIds');
     }
 
     class DescribeVpnConnectionsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.vpn-connection-ids is shape-member('VpnConnectionIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.vpn-connection-ids is shape-member('VpnConnectionIds');
     }
 
     class CreateInstanceExportTaskResult does AWS::SDK::Shape {
@@ -1710,18 +1881,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.client-token is shape-member('ClientToken');
         has TrafficType $.traffic-type is required is shape-member('TrafficType');
         has FlowLogsResourceType $.resource-type is required is shape-member('ResourceType');
-        has Array[Str] $.resource-ids is required is shape-member('ResourceIds');
+        has Str @.resource-ids is required is shape-member('ResourceIds');
         has Str $.deliver-logs-permission-arn is required is shape-member('DeliverLogsPermissionArn');
     }
 
     class DescribeNatGatewaysResult does AWS::SDK::Shape {
-        has Array[NatGateway] $.nat-gateways is shape-member('NatGateways');
+        has NatGateway @.nat-gateways is shape-member('NatGateways');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class CreateVolumePermissionModifications does AWS::SDK::Shape {
-        has Array[CreateVolumePermission] $.remove is shape-member('Remove');
-        has Array[CreateVolumePermission] $.add is shape-member('Add');
+        has CreateVolumePermission @.remove is shape-member('Remove');
+        has CreateVolumePermission @.add is shape-member('Add');
     }
 
     class DeleteNatGatewayResult does AWS::SDK::Shape {
@@ -1733,8 +1904,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has StatusName $.name is shape-member('Name');
         has StatusType $.status is shape-member('Status');
     }
-
-    subset SummaryStatus of Str where $_ ~~ any('ok', 'impaired', 'insufficient-data', 'not-applicable', 'initializing');
 
     class ScheduledInstancesIpv6Address does AWS::SDK::Shape {
         has Str $.ipv6-address is shape-member('Ipv6Address');
@@ -1748,16 +1917,16 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class InstanceNetworkInterfaceSpecification does AWS::SDK::Shape {
-        has Array[InstanceIpv6Address] $.ipv6-addresses is shape-member('Ipv6Addresses');
+        has InstanceIpv6Address @.ipv6-addresses is shape-member('Ipv6Addresses');
         has Int $.ipv6-address-count is shape-member('Ipv6AddressCount');
         has Str $.subnet-id is shape-member('SubnetId');
         has Int $.secondary-private-ip-address-count is shape-member('SecondaryPrivateIpAddressCount');
         has Int $.device-index is shape-member('DeviceIndex');
-        has Array[PrivateIpAddressSpecification] $.private-ip-addresses is shape-member('PrivateIpAddresses');
+        has PrivateIpAddressSpecification @.private-ip-addresses is shape-member('PrivateIpAddresses');
         has Str $.description is shape-member('Description');
         has Bool $.associate-public-ip-address is shape-member('AssociatePublicIpAddress');
         has Str $.network-interface-id is shape-member('NetworkInterfaceId');
-        has Array[Str] $.groups is shape-member('Groups');
+        has Str @.groups is shape-member('Groups');
         has Str $.private-ip-address is shape-member('PrivateIpAddress');
         has Bool $.delete-on-termination is shape-member('DeleteOnTermination');
     }
@@ -1771,7 +1940,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeMovingAddressesResult does AWS::SDK::Shape {
-        has Array[MovingAddressStatus] $.moving-address-statuses is shape-member('MovingAddressStatuses');
+        has MovingAddressStatus @.moving-address-statuses is shape-member('MovingAddressStatuses');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1785,9 +1954,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class VolumeStatusItem does AWS::SDK::Shape {
-        has Array[VolumeStatusEvent] $.events is shape-member('Events');
+        has VolumeStatusEvent @.events is shape-member('Events');
         has VolumeStatusInfo $.volume-status is shape-member('VolumeStatus');
-        has Array[VolumeStatusAction] $.actions is shape-member('Actions');
+        has VolumeStatusAction @.actions is shape-member('Actions');
         has Str $.volume-id is shape-member('VolumeId');
         has Str $.availability-zone is shape-member('AvailabilityZone');
     }
@@ -1805,9 +1974,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeImportSnapshotTasksRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.import-task-ids is shape-member('ImportTaskIds');
+        has Str @.import-task-ids is shape-member('ImportTaskIds');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1825,8 +1994,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.cidr-block is shape-member('CidrBlock');
     }
 
-    subset ConversionTaskState of Str where $_ ~~ any('active', 'cancelling', 'cancelled', 'completed');
-
     class CreateSubnetRequest does AWS::SDK::Shape {
         has Str $.ipv6-cidr-block is shape-member('Ipv6CidrBlock');
         has Str $.cidr-block is required is shape-member('CidrBlock');
@@ -1834,8 +2001,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.vpc-id is required is shape-member('VpcId');
         has Str $.availability-zone is shape-member('AvailabilityZone');
     }
-
-    subset ElasticGpuStatus of Str where $_ ~~ any('OK', 'IMPAIRED');
 
     class NetworkInterfaceAttachment does AWS::SDK::Shape {
         has Str $.instance-owner-id is shape-member('InstanceOwnerId');
@@ -1854,7 +2019,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.snapshot-id is shape-member('SnapshotId');
         has Str $.owner-id is shape-member('OwnerId');
         has Str $.description is shape-member('Description');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has SnapshotState $.state is shape-member('State');
         has DateTime $.start-time is shape-member('StartTime');
         has Str $.data-encryption-key-id is shape-member('DataEncryptionKeyId');
@@ -1874,10 +2039,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.cidr-block is shape-member('CidrBlock');
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.subnet-id is shape-member('SubnetId');
-        has Array[SubnetIpv6CidrBlockAssociation] $.ipv6-cidr-block-association-set is shape-member('Ipv6CidrBlockAssociationSet');
+        has SubnetIpv6CidrBlockAssociation @.ipv6-cidr-block-association-set is shape-member('Ipv6CidrBlockAssociationSet');
         has Bool $.assign-ipv6-address-on-creation is shape-member('AssignIpv6AddressOnCreation');
         has Int $.available-ip-address-count is shape-member('AvailableIpAddressCount');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has SubnetState $.state is shape-member('State');
         has Str $.availability-zone is shape-member('AvailabilityZone');
         has Bool $.map-public-ip-on-launch is shape-member('MapPublicIpOnLaunch');
@@ -1885,10 +2050,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeFpgaImagesRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.owners is shape-member('Owners');
-        has Array[Str] $.fpga-image-ids is shape-member('FpgaImageIds');
+        has Str @.owners is shape-member('Owners');
+        has Str @.fpga-image-ids is shape-member('FpgaImageIds');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -1918,19 +2083,17 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class StaleIpPermission does AWS::SDK::Shape {
-        has Array[Str] $.prefix-list-ids is shape-member('PrefixListIds');
+        has Str @.prefix-list-ids is shape-member('PrefixListIds');
         has Str $.ip-protocol is shape-member('IpProtocol');
         has Int $.from-port is shape-member('FromPort');
         has Int $.to-port is shape-member('ToPort');
-        has Array[Str] $.ip-ranges is shape-member('IpRanges');
-        has Array[UserIdGroupPair] $.user-id-group-pairs is shape-member('UserIdGroupPairs');
+        has Str @.ip-ranges is shape-member('IpRanges');
+        has UserIdGroupPair @.user-id-group-pairs is shape-member('UserIdGroupPairs');
     }
 
     class DescribeFpgaImageAttributeResult does AWS::SDK::Shape {
         has FpgaImageAttribute $.fpga-image-attribute is shape-member('FpgaImageAttribute');
     }
-
-    subset OfferingClassType of Str where $_ ~~ any('standard', 'convertible');
 
     class StorageLocation does AWS::SDK::Shape {
         has Str $.bucket is shape-member('Bucket');
@@ -1960,7 +2123,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class AllocateHostsResult does AWS::SDK::Shape {
-        has Array[Str] $.host-ids is shape-member('HostIds');
+        has Str @.host-ids is shape-member('HostIds');
     }
 
     class AttachNetworkInterfaceRequest does AWS::SDK::Shape {
@@ -1975,15 +2138,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.instance-id is required is shape-member('InstanceId');
     }
 
-    subset ImageAttributeName of Str where $_ ~~ any('description', 'kernel', 'ramdisk', 'launchPermission', 'productCodes', 'blockDeviceMapping', 'sriovNetSupport');
-
     class SecurityGroupReference does AWS::SDK::Shape {
         has Str $.group-id is required is shape-member('GroupId');
         has Str $.referencing-vpc-id is required is shape-member('ReferencingVpcId');
         has Str $.vpc-peering-connection-id is shape-member('VpcPeeringConnectionId');
     }
-
-    subset DomainType of Str where $_ ~~ any('vpc', 'standard');
 
     class RunInstancesMonitoringEnabled does AWS::SDK::Shape {
         has Bool $.enabled is required is shape-member('Enabled');
@@ -2021,13 +2180,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeVpcEndpointsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.vpc-endpoint-ids is shape-member('VpcEndpointIds');
+        has Str @.vpc-endpoint-ids is shape-member('VpcEndpointIds');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset OfferingTypeValues of Str where $_ ~~ any('Heavy Utilization', 'Medium Utilization', 'Light Utilization', 'No Upfront', 'Partial Upfront', 'All Upfront');
 
     class ScheduledInstancesBlockDeviceMapping does AWS::SDK::Shape {
         has ScheduledInstancesEbs $.ebs is shape-member('Ebs');
@@ -2037,13 +2194,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class CancelSpotFleetRequestsResponse does AWS::SDK::Shape {
-        has Array[CancelSpotFleetRequestsErrorItem] $.unsuccessful-fleet-requests is shape-member('UnsuccessfulFleetRequests');
-        has Array[CancelSpotFleetRequestsSuccessItem] $.successful-fleet-requests is shape-member('SuccessfulFleetRequests');
+        has CancelSpotFleetRequestsErrorItem @.unsuccessful-fleet-requests is shape-member('UnsuccessfulFleetRequests');
+        has CancelSpotFleetRequestsSuccessItem @.successful-fleet-requests is shape-member('SuccessfulFleetRequests');
     }
 
     class DescribeVpcEndpointsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[VpcEndpoint] $.vpc-endpoints is shape-member('VpcEndpoints');
+        has VpcEndpoint @.vpc-endpoints is shape-member('VpcEndpoints');
     }
 
     class AttachVpnGatewayResult does AWS::SDK::Shape {
@@ -2071,15 +2228,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.type is required is shape-member('Type');
     }
 
-    subset VirtualizationType of Str where $_ ~~ any('hvm', 'paravirtual');
-
     class DescribeImportSnapshotTasksResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[ImportSnapshotTask] $.import-snapshot-tasks is shape-member('ImportSnapshotTasks');
+        has ImportSnapshotTask @.import-snapshot-tasks is shape-member('ImportSnapshotTasks');
     }
 
     class DescribeIdFormatResult does AWS::SDK::Shape {
-        has Array[IdFormat] $.statuses is shape-member('Statuses');
+        has IdFormat @.statuses is shape-member('Statuses');
     }
 
     class AcceptVpcPeeringConnectionRequest does AWS::SDK::Shape {
@@ -2090,10 +2245,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class DescribeVolumeAttributeResult does AWS::SDK::Shape {
         has AttributeBooleanValue $.auto-enable-io is shape-member('AutoEnableIO');
         has Str $.volume-id is shape-member('VolumeId');
-        has Array[ProductCode] $.product-codes is shape-member('ProductCodes');
+        has ProductCode @.product-codes is shape-member('ProductCodes');
     }
-
-    subset AttachmentStatus of Str where $_ ~~ any('attaching', 'attached', 'detaching', 'detached');
 
     class CreateSpotDatafeedSubscriptionResult does AWS::SDK::Shape {
         has SpotDatafeedSubscription $.spot-datafeed-subscription is shape-member('SpotDatafeedSubscription');
@@ -2109,11 +2262,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class LaunchPermissionModifications does AWS::SDK::Shape {
-        has Array[LaunchPermission] $.remove is shape-member('Remove');
-        has Array[LaunchPermission] $.add is shape-member('Add');
+        has LaunchPermission @.remove is shape-member('Remove');
+        has LaunchPermission @.add is shape-member('Add');
     }
-
-    subset RIProductDescription of Str where $_ ~~ any('Linux/UNIX', 'Linux/UNIX (Amazon VPC)', 'Windows', 'Windows (Amazon VPC)');
 
     class IcmpTypeCode does AWS::SDK::Shape {
         has Int $.type is shape-member('Type');
@@ -2127,7 +2278,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeTagsResult does AWS::SDK::Shape {
-        has Array[TagDescription] $.tags is shape-member('Tags');
+        has TagDescription @.tags is shape-member('Tags');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2144,7 +2295,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeNetworkInterfacesResult does AWS::SDK::Shape {
-        has Array[NetworkInterface] $.network-interfaces is shape-member('NetworkInterfaces');
+        has NetworkInterface @.network-interfaces is shape-member('NetworkInterfaces');
     }
 
     class BundleTaskError does AWS::SDK::Shape {
@@ -2164,15 +2315,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.device-name is shape-member('DeviceName');
     }
 
-    subset ListingState of Str where $_ ~~ any('available', 'sold', 'cancelled', 'pending');
-
     class NetworkAcl does AWS::SDK::Shape {
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.network-acl-id is shape-member('NetworkAclId');
         has Bool $.is-default is shape-member('IsDefault');
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[NetworkAclAssociation] $.associations is shape-member('Associations');
-        has Array[NetworkAclEntry] $.entries is shape-member('Entries');
+        has Tag @.tags is shape-member('Tags');
+        has NetworkAclAssociation @.associations is shape-member('Associations');
+        has NetworkAclEntry @.entries is shape-member('Entries');
     }
 
     class MoveAddressToVpcRequest does AWS::SDK::Shape {
@@ -2195,17 +2344,17 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.client-token is shape-member('ClientToken');
         has Str $.total-upfront-price is shape-member('TotalUpfrontPrice');
         has CurrencyCodeValues $.currency-code is shape-member('CurrencyCode');
-        has Array[Purchase] $.purchase is shape-member('Purchase');
+        has Purchase @.purchase is shape-member('Purchase');
     }
 
     class DescribeConversionTasksRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.conversion-task-ids is shape-member('ConversionTaskIds');
+        has Str @.conversion-task-ids is shape-member('ConversionTaskIds');
     }
 
     class InstanceStatusSummary does AWS::SDK::Shape {
         has SummaryStatus $.status is shape-member('Status');
-        has Array[InstanceStatusDetails] $.details is shape-member('Details');
+        has InstanceStatusDetails @.details is shape-member('Details');
     }
 
     class SpotInstanceRequest does AWS::SDK::Shape {
@@ -2217,7 +2366,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.launch-group is shape-member('LaunchGroup');
         has DateTime $.valid-from is shape-member('ValidFrom');
         has Str $.actual-block-hourly-price is shape-member('ActualBlockHourlyPrice');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has SpotInstanceState $.state is shape-member('State');
         has Str $.spot-price is shape-member('SpotPrice');
         has SpotInstanceStateFault $.fault is shape-member('Fault');
@@ -2231,18 +2380,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeSecurityGroupReferencesRequest does AWS::SDK::Shape {
-        has Array[Str] $.group-id is required is shape-member('GroupId');
+        has Str @.group-id is required is shape-member('GroupId');
         has Bool $.dry-run is shape-member('DryRun');
     }
 
     class DescribeReservedInstancesModificationsRequest does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.reserved-instances-modification-ids is shape-member('ReservedInstancesModificationIds');
+        has Str @.reserved-instances-modification-ids is shape-member('ReservedInstancesModificationIds');
     }
 
     class DescribePrefixListsResult does AWS::SDK::Shape {
-        has Array[PrefixList] $.prefix-lists is shape-member('PrefixLists');
+        has PrefixList @.prefix-lists is shape-member('PrefixLists');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2251,10 +2400,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.product-code is required is shape-member('ProductCode');
         has Str $.instance-id is required is shape-member('InstanceId');
     }
-
-    subset AllocationStrategy of Str where $_ ~~ any('lowestPrice', 'diversified');
-
-    subset ReportInstanceReasonCodes of Str where $_ ~~ any('instance-stuck-in-state', 'unresponsive', 'not-accepting-credentials', 'password-not-available', 'performance-network', 'performance-instance-store', 'performance-ebs-volume', 'performance-other', 'other');
 
     class SnapshotDetail does AWS::SDK::Shape {
         has Numeric $.disk-image-size is shape-member('DiskImageSize');
@@ -2287,9 +2432,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class DescribeReservedInstancesRequest does AWS::SDK::Shape {
         has OfferingTypeValues $.offering-type is shape-member('OfferingType');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has OfferingClassType $.offering-class is shape-member('OfferingClass');
-        has Array[Str] $.reserved-instances-ids is shape-member('ReservedInstancesIds');
+        has Str @.reserved-instances-ids is shape-member('ReservedInstancesIds');
     }
 
     class ProvisionedBandwidth does AWS::SDK::Shape {
@@ -2306,22 +2451,20 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeImportImageTasksResult does AWS::SDK::Shape {
-        has Array[ImportImageTask] $.import-image-tasks is shape-member('ImportImageTasks');
+        has ImportImageTask @.import-image-tasks is shape-member('ImportImageTasks');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class DescribeAvailabilityZonesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.zone-names is shape-member('ZoneNames');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.zone-names is shape-member('ZoneNames');
     }
 
     class EnableVolumeIORequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.volume-id is required is shape-member('VolumeId');
     }
-
-    subset LaunchSpecsList of Array[SpotFleetLaunchSpecification] where 1 <= *.elems;
 
     class PriceScheduleSpecification does AWS::SDK::Shape {
         has Numeric $.price is shape-member('Price');
@@ -2341,14 +2484,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has AttributeBooleanValue $.map-public-ip-on-launch is shape-member('MapPublicIpOnLaunch');
     }
 
-    subset VpcState of Str where $_ ~~ any('pending', 'available');
-
-    subset VolumeModificationState of Str where $_ ~~ any('modifying', 'optimizing', 'completed', 'failed');
-
     class AuthorizeSecurityGroupEgressRequest does AWS::SDK::Shape {
         has Str $.source-security-group-owner-id is shape-member('SourceSecurityGroupOwnerId');
         has Str $.cidr-ip is shape-member('CidrIp');
-        has Array[IpPermission] $.ip-permissions is shape-member('IpPermissions');
+        has IpPermission @.ip-permissions is shape-member('IpPermissions');
         has Str $.group-id is required is shape-member('GroupId');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.ip-protocol is shape-member('IpProtocol');
@@ -2365,12 +2504,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeVpcClassicLinkDnsSupportRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
-        has Array[Str] $.vpc-ids is shape-member('VpcIds');
+        has Str @.vpc-ids is shape-member('VpcIds');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
     class InstanceStatus does AWS::SDK::Shape {
-        has Array[InstanceStatusEvent] $.events is shape-member('Events');
+        has InstanceStatusEvent @.events is shape-member('Events');
         has InstanceState $.instance-state is shape-member('InstanceState');
         has InstanceStatusSummary $.system-status is shape-member('SystemStatus');
         has InstanceStatusSummary $.instance-status is shape-member('InstanceStatus');
@@ -2392,42 +2531,42 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class ImageAttribute does AWS::SDK::Shape {
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has AttributeValue $.ramdisk-id is shape-member('RamdiskId');
         has AttributeValue $.description is shape-member('Description');
         has Str $.image-id is shape-member('ImageId');
         has AttributeValue $.kernel-id is shape-member('KernelId');
-        has Array[ProductCode] $.product-codes is shape-member('ProductCodes');
-        has Array[LaunchPermission] $.launch-permissions is shape-member('LaunchPermissions');
+        has ProductCode @.product-codes is shape-member('ProductCodes');
+        has LaunchPermission @.launch-permissions is shape-member('LaunchPermissions');
         has AttributeValue $.sriov-net-support is shape-member('SriovNetSupport');
     }
 
     class ModifyImageAttributeRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.user-ids is shape-member('UserIds');
+        has Str @.user-ids is shape-member('UserIds');
         has LaunchPermissionModifications $.launch-permission is shape-member('LaunchPermission');
         has Str $.image-id is required is shape-member('ImageId');
         has AttributeValue $.description is shape-member('Description');
-        has Array[Str] $.user-groups is shape-member('UserGroups');
+        has Str @.user-groups is shape-member('UserGroups');
         has Str $.value is shape-member('Value');
         has OperationType $.operation-type is shape-member('OperationType');
         has Str $.attribute is shape-member('Attribute');
-        has Array[Str] $.product-codes is shape-member('ProductCodes');
+        has Str @.product-codes is shape-member('ProductCodes');
     }
 
     class RequestSpotLaunchSpecification does AWS::SDK::Shape {
         has SpotPlacement $.placement is shape-member('Placement');
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.subnet-id is shape-member('SubnetId');
         has Str $.user-data is shape-member('UserData');
         has Str $.ramdisk-id is shape-member('RamdiskId');
         has Str $.image-id is shape-member('ImageId');
-        has Array[Str] $.security-groups is shape-member('SecurityGroups');
+        has Str @.security-groups is shape-member('SecurityGroups');
         has Bool $.ebs-optimized is shape-member('EbsOptimized');
         has Str $.kernel-id is shape-member('KernelId');
         has InstanceType $.instance-type is shape-member('InstanceType');
-        has Array[InstanceNetworkInterfaceSpecification] $.network-interfaces is shape-member('NetworkInterfaces');
+        has InstanceNetworkInterfaceSpecification @.network-interfaces is shape-member('NetworkInterfaces');
         has RunInstancesMonitoringEnabled $.monitoring is shape-member('Monitoring');
         has IamInstanceProfileSpecification $.iam-instance-profile is shape-member('IamInstanceProfile');
         has Str $.addressing-type is shape-member('AddressingType');
@@ -2436,7 +2575,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class VolumeStatusInfo does AWS::SDK::Shape {
         has VolumeStatusInfoStatus $.status is shape-member('Status');
-        has Array[VolumeStatusDetails] $.details is shape-member('Details');
+        has VolumeStatusDetails @.details is shape-member('Details');
     }
 
     class DisassociateIamInstanceProfileRequest does AWS::SDK::Shape {
@@ -2444,7 +2583,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeReservedInstancesOfferingsResult does AWS::SDK::Shape {
-        has Array[ReservedInstancesOffering] $.reserved-instances-offerings is shape-member('ReservedInstancesOfferings');
+        has ReservedInstancesOffering @.reserved-instances-offerings is shape-member('ReservedInstancesOfferings');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2454,10 +2593,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has SnapshotTaskDetail $.snapshot-task-detail is shape-member('SnapshotTaskDetail');
     }
 
-    subset TrafficType of Str where $_ ~~ any('ACCEPT', 'REJECT', 'ALL');
-
-    subset ResourceType of Str where $_ ~~ any('customer-gateway', 'dhcp-options', 'image', 'instance', 'internet-gateway', 'network-acl', 'network-interface', 'reserved-instances', 'route-table', 'snapshot', 'spot-instances-request', 'subnet', 'security-group', 'volume', 'vpc', 'vpn-connection', 'vpn-gateway');
-
     class DescribeVpcAttributeResult does AWS::SDK::Shape {
         has AttributeBooleanValue $.enable-dns-support is shape-member('EnableDnsSupport');
         has Str $.vpc-id is shape-member('VpcId');
@@ -2466,9 +2601,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeAddressesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.allocation-ids is shape-member('AllocationIds');
-        has Array[Str] $.public-ips is shape-member('PublicIps');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.allocation-ids is shape-member('AllocationIds');
+        has Str @.public-ips is shape-member('PublicIps');
     }
 
     class InstanceStateChange does AWS::SDK::Shape {
@@ -2476,8 +2611,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has InstanceState $.current-state is shape-member('CurrentState');
         has Str $.instance-id is shape-member('InstanceId');
     }
-
-    subset NetworkInterfacePermissionStateCode of Str where $_ ~~ any('pending', 'granted', 'revoking', 'revoked');
 
     class DisableVgwRoutePropagationRequest does AWS::SDK::Shape {
         has Str $.route-table-id is required is shape-member('RouteTableId');
@@ -2499,11 +2632,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class ModifySnapshotAttributeRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.user-ids is shape-member('UserIds');
+        has Str @.user-ids is shape-member('UserIds');
         has Str $.snapshot-id is required is shape-member('SnapshotId');
         has OperationType $.operation-type is shape-member('OperationType');
         has SnapshotAttributeName $.attribute is shape-member('Attribute');
-        has Array[Str] $.group-names is shape-member('GroupNames');
+        has Str @.group-names is shape-member('GroupNames');
         has CreateVolumePermissionModifications $.create-volume-permission is shape-member('CreateVolumePermission');
     }
 
@@ -2514,8 +2647,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.private-dns-name is shape-member('PrivateDnsName');
     }
 
-    subset StatusType of Str where $_ ~~ any('passed', 'failed', 'insufficient-data', 'initializing');
-
     class SlotDateTimeRangeRequest does AWS::SDK::Shape {
         has DateTime $.latest-time is required is shape-member('LatestTime');
         has DateTime $.earliest-time is required is shape-member('EarliestTime');
@@ -2523,11 +2654,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeRegionsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.region-names is shape-member('RegionNames');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.region-names is shape-member('RegionNames');
     }
-
-    subset EventType of Str where $_ ~~ any('instanceChange', 'fleetRequestChange', 'error');
 
     class ModifySpotFleetRequestResponse does AWS::SDK::Shape {
         has Bool $.return is shape-member('Return');
@@ -2535,8 +2664,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeHostsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Str] $.host-ids is shape-member('HostIds');
-        has Array[Filter] $.filter is shape-member('Filter');
+        has Str @.host-ids is shape-member('HostIds');
+        has Filter @.filter is shape-member('Filter');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2556,7 +2685,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeVpcClassicLinkResult does AWS::SDK::Shape {
-        has Array[VpcClassicLink] $.vpcs is shape-member('Vpcs');
+        has VpcClassicLink @.vpcs is shape-member('Vpcs');
     }
 
     class CopyFpgaImageRequest does AWS::SDK::Shape {
@@ -2573,39 +2702,39 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeBundleTasksRequest does AWS::SDK::Shape {
-        has Array[Str] $.bundle-ids is shape-member('BundleIds');
+        has Str @.bundle-ids is shape-member('BundleIds');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
     }
 
     class ClassicLinkInstance does AWS::SDK::Shape {
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[GroupIdentifier] $.groups is shape-member('Groups');
+        has Tag @.tags is shape-member('Tags');
+        has GroupIdentifier @.groups is shape-member('Groups');
         has Str $.instance-id is shape-member('InstanceId');
     }
 
     class ModifyFpgaImageAttributeRequest does AWS::SDK::Shape {
         has Str $.fpga-image-id is required is shape-member('FpgaImageId');
-        has Array[Str] $.user-ids is shape-member('UserIds');
+        has Str @.user-ids is shape-member('UserIds');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.description is shape-member('Description');
-        has Array[Str] $.user-groups is shape-member('UserGroups');
+        has Str @.user-groups is shape-member('UserGroups');
         has Str $.name is shape-member('Name');
         has OperationType $.operation-type is shape-member('OperationType');
         has FpgaImageAttributeName $.attribute is shape-member('Attribute');
-        has Array[Str] $.product-codes is shape-member('ProductCodes');
+        has Str @.product-codes is shape-member('ProductCodes');
         has LoadPermissionModifications $.load-permission is shape-member('LoadPermission');
     }
 
     class DescribeVolumesResult does AWS::SDK::Shape {
-        has Array[Volume] $.volumes is shape-member('Volumes');
+        has Volume @.volumes is shape-member('Volumes');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class EgressOnlyInternetGateway does AWS::SDK::Shape {
         has Str $.egress-only-internet-gateway-id is shape-member('EgressOnlyInternetGatewayId');
-        has Array[InternetGatewayAttachment] $.attachments is shape-member('Attachments');
+        has InternetGatewayAttachment @.attachments is shape-member('Attachments');
     }
 
     class IpRange does AWS::SDK::Shape {
@@ -2613,14 +2742,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.description is shape-member('Description');
     }
 
-    subset VpcPeeringConnectionStateReasonCode of Str where $_ ~~ any('initiating-request', 'pending-acceptance', 'active', 'deleted', 'rejected', 'failed', 'expired', 'provisioning', 'deleting');
-
-    subset RuleAction of Str where $_ ~~ any('allow', 'deny');
-
     class DescribeScheduledInstanceAvailabilityRequest does AWS::SDK::Shape {
         has Int $.max-slot-duration-in-hours is shape-member('MaxSlotDurationInHours');
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.next-token is shape-member('NextToken');
         has ScheduledInstanceRecurrenceRequest $.recurrence is required is shape-member('Recurrence');
@@ -2648,14 +2773,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.status-message is shape-member('StatusMessage');
         has Str $.status is shape-member('Status');
         has Str $.progress is shape-member('Progress');
-        has Array[SnapshotDetail] $.snapshot-details is shape-member('SnapshotDetails');
+        has SnapshotDetail @.snapshot-details is shape-member('SnapshotDetails');
         has Str $.architecture is shape-member('Architecture');
     }
 
     class ImportInstanceTaskDetails does AWS::SDK::Shape {
         has PlatformValues $.platform is shape-member('Platform');
         has Str $.description is shape-member('Description');
-        has Array[ImportInstanceVolumeDetailItem] $.volumes is required is shape-member('Volumes');
+        has ImportInstanceVolumeDetailItem @.volumes is required is shape-member('Volumes');
         has Str $.instance-id is shape-member('InstanceId');
     }
 
@@ -2672,7 +2797,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeSpotFleetRequestHistoryResponse does AWS::SDK::Shape {
         has DateTime $.last-evaluated-time is required is shape-member('LastEvaluatedTime');
-        has Array[HistoryRecord] $.history-records is required is shape-member('HistoryRecords');
+        has HistoryRecord @.history-records is required is shape-member('HistoryRecords');
         has DateTime $.start-time is required is shape-member('StartTime');
         has Str $.next-token is shape-member('NextToken');
         has Str $.spot-fleet-request-id is required is shape-member('SpotFleetRequestId');
@@ -2680,12 +2805,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeRouteTablesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.route-table-ids is shape-member('RouteTableIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.route-table-ids is shape-member('RouteTableIds');
     }
 
     class DescribeAvailabilityZonesResult does AWS::SDK::Shape {
-        has Array[AvailabilityZone] $.availability-zones is shape-member('AvailabilityZones');
+        has AvailabilityZone @.availability-zones is shape-member('AvailabilityZones');
     }
 
     class Instance does AWS::SDK::Shape {
@@ -2694,7 +2819,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has PlatformValues $.platform is shape-member('Platform');
         has Str $.ramdisk-id is shape-member('RamdiskId');
         has HypervisorType $.hypervisor is shape-member('Hypervisor');
-        has Array[GroupIdentifier] $.security-groups is shape-member('SecurityGroups');
+        has GroupIdentifier @.security-groups is shape-member('SecurityGroups');
         has Bool $.ena-support is shape-member('EnaSupport');
         has InstanceState $.state is shape-member('State');
         has Bool $.ebs-optimized is shape-member('EbsOptimized');
@@ -2702,27 +2827,27 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.state-transition-reason is shape-member('StateTransitionReason');
         has InstanceLifecycleType $.instance-lifecycle is shape-member('InstanceLifecycle');
         has Str $.root-device-name is shape-member('RootDeviceName');
-        has Array[InstanceBlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has InstanceBlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has DeviceType $.root-device-type is shape-member('RootDeviceType');
         has Str $.subnet-id is shape-member('SubnetId');
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[ElasticGpuAssociation] $.elastic-gpu-associations is shape-member('ElasticGpuAssociations');
+        has ElasticGpuAssociation @.elastic-gpu-associations is shape-member('ElasticGpuAssociations');
         has Bool $.source-dest-check is shape-member('SourceDestCheck');
         has VirtualizationType $.virtualization-type is shape-member('VirtualizationType');
         has Int $.ami-launch-index is shape-member('AmiLaunchIndex');
         has Str $.image-id is shape-member('ImageId');
         has Str $.public-ip-address is shape-member('PublicIpAddress');
         has Str $.client-token is shape-member('ClientToken');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has InstanceType $.instance-type is shape-member('InstanceType');
         has Str $.instance-id is shape-member('InstanceId');
         has DateTime $.launch-time is shape-member('LaunchTime');
         has Monitoring $.monitoring is shape-member('Monitoring');
         has Str $.private-ip-address is shape-member('PrivateIpAddress');
-        has Array[ProductCode] $.product-codes is shape-member('ProductCodes');
+        has ProductCode @.product-codes is shape-member('ProductCodes');
         has Str $.public-dns-name is shape-member('PublicDnsName');
         has IamInstanceProfile $.iam-instance-profile is shape-member('IamInstanceProfile');
-        has Array[InstanceNetworkInterface] $.network-interfaces is shape-member('NetworkInterfaces');
+        has InstanceNetworkInterface @.network-interfaces is shape-member('NetworkInterfaces');
         has StateReason $.state-reason is shape-member('StateReason');
         has Str $.sriov-net-support is shape-member('SriovNetSupport');
         has Str $.key-name is shape-member('KeyName');
@@ -2732,12 +2857,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class SecurityGroup does AWS::SDK::Shape {
         has Str $.group-id is shape-member('GroupId');
-        has Array[IpPermission] $.ip-permissions is shape-member('IpPermissions');
+        has IpPermission @.ip-permissions is shape-member('IpPermissions');
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.owner-id is shape-member('OwnerId');
         has Str $.description is shape-member('Description');
-        has Array[IpPermission] $.ip-permissions-egress is shape-member('IpPermissionsEgress');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has IpPermission @.ip-permissions-egress is shape-member('IpPermissionsEgress');
+        has Tag @.tags is shape-member('Tags');
         has Str $.group-name is shape-member('GroupName');
     }
 
@@ -2746,11 +2871,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.dry-run is shape-member('DryRun');
     }
 
-    subset InstanceStateName of Str where $_ ~~ any('pending', 'running', 'shutting-down', 'terminated', 'stopping', 'stopped');
-
     class RegisterImageRequest does AWS::SDK::Shape {
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
-        has Array[Str] $.billing-products is shape-member('BillingProducts');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
+        has Str @.billing-products is shape-member('BillingProducts');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.virtualization-type is shape-member('VirtualizationType');
         has Str $.ramdisk-id is shape-member('RamdiskId');
@@ -2783,34 +2906,34 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class AcceptReservedInstancesExchangeQuoteRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[TargetConfigurationRequest] $.target-configurations is shape-member('TargetConfigurations');
-        has Array[Str] $.reserved-instance-ids is required is shape-member('ReservedInstanceIds');
+        has TargetConfigurationRequest @.target-configurations is shape-member('TargetConfigurations');
+        has Str @.reserved-instance-ids is required is shape-member('ReservedInstanceIds');
     }
 
     class CreateFlowLogsResult does AWS::SDK::Shape {
-        has Array[Str] $.flow-log-ids is shape-member('FlowLogIds');
+        has Str @.flow-log-ids is shape-member('FlowLogIds');
         has Str $.client-token is shape-member('ClientToken');
-        has Array[UnsuccessfulItem] $.unsuccessful is shape-member('Unsuccessful');
+        has UnsuccessfulItem @.unsuccessful is shape-member('Unsuccessful');
     }
 
     class NetworkInterface does AWS::SDK::Shape {
-        has Array[NetworkInterfaceIpv6Address] $.ipv6-addresses is shape-member('Ipv6Addresses');
+        has NetworkInterfaceIpv6Address @.ipv6-addresses is shape-member('Ipv6Addresses');
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.subnet-id is shape-member('SubnetId');
         has Str $.owner-id is shape-member('OwnerId');
         has NetworkInterfaceAssociation $.association is shape-member('Association');
         has Bool $.source-dest-check is shape-member('SourceDestCheck');
         has Str $.requester-id is shape-member('RequesterId');
-        has Array[NetworkInterfacePrivateIpAddress] $.private-ip-addresses is shape-member('PrivateIpAddresses');
+        has NetworkInterfacePrivateIpAddress @.private-ip-addresses is shape-member('PrivateIpAddresses');
         has Str $.description is shape-member('Description');
         has NetworkInterfaceAttachment $.attachment is shape-member('Attachment');
         has Str $.network-interface-id is shape-member('NetworkInterfaceId');
         has Str $.mac-address is shape-member('MacAddress');
-        has Array[GroupIdentifier] $.groups is shape-member('Groups');
+        has GroupIdentifier @.groups is shape-member('Groups');
         has NetworkInterfaceStatus $.status is shape-member('Status');
         has NetworkInterfaceType $.interface-type is shape-member('InterfaceType');
         has Str $.availability-zone is shape-member('AvailabilityZone');
-        has Array[Tag] $.tag-set is shape-member('TagSet');
+        has Tag @.tag-set is shape-member('TagSet');
         has Bool $.requester-managed is shape-member('RequesterManaged');
         has Str $.private-ip-address is shape-member('PrivateIpAddress');
         has Str $.private-dns-name is shape-member('PrivateDnsName');
@@ -2823,7 +2946,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class CreateReservedInstancesListingResult does AWS::SDK::Shape {
-        has Array[ReservedInstancesListing] $.reserved-instances-listings is shape-member('ReservedInstancesListings');
+        has ReservedInstancesListing @.reserved-instances-listings is shape-member('ReservedInstancesListings');
     }
 
     class DeleteSubnetRequest does AWS::SDK::Shape {
@@ -2833,15 +2956,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class VpcClassicLink does AWS::SDK::Shape {
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Bool $.classic-link-enabled is shape-member('ClassicLinkEnabled');
     }
 
     class ModifyVpcEndpointResult does AWS::SDK::Shape {
         has Bool $.return is shape-member('Return');
     }
-
-    subset DiskImageFormat of Str where $_ ~~ any('VMDK', 'RAW', 'VHD');
 
     class RequestSpotInstancesRequest does AWS::SDK::Shape {
         has InstanceInterruptionBehavior $.instance-interruption-behavior is shape-member('InstanceInterruptionBehavior');
@@ -2871,7 +2992,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeImagesResult does AWS::SDK::Shape {
-        has Array[Image] $.images is shape-member('Images');
+        has Image @.images is shape-member('Images');
     }
 
     class VolumeStatusDetails does AWS::SDK::Shape {
@@ -2879,20 +3000,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.status is shape-member('Status');
     }
 
-    subset TelemetryStatus of Str where $_ ~~ any('UP', 'DOWN');
-
     class RestoreAddressToClassicRequest does AWS::SDK::Shape {
         has Str $.public-ip is required is shape-member('PublicIp');
         has Bool $.dry-run is shape-member('DryRun');
     }
 
     class DescribeAccountAttributesResult does AWS::SDK::Shape {
-        has Array[AccountAttribute] $.account-attributes is shape-member('AccountAttributes');
+        has AccountAttribute @.account-attributes is shape-member('AccountAttributes');
     }
 
     class DescribeAccountAttributesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[AccountAttributeName] $.attribute-names is shape-member('AttributeNames');
+        has AccountAttributeName @.attribute-names is shape-member('AttributeNames');
     }
 
     class Address does AWS::SDK::Shape {
@@ -2925,11 +3044,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribePlacementGroupsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.group-names is shape-member('GroupNames');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.group-names is shape-member('GroupNames');
     }
-
-    subset CurrencyCodeValues of Str where $_ ~~ any('USD');
 
     class ImportSnapshotTask does AWS::SDK::Shape {
         has Str $.import-task-id is shape-member('ImportTaskId');
@@ -2938,22 +3055,22 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeVolumeStatusResult does AWS::SDK::Shape {
-        has Array[VolumeStatusItem] $.volume-statuses is shape-member('VolumeStatuses');
+        has VolumeStatusItem @.volume-statuses is shape-member('VolumeStatuses');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class DescribeSpotInstanceRequestsResult does AWS::SDK::Shape {
-        has Array[SpotInstanceRequest] $.spot-instance-requests is shape-member('SpotInstanceRequests');
+        has SpotInstanceRequest @.spot-instance-requests is shape-member('SpotInstanceRequests');
     }
 
     class DescribeNetworkInterfacesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.network-interface-ids is shape-member('NetworkInterfaceIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.network-interface-ids is shape-member('NetworkInterfaceIds');
     }
 
     class DescribeEgressOnlyInternetGatewaysResult does AWS::SDK::Shape {
-        has Array[EgressOnlyInternetGateway] $.egress-only-internet-gateways is shape-member('EgressOnlyInternetGateways');
+        has EgressOnlyInternetGateway @.egress-only-internet-gateways is shape-member('EgressOnlyInternetGateways');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -2963,7 +3080,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeTagsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.next-token is shape-member('NextToken');
     }
@@ -2975,8 +3092,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeInternetGatewaysRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.internet-gateway-ids is shape-member('InternetGatewayIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.internet-gateway-ids is shape-member('InternetGatewayIds');
     }
 
     class AccountAttributeValue does AWS::SDK::Shape {
@@ -3014,7 +3131,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Int $.count is shape-member('Count');
         has CurrencyCodeValues $.currency-code is shape-member('CurrencyCode');
         has Str $.instance-family is shape-member('InstanceFamily');
-        has Array[Str] $.host-id-set is shape-member('HostIdSet');
+        has Str @.host-id-set is shape-member('HostIdSet');
     }
 
     class Ipv6CidrBlock does AWS::SDK::Shape {
@@ -3022,34 +3139,34 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class ModifyHostsResult does AWS::SDK::Shape {
-        has Array[Str] $.successful is shape-member('Successful');
-        has Array[UnsuccessfulItem] $.unsuccessful is shape-member('Unsuccessful');
+        has Str @.successful is shape-member('Successful');
+        has UnsuccessfulItem @.unsuccessful is shape-member('Unsuccessful');
     }
 
     class Reservation does AWS::SDK::Shape {
         has Str $.reservation-id is shape-member('ReservationId');
         has Str $.owner-id is shape-member('OwnerId');
         has Str $.requester-id is shape-member('RequesterId');
-        has Array[Instance] $.instances is shape-member('Instances');
-        has Array[GroupIdentifier] $.groups is shape-member('Groups');
+        has Instance @.instances is shape-member('Instances');
+        has GroupIdentifier @.groups is shape-member('Groups');
     }
 
     class VpcPeeringConnectionVpcInfo does AWS::SDK::Shape {
         has Str $.cidr-block is shape-member('CidrBlock');
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.owner-id is shape-member('OwnerId');
-        has Array[Ipv6CidrBlock] $.ipv6-cidr-block-set is shape-member('Ipv6CidrBlockSet');
+        has Ipv6CidrBlock @.ipv6-cidr-block-set is shape-member('Ipv6CidrBlockSet');
         has VpcPeeringConnectionOptionsDescription $.peering-options is shape-member('PeeringOptions');
-        has Array[CidrBlock] $.cidr-block-set is shape-member('CidrBlockSet');
+        has CidrBlock @.cidr-block-set is shape-member('CidrBlockSet');
     }
 
     class RouteTable does AWS::SDK::Shape {
         has Str $.route-table-id is shape-member('RouteTableId');
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[Route] $.routes is shape-member('Routes');
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[RouteTableAssociation] $.associations is shape-member('Associations');
-        has Array[PropagatingVgw] $.propagating-vgws is shape-member('PropagatingVgws');
+        has Route @.routes is shape-member('Routes');
+        has Tag @.tags is shape-member('Tags');
+        has RouteTableAssociation @.associations is shape-member('Associations');
+        has PropagatingVgw @.propagating-vgws is shape-member('PropagatingVgws');
     }
 
     class ImportKeyPairResult does AWS::SDK::Shape {
@@ -3057,10 +3174,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.key-fingerprint is shape-member('KeyFingerprint');
     }
 
-    subset SnapshotState of Str where $_ ~~ any('pending', 'completed', 'error');
-
     class DescribeVpcPeeringConnectionsResult does AWS::SDK::Shape {
-        has Array[VpcPeeringConnection] $.vpc-peering-connections is shape-member('VpcPeeringConnections');
+        has VpcPeeringConnection @.vpc-peering-connections is shape-member('VpcPeeringConnections');
     }
 
     class CancelSpotFleetRequestsSuccessItem does AWS::SDK::Shape {
@@ -3077,8 +3192,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.instance-id is shape-member('InstanceId');
         has ExportEnvironment $.target-environment is shape-member('TargetEnvironment');
     }
-
-    subset AvailabilityZoneState of Str where $_ ~~ any('available', 'information', 'impaired', 'unavailable');
 
     class AssociateDhcpOptionsRequest does AWS::SDK::Shape {
         has Str $.dhcp-options-id is required is shape-member('DhcpOptionsId');
@@ -3097,7 +3210,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DeleteVpcEndpointsResult does AWS::SDK::Shape {
-        has Array[UnsuccessfulItem] $.unsuccessful is shape-member('Unsuccessful');
+        has UnsuccessfulItem @.unsuccessful is shape-member('Unsuccessful');
     }
 
     class EventInformation does AWS::SDK::Shape {
@@ -3108,17 +3221,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeFlowLogsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[FlowLog] $.flow-logs is shape-member('FlowLogs');
+        has FlowLog @.flow-logs is shape-member('FlowLogs');
     }
 
     class CopySnapshotResult does AWS::SDK::Shape {
         has Str $.snapshot-id is shape-member('SnapshotId');
     }
 
-    subset VpnStaticRouteSource of Str where $_ ~~ any('Static');
-
     class DescribeVpnGatewaysResult does AWS::SDK::Shape {
-        has Array[VpnGateway] $.vpn-gateways is shape-member('VpnGateways');
+        has VpnGateway @.vpn-gateways is shape-member('VpnGateways');
     }
 
     class DescribeImageAttributeRequest does AWS::SDK::Shape {
@@ -3132,11 +3243,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.network-interface-id is required is shape-member('NetworkInterfaceId');
     }
 
-    subset NetworkInterfaceAttribute of Str where $_ ~~ any('description', 'groupSet', 'sourceDestCheck', 'attachment');
-
     class RevokeSecurityGroupIngressRequest does AWS::SDK::Shape {
         has Str $.source-security-group-owner-id is shape-member('SourceSecurityGroupOwnerId');
-        has Array[IpPermission] $.ip-permissions is shape-member('IpPermissions');
+        has IpPermission @.ip-permissions is shape-member('IpPermissions');
         has Str $.group-id is shape-member('GroupId');
         has Str $.cidr-ip is shape-member('CidrIp');
         has Bool $.dry-run is shape-member('DryRun');
@@ -3148,7 +3257,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeDhcpOptionsResult does AWS::SDK::Shape {
-        has Array[DhcpOptions] $.dhcp-options is shape-member('DhcpOptions');
+        has DhcpOptions @.dhcp-options is shape-member('DhcpOptions');
     }
 
     class CreateFpgaImageResult does AWS::SDK::Shape {
@@ -3158,7 +3267,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class GetHostReservationPurchasePreviewRequest does AWS::SDK::Shape {
         has Str $.offering-id is required is shape-member('OfferingId');
-        has Array[Str] $.host-id-set is required is shape-member('HostIdSet');
+        has Str @.host-id-set is required is shape-member('HostIdSet');
     }
 
     class GetPasswordDataResult does AWS::SDK::Shape {
@@ -3179,7 +3288,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class RebootInstancesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.instance-ids is required is shape-member('InstanceIds');
+        has Str @.instance-ids is required is shape-member('InstanceIds');
     }
 
     class ReplaceNetworkAclEntryRequest does AWS::SDK::Shape {
@@ -3196,9 +3305,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeDhcpOptionsRequest does AWS::SDK::Shape {
-        has Array[Str] $.dhcp-options-ids is shape-member('DhcpOptionsIds');
+        has Str @.dhcp-options-ids is shape-member('DhcpOptionsIds');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
     }
 
     class CancelImportTaskResult does AWS::SDK::Shape {
@@ -3213,31 +3322,29 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.prefix is shape-member('Prefix');
     }
 
-    subset FlowLogsResourceType of Str where $_ ~~ any('VPC', 'Subnet', 'NetworkInterface');
-
     class ReservedInstancesListing does AWS::SDK::Shape {
         has Str $.reserved-instances-listing-id is shape-member('ReservedInstancesListingId');
         has Str $.reserved-instances-id is shape-member('ReservedInstancesId');
-        has Array[InstanceCount] $.instance-counts is shape-member('InstanceCounts');
+        has InstanceCount @.instance-counts is shape-member('InstanceCounts');
         has DateTime $.create-date is shape-member('CreateDate');
         has Str $.client-token is shape-member('ClientToken');
         has DateTime $.update-date is shape-member('UpdateDate');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.status-message is shape-member('StatusMessage');
         has ListingStatus $.status is shape-member('Status');
-        has Array[PriceSchedule] $.price-schedules is shape-member('PriceSchedules');
+        has PriceSchedule @.price-schedules is shape-member('PriceSchedules');
     }
 
     class Volume does AWS::SDK::Shape {
         has Str $.kms-key-id is shape-member('KmsKeyId');
         has Str $.snapshot-id is shape-member('SnapshotId');
         has VolumeType $.volume-type is shape-member('VolumeType');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has VolumeState $.state is shape-member('State');
         has Str $.volume-id is shape-member('VolumeId');
         has Int $.size is shape-member('Size');
         has Str $.availability-zone is shape-member('AvailabilityZone');
-        has Array[VolumeAttachment] $.attachments is shape-member('Attachments');
+        has VolumeAttachment @.attachments is shape-member('Attachments');
         has Int $.iops is shape-member('Iops');
         has Bool $.encrypted is shape-member('Encrypted');
         has DateTime $.create-time is shape-member('CreateTime');
@@ -3250,8 +3357,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeSpotInstanceRequestsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.spot-instance-request-ids is shape-member('SpotInstanceRequestIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.spot-instance-request-ids is shape-member('SpotInstanceRequestIds');
     }
 
     class ReplaceNetworkAclAssociationRequest does AWS::SDK::Shape {
@@ -3261,7 +3368,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class TerminateInstancesResult does AWS::SDK::Shape {
-        has Array[InstanceStateChange] $.terminating-instances is shape-member('TerminatingInstances');
+        has InstanceStateChange @.terminating-instances is shape-member('TerminatingInstances');
     }
 
     class AssociateAddressRequest does AWS::SDK::Shape {
@@ -3280,10 +3387,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.client-token is shape-member('ClientToken');
         has Str $.policy-document is shape-member('PolicyDocument');
-        has Array[Str] $.route-table-ids is shape-member('RouteTableIds');
+        has Str @.route-table-ids is shape-member('RouteTableIds');
     }
-
-    subset ExportEnvironment of Str where $_ ~~ any('citrix', 'vmware', 'microsoft');
 
     class PurchaseReservedInstancesOfferingRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -3306,12 +3411,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeSubnetsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.subnet-ids is shape-member('SubnetIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.subnet-ids is shape-member('SubnetIds');
     }
 
     class DescribeRouteTablesResult does AWS::SDK::Shape {
-        has Array[RouteTable] $.route-tables is shape-member('RouteTables');
+        has RouteTable @.route-tables is shape-member('RouteTables');
     }
 
     class NetworkInterfaceIpv6Address does AWS::SDK::Shape {
@@ -3330,10 +3435,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeInstancesResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Reservation] $.reservations is shape-member('Reservations');
+        has Reservation @.reservations is shape-member('Reservations');
     }
-
-    subset BundleTaskState of Str where $_ ~~ any('pending', 'waiting-for-shutdown', 'bundling', 'storing', 'cancelling', 'complete', 'failed');
 
     class BundleTask does AWS::SDK::Shape {
         has Storage $.storage is shape-member('Storage');
@@ -3346,11 +3449,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.bundle-id is shape-member('BundleId');
     }
 
-    subset AccountAttributeName of Str where $_ ~~ any('supported-platforms', 'default-vpc');
-
     class AssignPrivateIpAddressesRequest does AWS::SDK::Shape {
         has Int $.secondary-private-ip-address-count is shape-member('SecondaryPrivateIpAddressCount');
-        has Array[Str] $.private-ip-addresses is shape-member('PrivateIpAddresses');
+        has Str @.private-ip-addresses is shape-member('PrivateIpAddresses');
         has Str $.network-interface-id is required is shape-member('NetworkInterfaceId');
         has Bool $.allow-reassignment is shape-member('AllowReassignment');
     }
@@ -3360,7 +3461,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.dry-run is shape-member('DryRun');
         has PlatformValues $.platform is required is shape-member('Platform');
         has Str $.description is shape-member('Description');
-        has Array[DiskImage] $.disk-images is shape-member('DiskImages');
+        has DiskImage @.disk-images is shape-member('DiskImages');
     }
 
     class HostOffering does AWS::SDK::Shape {
@@ -3377,22 +3478,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.ipv6-address is shape-member('Ipv6Address');
     }
 
-    subset InterfacePermissionType of Str where $_ ~~ any('INSTANCE-ATTACH', 'EIP-ASSOCIATE');
-
     class VpnConnection does AWS::SDK::Shape {
-        has Array[VgwTelemetry] $.vgw-telemetry is shape-member('VgwTelemetry');
+        has VgwTelemetry @.vgw-telemetry is shape-member('VgwTelemetry');
         has Str $.vpn-gateway-id is shape-member('VpnGatewayId');
         has Str $.customer-gateway-id is shape-member('CustomerGatewayId');
-        has Array[VpnStaticRoute] $.routes is shape-member('Routes');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has VpnStaticRoute @.routes is shape-member('Routes');
+        has Tag @.tags is shape-member('Tags');
         has VpnConnectionOptions $.options is shape-member('Options');
         has VpnState $.state is shape-member('State');
         has Str $.customer-gateway-configuration is shape-member('CustomerGatewayConfiguration');
         has Str $.vpn-connection-id is shape-member('VpnConnectionId');
         has GatewayType $.type is shape-member('Type');
     }
-
-    subset ResetImageAttributeName of Str where $_ ~~ any('launchPermission');
 
     class DisableVpcClassicLinkRequest does AWS::SDK::Shape {
         has Str $.vpc-id is required is shape-member('VpcId');
@@ -3406,15 +3503,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class CreateImageRequest does AWS::SDK::Shape {
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has Bool $.no-reboot is shape-member('NoReboot');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.description is shape-member('Description');
         has Str $.name is required is shape-member('Name');
         has Str $.instance-id is required is shape-member('InstanceId');
     }
-
-    subset ReservedInstanceState of Str where $_ ~~ any('payment-pending', 'active', 'payment-failed', 'retired');
 
     class CreateVpnGatewayRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -3433,13 +3528,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has RIProductDescription $.product-description is shape-member('ProductDescription');
         has Tenancy $.instance-tenancy is shape-member('InstanceTenancy');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has OfferingClassType $.offering-class is shape-member('OfferingClass');
         has Int $.max-duration is shape-member('MaxDuration');
         has Bool $.include-marketplace is shape-member('IncludeMarketplace');
         has Int $.min-duration is shape-member('MinDuration');
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.reserved-instances-offering-ids is shape-member('ReservedInstancesOfferingIds');
+        has Str @.reserved-instances-offering-ids is shape-member('ReservedInstancesOfferingIds');
         has InstanceType $.instance-type is shape-member('InstanceType');
         has Str $.availability-zone is shape-member('AvailabilityZone');
         has Int $.max-instance-count is shape-member('MaxInstanceCount');
@@ -3454,7 +3549,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.total-hourly-price is shape-member('TotalHourlyPrice');
         has Str $.total-upfront-price is shape-member('TotalUpfrontPrice');
         has CurrencyCodeValues $.currency-code is shape-member('CurrencyCode');
-        has Array[Purchase] $.purchase is shape-member('Purchase');
+        has Purchase @.purchase is shape-member('Purchase');
     }
 
     class AssociateRouteTableResult does AWS::SDK::Shape {
@@ -3487,9 +3582,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class DescribeClassicLinkInstancesRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.instance-ids is shape-member('InstanceIds');
+        has Str @.instance-ids is shape-member('InstanceIds');
     }
 
     class AcceptReservedInstancesExchangeQuoteResult does AWS::SDK::Shape {
@@ -3507,15 +3602,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class UnassignIpv6AddressesResult does AWS::SDK::Shape {
-        has Array[Str] $.unassigned-ipv6-addresses is shape-member('UnassignedIpv6Addresses');
+        has Str @.unassigned-ipv6-addresses is shape-member('UnassignedIpv6Addresses');
         has Str $.network-interface-id is shape-member('NetworkInterfaceId');
     }
 
     class PurchaseScheduledInstancesResult does AWS::SDK::Shape {
-        has Array[ScheduledInstance] $.scheduled-instance-set is shape-member('ScheduledInstanceSet');
+        has ScheduledInstance @.scheduled-instance-set is shape-member('ScheduledInstanceSet');
     }
-
-    subset State of Str where $_ ~~ any('Pending', 'Available', 'Deleting', 'Deleted');
 
     class GetConsoleScreenshotResult does AWS::SDK::Shape {
         has Str $.instance-id is shape-member('InstanceId');
@@ -3531,7 +3624,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeNetworkInterfacePermissionsResult does AWS::SDK::Shape {
-        has Array[NetworkInterfacePermission] $.network-interface-permissions is shape-member('NetworkInterfacePermissions');
+        has NetworkInterfacePermission @.network-interface-permissions is shape-member('NetworkInterfacePermissions');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -3555,12 +3648,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DeleteVpcEndpointsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.vpc-endpoint-ids is required is shape-member('VpcEndpointIds');
+        has Str @.vpc-endpoint-ids is required is shape-member('VpcEndpointIds');
     }
 
     class MonitorInstancesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.instance-ids is required is shape-member('InstanceIds');
+        has Str @.instance-ids is required is shape-member('InstanceIds');
     }
 
     class ResetFpgaImageAttributeRequest does AWS::SDK::Shape {
@@ -3578,17 +3671,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class StopInstancesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
         has Bool $.force is shape-member('Force');
-        has Array[Str] $.instance-ids is required is shape-member('InstanceIds');
+        has Str @.instance-ids is required is shape-member('InstanceIds');
     }
 
     class DescribePlacementGroupsResult does AWS::SDK::Shape {
-        has Array[PlacementGroup] $.placement-groups is shape-member('PlacementGroups');
+        has PlacementGroup @.placement-groups is shape-member('PlacementGroups');
     }
 
-    subset FpgaImageStateCode of Str where $_ ~~ any('pending', 'failed', 'available', 'unavailable');
-
     class InstanceAttribute does AWS::SDK::Shape {
-        has Array[InstanceBlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has InstanceBlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has AttributeValue $.user-data is shape-member('UserData');
         has AttributeBooleanValue $.source-dest-check is shape-member('SourceDestCheck');
         has AttributeValue $.ramdisk-id is shape-member('RamdiskId');
@@ -3596,10 +3687,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has AttributeBooleanValue $.ena-support is shape-member('EnaSupport');
         has AttributeBooleanValue $.disable-api-termination is shape-member('DisableApiTermination');
         has AttributeBooleanValue $.ebs-optimized is shape-member('EbsOptimized');
-        has Array[GroupIdentifier] $.groups is shape-member('Groups');
+        has GroupIdentifier @.groups is shape-member('Groups');
         has AttributeValue $.kernel-id is shape-member('KernelId');
         has AttributeValue $.instance-type is shape-member('InstanceType');
-        has Array[ProductCode] $.product-codes is shape-member('ProductCodes');
+        has ProductCode @.product-codes is shape-member('ProductCodes');
         has Str $.instance-id is shape-member('InstanceId');
         has AttributeValue $.sriov-net-support is shape-member('SriovNetSupport');
         has AttributeValue $.root-device-name is shape-member('RootDeviceName');
@@ -3617,13 +3708,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeHostReservationsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filter is shape-member('Filter');
-        has Array[Str] $.host-reservation-id-set is shape-member('HostReservationIdSet');
+        has Filter @.filter is shape-member('Filter');
+        has Str @.host-reservation-id-set is shape-member('HostReservationIdSet');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class DescribeStaleSecurityGroupsResult does AWS::SDK::Shape {
-        has Array[StaleSecurityGroup] $.stale-security-group-set is shape-member('StaleSecurityGroupSet');
+        has StaleSecurityGroup @.stale-security-group-set is shape-member('StaleSecurityGroupSet');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -3642,24 +3733,20 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class TerminateInstancesRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.instance-ids is required is shape-member('InstanceIds');
+        has Str @.instance-ids is required is shape-member('InstanceIds');
     }
-
-    subset VolumeType of Str where $_ ~~ any('standard', 'io1', 'gp2', 'sc1', 'st1');
-
-    subset scope of Str where $_ ~~ any('Availability Zone', 'Region');
 
     class ImportInstanceLaunchSpecification does AWS::SDK::Shape {
         has Placement $.placement is shape-member('Placement');
         has Str $.subnet-id is shape-member('SubnetId');
         has UserData $.user-data is shape-member('UserData');
-        has Array[Str] $.group-ids is shape-member('GroupIds');
+        has Str @.group-ids is shape-member('GroupIds');
         has ShutdownBehavior $.instance-initiated-shutdown-behavior is shape-member('InstanceInitiatedShutdownBehavior');
         has Str $.additional-info is shape-member('AdditionalInfo');
         has InstanceType $.instance-type is shape-member('InstanceType');
         has Str $.private-ip-address is shape-member('PrivateIpAddress');
         has Bool $.monitoring is shape-member('Monitoring');
-        has Array[Str] $.group-names is shape-member('GroupNames');
+        has Str @.group-names is shape-member('GroupNames');
         has ArchitectureValues $.architecture is shape-member('Architecture');
     }
 
@@ -3673,7 +3760,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class CancelReservedInstancesListingResult does AWS::SDK::Shape {
-        has Array[ReservedInstancesListing] $.reserved-instances-listings is shape-member('ReservedInstancesListings');
+        has ReservedInstancesListing @.reserved-instances-listings is shape-member('ReservedInstancesListings');
     }
 
     class VpnConnectionOptionsSpecification does AWS::SDK::Shape {
@@ -3685,15 +3772,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.status-message is shape-member('StatusMessage');
     }
 
-    subset MonitoringState of Str where $_ ~~ any('disabled', 'disabling', 'enabled', 'pending');
-
     class VpcEndpoint does AWS::SDK::Shape {
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.vpc-endpoint-id is shape-member('VpcEndpointId');
         has Str $.service-name is shape-member('ServiceName');
         has State $.state is shape-member('State');
         has Str $.policy-document is shape-member('PolicyDocument');
-        has Array[Str] $.route-table-ids is shape-member('RouteTableIds');
+        has Str @.route-table-ids is shape-member('RouteTableIds');
         has DateTime $.creation-timestamp is shape-member('CreationTimestamp');
     }
 
@@ -3701,14 +3786,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.zone-name is shape-member('ZoneName');
         has Str $.region-name is shape-member('RegionName');
         has AvailabilityZoneState $.state is shape-member('State');
-        has Array[AvailabilityZoneMessage] $.messages is shape-member('Messages');
+        has AvailabilityZoneMessage @.messages is shape-member('Messages');
     }
 
     class GetReservedInstancesExchangeQuoteResult does AWS::SDK::Shape {
-        has Array[TargetReservationValue] $.target-configuration-value-set is shape-member('TargetConfigurationValueSet');
+        has TargetReservationValue @.target-configuration-value-set is shape-member('TargetConfigurationValueSet');
         has ReservationValue $.target-configuration-value-rollup is shape-member('TargetConfigurationValueRollup');
         has ReservationValue $.reserved-instance-value-rollup is shape-member('ReservedInstanceValueRollup');
-        has Array[ReservedInstanceReservationValue] $.reserved-instance-value-set is shape-member('ReservedInstanceValueSet');
+        has ReservedInstanceReservationValue @.reserved-instance-value-set is shape-member('ReservedInstanceValueSet');
         has DateTime $.output-reserved-instances-will-expire-at is shape-member('OutputReservedInstancesWillExpireAt');
         has Bool $.is-valid-exchange is shape-member('IsValidExchange');
         has Str $.validation-failure-reason is shape-member('ValidationFailureReason');
@@ -3717,7 +3802,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class ModifyHostsRequest does AWS::SDK::Shape {
-        has Array[Str] $.host-ids is required is shape-member('HostIds');
+        has Str @.host-ids is required is shape-member('HostIds');
         has AutoPlacement $.auto-placement is required is shape-member('AutoPlacement');
     }
 
@@ -3727,20 +3812,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.is-default is shape-member('IsDefault');
         has Tenancy $.instance-tenancy is shape-member('InstanceTenancy');
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[VpcIpv6CidrBlockAssociation] $.ipv6-cidr-block-association-set is shape-member('Ipv6CidrBlockAssociationSet');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has VpcIpv6CidrBlockAssociation @.ipv6-cidr-block-association-set is shape-member('Ipv6CidrBlockAssociationSet');
+        has Tag @.tags is shape-member('Tags');
         has VpcState $.state is shape-member('State');
-        has Array[VpcCidrBlockAssociation] $.cidr-block-association-set is shape-member('CidrBlockAssociationSet');
+        has VpcCidrBlockAssociation @.cidr-block-association-set is shape-member('CidrBlockAssociationSet');
     }
 
-    subset HostTenancy of Str where $_ ~~ any('dedicated', 'host');
-
     class ReportInstanceStatusRequest does AWS::SDK::Shape {
-        has Array[ReportInstanceReasonCodes] $.reason-codes is required is shape-member('ReasonCodes');
+        has ReportInstanceReasonCodes @.reason-codes is required is shape-member('ReasonCodes');
         has DateTime $.end-time is shape-member('EndTime');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.description is shape-member('Description');
-        has Array[Str] $.instances is required is shape-member('Instances');
+        has Str @.instances is required is shape-member('Instances');
         has DateTime $.start-time is shape-member('StartTime');
         has ReportStatusType $.status is required is shape-member('Status');
     }
@@ -3748,7 +3831,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class RevokeSecurityGroupEgressRequest does AWS::SDK::Shape {
         has Str $.source-security-group-owner-id is shape-member('SourceSecurityGroupOwnerId');
         has Str $.cidr-ip is shape-member('CidrIp');
-        has Array[IpPermission] $.ip-permissions is shape-member('IpPermissions');
+        has IpPermission @.ip-permissions is shape-member('IpPermissions');
         has Str $.group-id is required is shape-member('GroupId');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.ip-protocol is shape-member('IpProtocol');
@@ -3764,7 +3847,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class CreateDhcpOptionsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[NewDhcpConfiguration] $.dhcp-configurations is required is shape-member('DhcpConfigurations');
+        has NewDhcpConfiguration @.dhcp-configurations is required is shape-member('DhcpConfigurations');
     }
 
     class ReplaceIamInstanceProfileAssociationResult does AWS::SDK::Shape {
@@ -3778,20 +3861,20 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeVpcsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.vpc-ids is shape-member('VpcIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.vpc-ids is shape-member('VpcIds');
     }
 
     class AttachClassicLinkVpcRequest does AWS::SDK::Shape {
         has Str $.vpc-id is required is shape-member('VpcId');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.groups is required is shape-member('Groups');
+        has Str @.groups is required is shape-member('Groups');
         has Str $.instance-id is required is shape-member('InstanceId');
     }
 
     class DescribeHostReservationsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[HostReservation] $.host-reservation-set is shape-member('HostReservationSet');
+        has HostReservation @.host-reservation-set is shape-member('HostReservationSet');
     }
 
     class InstanceStatusEvent does AWS::SDK::Shape {
@@ -3813,7 +3896,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class ReservedInstancesModification does AWS::SDK::Shape {
-        has Array[ReservedInstancesModificationResult] $.modification-results is shape-member('ModificationResults');
+        has ReservedInstancesModificationResult @.modification-results is shape-member('ModificationResults');
         has DateTime $.create-date is shape-member('CreateDate');
         has Str $.client-token is shape-member('ClientToken');
         has DateTime $.update-date is shape-member('UpdateDate');
@@ -3821,21 +3904,19 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.status-message is shape-member('StatusMessage');
         has Str $.status is shape-member('Status');
         has Str $.reserved-instances-modification-id is shape-member('ReservedInstancesModificationId');
-        has Array[ReservedInstancesId] $.reserved-instances-ids is shape-member('ReservedInstancesIds');
+        has ReservedInstancesId @.reserved-instances-ids is shape-member('ReservedInstancesIds');
     }
-
-    subset SubnetState of Str where $_ ~~ any('pending', 'available');
 
     class ScheduledInstanceRecurrence does AWS::SDK::Shape {
         has Bool $.occurrence-relative-to-end is shape-member('OccurrenceRelativeToEnd');
         has Int $.interval is shape-member('Interval');
-        has Array[Int] $.occurrence-day-set is shape-member('OccurrenceDaySet');
+        has Int @.occurrence-day-set is shape-member('OccurrenceDaySet');
         has Str $.frequency is shape-member('Frequency');
         has Str $.occurrence-unit is shape-member('OccurrenceUnit');
     }
 
     class AvailableCapacity does AWS::SDK::Shape {
-        has Array[InstanceCapacity] $.available-instance-capacity is shape-member('AvailableInstanceCapacity');
+        has InstanceCapacity @.available-instance-capacity is shape-member('AvailableInstanceCapacity');
         has Int $.available-v-cpus is shape-member('AvailableVCpus');
     }
 
@@ -3856,12 +3937,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has ExportToS3Task $.export-to-s3-task is shape-member('ExportToS3Task');
     }
 
-    subset NetworkInterfaceStatus of Str where $_ ~~ any('available', 'attaching', 'in-use', 'detaching');
-
-    subset VolumeAttributeName of Str where $_ ~~ any('autoEnableIO', 'productCodes');
-
     class DescribeRegionsResult does AWS::SDK::Shape {
-        has Array[Region] $.regions is shape-member('Regions');
+        has Region @.regions is shape-member('Regions');
     }
 
     class AllocateAddressRequest does AWS::SDK::Shape {
@@ -3874,8 +3951,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.association-id is shape-member('AssociationId');
     }
 
-    subset ImageTypeValues of Str where $_ ~~ any('machine', 'kernel', 'ramdisk');
-
     class DisassociateAddressRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.public-ip is shape-member('PublicIp');
@@ -3885,22 +3960,22 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class DescribeInstancesRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.instance-ids is shape-member('InstanceIds');
+        has Str @.instance-ids is shape-member('InstanceIds');
     }
 
     class DescribeIdentityIdFormatResult does AWS::SDK::Shape {
-        has Array[IdFormat] $.statuses is shape-member('Statuses');
+        has IdFormat @.statuses is shape-member('Statuses');
     }
 
     class CancelSpotInstanceRequestsResult does AWS::SDK::Shape {
-        has Array[CancelledSpotInstanceRequest] $.cancelled-spot-instance-requests is shape-member('CancelledSpotInstanceRequests');
+        has CancelledSpotInstanceRequest @.cancelled-spot-instance-requests is shape-member('CancelledSpotInstanceRequests');
     }
 
     class DescribeHostReservationOfferingsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filter is shape-member('Filter');
+        has Filter @.filter is shape-member('Filter');
         has Str $.offering-id is shape-member('OfferingId');
         has Int $.max-duration is shape-member('MaxDuration');
         has Int $.min-duration is shape-member('MinDuration');
@@ -3908,17 +3983,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class UpdateSecurityGroupRuleDescriptionsEgressRequest does AWS::SDK::Shape {
-        has Array[IpPermission] $.ip-permissions is required is shape-member('IpPermissions');
+        has IpPermission @.ip-permissions is required is shape-member('IpPermissions');
         has Str $.group-id is shape-member('GroupId');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.group-name is shape-member('GroupName');
     }
 
-    subset StatusName of Str where $_ ~~ any('reachability');
-
     class AssignIpv6AddressesResult does AWS::SDK::Shape {
         has Str $.network-interface-id is shape-member('NetworkInterfaceId');
-        has Array[Str] $.assigned-ipv6-addresses is shape-member('AssignedIpv6Addresses');
+        has Str @.assigned-ipv6-addresses is shape-member('AssignedIpv6Addresses');
     }
 
     class InternetGatewayAttachment does AWS::SDK::Shape {
@@ -3927,13 +4000,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class IpPermission does AWS::SDK::Shape {
-        has Array[PrefixListId] $.prefix-list-ids is shape-member('PrefixListIds');
+        has PrefixListId @.prefix-list-ids is shape-member('PrefixListIds');
         has Str $.ip-protocol is shape-member('IpProtocol');
         has Int $.from-port is shape-member('FromPort');
         has Int $.to-port is shape-member('ToPort');
-        has Array[IpRange] $.ip-ranges is shape-member('IpRanges');
-        has Array[UserIdGroupPair] $.user-id-group-pairs is shape-member('UserIdGroupPairs');
-        has Array[Ipv6Range] $.ipv6-ranges is shape-member('Ipv6Ranges');
+        has IpRange @.ip-ranges is shape-member('IpRanges');
+        has UserIdGroupPair @.user-id-group-pairs is shape-member('UserIdGroupPairs');
+        has Ipv6Range @.ipv6-ranges is shape-member('Ipv6Ranges');
     }
 
     class SnapshotDiskContainer does AWS::SDK::Shape {
@@ -3960,7 +4033,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class AuthorizeSecurityGroupIngressRequest does AWS::SDK::Shape {
         has Str $.source-security-group-owner-id is shape-member('SourceSecurityGroupOwnerId');
-        has Array[IpPermission] $.ip-permissions is shape-member('IpPermissions');
+        has IpPermission @.ip-permissions is shape-member('IpPermissions');
         has Str $.group-id is shape-member('GroupId');
         has Str $.cidr-ip is shape-member('CidrIp');
         has Bool $.dry-run is shape-member('DryRun');
@@ -3990,7 +4063,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.status-message is shape-member('StatusMessage');
         has Str $.status is shape-member('Status');
         has Str $.progress is shape-member('Progress');
-        has Array[SnapshotDetail] $.snapshot-details is shape-member('SnapshotDetails');
+        has SnapshotDetail @.snapshot-details is shape-member('SnapshotDetails');
         has Str $.architecture is shape-member('Architecture');
     }
 
@@ -3999,8 +4072,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.description is shape-member('Description');
     }
 
-    subset ReservationState of Str where $_ ~~ any('payment-pending', 'payment-failed', 'active', 'retired');
-
     class IdFormat does AWS::SDK::Shape {
         has Bool $.use-long-ids is shape-member('UseLongIds');
         has Str $.resource is shape-member('Resource');
@@ -4008,18 +4079,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class ReleaseHostsResult does AWS::SDK::Shape {
-        has Array[Str] $.successful is shape-member('Successful');
-        has Array[UnsuccessfulItem] $.unsuccessful is shape-member('Unsuccessful');
+        has Str @.successful is shape-member('Successful');
+        has UnsuccessfulItem @.unsuccessful is shape-member('Unsuccessful');
     }
 
     class DescribeCustomerGatewaysRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.customer-gateway-ids is shape-member('CustomerGatewayIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.customer-gateway-ids is shape-member('CustomerGatewayIds');
     }
 
     class CancelSpotFleetRequestsRequest does AWS::SDK::Shape {
-        has Array[Str] $.spot-fleet-request-ids is required is shape-member('SpotFleetRequestIds');
+        has Str @.spot-fleet-request-ids is required is shape-member('SpotFleetRequestIds');
         has Bool $.dry-run is shape-member('DryRun');
         has Bool $.terminate-instances is required is shape-member('TerminateInstances');
     }
@@ -4029,7 +4100,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeInternetGatewaysResult does AWS::SDK::Shape {
-        has Array[InternetGateway] $.internet-gateways is shape-member('InternetGateways');
+        has InternetGateway @.internet-gateways is shape-member('InternetGateways');
     }
 
     class DeleteVpnConnectionRouteRequest does AWS::SDK::Shape {
@@ -4047,7 +4118,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class ConversionTask does AWS::SDK::Shape {
         has Str $.conversion-task-id is required is shape-member('ConversionTaskId');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has ConversionTaskState $.state is required is shape-member('State');
         has ImportVolumeTaskDetails $.import-volume is shape-member('ImportVolume');
         has Str $.status-message is shape-member('StatusMessage');
@@ -4062,21 +4133,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has DiskImageFormat $.disk-image-format is shape-member('DiskImageFormat');
     }
 
-    subset FleetType of Str where $_ ~~ any('request', 'maintain');
-
     class PeeringConnectionOptionsRequest does AWS::SDK::Shape {
         has Bool $.allow-egress-from-local-vpc-to-remote-classic-link is shape-member('AllowEgressFromLocalVpcToRemoteClassicLink');
         has Bool $.allow-egress-from-local-classic-link-to-remote-vpc is shape-member('AllowEgressFromLocalClassicLinkToRemoteVpc');
         has Bool $.allow-dns-resolution-from-remote-vpc is shape-member('AllowDnsResolutionFromRemoteVpc');
     }
 
-    subset ShutdownBehavior of Str where $_ ~~ any('stop', 'terminate');
-
     class DescribeKeyPairsResult does AWS::SDK::Shape {
-        has Array[KeyPairInfo] $.key-pairs is shape-member('KeyPairs');
+        has KeyPairInfo @.key-pairs is shape-member('KeyPairs');
     }
-
-    subset AutoPlacement of Str where $_ ~~ any('on', 'off');
 
     class CreateNatGatewayRequest does AWS::SDK::Shape {
         has Str $.subnet-id is required is shape-member('SubnetId');
@@ -4092,8 +4157,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Vpc $.vpc is shape-member('Vpc');
     }
 
-    subset ElasticGpuState of Str where $_ ~~ any('ATTACHED');
-
     class RejectVpcPeeringConnectionRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.vpc-peering-connection-id is required is shape-member('VpcPeeringConnectionId');
@@ -4104,10 +4167,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has InstanceAttributeName $.attribute is required is shape-member('Attribute');
         has Str $.instance-id is required is shape-member('InstanceId');
     }
-
-    subset ResetFpgaImageAttributeName of Str where $_ ~~ any('loadPermission');
-
-    subset VolumeStatusName of Str where $_ ~~ any('io-enabled', 'io-performance');
 
     class DescribeStaleSecurityGroupsRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
@@ -4124,7 +4183,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class Image does AWS::SDK::Shape {
         has DeviceType $.root-device-type is shape-member('RootDeviceType');
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has Str $.creation-date is shape-member('CreationDate');
         has Str $.owner-id is shape-member('OwnerId');
         has VirtualizationType $.virtualization-type is shape-member('VirtualizationType');
@@ -4137,12 +4196,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.ena-support is shape-member('EnaSupport');
         has ImageTypeValues $.image-type is shape-member('ImageType');
         has Str $.image-location is shape-member('ImageLocation');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.name is shape-member('Name');
         has ImageState $.state is shape-member('State');
         has Str $.kernel-id is shape-member('KernelId');
         has Str $.image-owner-alias is shape-member('ImageOwnerAlias');
-        has Array[ProductCode] $.product-codes is shape-member('ProductCodes');
+        has ProductCode @.product-codes is shape-member('ProductCodes');
         has StateReason $.state-reason is shape-member('StateReason');
         has Str $.sriov-net-support is shape-member('SriovNetSupport');
         has Str $.root-device-name is shape-member('RootDeviceName');
@@ -4158,8 +4217,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class DescribeVolumeStatusRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.volume-ids is shape-member('VolumeIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.volume-ids is shape-member('VolumeIds');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -4174,31 +4233,23 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.gateway-id is required is shape-member('GatewayId');
     }
 
-    subset MaxResults of Int where 5 <= * <= 255;
-
-    subset NatGatewayState of Str where $_ ~~ any('pending', 'failed', 'available', 'deleting', 'deleted');
-
     class AssociateIamInstanceProfileRequest does AWS::SDK::Shape {
         has Str $.instance-id is required is shape-member('InstanceId');
         has IamInstanceProfileSpecification $.iam-instance-profile is required is shape-member('IamInstanceProfile');
     }
 
     class DescribeExportTasksRequest does AWS::SDK::Shape {
-        has Array[Str] $.export-task-ids is shape-member('ExportTaskIds');
+        has Str @.export-task-ids is shape-member('ExportTaskIds');
     }
-
-    subset SpotInstanceType of Str where $_ ~~ any('one-time', 'persistent');
 
     class DescribeInstanceStatusRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
         has Bool $.include-all-instances is shape-member('IncludeAllInstances');
-        has Array[Str] $.instance-ids is shape-member('InstanceIds');
+        has Str @.instance-ids is shape-member('InstanceIds');
     }
-
-    subset InstanceAttributeName of Str where $_ ~~ any('instanceType', 'kernel', 'ramdisk', 'userData', 'disableApiTermination', 'instanceInitiatedShutdownBehavior', 'rootDeviceName', 'blockDeviceMapping', 'productCodes', 'sourceDestCheck', 'groupSet', 'ebsOptimized', 'sriovNetSupport', 'enaSupport');
 
     class VolumeStatusEvent does AWS::SDK::Shape {
         has DateTime $.not-after is shape-member('NotAfter');
@@ -4207,8 +4258,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.event-id is shape-member('EventId');
         has Str $.event-type is shape-member('EventType');
     }
-
-    subset ContainerFormat of Str where $_ ~~ any('ova');
 
     class CreateNatGatewayResult does AWS::SDK::Shape {
         has NatGateway $.nat-gateway is shape-member('NatGateway');
@@ -4223,26 +4272,22 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeVpcClassicLinkDnsSupportResult does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[ClassicLinkDnsSupport] $.vpcs is shape-member('Vpcs');
+        has ClassicLinkDnsSupport @.vpcs is shape-member('Vpcs');
     }
 
     class StaleSecurityGroup does AWS::SDK::Shape {
-        has Array[StaleIpPermission] $.stale-ip-permissions-egress is shape-member('StaleIpPermissionsEgress');
+        has StaleIpPermission @.stale-ip-permissions-egress is shape-member('StaleIpPermissionsEgress');
         has Str $.group-id is required is shape-member('GroupId');
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[StaleIpPermission] $.stale-ip-permissions is shape-member('StaleIpPermissions');
+        has StaleIpPermission @.stale-ip-permissions is shape-member('StaleIpPermissions');
         has Str $.description is shape-member('Description');
         has Str $.group-name is shape-member('GroupName');
     }
 
     class DescribeSpotPriceHistoryResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[SpotPrice] $.spot-price-history is shape-member('SpotPriceHistory');
+        has SpotPrice @.spot-price-history is shape-member('SpotPriceHistory');
     }
-
-    subset HypervisorType of Str where $_ ~~ any('ovm', 'xen');
-
-    subset BatchState of Str where $_ ~~ any('submitted', 'active', 'cancelled', 'failed', 'cancelled_running', 'cancelled_terminating', 'modifying');
 
     class InstanceState does AWS::SDK::Shape {
         has InstanceStateName $.name is shape-member('Name');
@@ -4277,13 +4322,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has RIProductDescription $.product-description is shape-member('ProductDescription');
         has Int $.duration is shape-member('Duration');
         has scope $.scope is shape-member('Scope');
-        has Array[RecurringCharge] $.recurring-charges is shape-member('RecurringCharges');
+        has RecurringCharge @.recurring-charges is shape-member('RecurringCharges');
         has Tenancy $.instance-tenancy is shape-member('InstanceTenancy');
         has DateTime $.end is shape-member('End');
         has Numeric $.usage-price is shape-member('UsagePrice');
         has Str $.reserved-instances-id is shape-member('ReservedInstancesId');
         has OfferingClassType $.offering-class is shape-member('OfferingClass');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has ReservedInstanceState $.state is shape-member('State');
         has Numeric $.fixed-price is shape-member('FixedPrice');
         has InstanceType $.instance-type is shape-member('InstanceType');
@@ -4299,15 +4344,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class DescribeVolumesRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.volume-ids is shape-member('VolumeIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.volume-ids is shape-member('VolumeIds');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class VpnGateway does AWS::SDK::Shape {
         has Str $.vpn-gateway-id is shape-member('VpnGatewayId');
-        has Array[VpcAttachment] $.vpc-attachments is shape-member('VpcAttachments');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has VpcAttachment @.vpc-attachments is shape-member('VpcAttachments');
+        has Tag @.tags is shape-member('Tags');
         has VpnState $.state is shape-member('State');
         has GatewayType $.type is shape-member('Type');
         has Str $.availability-zone is shape-member('AvailabilityZone');
@@ -4325,7 +4370,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class Filter does AWS::SDK::Shape {
-        has Array[Str] $.values is shape-member('Values');
+        has Str @.values is shape-member('Values');
         has Str $.name is shape-member('Name');
     }
 
@@ -4334,7 +4379,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has AttributeValue $.description is shape-member('Description');
         has NetworkInterfaceAttachment $.attachment is shape-member('Attachment');
         has Str $.network-interface-id is shape-member('NetworkInterfaceId');
-        has Array[GroupIdentifier] $.groups is shape-member('Groups');
+        has GroupIdentifier @.groups is shape-member('Groups');
     }
 
     class ImportImageRequest does AWS::SDK::Shape {
@@ -4342,15 +4387,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.platform is shape-member('Platform');
         has Str $.hypervisor is shape-member('Hypervisor');
-        has Array[ImageDiskContainer] $.disk-containers is shape-member('DiskContainers');
+        has ImageDiskContainer @.disk-containers is shape-member('DiskContainers');
         has Str $.description is shape-member('Description');
         has Str $.client-token is shape-member('ClientToken');
         has ClientData $.client-data is shape-member('ClientData');
         has Str $.role-name is shape-member('RoleName');
         has Str $.architecture is shape-member('Architecture');
     }
-
-    subset VolumeStatusInfoStatus of Str where $_ ~~ any('ok', 'impaired', 'insufficient-data');
 
     class GetConsoleOutputResult does AWS::SDK::Shape {
         has Str $.output is shape-member('Output');
@@ -4365,12 +4408,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeNetworkAclsResult does AWS::SDK::Shape {
-        has Array[NetworkAcl] $.network-acls is shape-member('NetworkAcls');
+        has NetworkAcl @.network-acls is shape-member('NetworkAcls');
     }
-
-    subset AllocationState of Str where $_ ~~ any('available', 'under-assessment', 'permanent-failure', 'released', 'released-permanent-failure');
-
-    subset ReportStatusType of Str where $_ ~~ any('ok', 'impaired');
 
     class ScheduledInstancesMonitoring does AWS::SDK::Shape {
         has Bool $.enabled is shape-member('Enabled');
@@ -4404,13 +4443,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class ReleaseHostsRequest does AWS::SDK::Shape {
-        has Array[Str] $.host-ids is required is shape-member('HostIds');
+        has Str @.host-ids is required is shape-member('HostIds');
     }
 
     class DescribeNatGatewaysRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filter is shape-member('Filter');
-        has Array[Str] $.nat-gateway-ids is shape-member('NatGatewayIds');
+        has Filter @.filter is shape-member('Filter');
+        has Str @.nat-gateway-ids is shape-member('NatGatewayIds');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -4420,18 +4459,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class InstanceNetworkInterface does AWS::SDK::Shape {
-        has Array[InstanceIpv6Address] $.ipv6-addresses is shape-member('Ipv6Addresses');
+        has InstanceIpv6Address @.ipv6-addresses is shape-member('Ipv6Addresses');
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.subnet-id is shape-member('SubnetId');
         has Str $.owner-id is shape-member('OwnerId');
         has InstanceNetworkInterfaceAssociation $.association is shape-member('Association');
         has Bool $.source-dest-check is shape-member('SourceDestCheck');
-        has Array[InstancePrivateIpAddress] $.private-ip-addresses is shape-member('PrivateIpAddresses');
+        has InstancePrivateIpAddress @.private-ip-addresses is shape-member('PrivateIpAddresses');
         has Str $.description is shape-member('Description');
         has InstanceNetworkInterfaceAttachment $.attachment is shape-member('Attachment');
         has Str $.network-interface-id is shape-member('NetworkInterfaceId');
         has Str $.mac-address is shape-member('MacAddress');
-        has Array[GroupIdentifier] $.groups is shape-member('Groups');
+        has GroupIdentifier @.groups is shape-member('Groups');
         has NetworkInterfaceStatus $.status is shape-member('Status');
         has Str $.private-ip-address is shape-member('PrivateIpAddress');
         has Str $.private-dns-name is shape-member('PrivateDnsName');
@@ -4453,18 +4492,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeVpcsResult does AWS::SDK::Shape {
-        has Array[Vpc] $.vpcs is shape-member('Vpcs');
+        has Vpc @.vpcs is shape-member('Vpcs');
     }
 
     class DescribeSpotFleetRequestsRequest does AWS::SDK::Shape {
-        has Array[Str] $.spot-fleet-request-ids is shape-member('SpotFleetRequestIds');
+        has Str @.spot-fleet-request-ids is shape-member('SpotFleetRequestIds');
         has Int $.max-results is shape-member('MaxResults');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class DeleteFlowLogsResult does AWS::SDK::Shape {
-        has Array[UnsuccessfulItem] $.unsuccessful is shape-member('Unsuccessful');
+        has UnsuccessfulItem @.unsuccessful is shape-member('Unsuccessful');
     }
 
     class DeleteNetworkInterfacePermissionResult does AWS::SDK::Shape {
@@ -4477,12 +4516,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeReservedInstancesResult does AWS::SDK::Shape {
-        has Array[ReservedInstances] $.reserved-instances is shape-member('ReservedInstances');
+        has ReservedInstances @.reserved-instances is shape-member('ReservedInstances');
     }
 
     class AccountAttribute does AWS::SDK::Shape {
         has Str $.attribute-name is shape-member('AttributeName');
-        has Array[AccountAttributeValue] $.attribute-values is shape-member('AttributeValues');
+        has AccountAttributeValue @.attribute-values is shape-member('AttributeValues');
     }
 
     class FpgaImage does AWS::SDK::Shape {
@@ -4493,10 +4532,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.description is shape-member('Description');
         has Str $.fpga-image-global-id is shape-member('FpgaImageGlobalId');
         has PciId $.pci-id is shape-member('PciId');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has FpgaImageState $.state is shape-member('State');
         has Str $.name is shape-member('Name');
-        has Array[ProductCode] $.product-codes is shape-member('ProductCodes');
+        has ProductCode @.product-codes is shape-member('ProductCodes');
         has Str $.owner-alias is shape-member('OwnerAlias');
         has DateTime $.create-time is shape-member('CreateTime');
         has Str $.shell-version is shape-member('ShellVersion');
@@ -4517,17 +4556,17 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class RunInstancesRequest does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Placement $.placement is shape-member('Placement');
-        has Array[InstanceIpv6Address] $.ipv6-addresses is shape-member('Ipv6Addresses');
+        has InstanceIpv6Address @.ipv6-addresses is shape-member('Ipv6Addresses');
         has Int $.ipv6-address-count is shape-member('Ipv6AddressCount');
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.subnet-id is shape-member('SubnetId');
-        has Array[ElasticGpuSpecification] $.elastic-gpu-specification is shape-member('ElasticGpuSpecification');
+        has ElasticGpuSpecification @.elastic-gpu-specification is shape-member('ElasticGpuSpecification');
         has Str $.client-token is shape-member('ClientToken');
         has Str $.user-data is shape-member('UserData');
-        has Array[Str] $.security-groups is shape-member('SecurityGroups');
+        has Str @.security-groups is shape-member('SecurityGroups');
         has Str $.ramdisk-id is shape-member('RamdiskId');
         has Str $.image-id is required is shape-member('ImageId');
         has ShutdownBehavior $.instance-initiated-shutdown-behavior is shape-member('InstanceInitiatedShutdownBehavior');
@@ -4535,12 +4574,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.additional-info is shape-member('AdditionalInfo');
         has Int $.max-count is required is shape-member('MaxCount');
         has Bool $.ebs-optimized is shape-member('EbsOptimized');
-        has Array[TagSpecification] $.tag-specifications is shape-member('TagSpecifications');
+        has TagSpecification @.tag-specifications is shape-member('TagSpecifications');
         has Int $.min-count is required is shape-member('MinCount');
         has Str $.kernel-id is shape-member('KernelId');
         has InstanceType $.instance-type is shape-member('InstanceType');
         has Str $.private-ip-address is shape-member('PrivateIpAddress');
-        has Array[InstanceNetworkInterfaceSpecification] $.network-interfaces is shape-member('NetworkInterfaces');
+        has InstanceNetworkInterfaceSpecification @.network-interfaces is shape-member('NetworkInterfaces');
         has IamInstanceProfileSpecification $.iam-instance-profile is shape-member('IamInstanceProfile');
         has RunInstancesMonitoringEnabled $.monitoring is shape-member('Monitoring');
         has Str $.key-name is shape-member('KeyName');
@@ -4548,9 +4587,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeScheduledInstancesRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.scheduled-instance-ids is shape-member('ScheduledInstanceIds');
+        has Str @.scheduled-instance-ids is shape-member('ScheduledInstanceIds');
         has Str $.next-token is shape-member('NextToken');
         has SlotStartTimeRangeRequest $.slot-start-time-range is shape-member('SlotStartTimeRange');
     }
@@ -4570,8 +4609,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has RecurringChargeFrequency $.frequency is shape-member('Frequency');
     }
 
-    subset PlacementStrategy of Str where $_ ~~ any('cluster');
-
     class VpcPeeringConnectionStateReason does AWS::SDK::Shape {
         has VpcPeeringConnectionStateReasonCode $.code is shape-member('Code');
         has Str $.message is shape-member('Message');
@@ -4585,13 +4622,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeVpnConnectionsResult does AWS::SDK::Shape {
-        has Array[VpnConnection] $.vpn-connections is shape-member('VpnConnections');
+        has VpnConnection @.vpn-connections is shape-member('VpnConnections');
     }
 
     class DescribeNetworkInterfacePermissionsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.network-interface-permission-ids is shape-member('NetworkInterfacePermissionIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.network-interface-permission-ids is shape-member('NetworkInterfacePermissionIds');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -4615,15 +4652,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeImportImageTasksRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Str] $.import-task-ids is shape-member('ImportTaskIds');
+        has Str @.import-task-ids is shape-member('ImportTaskIds');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class DescribeIamInstanceProfileAssociationsResult does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[IamInstanceProfileAssociation] $.iam-instance-profile-associations is shape-member('IamInstanceProfileAssociations');
+        has IamInstanceProfileAssociation @.iam-instance-profile-associations is shape-member('IamInstanceProfileAssociations');
     }
 
     class DetachClassicLinkVpcRequest does AWS::SDK::Shape {
@@ -4633,28 +4670,24 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeReservedInstancesListingsResult does AWS::SDK::Shape {
-        has Array[ReservedInstancesListing] $.reserved-instances-listings is shape-member('ReservedInstancesListings');
+        has ReservedInstancesListing @.reserved-instances-listings is shape-member('ReservedInstancesListings');
     }
 
     class AttributeBooleanValue does AWS::SDK::Shape {
         has Bool $.value is shape-member('Value');
     }
 
-    subset DeviceType of Str where $_ ~~ any('ebs', 'instance-store');
-
     class DescribeSecurityGroupsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.group-ids is shape-member('GroupIds');
-        has Array[Str] $.group-names is shape-member('GroupNames');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.group-ids is shape-member('GroupIds');
+        has Str @.group-names is shape-member('GroupNames');
     }
 
     class DescribeScheduledInstancesResult does AWS::SDK::Shape {
-        has Array[ScheduledInstance] $.scheduled-instance-set is shape-member('ScheduledInstanceSet');
+        has ScheduledInstance @.scheduled-instance-set is shape-member('ScheduledInstanceSet');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset FpgaImageAttributeName of Str where $_ ~~ any('description', 'name', 'loadPermission', 'productCodes');
 
     class PortRange does AWS::SDK::Shape {
         has Int $.to is shape-member('To');
@@ -4674,8 +4707,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.gateway-id is shape-member('GatewayId');
     }
 
-    subset PermissionGroup of Str where $_ ~~ any('all');
-
     class AttachVolumeRequest does AWS::SDK::Shape {
         has Str $.device is required is shape-member('Device');
         has Bool $.dry-run is shape-member('DryRun');
@@ -4684,7 +4715,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeFpgaImagesResult does AWS::SDK::Shape {
-        has Array[FpgaImage] $.fpga-images is shape-member('FpgaImages');
+        has FpgaImage @.fpga-images is shape-member('FpgaImages');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -4693,8 +4724,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has InstanceAttributeName $.attribute is required is shape-member('Attribute');
         has Str $.instance-id is required is shape-member('InstanceId');
     }
-
-    subset RouteOrigin of Str where $_ ~~ any('CreateRouteTable', 'CreateRoute', 'EnableVgwRoutePropagation');
 
     class UserBucketDetails does AWS::SDK::Shape {
         has Str $.s3-key is shape-member('S3Key');
@@ -4714,17 +4743,17 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribeNetworkAclsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.network-acl-ids is shape-member('NetworkAclIds');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.network-acl-ids is shape-member('NetworkAclIds');
     }
 
     class UnassignIpv6AddressesRequest does AWS::SDK::Shape {
-        has Array[Str] $.ipv6-addresses is required is shape-member('Ipv6Addresses');
+        has Str @.ipv6-addresses is required is shape-member('Ipv6Addresses');
         has Str $.network-interface-id is required is shape-member('NetworkInterfaceId');
     }
 
     class DescribeReservedInstancesListingsRequest does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.reserved-instances-listing-id is shape-member('ReservedInstancesListingId');
         has Str $.reserved-instances-id is shape-member('ReservedInstancesId');
     }
@@ -4745,11 +4774,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Int $.interval is shape-member('Interval');
         has Str $.frequency is shape-member('Frequency');
         has Str $.occurrence-unit is shape-member('OccurrenceUnit');
-        has Array[Int] $.occurrence-days is shape-member('OccurrenceDays');
+        has Int @.occurrence-days is shape-member('OccurrenceDays');
     }
 
     class AssignIpv6AddressesRequest does AWS::SDK::Shape {
-        has Array[Str] $.ipv6-addresses is shape-member('Ipv6Addresses');
+        has Str @.ipv6-addresses is shape-member('Ipv6Addresses');
         has Int $.ipv6-address-count is shape-member('Ipv6AddressCount');
         has Str $.network-interface-id is required is shape-member('NetworkInterfaceId');
     }
@@ -4760,7 +4789,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class UnmonitorInstancesResult does AWS::SDK::Shape {
-        has Array[InstanceMonitoring] $.instance-monitorings is shape-member('InstanceMonitorings');
+        has InstanceMonitoring @.instance-monitorings is shape-member('InstanceMonitorings');
     }
 
     class FlowLog does AWS::SDK::Shape {
@@ -4775,16 +4804,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.deliver-logs-permission-arn is shape-member('DeliverLogsPermissionArn');
     }
 
-    subset GatewayType of Str where $_ ~~ any('ipsec.1');
-
     class SpotFleetTagSpecification does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has ResourceType $.resource-type is shape-member('ResourceType');
     }
 
     class ScheduledInstancesNetworkInterface does AWS::SDK::Shape {
-        has Array[ScheduledInstancesPrivateIpAddressConfig] $.private-ip-address-configs is shape-member('PrivateIpAddressConfigs');
-        has Array[ScheduledInstancesIpv6Address] $.ipv6-addresses is shape-member('Ipv6Addresses');
+        has ScheduledInstancesPrivateIpAddressConfig @.private-ip-address-configs is shape-member('PrivateIpAddressConfigs');
+        has ScheduledInstancesIpv6Address @.ipv6-addresses is shape-member('Ipv6Addresses');
         has Int $.ipv6-address-count is shape-member('Ipv6AddressCount');
         has Str $.subnet-id is shape-member('SubnetId');
         has Int $.secondary-private-ip-address-count is shape-member('SecondaryPrivateIpAddressCount');
@@ -4792,15 +4819,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.description is shape-member('Description');
         has Bool $.associate-public-ip-address is shape-member('AssociatePublicIpAddress');
         has Str $.network-interface-id is shape-member('NetworkInterfaceId');
-        has Array[Str] $.groups is shape-member('Groups');
+        has Str @.groups is shape-member('Groups');
         has Str $.private-ip-address is shape-member('PrivateIpAddress');
         has Bool $.delete-on-termination is shape-member('DeleteOnTermination');
     }
 
     class DhcpOptions does AWS::SDK::Shape {
         has Str $.dhcp-options-id is shape-member('DhcpOptionsId');
-        has Array[DhcpConfiguration] $.dhcp-configurations is shape-member('DhcpConfigurations');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has DhcpConfiguration @.dhcp-configurations is shape-member('DhcpConfigurations');
+        has Tag @.tags is shape-member('Tags');
     }
 
     class DescribeVpcAttributeRequest does AWS::SDK::Shape {
@@ -4810,14 +4837,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class CreateNetworkInterfaceRequest does AWS::SDK::Shape {
-        has Array[InstanceIpv6Address] $.ipv6-addresses is shape-member('Ipv6Addresses');
+        has InstanceIpv6Address @.ipv6-addresses is shape-member('Ipv6Addresses');
         has Int $.ipv6-address-count is shape-member('Ipv6AddressCount');
         has Str $.subnet-id is required is shape-member('SubnetId');
         has Int $.secondary-private-ip-address-count is shape-member('SecondaryPrivateIpAddressCount');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[PrivateIpAddressSpecification] $.private-ip-addresses is shape-member('PrivateIpAddresses');
+        has PrivateIpAddressSpecification @.private-ip-addresses is shape-member('PrivateIpAddresses');
         has Str $.description is shape-member('Description');
-        has Array[Str] $.groups is shape-member('Groups');
+        has Str @.groups is shape-member('Groups');
         has Str $.private-ip-address is shape-member('PrivateIpAddress');
     }
 
@@ -4828,21 +4855,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.amazon-provided-ipv6-cidr-block is shape-member('AmazonProvidedIpv6CidrBlock');
     }
 
-    subset InstanceHealthStatus of Str where $_ ~~ any('healthy', 'unhealthy');
-
     class DescribeSpotFleetInstancesResponse does AWS::SDK::Shape {
-        has Array[ActiveInstance] $.active-instances is required is shape-member('ActiveInstances');
+        has ActiveInstance @.active-instances is required is shape-member('ActiveInstances');
         has Str $.next-token is shape-member('NextToken');
         has Str $.spot-fleet-request-id is required is shape-member('SpotFleetRequestId');
     }
-
-    subset InstanceType of Str where $_ ~~ any('t1.micro', 't2.nano', 't2.micro', 't2.small', 't2.medium', 't2.large', 't2.xlarge', 't2.2xlarge', 'm1.small', 'm1.medium', 'm1.large', 'm1.xlarge', 'm3.medium', 'm3.large', 'm3.xlarge', 'm3.2xlarge', 'm4.large', 'm4.xlarge', 'm4.2xlarge', 'm4.4xlarge', 'm4.10xlarge', 'm4.16xlarge', 'm2.xlarge', 'm2.2xlarge', 'm2.4xlarge', 'cr1.8xlarge', 'r3.large', 'r3.xlarge', 'r3.2xlarge', 'r3.4xlarge', 'r3.8xlarge', 'r4.large', 'r4.xlarge', 'r4.2xlarge', 'r4.4xlarge', 'r4.8xlarge', 'r4.16xlarge', 'x1.16xlarge', 'x1.32xlarge', 'x1e.32xlarge', 'i2.xlarge', 'i2.2xlarge', 'i2.4xlarge', 'i2.8xlarge', 'i3.large', 'i3.xlarge', 'i3.2xlarge', 'i3.4xlarge', 'i3.8xlarge', 'i3.16xlarge', 'hi1.4xlarge', 'hs1.8xlarge', 'c1.medium', 'c1.xlarge', 'c3.large', 'c3.xlarge', 'c3.2xlarge', 'c3.4xlarge', 'c3.8xlarge', 'c4.large', 'c4.xlarge', 'c4.2xlarge', 'c4.4xlarge', 'c4.8xlarge', 'cc1.4xlarge', 'cc2.8xlarge', 'g2.2xlarge', 'g2.8xlarge', 'g3.4xlarge', 'g3.8xlarge', 'g3.16xlarge', 'cg1.4xlarge', 'p2.xlarge', 'p2.8xlarge', 'p2.16xlarge', 'd2.xlarge', 'd2.2xlarge', 'd2.4xlarge', 'd2.8xlarge', 'f1.2xlarge', 'f1.16xlarge');
-
-    subset NetworkInterfaceType of Str where $_ ~~ any('interface', 'natGateway');
-
-    subset SubnetCidrBlockStateCode of Str where $_ ~~ any('associating', 'associated', 'disassociating', 'disassociated', 'failing', 'failed');
-
-    subset ArchitectureValues of Str where $_ ~~ any('i386', 'x86_64');
 
     class CreateDefaultVpcRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
@@ -4877,7 +4894,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.snapshot-id is shape-member('SnapshotId');
         has VolumeType $.volume-type is shape-member('VolumeType');
-        has Array[TagSpecification] $.tag-specifications is shape-member('TagSpecifications');
+        has TagSpecification @.tag-specifications is shape-member('TagSpecifications');
         has Int $.size is shape-member('Size');
         has Str $.availability-zone is required is shape-member('AvailabilityZone');
         has Int $.iops is shape-member('Iops');
@@ -4887,8 +4904,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class Monitoring does AWS::SDK::Shape {
         has MonitoringState $.state is shape-member('State');
     }
-
-    subset RecurringChargeFrequency of Str where $_ ~~ any('Hourly');
 
     class DescribeFpgaImageAttributeRequest does AWS::SDK::Shape {
         has Str $.fpga-image-id is required is shape-member('FpgaImageId');
@@ -4903,7 +4918,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class StopInstancesResult does AWS::SDK::Shape {
-        has Array[InstanceStateChange] $.stopping-instances is shape-member('StoppingInstances');
+        has InstanceStateChange @.stopping-instances is shape-member('StoppingInstances');
     }
 
     class AllocateAddressResult does AWS::SDK::Shape {
@@ -4912,8 +4927,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.allocation-id is shape-member('AllocationId');
     }
 
-    subset EventCode of Str where $_ ~~ any('instance-reboot', 'system-reboot', 'system-maintenance', 'instance-retirement', 'instance-stop');
-
     class ReleaseAddressRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.public-ip is shape-member('PublicIp');
@@ -4921,7 +4934,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class UpdateSecurityGroupRuleDescriptionsIngressRequest does AWS::SDK::Shape {
-        has Array[IpPermission] $.ip-permissions is required is shape-member('IpPermissions');
+        has IpPermission @.ip-permissions is required is shape-member('IpPermissions');
         has Str $.group-id is shape-member('GroupId');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.group-name is shape-member('GroupName');
@@ -4937,8 +4950,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.description is required is shape-member('Description');
         has Str $.group-name is required is shape-member('GroupName');
     }
-
-    subset PurchaseRequestSet of Array[PurchaseRequest] where 1 <= *.elems;
 
     class ScheduledInstanceAvailability does AWS::SDK::Shape {
         has Int $.available-instance-count is shape-member('AvailableInstanceCount');
@@ -4958,8 +4969,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     class DescribePrefixListsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Str] $.prefix-list-ids is shape-member('PrefixListIds');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Str @.prefix-list-ids is shape-member('PrefixListIds');
+        has Filter @.filters is shape-member('Filters');
         has Bool $.dry-run is shape-member('DryRun');
         has Str $.next-token is shape-member('NextToken');
     }
@@ -4983,12 +4994,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has ElasticGpuStatus $.status is shape-member('Status');
     }
 
-    subset ExportTaskState of Str where $_ ~~ any('active', 'cancelling', 'cancelled', 'completed');
-
     class DescribeKeyPairsRequest does AWS::SDK::Shape {
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
-        has Array[Str] $.key-names is shape-member('KeyNames');
+        has Filter @.filters is shape-member('Filters');
+        has Str @.key-names is shape-member('KeyNames');
     }
 
     class DeregisterImageRequest does AWS::SDK::Shape {
@@ -4999,8 +5008,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     class BundleInstanceResult does AWS::SDK::Shape {
         has BundleTask $.bundle-task is shape-member('BundleTask');
     }
-
-    subset ActivityStatus of Str where $_ ~~ any('error', 'pending_fulfillment', 'pending_termination', 'fulfilled');
 
     class EnableVpcClassicLinkResult does AWS::SDK::Shape {
         has Bool $.return is shape-member('Return');
@@ -5018,23 +5025,21 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.elastic-gpu-association-state is shape-member('ElasticGpuAssociationState');
     }
 
-    subset SpotInstanceState of Str where $_ ~~ any('open', 'active', 'closed', 'cancelled', 'failed');
-
     class SpotFleetLaunchSpecification does AWS::SDK::Shape {
         has SpotPlacement $.placement is shape-member('Placement');
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has Str $.subnet-id is shape-member('SubnetId');
         has Str $.user-data is shape-member('UserData');
         has Str $.ramdisk-id is shape-member('RamdiskId');
         has Str $.image-id is shape-member('ImageId');
-        has Array[GroupIdentifier] $.security-groups is shape-member('SecurityGroups');
+        has GroupIdentifier @.security-groups is shape-member('SecurityGroups');
         has Str $.spot-price is shape-member('SpotPrice');
         has Bool $.ebs-optimized is shape-member('EbsOptimized');
-        has Array[SpotFleetTagSpecification] $.tag-specifications is shape-member('TagSpecifications');
+        has SpotFleetTagSpecification @.tag-specifications is shape-member('TagSpecifications');
         has Numeric $.weighted-capacity is shape-member('WeightedCapacity');
         has Str $.kernel-id is shape-member('KernelId');
         has InstanceType $.instance-type is shape-member('InstanceType');
-        has Array[InstanceNetworkInterfaceSpecification] $.network-interfaces is shape-member('NetworkInterfaces');
+        has InstanceNetworkInterfaceSpecification @.network-interfaces is shape-member('NetworkInterfaces');
         has SpotFleetMonitoring $.monitoring is shape-member('Monitoring');
         has IamInstanceProfileSpecification $.iam-instance-profile is shape-member('IamInstanceProfile');
         has Str $.addressing-type is shape-member('AddressingType');
@@ -5057,14 +5062,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DescribeVpcEndpointServicesResult does AWS::SDK::Shape {
-        has Array[Str] $.service-names is shape-member('ServiceNames');
+        has Str @.service-names is shape-member('ServiceNames');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class DescribeIamInstanceProfileAssociationsRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
-        has Array[Str] $.association-ids is shape-member('AssociationIds');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Str @.association-ids is shape-member('AssociationIds');
+        has Filter @.filters is shape-member('Filters');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -5080,9 +5085,9 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     class DeleteTagsRequest does AWS::SDK::Shape {
-        has Array[Str] $.resources is required is shape-member('Resources');
+        has Str @.resources is required is shape-member('Resources');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
     }
 
     class CreateInternetGatewayRequest does AWS::SDK::Shape {
@@ -5093,8 +5098,6 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Str $.vpc-id is required is shape-member('VpcId');
         has Bool $.dry-run is shape-member('DryRun');
     }
-
-    subset VolumeState of Str where $_ ~~ any('creating', 'available', 'in-use', 'deleting', 'deleted', 'error');
 
     class DeleteVpcPeeringConnectionResult does AWS::SDK::Shape {
         has Bool $.return is shape-member('Return');
@@ -5123,28 +5126,26 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has Int $.instance-count is shape-member('InstanceCount');
     }
 
-    subset VpcAttributeName of Str where $_ ~~ any('enableDnsSupport', 'enableDnsHostnames');
-
     class StartInstancesResult does AWS::SDK::Shape {
-        has Array[InstanceStateChange] $.starting-instances is shape-member('StartingInstances');
+        has InstanceStateChange @.starting-instances is shape-member('StartingInstances');
     }
 
     class DescribeSubnetsResult does AWS::SDK::Shape {
-        has Array[Subnet] $.subnets is shape-member('Subnets');
+        has Subnet @.subnets is shape-member('Subnets');
     }
 
     class DescribeMovingAddressesRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
         has Bool $.dry-run is shape-member('DryRun');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.public-ips is shape-member('PublicIps');
+        has Str @.public-ips is shape-member('PublicIps');
     }
 
     class CustomerGateway does AWS::SDK::Shape {
         has Str $.customer-gateway-id is shape-member('CustomerGatewayId');
         has Str $.ip-address is shape-member('IpAddress');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.state is shape-member('State');
         has Str $.type is shape-member('Type');
         has Str $.bgp-asn is shape-member('BgpAsn');
@@ -5162,18 +5163,19 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         has PaymentOption $.payment-option is shape-member('PaymentOption');
         has CurrencyCodeValues $.currency-code is shape-member('CurrencyCode');
         has Str $.instance-family is shape-member('InstanceFamily');
-        has Array[Str] $.host-id-set is shape-member('HostIdSet');
+        has Str @.host-id-set is shape-member('HostIdSet');
     }
+
 
     method describe-network-acls(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$network-acl-ids
+        Filter :@filters,
+        Str :@network-acl-ids
     ) returns DescribeNetworkAclsResult is service-operation('DescribeNetworkAcls') {
         my $request-input = DescribeNetworkAclsRequest.new(
             :$dry-run,
-            :$filters,
-            :$network-acl-ids
+            :@filters,
+            :@network-acl-ids
         );
 
         self.perform-operation(
@@ -5185,7 +5187,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method describe-scheduled-instance-availability(
         Int :$max-slot-duration-in-hours,
         Int :$max-results,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Bool :$dry-run,
         Str :$next-token,
         ScheduledInstanceRecurrenceRequest :$recurrence!,
@@ -5195,7 +5197,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         my $request-input = DescribeScheduledInstanceAvailabilityRequest.new(
             :$max-slot-duration-in-hours,
             :$max-results,
-            :$filters,
+            :@filters,
             :$dry-run,
             :$next-token,
             :$recurrence,
@@ -5308,19 +5310,19 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method modify-vpc-endpoint(
         Str :$vpc-endpoint-id!,
-        Array[Str] :$remove-route-table-ids,
+        Str :@remove-route-table-ids,
         Bool :$dry-run,
         Str :$policy-document,
         Bool :$reset-policy,
-        Array[Str] :$add-route-table-ids
+        Str :@add-route-table-ids
     ) returns ModifyVpcEndpointResult is service-operation('ModifyVpcEndpoint') {
         my $request-input = ModifyVpcEndpointRequest.new(
             :$vpc-endpoint-id,
-            :$remove-route-table-ids,
+            :@remove-route-table-ids,
             :$dry-run,
             :$policy-document,
             :$reset-policy,
-            :$add-route-table-ids
+            :@add-route-table-ids
         );
 
         self.perform-operation(
@@ -5458,16 +5460,16 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method describe-reserved-instances(
         OfferingTypeValues :$offering-type,
         Bool :$dry-run,
-        Array[Filter] :$filters,
+        Filter :@filters,
         OfferingClassType :$offering-class,
-        Array[Str] :$reserved-instances-ids
+        Str :@reserved-instances-ids
     ) returns DescribeReservedInstancesResult is service-operation('DescribeReservedInstances') {
         my $request-input = DescribeReservedInstancesRequest.new(
             :$offering-type,
             :$dry-run,
-            :$filters,
+            :@filters,
             :$offering-class,
-            :$reserved-instances-ids
+            :@reserved-instances-ids
         );
 
         self.perform-operation(
@@ -5478,15 +5480,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-security-groups(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$group-ids,
-        Array[Str] :$group-names
+        Filter :@filters,
+        Str :@group-ids,
+        Str :@group-names
     ) returns DescribeSecurityGroupsResult is service-operation('DescribeSecurityGroups') {
         my $request-input = DescribeSecurityGroupsRequest.new(
             :$dry-run,
-            :$filters,
-            :$group-ids,
-            :$group-names
+            :@filters,
+            :@group-ids,
+            :@group-names
         );
 
         self.perform-operation(
@@ -5512,11 +5514,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method monitor-instances(
         Bool :$dry-run,
-        Array[Str] :$instance-ids!
+        Str :@instance-ids!
     ) returns MonitorInstancesResult is service-operation('MonitorInstances') {
         my $request-input = MonitorInstancesRequest.new(
             :$dry-run,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -5560,12 +5562,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method stop-instances(
         Bool :$dry-run,
         Bool :$force,
-        Array[Str] :$instance-ids!
+        Str :@instance-ids!
     ) returns StopInstancesResult is service-operation('StopInstances') {
         my $request-input = StopInstancesRequest.new(
             :$dry-run,
             :$force,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -5593,16 +5595,16 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-import-image-tasks(
         Int :$max-results,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Bool :$dry-run,
-        Array[Str] :$import-task-ids,
+        Str :@import-task-ids,
         Str :$next-token
     ) returns DescribeImportImageTasksResult is service-operation('DescribeImportImageTasks') {
         my $request-input = DescribeImportImageTasksRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$dry-run,
-            :$import-task-ids,
+            :@import-task-ids,
             :$next-token
         );
 
@@ -5627,13 +5629,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-availability-zones(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$zone-names
+        Filter :@filters,
+        Str :@zone-names
     ) returns DescribeAvailabilityZonesResult is service-operation('DescribeAvailabilityZones') {
         my $request-input = DescribeAvailabilityZonesRequest.new(
             :$dry-run,
-            :$filters,
-            :$zone-names
+            :@filters,
+            :@zone-names
         );
 
         self.perform-operation(
@@ -5719,12 +5721,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method start-instances(
         Bool :$dry-run,
         Str :$additional-info,
-        Array[Str] :$instance-ids!
+        Str :@instance-ids!
     ) returns StartInstancesResult is service-operation('StartInstances') {
         my $request-input = StartInstancesRequest.new(
             :$dry-run,
             :$additional-info,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -5734,10 +5736,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method describe-export-tasks(
-        Array[Str] :$export-task-ids
+        Str :@export-task-ids
     ) returns DescribeExportTasksResult is service-operation('DescribeExportTasks') {
         my $request-input = DescribeExportTasksRequest.new(
-            :$export-task-ids
+            :@export-task-ids
         );
 
         self.perform-operation(
@@ -5748,13 +5750,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-regions(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$region-names
+        Filter :@filters,
+        Str :@region-names
     ) returns DescribeRegionsResult is service-operation('DescribeRegions') {
         my $request-input = DescribeRegionsRequest.new(
             :$dry-run,
-            :$filters,
-            :$region-names
+            :@filters,
+            :@region-names
         );
 
         self.perform-operation(
@@ -5783,7 +5785,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method authorize-security-group-egress(
         Str :$source-security-group-owner-id,
         Str :$cidr-ip,
-        Array[IpPermission] :$ip-permissions,
+        IpPermission :@ip-permissions,
         Str :$group-id!,
         Bool :$dry-run,
         Str :$ip-protocol,
@@ -5794,7 +5796,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         my $request-input = AuthorizeSecurityGroupEgressRequest.new(
             :$source-security-group-owner-id,
             :$cidr-ip,
-            :$ip-permissions,
+            :@ip-permissions,
             :$group-id,
             :$dry-run,
             :$ip-protocol,
@@ -5827,15 +5829,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method describe-volume-status(
         Int :$max-results,
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$volume-ids,
+        Filter :@filters,
+        Str :@volume-ids,
         Str :$next-token
     ) returns DescribeVolumeStatusResult is service-operation('DescribeVolumeStatus') {
         my $request-input = DescribeVolumeStatusRequest.new(
             :$max-results,
             :$dry-run,
-            :$filters,
-            :$volume-ids,
+            :@filters,
+            :@volume-ids,
             :$next-token
         );
 
@@ -5847,13 +5849,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-vpc-peering-connections(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$vpc-peering-connection-ids
+        Filter :@filters,
+        Str :@vpc-peering-connection-ids
     ) returns DescribeVpcPeeringConnectionsResult is service-operation('DescribeVpcPeeringConnections') {
         my $request-input = DescribeVpcPeeringConnectionsRequest.new(
             :$dry-run,
-            :$filters,
-            :$vpc-peering-connection-ids
+            :@filters,
+            :@vpc-peering-connection-ids
         );
 
         self.perform-operation(
@@ -5899,13 +5901,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method attach-classic-link-vpc(
         Str :$vpc-id!,
         Bool :$dry-run,
-        Array[Str] :$groups!,
+        Str :@groups!,
         Str :$instance-id!
     ) returns AttachClassicLinkVpcResult is service-operation('AttachClassicLinkVpc') {
         my $request-input = AttachClassicLinkVpcRequest.new(
             :$vpc-id,
             :$dry-run,
-            :$groups,
+            :@groups,
             :$instance-id
         );
 
@@ -5917,13 +5919,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-placement-groups(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$group-names
+        Filter :@filters,
+        Str :@group-names
     ) returns DescribePlacementGroupsResult is service-operation('DescribePlacementGroups') {
         my $request-input = DescribePlacementGroupsRequest.new(
             :$dry-run,
-            :$filters,
-            :$group-names
+            :@filters,
+            :@group-names
         );
 
         self.perform-operation(
@@ -5986,11 +5988,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method cancel-spot-instance-requests(
         Bool :$dry-run,
-        Array[Str] :$spot-instance-request-ids!
+        Str :@spot-instance-request-ids!
     ) returns CancelSpotInstanceRequestsResult is service-operation('CancelSpotInstanceRequests') {
         my $request-input = CancelSpotInstanceRequestsRequest.new(
             :$dry-run,
-            :$spot-instance-request-ids
+            :@spot-instance-request-ids
         );
 
         self.perform-operation(
@@ -6014,13 +6016,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-vpcs(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$vpc-ids
+        Filter :@filters,
+        Str :@vpc-ids
     ) returns DescribeVpcsResult is service-operation('DescribeVpcs') {
         my $request-input = DescribeVpcsRequest.new(
             :$dry-run,
-            :$filters,
-            :$vpc-ids
+            :@filters,
+            :@vpc-ids
         );
 
         self.perform-operation(
@@ -6030,12 +6032,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method cancel-spot-fleet-requests(
-        Array[Str] :$spot-fleet-request-ids!,
+        Str :@spot-fleet-request-ids!,
         Bool :$dry-run,
         Bool :$terminate-instances!
     ) returns CancelSpotFleetRequestsResponse is service-operation('CancelSpotFleetRequests') {
         my $request-input = CancelSpotFleetRequestsRequest.new(
-            :$spot-fleet-request-ids,
+            :@spot-fleet-request-ids,
             :$dry-run,
             :$terminate-instances
         );
@@ -6048,16 +6050,16 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-volumes-modifications(
         Int :$max-results,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Bool :$dry-run,
-        Array[Str] :$volume-ids,
+        Str :@volume-ids,
         Str :$next-token
     ) returns DescribeVolumesModificationsResult is service-operation('DescribeVolumesModifications') {
         my $request-input = DescribeVolumesModificationsRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$dry-run,
-            :$volume-ids,
+            :@volume-ids,
             :$next-token
         );
 
@@ -6068,13 +6070,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method update-security-group-rule-descriptions-egress(
-        Array[IpPermission] :$ip-permissions!,
+        IpPermission :@ip-permissions!,
         Str :$group-id,
         Bool :$dry-run,
         Str :$group-name
     ) returns UpdateSecurityGroupRuleDescriptionsEgressResult is service-operation('UpdateSecurityGroupRuleDescriptionsEgress') {
         my $request-input = UpdateSecurityGroupRuleDescriptionsEgressRequest.new(
-            :$ip-permissions,
+            :@ip-permissions,
             :$group-id,
             :$dry-run,
             :$group-name
@@ -6120,17 +6122,17 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-images(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$executable-users,
-        Array[Str] :$owners,
-        Array[Str] :$image-ids
+        Filter :@filters,
+        Str :@executable-users,
+        Str :@owners,
+        Str :@image-ids
     ) returns DescribeImagesResult is service-operation('DescribeImages') {
         my $request-input = DescribeImagesRequest.new(
             :$dry-run,
-            :$filters,
-            :$executable-users,
-            :$owners,
-            :$image-ids
+            :@filters,
+            :@executable-users,
+            :@owners,
+            :@image-ids
         );
 
         self.perform-operation(
@@ -6158,11 +6160,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method get-host-reservation-purchase-preview(
         Str :$offering-id!,
-        Array[Str] :$host-id-set!
+        Str :@host-id-set!
     ) returns GetHostReservationPurchasePreviewResult is service-operation('GetHostReservationPurchasePreview') {
         my $request-input = GetHostReservationPurchasePreviewRequest.new(
             :$offering-id,
-            :$host-id-set
+            :@host-id-set
         );
 
         self.perform-operation(
@@ -6173,14 +6175,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-flow-logs(
         Int :$max-results,
-        Array[Str] :$flow-log-ids,
-        Array[Filter] :$filter,
+        Str :@flow-log-ids,
+        Filter :@filter,
         Str :$next-token
     ) returns DescribeFlowLogsResult is service-operation('DescribeFlowLogs') {
         my $request-input = DescribeFlowLogsRequest.new(
             :$max-results,
-            :$flow-log-ids,
-            :$filter,
+            :@flow-log-ids,
+            :@filter,
             :$next-token
         );
 
@@ -6191,14 +6193,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method describe-dhcp-options(
-        Array[Str] :$dhcp-options-ids,
+        Str :@dhcp-options-ids,
         Bool :$dry-run,
-        Array[Filter] :$filters
+        Filter :@filters
     ) returns DescribeDhcpOptionsResult is service-operation('DescribeDhcpOptions') {
         my $request-input = DescribeDhcpOptionsRequest.new(
-            :$dhcp-options-ids,
+            :@dhcp-options-ids,
             :$dry-run,
-            :$filters
+            :@filters
         );
 
         self.perform-operation(
@@ -6241,11 +6243,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method create-dhcp-options(
         Bool :$dry-run,
-        Array[NewDhcpConfiguration] :$dhcp-configurations!
+        NewDhcpConfiguration :@dhcp-configurations!
     ) returns CreateDhcpOptionsResult is service-operation('CreateDhcpOptions') {
         my $request-input = CreateDhcpOptionsRequest.new(
             :$dry-run,
-            :$dhcp-configurations
+            :@dhcp-configurations
         );
 
         self.perform-operation(
@@ -6259,7 +6261,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$platform,
         Str :$hypervisor,
-        Array[ImageDiskContainer] :$disk-containers,
+        ImageDiskContainer :@disk-containers,
         Str :$description,
         Str :$client-token,
         ClientData :$client-data,
@@ -6271,7 +6273,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
             :$dry-run,
             :$platform,
             :$hypervisor,
-            :$disk-containers,
+            :@disk-containers,
             :$description,
             :$client-token,
             :$client-data,
@@ -6288,18 +6290,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method describe-instance-status(
         Int :$max-results,
         Bool :$dry-run,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$next-token,
         Bool :$include-all-instances,
-        Array[Str] :$instance-ids
+        Str :@instance-ids
     ) returns DescribeInstanceStatusResult is service-operation('DescribeInstanceStatus') {
         my $request-input = DescribeInstanceStatusRequest.new(
             :$max-results,
             :$dry-run,
-            :$filters,
+            :@filters,
             :$next-token,
             :$include-all-instances,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -6359,13 +6361,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-vpc-classic-link(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$vpc-ids
+        Filter :@filters,
+        Str :@vpc-ids
     ) returns DescribeVpcClassicLinkResult is service-operation('DescribeVpcClassicLink') {
         my $request-input = DescribeVpcClassicLinkRequest.new(
             :$dry-run,
-            :$filters,
-            :$vpc-ids
+            :@filters,
+            :@vpc-ids
         );
 
         self.perform-operation(
@@ -6377,16 +6379,16 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method describe-moving-addresses(
         Int :$max-results,
         Bool :$dry-run,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$next-token,
-        Array[Str] :$public-ips
+        Str :@public-ips
     ) returns DescribeMovingAddressesResult is service-operation('DescribeMovingAddresses') {
         my $request-input = DescribeMovingAddressesRequest.new(
             :$max-results,
             :$dry-run,
-            :$filters,
+            :@filters,
             :$next-token,
-            :$public-ips
+            :@public-ips
         );
 
         self.perform-operation(
@@ -6396,25 +6398,25 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method create-network-interface(
-        Array[InstanceIpv6Address] :$ipv6-addresses,
+        InstanceIpv6Address :@ipv6-addresses,
         Int :$ipv6-address-count,
         Str :$subnet-id!,
         Int :$secondary-private-ip-address-count,
         Bool :$dry-run,
-        Array[PrivateIpAddressSpecification] :$private-ip-addresses,
+        PrivateIpAddressSpecification :@private-ip-addresses,
         Str :$description,
-        Array[Str] :$groups,
+        Str :@groups,
         Str :$private-ip-address
     ) returns CreateNetworkInterfaceResult is service-operation('CreateNetworkInterface') {
         my $request-input = CreateNetworkInterfaceRequest.new(
-            :$ipv6-addresses,
+            :@ipv6-addresses,
             :$ipv6-address-count,
             :$subnet-id,
             :$secondary-private-ip-address-count,
             :$dry-run,
-            :$private-ip-addresses,
+            :@private-ip-addresses,
             :$description,
-            :$groups,
+            :@groups,
             :$private-ip-address
         );
 
@@ -6464,13 +6466,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-route-tables(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$route-table-ids
+        Filter :@filters,
+        Str :@route-table-ids
     ) returns DescribeRouteTablesResult is service-operation('DescribeRouteTables') {
         my $request-input = DescribeRouteTablesRequest.new(
             :$dry-run,
-            :$filters,
-            :$route-table-ids
+            :@filters,
+            :@route-table-ids
         );
 
         self.perform-operation(
@@ -6536,26 +6538,26 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method modify-fpga-image-attribute(
         Str :$fpga-image-id!,
-        Array[Str] :$user-ids,
+        Str :@user-ids,
         Bool :$dry-run,
         Str :$description,
-        Array[Str] :$user-groups,
+        Str :@user-groups,
         Str :$name,
         OperationType :$operation-type,
         FpgaImageAttributeName :$attribute,
-        Array[Str] :$product-codes,
+        Str :@product-codes,
         LoadPermissionModifications :$load-permission
     ) returns ModifyFpgaImageAttributeResult is service-operation('ModifyFpgaImageAttribute') {
         my $request-input = ModifyFpgaImageAttributeRequest.new(
             :$fpga-image-id,
-            :$user-ids,
+            :@user-ids,
             :$dry-run,
             :$description,
-            :$user-groups,
+            :@user-groups,
             :$name,
             :$operation-type,
             :$attribute,
-            :$product-codes,
+            :@product-codes,
             :$load-permission
         );
 
@@ -6567,16 +6569,16 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-import-snapshot-tasks(
         Int :$max-results,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Bool :$dry-run,
-        Array[Str] :$import-task-ids,
+        Str :@import-task-ids,
         Str :$next-token
     ) returns DescribeImportSnapshotTasksResult is service-operation('DescribeImportSnapshotTasks') {
         my $request-input = DescribeImportSnapshotTasksRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$dry-run,
-            :$import-task-ids,
+            :@import-task-ids,
             :$next-token
         );
 
@@ -6623,21 +6625,21 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method describe-snapshots(
-        Array[Str] :$restorable-by-user-ids,
+        Str :@restorable-by-user-ids,
         Int :$max-results,
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$snapshot-ids,
-        Array[Str] :$owner-ids,
+        Filter :@filters,
+        Str :@snapshot-ids,
+        Str :@owner-ids,
         Str :$next-token
     ) returns DescribeSnapshotsResult is service-operation('DescribeSnapshots') {
         my $request-input = DescribeSnapshotsRequest.new(
-            :$restorable-by-user-ids,
+            :@restorable-by-user-ids,
             :$max-results,
             :$dry-run,
-            :$filters,
-            :$snapshot-ids,
-            :$owner-ids,
+            :@filters,
+            :@snapshot-ids,
+            :@owner-ids,
             :$next-token
         );
 
@@ -6728,11 +6730,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method modify-hosts(
-        Array[Str] :$host-ids!,
+        Str :@host-ids!,
         AutoPlacement :$auto-placement!
     ) returns ModifyHostsResult is service-operation('ModifyHosts') {
         my $request-input = ModifyHostsRequest.new(
-            :$host-ids,
+            :@host-ids,
             :$auto-placement
         );
 
@@ -6760,13 +6762,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method update-security-group-rule-descriptions-ingress(
-        Array[IpPermission] :$ip-permissions!,
+        IpPermission :@ip-permissions!,
         Str :$group-id,
         Bool :$dry-run,
         Str :$group-name
     ) returns UpdateSecurityGroupRuleDescriptionsIngressResult is service-operation('UpdateSecurityGroupRuleDescriptionsIngress') {
         my $request-input = UpdateSecurityGroupRuleDescriptionsIngressRequest.new(
-            :$ip-permissions,
+            :@ip-permissions,
             :$group-id,
             :$dry-run,
             :$group-name
@@ -6805,7 +6807,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$client-token,
         Str :$policy-document,
-        Array[Str] :$route-table-ids
+        Str :@route-table-ids
     ) returns CreateVpcEndpointResult is service-operation('CreateVpcEndpoint') {
         my $request-input = CreateVpcEndpointRequest.new(
             :$vpc-id,
@@ -6813,7 +6815,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
             :$dry-run,
             :$client-token,
             :$policy-document,
-            :$route-table-ids
+            :@route-table-ids
         );
 
         self.perform-operation(
@@ -6823,14 +6825,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method create-tags(
-        Array[Str] :$resources!,
+        Str :@resources!,
         Bool :$dry-run,
-        Array[Tag] :$tags!
+        Tag :@tags!
     ) is service-operation('CreateTags') {
         my $request-input = CreateTagsRequest.new(
-            :$resources,
+            :@resources,
             :$dry-run,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -6855,12 +6857,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method assign-ipv6-addresses(
-        Array[Str] :$ipv6-addresses,
+        Str :@ipv6-addresses,
         Int :$ipv6-address-count,
         Str :$network-interface-id!
     ) returns AssignIpv6AddressesResult is service-operation('AssignIpv6Addresses') {
         my $request-input = AssignIpv6AddressesRequest.new(
-            :$ipv6-addresses,
+            :@ipv6-addresses,
             :$ipv6-address-count,
             :$network-interface-id
         );
@@ -6919,11 +6921,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method unassign-ipv6-addresses(
-        Array[Str] :$ipv6-addresses!,
+        Str :@ipv6-addresses!,
         Str :$network-interface-id!
     ) returns UnassignIpv6AddressesResult is service-operation('UnassignIpv6Addresses') {
         my $request-input = UnassignIpv6AddressesRequest.new(
-            :$ipv6-addresses,
+            :@ipv6-addresses,
             :$network-interface-id
         );
 
@@ -6952,13 +6954,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-customer-gateways(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$customer-gateway-ids
+        Filter :@filters,
+        Str :@customer-gateway-ids
     ) returns DescribeCustomerGatewaysResult is service-operation('DescribeCustomerGateways') {
         my $request-input = DescribeCustomerGatewaysRequest.new(
             :$dry-run,
-            :$filters,
-            :$customer-gateway-ids
+            :@filters,
+            :@customer-gateway-ids
         );
 
         self.perform-operation(
@@ -7033,7 +7035,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         AttributeValue :$description,
         NetworkInterfaceAttachmentChanges :$attachment,
         Str :$network-interface-id!,
-        Array[Str] :$groups
+        Str :@groups
     ) is service-operation('ModifyNetworkInterfaceAttribute') {
         my $request-input = ModifyNetworkInterfaceAttributeRequest.new(
             :$dry-run,
@@ -7041,7 +7043,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
             :$description,
             :$attachment,
             :$network-interface-id,
-            :$groups
+            :@groups
         );
 
         self.perform-operation(
@@ -7083,13 +7085,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-egress-only-internet-gateways(
         Int :$max-results,
-        Array[Str] :$egress-only-internet-gateway-ids,
+        Str :@egress-only-internet-gateway-ids,
         Bool :$dry-run,
         Str :$next-token
     ) returns DescribeEgressOnlyInternetGatewaysResult is service-operation('DescribeEgressOnlyInternetGateways') {
         my $request-input = DescribeEgressOnlyInternetGatewaysRequest.new(
             :$max-results,
-            :$egress-only-internet-gateway-ids,
+            :@egress-only-internet-gateway-ids,
             :$dry-run,
             :$next-token
         );
@@ -7152,16 +7154,16 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method describe-instances(
         Int :$max-results,
         Bool :$dry-run,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$next-token,
-        Array[Str] :$instance-ids
+        Str :@instance-ids
     ) returns DescribeInstancesResult is service-operation('DescribeInstances') {
         my $request-input = DescribeInstancesRequest.new(
             :$max-results,
             :$dry-run,
-            :$filters,
+            :@filters,
             :$next-token,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -7206,13 +7208,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-key-pairs(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$key-names
+        Filter :@filters,
+        Str :@key-names
     ) returns DescribeKeyPairsResult is service-operation('DescribeKeyPairs') {
         my $request-input = DescribeKeyPairsRequest.new(
             :$dry-run,
-            :$filters,
-            :$key-names
+            :@filters,
+            :@key-names
         );
 
         self.perform-operation(
@@ -7253,11 +7255,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method unmonitor-instances(
         Bool :$dry-run,
-        Array[Str] :$instance-ids!
+        Str :@instance-ids!
     ) returns UnmonitorInstancesResult is service-operation('UnmonitorInstances') {
         my $request-input = UnmonitorInstancesRequest.new(
             :$dry-run,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -7300,17 +7302,17 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-elastic-gpus(
         Int :$max-results,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Bool :$dry-run,
         Str :$next-token,
-        Array[Str] :$elastic-gpu-ids
+        Str :@elastic-gpu-ids
     ) returns DescribeElasticGpusResult is service-operation('DescribeElasticGpus') {
         my $request-input = DescribeElasticGpusRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$dry-run,
             :$next-token,
-            :$elastic-gpu-ids
+            :@elastic-gpu-ids
         );
 
         self.perform-operation(
@@ -7320,14 +7322,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method describe-bundle-tasks(
-        Array[Str] :$bundle-ids,
+        Str :@bundle-ids,
         Bool :$dry-run,
-        Array[Filter] :$filters
+        Filter :@filters
     ) returns DescribeBundleTasksResult is service-operation('DescribeBundleTasks') {
         my $request-input = DescribeBundleTasksRequest.new(
-            :$bundle-ids,
+            :@bundle-ids,
             :$dry-run,
-            :$filters
+            :@filters
         );
 
         self.perform-operation(
@@ -7372,13 +7374,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method get-reserved-instances-exchange-quote(
         Bool :$dry-run,
-        Array[TargetConfigurationRequest] :$target-configurations,
-        Array[Str] :$reserved-instance-ids!
+        TargetConfigurationRequest :@target-configurations,
+        Str :@reserved-instance-ids!
     ) returns GetReservedInstancesExchangeQuoteResult is service-operation('GetReservedInstancesExchangeQuote') {
         my $request-input = GetReservedInstancesExchangeQuoteRequest.new(
             :$dry-run,
-            :$target-configurations,
-            :$reserved-instance-ids
+            :@target-configurations,
+            :@reserved-instance-ids
         );
 
         self.perform-operation(
@@ -7405,17 +7407,17 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method run-instances(
-        Array[Str] :$security-group-ids,
+        Str :@security-group-ids,
         Placement :$placement,
-        Array[InstanceIpv6Address] :$ipv6-addresses,
+        InstanceIpv6Address :@ipv6-addresses,
         Int :$ipv6-address-count,
-        Array[BlockDeviceMapping] :$block-device-mappings,
+        BlockDeviceMapping :@block-device-mappings,
         Bool :$dry-run,
         Str :$subnet-id,
-        Array[ElasticGpuSpecification] :$elastic-gpu-specification,
+        ElasticGpuSpecification :@elastic-gpu-specification,
         Str :$client-token,
         Str :$user-data,
-        Array[Str] :$security-groups,
+        Str :@security-groups,
         Str :$ramdisk-id,
         Str :$image-id!,
         ShutdownBehavior :$instance-initiated-shutdown-behavior,
@@ -7423,28 +7425,28 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         Str :$additional-info,
         Int :$max-count!,
         Bool :$ebs-optimized,
-        Array[TagSpecification] :$tag-specifications,
+        TagSpecification :@tag-specifications,
         Int :$min-count!,
         Str :$kernel-id,
         InstanceType :$instance-type,
         Str :$private-ip-address,
-        Array[InstanceNetworkInterfaceSpecification] :$network-interfaces,
+        InstanceNetworkInterfaceSpecification :@network-interfaces,
         IamInstanceProfileSpecification :$iam-instance-profile,
         RunInstancesMonitoringEnabled :$monitoring,
         Str :$key-name
     ) returns Reservation is service-operation('RunInstances') {
         my $request-input = RunInstancesRequest.new(
-            :$security-group-ids,
+            :@security-group-ids,
             :$placement,
-            :$ipv6-addresses,
+            :@ipv6-addresses,
             :$ipv6-address-count,
-            :$block-device-mappings,
+            :@block-device-mappings,
             :$dry-run,
             :$subnet-id,
-            :$elastic-gpu-specification,
+            :@elastic-gpu-specification,
             :$client-token,
             :$user-data,
-            :$security-groups,
+            :@security-groups,
             :$ramdisk-id,
             :$image-id,
             :$instance-initiated-shutdown-behavior,
@@ -7452,12 +7454,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
             :$additional-info,
             :$max-count,
             :$ebs-optimized,
-            :$tag-specifications,
+            :@tag-specifications,
             :$min-count,
             :$kernel-id,
             :$instance-type,
             :$private-ip-address,
-            :$network-interfaces,
+            :@network-interfaces,
             :$iam-instance-profile,
             :$monitoring,
             :$key-name
@@ -7471,14 +7473,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-iam-instance-profile-associations(
         MaxResults :$max-results,
-        Array[Str] :$association-ids,
-        Array[Filter] :$filters,
+        Str :@association-ids,
+        Filter :@filters,
         NextToken :$next-token
     ) returns DescribeIamInstanceProfileAssociationsResult is service-operation('DescribeIamInstanceProfileAssociations') {
         my $request-input = DescribeIamInstanceProfileAssociationsRequest.new(
             :$max-results,
-            :$association-ids,
-            :$filters,
+            :@association-ids,
+            :@filters,
             :$next-token
         );
 
@@ -7577,13 +7579,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-vpn-connections(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$vpn-connection-ids
+        Filter :@filters,
+        Str :@vpn-connection-ids
     ) returns DescribeVpnConnectionsResult is service-operation('DescribeVpnConnections') {
         my $request-input = DescribeVpnConnectionsRequest.new(
             :$dry-run,
-            :$filters,
-            :$vpn-connection-ids
+            :@filters,
+            :@vpn-connection-ids
         );
 
         self.perform-operation(
@@ -7626,11 +7628,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-conversion-tasks(
         Bool :$dry-run,
-        Array[Str] :$conversion-task-ids
+        Str :@conversion-task-ids
     ) returns DescribeConversionTasksResult is service-operation('DescribeConversionTasks') {
         my $request-input = DescribeConversionTasksRequest.new(
             :$dry-run,
-            :$conversion-task-ids
+            :@conversion-task-ids
         );
 
         self.perform-operation(
@@ -7641,11 +7643,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method delete-vpc-endpoints(
         Bool :$dry-run,
-        Array[Str] :$vpc-endpoint-ids!
+        Str :@vpc-endpoint-ids!
     ) returns DeleteVpcEndpointsResult is service-operation('DeleteVpcEndpoints') {
         my $request-input = DeleteVpcEndpointsRequest.new(
             :$dry-run,
-            :$vpc-endpoint-ids
+            :@vpc-endpoint-ids
         );
 
         self.perform-operation(
@@ -7670,10 +7672,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method release-hosts(
-        Array[Str] :$host-ids!
+        Str :@host-ids!
     ) returns ReleaseHostsResult is service-operation('ReleaseHosts') {
         my $request-input = ReleaseHostsRequest.new(
-            :$host-ids
+            :@host-ids
         );
 
         self.perform-operation(
@@ -7754,13 +7756,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-spot-instance-requests(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$spot-instance-request-ids
+        Filter :@filters,
+        Str :@spot-instance-request-ids
     ) returns DescribeSpotInstanceRequestsResult is service-operation('DescribeSpotInstanceRequests') {
         my $request-input = DescribeSpotInstanceRequestsRequest.new(
             :$dry-run,
-            :$filters,
-            :$spot-instance-request-ids
+            :@filters,
+            :@spot-instance-request-ids
         );
 
         self.perform-operation(
@@ -7806,7 +7808,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method authorize-security-group-ingress(
         Str :$source-security-group-owner-id,
-        Array[IpPermission] :$ip-permissions,
+        IpPermission :@ip-permissions,
         Str :$group-id,
         Str :$cidr-ip,
         Bool :$dry-run,
@@ -7818,7 +7820,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     ) is service-operation('AuthorizeSecurityGroupIngress') {
         my $request-input = AuthorizeSecurityGroupIngressRequest.new(
             :$source-security-group-owner-id,
-            :$ip-permissions,
+            :@ip-permissions,
             :$group-id,
             :$cidr-ip,
             :$dry-run,
@@ -7837,11 +7839,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method terminate-instances(
         Bool :$dry-run,
-        Array[Str] :$instance-ids!
+        Str :@instance-ids!
     ) returns TerminateInstancesResult is service-operation('TerminateInstances') {
         my $request-input = TerminateInstancesRequest.new(
             :$dry-run,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -7869,16 +7871,16 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-vpc-endpoints(
         Int :$max-results,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Bool :$dry-run,
-        Array[Str] :$vpc-endpoint-ids,
+        Str :@vpc-endpoint-ids,
         Str :$next-token
     ) returns DescribeVpcEndpointsResult is service-operation('DescribeVpcEndpoints') {
         my $request-input = DescribeVpcEndpointsRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$dry-run,
-            :$vpc-endpoint-ids,
+            :@vpc-endpoint-ids,
             :$next-token
         );
 
@@ -7943,11 +7945,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method reboot-instances(
         Bool :$dry-run,
-        Array[Str] :$instance-ids!
+        Str :@instance-ids!
     ) is service-operation('RebootInstances') {
         my $request-input = RebootInstancesRequest.new(
             :$dry-run,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -8038,13 +8040,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method describe-spot-fleet-requests(
-        Array[Str] :$spot-fleet-request-ids,
+        Str :@spot-fleet-request-ids,
         Int :$max-results,
         Bool :$dry-run,
         Str :$next-token
     ) returns DescribeSpotFleetRequestsResponse is service-operation('DescribeSpotFleetRequests') {
         my $request-input = DescribeSpotFleetRequestsRequest.new(
-            :$spot-fleet-request-ids,
+            :@spot-fleet-request-ids,
             :$max-results,
             :$dry-run,
             :$next-token
@@ -8058,13 +8060,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-vpn-gateways(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$vpn-gateway-ids
+        Filter :@filters,
+        Str :@vpn-gateway-ids
     ) returns DescribeVpnGatewaysResult is service-operation('DescribeVpnGateways') {
         my $request-input = DescribeVpnGatewaysRequest.new(
             :$dry-run,
-            :$filters,
-            :$vpn-gateway-ids
+            :@filters,
+            :@vpn-gateway-ids
         );
 
         self.perform-operation(
@@ -8075,13 +8077,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method modify-reserved-instances(
         Str :$client-token,
-        Array[ReservedInstancesConfiguration] :$target-configurations!,
-        Array[Str] :$reserved-instances-ids!
+        ReservedInstancesConfiguration :@target-configurations!,
+        Str :@reserved-instances-ids!
     ) returns ModifyReservedInstancesResult is service-operation('ModifyReservedInstances') {
         my $request-input = ModifyReservedInstancesRequest.new(
             :$client-token,
-            :$target-configurations,
-            :$reserved-instances-ids
+            :@target-configurations,
+            :@reserved-instances-ids
         );
 
         self.perform-operation(
@@ -8154,11 +8156,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-account-attributes(
         Bool :$dry-run,
-        Array[AccountAttributeName] :$attribute-names
+        AccountAttributeName :@attribute-names
     ) returns DescribeAccountAttributesResult is service-operation('DescribeAccountAttributes') {
         my $request-input = DescribeAccountAttributesRequest.new(
             :$dry-run,
-            :$attribute-names
+            :@attribute-names
         );
 
         self.perform-operation(
@@ -8185,13 +8187,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method create-reserved-instances-listing(
         Str :$reserved-instances-id!,
         Str :$client-token!,
-        Array[PriceScheduleSpecification] :$price-schedules!,
+        PriceScheduleSpecification :@price-schedules!,
         Int :$instance-count!
     ) returns CreateReservedInstancesListingResult is service-operation('CreateReservedInstancesListing') {
         my $request-input = CreateReservedInstancesListingRequest.new(
             :$reserved-instances-id,
             :$client-token,
-            :$price-schedules,
+            :@price-schedules,
             :$instance-count
         );
 
@@ -8244,7 +8246,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method create-image(
-        Array[BlockDeviceMapping] :$block-device-mappings,
+        BlockDeviceMapping :@block-device-mappings,
         Bool :$no-reboot,
         Bool :$dry-run,
         Str :$description,
@@ -8252,7 +8254,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         Str :$instance-id!
     ) returns CreateImageResult is service-operation('CreateImage') {
         my $request-input = CreateImageRequest.new(
-            :$block-device-mappings,
+            :@block-device-mappings,
             :$no-reboot,
             :$dry-run,
             :$description,
@@ -8303,20 +8305,20 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method report-instance-status(
-        Array[ReportInstanceReasonCodes] :$reason-codes!,
+        ReportInstanceReasonCodes :@reason-codes!,
         DateTime :$end-time,
         Bool :$dry-run,
         Str :$description,
-        Array[Str] :$instances!,
+        Str :@instances!,
         DateTime :$start-time,
         ReportStatusType :$status!
     ) is service-operation('ReportInstanceStatus') {
         my $request-input = ReportInstanceStatusRequest.new(
-            :$reason-codes,
+            :@reason-codes,
             :$end-time,
             :$dry-run,
             :$description,
-            :$instances,
+            :@instances,
             :$start-time,
             :$status
         );
@@ -8332,14 +8334,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         Str :$offering-id!,
         Str :$limit-price,
         CurrencyCodeValues :$currency-code,
-        Array[Str] :$host-id-set!
+        Str :@host-id-set!
     ) returns PurchaseHostReservationResult is service-operation('PurchaseHostReservation') {
         my $request-input = PurchaseHostReservationRequest.new(
             :$client-token,
             :$offering-id,
             :$limit-price,
             :$currency-code,
-            :$host-id-set
+            :@host-id-set
         );
 
         self.perform-operation(
@@ -8350,18 +8352,18 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-fpga-images(
         MaxResults :$max-results,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Bool :$dry-run,
-        Array[Str] :$owners,
-        Array[Str] :$fpga-image-ids,
+        Str :@owners,
+        Str :@fpga-image-ids,
         NextToken :$next-token
     ) returns DescribeFpgaImagesResult is service-operation('DescribeFpgaImages') {
         my $request-input = DescribeFpgaImagesRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$dry-run,
-            :$owners,
-            :$fpga-image-ids,
+            :@owners,
+            :@fpga-image-ids,
             :$next-token
         );
 
@@ -8373,15 +8375,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-addresses(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$allocation-ids,
-        Array[Str] :$public-ips
+        Filter :@filters,
+        Str :@allocation-ids,
+        Str :@public-ips
     ) returns DescribeAddressesResult is service-operation('DescribeAddresses') {
         my $request-input = DescribeAddressesRequest.new(
             :$dry-run,
-            :$filters,
-            :$allocation-ids,
-            :$public-ips
+            :@filters,
+            :@allocation-ids,
+            :@public-ips
         );
 
         self.perform-operation(
@@ -8411,13 +8413,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-network-interfaces(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$network-interface-ids
+        Filter :@filters,
+        Str :@network-interface-ids
     ) returns DescribeNetworkInterfacesResult is service-operation('DescribeNetworkInterfaces') {
         my $request-input = DescribeNetworkInterfacesRequest.new(
             :$dry-run,
-            :$filters,
-            :$network-interface-ids
+            :@filters,
+            :@network-interface-ids
         );
 
         self.perform-operation(
@@ -8428,14 +8430,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-nat-gateways(
         Int :$max-results,
-        Array[Filter] :$filter,
-        Array[Str] :$nat-gateway-ids,
+        Filter :@filter,
+        Str :@nat-gateway-ids,
         Str :$next-token
     ) returns DescribeNatGatewaysResult is service-operation('DescribeNatGateways') {
         my $request-input = DescribeNatGatewaysRequest.new(
             :$max-results,
-            :$filter,
-            :$nat-gateway-ids,
+            :@filter,
+            :@nat-gateway-ids,
             :$next-token
         );
 
@@ -8446,14 +8448,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method delete-tags(
-        Array[Str] :$resources!,
+        Str :@resources!,
         Bool :$dry-run,
-        Array[Tag] :$tags
+        Tag :@tags
     ) is service-operation('DeleteTags') {
         my $request-input = DeleteTagsRequest.new(
-            :$resources,
+            :@resources,
             :$dry-run,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -8506,17 +8508,17 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-scheduled-instances(
         Int :$max-results,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Bool :$dry-run,
-        Array[Str] :$scheduled-instance-ids,
+        Str :@scheduled-instance-ids,
         Str :$next-token,
         SlotStartTimeRangeRequest :$slot-start-time-range
     ) returns DescribeScheduledInstancesResult is service-operation('DescribeScheduledInstances') {
         my $request-input = DescribeScheduledInstancesRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$dry-run,
-            :$scheduled-instance-ids,
+            :@scheduled-instance-ids,
             :$next-token,
             :$slot-start-time-range
         );
@@ -8529,13 +8531,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-tags(
         Int :$max-results,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Bool :$dry-run,
         Str :$next-token
     ) returns DescribeTagsResult is service-operation('DescribeTags') {
         my $request-input = DescribeTagsRequest.new(
             :$max-results,
-            :$filters,
+            :@filters,
             :$dry-run,
             :$next-token
         );
@@ -8549,15 +8551,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method describe-volumes(
         Int :$max-results,
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$volume-ids,
+        Filter :@filters,
+        Str :@volume-ids,
         Str :$next-token
     ) returns DescribeVolumesResult is service-operation('DescribeVolumes') {
         my $request-input = DescribeVolumesRequest.new(
             :$max-results,
             :$dry-run,
-            :$filters,
-            :$volume-ids,
+            :@filters,
+            :@volume-ids,
             :$next-token
         );
 
@@ -8586,14 +8588,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-network-interface-permissions(
         Int :$max-results,
-        Array[Filter] :$filters,
-        Array[Str] :$network-interface-permission-ids,
+        Filter :@filters,
+        Str :@network-interface-permission-ids,
         Str :$next-token
     ) returns DescribeNetworkInterfacePermissionsResult is service-operation('DescribeNetworkInterfacePermissions') {
         my $request-input = DescribeNetworkInterfacePermissionsRequest.new(
             :$max-results,
-            :$filters,
-            :$network-interface-permission-ids,
+            :@filters,
+            :@network-interface-permission-ids,
             :$next-token
         );
 
@@ -8608,7 +8610,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$snapshot-id,
         VolumeType :$volume-type,
-        Array[TagSpecification] :$tag-specifications,
+        TagSpecification :@tag-specifications,
         Int :$size,
         Str :$availability-zone!,
         Int :$iops,
@@ -8619,7 +8621,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
             :$dry-run,
             :$snapshot-id,
             :$volume-type,
-            :$tag-specifications,
+            :@tag-specifications,
             :$size,
             :$availability-zone,
             :$iops,
@@ -8634,27 +8636,27 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method modify-image-attribute(
         Bool :$dry-run,
-        Array[Str] :$user-ids,
+        Str :@user-ids,
         LaunchPermissionModifications :$launch-permission,
         Str :$image-id!,
         AttributeValue :$description,
-        Array[Str] :$user-groups,
+        Str :@user-groups,
         Str :$value,
         OperationType :$operation-type,
         Str :$attribute,
-        Array[Str] :$product-codes
+        Str :@product-codes
     ) is service-operation('ModifyImageAttribute') {
         my $request-input = ModifyImageAttributeRequest.new(
             :$dry-run,
-            :$user-ids,
+            :@user-ids,
             :$launch-permission,
             :$image-id,
             :$description,
-            :$user-groups,
+            :@user-groups,
             :$value,
             :$operation-type,
             :$attribute,
-            :$product-codes
+            :@product-codes
         );
 
         self.perform-operation(
@@ -8665,7 +8667,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method revoke-security-group-ingress(
         Str :$source-security-group-owner-id,
-        Array[IpPermission] :$ip-permissions,
+        IpPermission :@ip-permissions,
         Str :$group-id,
         Str :$cidr-ip,
         Bool :$dry-run,
@@ -8677,7 +8679,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     ) is service-operation('RevokeSecurityGroupIngress') {
         my $request-input = RevokeSecurityGroupIngressRequest.new(
             :$source-security-group-owner-id,
-            :$ip-permissions,
+            :@ip-permissions,
             :$group-id,
             :$cidr-ip,
             :$dry-run,
@@ -8696,13 +8698,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-internet-gateways(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$internet-gateway-ids
+        Filter :@filters,
+        Str :@internet-gateway-ids
     ) returns DescribeInternetGatewaysResult is service-operation('DescribeInternetGateways') {
         my $request-input = DescribeInternetGatewaysRequest.new(
             :$dry-run,
-            :$filters,
-            :$internet-gateway-ids
+            :@filters,
+            :@internet-gateway-ids
         );
 
         self.perform-operation(
@@ -8712,11 +8714,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method describe-security-group-references(
-        Array[Str] :$group-id!,
+        Str :@group-id!,
         Bool :$dry-run
     ) returns DescribeSecurityGroupReferencesResult is service-operation('DescribeSecurityGroupReferences') {
         my $request-input = DescribeSecurityGroupReferencesRequest.new(
-            :$group-id,
+            :@group-id,
             :$dry-run
         );
 
@@ -8731,14 +8733,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         PlatformValues :$platform!,
         Str :$description,
-        Array[DiskImage] :$disk-images
+        DiskImage :@disk-images
     ) returns ImportInstanceResult is service-operation('ImportInstance') {
         my $request-input = ImportInstanceRequest.new(
             :$launch-specification,
             :$dry-run,
             :$platform,
             :$description,
-            :$disk-images
+            :@disk-images
         );
 
         self.perform-operation(
@@ -8811,12 +8813,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method describe-reserved-instances-listings(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$reserved-instances-listing-id,
         Str :$reserved-instances-id
     ) returns DescribeReservedInstancesListingsResult is service-operation('DescribeReservedInstancesListings') {
         my $request-input = DescribeReservedInstancesListingsRequest.new(
-            :$filters,
+            :@filters,
             :$reserved-instances-listing-id,
             :$reserved-instances-id
         );
@@ -8902,7 +8904,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         Str :$client-token,
         TrafficType :$traffic-type!,
         FlowLogsResourceType :$resource-type!,
-        Array[Str] :$resource-ids!,
+        Str :@resource-ids!,
         Str :$deliver-logs-permission-arn!
     ) returns CreateFlowLogsResult is service-operation('CreateFlowLogs') {
         my $request-input = CreateFlowLogsRequest.new(
@@ -8910,7 +8912,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
             :$client-token,
             :$traffic-type,
             :$resource-type,
-            :$resource-ids,
+            :@resource-ids,
             :$deliver-logs-permission-arn
         );
 
@@ -8922,15 +8924,15 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-prefix-lists(
         Int :$max-results,
-        Array[Str] :$prefix-list-ids,
-        Array[Filter] :$filters,
+        Str :@prefix-list-ids,
+        Filter :@filters,
         Bool :$dry-run,
         Str :$next-token
     ) returns DescribePrefixListsResult is service-operation('DescribePrefixLists') {
         my $request-input = DescribePrefixListsRequest.new(
             :$max-results,
-            :$prefix-list-ids,
-            :$filters,
+            :@prefix-list-ids,
+            :@filters,
             :$dry-run,
             :$next-token
         );
@@ -8959,7 +8961,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method revoke-security-group-egress(
         Str :$source-security-group-owner-id,
         Str :$cidr-ip,
-        Array[IpPermission] :$ip-permissions,
+        IpPermission :@ip-permissions,
         Str :$group-id!,
         Bool :$dry-run,
         Str :$ip-protocol,
@@ -8970,7 +8972,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         my $request-input = RevokeSecurityGroupEgressRequest.new(
             :$source-security-group-owner-id,
             :$cidr-ip,
-            :$ip-permissions,
+            :@ip-permissions,
             :$group-id,
             :$dry-run,
             :$ip-protocol,
@@ -9019,13 +9021,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-subnets(
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[Str] :$subnet-ids
+        Filter :@filters,
+        Str :@subnet-ids
     ) returns DescribeSubnetsResult is service-operation('DescribeSubnets') {
         my $request-input = DescribeSubnetsRequest.new(
             :$dry-run,
-            :$filters,
-            :$subnet-ids
+            :@filters,
+            :@subnet-ids
         );
 
         self.perform-operation(
@@ -9049,7 +9051,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-host-reservation-offerings(
         Int :$max-results,
-        Array[Filter] :$filter,
+        Filter :@filter,
         Str :$offering-id,
         Int :$max-duration,
         Int :$min-duration,
@@ -9057,7 +9059,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     ) returns DescribeHostReservationOfferingsResult is service-operation('DescribeHostReservationOfferings') {
         my $request-input = DescribeHostReservationOfferingsRequest.new(
             :$max-results,
-            :$filter,
+            :@filter,
             :$offering-id,
             :$max-duration,
             :$min-duration,
@@ -9072,13 +9074,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method assign-private-ip-addresses(
         Int :$secondary-private-ip-address-count,
-        Array[Str] :$private-ip-addresses,
+        Str :@private-ip-addresses,
         Str :$network-interface-id!,
         Bool :$allow-reassignment
     ) is service-operation('AssignPrivateIpAddresses') {
         my $request-input = AssignPrivateIpAddressesRequest.new(
             :$secondary-private-ip-address-count,
-            :$private-ip-addresses,
+            :@private-ip-addresses,
             :$network-interface-id,
             :$allow-reassignment
         );
@@ -9093,10 +9095,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         Int :$max-results,
         DateTime :$end-time,
         Bool :$dry-run,
-        Array[Filter] :$filters,
-        Array[InstanceType] :$instance-types,
+        Filter :@filters,
+        InstanceType :@instance-types,
         DateTime :$start-time,
-        Array[Str] :$product-descriptions,
+        Str :@product-descriptions,
         Str :$next-token,
         Str :$availability-zone
     ) returns DescribeSpotPriceHistoryResult is service-operation('DescribeSpotPriceHistory') {
@@ -9104,10 +9106,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
             :$max-results,
             :$end-time,
             :$dry-run,
-            :$filters,
-            :$instance-types,
+            :@filters,
+            :@instance-types,
             :$start-time,
-            :$product-descriptions,
+            :@product-descriptions,
             :$next-token,
             :$availability-zone
         );
@@ -9173,14 +9175,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-hosts(
         Int :$max-results,
-        Array[Str] :$host-ids,
-        Array[Filter] :$filter,
+        Str :@host-ids,
+        Filter :@filter,
         Str :$next-token
     ) returns DescribeHostsResult is service-operation('DescribeHosts') {
         my $request-input = DescribeHostsRequest.new(
             :$max-results,
-            :$host-ids,
-            :$filter,
+            :@host-ids,
+            :@filter,
             :$next-token
         );
 
@@ -9191,14 +9193,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method describe-reserved-instances-modifications(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$next-token,
-        Array[Str] :$reserved-instances-modification-ids
+        Str :@reserved-instances-modification-ids
     ) returns DescribeReservedInstancesModificationsResult is service-operation('DescribeReservedInstancesModifications') {
         my $request-input = DescribeReservedInstancesModificationsRequest.new(
-            :$filters,
+            :@filters,
             :$next-token,
-            :$reserved-instances-modification-ids
+            :@reserved-instances-modification-ids
         );
 
         self.perform-operation(
@@ -9244,16 +9246,16 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     method describe-classic-link-instances(
         Int :$max-results,
         Bool :$dry-run,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$next-token,
-        Array[Str] :$instance-ids
+        Str :@instance-ids
     ) returns DescribeClassicLinkInstancesResult is service-operation('DescribeClassicLinkInstances') {
         my $request-input = DescribeClassicLinkInstancesRequest.new(
             :$max-results,
             :$dry-run,
-            :$filters,
+            :@filters,
             :$next-token,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -9332,13 +9334,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         RIProductDescription :$product-description,
         Tenancy :$instance-tenancy,
         Bool :$dry-run,
-        Array[Filter] :$filters,
+        Filter :@filters,
         OfferingClassType :$offering-class,
         Int :$max-duration,
         Bool :$include-marketplace,
         Int :$min-duration,
         Str :$next-token,
-        Array[Str] :$reserved-instances-offering-ids,
+        Str :@reserved-instances-offering-ids,
         InstanceType :$instance-type,
         Str :$availability-zone,
         Int :$max-instance-count
@@ -9349,13 +9351,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
             :$product-description,
             :$instance-tenancy,
             :$dry-run,
-            :$filters,
+            :@filters,
             :$offering-class,
             :$max-duration,
             :$include-marketplace,
             :$min-duration,
             :$next-token,
-            :$reserved-instances-offering-ids,
+            :@reserved-instances-offering-ids,
             :$instance-type,
             :$availability-zone,
             :$max-instance-count
@@ -9432,10 +9434,10 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method delete-flow-logs(
-        Array[Str] :$flow-log-ids!
+        Str :@flow-log-ids!
     ) returns DeleteFlowLogsResult is service-operation('DeleteFlowLogs') {
         my $request-input = DeleteFlowLogsRequest.new(
-            :$flow-log-ids
+            :@flow-log-ids
         );
 
         self.perform-operation(
@@ -9446,14 +9448,14 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-host-reservations(
         Int :$max-results,
-        Array[Filter] :$filter,
-        Array[Str] :$host-reservation-id-set,
+        Filter :@filter,
+        Str :@host-reservation-id-set,
         Str :$next-token
     ) returns DescribeHostReservationsResult is service-operation('DescribeHostReservations') {
         my $request-input = DescribeHostReservationsRequest.new(
             :$max-results,
-            :$filter,
-            :$host-reservation-id-set,
+            :@filter,
+            :@host-reservation-id-set,
             :$next-token
         );
 
@@ -9548,12 +9550,12 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method describe-vpc-classic-link-dns-support(
         MaxResults :$max-results,
-        Array[Str] :$vpc-ids,
+        Str :@vpc-ids,
         NextToken :$next-token
     ) returns DescribeVpcClassicLinkDnsSupportResult is service-operation('DescribeVpcClassicLinkDnsSupport') {
         my $request-input = DescribeVpcClassicLinkDnsSupportRequest.new(
             :$max-results,
-            :$vpc-ids,
+            :@vpc-ids,
             :$next-token
         );
 
@@ -9564,7 +9566,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method modify-instance-attribute(
-        Array[InstanceBlockDeviceMappingSpecification] :$block-device-mappings,
+        InstanceBlockDeviceMappingSpecification :@block-device-mappings,
         AttributeValue :$ramdisk,
         Bool :$dry-run,
         BlobAttributeValue :$user-data,
@@ -9572,7 +9574,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         AttributeValue :$instance-initiated-shutdown-behavior,
         AttributeBooleanValue :$ena-support,
         AttributeBooleanValue :$disable-api-termination,
-        Array[Str] :$groups,
+        Str :@groups,
         AttributeBooleanValue :$ebs-optimized,
         Str :$value,
         AttributeValue :$instance-type,
@@ -9582,7 +9584,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         AttributeValue :$kernel
     ) is service-operation('ModifyInstanceAttribute') {
         my $request-input = ModifyInstanceAttributeRequest.new(
-            :$block-device-mappings,
+            :@block-device-mappings,
             :$ramdisk,
             :$dry-run,
             :$user-data,
@@ -9590,7 +9592,7 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
             :$instance-initiated-shutdown-behavior,
             :$ena-support,
             :$disable-api-termination,
-            :$groups,
+            :@groups,
             :$ebs-optimized,
             :$value,
             :$instance-type,
@@ -9608,20 +9610,20 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method modify-snapshot-attribute(
         Bool :$dry-run,
-        Array[Str] :$user-ids,
+        Str :@user-ids,
         Str :$snapshot-id!,
         OperationType :$operation-type,
         SnapshotAttributeName :$attribute,
-        Array[Str] :$group-names,
+        Str :@group-names,
         CreateVolumePermissionModifications :$create-volume-permission
     ) is service-operation('ModifySnapshotAttribute') {
         my $request-input = ModifySnapshotAttributeRequest.new(
             :$dry-run,
-            :$user-ids,
+            :@user-ids,
             :$snapshot-id,
             :$operation-type,
             :$attribute,
-            :$group-names,
+            :@group-names,
             :$create-volume-permission
         );
 
@@ -9632,11 +9634,11 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method unassign-private-ip-addresses(
-        Array[Str] :$private-ip-addresses!,
+        Str :@private-ip-addresses!,
         Str :$network-interface-id!
     ) is service-operation('UnassignPrivateIpAddresses') {
         my $request-input = UnassignPrivateIpAddressesRequest.new(
-            :$private-ip-addresses,
+            :@private-ip-addresses,
             :$network-interface-id
         );
 
@@ -9647,8 +9649,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
     }
 
     method register-image(
-        Array[BlockDeviceMapping] :$block-device-mappings,
-        Array[Str] :$billing-products,
+        BlockDeviceMapping :@block-device-mappings,
+        Str :@billing-products,
         Bool :$dry-run,
         Str :$virtualization-type,
         Str :$ramdisk-id,
@@ -9662,8 +9664,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         ArchitectureValues :$architecture
     ) returns RegisterImageResult is service-operation('RegisterImage') {
         my $request-input = RegisterImageRequest.new(
-            :$block-device-mappings,
-            :$billing-products,
+            :@block-device-mappings,
+            :@billing-products,
             :$dry-run,
             :$virtualization-type,
             :$ramdisk-id,
@@ -9685,13 +9687,13 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
 
     method accept-reserved-instances-exchange-quote(
         Bool :$dry-run,
-        Array[TargetConfigurationRequest] :$target-configurations,
-        Array[Str] :$reserved-instance-ids!
+        TargetConfigurationRequest :@target-configurations,
+        Str :@reserved-instance-ids!
     ) returns AcceptReservedInstancesExchangeQuoteResult is service-operation('AcceptReservedInstancesExchangeQuote') {
         my $request-input = AcceptReservedInstancesExchangeQuoteRequest.new(
             :$dry-run,
-            :$target-configurations,
-            :$reserved-instance-ids
+            :@target-configurations,
+            :@reserved-instance-ids
         );
 
         self.perform-operation(

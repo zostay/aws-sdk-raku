@@ -48,9 +48,32 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
     class DescribeMountTargetsResponse { ... }
     class ModifyMountTargetSecurityGroupsRequest { ... }
 
+    subset KmsKeyId of Str where 1 <= .chars <= 2048;
+
+    subset SecurityGroups of Array[Str] where *.elems <= 5;
+
+    subset PerformanceMode of Str where $_ eq any('generalPurpose', 'maxIO');
+
+    subset FileSystemSizeValue of Int where 0 <= *;
+
+    subset MaxItems of Int where 1 <= *;
+
+    subset LifeCycleState of Str where $_ eq any('creating', 'available', 'deleting', 'deleted');
+
+    subset TagKey of Str where 1 <= .chars <= 128;
+
+    subset TagValue of Str where .chars <= 256;
+
+    subset MountTargetCount of Int where 0 <= *;
+
+    subset CreationToken of Str where 1 <= .chars <= 64;
+
+    subset ErrorCode of Str where 1 <= .chars;
+
+
     class CreateTagsRequest does AWS::SDK::Shape {
         has Str $.file-system-id is required is shape-member('FileSystemId');
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
     }
 
     class DeleteMountTargetRequest does AWS::SDK::Shape {
@@ -68,8 +91,6 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
         has Str $.marker is shape-member('Marker');
     }
 
-    subset KmsKeyId of Str where 1 <= .chars <= 2048;
-
     class DescribeFileSystemsRequest does AWS::SDK::Shape {
         has Str $.file-system-id is shape-member('FileSystemId');
         has MaxItems $.max-items is shape-member('MaxItems');
@@ -77,16 +98,12 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
         has CreationToken $.creation-token is shape-member('CreationToken');
     }
 
-    subset SecurityGroups of Array[Str] where *.elems <= 5;
-
-    subset PerformanceMode of Str where $_ ~~ any('generalPurpose', 'maxIO');
-
     class DeleteFileSystemRequest does AWS::SDK::Shape {
         has Str $.file-system-id is required is shape-member('FileSystemId');
     }
 
     class DescribeTagsResponse does AWS::SDK::Shape {
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
         has Str $.marker is shape-member('Marker');
         has Str $.next-marker is shape-member('NextMarker');
     }
@@ -114,7 +131,7 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
     }
 
     class DescribeFileSystemsResponse does AWS::SDK::Shape {
-        has Array[FileSystemDescription] $.file-systems is shape-member('FileSystems');
+        has FileSystemDescription @.file-systems is shape-member('FileSystems');
         has Str $.marker is shape-member('Marker');
         has Str $.next-marker is shape-member('NextMarker');
     }
@@ -137,10 +154,6 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
         has ErrorCode $.error-code is required is shape-member('ErrorCode');
     }
-
-    subset FileSystemSizeValue of Int where 0 <= *;
-
-    subset MaxItems of Int where 1 <= *;
 
     class NoFreeAddressesInSubnet does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -182,18 +195,10 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
         has ErrorCode $.error-code is required is shape-member('ErrorCode');
     }
 
-    subset LifeCycleState of Str where $_ ~~ any('creating', 'available', 'deleting', 'deleted');
-
-    subset TagKey of Str where 1 <= .chars <= 128;
-
     class InternalServerError does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
         has ErrorCode $.error-code is required is shape-member('ErrorCode');
     }
-
-    subset TagValue of Str where .chars <= 256;
-
-    subset MountTargetCount of Int where 0 <= *;
 
     class BadRequest does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -251,11 +256,9 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
         has TagKey $.key is required is shape-member('Key');
     }
 
-    subset CreationToken of Str where 1 <= .chars <= 64;
-
     class DeleteTagsRequest does AWS::SDK::Shape {
         has Str $.file-system-id is required is shape-member('FileSystemId');
-        has Array[TagKey] $.tag-keys is required is shape-member('TagKeys');
+        has TagKey @.tag-keys is required is shape-member('TagKeys');
     }
 
     class DescribeMountTargetsRequest does AWS::SDK::Shape {
@@ -266,17 +269,16 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
     }
 
     class DescribeMountTargetsResponse does AWS::SDK::Shape {
-        has Array[MountTargetDescription] $.mount-targets is shape-member('MountTargets');
+        has MountTargetDescription @.mount-targets is shape-member('MountTargets');
         has Str $.marker is shape-member('Marker');
         has Str $.next-marker is shape-member('NextMarker');
     }
-
-    subset ErrorCode of Str where 1 <= .chars;
 
     class ModifyMountTargetSecurityGroupsRequest does AWS::SDK::Shape {
         has SecurityGroups $.security-groups is shape-member('SecurityGroups');
         has Str $.mount-target-id is required is shape-member('MountTargetId');
     }
+
 
     method describe-mount-target-security-groups(
         Str :$mount-target-id!
@@ -427,11 +429,11 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
 
     method delete-tags(
         Str :$file-system-id!,
-        Array[TagKey] :$tag-keys!
+        TagKey :@tag-keys!
     ) is service-operation('DeleteTags') {
         my $request-input = DeleteTagsRequest.new(
             :$file-system-id,
-            :$tag-keys
+            :@tag-keys
         );
 
         self.perform-operation(
@@ -442,11 +444,11 @@ class AWS::SDK::Service::EFS does AWS::SDK::Service {
 
     method create-tags(
         Str :$file-system-id!,
-        Array[Tag] :$tags!
+        Tag :@tags!
     ) is service-operation('CreateTags') {
         my $request-input = CreateTagsRequest.new(
             :$file-system-id,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(

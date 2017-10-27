@@ -188,6 +188,121 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     class DescribeMatchmakingOutput { ... }
     class CreatePlayerSessionOutput { ... }
 
+    subset MaxConcurrentGameSessionActivations of Int where 1 <= * <= 2147483647;
+
+    subset NonEmptyString of Str where 1 <= .chars;
+
+    subset FleetIdList of Array[FleetId] where 1 <= *.elems;
+
+    subset ArnStringModel of Str where 1 <= .chars <= 256 && rx:P5/[a-zA-Z0-9:\/-]+/;
+
+    subset IpProtocol of Str where $_ eq any('TCP', 'UDP');
+
+    subset ScalingAdjustmentType of Str where $_ eq any('ChangeInCapacity', 'ExactCapacity', 'PercentChangeInCapacity');
+
+    subset RoutingStrategyType of Str where $_ eq any('SIMPLE', 'TERMINAL');
+
+    subset GamePropertyKey of Str where .chars <= 32;
+
+    subset OperatingSystem of Str where $_ eq any('WINDOWS_2012', 'AMAZON_LINUX');
+
+    subset NonBlankString of Str where rx:P5/[^\s]+/;
+
+    subset ComparisonOperatorType of Str where $_ eq any('GreaterThanOrEqualToThreshold', 'GreaterThanThreshold', 'LessThanThreshold', 'LessThanOrEqualToThreshold');
+
+    subset MatchmakingRequestTimeoutInteger of Int where 1 <= * <= 43200;
+
+    subset GameSessionActivationTimeoutSeconds of Int where 1 <= * <= 600;
+
+    subset MetricGroupList of Array[MetricGroup] where *.elems <= 1;
+
+    subset NonZeroAndMaxString of Str where 1 <= .chars <= 1024;
+
+    subset IpPermissionsList of Array[IpPermission] where *.elems <= 50;
+
+    subset FleetStatus of Str where $_ eq any('NEW', 'DOWNLOADING', 'VALIDATING', 'BUILDING', 'ACTIVATING', 'ACTIVE', 'DELETING', 'ERROR', 'TERMINATED');
+
+    subset PlayerIdList of Array[NonZeroAndMaxString] where 1 <= *.elems <= 25;
+
+    subset ProtectionPolicy of Str where $_ eq any('NoProtection', 'FullProtection');
+
+    subset PlayerSessionId of Str where rx:P5/^psess-\S+/;
+
+    subset AliasId of Str where rx:P5/^alias-\S+/;
+
+    subset GameSessionPlacementState of Str where $_ eq any('PENDING', 'FULFILLED', 'CANCELLED', 'TIMED_OUT');
+
+    subset PlayerSessionStatus of Str where $_ eq any('RESERVED', 'ACTIVE', 'COMPLETED', 'TIMEDOUT');
+
+    subset MatchmakingIdStringModel of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9-\.]+/;
+
+    subset EventCode of Str where $_ eq any('GENERIC_EVENT', 'FLEET_CREATED', 'FLEET_DELETED', 'FLEET_SCALING_EVENT', 'FLEET_STATE_DOWNLOADING', 'FLEET_STATE_VALIDATING', 'FLEET_STATE_BUILDING', 'FLEET_STATE_ACTIVATING', 'FLEET_STATE_ACTIVE', 'FLEET_STATE_ERROR', 'FLEET_INITIALIZATION_FAILED', 'FLEET_BINARY_DOWNLOAD_FAILED', 'FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND', 'FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE', 'FLEET_VALIDATION_TIMED_OUT', 'FLEET_ACTIVATION_FAILED', 'FLEET_ACTIVATION_FAILED_NO_INSTANCES', 'FLEET_NEW_GAME_SESSION_PROTECTION_POLICY_UPDATED', 'SERVER_PROCESS_INVALID_PATH', 'SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT', 'SERVER_PROCESS_PROCESS_READY_TIMEOUT', 'SERVER_PROCESS_CRASHED', 'SERVER_PROCESS_TERMINATED_UNHEALTHY', 'SERVER_PROCESS_FORCE_TERMINATED', 'SERVER_PROCESS_PROCESS_EXIT_TIMEOUT', 'GAME_SESSION_ACTIVATION_TIMEOUT', 'FLEET_CREATION_EXTRACTING_BUILD', 'FLEET_CREATION_RUNNING_INSTALLER', 'FLEET_CREATION_VALIDATING_RUNTIME_CONFIG', 'FLEET_VPC_PEERING_SUCCEEDED', 'FLEET_VPC_PEERING_FAILED', 'FLEET_VPC_PEERING_DELETED');
+
+    subset InstanceId of Str where rx:P5/[a-zA-Z0-9\.-]+/;
+
+    subset SnsArnStringModel of Str where 0 <= .chars <= 300 && rx:P5/[a-zA-Z0-9:_\/-]*/;
+
+    subset NonBlankAndLengthConstraintString of Str where 1 <= .chars <= 1024 && rx:P5/.*\S.*/;
+
+    subset GameSessionStatus of Str where $_ eq any('ACTIVE', 'ACTIVATING', 'TERMINATED', 'TERMINATING', 'ERROR');
+
+    subset WholeNumber of Int where 0 <= *;
+
+    subset PlayerIdStringModel of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9-\.]+/;
+
+    subset MetricName of Str where $_ eq any('ActivatingGameSessions', 'ActiveGameSessions', 'ActiveInstances', 'AvailableGameSessions', 'AvailablePlayerSessions', 'CurrentPlayerSessions', 'IdleInstances', 'PercentAvailableGameSessions', 'PercentIdleInstances', 'QueueDepth', 'WaitTime');
+
+    subset ScalingStatusType of Str where $_ eq any('ACTIVE', 'UPDATE_REQUESTED', 'UPDATING', 'DELETE_REQUESTED', 'DELETING', 'DELETED', 'ERROR');
+
+    subset PlayerSessionCreationPolicy of Str where $_ eq any('ACCEPT_ALL', 'DENY_ALL');
+
+    subset MatchmakingRuleSetNameList of Array[MatchmakingIdStringModel] where 1 <= *.elems <= 10;
+
+    subset PortNumber of Int where 1 <= * <= 60000;
+
+    subset MatchmakingAcceptanceTimeoutInteger of Int where 1 <= * <= 600;
+
+    subset PositiveInteger of Int where 1 <= *;
+
+    subset EC2InstanceType of Str where $_ eq any('t2.micro', 't2.small', 't2.medium', 't2.large', 'c3.large', 'c3.xlarge', 'c3.2xlarge', 'c3.4xlarge', 'c3.8xlarge', 'c4.large', 'c4.xlarge', 'c4.2xlarge', 'c4.4xlarge', 'c4.8xlarge', 'r3.large', 'r3.xlarge', 'r3.2xlarge', 'r3.4xlarge', 'r3.8xlarge', 'r4.large', 'r4.xlarge', 'r4.2xlarge', 'r4.4xlarge', 'r4.8xlarge', 'r4.16xlarge', 'm3.medium', 'm3.large', 'm3.xlarge', 'm3.2xlarge', 'm4.large', 'm4.xlarge', 'm4.2xlarge', 'm4.4xlarge', 'm4.10xlarge');
+
+    subset GamePropertyValue of Str where .chars <= 96;
+
+    subset BuildId of Str where rx:P5/^build-\S+/;
+
+    subset IdStringModel of Str where 1 <= .chars <= 48 && rx:P5/[a-zA-Z0-9-]+/;
+
+    subset InstanceStatus of Str where $_ eq any('PENDING', 'ACTIVE', 'TERMINATING');
+
+    subset PositiveLong of Int where 1 <= *;
+
+    subset FleetId of Str where rx:P5/^fleet-\S+/;
+
+    subset RuleSetLimit of Int where 1 <= * <= 10;
+
+    subset PlayerData of Str where 1 <= .chars <= 2048;
+
+    subset GameSessionData of Str where 1 <= .chars <= 4096;
+
+    subset GameSessionQueueName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9-]+/;
+
+    subset RuleSetBody of Str where 1 <= .chars <= 65535;
+
+    subset BuildStatus of Str where $_ eq any('INITIALIZED', 'READY', 'FAILED');
+
+    subset GamePropertyList of Array[GameProperty] where *.elems <= 16;
+
+    subset AcceptanceType of Str where $_ eq any('ACCEPT', 'REJECT');
+
+    subset MetricGroup of Str where 1 <= .chars <= 255;
+
+    subset MatchmakingConfigurationStatus of Str where $_ eq any('CANCELLED', 'COMPLETED', 'FAILED', 'PLACING', 'QUEUED', 'REQUIRES_ACCEPTANCE', 'SEARCHING', 'TIMED_OUT');
+
+    subset CustomEventData of Str where 0 <= .chars <= 256;
+
+    subset ServerProcessList of Array[ServerProcess] where 1 <= *.elems <= 50;
+
+
     class PutScalingPolicyInput does AWS::SDK::Shape {
         has PositiveInteger $.evaluation-periods is required is shape-member('EvaluationPeriods');
         has Int $.scaling-adjustment is required is shape-member('ScalingAdjustment');
@@ -200,11 +315,11 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class DescribeEC2InstanceLimitsOutput does AWS::SDK::Shape {
-        has Array[EC2InstanceLimit] $.ec2-instance-limits is shape-member('EC2InstanceLimits');
+        has EC2InstanceLimit @.ec2-instance-limits is shape-member('EC2InstanceLimits');
     }
 
     class StartMatchmakingInput does AWS::SDK::Shape {
-        has Array[Player] $.players is required is shape-member('Players');
+        has Player @.players is required is shape-member('Players');
         has MatchmakingIdStringModel $.configuration-name is required is shape-member('ConfigurationName');
         has MatchmakingIdStringModel $.ticket-id is shape-member('TicketId');
     }
@@ -213,7 +328,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has ProtectionPolicy $.new-game-session-protection-policy is shape-member('NewGameSessionProtectionPolicy');
         has FleetId $.fleet-id is shape-member('FleetId');
         has ResourceCreationLimitPolicy $.resource-creation-limit-policy is shape-member('ResourceCreationLimitPolicy');
-        has Array[NonZeroAndMaxString] $.log-paths is shape-member('LogPaths');
+        has NonZeroAndMaxString @.log-paths is shape-member('LogPaths');
         has NonZeroAndMaxString $.description is shape-member('Description');
         has ArnStringModel $.fleet-arn is shape-member('FleetArn');
         has NonZeroAndMaxString $.server-launch-path is shape-member('ServerLaunchPath');
@@ -244,10 +359,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has FleetIdList $.fleet-ids is shape-member('FleetIds');
     }
 
-    subset MaxConcurrentGameSessionActivations of Int where 1 <= * <= 2147483647;
-
-    subset NonEmptyString of Str where 1 <= .chars;
-
     class InvalidFleetStatusException does AWS::SDK::Shape {
         has NonEmptyString $.message is shape-member('Message');
     }
@@ -263,8 +374,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has RoutingStrategy $.routing-strategy is shape-member('RoutingStrategy');
     }
 
-    subset FleetIdList of Array[FleetId] where 1 <= *.elems;
-
     class DescribeVpcPeeringAuthorizationsInput does AWS::SDK::Shape {
     }
 
@@ -273,7 +382,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class ListAliasesOutput does AWS::SDK::Shape {
-        has Array[Alias] $.aliases is shape-member('Aliases');
+        has Alias @.aliases is shape-member('Aliases');
         has NonEmptyString $.next-token is shape-member('NextToken');
     }
 
@@ -311,10 +420,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     class DeleteGameSessionQueueOutput does AWS::SDK::Shape {
     }
 
-    subset ArnStringModel of Str where 1 <= .chars <= 256 && rx:P5/[a-zA-Z0-9:\/-]+/;
-
-    subset IpProtocol of Str where $_ ~~ any('TCP', 'UDP');
-
     class VpcPeeringAuthorization does AWS::SDK::Shape {
         has DateTime $.creation-time is shape-member('CreationTime');
         has NonZeroAndMaxString $.peer-vpc-aws-account-id is shape-member('PeerVpcAwsAccountId');
@@ -322,8 +427,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has NonZeroAndMaxString $.game-lift-aws-account-id is shape-member('GameLiftAwsAccountId');
         has DateTime $.expiration-time is shape-member('ExpirationTime');
     }
-
-    subset ScalingAdjustmentType of Str where $_ ~~ any('ChangeInCapacity', 'ExactCapacity', 'PercentChangeInCapacity');
 
     class DeleteMatchmakingConfigurationInput does AWS::SDK::Shape {
         has MatchmakingIdStringModel $.name is required is shape-member('Name');
@@ -336,8 +439,8 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     class GameSessionQueue does AWS::SDK::Shape {
         has ArnStringModel $.game-session-queue-arn is shape-member('GameSessionQueueArn');
         has GameSessionQueueName $.name is shape-member('Name');
-        has Array[PlayerLatencyPolicy] $.player-latency-policies is shape-member('PlayerLatencyPolicies');
-        has Array[GameSessionQueueDestination] $.destinations is shape-member('Destinations');
+        has PlayerLatencyPolicy @.player-latency-policies is shape-member('PlayerLatencyPolicies');
+        has GameSessionQueueDestination @.destinations is shape-member('Destinations');
         has WholeNumber $.timeout-in-seconds is shape-member('TimeoutInSeconds');
     }
 
@@ -347,8 +450,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has MaxConcurrentGameSessionActivations $.max-concurrent-game-session-activations is shape-member('MaxConcurrentGameSessionActivations');
     }
 
-    subset RoutingStrategyType of Str where $_ ~~ any('SIMPLE', 'TERMINAL');
-
     class EC2InstanceLimit does AWS::SDK::Shape {
         has WholeNumber $.instance-limit is shape-member('InstanceLimit');
         has WholeNumber $.current-instances is shape-member('CurrentInstances');
@@ -357,14 +458,10 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
 
     class CreateGameSessionQueueInput does AWS::SDK::Shape {
         has GameSessionQueueName $.name is required is shape-member('Name');
-        has Array[PlayerLatencyPolicy] $.player-latency-policies is shape-member('PlayerLatencyPolicies');
-        has Array[GameSessionQueueDestination] $.destinations is shape-member('Destinations');
+        has PlayerLatencyPolicy @.player-latency-policies is shape-member('PlayerLatencyPolicies');
+        has GameSessionQueueDestination @.destinations is shape-member('Destinations');
         has WholeNumber $.timeout-in-seconds is shape-member('TimeoutInSeconds');
     }
-
-    subset GamePropertyKey of Str where .chars <= 32;
-
-    subset OperatingSystem of Str where $_ ~~ any('WINDOWS_2012', 'AMAZON_LINUX');
 
     class DescribeGameSessionsInput does AWS::SDK::Shape {
         has NonZeroAndMaxString $.status-filter is shape-member('StatusFilter');
@@ -377,7 +474,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
 
     class AcceptMatchInput does AWS::SDK::Shape {
         has AcceptanceType $.acceptance-type is required is shape-member('AcceptanceType');
-        has Array[PlayerIdStringModel] $.player-ids is required is shape-member('PlayerIds');
+        has PlayerIdStringModel @.player-ids is required is shape-member('PlayerIds');
         has MatchmakingIdStringModel $.ticket-id is required is shape-member('TicketId');
     }
 
@@ -397,8 +494,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has OperatingSystem $.operating-system is shape-member('OperatingSystem');
         has InstanceId $.instance-id is shape-member('InstanceId');
     }
-
-    subset NonBlankString of Str where rx:P5/[^\s]+/;
 
     class ValidateMatchmakingRuleSetOutput does AWS::SDK::Shape {
         has Bool $.valid is shape-member('Valid');
@@ -430,8 +525,8 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
 
     class StartGameSessionPlacementInput does AWS::SDK::Shape {
         has WholeNumber $.maximum-player-session-count is required is shape-member('MaximumPlayerSessionCount');
-        has Array[DesiredPlayerSession] $.desired-player-sessions is shape-member('DesiredPlayerSessions');
-        has Array[PlayerLatency] $.player-latencies is shape-member('PlayerLatencies');
+        has DesiredPlayerSession @.desired-player-sessions is shape-member('DesiredPlayerSessions');
+        has PlayerLatency @.player-latencies is shape-member('PlayerLatencies');
         has GameSessionData $.game-session-data is shape-member('GameSessionData');
         has NonZeroAndMaxString $.game-session-name is shape-member('GameSessionName');
         has GamePropertyList $.game-properties is shape-member('GameProperties');
@@ -440,22 +535,18 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class DescribeMatchmakingInput does AWS::SDK::Shape {
-        has Array[MatchmakingIdStringModel] $.ticket-ids is required is shape-member('TicketIds');
+        has MatchmakingIdStringModel @.ticket-ids is required is shape-member('TicketIds');
     }
-
-    subset ComparisonOperatorType of Str where $_ ~~ any('GreaterThanOrEqualToThreshold', 'GreaterThanThreshold', 'LessThanThreshold', 'LessThanOrEqualToThreshold');
 
     class GameSessionDetail does AWS::SDK::Shape {
         has ProtectionPolicy $.protection-policy is shape-member('ProtectionPolicy');
         has GameSession $.game-session is shape-member('GameSession');
     }
 
-    subset MatchmakingRequestTimeoutInteger of Int where 1 <= * <= 43200;
-
     class UpdateGameSessionQueueInput does AWS::SDK::Shape {
         has GameSessionQueueName $.name is required is shape-member('Name');
-        has Array[PlayerLatencyPolicy] $.player-latency-policies is shape-member('PlayerLatencyPolicies');
-        has Array[GameSessionQueueDestination] $.destinations is shape-member('Destinations');
+        has PlayerLatencyPolicy @.player-latency-policies is shape-member('PlayerLatencyPolicies');
+        has GameSessionQueueDestination @.destinations is shape-member('Destinations');
         has WholeNumber $.timeout-in-seconds is shape-member('TimeoutInSeconds');
     }
 
@@ -476,13 +567,9 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has GameSessionQueue $.game-session-queue is shape-member('GameSessionQueue');
     }
 
-    subset GameSessionActivationTimeoutSeconds of Int where 1 <= * <= 600;
-
     class LimitExceededException does AWS::SDK::Shape {
         has NonEmptyString $.message is shape-member('Message');
     }
-
-    subset MetricGroupList of Array[MetricGroup] where *.elems <= 1;
 
     class DescribeInstancesInput does AWS::SDK::Shape {
         has FleetId $.fleet-id is required is shape-member('FleetId');
@@ -536,7 +623,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class DescribeVpcPeeringAuthorizationsOutput does AWS::SDK::Shape {
-        has Array[VpcPeeringAuthorization] $.vpc-peering-authorizations is shape-member('VpcPeeringAuthorizations');
+        has VpcPeeringAuthorization @.vpc-peering-authorizations is shape-member('VpcPeeringAuthorizations');
     }
 
     class DescribeGameSessionDetailsInput does AWS::SDK::Shape {
@@ -557,8 +644,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has FleetId $.fleet-id is required is shape-member('FleetId');
     }
 
-    subset NonZeroAndMaxString of Str where 1 <= .chars <= 1024;
-
     class UpdateGameSessionOutput does AWS::SDK::Shape {
         has GameSession $.game-session is shape-member('GameSession');
     }
@@ -569,16 +654,12 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class CreatePlayerSessionsOutput does AWS::SDK::Shape {
-        has Array[PlayerSession] $.player-sessions is shape-member('PlayerSessions');
+        has PlayerSession @.player-sessions is shape-member('PlayerSessions');
     }
-
-    subset IpPermissionsList of Array[IpPermission] where *.elems <= 50;
-
-    subset FleetStatus of Str where $_ ~~ any('NEW', 'DOWNLOADING', 'VALIDATING', 'BUILDING', 'ACTIVATING', 'ACTIVE', 'DELETING', 'ERROR', 'TERMINATED');
 
     class DescribeGameSessionDetailsOutput does AWS::SDK::Shape {
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
-        has Array[GameSessionDetail] $.game-session-details is shape-member('GameSessionDetails');
+        has GameSessionDetail @.game-session-details is shape-member('GameSessionDetails');
     }
 
     class CreateMatchmakingRuleSetInput does AWS::SDK::Shape {
@@ -587,7 +668,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class CreatePlayerSessionsInput does AWS::SDK::Shape {
-        has Hash[PlayerData, NonZeroAndMaxString] $.player-data-map is shape-member('PlayerDataMap');
+        has PlayerData %.player-data-map{NonZeroAndMaxString} is shape-member('PlayerDataMap');
         has PlayerIdList $.player-ids is required is shape-member('PlayerIds');
         has ArnStringModel $.game-session-id is required is shape-member('GameSessionId');
     }
@@ -602,9 +683,9 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class Player does AWS::SDK::Shape {
-        has Hash[AttributeValue, NonZeroAndMaxString] $.player-attributes is shape-member('PlayerAttributes');
+        has AttributeValue %.player-attributes{NonZeroAndMaxString} is shape-member('PlayerAttributes');
         has PlayerIdStringModel $.player-id is shape-member('PlayerId');
-        has Hash[PositiveInteger, NonEmptyString] $.latency-in-ms is shape-member('LatencyInMs');
+        has PositiveInteger %.latency-in-ms{NonEmptyString} is shape-member('LatencyInMs');
         has NonZeroAndMaxString $.team is shape-member('Team');
     }
 
@@ -613,8 +694,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has WholeNumber $.policy-duration-seconds is shape-member('PolicyDurationSeconds');
     }
 
-    subset PlayerIdList of Array[NonZeroAndMaxString] where 1 <= *.elems <= 25;
-
     class FleetCapacity does AWS::SDK::Shape {
         has FleetId $.fleet-id is shape-member('FleetId');
         has EC2InstanceCounts $.instance-counts is shape-member('InstanceCounts');
@@ -622,7 +701,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class DescribeFleetEventsOutput does AWS::SDK::Shape {
-        has Array[Event] $.events is shape-member('Events');
+        has Event @.events is shape-member('Events');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
@@ -637,20 +716,14 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has AwsCredentials $.upload-credentials is shape-member('UploadCredentials');
     }
 
-    subset ProtectionPolicy of Str where $_ ~~ any('NoProtection', 'FullProtection');
-
-    subset PlayerSessionId of Str where rx:P5/^psess-\S+/;
-
     class DescribeFleetAttributesOutput does AWS::SDK::Shape {
-        has Array[FleetAttributes] $.fleet-attributes is shape-member('FleetAttributes');
+        has FleetAttributes @.fleet-attributes is shape-member('FleetAttributes');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
     class StopGameSessionPlacementInput does AWS::SDK::Shape {
         has IdStringModel $.placement-id is required is shape-member('PlacementId');
     }
-
-    subset AliasId of Str where rx:P5/^alias-\S+/;
 
     class GameSessionFullException does AWS::SDK::Shape {
         has NonEmptyString $.message is shape-member('Message');
@@ -683,18 +756,16 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
 
     class DescribeGameSessionQueuesInput does AWS::SDK::Shape {
         has PositiveInteger $.limit is shape-member('Limit');
-        has Array[GameSessionQueueName] $.names is shape-member('Names');
+        has GameSessionQueueName @.names is shape-member('Names');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
     class AttributeValue does AWS::SDK::Shape {
-        has Array[NonZeroAndMaxString] $.s-l is shape-member('SL');
-        has Hash[Numeric, NonZeroAndMaxString] $.sdm is shape-member('SDM');
+        has NonZeroAndMaxString @.s-l is shape-member('SL');
+        has Numeric %.sdm{NonZeroAndMaxString} is shape-member('SDM');
         has Numeric $.n is shape-member('N');
         has NonZeroAndMaxString $.s is shape-member('S');
     }
-
-    subset GameSessionPlacementState of Str where $_ ~~ any('PENDING', 'FULFILLED', 'CANCELLED', 'TIMED_OUT');
 
     class TerminalRoutingStrategyException does AWS::SDK::Shape {
         has NonEmptyString $.message is shape-member('Message');
@@ -704,10 +775,8 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has GameSessionPlacement $.game-session-placement is shape-member('GameSessionPlacement');
     }
 
-    subset PlayerSessionStatus of Str where $_ ~~ any('RESERVED', 'ACTIVE', 'COMPLETED', 'TIMEDOUT');
-
     class DescribeMatchmakingConfigurationsOutput does AWS::SDK::Shape {
-        has Array[MatchmakingConfiguration] $.configurations is shape-member('Configurations');
+        has MatchmakingConfiguration @.configurations is shape-member('Configurations');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
@@ -725,10 +794,8 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has BuildStatus $.status is shape-member('Status');
     }
 
-    subset MatchmakingIdStringModel of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9-\.]+/;
-
     class DescribeVpcPeeringConnectionsOutput does AWS::SDK::Shape {
-        has Array[VpcPeeringConnection] $.vpc-peering-connections is shape-member('VpcPeeringConnections');
+        has VpcPeeringConnection @.vpc-peering-connections is shape-member('VpcPeeringConnections');
     }
 
     class DescribeBuildInput does AWS::SDK::Shape {
@@ -761,12 +828,8 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
 
     class SearchGameSessionsOutput does AWS::SDK::Shape {
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
-        has Array[GameSession] $.game-sessions is shape-member('GameSessions');
+        has GameSession @.game-sessions is shape-member('GameSessions');
     }
-
-    subset EventCode of Str where $_ ~~ any('GENERIC_EVENT', 'FLEET_CREATED', 'FLEET_DELETED', 'FLEET_SCALING_EVENT', 'FLEET_STATE_DOWNLOADING', 'FLEET_STATE_VALIDATING', 'FLEET_STATE_BUILDING', 'FLEET_STATE_ACTIVATING', 'FLEET_STATE_ACTIVE', 'FLEET_STATE_ERROR', 'FLEET_INITIALIZATION_FAILED', 'FLEET_BINARY_DOWNLOAD_FAILED', 'FLEET_VALIDATION_LAUNCH_PATH_NOT_FOUND', 'FLEET_VALIDATION_EXECUTABLE_RUNTIME_FAILURE', 'FLEET_VALIDATION_TIMED_OUT', 'FLEET_ACTIVATION_FAILED', 'FLEET_ACTIVATION_FAILED_NO_INSTANCES', 'FLEET_NEW_GAME_SESSION_PROTECTION_POLICY_UPDATED', 'SERVER_PROCESS_INVALID_PATH', 'SERVER_PROCESS_SDK_INITIALIZATION_TIMEOUT', 'SERVER_PROCESS_PROCESS_READY_TIMEOUT', 'SERVER_PROCESS_CRASHED', 'SERVER_PROCESS_TERMINATED_UNHEALTHY', 'SERVER_PROCESS_FORCE_TERMINATED', 'SERVER_PROCESS_PROCESS_EXIT_TIMEOUT', 'GAME_SESSION_ACTIVATION_TIMEOUT', 'FLEET_CREATION_EXTRACTING_BUILD', 'FLEET_CREATION_RUNNING_INSTALLER', 'FLEET_CREATION_VALIDATING_RUNTIME_CONFIG', 'FLEET_VPC_PEERING_SUCCEEDED', 'FLEET_VPC_PEERING_FAILED', 'FLEET_VPC_PEERING_DELETED');
-
-    subset InstanceId of Str where rx:P5/[a-zA-Z0-9\.-]+/;
 
     class StopMatchmakingInput does AWS::SDK::Shape {
         has MatchmakingIdStringModel $.ticket-id is required is shape-member('TicketId');
@@ -779,7 +842,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class DescribeGameSessionQueuesOutput does AWS::SDK::Shape {
-        has Array[GameSessionQueue] $.game-session-queues is shape-member('GameSessionQueues');
+        has GameSessionQueue @.game-session-queues is shape-member('GameSessionQueues');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
@@ -800,8 +863,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has NonZeroAndMaxString $.game-lift-vpc-id is shape-member('GameLiftVpcId');
     }
 
-    subset SnsArnStringModel of Str where 0 <= .chars <= 300 && rx:P5/[a-zA-Z0-9:_\/-]*/;
-
     class DeleteAliasInput does AWS::SDK::Shape {
         has AliasId $.alias-id is required is shape-member('AliasId');
     }
@@ -811,10 +872,8 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has NonZeroAndMaxString $.player-id is shape-member('PlayerId');
     }
 
-    subset NonBlankAndLengthConstraintString of Str where 1 <= .chars <= 1024 && rx:P5/.*\S.*/;
-
     class DescribePlayerSessionsOutput does AWS::SDK::Shape {
-        has Array[PlayerSession] $.player-sessions is shape-member('PlayerSessions');
+        has PlayerSession @.player-sessions is shape-member('PlayerSessions');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
@@ -825,7 +884,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     class CreateFleetInput does AWS::SDK::Shape {
         has ProtectionPolicy $.new-game-session-protection-policy is shape-member('NewGameSessionProtectionPolicy');
         has ResourceCreationLimitPolicy $.resource-creation-limit-policy is shape-member('ResourceCreationLimitPolicy');
-        has Array[NonZeroAndMaxString] $.log-paths is shape-member('LogPaths');
+        has NonZeroAndMaxString @.log-paths is shape-member('LogPaths');
         has NonZeroAndMaxString $.description is shape-member('Description');
         has NonZeroAndMaxString $.peer-vpc-aws-account-id is shape-member('PeerVpcAwsAccountId');
         has IpPermissionsList $.ec2-inbound-permissions is shape-member('EC2InboundPermissions');
@@ -840,7 +899,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class ListBuildsOutput does AWS::SDK::Shape {
-        has Array[Build] $.builds is shape-member('Builds');
+        has Build @.builds is shape-member('Builds');
         has NonEmptyString $.next-token is shape-member('NextToken');
     }
 
@@ -853,7 +912,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class DescribeFleetUtilizationOutput does AWS::SDK::Shape {
-        has Array[FleetUtilization] $.fleet-utilization is shape-member('FleetUtilization');
+        has FleetUtilization @.fleet-utilization is shape-member('FleetUtilization');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
@@ -863,29 +922,19 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has FleetIdList $.fleet-ids is shape-member('FleetIds');
     }
 
-    subset GameSessionStatus of Str where $_ ~~ any('ACTIVE', 'ACTIVATING', 'TERMINATED', 'TERMINATING', 'ERROR');
-
     class MatchmakingRuleSet does AWS::SDK::Shape {
         has MatchmakingIdStringModel $.rule-set-name is shape-member('RuleSetName');
         has DateTime $.creation-time is shape-member('CreationTime');
         has RuleSetBody $.rule-set-body is required is shape-member('RuleSetBody');
     }
 
-    subset WholeNumber of Int where 0 <= *;
-
-    subset PlayerIdStringModel of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9-\.]+/;
-
     class InternalServiceException does AWS::SDK::Shape {
         has NonEmptyString $.message is shape-member('Message');
     }
 
-    subset MetricName of Str where $_ ~~ any('ActivatingGameSessions', 'ActiveGameSessions', 'ActiveInstances', 'AvailableGameSessions', 'AvailablePlayerSessions', 'CurrentPlayerSessions', 'IdleInstances', 'PercentAvailableGameSessions', 'PercentIdleInstances', 'QueueDepth', 'WaitTime');
-
     class UpdateMatchmakingConfigurationOutput does AWS::SDK::Shape {
         has MatchmakingConfiguration $.configuration is shape-member('Configuration');
     }
-
-    subset ScalingStatusType of Str where $_ ~~ any('ACTIVE', 'UPDATE_REQUESTED', 'UPDATING', 'DELETE_REQUESTED', 'DELETING', 'DELETED', 'ERROR');
 
     class InstanceAccess does AWS::SDK::Shape {
         has FleetId $.fleet-id is shape-member('FleetId');
@@ -899,8 +948,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has GameSessionPlacement $.game-session-placement is shape-member('GameSessionPlacement');
     }
 
-    subset PlayerSessionCreationPolicy of Str where $_ ~~ any('ACCEPT_ALL', 'DENY_ALL');
-
     class UpdateMatchmakingConfigurationInput does AWS::SDK::Shape {
         has MatchmakingIdStringModel $.rule-set-name is shape-member('RuleSetName');
         has GameSessionData $.game-session-data is shape-member('GameSessionData');
@@ -911,7 +958,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has MatchmakingIdStringModel $.name is required is shape-member('Name');
         has MatchmakingRequestTimeoutInteger $.request-timeout-seconds is shape-member('RequestTimeoutSeconds');
         has MatchmakingAcceptanceTimeoutInteger $.acceptance-timeout-seconds is shape-member('AcceptanceTimeoutSeconds');
-        has Array[ArnStringModel] $.game-session-queue-arns is shape-member('GameSessionQueueArns');
+        has ArnStringModel @.game-session-queue-arns is shape-member('GameSessionQueueArns');
         has SnsArnStringModel $.notification-target is shape-member('NotificationTarget');
         has Bool $.acceptance-required is shape-member('AcceptanceRequired');
     }
@@ -934,7 +981,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has MatchmakingIdStringModel $.name is required is shape-member('Name');
         has MatchmakingRequestTimeoutInteger $.request-timeout-seconds is required is shape-member('RequestTimeoutSeconds');
         has MatchmakingAcceptanceTimeoutInteger $.acceptance-timeout-seconds is shape-member('AcceptanceTimeoutSeconds');
-        has Array[ArnStringModel] $.game-session-queue-arns is required is shape-member('GameSessionQueueArns');
+        has ArnStringModel @.game-session-queue-arns is required is shape-member('GameSessionQueueArns');
         has SnsArnStringModel $.notification-target is shape-member('NotificationTarget');
         has Bool $.acceptance-required is required is shape-member('AcceptanceRequired');
     }
@@ -956,13 +1003,9 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has DateTime $.termination-time is shape-member('TerminationTime');
     }
 
-    subset MatchmakingRuleSetNameList of Array[MatchmakingIdStringModel] where 1 <= *.elems <= 10;
-
-    subset PortNumber of Int where 1 <= * <= 60000;
-
     class DescribeGameSessionsOutput does AWS::SDK::Shape {
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
-        has Array[GameSession] $.game-sessions is shape-member('GameSessions');
+        has GameSession @.game-sessions is shape-member('GameSessions');
     }
 
     class DescribeFleetPortSettingsOutput does AWS::SDK::Shape {
@@ -976,8 +1019,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     class DeleteGameSessionQueueInput does AWS::SDK::Shape {
         has GameSessionQueueName $.name is required is shape-member('Name');
     }
-
-    subset MatchmakingAcceptanceTimeoutInteger of Int where 1 <= * <= 600;
 
     class S3Location does AWS::SDK::Shape {
         has NonEmptyString $.bucket is shape-member('Bucket');
@@ -998,7 +1039,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has NonZeroAndMaxString $.game-session-region is shape-member('GameSessionRegion');
         has WholeNumber $.maximum-player-session-count is shape-member('MaximumPlayerSessionCount');
         has DateTime $.end-time is shape-member('EndTime');
-        has Array[PlayerLatency] $.player-latencies is shape-member('PlayerLatencies');
+        has PlayerLatency @.player-latencies is shape-member('PlayerLatencies');
         has GameSessionData $.game-session-data is shape-member('GameSessionData');
         has NonZeroAndMaxString $.game-session-name is shape-member('GameSessionName');
         has GamePropertyList $.game-properties is shape-member('GameProperties');
@@ -1007,16 +1048,14 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has NonZeroAndMaxString $.game-session-arn is shape-member('GameSessionArn');
         has DateTime $.start-time is shape-member('StartTime');
         has IdStringModel $.placement-id is shape-member('PlacementId');
-        has Array[PlacedPlayerSession] $.placed-player-sessions is shape-member('PlacedPlayerSessions');
+        has PlacedPlayerSession @.placed-player-sessions is shape-member('PlacedPlayerSessions');
         has NonZeroAndMaxString $.game-session-id is shape-member('GameSessionId');
         has GameSessionPlacementState $.status is shape-member('Status');
         has PortNumber $.port is shape-member('Port');
     }
 
-    subset PositiveInteger of Int where 1 <= *;
-
     class DescribeScalingPoliciesOutput does AWS::SDK::Shape {
-        has Array[ScalingPolicy] $.scaling-policies is shape-member('ScalingPolicies');
+        has ScalingPolicy @.scaling-policies is shape-member('ScalingPolicies');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
@@ -1051,8 +1090,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has NonZeroAndMaxString $.player-id is shape-member('PlayerId');
     }
 
-    subset EC2InstanceType of Str where $_ ~~ any('t2.micro', 't2.small', 't2.medium', 't2.large', 'c3.large', 'c3.xlarge', 'c3.2xlarge', 'c3.4xlarge', 'c3.8xlarge', 'c4.large', 'c4.xlarge', 'c4.2xlarge', 'c4.4xlarge', 'c4.8xlarge', 'r3.large', 'r3.xlarge', 'r3.2xlarge', 'r3.4xlarge', 'r3.8xlarge', 'r4.large', 'r4.xlarge', 'r4.2xlarge', 'r4.4xlarge', 'r4.8xlarge', 'r4.16xlarge', 'm3.medium', 'm3.large', 'm3.xlarge', 'm3.2xlarge', 'm4.large', 'm4.xlarge', 'm4.2xlarge', 'm4.4xlarge', 'm4.10xlarge');
-
     class DescribeFleetCapacityInput does AWS::SDK::Shape {
         has PositiveInteger $.limit is shape-member('Limit');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
@@ -1081,12 +1118,10 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has BuildId $.build-id is required is shape-member('BuildId');
     }
 
-    subset GamePropertyValue of Str where .chars <= 96;
-
     class DescribeMatchmakingConfigurationsInput does AWS::SDK::Shape {
         has MatchmakingIdStringModel $.rule-set-name is shape-member('RuleSetName');
         has PositiveInteger $.limit is shape-member('Limit');
-        has Array[MatchmakingIdStringModel] $.names is shape-member('Names');
+        has MatchmakingIdStringModel @.names is shape-member('Names');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
@@ -1097,12 +1132,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     class CreateGameSessionOutput does AWS::SDK::Shape {
         has GameSession $.game-session is shape-member('GameSession');
     }
-
-    subset BuildId of Str where rx:P5/^build-\S+/;
-
-    subset IdStringModel of Str where 1 <= .chars <= 48 && rx:P5/[a-zA-Z0-9-]+/;
-
-    subset InstanceStatus of Str where $_ ~~ any('PENDING', 'ACTIVE', 'TERMINATING');
 
     class ConflictException does AWS::SDK::Shape {
         has NonEmptyString $.message is shape-member('Message');
@@ -1144,10 +1173,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has MatchmakingTicket $.matchmaking-ticket is shape-member('MatchmakingTicket');
     }
 
-    subset PositiveLong of Int where 1 <= *;
-
-    subset FleetId of Str where rx:P5/^fleet-\S+/;
-
     class DescribeMatchmakingRuleSetsInput does AWS::SDK::Shape {
         has RuleSetLimit $.limit is shape-member('Limit');
         has MatchmakingRuleSetNameList $.names is shape-member('Names');
@@ -1157,17 +1182,9 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     class StopMatchmakingOutput does AWS::SDK::Shape {
     }
 
-    subset RuleSetLimit of Int where 1 <= * <= 10;
-
-    subset PlayerData of Str where 1 <= .chars <= 2048;
-
-    subset GameSessionData of Str where 1 <= .chars <= 4096;
-
-    subset GameSessionQueueName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9-]+/;
-
     class MatchmakingTicket does AWS::SDK::Shape {
         has Str $.status-reason is shape-member('StatusReason');
-        has Array[Player] $.players is shape-member('Players');
+        has Player @.players is shape-member('Players');
         has DateTime $.end-time is shape-member('EndTime');
         has MatchmakingIdStringModel $.configuration-name is shape-member('ConfigurationName');
         has DateTime $.start-time is shape-member('StartTime');
@@ -1194,8 +1211,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has IdStringModel $.idempotency-token is shape-member('IdempotencyToken');
     }
 
-    subset RuleSetBody of Str where 1 <= .chars <= 65535;
-
     class DescribeRuntimeConfigurationOutput does AWS::SDK::Shape {
         has RuntimeConfiguration $.runtime-configuration is shape-member('RuntimeConfiguration');
     }
@@ -1217,7 +1232,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class GameSessionConnectionInfo does AWS::SDK::Shape {
-        has Array[MatchedPlayerSession] $.matched-player-sessions is shape-member('MatchedPlayerSessions');
+        has MatchedPlayerSession @.matched-player-sessions is shape-member('MatchedPlayerSessions');
         has Str $.ip-address is shape-member('IpAddress');
         has ArnStringModel $.game-session-arn is shape-member('GameSessionArn');
         has PositiveInteger $.port is shape-member('Port');
@@ -1229,8 +1244,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has IpProtocol $.protocol is required is shape-member('Protocol');
         has NonBlankString $.ip-range is required is shape-member('IpRange');
     }
-
-    subset BuildStatus of Str where $_ ~~ any('INITIALIZED', 'READY', 'FAILED');
 
     class DescribePlayerSessionsInput does AWS::SDK::Shape {
         has NonZeroAndMaxString $.player-session-status-filter is shape-member('PlayerSessionStatusFilter');
@@ -1244,12 +1257,6 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     class UpdateRuntimeConfigurationOutput does AWS::SDK::Shape {
         has RuntimeConfiguration $.runtime-configuration is shape-member('RuntimeConfiguration');
     }
-
-    subset GamePropertyList of Array[GameProperty] where *.elems <= 16;
-
-    subset AcceptanceType of Str where $_ ~~ any('ACCEPT', 'REJECT');
-
-    subset MetricGroup of Str where 1 <= .chars <= 255;
 
     class SearchGameSessionsInput does AWS::SDK::Shape {
         has AliasId $.alias-id is shape-member('AliasId');
@@ -1266,7 +1273,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class DescribeMatchmakingRuleSetsOutput does AWS::SDK::Shape {
-        has Array[MatchmakingRuleSet] $.rule-sets is required is shape-member('RuleSets');
+        has MatchmakingRuleSet @.rule-sets is required is shape-member('RuleSets');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
@@ -1276,17 +1283,13 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
 
     class DescribeFleetCapacityOutput does AWS::SDK::Shape {
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
-        has Array[FleetCapacity] $.fleet-capacity is shape-member('FleetCapacity');
+        has FleetCapacity @.fleet-capacity is shape-member('FleetCapacity');
     }
 
     class DeleteVpcPeeringConnectionInput does AWS::SDK::Shape {
         has FleetId $.fleet-id is required is shape-member('FleetId');
         has NonZeroAndMaxString $.vpc-peering-connection-id is required is shape-member('VpcPeeringConnectionId');
     }
-
-    subset MatchmakingConfigurationStatus of Str where $_ ~~ any('CANCELLED', 'COMPLETED', 'FAILED', 'PLACING', 'QUEUED', 'REQUIRES_ACCEPTANCE', 'SEARCHING', 'TIMED_OUT');
-
-    subset CustomEventData of Str where 0 <= .chars <= 256;
 
     class ListAliasesInput does AWS::SDK::Shape {
         has PositiveInteger $.limit is shape-member('Limit');
@@ -1306,7 +1309,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has MatchmakingIdStringModel $.name is shape-member('Name');
         has MatchmakingRequestTimeoutInteger $.request-timeout-seconds is shape-member('RequestTimeoutSeconds');
         has MatchmakingAcceptanceTimeoutInteger $.acceptance-timeout-seconds is shape-member('AcceptanceTimeoutSeconds');
-        has Array[ArnStringModel] $.game-session-queue-arns is shape-member('GameSessionQueueArns');
+        has ArnStringModel @.game-session-queue-arns is shape-member('GameSessionQueueArns');
         has SnsArnStringModel $.notification-target is shape-member('NotificationTarget');
         has Bool $.acceptance-required is shape-member('AcceptanceRequired');
     }
@@ -1320,7 +1323,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     class DescribeInstancesOutput does AWS::SDK::Shape {
-        has Array[Instance] $.instances is shape-member('Instances');
+        has Instance @.instances is shape-member('Instances');
         has NonZeroAndMaxString $.next-token is shape-member('NextToken');
     }
 
@@ -1334,24 +1337,23 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         has WholeNumber $.desired-instances is shape-member('DesiredInstances');
     }
 
-    subset ServerProcessList of Array[ServerProcess] where 1 <= *.elems <= 50;
-
     class DescribeMatchmakingOutput does AWS::SDK::Shape {
-        has Array[MatchmakingTicket] $.ticket-list is shape-member('TicketList');
+        has MatchmakingTicket @.ticket-list is shape-member('TicketList');
     }
 
     class CreatePlayerSessionOutput does AWS::SDK::Shape {
         has PlayerSession $.player-session is shape-member('PlayerSession');
     }
 
+
     method accept-match(
         AcceptanceType :$acceptance-type!,
-        Array[PlayerIdStringModel] :$player-ids!,
+        PlayerIdStringModel :@player-ids!,
         MatchmakingIdStringModel :$ticket-id!
     ) returns AcceptMatchOutput is service-operation('AcceptMatch') {
         my $request-input = AcceptMatchInput.new(
             :$acceptance-type,
-            :$player-ids,
+            :@player-ids,
             :$ticket-id
         );
 
@@ -1446,13 +1448,13 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     method describe-matchmaking-configurations(
         MatchmakingIdStringModel :$rule-set-name,
         PositiveInteger :$limit,
-        Array[MatchmakingIdStringModel] :$names,
+        MatchmakingIdStringModel :@names,
         NonZeroAndMaxString :$next-token
     ) returns DescribeMatchmakingConfigurationsOutput is service-operation('DescribeMatchmakingConfigurations') {
         my $request-input = DescribeMatchmakingConfigurationsInput.new(
             :$rule-set-name,
             :$limit,
-            :$names,
+            :@names,
             :$next-token
         );
 
@@ -1481,14 +1483,14 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
 
     method create-game-session-queue(
         GameSessionQueueName :$name!,
-        Array[PlayerLatencyPolicy] :$player-latency-policies,
-        Array[GameSessionQueueDestination] :$destinations,
+        PlayerLatencyPolicy :@player-latency-policies,
+        GameSessionQueueDestination :@destinations,
         WholeNumber :$timeout-in-seconds
     ) returns CreateGameSessionQueueOutput is service-operation('CreateGameSessionQueue') {
         my $request-input = CreateGameSessionQueueInput.new(
             :$name,
-            :$player-latency-policies,
-            :$destinations,
+            :@player-latency-policies,
+            :@destinations,
             :$timeout-in-seconds
         );
 
@@ -1721,12 +1723,12 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     method start-matchmaking(
-        Array[Player] :$players!,
+        Player :@players!,
         MatchmakingIdStringModel :$configuration-name!,
         MatchmakingIdStringModel :$ticket-id
     ) returns StartMatchmakingOutput is service-operation('StartMatchmaking') {
         my $request-input = StartMatchmakingInput.new(
-            :$players,
+            :@players,
             :$configuration-name,
             :$ticket-id
         );
@@ -1798,8 +1800,8 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
 
     method start-game-session-placement(
         WholeNumber :$maximum-player-session-count!,
-        Array[DesiredPlayerSession] :$desired-player-sessions,
-        Array[PlayerLatency] :$player-latencies,
+        DesiredPlayerSession :@desired-player-sessions,
+        PlayerLatency :@player-latencies,
         GameSessionData :$game-session-data,
         NonZeroAndMaxString :$game-session-name,
         GamePropertyList :$game-properties,
@@ -1808,8 +1810,8 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     ) returns StartGameSessionPlacementOutput is service-operation('StartGameSessionPlacement') {
         my $request-input = StartGameSessionPlacementInput.new(
             :$maximum-player-session-count,
-            :$desired-player-sessions,
-            :$player-latencies,
+            :@desired-player-sessions,
+            :@player-latencies,
             :$game-session-data,
             :$game-session-name,
             :$game-properties,
@@ -1877,12 +1879,12 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
 
     method describe-game-session-queues(
         PositiveInteger :$limit,
-        Array[GameSessionQueueName] :$names,
+        GameSessionQueueName :@names,
         NonZeroAndMaxString :$next-token
     ) returns DescribeGameSessionQueuesOutput is service-operation('DescribeGameSessionQueues') {
         my $request-input = DescribeGameSessionQueuesInput.new(
             :$limit,
-            :$names,
+            :@names,
             :$next-token
         );
 
@@ -2013,14 +2015,14 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
 
     method update-game-session-queue(
         GameSessionQueueName :$name!,
-        Array[PlayerLatencyPolicy] :$player-latency-policies,
-        Array[GameSessionQueueDestination] :$destinations,
+        PlayerLatencyPolicy :@player-latency-policies,
+        GameSessionQueueDestination :@destinations,
         WholeNumber :$timeout-in-seconds
     ) returns UpdateGameSessionQueueOutput is service-operation('UpdateGameSessionQueue') {
         my $request-input = UpdateGameSessionQueueInput.new(
             :$name,
-            :$player-latency-policies,
-            :$destinations,
+            :@player-latency-policies,
+            :@destinations,
             :$timeout-in-seconds
         );
 
@@ -2174,7 +2176,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         MatchmakingIdStringModel :$name!,
         MatchmakingRequestTimeoutInteger :$request-timeout-seconds,
         MatchmakingAcceptanceTimeoutInteger :$acceptance-timeout-seconds,
-        Array[ArnStringModel] :$game-session-queue-arns,
+        ArnStringModel :@game-session-queue-arns,
         SnsArnStringModel :$notification-target,
         Bool :$acceptance-required
     ) returns UpdateMatchmakingConfigurationOutput is service-operation('UpdateMatchmakingConfiguration') {
@@ -2188,7 +2190,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
             :$name,
             :$request-timeout-seconds,
             :$acceptance-timeout-seconds,
-            :$game-session-queue-arns,
+            :@game-session-queue-arns,
             :$notification-target,
             :$acceptance-required
         );
@@ -2221,7 +2223,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     method create-fleet(
         ProtectionPolicy :$new-game-session-protection-policy,
         ResourceCreationLimitPolicy :$resource-creation-limit-policy,
-        Array[NonZeroAndMaxString] :$log-paths,
+        NonZeroAndMaxString :@log-paths,
         NonZeroAndMaxString :$description,
         NonZeroAndMaxString :$peer-vpc-aws-account-id,
         IpPermissionsList :$ec2-inbound-permissions,
@@ -2237,7 +2239,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         my $request-input = CreateFleetInput.new(
             :$new-game-session-protection-policy,
             :$resource-creation-limit-policy,
-            :$log-paths,
+            :@log-paths,
             :$description,
             :$peer-vpc-aws-account-id,
             :$ec2-inbound-permissions,
@@ -2267,7 +2269,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
         MatchmakingIdStringModel :$name!,
         MatchmakingRequestTimeoutInteger :$request-timeout-seconds!,
         MatchmakingAcceptanceTimeoutInteger :$acceptance-timeout-seconds,
-        Array[ArnStringModel] :$game-session-queue-arns!,
+        ArnStringModel :@game-session-queue-arns!,
         SnsArnStringModel :$notification-target,
         Bool :$acceptance-required!
     ) returns CreateMatchmakingConfigurationOutput is service-operation('CreateMatchmakingConfiguration') {
@@ -2281,7 +2283,7 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
             :$name,
             :$request-timeout-seconds,
             :$acceptance-timeout-seconds,
-            :$game-session-queue-arns,
+            :@game-session-queue-arns,
             :$notification-target,
             :$acceptance-required
         );
@@ -2364,12 +2366,12 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     method create-player-sessions(
-        Hash[PlayerData, NonZeroAndMaxString] :$player-data-map,
+        PlayerData :%player-data-map,
         PlayerIdList :$player-ids!,
         ArnStringModel :$game-session-id!
     ) returns CreatePlayerSessionsOutput is service-operation('CreatePlayerSessions') {
         my $request-input = CreatePlayerSessionsInput.new(
-            :$player-data-map,
+            :%player-data-map,
             :$player-ids,
             :$game-session-id
         );
@@ -2381,10 +2383,10 @@ class AWS::SDK::Service::GameLift does AWS::SDK::Service {
     }
 
     method describe-matchmaking(
-        Array[MatchmakingIdStringModel] :$ticket-ids!
+        MatchmakingIdStringModel :@ticket-ids!
     ) returns DescribeMatchmakingOutput is service-operation('DescribeMatchmaking') {
         my $request-input = DescribeMatchmakingInput.new(
-            :$ticket-ids
+            :@ticket-ids
         );
 
         self.perform-operation(

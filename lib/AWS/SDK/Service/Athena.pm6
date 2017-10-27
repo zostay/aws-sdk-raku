@@ -50,8 +50,39 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
     class StartQueryExecutionInput { ... }
     class UnprocessedNamedQueryId { ... }
 
+    subset ThrottleReason of Str where $_ eq any('CONCURRENT_QUERY_LIMIT_EXCEEDED');
+
+    subset MaxQueryResults of Int where 0 <= * <= 1000;
+
+    subset MaxQueryExecutionsCount of Int where 0 <= * <= 50;
+
+    subset QueryString of Str where 1 <= .chars <= 262144;
+
+    subset IdempotencyToken of Str where 32 <= .chars <= 128;
+
+    subset MaxNamedQueriesCount of Int where 0 <= * <= 50;
+
+    subset ColumnNullable of Str where $_ eq any('NOT_NULL', 'NULLABLE', 'UNKNOWN');
+
+    subset DescriptionString of Str where 1 <= .chars <= 1024;
+
+    subset NamedQueryIdList of Array[Str] where 1 <= *.elems <= 50;
+
+    subset NameString of Str where 1 <= .chars <= 128;
+
+    subset EncryptionOption of Str where $_ eq any('SSE_S3', 'SSE_KMS', 'CSE_KMS');
+
+    subset QueryExecutionState of Str where $_ eq any('QUEUED', 'RUNNING', 'SUCCEEDED', 'FAILED', 'CANCELLED');
+
+    subset QueryExecutionIdList of Array[Str] where 1 <= *.elems <= 50;
+
+    subset ErrorCode of Str where 1 <= .chars <= 256;
+
+    subset DatabaseString of Str where 1 <= .chars <= 32;
+
+
     class ResultSetMetadata does AWS::SDK::Shape {
-        has Array[ColumnInfo] $.column-info is shape-member('ColumnInfo');
+        has ColumnInfo @.column-info is shape-member('ColumnInfo');
     }
 
     class CreateNamedQueryInput does AWS::SDK::Shape {
@@ -71,18 +102,14 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
         has QueryExecutionIdList $.query-execution-ids is shape-member('QueryExecutionIds');
     }
 
-    subset ThrottleReason of Str where $_ ~~ any('CONCURRENT_QUERY_LIMIT_EXCEEDED');
-
     class GetNamedQueryOutput does AWS::SDK::Shape {
         has NamedQuery $.named-query is shape-member('NamedQuery');
     }
 
     class BatchGetQueryExecutionOutput does AWS::SDK::Shape {
-        has Array[QueryExecution] $.query-executions is shape-member('QueryExecutions');
-        has Array[UnprocessedQueryExecutionId] $.unprocessed-query-execution-ids is shape-member('UnprocessedQueryExecutionIds');
+        has QueryExecution @.query-executions is shape-member('QueryExecutions');
+        has UnprocessedQueryExecutionId @.unprocessed-query-execution-ids is shape-member('UnprocessedQueryExecutionIds');
     }
-
-    subset MaxQueryResults of Int where 0 <= * <= 1000;
 
     class QueryExecution does AWS::SDK::Shape {
         has QueryExecutionContext $.query-execution-context is shape-member('QueryExecutionContext');
@@ -103,8 +130,6 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset MaxQueryExecutionsCount of Int where 0 <= * <= 50;
-
     class ColumnInfo does AWS::SDK::Shape {
         has ColumnNullable $.nullable is shape-member('Nullable');
         has Int $.precision is shape-member('Precision');
@@ -117,8 +142,6 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
         has Str $.schema-name is shape-member('SchemaName');
         has Str $.catalog-name is shape-member('CatalogName');
     }
-
-    subset QueryString of Str where 1 <= .chars <= 262144;
 
     class QueryExecutionStatistics does AWS::SDK::Shape {
         has Int $.engine-execution-time-in-millis is shape-member('EngineExecutionTimeInMillis');
@@ -136,10 +159,6 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
     class DeleteNamedQueryInput does AWS::SDK::Shape {
         has Str $.named-query-id is required is shape-member('NamedQueryId');
     }
-
-    subset IdempotencyToken of Str where 32 <= .chars <= 128;
-
-    subset MaxNamedQueriesCount of Int where 0 <= * <= 50;
 
     class NamedQuery does AWS::SDK::Shape {
         has DatabaseString $.database is required is shape-member('Database');
@@ -176,20 +195,14 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
     class StopQueryExecutionOutput does AWS::SDK::Shape {
     }
 
-    subset ColumnNullable of Str where $_ ~~ any('NOT_NULL', 'NULLABLE', 'UNKNOWN');
-
-    subset DescriptionString of Str where 1 <= .chars <= 1024;
-
     class Row does AWS::SDK::Shape {
-        has Array[Datum] $.data is shape-member('Data');
+        has Datum @.data is shape-member('Data');
     }
 
     class BatchGetNamedQueryOutput does AWS::SDK::Shape {
-        has Array[NamedQuery] $.named-queries is shape-member('NamedQueries');
-        has Array[UnprocessedNamedQueryId] $.unprocessed-named-query-ids is shape-member('UnprocessedNamedQueryIds');
+        has NamedQuery @.named-queries is shape-member('NamedQueries');
+        has UnprocessedNamedQueryId @.unprocessed-named-query-ids is shape-member('UnprocessedNamedQueryIds');
     }
-
-    subset NamedQueryIdList of Array[Str] where 1 <= *.elems <= 50;
 
     class InternalServerException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -200,23 +213,19 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
         has NamedQueryIdList $.named-query-ids is shape-member('NamedQueryIds');
     }
 
-    subset NameString of Str where 1 <= .chars <= 128;
-
     class CreateNamedQueryOutput does AWS::SDK::Shape {
         has Str $.named-query-id is shape-member('NamedQueryId');
     }
 
     class ResultSet does AWS::SDK::Shape {
         has ResultSetMetadata $.result-set-metadata is shape-member('ResultSetMetadata');
-        has Array[Row] $.rows is shape-member('Rows');
+        has Row @.rows is shape-member('Rows');
     }
 
     class InvalidRequestException does AWS::SDK::Shape {
         has ErrorCode $.athena-error-code is shape-member('AthenaErrorCode');
         has Str $.message is shape-member('Message');
     }
-
-    subset EncryptionOption of Str where $_ ~~ any('SSE_S3', 'SSE_KMS', 'CSE_KMS');
 
     class StopQueryExecutionInput does AWS::SDK::Shape {
         has Str $.query-execution-id is required is shape-member('QueryExecutionId');
@@ -237,16 +246,12 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
         has Str $.query-execution-id is shape-member('QueryExecutionId');
     }
 
-    subset QueryExecutionState of Str where $_ ~~ any('QUEUED', 'RUNNING', 'SUCCEEDED', 'FAILED', 'CANCELLED');
-
     class DeleteNamedQueryOutput does AWS::SDK::Shape {
     }
 
     class Datum does AWS::SDK::Shape {
         has Str $.var-char-value is shape-member('VarCharValue');
     }
-
-    subset QueryExecutionIdList of Array[Str] where 1 <= *.elems <= 50;
 
     class ListNamedQueriesInput does AWS::SDK::Shape {
         has MaxNamedQueriesCount $.max-results is shape-member('MaxResults');
@@ -258,10 +263,6 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
         has Str $.query-execution-id is required is shape-member('QueryExecutionId');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset ErrorCode of Str where 1 <= .chars <= 256;
-
-    subset DatabaseString of Str where 1 <= .chars <= 32;
 
     class ResultConfiguration does AWS::SDK::Shape {
         has Str $.output-location is required is shape-member('OutputLocation');
@@ -280,6 +281,7 @@ class AWS::SDK::Service::Athena does AWS::SDK::Service {
         has ErrorCode $.error-code is shape-member('ErrorCode');
         has Str $.named-query-id is shape-member('NamedQueryId');
     }
+
 
     method batch-get-named-query(
         NamedQueryIdList :$named-query-ids!

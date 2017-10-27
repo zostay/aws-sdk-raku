@@ -96,6 +96,21 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
     class InvalidContinuationTokenException { ... }
     class InvalidRepositoryDescriptionException { ... }
 
+    subset OrderEnum of Str where $_ eq any('ascending', 'descending');
+
+    subset RepositoryDescription of Str where .chars <= 1000;
+
+    subset RepositoryName of Str where 1 <= .chars <= 100 && rx:P5/[\w\.-]+/;
+
+    subset RepositoryTriggerEventEnum of Str where $_ eq any('all', 'updateReference', 'createReference', 'deleteReference');
+
+    subset SortByEnum of Str where $_ eq any('repositoryName', 'lastModifiedDate');
+
+    subset ChangeTypeEnum of Str where $_ eq any('A', 'M', 'D');
+
+    subset BranchName of Str where 1 <= .chars <= 100;
+
+
     class CreateBranchInput does AWS::SDK::Shape {
         has Str $.commit-id is required is shape-member('commitId');
         has RepositoryName $.repository-name is required is shape-member('repositoryName');
@@ -114,11 +129,9 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
     class InvalidPathException does AWS::SDK::Shape {
     }
 
-    subset OrderEnum of Str where $_ ~~ any('ascending', 'descending');
-
     class TestRepositoryTriggersOutput does AWS::SDK::Shape {
-        has Array[Str] $.successful-executions is shape-member('successfulExecutions');
-        has Array[RepositoryTriggerExecutionFailure] $.failed-executions is shape-member('failedExecutions');
+        has Str @.successful-executions is shape-member('successfulExecutions');
+        has RepositoryTriggerExecutionFailure @.failed-executions is shape-member('failedExecutions');
     }
 
     class EncryptionKeyUnavailableException does AWS::SDK::Shape {
@@ -129,7 +142,7 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     class GetRepositoryTriggersOutput does AWS::SDK::Shape {
         has Str $.configuration-id is shape-member('configurationId');
-        has Array[RepositoryTrigger] $.triggers is shape-member('triggers');
+        has RepositoryTrigger @.triggers is shape-member('triggers');
     }
 
     class PathDoesNotExistException does AWS::SDK::Shape {
@@ -139,8 +152,6 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
         has Str $.next-token is shape-member('nextToken');
         has RepositoryName $.repository-name is required is shape-member('repositoryName');
     }
-
-    subset RepositoryDescription of Str where .chars <= 1000;
 
     class UpdateRepositoryDescriptionInput does AWS::SDK::Shape {
         has RepositoryDescription $.repository-description is shape-member('repositoryDescription');
@@ -177,7 +188,7 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     class ListRepositoriesOutput does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[RepositoryNameIdPair] $.repositories is shape-member('repositories');
+        has RepositoryNameIdPair @.repositories is shape-member('repositories');
     }
 
     class RepositoryNameExistsException does AWS::SDK::Shape {
@@ -195,8 +206,8 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
     }
 
     class BatchGetRepositoriesOutput does AWS::SDK::Shape {
-        has Array[RepositoryName] $.repositories-not-found is shape-member('repositoriesNotFound');
-        has Array[RepositoryMetadata] $.repositories is shape-member('repositories');
+        has RepositoryName @.repositories-not-found is shape-member('repositoriesNotFound');
+        has RepositoryMetadata @.repositories is shape-member('repositories');
     }
 
     class DeleteRepositoryOutput does AWS::SDK::Shape {
@@ -212,7 +223,7 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
     }
 
     class ListBranchesOutput does AWS::SDK::Shape {
-        has Array[BranchName] $.branches is shape-member('branches');
+        has BranchName @.branches is shape-member('branches');
         has Str $.next-token is shape-member('nextToken');
     }
 
@@ -247,7 +258,7 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
     }
 
     class GetDifferencesOutput does AWS::SDK::Shape {
-        has Array[Difference] $.differences is shape-member('differences');
+        has Difference @.differences is shape-member('differences');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -272,8 +283,6 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     class RepositoryDoesNotExistException does AWS::SDK::Shape {
     }
-
-    subset RepositoryName of Str where 1 <= .chars <= 100 && rx:P5/[\w\.-]+/;
 
     class BranchNameExistsException does AWS::SDK::Shape {
     }
@@ -306,8 +315,6 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
         has RepositoryMetadata $.repository-metadata is shape-member('repositoryMetadata');
     }
 
-    subset RepositoryTriggerEventEnum of Str where $_ ~~ any('all', 'updateReference', 'createReference', 'deleteReference');
-
     class GetBlobInput does AWS::SDK::Shape {
         has RepositoryName $.repository-name is required is shape-member('repositoryName');
         has Str $.blob-id is required is shape-member('blobId');
@@ -330,8 +337,6 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
     class RepositoryTriggerEventsListRequiredException does AWS::SDK::Shape {
     }
 
-    subset SortByEnum of Str where $_ ~~ any('repositoryName', 'lastModifiedDate');
-
     class Difference does AWS::SDK::Shape {
         has BlobMetadata $.after-blob is shape-member('afterBlob');
         has ChangeTypeEnum $.change-type is shape-member('changeType');
@@ -343,15 +348,11 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     class PutRepositoryTriggersInput does AWS::SDK::Shape {
         has RepositoryName $.repository-name is required is shape-member('repositoryName');
-        has Array[RepositoryTrigger] $.triggers is required is shape-member('triggers');
+        has RepositoryTrigger @.triggers is required is shape-member('triggers');
     }
 
     class EncryptionKeyNotFoundException does AWS::SDK::Shape {
     }
-
-    subset ChangeTypeEnum of Str where $_ ~~ any('A', 'M', 'D');
-
-    subset BranchName of Str where 1 <= .chars <= 100;
 
     class BranchDoesNotExistException does AWS::SDK::Shape {
     }
@@ -367,7 +368,7 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     class Commit does AWS::SDK::Shape {
         has UserInfo $.author is shape-member('author');
-        has Array[Str] $.parents is shape-member('parents');
+        has Str @.parents is shape-member('parents');
         has Str $.additional-data is shape-member('additionalData');
         has Str $.message is shape-member('message');
         has UserInfo $.committer is shape-member('committer');
@@ -404,7 +405,7 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
     }
 
     class BatchGetRepositoriesInput does AWS::SDK::Shape {
-        has Array[RepositoryName] $.repository-names is required is shape-member('repositoryNames');
+        has RepositoryName @.repository-names is required is shape-member('repositoryNames');
     }
 
     class InvalidRepositoryTriggerCustomDataException does AWS::SDK::Shape {
@@ -422,8 +423,8 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     class RepositoryTrigger does AWS::SDK::Shape {
         has Str $.name is required is shape-member('name');
-        has Array[RepositoryTriggerEventEnum] $.events is required is shape-member('events');
-        has Array[BranchName] $.branches is shape-member('branches');
+        has RepositoryTriggerEventEnum @.events is required is shape-member('events');
+        has BranchName @.branches is shape-member('branches');
         has Str $.destination-arn is required is shape-member('destinationArn');
         has Str $.custom-data is shape-member('customData');
     }
@@ -440,7 +441,7 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     class TestRepositoryTriggersInput does AWS::SDK::Shape {
         has RepositoryName $.repository-name is required is shape-member('repositoryName');
-        has Array[RepositoryTrigger] $.triggers is required is shape-member('triggers');
+        has RepositoryTrigger @.triggers is required is shape-member('triggers');
     }
 
     class RepositoryTriggerNameRequiredException does AWS::SDK::Shape {
@@ -456,6 +457,7 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     class InvalidRepositoryDescriptionException does AWS::SDK::Shape {
     }
+
 
     method update-default-branch(
         RepositoryName :$repository-name!,
@@ -579,11 +581,11 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     method put-repository-triggers(
         RepositoryName :$repository-name!,
-        Array[RepositoryTrigger] :$triggers!
+        RepositoryTrigger :@triggers!
     ) returns PutRepositoryTriggersOutput is service-operation('PutRepositoryTriggers') {
         my $request-input = PutRepositoryTriggersInput.new(
             :$repository-name,
-            :$triggers
+            :@triggers
         );
 
         self.perform-operation(
@@ -609,11 +611,11 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     method test-repository-triggers(
         RepositoryName :$repository-name!,
-        Array[RepositoryTrigger] :$triggers!
+        RepositoryTrigger :@triggers!
     ) returns TestRepositoryTriggersOutput is service-operation('TestRepositoryTriggers') {
         my $request-input = TestRepositoryTriggersInput.new(
             :$repository-name,
-            :$triggers
+            :@triggers
         );
 
         self.perform-operation(
@@ -636,10 +638,10 @@ class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
     }
 
     method batch-get-repositories(
-        Array[RepositoryName] :$repository-names!
+        RepositoryName :@repository-names!
     ) returns BatchGetRepositoriesOutput is service-operation('BatchGetRepositories') {
         my $request-input = BatchGetRepositoriesInput.new(
-            :$repository-names
+            :@repository-names
         );
 
         self.perform-operation(

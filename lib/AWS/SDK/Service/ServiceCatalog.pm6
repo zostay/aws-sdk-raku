@@ -153,6 +153,95 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     class ScanProvisionedProductsOutput { ... }
     class ListPortfoliosForProductInput { ... }
 
+    subset ProvisioningArtifactInfo of Hash[Str, Str] where 1 <= *.elems <= 100;
+
+    subset ResourceARN of Str where 1 <= .chars <= 150;
+
+    subset RecordTagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-%@]*)$/;
+
+    subset RecordStatus of Str where $_ eq any('CREATED', 'IN_PROGRESS', 'IN_PROGRESS_IN_ERROR', 'SUCCEEDED', 'FAILED');
+
+    subset ProvisionedProductNameOrArn of Str where 1 <= .chars <= 1224 && rx:P5/[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}|arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^\/].{0,1023}/;
+
+    subset ProvisioningArtifactType of Str where $_ eq any('CLOUD_FORMATION_TEMPLATE', 'MARKETPLACE_AMI', 'MARKETPLACE_CAR');
+
+    subset AddTags of Array[Tag] where *.elems <= 20;
+
+    subset ConstraintType of Str where 1 <= .chars <= 1024;
+
+    subset TagOptionValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset Tags of Array[Tag] where *.elems <= 50;
+
+    subset AccountId of Str where rx:P5/^[0-9]{12}$/;
+
+    subset ParameterKey of Str where 1 <= .chars <= 1000;
+
+    subset PortfolioDisplayName of Str where 1 <= .chars <= 100;
+
+    subset ProvisioningArtifactPropertyName of Str where $_ eq any('Id');
+
+    subset ParameterValue of Str where .chars <= 4096;
+
+    subset ProviderName of Str where 1 <= .chars <= 20;
+
+    subset Id of Str where 1 <= .chars <= 100;
+
+    subset PortfolioDescription of Str where .chars <= 2000;
+
+    subset ConstraintDescription of Str where .chars <= 2000;
+
+    subset ProductViewSortBy of Str where $_ eq any('Title', 'VersionCount', 'CreationDate');
+
+    subset TagValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset RecordTags of Array[RecordTag] where *.elems <= 50;
+
+    subset CopyProductStatus of Str where $_ eq any('SUCCEEDED', 'IN_PROGRESS', 'FAILED');
+
+    subset AccessLevelFilterKey of Str where $_ eq any('Account', 'Role', 'User');
+
+    subset ProvisionedProductStatus of Str where $_ eq any('AVAILABLE', 'UNDER_CHANGE', 'TAINTED', 'ERROR');
+
+    subset ProductViewFilterBy of Str where $_ eq any('FullTextSearch', 'Owner', 'ProductType', 'SourceProductId');
+
+    subset PageSize of Int where 0 <= * <= 20;
+
+    subset PageToken of Str where rx:P5/[\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]*/;
+
+    subset ProvisionedProductName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9][a-zA-Z0-9._-]*/;
+
+    subset TagOptionId of Str where 1 <= .chars <= 100;
+
+    subset Status of Str where $_ eq any('AVAILABLE', 'CREATING', 'FAILED');
+
+    subset SortOrder of Str where $_ eq any('ASCENDING', 'DESCENDING');
+
+    subset CopyOption of Str where $_ eq any('CopyTags');
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset ProductType of Str where $_ eq any('CLOUD_FORMATION_TEMPLATE', 'MARKETPLACE');
+
+    subset IdempotencyToken of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9][a-zA-Z0-9_-]*/;
+
+    subset RecordTagValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-%@]*)$/;
+
+    subset NotificationArn of Str where 1 <= .chars <= 1224 && rx:P5/arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^\/].{0,1023}/;
+
+    subset PrincipalType of Str where $_ eq any('IAM');
+
+    subset TagOptionKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset PrincipalARN of Str where 1 <= .chars <= 1000;
+
+    subset ProductArn of Str where 1 <= .chars <= 1224 && rx:P5/arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^\/].{0,1023}/;
+
+    subset NotificationArns of Array[NotificationArn] where *.elems <= 5;
+
+    subset ProductSource of Str where $_ eq any('ACCOUNT');
+
+
     class ProvisionedProductDetail does AWS::SDK::Shape {
         has ProvisionedProductNameOrArn $.arn is shape-member('Arn');
         has Str $.id is shape-member('Id');
@@ -166,7 +255,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     }
 
     class TagOptionSummary does AWS::SDK::Shape {
-        has Array[TagOptionValue] $.values is shape-member('Values');
+        has TagOptionValue @.values is shape-member('Values');
         has TagOptionKey $.key is shape-member('Key');
     }
 
@@ -179,12 +268,12 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     }
 
     class ParameterConstraints does AWS::SDK::Shape {
-        has Array[Str] $.allowed-values is shape-member('AllowedValues');
+        has Str @.allowed-values is shape-member('AllowedValues');
     }
 
     class SearchProductsAsAdminInput does AWS::SDK::Shape {
         has ProductViewSortBy $.sort-by is shape-member('SortBy');
-        has Hash[Array[Str], ProductViewFilterBy] $.filters is shape-member('Filters');
+        has Array[Str] %.filters{ProductViewFilterBy} is shape-member('Filters');
         has Str $.accept-language is shape-member('AcceptLanguage');
         has ProductSource $.product-source is shape-member('ProductSource');
         has PageSize $.page-size is shape-member('PageSize');
@@ -203,15 +292,9 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has ConstraintDetail $.constraint-detail is shape-member('ConstraintDetail');
     }
 
-    subset ProvisioningArtifactInfo of Hash[Str, Str] where 1 <= *.elems <= 100;
-
     class CopyProductOutput does AWS::SDK::Shape {
         has Id $.copy-product-token is shape-member('CopyProductToken');
     }
-
-    subset ResourceARN of Str where 1 <= .chars <= 150;
-
-    subset RecordTagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-%@]*)$/;
 
     class ListPortfolioAccessInput does AWS::SDK::Shape {
         has Str $.accept-language is shape-member('AcceptLanguage');
@@ -233,14 +316,10 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has DateTime $.created-time is shape-member('CreatedTime');
     }
 
-    subset RecordStatus of Str where $_ ~~ any('CREATED', 'IN_PROGRESS', 'IN_PROGRESS_IN_ERROR', 'SUCCEEDED', 'FAILED');
-
     class DescribeProvisionedProductInput does AWS::SDK::Shape {
         has Str $.accept-language is shape-member('AcceptLanguage');
         has Id $.id is required is shape-member('Id');
     }
-
-    subset ProvisionedProductNameOrArn of Str where 1 <= .chars <= 1224 && rx:P5/[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}|arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^\/].{0,1023}/;
 
     class UpdateTagOptionInput does AWS::SDK::Shape {
         has Bool $.active is shape-member('Active');
@@ -249,7 +328,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     }
 
     class UpdateProvisioningArtifactOutput does AWS::SDK::Shape {
-        has ProvisioningArtifactInfo $.info is shape-member('Info');
+        has Str $.info{Str} is shape-member('Info');
         has Status $.status is shape-member('Status');
         has ProvisioningArtifactDetail $.provisioning-artifact-detail is shape-member('ProvisioningArtifactDetail');
     }
@@ -264,20 +343,20 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Id $.id is required is shape-member('Id');
         has Str $.distributor is shape-member('Distributor');
         has Str $.name is shape-member('Name');
-        has Array[TagKey] $.remove-tags is shape-member('RemoveTags');
+        has TagKey @.remove-tags is shape-member('RemoveTags');
         has Str $.support-description is shape-member('SupportDescription');
     }
 
     class ListPrincipalsForPortfolioOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[Principal] $.principals is shape-member('Principals');
+        has Principal @.principals is shape-member('Principals');
     }
 
     class DescribeProvisioningParametersOutput does AWS::SDK::Shape {
-        has Array[UsageInstruction] $.usage-instructions is shape-member('UsageInstructions');
-        has Array[TagOptionSummary] $.tag-options is shape-member('TagOptions');
-        has Array[ProvisioningArtifactParameter] $.provisioning-artifact-parameters is shape-member('ProvisioningArtifactParameters');
-        has Array[ConstraintSummary] $.constraint-summaries is shape-member('ConstraintSummaries');
+        has UsageInstruction @.usage-instructions is shape-member('UsageInstructions');
+        has TagOptionSummary @.tag-options is shape-member('TagOptions');
+        has ProvisioningArtifactParameter @.provisioning-artifact-parameters is shape-member('ProvisioningArtifactParameters');
+        has ConstraintSummary @.constraint-summaries is shape-member('ConstraintSummaries');
     }
 
     class CreateProductInput does AWS::SDK::Shape {
@@ -299,8 +378,6 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has RecordDetail $.record-detail is shape-member('RecordDetail');
     }
 
-    subset ProvisioningArtifactType of Str where $_ ~~ any('CLOUD_FORMATION_TEMPLATE', 'MARKETPLACE_AMI', 'MARKETPLACE_CAR');
-
     class DescribeProductViewInput does AWS::SDK::Shape {
         has Str $.accept-language is shape-member('AcceptLanguage');
         has Id $.id is required is shape-member('Id');
@@ -308,12 +385,10 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
 
     class DescribeProductAsAdminOutput does AWS::SDK::Shape {
         has ProductViewDetail $.product-view-detail is shape-member('ProductViewDetail');
-        has Array[TagOptionDetail] $.tag-options is shape-member('TagOptions');
+        has TagOptionDetail @.tag-options is shape-member('TagOptions');
         has Tags $.tags is shape-member('Tags');
-        has Array[ProvisioningArtifactSummary] $.provisioning-artifact-summaries is shape-member('ProvisioningArtifactSummaries');
+        has ProvisioningArtifactSummary @.provisioning-artifact-summaries is shape-member('ProvisioningArtifactSummaries');
     }
-
-    subset AddTags of Array[Tag] where *.elems <= 20;
 
     class ProductViewSummary does AWS::SDK::Shape {
         has Str $.owner is shape-member('Owner');
@@ -334,8 +409,8 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     }
 
     class CopyProductInput does AWS::SDK::Shape {
-        has Array[CopyOption] $.copy-options is shape-member('CopyOptions');
-        has Array[Hash[Str, ProvisioningArtifactPropertyName]] $.source-provisioning-artifact-identifiers is shape-member('SourceProvisioningArtifactIdentifiers');
+        has CopyOption @.copy-options is shape-member('CopyOptions');
+        has Hash[Str, ProvisioningArtifactPropertyName] @.source-provisioning-artifact-identifiers is shape-member('SourceProvisioningArtifactIdentifiers');
         has Str $.target-product-name is shape-member('TargetProductName');
         has Str $.accept-language is shape-member('AcceptLanguage');
         has IdempotencyToken $.idempotency-token is required is shape-member('IdempotencyToken');
@@ -346,17 +421,11 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     class DeleteProductOutput does AWS::SDK::Shape {
     }
 
-    subset ConstraintType of Str where 1 <= .chars <= 1024;
-
     class UpdateConstraintOutput does AWS::SDK::Shape {
         has Str $.constraint-parameters is shape-member('ConstraintParameters');
         has Status $.status is shape-member('Status');
         has ConstraintDetail $.constraint-detail is shape-member('ConstraintDetail');
     }
-
-    subset TagOptionValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
-
-    subset Tags of Array[Tag] where *.elems <= 50;
 
     class ScanProvisionedProductsInput does AWS::SDK::Shape {
         has AccessLevelFilter $.access-level-filter is shape-member('AccessLevelFilter');
@@ -365,14 +434,8 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has PageSize $.page-size is shape-member('PageSize');
     }
 
-    subset AccountId of Str where rx:P5/^[0-9]{12}$/;
-
-    subset ParameterKey of Str where 1 <= .chars <= 1000;
-
-    subset PortfolioDisplayName of Str where 1 <= .chars <= 100;
-
     class DescribeProvisioningArtifactOutput does AWS::SDK::Shape {
-        has ProvisioningArtifactInfo $.info is shape-member('Info');
+        has Str $.info{Str} is shape-member('Info');
         has Status $.status is shape-member('Status');
         has ProvisioningArtifactDetail $.provisioning-artifact-detail is shape-member('ProvisioningArtifactDetail');
     }
@@ -394,8 +457,6 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has TagKey $.key is required is shape-member('Key');
     }
 
-    subset ProvisioningArtifactPropertyName of Str where $_ ~~ any('Id');
-
     class UpdateProvisioningParameter does AWS::SDK::Shape {
         has Bool $.use-previous-value is shape-member('UsePreviousValue');
         has ParameterValue $.value is shape-member('Value');
@@ -405,7 +466,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     class RecordDetail does AWS::SDK::Shape {
         has Id $.provisioning-artifact-id is shape-member('ProvisioningArtifactId');
         has Id $.product-id is shape-member('ProductId');
-        has Array[RecordError] $.record-errors is shape-member('RecordErrors');
+        has RecordError @.record-errors is shape-member('RecordErrors');
         has Id $.path-id is shape-member('PathId');
         has Str $.provisioned-product-type is shape-member('ProvisionedProductType');
         has RecordTags $.record-tags is shape-member('RecordTags');
@@ -429,24 +490,20 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     class AssociatePrincipalWithPortfolioOutput does AWS::SDK::Shape {
     }
 
-    subset ParameterValue of Str where .chars <= 4096;
-
     class ProvisioningArtifactSummary does AWS::SDK::Shape {
         has Str $.description is shape-member('Description');
         has Id $.id is shape-member('Id');
         has Str $.name is shape-member('Name');
-        has ProvisioningArtifactInfo $.provisioning-artifact-metadata is shape-member('ProvisioningArtifactMetadata');
+        has Str $.provisioning-artifact-metadata{Str} is shape-member('ProvisioningArtifactMetadata');
         has DateTime $.created-time is shape-member('CreatedTime');
     }
 
     class LimitExceededException does AWS::SDK::Shape {
     }
 
-    subset ProviderName of Str where 1 <= .chars <= 20;
-
     class SearchProductsInput does AWS::SDK::Shape {
         has ProductViewSortBy $.sort-by is shape-member('SortBy');
-        has Hash[Array[Str], ProductViewFilterBy] $.filters is shape-member('Filters');
+        has Array[Str] %.filters{ProductViewFilterBy} is shape-member('Filters');
         has Str $.accept-language is shape-member('AcceptLanguage');
         has PageToken $.page-token is shape-member('PageToken');
         has PageSize $.page-size is shape-member('PageSize');
@@ -466,7 +523,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Id $.provisioning-artifact-id is required is shape-member('ProvisioningArtifactId');
         has Id $.product-id is required is shape-member('ProductId');
         has IdempotencyToken $.provision-token is required is shape-member('ProvisionToken');
-        has Array[ProvisioningParameter] $.provisioning-parameters is shape-member('ProvisioningParameters');
+        has ProvisioningParameter @.provisioning-parameters is shape-member('ProvisioningParameters');
         has Id $.path-id is shape-member('PathId');
         has Str $.accept-language is shape-member('AcceptLanguage');
         has Tags $.tags is shape-member('Tags');
@@ -477,8 +534,6 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Id $.product-id is required is shape-member('ProductId');
         has Str $.accept-language is shape-member('AcceptLanguage');
     }
-
-    subset Id of Str where 1 <= .chars <= 100;
 
     class DisassociateTagOptionFromResourceInput does AWS::SDK::Shape {
         has Str $.resource-id is required is shape-member('ResourceId');
@@ -504,8 +559,6 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has TagOptionDetail $.tag-option-detail is shape-member('TagOptionDetail');
     }
 
-    subset PortfolioDescription of Str where .chars <= 2000;
-
     class ProvisioningArtifactDetail does AWS::SDK::Shape {
         has Str $.description is shape-member('Description');
         has Id $.id is shape-member('Id');
@@ -530,10 +583,6 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has ResourceARN $.product-arn is shape-member('ProductARN');
     }
 
-    subset ConstraintDescription of Str where .chars <= 2000;
-
-    subset ProductViewSortBy of Str where $_ ~~ any('Title', 'VersionCount', 'CreationDate');
-
     class ListTagOptionsInput does AWS::SDK::Shape {
         has ListTagOptionsFilters $.filters is shape-member('Filters');
         has PageToken $.page-token is shape-member('PageToken');
@@ -545,23 +594,15 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    subset TagValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
-
-    subset RecordTags of Array[RecordTag] where *.elems <= 50;
-
     class ListAcceptedPortfolioSharesOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[PortfolioDetail] $.portfolio-details is shape-member('PortfolioDetails');
+        has PortfolioDetail @.portfolio-details is shape-member('PortfolioDetails');
     }
 
     class DescribeProductViewOutput does AWS::SDK::Shape {
         has ProductViewSummary $.product-view-summary is shape-member('ProductViewSummary');
-        has Array[ProvisioningArtifact] $.provisioning-artifacts is shape-member('ProvisioningArtifacts');
+        has ProvisioningArtifact @.provisioning-artifacts is shape-member('ProvisioningArtifacts');
     }
-
-    subset CopyProductStatus of Str where $_ ~~ any('SUCCEEDED', 'IN_PROGRESS', 'FAILED');
-
-    subset AccessLevelFilterKey of Str where $_ ~~ any('Account', 'Role', 'User');
 
     class AssociateProductWithPortfolioInput does AWS::SDK::Shape {
         has Id $.product-id is required is shape-member('ProductId');
@@ -570,12 +611,10 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    subset ProvisionedProductStatus of Str where $_ ~~ any('AVAILABLE', 'UNDER_CHANGE', 'TAINTED', 'ERROR');
-
     class UpdateProvisionedProductInput does AWS::SDK::Shape {
         has Id $.provisioning-artifact-id is shape-member('ProvisioningArtifactId');
         has Id $.product-id is shape-member('ProductId');
-        has Array[UpdateProvisioningParameter] $.provisioning-parameters is shape-member('ProvisioningParameters');
+        has UpdateProvisioningParameter @.provisioning-parameters is shape-member('ProvisioningParameters');
         has Id $.path-id is shape-member('PathId');
         has Str $.accept-language is shape-member('AcceptLanguage');
         has Id $.provisioned-product-id is shape-member('ProvisionedProductId');
@@ -586,14 +625,8 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     class DescribeRecordOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
         has RecordDetail $.record-detail is shape-member('RecordDetail');
-        has Array[RecordOutput] $.record-outputs is shape-member('RecordOutputs');
+        has RecordOutput @.record-outputs is shape-member('RecordOutputs');
     }
-
-    subset ProductViewFilterBy of Str where $_ ~~ any('FullTextSearch', 'Owner', 'ProductType', 'SourceProductId');
-
-    subset PageSize of Int where 0 <= * <= 20;
-
-    subset PageToken of Str where rx:P5/[\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]*/;
 
     class PortfolioDetail does AWS::SDK::Shape {
         has PortfolioDisplayName $.display-name is shape-member('DisplayName');
@@ -644,7 +677,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
 
     class ListTagOptionsOutput does AWS::SDK::Shape {
         has PageToken $.page-token is shape-member('PageToken');
-        has Array[TagOptionDetail] $.tag-option-details is shape-member('TagOptionDetails');
+        has TagOptionDetail @.tag-option-details is shape-member('TagOptionDetails');
     }
 
     class DisassociateProductFromPortfolioInput does AWS::SDK::Shape {
@@ -676,15 +709,9 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has PrincipalType $.principal-type is shape-member('PrincipalType');
     }
 
-    subset ProvisionedProductName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9][a-zA-Z0-9._-]*/;
-
-    subset TagOptionId of Str where 1 <= .chars <= 100;
-
-    subset Status of Str where $_ ~~ any('AVAILABLE', 'CREATING', 'FAILED');
-
     class ListLaunchPathsOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[LaunchPathSummary] $.launch-path-summaries is shape-member('LaunchPathSummaries');
+        has LaunchPathSummary @.launch-path-summaries is shape-member('LaunchPathSummaries');
     }
 
     class ProductViewAggregationValue does AWS::SDK::Shape {
@@ -707,8 +734,6 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Str $.name is shape-member('Name');
     }
 
-    subset SortOrder of Str where $_ ~~ any('ASCENDING', 'DESCENDING');
-
     class RecordTag does AWS::SDK::Shape {
         has RecordTagValue $.value is shape-member('Value');
         has RecordTagKey $.key is shape-member('Key');
@@ -721,8 +746,6 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Id $.constraint-id is shape-member('ConstraintId');
     }
 
-    subset CopyOption of Str where $_ ~~ any('CopyTags');
-
     class TerminateProvisionedProductOutput does AWS::SDK::Shape {
         has RecordDetail $.record-detail is shape-member('RecordDetail');
     }
@@ -730,22 +753,20 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     class TagOptionNotMigratedException does AWS::SDK::Shape {
     }
 
-    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
-
     class ListRecordHistoryOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[RecordDetail] $.record-details is shape-member('RecordDetails');
+        has RecordDetail @.record-details is shape-member('RecordDetails');
     }
 
     class ListPortfolioAccessOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[AccountId] $.account-ids is shape-member('AccountIds');
+        has AccountId @.account-ids is shape-member('AccountIds');
     }
 
     class SearchProductsOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Hash[Array[ProductViewAggregationValue], Str] $.product-view-aggregations is shape-member('ProductViewAggregations');
-        has Array[ProductViewSummary] $.product-view-summaries is shape-member('ProductViewSummaries');
+        has Array[ProductViewAggregationValue] %.product-view-aggregations{Str} is shape-member('ProductViewAggregations');
+        has ProductViewSummary @.product-view-summaries is shape-member('ProductViewSummaries');
     }
 
     class ListTagOptionsFilters does AWS::SDK::Shape {
@@ -770,7 +791,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     }
 
     class DescribePortfolioOutput does AWS::SDK::Shape {
-        has Array[TagOptionDetail] $.tag-options is shape-member('TagOptions');
+        has TagOptionDetail @.tag-options is shape-member('TagOptions');
         has Tags $.tags is shape-member('Tags');
         has PortfolioDetail $.portfolio-detail is shape-member('PortfolioDetail');
     }
@@ -805,34 +826,24 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has IdempotencyToken $.idempotency-token is required is shape-member('IdempotencyToken');
     }
 
-    subset ProductType of Str where $_ ~~ any('CLOUD_FORMATION_TEMPLATE', 'MARKETPLACE');
-
     class DeletePortfolioShareInput does AWS::SDK::Shape {
         has Str $.accept-language is shape-member('AcceptLanguage');
         has AccountId $.account-id is required is shape-member('AccountId');
         has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    subset IdempotencyToken of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9][a-zA-Z0-9_-]*/;
-
     class ProvisioningArtifactProperties does AWS::SDK::Shape {
         has Str $.description is shape-member('Description');
-        has ProvisioningArtifactInfo $.info is required is shape-member('Info');
+        has Str $.info{Str} is required is shape-member('Info');
         has Str $.name is shape-member('Name');
         has ProvisioningArtifactType $.type is shape-member('Type');
     }
-
-    subset RecordTagValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-%@]*)$/;
 
     class DeleteProvisioningArtifactInput does AWS::SDK::Shape {
         has Id $.provisioning-artifact-id is required is shape-member('ProvisioningArtifactId');
         has Id $.product-id is required is shape-member('ProductId');
         has Str $.accept-language is shape-member('AcceptLanguage');
     }
-
-    subset NotificationArn of Str where 1 <= .chars <= 1224 && rx:P5/arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^\/].{0,1023}/;
-
-    subset PrincipalType of Str where $_ ~~ any('IAM');
 
     class ListPortfoliosInput does AWS::SDK::Shape {
         has Str $.accept-language is shape-member('AcceptLanguage');
@@ -865,7 +876,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
 
     class ListProvisioningArtifactsOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[ProvisioningArtifactDetail] $.provisioning-artifact-details is shape-member('ProvisioningArtifactDetails');
+        has ProvisioningArtifactDetail @.provisioning-artifact-details is shape-member('ProvisioningArtifactDetails');
     }
 
     class RejectPortfolioShareInput does AWS::SDK::Shape {
@@ -875,7 +886,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
 
     class ListConstraintsForPortfolioOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[ConstraintDetail] $.constraint-details is shape-member('ConstraintDetails');
+        has ConstraintDetail @.constraint-details is shape-member('ConstraintDetails');
     }
 
     class DeletePortfolioShareOutput does AWS::SDK::Shape {
@@ -899,7 +910,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Id $.id is shape-member('Id');
         has Str $.name is shape-member('Name');
         has Tags $.tags is shape-member('Tags');
-        has Array[ConstraintSummary] $.constraint-summaries is shape-member('ConstraintSummaries');
+        has ConstraintSummary @.constraint-summaries is shape-member('ConstraintSummaries');
     }
 
     class DescribeTagOptionInput does AWS::SDK::Shape {
@@ -913,11 +924,9 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    subset TagOptionKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
-
     class ListPortfoliosOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[PortfolioDetail] $.portfolio-details is shape-member('PortfolioDetails');
+        has PortfolioDetail @.portfolio-details is shape-member('PortfolioDetails');
     }
 
     class TerminateProvisionedProductInput does AWS::SDK::Shape {
@@ -930,7 +939,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
 
     class SearchProductsAsAdminOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[ProductViewDetail] $.product-view-details is shape-member('ProductViewDetails');
+        has ProductViewDetail @.product-view-details is shape-member('ProductViewDetails');
     }
 
     class ListPrincipalsForPortfolioInput does AWS::SDK::Shape {
@@ -949,31 +958,27 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Id $.target-product-id is shape-member('TargetProductId');
     }
 
-    subset PrincipalARN of Str where 1 <= .chars <= 1000;
-
     class ResourceInUseException does AWS::SDK::Shape {
     }
 
     class ListPortfoliosForProductOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[PortfolioDetail] $.portfolio-details is shape-member('PortfolioDetails');
+        has PortfolioDetail @.portfolio-details is shape-member('PortfolioDetails');
     }
 
     class AcceptPortfolioShareOutput does AWS::SDK::Shape {
     }
 
-    subset ProductArn of Str where 1 <= .chars <= 1224 && rx:P5/arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^\/].{0,1023}/;
-
     class RejectPortfolioShareOutput does AWS::SDK::Shape {
     }
 
     class ListResourcesForTagOptionOutput does AWS::SDK::Shape {
-        has Array[ResourceDetail] $.resource-details is shape-member('ResourceDetails');
+        has ResourceDetail @.resource-details is shape-member('ResourceDetails');
         has PageToken $.page-token is shape-member('PageToken');
     }
 
     class CreateProvisioningArtifactOutput does AWS::SDK::Shape {
-        has ProvisioningArtifactInfo $.info is shape-member('Info');
+        has Str $.info{Str} is shape-member('Info');
         has Status $.status is shape-member('Status');
         has ProvisioningArtifactDetail $.provisioning-artifact-detail is shape-member('ProvisioningArtifactDetail');
     }
@@ -989,11 +994,9 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has AccessLevelFilterKey $.key is shape-member('Key');
     }
 
-    subset NotificationArns of Array[NotificationArn] where *.elems <= 5;
-
     class DescribeProductOutput does AWS::SDK::Shape {
         has ProductViewSummary $.product-view-summary is shape-member('ProductViewSummary');
-        has Array[ProvisioningArtifact] $.provisioning-artifacts is shape-member('ProvisioningArtifacts');
+        has ProvisioningArtifact @.provisioning-artifacts is shape-member('ProvisioningArtifacts');
     }
 
     class TagOptionDetail does AWS::SDK::Shape {
@@ -1023,8 +1026,6 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has Id $.id is required is shape-member('Id');
     }
 
-    subset ProductSource of Str where $_ ~~ any('ACCOUNT');
-
     class UsageInstruction does AWS::SDK::Shape {
         has Str $.value is shape-member('Value');
         has Str $.type is shape-member('Type');
@@ -1046,7 +1047,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has PortfolioDescription $.description is shape-member('Description');
         has Str $.accept-language is shape-member('AcceptLanguage');
         has Id $.id is required is shape-member('Id');
-        has Array[TagKey] $.remove-tags is shape-member('RemoveTags');
+        has TagKey @.remove-tags is shape-member('RemoveTags');
     }
 
     class UpdateConstraintInput does AWS::SDK::Shape {
@@ -1068,7 +1069,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
 
     class ScanProvisionedProductsOutput does AWS::SDK::Shape {
         has PageToken $.next-page-token is shape-member('NextPageToken');
-        has Array[ProvisionedProductDetail] $.provisioned-products is shape-member('ProvisionedProducts');
+        has ProvisionedProductDetail @.provisioned-products is shape-member('ProvisionedProducts');
     }
 
     class ListPortfoliosForProductInput does AWS::SDK::Shape {
@@ -1077,6 +1078,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         has PageSize $.page-size is shape-member('PageSize');
         has PageToken $.page-token is shape-member('PageToken');
     }
+
 
     method create-constraint(
         Id :$product-id!,
@@ -1339,7 +1341,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
 
     method search-products(
         ProductViewSortBy :$sort-by,
-        Hash[Array[Str], ProductViewFilterBy] :$filters,
+        Array[Str] :%filters,
         Str :$accept-language,
         PageToken :$page-token,
         PageSize :$page-size,
@@ -1347,7 +1349,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     ) returns SearchProductsOutput is service-operation('SearchProducts') {
         my $request-input = SearchProductsInput.new(
             :$sort-by,
-            :$filters,
+            :%filters,
             :$accept-language,
             :$page-token,
             :$page-size,
@@ -1477,7 +1479,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
 
     method search-products-as-admin(
         ProductViewSortBy :$sort-by,
-        Hash[Array[Str], ProductViewFilterBy] :$filters,
+        Array[Str] :%filters,
         Str :$accept-language,
         ProductSource :$product-source,
         PageSize :$page-size,
@@ -1487,7 +1489,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     ) returns SearchProductsAsAdminOutput is service-operation('SearchProductsAsAdmin') {
         my $request-input = SearchProductsAsAdminInput.new(
             :$sort-by,
-            :$filters,
+            :%filters,
             :$accept-language,
             :$product-source,
             :$page-size,
@@ -1658,7 +1660,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         Id :$provisioning-artifact-id!,
         Id :$product-id!,
         IdempotencyToken :$provision-token!,
-        Array[ProvisioningParameter] :$provisioning-parameters,
+        ProvisioningParameter :@provisioning-parameters,
         Id :$path-id,
         Str :$accept-language,
         Tags :$tags,
@@ -1669,7 +1671,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
             :$provisioning-artifact-id,
             :$product-id,
             :$provision-token,
-            :$provisioning-parameters,
+            :@provisioning-parameters,
             :$path-id,
             :$accept-language,
             :$tags,
@@ -1768,7 +1770,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         Id :$id!,
         Str :$distributor,
         Str :$name,
-        Array[TagKey] :$remove-tags,
+        TagKey :@remove-tags,
         Str :$support-description
     ) returns UpdateProductOutput is service-operation('UpdateProduct') {
         my $request-input = UpdateProductInput.new(
@@ -1781,7 +1783,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
             :$id,
             :$distributor,
             :$name,
-            :$remove-tags,
+            :@remove-tags,
             :$support-description
         );
 
@@ -1937,7 +1939,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         PortfolioDescription :$description,
         Str :$accept-language,
         Id :$id!,
-        Array[TagKey] :$remove-tags
+        TagKey :@remove-tags
     ) returns UpdatePortfolioOutput is service-operation('UpdatePortfolio') {
         my $request-input = UpdatePortfolioInput.new(
             :$display-name,
@@ -1946,7 +1948,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
             :$description,
             :$accept-language,
             :$id,
-            :$remove-tags
+            :@remove-tags
         );
 
         self.perform-operation(
@@ -1958,7 +1960,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     method update-provisioned-product(
         Id :$provisioning-artifact-id,
         Id :$product-id,
-        Array[UpdateProvisioningParameter] :$provisioning-parameters,
+        UpdateProvisioningParameter :@provisioning-parameters,
         Id :$path-id,
         Str :$accept-language,
         Id :$provisioned-product-id,
@@ -1968,7 +1970,7 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         my $request-input = UpdateProvisionedProductInput.new(
             :$provisioning-artifact-id,
             :$product-id,
-            :$provisioning-parameters,
+            :@provisioning-parameters,
             :$path-id,
             :$accept-language,
             :$provisioned-product-id,
@@ -1998,8 +2000,8 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
     }
 
     method copy-product(
-        Array[CopyOption] :$copy-options,
-        Array[Hash[Str, ProvisioningArtifactPropertyName]] :$source-provisioning-artifact-identifiers,
+        CopyOption :@copy-options,
+        Hash[Str, ProvisioningArtifactPropertyName] :@source-provisioning-artifact-identifiers,
         Str :$target-product-name,
         Str :$accept-language,
         IdempotencyToken :$idempotency-token!,
@@ -2007,8 +2009,8 @@ class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
         ProductArn :$source-product-arn!
     ) returns CopyProductOutput is service-operation('CopyProduct') {
         my $request-input = CopyProductInput.new(
-            :$copy-options,
-            :$source-provisioning-artifact-identifiers,
+            :@copy-options,
+            :@source-provisioning-artifact-identifiers,
             :$target-product-name,
             :$accept-language,
             :$idempotency-token,

@@ -81,16 +81,43 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
     class DescribeSynonymOptionsResponse { ... }
     class InternalException { ... }
 
+    subset DomainId of Str where 1 <= .chars <= 64;
+
+    subset FieldName of Str where 1 <= .chars <= 64 && rx:P5/[a-z][a-z0-9_]*/;
+
+    subset DocumentCount of Int where 0 <= *;
+
+    subset InstanceCount of Int where 1 <= *;
+
+    subset DomainName of Str where 3 <= .chars <= 28 && rx:P5/[a-z][a-z0-9\-]+/;
+
+    subset RankExpression of Str where 1 <= .chars <= 10240;
+
+    subset UIntValue of Int where 0 <= *;
+
+    subset IndexFieldType of Str where $_ eq any('uint', 'literal', 'text');
+
+    subset Language of Str where rx:P5/[a-zA-Z]{2,8}(?:-[a-zA-Z]{2,8})*/;
+
+    subset PartitionCount of Int where 1 <= *;
+
+    subset FieldValue of Str where 0 <= .chars <= 1024;
+
+    subset SourceDataFunction of Str where $_ eq any('Copy', 'TrimTitle', 'Map');
+
+    subset OptionState of Str where $_ eq any('RequiresIndexDocuments', 'Processing', 'Active');
+
+
     class DescribeServiceAccessPoliciesRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
     class IndexDocumentsResponse does AWS::SDK::Shape {
-        has Array[FieldName] $.field-names is shape-member('FieldNames');
+        has FieldName @.field-names is shape-member('FieldNames');
     }
 
     class DescribeRankExpressionsResponse does AWS::SDK::Shape {
-        has Array[RankExpressionStatus] $.rank-expressions is required is shape-member('RankExpressions');
+        has RankExpressionStatus @.rank-expressions is required is shape-member('RankExpressions');
     }
 
     class DescribeStopwordOptionsRequest does AWS::SDK::Shape {
@@ -132,8 +159,6 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
         has FieldName $.index-field-name is required is shape-member('IndexFieldName');
     }
 
-    subset DomainId of Str where 1 <= .chars <= 64;
-
     class DomainStatus does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
         has Bool $.processing is shape-member('Processing');
@@ -164,10 +189,8 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
     }
 
     class DescribeIndexFieldsResponse does AWS::SDK::Shape {
-        has Array[IndexFieldStatus] $.index-fields is required is shape-member('IndexFields');
+        has IndexFieldStatus @.index-fields is required is shape-member('IndexFields');
     }
-
-    subset FieldName of Str where 1 <= .chars <= 64 && rx:P5/[a-z][a-z0-9_]*/;
 
     class DefineRankExpressionRequest does AWS::SDK::Shape {
         has NamedRankExpression $.rank-expression is required is shape-member('RankExpression');
@@ -175,19 +198,17 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
     }
 
     class DescribeDomainsRequest does AWS::SDK::Shape {
-        has Array[DomainName] $.domain-names is shape-member('DomainNames');
+        has DomainName @.domain-names is shape-member('DomainNames');
     }
 
     class DescribeDomainsResponse does AWS::SDK::Shape {
-        has Array[DomainStatus] $.domain-status-list is required is shape-member('DomainStatusList');
+        has DomainStatus @.domain-status-list is required is shape-member('DomainStatusList');
     }
 
     class DescribeIndexFieldsRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
-        has Array[FieldName] $.field-names is shape-member('FieldNames');
+        has FieldName @.field-names is shape-member('FieldNames');
     }
-
-    subset DocumentCount of Int where 0 <= *;
 
     class UpdateSynonymOptionsResponse does AWS::SDK::Shape {
         has SynonymOptionsStatus $.synonyms is required is shape-member('Synonyms');
@@ -211,7 +232,7 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
     class IndexField does AWS::SDK::Shape {
         has IndexFieldType $.index-field-type is required is shape-member('IndexFieldType');
         has FieldName $.index-field-name is required is shape-member('IndexFieldName');
-        has Array[SourceAttribute] $.source-attributes is shape-member('SourceAttributes');
+        has SourceAttribute @.source-attributes is shape-member('SourceAttributes');
         has TextOptions $.text-options is shape-member('TextOptions');
         has LiteralOptions $.literal-options is shape-member('LiteralOptions');
         has UIntOptions $.uint-options is shape-member('UIntOptions');
@@ -242,8 +263,6 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
         has DefaultSearchFieldStatus $.default-search-field is required is shape-member('DefaultSearchField');
     }
 
-    subset InstanceCount of Int where 1 <= *;
-
     class SourceAttribute does AWS::SDK::Shape {
         has SourceDataMap $.source-data-map is shape-member('SourceDataMap');
         has SourceDataTrimTitle $.source-data-trim-title is shape-member('SourceDataTrimTitle');
@@ -260,19 +279,15 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
         has StemmingOptionsStatus $.stems is required is shape-member('Stems');
     }
 
-    subset DomainName of Str where 3 <= .chars <= 28 && rx:P5/[a-z][a-z0-9\-]+/;
-
     class IndexDocumentsRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
     class SourceDataMap does AWS::SDK::Shape {
         has FieldName $.source-name is required is shape-member('SourceName');
-        has Hash[FieldValue, FieldValue] $.cases is shape-member('Cases');
+        has FieldValue %.cases{FieldValue} is shape-member('Cases');
         has FieldValue $.default-value is shape-member('DefaultValue');
     }
-
-    subset RankExpression of Str where 1 <= .chars <= 10240;
 
     class UpdateServiceAccessPoliciesRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
@@ -295,16 +310,10 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
         has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    subset UIntValue of Int where 0 <= *;
-
     class AvailabilityOptionsStatus does AWS::SDK::Shape {
         has Bool $.options is required is shape-member('Options');
         has OptionStatus $.status is required is shape-member('Status');
     }
-
-    subset IndexFieldType of Str where $_ ~~ any('uint', 'literal', 'text');
-
-    subset Language of Str where rx:P5/[a-zA-Z]{2,8}(?:-[a-zA-Z]{2,8})*/;
 
     class UpdateAvailabilityOptionsResponse does AWS::SDK::Shape {
         has AvailabilityOptionsStatus $.availability-options is shape-member('AvailabilityOptions');
@@ -322,14 +331,10 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
         has FieldValue $.default-value is shape-member('DefaultValue');
     }
 
-    subset PartitionCount of Int where 1 <= *;
-
     class BaseException does AWS::SDK::Shape {
         has Str $.code is shape-member('Code');
         has Str $.message is shape-member('Message');
     }
-
-    subset FieldValue of Str where 0 <= .chars <= 1024;
 
     class IndexFieldStatus does AWS::SDK::Shape {
         has IndexField $.options is required is shape-member('Options');
@@ -345,8 +350,6 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
         has OptionStatus $.status is required is shape-member('Status');
     }
 
-    subset SourceDataFunction of Str where $_ ~~ any('Copy', 'TrimTitle', 'Map');
-
     class DescribeStemmingOptionsRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
     }
@@ -358,8 +361,6 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
         has DomainName $.domain-name is required is shape-member('DomainName');
         has Str $.stopwords is required is shape-member('Stopwords');
     }
-
-    subset OptionState of Str where $_ ~~ any('RequiresIndexDocuments', 'Processing', 'Active');
 
     class CreateDomainResponse does AWS::SDK::Shape {
         has DomainStatus $.domain-status is shape-member('DomainStatus');
@@ -396,7 +397,7 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
 
     class DescribeRankExpressionsRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
-        has Array[FieldName] $.rank-names is shape-member('RankNames');
+        has FieldName @.rank-names is shape-member('RankNames');
     }
 
     class LiteralOptions does AWS::SDK::Shape {
@@ -440,13 +441,14 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
     class InternalException does AWS::SDK::Shape {
     }
 
+
     method describe-rank-expressions(
         DomainName :$domain-name!,
-        Array[FieldName] :$rank-names
+        FieldName :@rank-names
     ) returns DescribeRankExpressionsResponse is service-operation('DescribeRankExpressions') {
         my $request-input = DescribeRankExpressionsRequest.new(
             :$domain-name,
-            :$rank-names
+            :@rank-names
         );
 
         self.perform-operation(
@@ -457,11 +459,11 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
 
     method describe-index-fields(
         DomainName :$domain-name!,
-        Array[FieldName] :$field-names
+        FieldName :@field-names
     ) returns DescribeIndexFieldsResponse is service-operation('DescribeIndexFields') {
         my $request-input = DescribeIndexFieldsRequest.new(
             :$domain-name,
-            :$field-names
+            :@field-names
         );
 
         self.perform-operation(
@@ -609,10 +611,10 @@ class AWS::SDK::Service::CloudSearch20110201 does AWS::SDK::Service {
     }
 
     method describe-domains(
-        Array[DomainName] :$domain-names
+        DomainName :@domain-names
     ) returns DescribeDomainsResponse is service-operation('DescribeDomains') {
         my $request-input = DescribeDomainsRequest.new(
-            :$domain-names
+            :@domain-names
         );
 
         self.perform-operation(

@@ -68,6 +68,37 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
     class CancelJobResult { ... }
     class ClusterListEntry { ... }
 
+    subset RoleARN of Str where .chars <= 255 && rx:P5/arn:aws.*:iam::[0-9]{12}:role\/.*/;
+
+    subset KmsKeyARN of Str where .chars <= 255 && rx:P5/arn:aws.*:kms:.*:[0-9]{12}:key\/.*/;
+
+    subset SnowballCapacity of Str where $_ eq any('T50', 'T80', 'T100', 'NoPreference');
+
+    subset ResourceARN of Str where .chars <= 255;
+
+    subset SnowballType of Str where $_ eq any('STANDARD', 'EDGE');
+
+    subset ClusterState of Str where $_ eq any('AwaitingQuorum', 'Pending', 'InUse', 'Complete', 'Cancelled');
+
+    subset JobType of Str where $_ eq any('IMPORT', 'EXPORT', 'LOCAL_USE');
+
+    subset ShippingOption of Str where $_ eq any('SECOND_DAY', 'NEXT_DAY', 'EXPRESS', 'STANDARD');
+
+    subset AddressId of Str where 40 <= .chars <= 40 && rx:P5/ADID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    subset JobId of Str where 39 <= .chars <= 39 && rx:P5/(M|J)ID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    subset ListLimit of Int where 0 <= * <= 100;
+
+    subset String of Str where 1 <= .chars;
+
+    subset SnsTopicARN of Str where .chars <= 255 && rx:P5/arn:aws.*:sns:.*:[0-9]{12}:.*/;
+
+    subset ClusterId of Str where 39 <= .chars <= 39 && rx:P5/CID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    subset JobState of Str where $_ eq any('New', 'PreparingAppliance', 'PreparingShipment', 'InTransitToCustomer', 'WithCustomer', 'InTransitToAWS', 'WithAWS', 'InProgress', 'Complete', 'Cancelled', 'Listing', 'Pending');
+
+
     class Address does AWS::SDK::Shape {
         has String $.phone-number is shape-member('PhoneNumber');
         has String $.prefecture-or-district is shape-member('PrefectureOrDistrict');
@@ -98,11 +129,9 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
     }
 
     class JobResource does AWS::SDK::Shape {
-        has Array[LambdaResource] $.lambda-resources is shape-member('LambdaResources');
-        has Array[S3Resource] $.s3-resources is shape-member('S3Resources');
+        has LambdaResource @.lambda-resources is shape-member('LambdaResources');
+        has S3Resource @.s3-resources is shape-member('S3Resources');
     }
-
-    subset RoleARN of Str where .chars <= 255 && rx:P5/arn:aws.*:iam::[0-9]{12}:role\/.*/;
 
     class DescribeAddressResult does AWS::SDK::Shape {
         has Address $.address is shape-member('Address');
@@ -112,11 +141,9 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
         has ResourceARN $.event-resource-arn is shape-member('EventResourceARN');
     }
 
-    subset KmsKeyARN of Str where .chars <= 255 && rx:P5/arn:aws.*:kms:.*:[0-9]{12}:key\/.*/;
-
     class LambdaResource does AWS::SDK::Shape {
         has ResourceARN $.lambda-arn is shape-member('LambdaArn');
-        has Array[EventTriggerDefinition] $.event-triggers is shape-member('EventTriggers');
+        has EventTriggerDefinition @.event-triggers is shape-member('EventTriggers');
     }
 
     class UnsupportedAddressException does AWS::SDK::Shape {
@@ -155,7 +182,7 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
     }
 
     class DescribeAddressesResult does AWS::SDK::Shape {
-        has Array[Address] $.addresses is shape-member('Addresses');
+        has Address @.addresses is shape-member('Addresses');
         has String $.next-token is shape-member('NextToken');
     }
 
@@ -166,10 +193,6 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
     class InvalidInputCombinationException does AWS::SDK::Shape {
         has String $.message is shape-member('Message');
     }
-
-    subset SnowballCapacity of Str where $_ ~~ any('T50', 'T80', 'T100', 'NoPreference');
-
-    subset ResourceARN of Str where .chars <= 255;
 
     class ClusterMetadata does AWS::SDK::Shape {
         has JobResource $.resources is shape-member('Resources');
@@ -197,8 +220,6 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
         has AddressId $.forwarding-address-id is shape-member('ForwardingAddressId');
         has ClusterId $.cluster-id is required is shape-member('ClusterId');
     }
-
-    subset SnowballType of Str where $_ ~~ any('STANDARD', 'EDGE');
 
     class S3Resource does AWS::SDK::Shape {
         has KeyRange $.key-range is shape-member('KeyRange');
@@ -249,7 +270,7 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
     }
 
     class ListClusterJobsResult does AWS::SDK::Shape {
-        has Array[JobListEntry] $.job-list-entries is shape-member('JobListEntries');
+        has JobListEntry @.job-list-entries is shape-member('JobListEntries');
         has String $.next-token is shape-member('NextToken');
     }
 
@@ -258,8 +279,6 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
         has Shipment $.inbound-shipment is shape-member('InboundShipment');
         has Shipment $.outbound-shipment is shape-member('OutboundShipment');
     }
-
-    subset ClusterState of Str where $_ ~~ any('AwaitingQuorum', 'Pending', 'InUse', 'Complete', 'Cancelled');
 
     class CreateClusterRequest does AWS::SDK::Shape {
         has JobResource $.resources is required is shape-member('Resources');
@@ -295,8 +314,6 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
         has String $.message is shape-member('Message');
     }
 
-    subset JobType of Str where $_ ~~ any('IMPORT', 'EXPORT', 'LOCAL_USE');
-
     class UpdateJobRequest does AWS::SDK::Shape {
         has JobResource $.resources is shape-member('Resources');
         has RoleARN $.role-arn is shape-member('RoleARN');
@@ -322,28 +339,20 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
     class UpdateClusterResult does AWS::SDK::Shape {
     }
 
-    subset ShippingOption of Str where $_ ~~ any('SECOND_DAY', 'NEXT_DAY', 'EXPRESS', 'STANDARD');
-
     class Notification does AWS::SDK::Shape {
-        has Array[JobState] $.job-states-to-notify is shape-member('JobStatesToNotify');
+        has JobState @.job-states-to-notify is shape-member('JobStatesToNotify');
         has Bool $.notify-all is shape-member('NotifyAll');
         has SnsTopicARN $.sns-topic-arn is shape-member('SnsTopicARN');
     }
-
-    subset AddressId of Str where 40 <= .chars <= 40 && rx:P5/ADID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
 
     class GetJobManifestRequest does AWS::SDK::Shape {
         has JobId $.job-id is required is shape-member('JobId');
     }
 
-    subset JobId of Str where 39 <= .chars <= 39 && rx:P5/(M|J)ID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
-
     class ListJobsResult does AWS::SDK::Shape {
-        has Array[JobListEntry] $.job-list-entries is shape-member('JobListEntries');
+        has JobListEntry @.job-list-entries is shape-member('JobListEntries');
         has String $.next-token is shape-member('NextToken');
     }
-
-    subset ListLimit of Int where 0 <= * <= 100;
 
     class InvalidNextTokenException does AWS::SDK::Shape {
         has String $.message is shape-member('Message');
@@ -354,11 +363,9 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
     }
 
     class ListClustersResult does AWS::SDK::Shape {
-        has Array[ClusterListEntry] $.cluster-list-entries is shape-member('ClusterListEntries');
+        has ClusterListEntry @.cluster-list-entries is shape-member('ClusterListEntries');
         has String $.next-token is shape-member('NextToken');
     }
-
-    subset String of Str where 1 <= .chars;
 
     class CreateAddressResult does AWS::SDK::Shape {
         has String $.address-id is shape-member('AddressId');
@@ -372,7 +379,7 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
     }
 
     class DescribeJobResult does AWS::SDK::Shape {
-        has Array[JobMetadata] $.sub-job-metadata is shape-member('SubJobMetadata');
+        has JobMetadata @.sub-job-metadata is shape-member('SubJobMetadata');
         has JobMetadata $.job-metadata is shape-member('JobMetadata');
     }
 
@@ -407,8 +414,6 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
         has String $.next-token is shape-member('NextToken');
     }
 
-    subset SnsTopicARN of Str where .chars <= 255 && rx:P5/arn:aws.*:sns:.*:[0-9]{12}:.*/;
-
     class CreateAddressRequest does AWS::SDK::Shape {
         has Address $.address is required is shape-member('Address');
     }
@@ -420,8 +425,6 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
     class CancelJobResult does AWS::SDK::Shape {
     }
 
-    subset ClusterId of Str where 39 <= .chars <= 39 && rx:P5/CID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
-
     class ClusterListEntry does AWS::SDK::Shape {
         has DateTime $.creation-date is shape-member('CreationDate');
         has String $.description is shape-member('Description');
@@ -429,7 +432,6 @@ class AWS::SDK::Service::Snowball does AWS::SDK::Service {
         has String $.cluster-id is shape-member('ClusterId');
     }
 
-    subset JobState of Str where $_ ~~ any('New', 'PreparingAppliance', 'PreparingShipment', 'InTransitToCustomer', 'WithCustomer', 'InTransitToAWS', 'WithAWS', 'InProgress', 'Complete', 'Cancelled', 'Listing', 'Pending');
 
     method get-job-unlock-code(
         JobId :$job-id!

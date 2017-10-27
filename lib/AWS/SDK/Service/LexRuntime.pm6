@@ -31,6 +31,25 @@ class AWS::SDK::Service::LexRuntime does AWS::SDK::Service {
 
     subset StringUrlWithLength of Str where 1 <= .chars <= 2048;
 
+    subset listOfButtons of Array[Button] where 0 <= *.elems <= 5;
+
+    subset ButtonValueStringWithLength of Str where 1 <= .chars <= 1000;
+
+    subset Text of Str where 1 <= .chars <= 1024;
+
+    subset StringWithLength of Str where 1 <= .chars <= 80;
+
+    subset ContentType of Str where $_ eq any('application/vnd.amazonaws.card.generic');
+
+    subset genericAttachmentList of Array[GenericAttachment] where 0 <= *.elems <= 10;
+
+    subset UserId of Str where 2 <= .chars <= 100 && rx:P5/[0-9a-zA-Z._:-]+/;
+
+    subset DialogState of Str where $_ eq any('ElicitIntent', 'ConfirmIntent', 'ElicitSlot', 'Fulfilled', 'ReadyForFulfillment', 'Failed');
+
+    subset ButtonTextStringWithLength of Str where 1 <= .chars <= 15;
+
+
     class RequestTimeoutException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -38,8 +57,6 @@ class AWS::SDK::Service::LexRuntime does AWS::SDK::Service {
     class BadRequestException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset listOfButtons of Array[Button] where 0 <= *.elems <= 5;
 
     class PostContentRequest does AWS::SDK::Shape {
         has Str $.request-attributes is shape-member('requestAttributes');
@@ -77,30 +94,18 @@ class AWS::SDK::Service::LexRuntime does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ButtonValueStringWithLength of Str where 1 <= .chars <= 1000;
-
-    subset Text of Str where 1 <= .chars <= 1024;
-
-    subset StringWithLength of Str where 1 <= .chars <= 80;
-
     class DependencyFailedException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset ContentType of Str where $_ ~~ any('application/vnd.amazonaws.card.generic');
-
-    subset genericAttachmentList of Array[GenericAttachment] where 0 <= *.elems <= 10;
-
-    subset UserId of Str where 2 <= .chars <= 100 && rx:P5/[0-9a-zA-Z._:-]+/;
 
     class PostTextResponse does AWS::SDK::Shape {
         has ResponseCard $.response-card is shape-member('responseCard');
         has DialogState $.dialog-state is shape-member('dialogState');
         has Str $.intent-name is shape-member('intentName');
         has Str $.slot-to-elicit is shape-member('slotToElicit');
-        has Hash[Str, Str] $.session-attributes is shape-member('sessionAttributes');
+        has Str %.session-attributes{Str} is shape-member('sessionAttributes');
         has Text $.message is shape-member('message');
-        has Hash[Str, Str] $.slots is shape-member('slots');
+        has Str %.slots{Str} is shape-member('slots');
     }
 
     class InternalFailureException does AWS::SDK::Shape {
@@ -114,10 +119,6 @@ class AWS::SDK::Service::LexRuntime does AWS::SDK::Service {
         has StringUrlWithLength $.image-url is shape-member('imageUrl');
         has StringUrlWithLength $.attachment-link-url is shape-member('attachmentLinkUrl');
     }
-
-    subset DialogState of Str where $_ ~~ any('ElicitIntent', 'ConfirmIntent', 'ElicitSlot', 'Fulfilled', 'ReadyForFulfillment', 'Failed');
-
-    subset ButtonTextStringWithLength of Str where 1 <= .chars <= 15;
 
     class Button does AWS::SDK::Shape {
         has ButtonTextStringWithLength $.text is required is shape-member('text');
@@ -139,12 +140,12 @@ class AWS::SDK::Service::LexRuntime does AWS::SDK::Service {
     }
 
     class PostTextRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.request-attributes is shape-member('requestAttributes');
+        has Str %.request-attributes{Str} is shape-member('requestAttributes');
         has Str $.bot-name is required is shape-member('botName');
         has Str $.bot-alias is required is shape-member('botAlias');
         has UserId $.user-id is required is shape-member('userId');
         has Text $.input-text is required is shape-member('inputText');
-        has Hash[Str, Str] $.session-attributes is shape-member('sessionAttributes');
+        has Str %.session-attributes{Str} is shape-member('sessionAttributes');
     }
 
     class LoopDetectedException does AWS::SDK::Shape {
@@ -154,6 +155,7 @@ class AWS::SDK::Service::LexRuntime does AWS::SDK::Service {
     class BadGatewayException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
+
 
     method post-content(
         Str :$request-attributes,
@@ -183,20 +185,20 @@ class AWS::SDK::Service::LexRuntime does AWS::SDK::Service {
     }
 
     method post-text(
-        Hash[Str, Str] :$request-attributes,
+        Str :%request-attributes,
         Str :$bot-name!,
         Str :$bot-alias!,
         UserId :$user-id!,
         Text :$input-text!,
-        Hash[Str, Str] :$session-attributes
+        Str :%session-attributes
     ) returns PostTextResponse is service-operation('PostText') {
         my $request-input = PostTextRequest.new(
-            :$request-attributes,
+            :%request-attributes,
             :$bot-name,
             :$bot-alias,
             :$user-id,
             :$input-text,
-            :$session-attributes
+            :%session-attributes
         );
 
         self.perform-operation(

@@ -29,6 +29,31 @@ class AWS::SDK::Service::ResourceGroupsTaggingAPI does AWS::SDK::Service {
     class TagResourcesInput { ... }
     class Tag { ... }
 
+    subset TagKey of Str where 1 <= .chars <= 128;
+
+    subset PaginationToken of Str where 0 <= .chars <= 2048;
+
+    subset ResourceARNList of Array[ResourceARN] where 1 <= *.elems <= 20;
+
+    subset TagValue of Str where 0 <= .chars <= 256;
+
+    subset ExceptionMessage of Str where 0 <= .chars <= 2048;
+
+    subset AmazonResourceType of Str where 0 <= .chars <= 256;
+
+    subset ResourceARN of Str where 1 <= .chars <= 1600;
+
+    subset TagValueList of Array[TagValue] where 0 <= *.elems <= 20;
+
+    subset TagMap of Hash[TagValue, TagKey] where 1 <= *.elems <= 50;
+
+    subset TagKeyListForUntag of Array[TagKey] where 1 <= *.elems <= 50;
+
+    subset TagFilterList of Array[TagFilter] where 0 <= *.elems <= 50;
+
+    subset ErrorCode of Str where $_ eq any('InternalServiceException', 'InvalidParameterException');
+
+
     class ThrottledException does AWS::SDK::Shape {
         has ExceptionMessage $.message is shape-member('Message');
     }
@@ -37,36 +62,28 @@ class AWS::SDK::Service::ResourceGroupsTaggingAPI does AWS::SDK::Service {
         has ExceptionMessage $.message is shape-member('Message');
     }
 
-    subset TagKey of Str where 1 <= .chars <= 128;
-
-    subset PaginationToken of Str where 0 <= .chars <= 2048;
-
     class GetTagValuesInput does AWS::SDK::Shape {
         has PaginationToken $.pagination-token is shape-member('PaginationToken');
         has TagKey $.key is required is shape-member('Key');
     }
 
     class TagResourcesOutput does AWS::SDK::Shape {
-        has Hash[FailureInfo, ResourceARN] $.failed-resources-map is shape-member('FailedResourcesMap');
+        has FailureInfo %.failed-resources-map{ResourceARN} is shape-member('FailedResourcesMap');
     }
-
-    subset ResourceARNList of Array[ResourceARN] where 1 <= *.elems <= 20;
 
     class GetTagKeysOutput does AWS::SDK::Shape {
         has PaginationToken $.pagination-token is shape-member('PaginationToken');
-        has Array[TagKey] $.tag-keys is shape-member('TagKeys');
+        has TagKey @.tag-keys is shape-member('TagKeys');
     }
 
     class GetResourcesOutput does AWS::SDK::Shape {
         has PaginationToken $.pagination-token is shape-member('PaginationToken');
-        has Array[ResourceTagMapping] $.resource-tag-mapping-list is shape-member('ResourceTagMappingList');
+        has ResourceTagMapping @.resource-tag-mapping-list is shape-member('ResourceTagMappingList');
     }
 
     class UntagResourcesOutput does AWS::SDK::Shape {
-        has Hash[FailureInfo, ResourceARN] $.failed-resources-map is shape-member('FailedResourcesMap');
+        has FailureInfo %.failed-resources-map{ResourceARN} is shape-member('FailedResourcesMap');
     }
-
-    subset TagValue of Str where 0 <= .chars <= 256;
 
     class InternalServiceException does AWS::SDK::Shape {
         has ExceptionMessage $.message is shape-member('Message');
@@ -80,13 +97,9 @@ class AWS::SDK::Service::ResourceGroupsTaggingAPI does AWS::SDK::Service {
         has Int $.tags-per-page is shape-member('TagsPerPage');
         has PaginationToken $.pagination-token is shape-member('PaginationToken');
         has Int $.resources-per-page is shape-member('ResourcesPerPage');
-        has Array[AmazonResourceType] $.resource-type-filters is shape-member('ResourceTypeFilters');
+        has AmazonResourceType @.resource-type-filters is shape-member('ResourceTypeFilters');
         has TagFilterList $.tag-filters is shape-member('TagFilters');
     }
-
-    subset ExceptionMessage of Str where 0 <= .chars <= 2048;
-
-    subset AmazonResourceType of Str where 0 <= .chars <= 256;
 
     class UntagResourcesInput does AWS::SDK::Shape {
         has ResourceARNList $.resource-arn-list is required is shape-member('ResourceARNList');
@@ -98,22 +111,18 @@ class AWS::SDK::Service::ResourceGroupsTaggingAPI does AWS::SDK::Service {
         has TagKey $.key is shape-member('Key');
     }
 
-    subset ResourceARN of Str where 1 <= .chars <= 1600;
-
     class PaginationTokenExpiredException does AWS::SDK::Shape {
         has ExceptionMessage $.message is shape-member('Message');
     }
 
-    subset TagValueList of Array[TagValue] where 0 <= *.elems <= 20;
-
     class ResourceTagMapping does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has ResourceARN $.resource-arn is shape-member('ResourceARN');
     }
 
     class GetTagValuesOutput does AWS::SDK::Shape {
         has PaginationToken $.pagination-token is shape-member('PaginationToken');
-        has Array[TagValue] $.tag-values is shape-member('TagValues');
+        has TagValue @.tag-values is shape-member('TagValues');
     }
 
     class FailureInfo does AWS::SDK::Shape {
@@ -124,34 +133,27 @@ class AWS::SDK::Service::ResourceGroupsTaggingAPI does AWS::SDK::Service {
 
     class TagResourcesInput does AWS::SDK::Shape {
         has ResourceARNList $.resource-arn-list is required is shape-member('ResourceARNList');
-        has TagMap $.tags is required is shape-member('Tags');
+        has TagValue $.tags{TagKey} is required is shape-member('Tags');
     }
-
-    subset TagMap of Hash[TagValue, TagKey] where 1 <= *.elems <= 50;
-
-    subset TagKeyListForUntag of Array[TagKey] where 1 <= *.elems <= 50;
-
-    subset TagFilterList of Array[TagFilter] where 0 <= *.elems <= 50;
 
     class Tag does AWS::SDK::Shape {
         has TagValue $.value is required is shape-member('Value');
         has TagKey $.key is required is shape-member('Key');
     }
 
-    subset ErrorCode of Str where $_ ~~ any('InternalServiceException', 'InvalidParameterException');
 
     method get-resources(
         Int :$tags-per-page,
         PaginationToken :$pagination-token,
         Int :$resources-per-page,
-        Array[AmazonResourceType] :$resource-type-filters,
+        AmazonResourceType :@resource-type-filters,
         TagFilterList :$tag-filters
     ) returns GetResourcesOutput is service-operation('GetResources') {
         my $request-input = GetResourcesInput.new(
             :$tags-per-page,
             :$pagination-token,
             :$resources-per-page,
-            :$resource-type-filters,
+            :@resource-type-filters,
             :$tag-filters
         );
 
@@ -206,7 +208,7 @@ class AWS::SDK::Service::ResourceGroupsTaggingAPI does AWS::SDK::Service {
 
     method tag-resources(
         ResourceARNList :$resource-arn-list!,
-        TagMap :$tags!
+        TagValue :$tags!
     ) returns TagResourcesOutput is service-operation('TagResources') {
         my $request-input = TagResourcesInput.new(
             :$resource-arn-list,

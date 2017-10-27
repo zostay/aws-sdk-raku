@@ -186,13 +186,42 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class UpdateDomainNameRequest { ... }
     class MethodSnapshot { ... }
 
+    subset CacheClusterSize of Str where $_ eq any('0.5', '1.6', '6.1', '13.5', '28.4', '58.2', '118', '237');
+
+    subset AuthorizerType of Str where $_ eq any('TOKEN', 'REQUEST', 'COGNITO_USER_POOLS');
+
+    subset IntegrationType of Str where $_ eq any('HTTP', 'AWS', 'MOCK', 'HTTP_PROXY', 'AWS_PROXY');
+
+    subset Op of Str where $_ eq any('add', 'remove', 'replace', 'move', 'copy', 'test');
+
+    subset DocumentationPartLocationStatusCode of Str where rx:P5/^([1-5]\d\d|\*|\s*)$/;
+
+    subset CacheClusterStatus of Str where $_ eq any('CREATE_IN_PROGRESS', 'AVAILABLE', 'DELETE_IN_PROGRESS', 'NOT_AVAILABLE', 'FLUSH_IN_PROGRESS');
+
+    subset UnauthorizedCacheControlHeaderStrategy of Str where $_ eq any('FAIL_WITH_403', 'SUCCEED_WITH_RESPONSE_HEADER', 'SUCCEED_WITHOUT_RESPONSE_HEADER');
+
+    subset StatusCode of Str where rx:P5/[1-5]\d\d/;
+
+    subset ApiKeysFormat of Str where $_ eq any('csv');
+
+    subset GatewayResponseType of Str where $_ eq any('DEFAULT_4XX', 'DEFAULT_5XX', 'RESOURCE_NOT_FOUND', 'UNAUTHORIZED', 'INVALID_API_KEY', 'ACCESS_DENIED', 'AUTHORIZER_FAILURE', 'AUTHORIZER_CONFIGURATION_ERROR', 'INVALID_SIGNATURE', 'EXPIRED_TOKEN', 'MISSING_AUTHENTICATION_TOKEN', 'INTEGRATION_FAILURE', 'INTEGRATION_TIMEOUT', 'API_CONFIGURATION_ERROR', 'UNSUPPORTED_MEDIA_TYPE', 'BAD_REQUEST_PARAMETERS', 'BAD_REQUEST_BODY', 'REQUEST_TOO_LARGE', 'THROTTLED', 'QUOTA_EXCEEDED');
+
+    subset ContentHandlingStrategy of Str where $_ eq any('CONVERT_TO_BINARY', 'CONVERT_TO_TEXT');
+
+    subset PutMode of Str where $_ eq any('merge', 'overwrite');
+
+    subset QuotaPeriodType of Str where $_ eq any('DAY', 'WEEK', 'MONTH');
+
+    subset DocumentationPartType of Str where $_ eq any('API', 'AUTHORIZER', 'MODEL', 'RESOURCE', 'METHOD', 'PATH_PARAMETER', 'QUERY_PARAMETER', 'REQUEST_HEADER', 'REQUEST_BODY', 'RESPONSE', 'RESPONSE_HEADER', 'RESPONSE_BODY');
+
+
     class Method does AWS::SDK::Shape {
-        has Hash[Str, Str] $.request-models is shape-member('requestModels');
-        has Hash[Bool, Str] $.request-parameters is shape-member('requestParameters');
+        has Str %.request-models{Str} is shape-member('requestModels');
+        has Bool %.request-parameters{Str} is shape-member('requestParameters');
         has Bool $.api-key-required is shape-member('apiKeyRequired');
         has Str $.request-validator-id is shape-member('requestValidatorId');
         has Str $.authorization-type is shape-member('authorizationType');
-        has Hash[MethodResponse, Str] $.method-responses is shape-member('methodResponses');
+        has MethodResponse %.method-responses{Str} is shape-member('methodResponses');
         has Str $.operation-name is shape-member('operationName');
         has Str $.authorizer-id is shape-member('authorizerId');
         has Str $.http-method is shape-member('httpMethod');
@@ -211,11 +240,9 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.documentation-part-id is required is shape-member('documentationPartId');
     }
 
-    subset CacheClusterSize of Str where $_ ~~ any('0.5', '1.6', '6.1', '13.5', '28.4', '58.2', '118', '237');
-
     class TestInvokeMethodRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.stage-variables is shape-member('stageVariables');
-        has Hash[Str, Str] $.headers is shape-member('headers');
+        has Str %.stage-variables{Str} is shape-member('stageVariables');
+        has Str %.headers{Str} is shape-member('headers');
         has Str $.body is shape-member('body');
         has Str $.client-certificate-id is shape-member('clientCertificateId');
         has Str $.path-with-query-string is shape-member('pathWithQueryString');
@@ -227,7 +254,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class UpdateDocumentationPartRequest does AWS::SDK::Shape {
         has Str $.rest-api-id is required is shape-member('restApiId');
         has Str $.documentation-part-id is required is shape-member('documentationPartId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class ImportDocumentationPartsRequest does AWS::SDK::Shape {
@@ -254,10 +281,10 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has CacheClusterSize $.cache-cluster-size is shape-member('cacheClusterSize');
         has Str $.deployment-id is shape-member('deploymentId');
         has DateTime $.last-updated-date is shape-member('lastUpdatedDate');
-        has Hash[MethodSetting, Str] $.method-settings is shape-member('methodSettings');
+        has MethodSetting %.method-settings{Str} is shape-member('methodSettings');
         has CacheClusterStatus $.cache-cluster-status is shape-member('cacheClusterStatus');
         has Str $.documentation-version is shape-member('documentationVersion');
-        has Hash[Str, Str] $.variables is shape-member('variables');
+        has Str %.variables{Str} is shape-member('variables');
         has Str $.client-certificate-id is shape-member('clientCertificateId');
         has Bool $.cache-cluster-enabled is shape-member('cacheClusterEnabled');
         has DateTime $.created-date is shape-member('createdDate');
@@ -276,7 +303,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class UsagePlan does AWS::SDK::Shape {
-        has Array[ApiStage] $.api-stages is shape-member('apiStages');
+        has ApiStage @.api-stages is shape-member('apiStages');
         has Str $.name is shape-member('name');
         has ThrottleSettings $.throttle is shape-member('throttle');
         has Str $.product-code is shape-member('productCode');
@@ -291,7 +318,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class SdkType does AWS::SDK::Shape {
-        has Array[SdkConfigurationProperty] $.configuration-properties is shape-member('configurationProperties');
+        has SdkConfigurationProperty @.configuration-properties is shape-member('configurationProperties');
         has Str $.id is shape-member('id');
         has Str $.friendly-name is shape-member('friendlyName');
         has Str $.description is shape-member('description');
@@ -306,7 +333,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class UpdateRequestValidatorRequest does AWS::SDK::Shape {
         has Str $.request-validator-id is required is shape-member('requestValidatorId');
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class GetGatewayResponsesRequest does AWS::SDK::Shape {
@@ -336,37 +363,37 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class SdkTypes does AWS::SDK::Shape {
-        has Array[SdkType] $.items is shape-member('items');
+        has SdkType @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
     class UpdateAccountRequest does AWS::SDK::Shape {
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class UpdateClientCertificateRequest does AWS::SDK::Shape {
         has Str $.client-certificate-id is required is shape-member('clientCertificateId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class UsagePlans does AWS::SDK::Shape {
-        has Array[UsagePlan] $.items is shape-member('items');
+        has UsagePlan @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
     class UpdateStageRequest does AWS::SDK::Shape {
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
         has Str $.stage-name is required is shape-member('stageName');
     }
 
     class UpdateRestApiRequest does AWS::SDK::Shape {
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class GetResourceRequest does AWS::SDK::Shape {
-        has Array[Str] $.embed is shape-member('embed');
+        has Str @.embed is shape-member('embed');
         has Str $.resource-id is required is shape-member('resourceId');
         has Str $.rest-api-id is required is shape-member('restApiId');
     }
@@ -376,25 +403,21 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class ApiKeys does AWS::SDK::Shape {
-        has Array[Str] $.warnings is shape-member('warnings');
-        has Array[ApiKey] $.items is shape-member('items');
+        has Str @.warnings is shape-member('warnings');
+        has ApiKey @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
-    subset AuthorizerType of Str where $_ ~~ any('TOKEN', 'REQUEST', 'COGNITO_USER_POOLS');
-
-    subset IntegrationType of Str where $_ ~~ any('HTTP', 'AWS', 'MOCK', 'HTTP_PROXY', 'AWS_PROXY');
-
     class Models does AWS::SDK::Shape {
-        has Array[Model] $.items is shape-member('items');
+        has Model @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
     class TestInvokeAuthorizerRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.stage-variables is shape-member('stageVariables');
+        has Str %.stage-variables{Str} is shape-member('stageVariables');
         has Str $.body is shape-member('body');
-        has Hash[Str, Str] $.headers is shape-member('headers');
-        has Hash[Str, Str] $.additional-context is shape-member('additionalContext');
+        has Str %.headers{Str} is shape-member('headers');
+        has Str %.additional-context{Str} is shape-member('additionalContext');
         has Str $.path-with-query-string is shape-member('pathWithQueryString');
         has Str $.authorizer-id is required is shape-member('authorizerId');
         has Str $.rest-api-id is required is shape-member('restApiId');
@@ -414,7 +437,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class UpdateDeploymentRequest does AWS::SDK::Shape {
         has Str $.deployment-id is required is shape-member('deploymentId');
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class GetUsagePlansRequest does AWS::SDK::Shape {
@@ -435,8 +458,8 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     class RestApi does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
-        has Array[Str] $.warnings is shape-member('warnings');
-        has Array[Str] $.binary-media-types is shape-member('binaryMediaTypes');
+        has Str @.warnings is shape-member('warnings');
+        has Str @.binary-media-types is shape-member('binaryMediaTypes');
         has Str $.id is shape-member('id');
         has Str $.version is shape-member('version');
         has DateTime $.created-date is shape-member('createdDate');
@@ -466,7 +489,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.auth-type is shape-member('authType');
         has AuthorizerType $.type is required is shape-member('type');
         has Str $.authorizer-uri is shape-member('authorizerUri');
-        has Array[Str] $.provider-arns is shape-member('providerARNs');
+        has Str @.provider-arns is shape-member('providerARNs');
     }
 
     class CreateRequestValidatorRequest does AWS::SDK::Shape {
@@ -476,19 +499,17 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset Op of Str where $_ ~~ any('add', 'remove', 'replace', 'move', 'copy', 'test');
-
     class PutIntegrationRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.request-parameters is shape-member('requestParameters');
+        has Str %.request-parameters{Str} is shape-member('requestParameters');
         has Str $.uri is shape-member('uri');
         has Str $.cache-namespace is shape-member('cacheNamespace');
         has Str $.credentials is shape-member('credentials');
         has Str $.integration-http-method is shape-member('integrationHttpMethod');
         has Str $.resource-id is required is shape-member('resourceId');
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Array[Str] $.cache-key-parameters is shape-member('cacheKeyParameters');
+        has Str @.cache-key-parameters is shape-member('cacheKeyParameters');
         has Str $.passthrough-behavior is shape-member('passthroughBehavior');
-        has Hash[Str, Str] $.request-templates is shape-member('requestTemplates');
+        has Str %.request-templates{Str} is shape-member('requestTemplates');
         has IntegrationType $.type is required is shape-member('type');
         has Str $.http-method is required is shape-member('httpMethod');
         has ContentHandlingStrategy $.content-handling is shape-member('contentHandling');
@@ -498,12 +519,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.resource-id is required is shape-member('resourceId');
         has Str $.rest-api-id is required is shape-member('restApiId');
         has Str $.http-method is required is shape-member('httpMethod');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class GetResourcesRequest does AWS::SDK::Shape {
         has Int $.limit is shape-member('limit');
-        has Array[Str] $.embed is shape-member('embed');
+        has Str @.embed is shape-member('embed');
         has Str $.position is shape-member('position');
         has Str $.rest-api-id is required is shape-member('restApiId');
     }
@@ -519,12 +540,10 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset DocumentationPartLocationStatusCode of Str where rx:P5/^([1-5]\d\d|\*|\s*)$/;
-
     class CreateDeploymentRequest does AWS::SDK::Shape {
         has CacheClusterSize $.cache-cluster-size is shape-member('cacheClusterSize');
         has Str $.stage-description is shape-member('stageDescription');
-        has Hash[Str, Str] $.variables is shape-member('variables');
+        has Str %.variables{Str} is shape-member('variables');
         has Str $.rest-api-id is required is shape-member('restApiId');
         has Bool $.cache-cluster-enabled is shape-member('cacheClusterEnabled');
         has Str $.description is shape-member('description');
@@ -532,8 +551,8 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class PutMethodRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.request-models is shape-member('requestModels');
-        has Hash[Bool, Str] $.request-parameters is shape-member('requestParameters');
+        has Str %.request-models{Str} is shape-member('requestModels');
+        has Bool %.request-parameters{Str} is shape-member('requestParameters');
         has Bool $.api-key-required is shape-member('apiKeyRequired');
         has Str $.request-validator-id is shape-member('requestValidatorId');
         has Str $.authorization-type is required is shape-member('authorizationType');
@@ -552,7 +571,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class UpdateModelRequest does AWS::SDK::Shape {
         has Str $.rest-api-id is required is shape-member('restApiId');
         has Str $.model-name is required is shape-member('modelName');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class GetUsagePlanKeyRequest does AWS::SDK::Shape {
@@ -577,8 +596,8 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class ApiKeyIds does AWS::SDK::Shape {
-        has Array[Str] $.warnings is shape-member('warnings');
-        has Array[Str] $.ids is shape-member('ids');
+        has Str @.warnings is shape-member('warnings');
+        has Str @.ids is shape-member('ids');
     }
 
     class LimitExceededException does AWS::SDK::Shape {
@@ -594,36 +613,34 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     class TestInvokeMethodResponse does AWS::SDK::Shape {
         has Str $.log is shape-member('log');
-        has Hash[Str, Str] $.headers is shape-member('headers');
+        has Str %.headers{Str} is shape-member('headers');
         has Str $.body is shape-member('body');
         has Int $.status is shape-member('status');
         has Int $.latency is shape-member('latency');
     }
 
     class UpdateUsagePlanRequest does AWS::SDK::Shape {
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
         has Str $.usage-plan-id is required is shape-member('usagePlanId');
     }
 
     class GetExportRequest does AWS::SDK::Shape {
         has Str $.accepts is shape-member('accepts');
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str %.parameters{Str} is shape-member('parameters');
         has Str $.export-type is required is shape-member('exportType');
         has Str $.stage-name is required is shape-member('stageName');
     }
 
-    subset CacheClusterStatus of Str where $_ ~~ any('CREATE_IN_PROGRESS', 'AVAILABLE', 'DELETE_IN_PROGRESS', 'NOT_AVAILABLE', 'FLUSH_IN_PROGRESS');
-
     class PutIntegrationResponseRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.response-parameters is shape-member('responseParameters');
+        has Str %.response-parameters{Str} is shape-member('responseParameters');
         has Str $.resource-id is required is shape-member('resourceId');
         has Str $.rest-api-id is required is shape-member('restApiId');
         has Str $.selection-pattern is shape-member('selectionPattern');
         has StatusCode $.status-code is required is shape-member('statusCode');
         has Str $.http-method is required is shape-member('httpMethod');
         has ContentHandlingStrategy $.content-handling is shape-member('contentHandling');
-        has Hash[Str, Str] $.response-templates is shape-member('responseTemplates');
+        has Str %.response-templates{Str} is shape-member('responseTemplates');
     }
 
     class DeleteStageRequest does AWS::SDK::Shape {
@@ -633,16 +650,16 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     class PutGatewayResponseRequest does AWS::SDK::Shape {
         has GatewayResponseType $.response-type is required is shape-member('responseType');
-        has Hash[Str, Str] $.response-parameters is shape-member('responseParameters');
+        has Str %.response-parameters{Str} is shape-member('responseParameters');
         has Str $.rest-api-id is required is shape-member('restApiId');
         has StatusCode $.status-code is shape-member('statusCode');
-        has Hash[Str, Str] $.response-templates is shape-member('responseTemplates');
+        has Str %.response-templates{Str} is shape-member('responseTemplates');
     }
 
     class UpdateAuthorizerRequest does AWS::SDK::Shape {
         has Str $.authorizer-id is required is shape-member('authorizerId');
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class GenerateClientCertificateRequest does AWS::SDK::Shape {
@@ -650,23 +667,23 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class Stages does AWS::SDK::Shape {
-        has Array[Stage] $.item is shape-member('item');
+        has Stage @.item is shape-member('item');
     }
 
     class UsagePlanKeys does AWS::SDK::Shape {
-        has Array[UsagePlanKey] $.items is shape-member('items');
+        has UsagePlanKey @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
     class Integration does AWS::SDK::Shape {
-        has Hash[Str, Str] $.request-parameters is shape-member('requestParameters');
+        has Str %.request-parameters{Str} is shape-member('requestParameters');
         has Str $.uri is shape-member('uri');
         has Str $.cache-namespace is shape-member('cacheNamespace');
-        has Hash[IntegrationResponse, Str] $.integration-responses is shape-member('integrationResponses');
+        has IntegrationResponse %.integration-responses{Str} is shape-member('integrationResponses');
         has Str $.credentials is shape-member('credentials');
-        has Array[Str] $.cache-key-parameters is shape-member('cacheKeyParameters');
+        has Str @.cache-key-parameters is shape-member('cacheKeyParameters');
         has Str $.passthrough-behavior is shape-member('passthroughBehavior');
-        has Hash[Str, Str] $.request-templates is shape-member('requestTemplates');
+        has Str %.request-templates{Str} is shape-member('requestTemplates');
         has Str $.http-method is shape-member('httpMethod');
         has IntegrationType $.type is shape-member('type');
         has ContentHandlingStrategy $.content-handling is shape-member('contentHandling');
@@ -681,10 +698,8 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.path-part is shape-member('pathPart');
         has Str $.path is shape-member('path');
         has Str $.id is shape-member('id');
-        has Hash[Method, Str] $.resource-methods is shape-member('resourceMethods');
+        has Method %.resource-methods{Str} is shape-member('resourceMethods');
     }
-
-    subset UnauthorizedCacheControlHeaderStrategy of Str where $_ ~~ any('FAIL_WITH_403', 'SUCCEED_WITH_RESPONSE_HEADER', 'SUCCEED_WITHOUT_RESPONSE_HEADER');
 
     class CreateDocumentationPartRequest does AWS::SDK::Shape {
         has Str $.properties is required is shape-member('properties');
@@ -698,7 +713,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class CreateUsagePlanRequest does AWS::SDK::Shape {
-        has Array[ApiStage] $.api-stages is shape-member('apiStages');
+        has ApiStage @.api-stages is shape-member('apiStages');
         has Str $.name is required is shape-member('name');
         has ThrottleSettings $.throttle is shape-member('throttle');
         has QuotaSettings $.quota is shape-member('quota');
@@ -710,7 +725,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.rest-api-id is required is shape-member('restApiId');
         has StatusCode $.status-code is required is shape-member('statusCode');
         has Str $.http-method is required is shape-member('httpMethod');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class FlushStageCacheRequest does AWS::SDK::Shape {
@@ -719,7 +734,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class DomainNames does AWS::SDK::Shape {
-        has Array[DomainName] $.items is shape-member('items');
+        has DomainName @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
@@ -734,8 +749,6 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.resource-id is required is shape-member('resourceId');
         has Str $.rest-api-id is required is shape-member('restApiId');
     }
-
-    subset StatusCode of Str where rx:P5/[1-5]\d\d/;
 
     class GetStageRequest does AWS::SDK::Shape {
         has Str $.rest-api-id is required is shape-member('restApiId');
@@ -752,8 +765,8 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class MethodResponse does AWS::SDK::Shape {
-        has Hash[Str, Str] $.response-models is shape-member('responseModels');
-        has Hash[Bool, Str] $.response-parameters is shape-member('responseParameters');
+        has Str %.response-models{Str} is shape-member('responseModels');
+        has Bool %.response-parameters{Str} is shape-member('responseParameters');
         has StatusCode $.status-code is shape-member('statusCode');
     }
 
@@ -780,8 +793,6 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset ApiKeysFormat of Str where $_ ~~ any('csv');
-
     class Authorizer does AWS::SDK::Shape {
         has Int $.authorizer-result-ttl-in-seconds is shape-member('authorizerResultTtlInSeconds');
         has Str $.name is shape-member('name');
@@ -792,13 +803,13 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.auth-type is shape-member('authType');
         has AuthorizerType $.type is shape-member('type');
         has Str $.authorizer-uri is shape-member('authorizerUri');
-        has Array[Str] $.provider-arns is shape-member('providerARNs');
+        has Str @.provider-arns is shape-member('providerARNs');
     }
 
     class UpdateGatewayResponseRequest does AWS::SDK::Shape {
         has GatewayResponseType $.response-type is required is shape-member('responseType');
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class DocumentationPart does AWS::SDK::Shape {
@@ -852,7 +863,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class RequestValidators does AWS::SDK::Shape {
-        has Array[RequestValidator] $.items is shape-member('items');
+        has RequestValidator @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
@@ -874,7 +885,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class ApiKey does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
         has DateTime $.last-updated-date is shape-member('lastUpdatedDate');
-        has Array[Str] $.stage-keys is shape-member('stageKeys');
+        has Str @.stage-keys is shape-member('stageKeys');
         has Str $.value is shape-member('value');
         has Str $.id is shape-member('id');
         has Str $.customer-id is shape-member('customerId');
@@ -884,7 +895,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class BasePathMappings does AWS::SDK::Shape {
-        has Array[BasePathMapping] $.items is shape-member('items');
+        has BasePathMapping @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
@@ -893,7 +904,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class DocumentationParts does AWS::SDK::Shape {
-        has Array[DocumentationPart] $.items is shape-member('items');
+        has DocumentationPart @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
@@ -904,8 +915,6 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.from is shape-member('from');
     }
 
-    subset GatewayResponseType of Str where $_ ~~ any('DEFAULT_4XX', 'DEFAULT_5XX', 'RESOURCE_NOT_FOUND', 'UNAUTHORIZED', 'INVALID_API_KEY', 'ACCESS_DENIED', 'AUTHORIZER_FAILURE', 'AUTHORIZER_CONFIGURATION_ERROR', 'INVALID_SIGNATURE', 'EXPIRED_TOKEN', 'MISSING_AUTHENTICATION_TOKEN', 'INTEGRATION_FAILURE', 'INTEGRATION_TIMEOUT', 'API_CONFIGURATION_ERROR', 'UNSUPPORTED_MEDIA_TYPE', 'BAD_REQUEST_PARAMETERS', 'BAD_REQUEST_BODY', 'REQUEST_TOO_LARGE', 'THROTTLED', 'QUOTA_EXCEEDED');
-
     class DeleteModelRequest does AWS::SDK::Shape {
         has Str $.rest-api-id is required is shape-member('restApiId');
         has Str $.model-name is required is shape-member('modelName');
@@ -913,7 +922,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     class GetDeploymentRequest does AWS::SDK::Shape {
         has Str $.deployment-id is required is shape-member('deploymentId');
-        has Array[Str] $.embed is shape-member('embed');
+        has Str @.embed is shape-member('embed');
         has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
@@ -922,11 +931,11 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Bool $.fail-on-warnings is shape-member('failOnWarnings');
         has PutMode $.mode is shape-member('mode');
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str %.parameters{Str} is shape-member('parameters');
     }
 
     class RestApis does AWS::SDK::Shape {
-        has Array[RestApi] $.items is shape-member('items');
+        has RestApi @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
@@ -945,13 +954,11 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.domain-name is required is shape-member('domainName');
     }
 
-    subset ContentHandlingStrategy of Str where $_ ~~ any('CONVERT_TO_BINARY', 'CONVERT_TO_TEXT');
-
     class UpdateMethodRequest does AWS::SDK::Shape {
         has Str $.resource-id is required is shape-member('resourceId');
         has Str $.rest-api-id is required is shape-member('restApiId');
         has Str $.http-method is required is shape-member('httpMethod');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class GetMethodRequest does AWS::SDK::Shape {
@@ -967,12 +974,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class GatewayResponses does AWS::SDK::Shape {
-        has Array[GatewayResponse] $.items is shape-member('items');
+        has GatewayResponse @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
     class Authorizers does AWS::SDK::Shape {
-        has Array[Authorizer] $.items is shape-member('items');
+        has Authorizer @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
@@ -998,7 +1005,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class ImportRestApiRequest does AWS::SDK::Shape {
         has Blob $.body is required is shape-member('body');
         has Bool $.fail-on-warnings is shape-member('failOnWarnings');
-        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str %.parameters{Str} is shape-member('parameters');
     }
 
     class GetSdkTypesRequest does AWS::SDK::Shape {
@@ -1019,27 +1026,27 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class IntegrationResponse does AWS::SDK::Shape {
-        has Hash[Str, Str] $.response-parameters is shape-member('responseParameters');
+        has Str %.response-parameters{Str} is shape-member('responseParameters');
         has Str $.selection-pattern is shape-member('selectionPattern');
         has StatusCode $.status-code is shape-member('statusCode');
         has ContentHandlingStrategy $.content-handling is shape-member('contentHandling');
-        has Hash[Str, Str] $.response-templates is shape-member('responseTemplates');
+        has Str %.response-templates{Str} is shape-member('responseTemplates');
     }
 
     class UpdateApiKeyRequest does AWS::SDK::Shape {
         has Str $.api-key is required is shape-member('apiKey');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class UpdateUsageRequest does AWS::SDK::Shape {
         has Str $.key-id is required is shape-member('keyId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
         has Str $.usage-plan-id is required is shape-member('usagePlanId');
     }
 
     class PutMethodResponseRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.response-models is shape-member('responseModels');
-        has Hash[Bool, Str] $.response-parameters is shape-member('responseParameters');
+        has Str %.response-models{Str} is shape-member('responseModels');
+        has Bool %.response-parameters{Str} is shape-member('responseParameters');
         has Str $.resource-id is required is shape-member('resourceId');
         has Str $.rest-api-id is required is shape-member('restApiId');
         has StatusCode $.status-code is required is shape-member('statusCode');
@@ -1057,7 +1064,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class Deployments does AWS::SDK::Shape {
-        has Array[Deployment] $.items is shape-member('items');
+        has Deployment @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
@@ -1067,7 +1074,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     class CreateApiKeyRequest does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
-        has Array[StageKey] $.stage-keys is shape-member('stageKeys');
+        has StageKey @.stage-keys is shape-member('stageKeys');
         has Str $.value is shape-member('value');
         has Str $.customer-id is shape-member('customerId');
         has Bool $.generate-distinct-id is shape-member('generateDistinctId');
@@ -1086,7 +1093,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.rest-api-id is required is shape-member('restApiId');
         has StatusCode $.status-code is required is shape-member('statusCode');
         has Str $.http-method is required is shape-member('httpMethod');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class GetClientCertificateRequest does AWS::SDK::Shape {
@@ -1097,7 +1104,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class ClientCertificates does AWS::SDK::Shape {
-        has Array[ClientCertificate] $.items is shape-member('items');
+        has ClientCertificate @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
@@ -1105,19 +1112,17 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has CacheClusterSize $.cache-cluster-size is shape-member('cacheClusterSize');
         has Str $.deployment-id is required is shape-member('deploymentId');
         has Str $.documentation-version is shape-member('documentationVersion');
-        has Hash[Str, Str] $.variables is shape-member('variables');
+        has Str %.variables{Str} is shape-member('variables');
         has Str $.rest-api-id is required is shape-member('restApiId');
         has Bool $.cache-cluster-enabled is shape-member('cacheClusterEnabled');
         has Str $.description is shape-member('description');
         has Str $.stage-name is required is shape-member('stageName');
     }
 
-    subset PutMode of Str where $_ ~~ any('merge', 'overwrite');
-
     class UpdateBasePathMappingRequest does AWS::SDK::Shape {
         has Str $.base-path is required is shape-member('basePath');
         has Str $.domain-name is required is shape-member('domainName');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class CreateDocumentationVersionRequest does AWS::SDK::Shape {
@@ -1135,7 +1140,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class UpdateDocumentationVersionRequest does AWS::SDK::Shape {
         has Str $.documentation-version is required is shape-member('documentationVersion');
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class DocumentationVersion does AWS::SDK::Shape {
@@ -1162,8 +1167,6 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.api-key is required is shape-member('apiKey');
     }
 
-    subset QuotaPeriodType of Str where $_ ~~ any('DAY', 'WEEK', 'MONTH');
-
     class GetUsageRequest does AWS::SDK::Shape {
         has Str $.key-id is shape-member('keyId');
         has Int $.limit is shape-member('limit');
@@ -1176,14 +1179,14 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class GatewayResponse does AWS::SDK::Shape {
         has Bool $.default-response is shape-member('defaultResponse');
         has GatewayResponseType $.response-type is shape-member('responseType');
-        has Hash[Str, Str] $.response-parameters is shape-member('responseParameters');
+        has Str %.response-parameters{Str} is shape-member('responseParameters');
         has StatusCode $.status-code is shape-member('statusCode');
-        has Hash[Str, Str] $.response-templates is shape-member('responseTemplates');
+        has Str %.response-templates{Str} is shape-member('responseTemplates');
     }
 
     class DocumentationPartIds does AWS::SDK::Shape {
-        has Array[Str] $.warnings is shape-member('warnings');
-        has Array[Str] $.ids is shape-member('ids');
+        has Str @.warnings is shape-member('warnings');
+        has Str @.ids is shape-member('ids');
     }
 
     class ExportResponse does AWS::SDK::Shape {
@@ -1202,7 +1205,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class GetSdkRequest does AWS::SDK::Shape {
         has Str $.sdk-type is required is shape-member('sdkType');
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str %.parameters{Str} is shape-member('parameters');
         has Str $.stage-name is required is shape-member('stageName');
     }
 
@@ -1221,7 +1224,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class UpdateResourceRequest does AWS::SDK::Shape {
         has Str $.resource-id is required is shape-member('resourceId');
         has Str $.rest-api-id is required is shape-member('restApiId');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class DomainName does AWS::SDK::Shape {
@@ -1237,7 +1240,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class Resources does AWS::SDK::Shape {
-        has Array[Resource] $.items is shape-member('items');
+        has Resource @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
@@ -1249,7 +1252,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     class DocumentationVersions does AWS::SDK::Shape {
-        has Array[DocumentationVersion] $.items is shape-member('items');
+        has DocumentationVersion @.items is shape-member('items');
         has Str $.position is shape-member('position');
     }
 
@@ -1270,7 +1273,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     class Usage does AWS::SDK::Shape {
         has Str $.start-date is shape-member('startDate');
-        has Hash[Array[Array[Int]], Str] $.items is shape-member('items');
+        has Array[Array[Int]] %.items{Str} is shape-member('items');
         has Str $.position is shape-member('position');
         has Str $.end-date is shape-member('endDate');
         has Str $.usage-plan-id is shape-member('usagePlanId');
@@ -1292,26 +1295,24 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     class CreateRestApiRequest does AWS::SDK::Shape {
         has Str $.name is required is shape-member('name');
         has Str $.clone-from is shape-member('cloneFrom');
-        has Array[Str] $.binary-media-types is shape-member('binaryMediaTypes');
+        has Str @.binary-media-types is shape-member('binaryMediaTypes');
         has Str $.version is shape-member('version');
         has Str $.description is shape-member('description');
     }
 
     class TestInvokeAuthorizerResponse does AWS::SDK::Shape {
         has Str $.log is shape-member('log');
-        has Hash[Array[Str], Str] $.authorization is shape-member('authorization');
+        has Array[Str] %.authorization{Str} is shape-member('authorization');
         has Str $.principal-id is shape-member('principalId');
         has Str $.policy is shape-member('policy');
         has Int $.client-status is shape-member('clientStatus');
-        has Hash[Str, Str] $.claims is shape-member('claims');
+        has Str %.claims{Str} is shape-member('claims');
         has Int $.latency is shape-member('latency');
     }
 
-    subset DocumentationPartType of Str where $_ ~~ any('API', 'AUTHORIZER', 'MODEL', 'RESOURCE', 'METHOD', 'PATH_PARAMETER', 'QUERY_PARAMETER', 'REQUEST_HEADER', 'REQUEST_BODY', 'RESPONSE', 'RESPONSE_HEADER', 'RESPONSE_BODY');
-
     class Deployment does AWS::SDK::Shape {
         has Str $.id is shape-member('id');
-        has Hash[Hash[MethodSnapshot, Str], Str] $.api-summary is shape-member('apiSummary');
+        has Hash[MethodSnapshot, Str] %.api-summary{Str} is shape-member('apiSummary');
         has DateTime $.created-date is shape-member('createdDate');
         has Str $.description is shape-member('description');
     }
@@ -1325,7 +1326,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.cloudwatch-role-arn is shape-member('cloudwatchRoleArn');
         has ThrottleSettings $.throttle-settings is shape-member('throttleSettings');
         has Str $.api-key-version is shape-member('apiKeyVersion');
-        has Array[Str] $.features is shape-member('features');
+        has Str @.features is shape-member('features');
     }
 
     class QuotaSettings does AWS::SDK::Shape {
@@ -1336,7 +1337,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     class UpdateDomainNameRequest does AWS::SDK::Shape {
         has Str $.domain-name is required is shape-member('domainName');
-        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has PatchOperation @.patch-operations is shape-member('patchOperations');
     }
 
     class MethodSnapshot does AWS::SDK::Shape {
@@ -1344,14 +1345,15 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         has Str $.authorization-type is shape-member('authorizationType');
     }
 
+
     method update-usage(
         Str :$key-id!,
-        Array[PatchOperation] :$patch-operations,
+        PatchOperation :@patch-operations,
         Str :$usage-plan-id!
     ) returns Usage is service-operation('UpdateUsage') {
         my $request-input = UpdateUsageRequest.new(
             :$key-id,
-            :$patch-operations,
+            :@patch-operations,
             :$usage-plan-id
         );
 
@@ -1393,12 +1395,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     method update-stage(
         Str :$rest-api-id!,
-        Array[PatchOperation] :$patch-operations,
+        PatchOperation :@patch-operations,
         Str :$stage-name!
     ) returns Stage is service-operation('UpdateStage') {
         my $request-input = UpdateStageRequest.new(
             :$rest-api-id,
-            :$patch-operations,
+            :@patch-operations,
             :$stage-name
         );
 
@@ -1411,12 +1413,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method update-model(
         Str :$rest-api-id!,
         Str :$model-name!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns Model is service-operation('UpdateModel') {
         my $request-input = UpdateModelRequest.new(
             :$rest-api-id,
             :$model-name,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -1462,12 +1464,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method update-deployment(
         Str :$deployment-id!,
         Str :$rest-api-id!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns Deployment is service-operation('UpdateDeployment') {
         my $request-input = UpdateDeploymentRequest.new(
             :$deployment-id,
             :$rest-api-id,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -1662,11 +1664,11 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     method update-domain-name(
         Str :$domain-name!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns DomainName is service-operation('UpdateDomainName') {
         my $request-input = UpdateDomainNameRequest.new(
             :$domain-name,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -1727,14 +1729,14 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         Str :$rest-api-id!,
         StatusCode :$status-code!,
         Str :$http-method!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns IntegrationResponse is service-operation('UpdateIntegrationResponse') {
         my $request-input = UpdateIntegrationResponseRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$status-code,
             :$http-method,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -1800,7 +1802,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     method create-api-key(
         Str :$name,
-        Array[StageKey] :$stage-keys,
+        StageKey :@stage-keys,
         Str :$value,
         Str :$customer-id,
         Bool :$generate-distinct-id,
@@ -1809,7 +1811,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     ) returns ApiKey is service-operation('CreateApiKey') {
         my $request-input = CreateApiKeyRequest.new(
             :$name,
-            :$stage-keys,
+            :@stage-keys,
             :$value,
             :$customer-id,
             :$generate-distinct-id,
@@ -1824,19 +1826,19 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method test-invoke-authorizer(
-        Hash[Str, Str] :$stage-variables,
+        Str :%stage-variables,
         Str :$body,
-        Hash[Str, Str] :$headers,
-        Hash[Str, Str] :$additional-context,
+        Str :%headers,
+        Str :%additional-context,
         Str :$path-with-query-string,
         Str :$authorizer-id!,
         Str :$rest-api-id!
     ) returns TestInvokeAuthorizerResponse is service-operation('TestInvokeAuthorizer') {
         my $request-input = TestInvokeAuthorizerRequest.new(
-            :$stage-variables,
+            :%stage-variables,
             :$body,
-            :$headers,
-            :$additional-context,
+            :%headers,
+            :%additional-context,
             :$path-with-query-string,
             :$authorizer-id,
             :$rest-api-id
@@ -1850,11 +1852,11 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     method update-api-key(
         Str :$api-key!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns ApiKey is service-operation('UpdateApiKey') {
         my $request-input = UpdateApiKeyRequest.new(
             :$api-key,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -1865,11 +1867,11 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     method update-client-certificate(
         Str :$client-certificate-id!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns ClientCertificate is service-operation('UpdateClientCertificate') {
         my $request-input = UpdateClientCertificateRequest.new(
             :$client-certificate-id,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -1908,11 +1910,11 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     method update-rest-api(
         Str :$rest-api-id!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns RestApi is service-operation('UpdateRestApi') {
         my $request-input = UpdateRestApiRequest.new(
             :$rest-api-id,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -1942,13 +1944,13 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$rest-api-id!,
         Str :$http-method!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns Integration is service-operation('UpdateIntegration') {
         my $request-input = UpdateIntegrationRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$http-method,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -1980,13 +1982,13 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$rest-api-id!,
         Str :$http-method!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns Method is service-operation('UpdateMethod') {
         my $request-input = UpdateMethodRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$http-method,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -2110,12 +2112,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method update-request-validator(
         Str :$request-validator-id!,
         Str :$rest-api-id!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns RequestValidator is service-operation('UpdateRequestValidator') {
         my $request-input = UpdateRequestValidatorRequest.new(
             :$request-validator-id,
             :$rest-api-id,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -2159,12 +2161,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method update-base-path-mapping(
         Str :$base-path!,
         Str :$domain-name!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns BasePathMapping is service-operation('UpdateBasePathMapping') {
         my $request-input = UpdateBasePathMappingRequest.new(
             :$base-path,
             :$domain-name,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -2176,12 +2178,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method update-documentation-version(
         Str :$documentation-version!,
         Str :$rest-api-id!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns DocumentationVersion is service-operation('UpdateDocumentationVersion') {
         my $request-input = UpdateDocumentationVersionRequest.new(
             :$documentation-version,
             :$rest-api-id,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -2217,7 +2219,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         Str :$auth-type,
         AuthorizerType :$type!,
         Str :$authorizer-uri,
-        Array[Str] :$provider-arns
+        Str :@provider-arns
     ) returns Authorizer is service-operation('CreateAuthorizer') {
         my $request-input = CreateAuthorizerRequest.new(
             :$authorizer-result-ttl-in-seconds,
@@ -2229,7 +2231,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
             :$auth-type,
             :$type,
             :$authorizer-uri,
-            :$provider-arns
+            :@provider-arns
         );
 
         self.perform-operation(
@@ -2270,12 +2272,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     method get-deployment(
         Str :$deployment-id!,
-        Array[Str] :$embed,
+        Str :@embed,
         Str :$rest-api-id!
     ) returns Deployment is service-operation('GetDeployment') {
         my $request-input = GetDeploymentRequest.new(
             :$deployment-id,
-            :$embed,
+            :@embed,
             :$rest-api-id
         );
 
@@ -2287,17 +2289,17 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     method put-gateway-response(
         GatewayResponseType :$response-type!,
-        Hash[Str, Str] :$response-parameters,
+        Str :%response-parameters,
         Str :$rest-api-id!,
         StatusCode :$status-code,
-        Hash[Str, Str] :$response-templates
+        Str :%response-templates
     ) returns GatewayResponse is service-operation('PutGatewayResponse') {
         my $request-input = PutGatewayResponseRequest.new(
             :$response-type,
-            :$response-parameters,
+            :%response-parameters,
             :$rest-api-id,
             :$status-code,
-            :$response-templates
+            :%response-templates
         );
 
         self.perform-operation(
@@ -2309,14 +2311,14 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method get-export(
         Str :$accepts,
         Str :$rest-api-id!,
-        Hash[Str, Str] :$parameters,
+        Str :%parameters,
         Str :$export-type!,
         Str :$stage-name!
     ) returns ExportResponse is service-operation('GetExport') {
         my $request-input = GetExportRequest.new(
             :$accepts,
             :$rest-api-id,
-            :$parameters,
+            :%parameters,
             :$export-type,
             :$stage-name
         );
@@ -2391,13 +2393,13 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     method get-resources(
         Int :$limit,
-        Array[Str] :$embed,
+        Str :@embed,
         Str :$position,
         Str :$rest-api-id!
     ) returns Resources is service-operation('GetResources') {
         my $request-input = GetResourcesRequest.new(
             :$limit,
-            :$embed,
+            :@embed,
             :$position,
             :$rest-api-id
         );
@@ -2424,8 +2426,8 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method put-method(
-        Hash[Str, Str] :$request-models,
-        Hash[Bool, Str] :$request-parameters,
+        Str :%request-models,
+        Bool :%request-parameters,
         Bool :$api-key-required,
         Str :$request-validator-id,
         Str :$authorization-type!,
@@ -2436,8 +2438,8 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         Str :$http-method!
     ) returns Method is service-operation('PutMethod') {
         my $request-input = PutMethodRequest.new(
-            :$request-models,
-            :$request-parameters,
+            :%request-models,
+            :%request-parameters,
             :$api-key-required,
             :$request-validator-id,
             :$authorization-type,
@@ -2455,8 +2457,8 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method test-invoke-method(
-        Hash[Str, Str] :$stage-variables,
-        Hash[Str, Str] :$headers,
+        Str :%stage-variables,
+        Str :%headers,
         Str :$body,
         Str :$client-certificate-id,
         Str :$path-with-query-string,
@@ -2465,8 +2467,8 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         Str :$http-method!
     ) returns TestInvokeMethodResponse is service-operation('TestInvokeMethod') {
         my $request-input = TestInvokeMethodRequest.new(
-            :$stage-variables,
-            :$headers,
+            :%stage-variables,
+            :%headers,
             :$body,
             :$client-certificate-id,
             :$path-with-query-string,
@@ -2548,7 +2550,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method create-deployment(
         CacheClusterSize :$cache-cluster-size,
         Str :$stage-description,
-        Hash[Str, Str] :$variables,
+        Str :%variables,
         Str :$rest-api-id!,
         Bool :$cache-cluster-enabled,
         Str :$description,
@@ -2557,7 +2559,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         my $request-input = CreateDeploymentRequest.new(
             :$cache-cluster-size,
             :$stage-description,
-            :$variables,
+            :%variables,
             :$rest-api-id,
             :$cache-cluster-enabled,
             :$description,
@@ -2609,12 +2611,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method update-resource(
         Str :$resource-id!,
         Str :$rest-api-id!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns Resource is service-operation('UpdateResource') {
         my $request-input = UpdateResourceRequest.new(
             :$resource-id,
             :$rest-api-id,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -2628,14 +2630,14 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         Str :$rest-api-id!,
         StatusCode :$status-code!,
         Str :$http-method!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns MethodResponse is service-operation('UpdateMethodResponse') {
         my $request-input = UpdateMethodResponseRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$status-code,
             :$http-method,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -2698,12 +2700,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method update-gateway-response(
         GatewayResponseType :$response-type!,
         Str :$rest-api-id!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns GatewayResponse is service-operation('UpdateGatewayResponse') {
         my $request-input = UpdateGatewayResponseRequest.new(
             :$response-type,
             :$rest-api-id,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -2717,14 +2719,14 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         Bool :$fail-on-warnings,
         PutMode :$mode,
         Str :$rest-api-id!,
-        Hash[Str, Str] :$parameters
+        Str :%parameters
     ) returns RestApi is service-operation('PutRestApi') {
         my $request-input = PutRestApiRequest.new(
             :$body,
             :$fail-on-warnings,
             :$mode,
             :$rest-api-id,
-            :$parameters
+            :%parameters
         );
 
         self.perform-operation(
@@ -2749,14 +2751,14 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method create-usage-plan(
-        Array[ApiStage] :$api-stages,
+        ApiStage :@api-stages,
         Str :$name!,
         ThrottleSettings :$throttle,
         QuotaSettings :$quota,
         Str :$description
     ) returns UsagePlan is service-operation('CreateUsagePlan') {
         my $request-input = CreateUsagePlanRequest.new(
-            :$api-stages,
+            :@api-stages,
             :$name,
             :$throttle,
             :$quota,
@@ -2770,16 +2772,16 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method put-method-response(
-        Hash[Str, Str] :$response-models,
-        Hash[Bool, Str] :$response-parameters,
+        Str :%response-models,
+        Bool :%response-parameters,
         Str :$resource-id!,
         Str :$rest-api-id!,
         StatusCode :$status-code!,
         Str :$http-method!
     ) returns MethodResponse is service-operation('PutMethodResponse') {
         my $request-input = PutMethodResponseRequest.new(
-            :$response-models,
-            :$response-parameters,
+            :%response-models,
+            :%response-parameters,
             :$resource-id,
             :$rest-api-id,
             :$status-code,
@@ -2901,11 +2903,11 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method update-usage-plan(
-        Array[PatchOperation] :$patch-operations,
+        PatchOperation :@patch-operations,
         Str :$usage-plan-id!
     ) returns UsagePlan is service-operation('UpdateUsagePlan') {
         my $request-input = UpdateUsagePlanRequest.new(
-            :$patch-operations,
+            :@patch-operations,
             :$usage-plan-id
         );
 
@@ -2916,24 +2918,24 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method put-integration-response(
-        Hash[Str, Str] :$response-parameters,
+        Str :%response-parameters,
         Str :$resource-id!,
         Str :$rest-api-id!,
         Str :$selection-pattern,
         StatusCode :$status-code!,
         Str :$http-method!,
         ContentHandlingStrategy :$content-handling,
-        Hash[Str, Str] :$response-templates
+        Str :%response-templates
     ) returns IntegrationResponse is service-operation('PutIntegrationResponse') {
         my $request-input = PutIntegrationResponseRequest.new(
-            :$response-parameters,
+            :%response-parameters,
             :$resource-id,
             :$rest-api-id,
             :$selection-pattern,
             :$status-code,
             :$http-method,
             :$content-handling,
-            :$response-templates
+            :%response-templates
         );
 
         self.perform-operation(
@@ -2976,7 +2978,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
         CacheClusterSize :$cache-cluster-size,
         Str :$deployment-id!,
         Str :$documentation-version,
-        Hash[Str, Str] :$variables,
+        Str :%variables,
         Str :$rest-api-id!,
         Bool :$cache-cluster-enabled,
         Str :$description,
@@ -2986,7 +2988,7 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
             :$cache-cluster-size,
             :$deployment-id,
             :$documentation-version,
-            :$variables,
+            :%variables,
             :$rest-api-id,
             :$cache-cluster-enabled,
             :$description,
@@ -3019,13 +3021,13 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method get-sdk(
         Str :$sdk-type!,
         Str :$rest-api-id!,
-        Hash[Str, Str] :$parameters,
+        Str :%parameters,
         Str :$stage-name!
     ) returns SdkResponse is service-operation('GetSdk') {
         my $request-input = GetSdkRequest.new(
             :$sdk-type,
             :$rest-api-id,
-            :$parameters,
+            :%parameters,
             :$stage-name
         );
 
@@ -3055,31 +3057,31 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method put-integration(
-        Hash[Str, Str] :$request-parameters,
+        Str :%request-parameters,
         Str :$uri,
         Str :$cache-namespace,
         Str :$credentials,
         Str :$integration-http-method,
         Str :$resource-id!,
         Str :$rest-api-id!,
-        Array[Str] :$cache-key-parameters,
+        Str :@cache-key-parameters,
         Str :$passthrough-behavior,
-        Hash[Str, Str] :$request-templates,
+        Str :%request-templates,
         IntegrationType :$type!,
         Str :$http-method!,
         ContentHandlingStrategy :$content-handling
     ) returns Integration is service-operation('PutIntegration') {
         my $request-input = PutIntegrationRequest.new(
-            :$request-parameters,
+            :%request-parameters,
             :$uri,
             :$cache-namespace,
             :$credentials,
             :$integration-http-method,
             :$resource-id,
             :$rest-api-id,
-            :$cache-key-parameters,
+            :@cache-key-parameters,
             :$passthrough-behavior,
-            :$request-templates,
+            :%request-templates,
             :$type,
             :$http-method,
             :$content-handling
@@ -3111,12 +3113,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method update-documentation-part(
         Str :$rest-api-id!,
         Str :$documentation-part-id!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns DocumentationPart is service-operation('UpdateDocumentationPart') {
         my $request-input = UpdateDocumentationPartRequest.new(
             :$rest-api-id,
             :$documentation-part-id,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -3128,12 +3130,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method update-authorizer(
         Str :$authorizer-id!,
         Str :$rest-api-id!,
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns Authorizer is service-operation('UpdateAuthorizer') {
         my $request-input = UpdateAuthorizerRequest.new(
             :$authorizer-id,
             :$rest-api-id,
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -3164,14 +3166,14 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method create-rest-api(
         Str :$name!,
         Str :$clone-from,
-        Array[Str] :$binary-media-types,
+        Str :@binary-media-types,
         Str :$version,
         Str :$description
     ) returns RestApi is service-operation('CreateRestApi') {
         my $request-input = CreateRestApiRequest.new(
             :$name,
             :$clone-from,
-            :$binary-media-types,
+            :@binary-media-types,
             :$version,
             :$description
         );
@@ -3200,10 +3202,10 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method update-account(
-        Array[PatchOperation] :$patch-operations
+        PatchOperation :@patch-operations
     ) returns Account is service-operation('UpdateAccount') {
         my $request-input = UpdateAccountRequest.new(
-            :$patch-operations
+            :@patch-operations
         );
 
         self.perform-operation(
@@ -3215,12 +3217,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     method import-rest-api(
         Blob :$body!,
         Bool :$fail-on-warnings,
-        Hash[Str, Str] :$parameters
+        Str :%parameters
     ) returns RestApi is service-operation('ImportRestApi') {
         my $request-input = ImportRestApiRequest.new(
             :$body,
             :$fail-on-warnings,
-            :$parameters
+            :%parameters
         );
 
         self.perform-operation(
@@ -3247,12 +3249,12 @@ class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
     }
 
     method get-resource(
-        Array[Str] :$embed,
+        Str :@embed,
         Str :$resource-id!,
         Str :$rest-api-id!
     ) returns Resource is service-operation('GetResource') {
         my $request-input = GetResourceRequest.new(
-            :$embed,
+            :@embed,
             :$resource-id,
             :$rest-api-id
         );

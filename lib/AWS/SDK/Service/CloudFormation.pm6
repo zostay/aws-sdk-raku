@@ -133,6 +133,115 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     class InvalidChangeSetStatusException { ... }
     class DescribeStackInstanceOutput { ... }
 
+    subset RequiresRecreation of Str where $_ eq any('Never', 'Conditionally', 'Always');
+
+    subset MaxConcurrentCount of Int where 1 <= *;
+
+    subset Description of Str where 1 <= .chars <= 1024;
+
+    subset ExecutionStatus of Str where $_ eq any('UNAVAILABLE', 'AVAILABLE', 'EXECUTE_IN_PROGRESS', 'EXECUTE_COMPLETE', 'EXECUTE_FAILED', 'OBSOLETE');
+
+    subset MaxConcurrentPercentage of Int where 1 <= * <= 100;
+
+    subset NextToken of Str where 1 <= .chars <= 1024;
+
+    subset StackSetOperationResultStatus of Str where $_ eq any('PENDING', 'RUNNING', 'SUCCEEDED', 'FAILED', 'CANCELLED');
+
+    subset ChangeSetStatus of Str where $_ eq any('CREATE_PENDING', 'CREATE_IN_PROGRESS', 'CREATE_COMPLETE', 'DELETE_COMPLETE', 'FAILED');
+
+    subset StackSetNameOrId of Str where 1 <= .chars && rx:P5/[a-zA-Z][-a-zA-Z0-9]*/;
+
+    subset StackSetOperationAction of Str where $_ eq any('CREATE', 'UPDATE', 'DELETE');
+
+    subset Tags of Array[Tag] where *.elems <= 50;
+
+    subset FailureToleranceCount of Int where 0 <= *;
+
+    subset TemplateBody of Str where 1 <= .chars;
+
+    subset ResourceAttribute of Str where $_ eq any('Properties', 'Metadata', 'CreationPolicy', 'UpdatePolicy', 'DeletionPolicy', 'Tags');
+
+    subset StackPolicyDuringUpdateURL of Str where 1 <= .chars <= 1350;
+
+    subset ChangeSetNameOrId of Str where 1 <= .chars <= 1600 && rx:P5/[a-zA-Z][-a-zA-Z0-9]*|arn:[-a-zA-Z0-9:\/]*/;
+
+    subset ChangeSetId of Str where 1 <= .chars && rx:P5/arn:[-a-zA-Z0-9:\/]*/;
+
+    subset Capability of Str where $_ eq any('CAPABILITY_IAM', 'CAPABILITY_NAMED_IAM');
+
+    subset ResourceToSkip of Str where rx:P5/[a-zA-Z0-9]+|[a-zA-Z][-a-zA-Z0-9]*\.[a-zA-Z0-9]+/;
+
+    subset TagValue of Str where 1 <= .chars <= 256;
+
+    subset AccountGateStatus of Str where $_ eq any('SUCCEEDED', 'FAILED', 'SKIPPED');
+
+    subset FailureTolerancePercentage of Int where 0 <= * <= 100;
+
+    subset NotificationARNs of Array[Str] where *.elems <= 5;
+
+    subset RoleARN of Str where 20 <= .chars <= 2048;
+
+    subset StackPolicyURL of Str where 1 <= .chars <= 1350;
+
+    subset TagKey of Str where 1 <= .chars <= 128;
+
+    subset OnFailure of Str where $_ eq any('DO_NOTHING', 'ROLLBACK', 'DELETE');
+
+    subset ClientToken of Str where 1 <= .chars <= 128;
+
+    subset StackPolicyBody of Str where 1 <= .chars <= 16384;
+
+    subset ResourceSignalUniqueId of Str where 1 <= .chars <= 64;
+
+    subset StackSetOperationStatus of Str where $_ eq any('RUNNING', 'SUCCEEDED', 'FAILED', 'STOPPING', 'STOPPED');
+
+    subset ChangeAction of Str where $_ eq any('Add', 'Modify', 'Remove');
+
+    subset ResourceType of Str where 1 <= .chars <= 256;
+
+    subset StackPolicyDuringUpdateBody of Str where 1 <= .chars <= 16384;
+
+    subset ChangeSetType of Str where $_ eq any('CREATE', 'UPDATE');
+
+    subset TimeoutMinutes of Int where 1 <= *;
+
+    subset ClientRequestToken of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9][-a-zA-Z0-9]*/;
+
+    subset MonitoringTimeInMinutes of Int where 0 <= * <= 180;
+
+    subset ChangeSetName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z][-a-zA-Z0-9]*/;
+
+    subset ChangeType of Str where $_ eq any('Resource');
+
+    subset RollbackTriggers of Array[RollbackTrigger] where *.elems <= 5;
+
+    subset ResourceStatus of Str where $_ eq any('CREATE_IN_PROGRESS', 'CREATE_FAILED', 'CREATE_COMPLETE', 'DELETE_IN_PROGRESS', 'DELETE_FAILED', 'DELETE_COMPLETE', 'DELETE_SKIPPED', 'UPDATE_IN_PROGRESS', 'UPDATE_FAILED', 'UPDATE_COMPLETE');
+
+    subset Replacement of Str where $_ eq any('True', 'False', 'Conditional');
+
+    subset StackInstanceStatus of Str where $_ eq any('CURRENT', 'OUTDATED', 'INOPERABLE');
+
+    subset MaxResults of Int where 1 <= * <= 100;
+
+    subset ResourceSignalStatus of Str where $_ eq any('SUCCESS', 'FAILURE');
+
+    subset EvaluationType of Str where $_ eq any('Static', 'Dynamic');
+
+    subset ChangeSource of Str where $_ eq any('ResourceReference', 'ParameterReference', 'ResourceAttribute', 'DirectModification', 'Automatic');
+
+    subset StackStatus of Str where $_ eq any('CREATE_IN_PROGRESS', 'CREATE_FAILED', 'CREATE_COMPLETE', 'ROLLBACK_IN_PROGRESS', 'ROLLBACK_FAILED', 'ROLLBACK_COMPLETE', 'DELETE_IN_PROGRESS', 'DELETE_FAILED', 'DELETE_COMPLETE', 'UPDATE_IN_PROGRESS', 'UPDATE_COMPLETE_CLEANUP_IN_PROGRESS', 'UPDATE_COMPLETE', 'UPDATE_ROLLBACK_IN_PROGRESS', 'UPDATE_ROLLBACK_FAILED', 'UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS', 'UPDATE_ROLLBACK_COMPLETE', 'REVIEW_IN_PROGRESS');
+
+    subset StackSetStatus of Str where $_ eq any('ACTIVE', 'DELETED');
+
+    subset TemplateURL of Str where 1 <= .chars <= 1024;
+
+    subset Account of Str where rx:P5/[0-9]{12}/;
+
+    subset StackNameOrId of Str where 1 <= .chars && rx:P5/([a-zA-Z][-a-zA-Z0-9]*)|(arn:\b(aws|aws-us-gov|aws-cn)\b:[-a-zA-Z0-9:\/._+]*)/;
+
+    subset TemplateStage of Str where $_ eq any('Original', 'Processed');
+
+
     class UpdateTerminationProtectionOutput does AWS::SDK::Shape {
         has Str $.stack-id is shape-member('StackId');
     }
@@ -145,7 +254,7 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     }
 
     class ListExportsOutput does AWS::SDK::Shape {
-        has Array[Export] $.exports is shape-member('Exports');
+        has Export @.exports is shape-member('Exports');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -158,27 +267,23 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Description $.description is shape-member('Description');
         has ClientToken $.client-token is shape-member('ClientToken');
         has RollbackConfiguration $.rollback-configuration is shape-member('RollbackConfiguration');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has TemplateBody $.template-body is shape-member('TemplateBody');
         has Tags $.tags is shape-member('Tags');
-        has Array[ResourceType] $.resource-types is shape-member('ResourceTypes');
+        has ResourceType @.resource-types is shape-member('ResourceTypes');
         has ChangeSetType $.change-set-type is shape-member('ChangeSetType');
-        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has Capability @.capabilities is shape-member('Capabilities');
         has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
-    subset RequiresRecreation of Str where $_ ~~ any('Never', 'Conditionally', 'Always');
-
-    subset MaxConcurrentCount of Int where 1 <= *;
-
     class ParameterConstraints does AWS::SDK::Shape {
-        has Array[Str] $.allowed-values is shape-member('AllowedValues');
+        has Str @.allowed-values is shape-member('AllowedValues');
     }
 
     class StackSetOperationPreferences does AWS::SDK::Shape {
         has FailureTolerancePercentage $.failure-tolerance-percentage is shape-member('FailureTolerancePercentage');
         has MaxConcurrentCount $.max-concurrent-count is shape-member('MaxConcurrentCount');
-        has Array[Str] $.region-order is shape-member('RegionOrder');
+        has Str @.region-order is shape-member('RegionOrder');
         has MaxConcurrentPercentage $.max-concurrent-percentage is shape-member('MaxConcurrentPercentage');
         has FailureToleranceCount $.failure-tolerance-count is shape-member('FailureToleranceCount');
     }
@@ -187,14 +292,10 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has ClientRequestToken $.operation-id is shape-member('OperationId');
     }
 
-    subset Description of Str where 1 <= .chars <= 1024;
-
     class Change does AWS::SDK::Shape {
         has ChangeType $.type is shape-member('Type');
         has ResourceChange $.resource-change is shape-member('ResourceChange');
     }
-
-    subset ExecutionStatus of Str where $_ ~~ any('UNAVAILABLE', 'AVAILABLE', 'EXECUTE_IN_PROGRESS', 'EXECUTE_COMPLETE', 'EXECUTE_FAILED', 'OBSOLETE');
 
     class DeleteChangeSetOutput does AWS::SDK::Shape {
     }
@@ -208,21 +309,15 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     }
 
     class EstimateTemplateCostInput does AWS::SDK::Shape {
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has TemplateBody $.template-body is shape-member('TemplateBody');
         has TemplateURL $.template-url is shape-member('TemplateURL');
     }
-
-    subset MaxConcurrentPercentage of Int where 1 <= * <= 100;
-
-    subset NextToken of Str where 1 <= .chars <= 1024;
 
     class RollbackTrigger does AWS::SDK::Shape {
         has Str $.arn is required is shape-member('Arn');
         has Str $.type is required is shape-member('Type');
     }
-
-    subset StackSetOperationResultStatus of Str where $_ ~~ any('PENDING', 'RUNNING', 'SUCCEEDED', 'FAILED', 'CANCELLED');
 
     class ListStackSetOperationsInput does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
@@ -236,11 +331,9 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has TemplateStage $.template-stage is shape-member('TemplateStage');
     }
 
-    subset ChangeSetStatus of Str where $_ ~~ any('CREATE_PENDING', 'CREATE_IN_PROGRESS', 'CREATE_COMPLETE', 'DELETE_COMPLETE', 'FAILED');
-
     class ListStackInstancesOutput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[StackInstanceSummary] $.summaries is shape-member('Summaries');
+        has StackInstanceSummary @.summaries is shape-member('Summaries');
     }
 
     class DescribeStackInstanceInput does AWS::SDK::Shape {
@@ -262,12 +355,6 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has StackNameOrId $.stack-name is required is shape-member('StackName');
         has NextToken $.next-token is shape-member('NextToken');
     }
-
-    subset StackSetNameOrId of Str where 1 <= .chars && rx:P5/[a-zA-Z][-a-zA-Z0-9]*/;
-
-    subset StackSetOperationAction of Str where $_ ~~ any('CREATE', 'UPDATE', 'DELETE');
-
-    subset Tags of Array[Tag] where *.elems <= 50;
 
     class StopStackSetOperationOutput does AWS::SDK::Shape {
     }
@@ -328,29 +415,27 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has TagKey $.key is required is shape-member('Key');
     }
 
-    subset FailureToleranceCount of Int where 0 <= *;
-
     class DescribeAccountLimitsOutput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[AccountLimit] $.account-limits is shape-member('AccountLimits');
+        has AccountLimit @.account-limits is shape-member('AccountLimits');
     }
 
     class ResourceChange does AWS::SDK::Shape {
-        has Array[ResourceAttribute] $.scope is shape-member('Scope');
+        has ResourceAttribute @.scope is shape-member('Scope');
         has Str $.physical-resource-id is shape-member('PhysicalResourceId');
         has ChangeAction $.action is shape-member('Action');
         has ResourceType $.resource-type is shape-member('ResourceType');
         has Str $.logical-resource-id is shape-member('LogicalResourceId');
-        has Array[ResourceChangeDetail] $.details is shape-member('Details');
+        has ResourceChangeDetail @.details is shape-member('Details');
         has Replacement $.replacement is shape-member('Replacement');
     }
 
     class ValidateTemplateOutput does AWS::SDK::Shape {
         has Str $.capabilities-reason is shape-member('CapabilitiesReason');
         has Description $.description is shape-member('Description');
-        has Array[TemplateParameter] $.parameters is shape-member('Parameters');
-        has Array[Str] $.declared-transforms is shape-member('DeclaredTransforms');
-        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has TemplateParameter @.parameters is shape-member('Parameters');
+        has Str @.declared-transforms is shape-member('DeclaredTransforms');
+        has Capability @.capabilities is shape-member('Capabilities');
     }
 
     class LimitExceededException does AWS::SDK::Shape {
@@ -375,10 +460,8 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
 
     class ListStackSetOperationsOutput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[StackSetOperationSummary] $.summaries is shape-member('Summaries');
+        has StackSetOperationSummary @.summaries is shape-member('Summaries');
     }
-
-    subset TemplateBody of Str where 1 <= .chars;
 
     class AlreadyExistsException does AWS::SDK::Shape {
     }
@@ -388,14 +471,8 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Str $.stack-id is shape-member('StackId');
     }
 
-    subset ResourceAttribute of Str where $_ ~~ any('Properties', 'Metadata', 'CreationPolicy', 'UpdatePolicy', 'DeletionPolicy', 'Tags');
-
-    subset StackPolicyDuringUpdateURL of Str where 1 <= .chars <= 1350;
-
     class TokenAlreadyExistsException does AWS::SDK::Shape {
     }
-
-    subset ChangeSetNameOrId of Str where 1 <= .chars <= 1600 && rx:P5/[a-zA-Z][-a-zA-Z0-9]*|arn:[-a-zA-Z0-9:\/]*/;
 
     class SetStackPolicyInput does AWS::SDK::Shape {
         has Str $.stack-name is required is shape-member('StackName');
@@ -412,19 +489,19 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has StackPolicyBody $.stack-policy-body is shape-member('StackPolicyBody');
         has StackPolicyURL $.stack-policy-url is shape-member('StackPolicyURL');
         has RollbackConfiguration $.rollback-configuration is shape-member('RollbackConfiguration');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has StackPolicyDuringUpdateURL $.stack-policy-during-update-url is shape-member('StackPolicyDuringUpdateURL');
         has TemplateBody $.template-body is shape-member('TemplateBody');
         has Tags $.tags is shape-member('Tags');
-        has Array[ResourceType] $.resource-types is shape-member('ResourceTypes');
+        has ResourceType @.resource-types is shape-member('ResourceTypes');
         has StackPolicyDuringUpdateBody $.stack-policy-during-update-body is shape-member('StackPolicyDuringUpdateBody');
-        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has Capability @.capabilities is shape-member('Capabilities');
         has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
     class ListChangeSetsOutput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[ChangeSetSummary] $.summaries is shape-member('Summaries');
+        has ChangeSetSummary @.summaries is shape-member('Summaries');
     }
 
     class DescribeStackSetOperationOutput does AWS::SDK::Shape {
@@ -434,22 +511,16 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     class DeleteStackSetOutput does AWS::SDK::Shape {
     }
 
-    subset ChangeSetId of Str where 1 <= .chars && rx:P5/arn:[-a-zA-Z0-9:\/]*/;
-
     class ListStackSetOperationResultsOutput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[StackSetOperationResultSummary] $.summaries is shape-member('Summaries');
+        has StackSetOperationResultSummary @.summaries is shape-member('Summaries');
     }
-
-    subset Capability of Str where $_ ~~ any('CAPABILITY_IAM', 'CAPABILITY_NAMED_IAM');
 
     class Parameter does AWS::SDK::Shape {
         has Str $.parameter-value is shape-member('ParameterValue');
         has Bool $.use-previous-value is shape-member('UsePreviousValue');
         has Str $.parameter-key is shape-member('ParameterKey');
     }
-
-    subset ResourceToSkip of Str where rx:P5/[a-zA-Z0-9]+|[a-zA-Z][-a-zA-Z0-9]*\.[a-zA-Z0-9]+/;
 
     class DeleteStackInstancesOutput does AWS::SDK::Shape {
         has ClientRequestToken $.operation-id is shape-member('OperationId');
@@ -475,8 +546,6 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
-    subset TagValue of Str where 1 <= .chars <= 256;
-
     class StopStackSetOperationInput does AWS::SDK::Shape {
         has Str $.stack-set-name is required is shape-member('StackSetName');
         has ClientRequestToken $.operation-id is required is shape-member('OperationId');
@@ -486,7 +555,7 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
         has Str $.stack-name is required is shape-member('StackName');
         has RoleARN $.role-arn is shape-member('RoleARN');
-        has Array[Str] $.retain-resources is shape-member('RetainResources');
+        has Str @.retain-resources is shape-member('RetainResources');
     }
 
     class Stack does AWS::SDK::Shape {
@@ -500,14 +569,14 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has RollbackConfiguration $.rollback-configuration is shape-member('RollbackConfiguration');
         has DateTime $.last-updated-time is shape-member('LastUpdatedTime');
         has DateTime $.creation-time is required is shape-member('CreationTime');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Tags $.tags is shape-member('Tags');
         has StackStatus $.stack-status is required is shape-member('StackStatus');
         has DateTime $.deletion-time is shape-member('DeletionTime');
         has Str $.parent-id is shape-member('ParentId');
         has Str $.stack-status-reason is shape-member('StackStatusReason');
-        has Array[Output] $.outputs is shape-member('Outputs');
-        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has Output @.outputs is shape-member('Outputs');
+        has Capability @.capabilities is shape-member('Capabilities');
         has ChangeSetId $.change-set-id is shape-member('ChangeSetId');
         has Str $.stack-id is shape-member('StackId');
         has Str $.root-id is shape-member('RootId');
@@ -523,7 +592,7 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
         has StackNameOrId $.stack-name is required is shape-member('StackName');
         has RoleARN $.role-arn is shape-member('RoleARN');
-        has Array[ResourceToSkip] $.resources-to-skip is shape-member('ResourcesToSkip');
+        has ResourceToSkip @.resources-to-skip is shape-member('ResourcesToSkip');
     }
 
     class CreateStackInstancesOutput does AWS::SDK::Shape {
@@ -531,7 +600,7 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     }
 
     class DescribeStackResourcesOutput does AWS::SDK::Shape {
-        has Array[StackResource] $.stack-resources is shape-member('StackResources');
+        has StackResource @.stack-resources is shape-member('StackResources');
     }
 
     class TemplateParameter does AWS::SDK::Shape {
@@ -564,14 +633,8 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has StackSet $.stack-set is shape-member('StackSet');
     }
 
-    subset AccountGateStatus of Str where $_ ~~ any('SUCCEEDED', 'FAILED', 'SKIPPED');
-
-    subset FailureTolerancePercentage of Int where 0 <= * <= 100;
-
-    subset NotificationARNs of Array[Str] where *.elems <= 5;
-
     class DescribeStackEventsOutput does AWS::SDK::Shape {
-        has Array[StackEvent] $.stack-events is shape-member('StackEvents');
+        has StackEvent @.stack-events is shape-member('StackEvents');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -579,10 +642,10 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
         has Str $.stack-set-name is required is shape-member('StackSetName');
         has Description $.description is shape-member('Description');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has TemplateBody $.template-body is shape-member('TemplateBody');
         has Tags $.tags is shape-member('Tags');
-        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has Capability @.capabilities is shape-member('Capabilities');
         has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
@@ -590,10 +653,8 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Str $.stack-set-id is shape-member('StackSetId');
     }
 
-    subset RoleARN of Str where 20 <= .chars <= 2048;
-
     class GetTemplateOutput does AWS::SDK::Shape {
-        has Array[TemplateStage] $.stages-available is shape-member('StagesAvailable');
+        has TemplateStage @.stages-available is shape-member('StagesAvailable');
         has TemplateBody $.template-body is shape-member('TemplateBody');
     }
 
@@ -606,14 +667,12 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     }
 
     class ListStacksInput does AWS::SDK::Shape {
-        has Array[StackStatus] $.stack-status-filter is shape-member('StackStatusFilter');
+        has StackStatus @.stack-status-filter is shape-member('StackStatusFilter');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
     class OperationInProgressException does AWS::SDK::Shape {
     }
-
-    subset StackPolicyURL of Str where 1 <= .chars <= 1350;
 
     class StackSetOperationResultSummary does AWS::SDK::Shape {
         has Str $.status-reason is shape-member('StatusReason');
@@ -632,7 +691,7 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
 
     class ListImportsOutput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[Str] $.imports is shape-member('Imports');
+        has Str @.imports is shape-member('Imports');
     }
 
     class ListStackInstancesInput does AWS::SDK::Shape {
@@ -643,32 +702,24 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Str $.stack-instance-region is shape-member('StackInstanceRegion');
     }
 
-    subset TagKey of Str where 1 <= .chars <= 128;
-
     class AccountGateResult does AWS::SDK::Shape {
         has Str $.status-reason is shape-member('StatusReason');
         has AccountGateStatus $.status is shape-member('Status');
     }
 
-    subset OnFailure of Str where $_ ~~ any('DO_NOTHING', 'ROLLBACK', 'DELETE');
-
     class DescribeStackSetInput does AWS::SDK::Shape {
         has Str $.stack-set-name is required is shape-member('StackSetName');
     }
 
-    subset ClientToken of Str where 1 <= .chars <= 128;
-
-    subset StackPolicyBody of Str where 1 <= .chars <= 16384;
-
     class StackSet does AWS::SDK::Shape {
         has Str $.stack-set-name is shape-member('StackSetName');
         has Description $.description is shape-member('Description');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has TemplateBody $.template-body is shape-member('TemplateBody');
         has Str $.stack-set-id is shape-member('StackSetId');
         has Tags $.tags is shape-member('Tags');
         has StackSetStatus $.status is shape-member('Status');
-        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has Capability @.capabilities is shape-member('Capabilities');
     }
 
     class InsufficientCapabilitiesException does AWS::SDK::Shape {
@@ -679,7 +730,7 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
 
     class ListStackSetsOutput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[StackSetSummary] $.summaries is shape-member('Summaries');
+        has StackSetSummary @.summaries is shape-member('Summaries');
     }
 
     class ResourceTargetDefinition does AWS::SDK::Shape {
@@ -687,18 +738,6 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Str $.name is shape-member('Name');
         has ResourceAttribute $.attribute is shape-member('Attribute');
     }
-
-    subset ResourceSignalUniqueId of Str where 1 <= .chars <= 64;
-
-    subset StackSetOperationStatus of Str where $_ ~~ any('RUNNING', 'SUCCEEDED', 'FAILED', 'STOPPING', 'STOPPED');
-
-    subset ChangeAction of Str where $_ ~~ any('Add', 'Modify', 'Remove');
-
-    subset ResourceType of Str where 1 <= .chars <= 256;
-
-    subset StackPolicyDuringUpdateBody of Str where 1 <= .chars <= 16384;
-
-    subset ChangeSetType of Str where $_ ~~ any('CREATE', 'UPDATE');
 
     class OperationNotFoundException does AWS::SDK::Shape {
     }
@@ -712,15 +751,9 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Account $.account is shape-member('Account');
     }
 
-    subset TimeoutMinutes of Int where 1 <= *;
-
     class GetStackPolicyOutput does AWS::SDK::Shape {
         has StackPolicyBody $.stack-policy-body is shape-member('StackPolicyBody');
     }
-
-    subset ClientRequestToken of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9][-a-zA-Z0-9]*/;
-
-    subset MonitoringTimeInMinutes of Int where 0 <= * <= 180;
 
     class UpdateTerminationProtectionInput does AWS::SDK::Shape {
         has StackNameOrId $.stack-name is required is shape-member('StackName');
@@ -728,27 +761,25 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     }
 
     class ListStackResourcesOutput does AWS::SDK::Shape {
-        has Array[StackResourceSummary] $.stack-resource-summaries is shape-member('StackResourceSummaries');
+        has StackResourceSummary @.stack-resource-summaries is shape-member('StackResourceSummaries');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
     class GetTemplateSummaryOutput does AWS::SDK::Shape {
         has Str $.capabilities-reason is shape-member('CapabilitiesReason');
         has Description $.description is shape-member('Description');
-        has Array[ParameterDeclaration] $.parameters is shape-member('Parameters');
+        has ParameterDeclaration @.parameters is shape-member('Parameters');
         has Str $.metadata is shape-member('Metadata');
         has Str $.version is shape-member('Version');
-        has Array[ResourceType] $.resource-types is shape-member('ResourceTypes');
-        has Array[Str] $.declared-transforms is shape-member('DeclaredTransforms');
-        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has ResourceType @.resource-types is shape-member('ResourceTypes');
+        has Str @.declared-transforms is shape-member('DeclaredTransforms');
+        has Capability @.capabilities is shape-member('Capabilities');
     }
 
     class DescribeStackSetOperationInput does AWS::SDK::Shape {
         has Str $.stack-set-name is required is shape-member('StackSetName');
         has ClientRequestToken $.operation-id is required is shape-member('OperationId');
     }
-
-    subset ChangeSetName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z][-a-zA-Z0-9]*/;
 
     class StaleRequestException does AWS::SDK::Shape {
     }
@@ -765,17 +796,17 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Bool $.disable-rollback is shape-member('DisableRollback');
         has StackPolicyURL $.stack-policy-url is shape-member('StackPolicyURL');
         has RollbackConfiguration $.rollback-configuration is shape-member('RollbackConfiguration');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has TemplateBody $.template-body is shape-member('TemplateBody');
         has Tags $.tags is shape-member('Tags');
-        has Array[ResourceType] $.resource-types is shape-member('ResourceTypes');
-        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has ResourceType @.resource-types is shape-member('ResourceTypes');
+        has Capability @.capabilities is shape-member('Capabilities');
         has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
     class ListStacksOutput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[StackSummary] $.stack-summaries is shape-member('StackSummaries');
+        has StackSummary @.stack-summaries is shape-member('StackSummaries');
     }
 
     class StackSetNotFoundException does AWS::SDK::Shape {
@@ -785,12 +816,10 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has StackSetOperationPreferences $.operation-preferences is shape-member('OperationPreferences');
         has Str $.stack-set-name is required is shape-member('StackSetName');
         has ClientRequestToken $.operation-id is shape-member('OperationId');
-        has Array[Account] $.accounts is required is shape-member('Accounts');
+        has Account @.accounts is required is shape-member('Accounts');
         has Bool $.retain-stacks is required is shape-member('RetainStacks');
-        has Array[Str] $.regions is required is shape-member('Regions');
+        has Str @.regions is required is shape-member('Regions');
     }
-
-    subset ChangeType of Str where $_ ~~ any('Resource');
 
     class ParameterDeclaration does AWS::SDK::Shape {
         has Str $.parameter-type is shape-member('ParameterType');
@@ -811,11 +840,9 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     }
 
     class DescribeStacksOutput does AWS::SDK::Shape {
-        has Array[Stack] $.stacks is shape-member('Stacks');
+        has Stack @.stacks is shape-member('Stacks');
         has NextToken $.next-token is shape-member('NextToken');
     }
-
-    subset RollbackTriggers of Array[RollbackTrigger] where *.elems <= 5;
 
     class SignalResourceInput does AWS::SDK::Shape {
         has StackNameOrId $.stack-name is required is shape-member('StackName');
@@ -834,8 +861,6 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Str $.stack-name is required is shape-member('StackName');
         has Str $.logical-resource-id is required is shape-member('LogicalResourceId');
     }
-
-    subset ResourceStatus of Str where $_ ~~ any('CREATE_IN_PROGRESS', 'CREATE_FAILED', 'CREATE_COMPLETE', 'DELETE_IN_PROGRESS', 'DELETE_FAILED', 'DELETE_COMPLETE', 'DELETE_SKIPPED', 'UPDATE_IN_PROGRESS', 'UPDATE_FAILED', 'UPDATE_COMPLETE');
 
     class StackResourceDetail does AWS::SDK::Shape {
         has Str $.resource-status-reason is shape-member('ResourceStatusReason');
@@ -856,10 +881,10 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Str $.stack-set-name is required is shape-member('StackSetName');
         has Description $.description is shape-member('Description');
         has ClientRequestToken $.operation-id is shape-member('OperationId');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has TemplateBody $.template-body is shape-member('TemplateBody');
         has Tags $.tags is shape-member('Tags');
-        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has Capability @.capabilities is shape-member('Capabilities');
         has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
@@ -873,12 +898,6 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
 
     class NameAlreadyExistsException does AWS::SDK::Shape {
     }
-
-    subset Replacement of Str where $_ ~~ any('True', 'False', 'Conditional');
-
-    subset StackInstanceStatus of Str where $_ ~~ any('CURRENT', 'OUTDATED', 'INOPERABLE');
-
-    subset MaxResults of Int where 1 <= * <= 100;
 
     class StackSetOperation does AWS::SDK::Shape {
         has DateTime $.end-timestamp is shape-member('EndTimestamp');
@@ -903,13 +922,13 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Description $.description is shape-member('Description');
         has RollbackConfiguration $.rollback-configuration is shape-member('RollbackConfiguration');
         has DateTime $.creation-time is shape-member('CreationTime');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Tags $.tags is shape-member('Tags');
         has ExecutionStatus $.execution-status is shape-member('ExecutionStatus');
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[Change] $.changes is shape-member('Changes');
+        has Change @.changes is shape-member('Changes');
         has ChangeSetStatus $.status is shape-member('Status');
-        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has Capability @.capabilities is shape-member('Capabilities');
         has Str $.stack-id is shape-member('StackId');
         has ChangeSetId $.change-set-id is shape-member('ChangeSetId');
     }
@@ -926,8 +945,6 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Description $.description is shape-member('Description');
         has Str $.output-key is shape-member('OutputKey');
     }
-
-    subset ResourceSignalStatus of Str where $_ ~~ any('SUCCESS', 'FAILURE');
 
     class StackEvent does AWS::SDK::Shape {
         has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
@@ -946,21 +963,17 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     class InvalidOperationException does AWS::SDK::Shape {
     }
 
-    subset EvaluationType of Str where $_ ~~ any('Static', 'Dynamic');
-
     class DescribeStackEventsInput does AWS::SDK::Shape {
         has Str $.stack-name is shape-member('StackName');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
-    subset ChangeSource of Str where $_ ~~ any('ResourceReference', 'ParameterReference', 'ResourceAttribute', 'DirectModification', 'Automatic');
-
     class CreateStackInstancesInput does AWS::SDK::Shape {
         has StackSetOperationPreferences $.operation-preferences is shape-member('OperationPreferences');
         has Str $.stack-set-name is required is shape-member('StackSetName');
         has ClientRequestToken $.operation-id is shape-member('OperationId');
-        has Array[Account] $.accounts is required is shape-member('Accounts');
-        has Array[Str] $.regions is required is shape-member('Regions');
+        has Account @.accounts is required is shape-member('Accounts');
+        has Str @.regions is required is shape-member('Regions');
     }
 
     class RollbackConfiguration does AWS::SDK::Shape {
@@ -975,24 +988,12 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         has Str $.stack-id is shape-member('StackId');
     }
 
-    subset StackStatus of Str where $_ ~~ any('CREATE_IN_PROGRESS', 'CREATE_FAILED', 'CREATE_COMPLETE', 'ROLLBACK_IN_PROGRESS', 'ROLLBACK_FAILED', 'ROLLBACK_COMPLETE', 'DELETE_IN_PROGRESS', 'DELETE_FAILED', 'DELETE_COMPLETE', 'UPDATE_IN_PROGRESS', 'UPDATE_COMPLETE_CLEANUP_IN_PROGRESS', 'UPDATE_COMPLETE', 'UPDATE_ROLLBACK_IN_PROGRESS', 'UPDATE_ROLLBACK_FAILED', 'UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS', 'UPDATE_ROLLBACK_COMPLETE', 'REVIEW_IN_PROGRESS');
-
-    subset StackSetStatus of Str where $_ ~~ any('ACTIVE', 'DELETED');
-
-    subset TemplateURL of Str where 1 <= .chars <= 1024;
-
     class ExecuteChangeSetOutput does AWS::SDK::Shape {
     }
 
     class DescribeAccountLimitsInput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
     }
-
-    subset Account of Str where rx:P5/[0-9]{12}/;
-
-    subset StackNameOrId of Str where 1 <= .chars && rx:P5/([a-zA-Z][-a-zA-Z0-9]*)|(arn:\b(aws|aws-us-gov|aws-cn)\b:[-a-zA-Z0-9:\/._+]*)/;
-
-    subset TemplateStage of Str where $_ ~~ any('Original', 'Processed');
 
     class ListStackSetOperationResultsInput does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
@@ -1007,6 +1008,7 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     class DescribeStackInstanceOutput does AWS::SDK::Shape {
         has StackInstance $.stack-instance is shape-member('StackInstance');
     }
+
 
     method validate-template(
         TemplateBody :$template-body,
@@ -1121,11 +1123,11 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         Bool :$disable-rollback,
         StackPolicyURL :$stack-policy-url,
         RollbackConfiguration :$rollback-configuration,
-        Array[Parameter] :$parameters,
+        Parameter :@parameters,
         TemplateBody :$template-body,
         Tags :$tags,
-        Array[ResourceType] :$resource-types,
-        Array[Capability] :$capabilities,
+        ResourceType :@resource-types,
+        Capability :@capabilities,
         TemplateURL :$template-url
     ) returns CreateStackOutput is service-operation('CreateStack') {
         my $request-input = CreateStackInput.new(
@@ -1140,11 +1142,11 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
             :$disable-rollback,
             :$stack-policy-url,
             :$rollback-configuration,
-            :$parameters,
+            :@parameters,
             :$template-body,
             :$tags,
-            :$resource-types,
-            :$capabilities,
+            :@resource-types,
+            :@capabilities,
             :$template-url
         );
 
@@ -1178,13 +1180,13 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         StackPolicyBody :$stack-policy-body,
         StackPolicyURL :$stack-policy-url,
         RollbackConfiguration :$rollback-configuration,
-        Array[Parameter] :$parameters,
+        Parameter :@parameters,
         StackPolicyDuringUpdateURL :$stack-policy-during-update-url,
         TemplateBody :$template-body,
         Tags :$tags,
-        Array[ResourceType] :$resource-types,
+        ResourceType :@resource-types,
         StackPolicyDuringUpdateBody :$stack-policy-during-update-body,
-        Array[Capability] :$capabilities,
+        Capability :@capabilities,
         TemplateURL :$template-url
     ) returns UpdateStackOutput is service-operation('UpdateStack') {
         my $request-input = UpdateStackInput.new(
@@ -1196,13 +1198,13 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
             :$stack-policy-body,
             :$stack-policy-url,
             :$rollback-configuration,
-            :$parameters,
+            :@parameters,
             :$stack-policy-during-update-url,
             :$template-body,
             :$tags,
-            :$resource-types,
+            :@resource-types,
             :$stack-policy-during-update-body,
-            :$capabilities,
+            :@capabilities,
             :$template-url
         );
 
@@ -1228,11 +1230,11 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     }
 
     method list-stacks(
-        Array[StackStatus] :$stack-status-filter,
+        StackStatus :@stack-status-filter,
         NextToken :$next-token
     ) returns ListStacksOutput is service-operation('ListStacks') {
         my $request-input = ListStacksInput.new(
-            :$stack-status-filter,
+            :@stack-status-filter,
             :$next-token
         );
 
@@ -1357,15 +1359,15 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         StackSetOperationPreferences :$operation-preferences,
         Str :$stack-set-name!,
         ClientRequestToken :$operation-id,
-        Array[Account] :$accounts!,
-        Array[Str] :$regions!
+        Account :@accounts!,
+        Str :@regions!
     ) returns CreateStackInstancesOutput is service-operation('CreateStackInstances') {
         my $request-input = CreateStackInstancesInput.new(
             :$operation-preferences,
             :$stack-set-name,
             :$operation-id,
-            :$accounts,
-            :$regions
+            :@accounts,
+            :@regions
         );
 
         self.perform-operation(
@@ -1378,13 +1380,13 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         ClientRequestToken :$client-request-token,
         StackNameOrId :$stack-name!,
         RoleARN :$role-arn,
-        Array[ResourceToSkip] :$resources-to-skip
+        ResourceToSkip :@resources-to-skip
     ) returns ContinueUpdateRollbackOutput is service-operation('ContinueUpdateRollback') {
         my $request-input = ContinueUpdateRollbackInput.new(
             :$client-request-token,
             :$stack-name,
             :$role-arn,
-            :$resources-to-skip
+            :@resources-to-skip
         );
 
         self.perform-operation(
@@ -1469,17 +1471,17 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         StackSetOperationPreferences :$operation-preferences,
         Str :$stack-set-name!,
         ClientRequestToken :$operation-id,
-        Array[Account] :$accounts!,
+        Account :@accounts!,
         Bool :$retain-stacks!,
-        Array[Str] :$regions!
+        Str :@regions!
     ) returns DeleteStackInstancesOutput is service-operation('DeleteStackInstances') {
         my $request-input = DeleteStackInstancesInput.new(
             :$operation-preferences,
             :$stack-set-name,
             :$operation-id,
-            :$accounts,
+            :@accounts,
             :$retain-stacks,
-            :$regions
+            :@regions
         );
 
         self.perform-operation(
@@ -1492,20 +1494,20 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         ClientRequestToken :$client-request-token,
         Str :$stack-set-name!,
         Description :$description,
-        Array[Parameter] :$parameters,
+        Parameter :@parameters,
         TemplateBody :$template-body,
         Tags :$tags,
-        Array[Capability] :$capabilities,
+        Capability :@capabilities,
         TemplateURL :$template-url
     ) returns CreateStackSetOutput is service-operation('CreateStackSet') {
         my $request-input = CreateStackSetInput.new(
             :$client-request-token,
             :$stack-set-name,
             :$description,
-            :$parameters,
+            :@parameters,
             :$template-body,
             :$tags,
-            :$capabilities,
+            :@capabilities,
             :$template-url
         );
 
@@ -1521,10 +1523,10 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         Str :$stack-set-name!,
         Description :$description,
         ClientRequestToken :$operation-id,
-        Array[Parameter] :$parameters,
+        Parameter :@parameters,
         TemplateBody :$template-body,
         Tags :$tags,
-        Array[Capability] :$capabilities,
+        Capability :@capabilities,
         TemplateURL :$template-url
     ) returns UpdateStackSetOutput is service-operation('UpdateStackSet') {
         my $request-input = UpdateStackSetInput.new(
@@ -1533,10 +1535,10 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
             :$stack-set-name,
             :$description,
             :$operation-id,
-            :$parameters,
+            :@parameters,
             :$template-body,
             :$tags,
-            :$capabilities,
+            :@capabilities,
             :$template-url
         );
 
@@ -1601,13 +1603,13 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         ClientRequestToken :$client-request-token,
         Str :$stack-name!,
         RoleARN :$role-arn,
-        Array[Str] :$retain-resources
+        Str :@retain-resources
     ) is service-operation('DeleteStack') {
         my $request-input = DeleteStackInput.new(
             :$client-request-token,
             :$stack-name,
             :$role-arn,
-            :$retain-resources
+            :@retain-resources
         );
 
         self.perform-operation(
@@ -1655,12 +1657,12 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
         Description :$description,
         ClientToken :$client-token,
         RollbackConfiguration :$rollback-configuration,
-        Array[Parameter] :$parameters,
+        Parameter :@parameters,
         TemplateBody :$template-body,
         Tags :$tags,
-        Array[ResourceType] :$resource-types,
+        ResourceType :@resource-types,
         ChangeSetType :$change-set-type,
-        Array[Capability] :$capabilities,
+        Capability :@capabilities,
         TemplateURL :$template-url
     ) returns CreateChangeSetOutput is service-operation('CreateChangeSet') {
         my $request-input = CreateChangeSetInput.new(
@@ -1672,12 +1674,12 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
             :$description,
             :$client-token,
             :$rollback-configuration,
-            :$parameters,
+            :@parameters,
             :$template-body,
             :$tags,
-            :$resource-types,
+            :@resource-types,
             :$change-set-type,
-            :$capabilities,
+            :@capabilities,
             :$template-url
         );
 
@@ -1737,12 +1739,12 @@ class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
     }
 
     method estimate-template-cost(
-        Array[Parameter] :$parameters,
+        Parameter :@parameters,
         TemplateBody :$template-body,
         TemplateURL :$template-url
     ) returns EstimateTemplateCostOutput is service-operation('EstimateTemplateCost') {
         my $request-input = EstimateTemplateCostInput.new(
-            :$parameters,
+            :@parameters,
             :$template-body,
             :$template-url
         );

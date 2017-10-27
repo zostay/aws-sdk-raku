@@ -45,6 +45,9 @@ class AWS::SDK::Service::ImportExporter does AWS::SDK::Service {
     class InvalidFileSystemException { ... }
     class ListJobsInput { ... }
 
+    subset JobType of Str where $_ eq any('Import', 'Export');
+
+
     class MissingParameterException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -80,7 +83,7 @@ class AWS::SDK::Service::ImportExporter does AWS::SDK::Service {
     }
 
     class GetStatusOutput does AWS::SDK::Shape {
-        has Array[Artifact] $.artifact-list is shape-member('ArtifactList');
+        has Artifact @.artifact-list is shape-member('ArtifactList');
         has DateTime $.creation-date is shape-member('CreationDate');
         has Str $.current-manifest is shape-member('CurrentManifest');
         has Str $.signature-file-contents is shape-member('SignatureFileContents');
@@ -113,7 +116,7 @@ class AWS::SDK::Service::ImportExporter does AWS::SDK::Service {
         has Str $.phone-number is shape-member('phoneNumber');
         has Str $.city is shape-member('city');
         has Str $.postal-code is shape-member('postalCode');
-        has Array[Str] $.job-ids is required is shape-member('jobIds');
+        has Str @.job-ids is required is shape-member('jobIds');
         has Str $.street3 is shape-member('street3');
         has Str $.api-version is shape-member('APIVersion');
         has Str $.street2 is shape-member('street2');
@@ -179,7 +182,7 @@ class AWS::SDK::Service::ImportExporter does AWS::SDK::Service {
     }
 
     class ListJobsOutput does AWS::SDK::Shape {
-        has Array[Job] $.jobs is shape-member('Jobs');
+        has Job @.jobs is shape-member('Jobs');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
 
@@ -195,10 +198,8 @@ class AWS::SDK::Service::ImportExporter does AWS::SDK::Service {
         has Str $.api-version is shape-member('APIVersion');
     }
 
-    subset JobType of Str where $_ ~~ any('Import', 'Export');
-
     class CreateJobOutput does AWS::SDK::Shape {
-        has Array[Artifact] $.artifact-list is shape-member('ArtifactList');
+        has Artifact @.artifact-list is shape-member('ArtifactList');
         has Str $.signature-file-contents is shape-member('SignatureFileContents');
         has JobType $.job-type is shape-member('JobType');
         has Str $.signature is shape-member('Signature');
@@ -215,7 +216,7 @@ class AWS::SDK::Service::ImportExporter does AWS::SDK::Service {
     }
 
     class UpdateJobOutput does AWS::SDK::Shape {
-        has Array[Artifact] $.artifact-list is shape-member('ArtifactList');
+        has Artifact @.artifact-list is shape-member('ArtifactList');
         has Bool $.success is shape-member('Success');
         has Str $.warning-message is shape-member('WarningMessage');
     }
@@ -233,6 +234,7 @@ class AWS::SDK::Service::ImportExporter does AWS::SDK::Service {
         has Str $.api-version is shape-member('APIVersion');
         has Str $.marker is shape-member('Marker');
     }
+
 
     method get-status(
         Str :$job-id!,
@@ -256,7 +258,7 @@ class AWS::SDK::Service::ImportExporter does AWS::SDK::Service {
         Str :$phone-number,
         Str :$city,
         Str :$postal-code,
-        Array[Str] :$job-ids!,
+        Str :@job-ids!,
         Str :$street3,
         Str :$api-version,
         Str :$street2,
@@ -270,7 +272,7 @@ class AWS::SDK::Service::ImportExporter does AWS::SDK::Service {
             :$phone-number,
             :$city,
             :$postal-code,
-            :$job-ids,
+            :@job-ids,
             :$street3,
             :$api-version,
             :$street2,

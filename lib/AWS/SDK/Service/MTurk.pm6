@@ -109,8 +109,47 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     class GetAccountBalanceRequest { ... }
     class ListHITsForQualificationTypeRequest { ... }
 
+    subset ResultSize of Int where 1 <= * <= 100;
+
+    subset ReviewActionStatus of Str where $_ eq any('Intended', 'Succeeded', 'Failed', 'Cancelled');
+
+    subset QualificationTypeStatus of Str where $_ eq any('Active', 'Inactive');
+
+    subset ReviewPolicyLevel of Str where $_ eq any('Assignment', 'HIT');
+
+    subset Comparator of Str where $_ eq any('LessThan', 'LessThanOrEqualTo', 'GreaterThan', 'GreaterThanOrEqualTo', 'EqualTo', 'NotEqualTo', 'Exists', 'DoesNotExist', 'In', 'NotIn');
+
+    subset EventType of Str where $_ eq any('AssignmentAccepted', 'AssignmentAbandoned', 'AssignmentReturned', 'AssignmentSubmitted', 'AssignmentRejected', 'AssignmentApproved', 'HITCreated', 'HITExpired', 'HITReviewable', 'HITExtended', 'HITDisposed', 'Ping');
+
+    subset IdempotencyToken of Str where 1 <= .chars <= 64;
+
+    subset EntityId of Str where 1 <= .chars <= 64 && rx:P5/^[A-Z0-9]+$/;
+
+    subset QualificationStatus of Str where $_ eq any('Granted', 'Revoked');
+
+    subset HITReviewStatus of Str where $_ eq any('NotReviewed', 'MarkedForReview', 'ReviewedAppropriate', 'ReviewedInappropriate');
+
+    subset CurrencyAmount of Str where rx:P5/^[0-9]+(\.)?[0-9]{0,2}$/;
+
+    subset NotifyWorkersFailureCode of Str where $_ eq any('SoftFailure', 'HardFailure');
+
+    subset CustomerId of Str where 1 <= .chars <= 64 && rx:P5/^A[A-Z0-9]+$/;
+
+    subset AssignmentStatus of Str where $_ eq any('Submitted', 'Approved', 'Rejected');
+
+    subset CountryParameters of Str where 2 <= .chars <= 2;
+
+    subset HITStatus of Str where $_ eq any('Assignable', 'Unassignable', 'Reviewable', 'Reviewing', 'Disposed');
+
+    subset PaginationToken of Str where 1 <= .chars <= 255;
+
+    subset NotificationTransport of Str where $_ eq any('Email', 'SQS', 'SNS');
+
+    subset ReviewableHITStatus of Str where $_ eq any('Reviewable', 'Reviewing');
+
+
     class CreateHITWithHITTypeRequest does AWS::SDK::Shape {
-        has Array[HITLayoutParameter] $.hit-layout-parameters is shape-member('HITLayoutParameters');
+        has HITLayoutParameter @.hit-layout-parameters is shape-member('HITLayoutParameters');
         has Str $.question is shape-member('Question');
         has EntityId $.hit-layout-id is shape-member('HITLayoutId');
         has Int $.lifetime-in-seconds is required is shape-member('LifetimeInSeconds');
@@ -123,7 +162,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class CreateHITTypeRequest does AWS::SDK::Shape {
-        has Array[QualificationRequirement] $.qualification-requirements is shape-member('QualificationRequirements');
+        has QualificationRequirement @.qualification-requirements is shape-member('QualificationRequirements');
         has Int $.assignment-duration-in-seconds is required is shape-member('AssignmentDurationInSeconds');
         has Int $.auto-approval-delay-in-seconds is shape-member('AutoApprovalDelayInSeconds');
         has Str $.description is required is shape-member('Description');
@@ -147,13 +186,13 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class ReviewReport does AWS::SDK::Shape {
-        has Array[ReviewActionDetail] $.review-actions is shape-member('ReviewActions');
-        has Array[ReviewResultDetail] $.review-results is shape-member('ReviewResults');
+        has ReviewActionDetail @.review-actions is shape-member('ReviewActions');
+        has ReviewResultDetail @.review-results is shape-member('ReviewResults');
     }
 
     class NotifyWorkersRequest does AWS::SDK::Shape {
         has Str $.subject is required is shape-member('Subject');
-        has Array[CustomerId] $.worker-ids is required is shape-member('WorkerIds');
+        has CustomerId @.worker-ids is required is shape-member('WorkerIds');
         has Str $.message-text is required is shape-member('MessageText');
     }
 
@@ -165,14 +204,14 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class ListWorkerBlocksResponse does AWS::SDK::Shape {
-        has Array[WorkerBlock] $.worker-blocks is shape-member('WorkerBlocks');
+        has WorkerBlock @.worker-blocks is shape-member('WorkerBlocks');
         has Int $.num-results is shape-member('NumResults');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
 
     class PolicyParameter does AWS::SDK::Shape {
-        has Array[ParameterMapEntry] $.map-entries is shape-member('MapEntries');
-        has Array[Str] $.values is shape-member('Values');
+        has ParameterMapEntry @.map-entries is shape-member('MapEntries');
+        has Str @.values is shape-member('Values');
         has Str $.key is shape-member('Key');
     }
 
@@ -211,7 +250,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class ListAssignmentsForHITResponse does AWS::SDK::Shape {
-        has Array[Assignment] $.assignments is shape-member('Assignments');
+        has Assignment @.assignments is shape-member('Assignments');
         has Int $.num-results is shape-member('NumResults');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
@@ -222,13 +261,9 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
 
     class ListQualificationTypesResponse does AWS::SDK::Shape {
         has Int $.num-results is shape-member('NumResults');
-        has Array[QualificationType] $.qualification-types is shape-member('QualificationTypes');
+        has QualificationType @.qualification-types is shape-member('QualificationTypes');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
-
-    subset ResultSize of Int where 1 <= * <= 100;
-
-    subset ReviewActionStatus of Str where $_ ~~ any('Intended', 'Succeeded', 'Failed', 'Cancelled');
 
     class CreateWorkerBlockRequest does AWS::SDK::Shape {
         has CustomerId $.worker-id is required is shape-member('WorkerId');
@@ -237,13 +272,13 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
 
     class ListAssignmentsForHITRequest does AWS::SDK::Shape {
         has ResultSize $.max-results is shape-member('MaxResults');
-        has Array[AssignmentStatus] $.assignment-statuses is shape-member('AssignmentStatuses');
+        has AssignmentStatus @.assignment-statuses is shape-member('AssignmentStatuses');
         has PaginationToken $.next-token is shape-member('NextToken');
         has EntityId $.hit-id is required is shape-member('HITId');
     }
 
     class NotificationSpecification does AWS::SDK::Shape {
-        has Array[EventType] $.event-types is required is shape-member('EventTypes');
+        has EventType @.event-types is required is shape-member('EventTypes');
         has NotificationTransport $.transport is required is shape-member('Transport');
         has Str $.destination is required is shape-member('Destination');
         has Str $.version is required is shape-member('Version');
@@ -269,12 +304,8 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         has Int $.integer-value is shape-member('IntegerValue');
     }
 
-    subset QualificationTypeStatus of Str where $_ ~~ any('Active', 'Inactive');
-
     class RejectQualificationRequestResponse does AWS::SDK::Shape {
     }
-
-    subset ReviewPolicyLevel of Str where $_ ~~ any('Assignment', 'HIT');
 
     class UpdateNotificationSettingsRequest does AWS::SDK::Shape {
         has NotificationSpecification $.notification is shape-member('Notification');
@@ -286,7 +317,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class ListQualificationRequestsResponse does AWS::SDK::Shape {
-        has Array[QualificationRequest] $.qualification-requests is shape-member('QualificationRequests');
+        has QualificationRequest @.qualification-requests is shape-member('QualificationRequests');
         has Int $.num-results is shape-member('NumResults');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
@@ -304,7 +335,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     class ListWorkersWithQualificationTypeResponse does AWS::SDK::Shape {
         has Int $.num-results is shape-member('NumResults');
         has PaginationToken $.next-token is shape-member('NextToken');
-        has Array[Qualification] $.qualifications is shape-member('Qualifications');
+        has Qualification @.qualifications is shape-member('Qualifications');
     }
 
     class UpdateNotificationSettingsResponse does AWS::SDK::Shape {
@@ -314,8 +345,8 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class CreateHITRequest does AWS::SDK::Shape {
-        has Array[HITLayoutParameter] $.hit-layout-parameters is shape-member('HITLayoutParameters');
-        has Array[QualificationRequirement] $.qualification-requirements is shape-member('QualificationRequirements');
+        has HITLayoutParameter @.hit-layout-parameters is shape-member('HITLayoutParameters');
+        has QualificationRequirement @.qualification-requirements is shape-member('QualificationRequirements');
         has Str $.question is shape-member('Question');
         has Int $.assignment-duration-in-seconds is required is shape-member('AssignmentDurationInSeconds');
         has Int $.auto-approval-delay-in-seconds is shape-member('AutoApprovalDelayInSeconds');
@@ -332,11 +363,9 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         has CurrencyAmount $.reward is required is shape-member('Reward');
     }
 
-    subset Comparator of Str where $_ ~~ any('LessThan', 'LessThanOrEqualTo', 'GreaterThan', 'GreaterThanOrEqualTo', 'EqualTo', 'NotEqualTo', 'Exists', 'DoesNotExist', 'In', 'NotIn');
-
     class HIT does AWS::SDK::Shape {
         has Int $.number-of-assignments-available is shape-member('NumberOfAssignmentsAvailable');
-        has Array[QualificationRequirement] $.qualification-requirements is shape-member('QualificationRequirements');
+        has QualificationRequirement @.qualification-requirements is shape-member('QualificationRequirements');
         has Int $.assignment-duration-in-seconds is shape-member('AssignmentDurationInSeconds');
         has Int $.auto-approval-delay-in-seconds is shape-member('AutoApprovalDelayInSeconds');
         has HITStatus $.hit-status is shape-member('HITStatus');
@@ -368,17 +397,11 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         has EntityId $.assignment-id is required is shape-member('AssignmentId');
     }
 
-    subset EventType of Str where $_ ~~ any('AssignmentAccepted', 'AssignmentAbandoned', 'AssignmentReturned', 'AssignmentSubmitted', 'AssignmentRejected', 'AssignmentApproved', 'HITCreated', 'HITExpired', 'HITReviewable', 'HITExtended', 'HITDisposed', 'Ping');
-
-    subset IdempotencyToken of Str where 1 <= .chars <= 64;
-
     class ListHITsResponse does AWS::SDK::Shape {
-        has Array[HIT] $.hits is shape-member('HITs');
+        has HIT @.hits is shape-member('HITs');
         has Int $.num-results is shape-member('NumResults');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
-
-    subset EntityId of Str where 1 <= .chars <= 64 && rx:P5/^[A-Z0-9]+$/;
 
     class DeleteQualificationTypeRequest does AWS::SDK::Shape {
         has EntityId $.qualification-type-id is required is shape-member('QualificationTypeId');
@@ -403,7 +426,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class ListBonusPaymentsResponse does AWS::SDK::Shape {
-        has Array[BonusPayment] $.bonus-payments is shape-member('BonusPayments');
+        has BonusPayment @.bonus-payments is shape-member('BonusPayments');
         has Int $.num-results is shape-member('NumResults');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
@@ -416,7 +439,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class NotifyWorkersResponse does AWS::SDK::Shape {
-        has Array[NotifyWorkersFailureStatus] $.notify-workers-failure-statuses is shape-member('NotifyWorkersFailureStatuses');
+        has NotifyWorkersFailureStatus @.notify-workers-failure-statuses is shape-member('NotifyWorkersFailureStatuses');
     }
 
     class RejectAssignmentResponse does AWS::SDK::Shape {
@@ -439,13 +462,11 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
 
     class QualificationRequirement does AWS::SDK::Shape {
         has Bool $.required-to-preview is shape-member('RequiredToPreview');
-        has Array[Locale] $.locale-values is shape-member('LocaleValues');
-        has Array[Int] $.integer-values is shape-member('IntegerValues');
+        has Locale @.locale-values is shape-member('LocaleValues');
+        has Int @.integer-values is shape-member('IntegerValues');
         has Comparator $.comparator is required is shape-member('Comparator');
         has Str $.qualification-type-id is required is shape-member('QualificationTypeId');
     }
-
-    subset QualificationStatus of Str where $_ ~~ any('Granted', 'Revoked');
 
     class QualificationType does AWS::SDK::Shape {
         has Int $.retry-delay-in-seconds is shape-member('RetryDelayInSeconds');
@@ -478,8 +499,6 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         has CustomerId $.worker-id is shape-member('WorkerId');
         has Str $.reason is shape-member('Reason');
     }
-
-    subset HITReviewStatus of Str where $_ ~~ any('NotReviewed', 'MarkedForReview', 'ReviewedAppropriate', 'ReviewedInappropriate');
 
     class ListBonusPaymentsRequest does AWS::SDK::Shape {
         has ResultSize $.max-results is shape-member('MaxResults');
@@ -518,7 +537,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class ListHITsForQualificationTypeResponse does AWS::SDK::Shape {
-        has Array[HIT] $.hits is shape-member('HITs');
+        has HIT @.hits is shape-member('HITs');
         has Int $.num-results is shape-member('NumResults');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
@@ -543,14 +562,10 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         has Str $.error-code is shape-member('ErrorCode');
     }
 
-    subset CurrencyAmount of Str where rx:P5/^[0-9]+(\.)?[0-9]{0,2}$/;
-
     class Locale does AWS::SDK::Shape {
         has CountryParameters $.country is required is shape-member('Country');
         has CountryParameters $.subdivision is shape-member('Subdivision');
     }
-
-    subset NotifyWorkersFailureCode of Str where $_ ~~ any('SoftFailure', 'HardFailure');
 
     class ServiceFault does AWS::SDK::Shape {
         has Str $.turk-error-code is shape-member('TurkErrorCode');
@@ -569,25 +584,15 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     class DeleteWorkerBlockResponse does AWS::SDK::Shape {
     }
 
-    subset CustomerId of Str where 1 <= .chars <= 64 && rx:P5/^A[A-Z0-9]+$/;
-
-    subset AssignmentStatus of Str where $_ ~~ any('Submitted', 'Approved', 'Rejected');
-
     class UpdateHITReviewStatusRequest does AWS::SDK::Shape {
         has Bool $.revert is shape-member('Revert');
         has EntityId $.hit-id is required is shape-member('HITId');
     }
 
-    subset CountryParameters of Str where 2 <= .chars <= 2;
-
     class HITLayoutParameter does AWS::SDK::Shape {
         has Str $.name is required is shape-member('Name');
         has Str $.value is required is shape-member('Value');
     }
-
-    subset HITStatus of Str where $_ ~~ any('Assignable', 'Unassignable', 'Reviewable', 'Reviewing', 'Disposed');
-
-    subset PaginationToken of Str where 1 <= .chars <= 255;
 
     class GetAssignmentResponse does AWS::SDK::Shape {
         has HIT $.hit is shape-member('HIT');
@@ -608,7 +613,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class ParameterMapEntry does AWS::SDK::Shape {
-        has Array[Str] $.values is shape-member('Values');
+        has Str @.values is shape-member('Values');
         has Str $.key is shape-member('Key');
     }
 
@@ -634,7 +639,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class ReviewPolicy does AWS::SDK::Shape {
-        has Array[PolicyParameter] $.parameters is shape-member('Parameters');
+        has PolicyParameter @.parameters is shape-member('Parameters');
         has Str $.policy-name is required is shape-member('PolicyName');
     }
 
@@ -647,13 +652,11 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     class ListReviewPolicyResultsForHITRequest does AWS::SDK::Shape {
         has ResultSize $.max-results is shape-member('MaxResults');
         has Bool $.retrieve-actions is shape-member('RetrieveActions');
-        has Array[ReviewPolicyLevel] $.policy-levels is shape-member('PolicyLevels');
+        has ReviewPolicyLevel @.policy-levels is shape-member('PolicyLevels');
         has PaginationToken $.next-token is shape-member('NextToken');
         has EntityId $.hit-id is required is shape-member('HITId');
         has Bool $.retrieve-results is shape-member('RetrieveResults');
     }
-
-    subset NotificationTransport of Str where $_ ~~ any('Email', 'SQS', 'SNS');
 
     class RejectAssignmentRequest does AWS::SDK::Shape {
         has Str $.requester-feedback is required is shape-member('RequesterFeedback');
@@ -693,8 +696,6 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         has EntityId $.question-id is shape-member('QuestionId');
     }
 
-    subset ReviewableHITStatus of Str where $_ ~~ any('Reviewable', 'Reviewing');
-
     class CreateHITTypeResponse does AWS::SDK::Shape {
         has EntityId $.hit-type-id is shape-member('HITTypeId');
     }
@@ -715,7 +716,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     class ListReviewableHITsResponse does AWS::SDK::Shape {
-        has Array[HIT] $.hits is shape-member('HITs');
+        has HIT @.hits is shape-member('HITs');
         has Int $.num-results is shape-member('NumResults');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
@@ -735,6 +736,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         has PaginationToken $.next-token is shape-member('NextToken');
         has EntityId $.qualification-type-id is required is shape-member('QualificationTypeId');
     }
+
 
     method list-bonus-payments(
         ResultSize :$max-results,
@@ -756,8 +758,8 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     method create-hit(
-        Array[HITLayoutParameter] :$hit-layout-parameters,
-        Array[QualificationRequirement] :$qualification-requirements,
+        HITLayoutParameter :@hit-layout-parameters,
+        QualificationRequirement :@qualification-requirements,
         Str :$question,
         Int :$assignment-duration-in-seconds!,
         Int :$auto-approval-delay-in-seconds,
@@ -774,8 +776,8 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         CurrencyAmount :$reward!
     ) returns CreateHITResponse is service-operation('CreateHIT') {
         my $request-input = CreateHITRequest.new(
-            :$hit-layout-parameters,
-            :$qualification-requirements,
+            :@hit-layout-parameters,
+            :@qualification-requirements,
             :$question,
             :$assignment-duration-in-seconds,
             :$auto-approval-delay-in-seconds,
@@ -847,13 +849,13 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
 
     method list-assignments-for-hit(
         ResultSize :$max-results,
-        Array[AssignmentStatus] :$assignment-statuses,
+        AssignmentStatus :@assignment-statuses,
         PaginationToken :$next-token,
         EntityId :$hit-id!
     ) returns ListAssignmentsForHITResponse is service-operation('ListAssignmentsForHIT') {
         my $request-input = ListAssignmentsForHITRequest.new(
             :$max-results,
-            :$assignment-statuses,
+            :@assignment-statuses,
             :$next-token,
             :$hit-id
         );
@@ -1104,12 +1106,12 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
 
     method notify-workers(
         Str :$subject!,
-        Array[CustomerId] :$worker-ids!,
+        CustomerId :@worker-ids!,
         Str :$message-text!
     ) returns NotifyWorkersResponse is service-operation('NotifyWorkers') {
         my $request-input = NotifyWorkersRequest.new(
             :$subject,
-            :$worker-ids,
+            :@worker-ids,
             :$message-text
         );
 
@@ -1122,7 +1124,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     method list-review-policy-results-for-hit(
         ResultSize :$max-results,
         Bool :$retrieve-actions,
-        Array[ReviewPolicyLevel] :$policy-levels,
+        ReviewPolicyLevel :@policy-levels,
         PaginationToken :$next-token,
         EntityId :$hit-id!,
         Bool :$retrieve-results
@@ -1130,7 +1132,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         my $request-input = ListReviewPolicyResultsForHITRequest.new(
             :$max-results,
             :$retrieve-actions,
-            :$policy-levels,
+            :@policy-levels,
             :$next-token,
             :$hit-id,
             :$retrieve-results
@@ -1171,7 +1173,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     method create-hit-type(
-        Array[QualificationRequirement] :$qualification-requirements,
+        QualificationRequirement :@qualification-requirements,
         Int :$assignment-duration-in-seconds!,
         Int :$auto-approval-delay-in-seconds,
         Str :$description!,
@@ -1180,7 +1182,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         CurrencyAmount :$reward!
     ) returns CreateHITTypeResponse is service-operation('CreateHITType') {
         my $request-input = CreateHITTypeRequest.new(
-            :$qualification-requirements,
+            :@qualification-requirements,
             :$assignment-duration-in-seconds,
             :$auto-approval-delay-in-seconds,
             :$description,
@@ -1381,7 +1383,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
     }
 
     method create-hit-with-hit-type(
-        Array[HITLayoutParameter] :$hit-layout-parameters,
+        HITLayoutParameter :@hit-layout-parameters,
         Str :$question,
         EntityId :$hit-layout-id,
         Int :$lifetime-in-seconds!,
@@ -1393,7 +1395,7 @@ class AWS::SDK::Service::MTurk does AWS::SDK::Service {
         Str :$requester-annotation
     ) returns CreateHITWithHITTypeResponse is service-operation('CreateHITWithHITType') {
         my $request-input = CreateHITWithHITTypeRequest.new(
-            :$hit-layout-parameters,
+            :@hit-layout-parameters,
             :$question,
             :$hit-layout-id,
             :$lifetime-in-seconds,

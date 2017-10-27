@@ -64,8 +64,65 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     class RebootRequest { ... }
     class DeleteTagsRequest { ... }
 
+    subset DirectoryIdList of Array[DirectoryId] where 1 <= *.elems <= 25;
+
+    subset Limit of Int where 1 <= * <= 25;
+
+    subset UserName of Str where 1 <= .chars <= 63;
+
+    subset RebootWorkspaceRequests of Array[RebootRequest] where 1 <= *.elems <= 25;
+
+    subset NonEmptyString of Str where 1 <= .chars;
+
+    subset WorkspaceDirectoryType of Str where $_ eq any('SIMPLE_AD', 'AD_CONNECTOR');
+
+    subset WorkspaceState of Str where $_ eq any('PENDING', 'AVAILABLE', 'IMPAIRED', 'UNHEALTHY', 'REBOOTING', 'STARTING', 'REBUILDING', 'MAINTENANCE', 'TERMINATING', 'TERMINATED', 'SUSPENDED', 'STOPPING', 'STOPPED', 'ERROR');
+
+    subset RunningMode of Str where $_ eq any('AUTO_STOP', 'ALWAYS_ON');
+
+    subset RegistrationCode of Str where 1 <= .chars <= 20;
+
+    subset SecurityGroupId of Str where rx:P5/^(sg-[0-9a-f]{8})$/;
+
+    subset WorkspaceRequestList of Array[WorkspaceRequest] where 1 <= *.elems <= 25;
+
+    subset SubnetId of Str where rx:P5/^(subnet-[0-9a-f]{8})$/;
+
+    subset TagKey of Str where 1 <= .chars <= 127;
+
+    subset ARN of Str where rx:P5/^arn:aws:[A-Za-z0-9][A-za-z0-9_\/.-]{0,62}:[A-za-z0-9_\/.-]{0,63}:[A-za-z0-9_\/.-]{0,63}:[A-Za-z0-9][A-za-z0-9_\/.-]{0,127}$/;
+
+    subset BundleId of Str where rx:P5/^wsb-[0-9a-z]{8,63}$/;
+
+    subset TerminateWorkspaceRequests of Array[TerminateRequest] where 1 <= *.elems <= 25;
+
+    subset RebuildWorkspaceRequests of Array[RebuildRequest] where 1 <= *.elems <= 1;
+
+    subset WorkspaceDirectoryState of Str where $_ eq any('REGISTERING', 'REGISTERED', 'DEREGISTERING', 'DEREGISTERED', 'ERROR');
+
+    subset WorkspaceId of Str where rx:P5/^ws-[0-9a-z]{8,63}$/;
+
+    subset PaginationToken of Str where 1 <= .chars <= 63;
+
+    subset TagValue of Str where .chars <= 255;
+
+    subset BundleIdList of Array[BundleId] where 1 <= *.elems <= 25;
+
+    subset WorkspaceIdList of Array[WorkspaceId] where 1 <= *.elems <= 25;
+
+    subset StopWorkspaceRequests of Array[StopRequest] where 1 <= *.elems <= 25;
+
+    subset Compute of Str where $_ eq any('VALUE', 'STANDARD', 'PERFORMANCE');
+
+    subset StartWorkspaceRequests of Array[StartRequest] where 1 <= *.elems <= 25;
+
+    subset ConnectionState of Str where $_ eq any('CONNECTED', 'DISCONNECTED', 'UNKNOWN');
+
+    subset DirectoryId of Str where rx:P5/^d-[0-9a-f]{8,63}$/;
+
+
     class CreateTagsRequest does AWS::SDK::Shape {
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
         has NonEmptyString $.resource-id is required is shape-member('ResourceId');
     }
 
@@ -74,14 +131,6 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
         has WorkspaceRequest $.workspace-request is shape-member('WorkspaceRequest');
         has Str $.error-code is shape-member('ErrorCode');
     }
-
-    subset DirectoryIdList of Array[DirectoryId] where 1 <= *.elems <= 25;
-
-    subset Limit of Int where 1 <= * <= 25;
-
-    subset UserName of Str where 1 <= .chars <= 63;
-
-    subset RebootWorkspaceRequests of Array[RebootRequest] where 1 <= *.elems <= 25;
 
     class OperationInProgressException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -96,10 +145,6 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
         has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    subset NonEmptyString of Str where 1 <= .chars;
-
-    subset WorkspaceDirectoryType of Str where $_ ~~ any('SIMPLE_AD', 'AD_CONNECTOR');
-
     class TerminateRequest does AWS::SDK::Shape {
         has WorkspaceId $.workspace-id is required is shape-member('WorkspaceId');
     }
@@ -108,13 +153,11 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset WorkspaceState of Str where $_ ~~ any('PENDING', 'AVAILABLE', 'IMPAIRED', 'UNHEALTHY', 'REBOOTING', 'STARTING', 'REBUILDING', 'MAINTENANCE', 'TERMINATING', 'TERMINATED', 'SUSPENDED', 'STOPPING', 'STOPPED', 'ERROR');
-
     class WorkspaceRequest does AWS::SDK::Shape {
         has Str $.volume-encryption-key is shape-member('VolumeEncryptionKey');
         has Bool $.user-volume-encryption-enabled is shape-member('UserVolumeEncryptionEnabled');
         has UserName $.user-name is required is shape-member('UserName');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has WorkspaceProperties $.workspace-properties is shape-member('WorkspaceProperties');
         has Bool $.root-volume-encryption-enabled is shape-member('RootVolumeEncryptionEnabled');
         has BundleId $.bundle-id is required is shape-member('BundleId');
@@ -126,8 +169,6 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
         has RunningMode $.running-mode is shape-member('RunningMode');
     }
 
-    subset RunningMode of Str where $_ ~~ any('AUTO_STOP', 'ALWAYS_ON');
-
     class InvalidParameterValuesException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -135,12 +176,6 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     class StopRequest does AWS::SDK::Shape {
         has WorkspaceId $.workspace-id is shape-member('WorkspaceId');
     }
-
-    subset RegistrationCode of Str where 1 <= .chars <= 20;
-
-    subset SecurityGroupId of Str where rx:P5/^(sg-[0-9a-f]{8})$/;
-
-    subset WorkspaceRequestList of Array[WorkspaceRequest] where 1 <= *.elems <= 25;
 
     class DescribeWorkspaceDirectoriesRequest does AWS::SDK::Shape {
         has DirectoryIdList $.directory-ids is shape-member('DirectoryIds');
@@ -155,29 +190,23 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
         has Str $.default-ou is shape-member('DefaultOu');
     }
 
-    subset SubnetId of Str where rx:P5/^(subnet-[0-9a-f]{8})$/;
-
-    subset TagKey of Str where 1 <= .chars <= 127;
-
     class DescribeWorkspaceBundlesRequest does AWS::SDK::Shape {
         has Str $.owner is shape-member('Owner');
         has BundleIdList $.bundle-ids is shape-member('BundleIds');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    subset ARN of Str where rx:P5/^arn:aws:[A-Za-z0-9][A-za-z0-9_\/.-]{0,62}:[A-za-z0-9_\/.-]{0,63}:[A-za-z0-9_\/.-]{0,63}:[A-Za-z0-9][A-za-z0-9_\/.-]{0,127}$/;
-
     class StartWorkspacesResult does AWS::SDK::Shape {
-        has Array[FailedWorkspaceChangeRequest] $.failed-requests is shape-member('FailedRequests');
+        has FailedWorkspaceChangeRequest @.failed-requests is shape-member('FailedRequests');
     }
 
     class DescribeWorkspaceDirectoriesResult does AWS::SDK::Shape {
-        has Array[WorkspaceDirectory] $.directories is shape-member('Directories');
+        has WorkspaceDirectory @.directories is shape-member('Directories');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
 
     class DescribeTagsResult does AWS::SDK::Shape {
-        has Array[Tag] $.tag-list is shape-member('TagList');
+        has Tag @.tag-list is shape-member('TagList');
     }
 
     class RebuildWorkspacesRequest does AWS::SDK::Shape {
@@ -189,12 +218,12 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     }
 
     class DescribeWorkspacesResult does AWS::SDK::Shape {
-        has Array[Workspace] $.workspaces is shape-member('Workspaces');
+        has Workspace @.workspaces is shape-member('Workspaces');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
 
     class RebootWorkspacesResult does AWS::SDK::Shape {
-        has Array[FailedWorkspaceChangeRequest] $.failed-requests is shape-member('FailedRequests');
+        has FailedWorkspaceChangeRequest @.failed-requests is shape-member('FailedRequests');
     }
 
     class Workspace does AWS::SDK::Shape {
@@ -219,7 +248,7 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     }
 
     class TerminateWorkspacesResult does AWS::SDK::Shape {
-        has Array[FailedWorkspaceChangeRequest] $.failed-requests is shape-member('FailedRequests');
+        has FailedWorkspaceChangeRequest @.failed-requests is shape-member('FailedRequests');
     }
 
     class Tag does AWS::SDK::Shape {
@@ -230,8 +259,6 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     class StopWorkspacesRequest does AWS::SDK::Shape {
         has StopWorkspaceRequests $.stop-workspace-requests is required is shape-member('StopWorkspaceRequests');
     }
-
-    subset BundleId of Str where rx:P5/^wsb-[0-9a-z]{8,63}$/;
 
     class ModifyWorkspacePropertiesResult does AWS::SDK::Shape {
     }
@@ -248,8 +275,6 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
         has NonEmptyString $.capacity is shape-member('Capacity');
     }
 
-    subset TerminateWorkspaceRequests of Array[TerminateRequest] where 1 <= *.elems <= 25;
-
     class CreateWorkspacesRequest does AWS::SDK::Shape {
         has WorkspaceRequestList $.workspaces is required is shape-member('Workspaces');
     }
@@ -263,7 +288,7 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     }
 
     class RebuildWorkspacesResult does AWS::SDK::Shape {
-        has Array[FailedWorkspaceChangeRequest] $.failed-requests is shape-member('FailedRequests');
+        has FailedWorkspaceChangeRequest @.failed-requests is shape-member('FailedRequests');
     }
 
     class ResourceNotFoundException does AWS::SDK::Shape {
@@ -272,13 +297,11 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     }
 
     class StopWorkspacesResult does AWS::SDK::Shape {
-        has Array[FailedWorkspaceChangeRequest] $.failed-requests is shape-member('FailedRequests');
+        has FailedWorkspaceChangeRequest @.failed-requests is shape-member('FailedRequests');
     }
 
     class CreateTagsResult does AWS::SDK::Shape {
     }
-
-    subset RebuildWorkspaceRequests of Array[RebuildRequest] where 1 <= *.elems <= 1;
 
     class WorkspaceDirectory does AWS::SDK::Shape {
         has WorkspaceDirectoryType $.directory-type is shape-member('DirectoryType');
@@ -289,14 +312,14 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
         has Str $.alias is shape-member('Alias');
         has WorkspaceDirectoryState $.state is shape-member('State');
         has UserName $.customer-user-name is shape-member('CustomerUserName');
-        has Array[Str] $.dns-ip-addresses is shape-member('DnsIpAddresses');
-        has Array[SubnetId] $.subnet-ids is shape-member('SubnetIds');
+        has Str @.dns-ip-addresses is shape-member('DnsIpAddresses');
+        has SubnetId @.subnet-ids is shape-member('SubnetIds');
         has RegistrationCode $.registration-code is shape-member('RegistrationCode');
         has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
     class DescribeWorkspacesConnectionStatusResult does AWS::SDK::Shape {
-        has Array[WorkspaceConnectionStatus] $.workspaces-connection-status is shape-member('WorkspacesConnectionStatus');
+        has WorkspaceConnectionStatus @.workspaces-connection-status is shape-member('WorkspacesConnectionStatus');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
 
@@ -306,7 +329,7 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     }
 
     class DescribeWorkspaceBundlesResult does AWS::SDK::Shape {
-        has Array[WorkspaceBundle] $.bundles is shape-member('Bundles');
+        has WorkspaceBundle @.bundles is shape-member('Bundles');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
 
@@ -323,21 +346,9 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
         has TerminateWorkspaceRequests $.terminate-workspace-requests is required is shape-member('TerminateWorkspaceRequests');
     }
 
-    subset WorkspaceDirectoryState of Str where $_ ~~ any('REGISTERING', 'REGISTERED', 'DEREGISTERING', 'DEREGISTERED', 'ERROR');
-
-    subset WorkspaceId of Str where rx:P5/^ws-[0-9a-z]{8,63}$/;
-
-    subset PaginationToken of Str where 1 <= .chars <= 63;
-
     class RebuildRequest does AWS::SDK::Shape {
         has WorkspaceId $.workspace-id is required is shape-member('WorkspaceId');
     }
-
-    subset TagValue of Str where .chars <= 255;
-
-    subset BundleIdList of Array[BundleId] where 1 <= *.elems <= 25;
-
-    subset WorkspaceIdList of Array[WorkspaceId] where 1 <= *.elems <= 25;
 
     class WorkspaceConnectionStatus does AWS::SDK::Shape {
         has WorkspaceId $.workspace-id is shape-member('WorkspaceId');
@@ -355,14 +366,10 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
         has BundleId $.bundle-id is shape-member('BundleId');
     }
 
-    subset StopWorkspaceRequests of Array[StopRequest] where 1 <= *.elems <= 25;
-
     class CreateWorkspacesResult does AWS::SDK::Shape {
-        has Array[Workspace] $.pending-requests is shape-member('PendingRequests');
-        has Array[FailedCreateWorkspaceRequest] $.failed-requests is shape-member('FailedRequests');
+        has Workspace @.pending-requests is shape-member('PendingRequests');
+        has FailedCreateWorkspaceRequest @.failed-requests is shape-member('FailedRequests');
     }
-
-    subset Compute of Str where $_ ~~ any('VALUE', 'STANDARD', 'PERFORMANCE');
 
     class DeleteTagsResult does AWS::SDK::Shape {
     }
@@ -370,8 +377,6 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     class StartWorkspacesRequest does AWS::SDK::Shape {
         has StartWorkspaceRequests $.start-workspace-requests is required is shape-member('StartWorkspaceRequests');
     }
-
-    subset StartWorkspaceRequests of Array[StartRequest] where 1 <= *.elems <= 25;
 
     class FailedWorkspaceChangeRequest does AWS::SDK::Shape {
         has WorkspaceId $.workspace-id is shape-member('WorkspaceId');
@@ -388,14 +393,11 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
         has WorkspaceId $.workspace-id is required is shape-member('WorkspaceId');
     }
 
-    subset ConnectionState of Str where $_ ~~ any('CONNECTED', 'DISCONNECTED', 'UNKNOWN');
-
     class DeleteTagsRequest does AWS::SDK::Shape {
-        has Array[NonEmptyString] $.tag-keys is required is shape-member('TagKeys');
+        has NonEmptyString @.tag-keys is required is shape-member('TagKeys');
         has NonEmptyString $.resource-id is required is shape-member('ResourceId');
     }
 
-    subset DirectoryId of Str where rx:P5/^d-[0-9a-f]{8,63}$/;
 
     method modify-workspace-properties(
         WorkspaceId :$workspace-id!,
@@ -533,11 +535,11 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     }
 
     method delete-tags(
-        Array[NonEmptyString] :$tag-keys!,
+        NonEmptyString :@tag-keys!,
         NonEmptyString :$resource-id!
     ) returns DeleteTagsResult is service-operation('DeleteTags') {
         my $request-input = DeleteTagsRequest.new(
-            :$tag-keys,
+            :@tag-keys,
             :$resource-id
         );
 
@@ -576,11 +578,11 @@ class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
     }
 
     method create-tags(
-        Array[Tag] :$tags!,
+        Tag :@tags!,
         NonEmptyString :$resource-id!
     ) returns CreateTagsResult is service-operation('CreateTags') {
         my $request-input = CreateTagsRequest.new(
-            :$tags,
+            :@tags,
             :$resource-id
         );
 

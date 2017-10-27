@@ -29,15 +29,18 @@ class AWS::SDK::Service::CloudSearchDomain does AWS::SDK::Service {
     class SuggestStatus { ... }
     class SuggestRequest { ... }
 
+    subset ContentType of Str where $_ eq any('application/json', 'application/xml');
+
+    subset QueryParser of Str where $_ eq any('simple', 'structured', 'lucene', 'dismax');
+
+
     class Bucket does AWS::SDK::Shape {
         has Str $.value is shape-member('value');
         has Int $.count is shape-member('count');
     }
 
-    subset ContentType of Str where $_ ~~ any('application/json', 'application/xml');
-
     class Hits does AWS::SDK::Shape {
-        has Array[Hit] $.hit is shape-member('hit');
+        has Hit @.hit is shape-member('hit');
         has Int $.start is shape-member('start');
         has Str $.cursor is shape-member('cursor');
         has Int $.found is shape-member('found');
@@ -45,15 +48,15 @@ class AWS::SDK::Service::CloudSearchDomain does AWS::SDK::Service {
 
     class UploadDocumentsResponse does AWS::SDK::Shape {
         has Int $.deletes is shape-member('deletes');
-        has Array[DocumentServiceWarning] $.warnings is shape-member('warnings');
+        has DocumentServiceWarning @.warnings is shape-member('warnings');
         has Str $.status is shape-member('status');
         has Int $.adds is shape-member('adds');
     }
 
     class SearchResponse does AWS::SDK::Shape {
         has SearchStatus $.status is shape-member('status');
-        has Hash[BucketInfo, Str] $.facets is shape-member('facets');
-        has Hash[FieldStats, Str] $.stats is shape-member('stats');
+        has BucketInfo %.facets{Str} is shape-member('facets');
+        has FieldStats %.stats{Str} is shape-member('stats');
         has Hits $.hits is shape-member('hits');
     }
 
@@ -73,7 +76,7 @@ class AWS::SDK::Service::CloudSearchDomain does AWS::SDK::Service {
     }
 
     class SuggestModel does AWS::SDK::Shape {
-        has Array[SuggestionMatch] $.suggestions is shape-member('suggestions');
+        has SuggestionMatch @.suggestions is shape-member('suggestions');
         has Str $.query is shape-member('query');
         has Int $.found is shape-member('found');
     }
@@ -84,10 +87,10 @@ class AWS::SDK::Service::CloudSearchDomain does AWS::SDK::Service {
     }
 
     class Hit does AWS::SDK::Shape {
-        has Hash[Array[Str], Str] $.fields is shape-member('fields');
+        has Array[Str] %.fields{Str} is shape-member('fields');
         has Str $.id is shape-member('id');
-        has Hash[Str, Str] $.exprs is shape-member('exprs');
-        has Hash[Str, Str] $.highlights is shape-member('highlights');
+        has Str %.exprs{Str} is shape-member('exprs');
+        has Str %.highlights{Str} is shape-member('highlights');
     }
 
     class SearchRequest does AWS::SDK::Shape {
@@ -133,10 +136,8 @@ class AWS::SDK::Service::CloudSearchDomain does AWS::SDK::Service {
     }
 
     class BucketInfo does AWS::SDK::Shape {
-        has Array[Bucket] $.buckets is shape-member('buckets');
+        has Bucket @.buckets is shape-member('buckets');
     }
-
-    subset QueryParser of Str where $_ ~~ any('simple', 'structured', 'lucene', 'dismax');
 
     class SuggestStatus does AWS::SDK::Shape {
         has Int $.timems is shape-member('timems');
@@ -148,6 +149,7 @@ class AWS::SDK::Service::CloudSearchDomain does AWS::SDK::Service {
         has Str $.query is required is shape-member('query');
         has Str $.suggester is required is shape-member('suggester');
     }
+
 
     method upload-documents(
         Blob :$documents!,

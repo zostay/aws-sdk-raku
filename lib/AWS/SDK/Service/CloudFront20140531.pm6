@@ -137,11 +137,26 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
     class Paths { ... }
     class CloudFrontOriginAccessIdentityConfig { ... }
 
+    subset Method of Str where $_ eq any('GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE');
+
+    subset ViewerProtocolPolicy of Str where $_ eq any('allow-all', 'https-only', 'redirect-to-https');
+
+    subset SSLSupportMethod of Str where $_ eq any('sni-only', 'vip');
+
+    subset OriginProtocolPolicy of Str where $_ eq any('http-only', 'match-viewer');
+
+    subset ItemSelection of Str where $_ eq any('none', 'whitelist', 'all');
+
+    subset OriginList of Array[Origin] where 1 <= *.elems;
+
+    subset GeoRestrictionType of Str where $_ eq any('blacklist', 'whitelist', 'none');
+
+    subset PriceClass of Str where $_ eq any('PriceClass_100', 'PriceClass_200', 'PriceClass_All');
+
+
     class MissingBody does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset Method of Str where $_ ~~ any('GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE');
 
     class GetInvalidationRequest does AWS::SDK::Shape {
         has Str $.distribution-id is required is shape-member('DistributionId');
@@ -150,7 +165,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class CloudFrontOriginAccessIdentityList does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[CloudFrontOriginAccessIdentitySummary] $.items is shape-member('Items');
+        has CloudFrontOriginAccessIdentitySummary @.items is shape-member('Items');
         has Int $.max-items is required is shape-member('MaxItems');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has Str $.marker is required is shape-member('Marker');
@@ -169,7 +184,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class CookieNames does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[Str] $.items is shape-member('Items');
+        has Str @.items is shape-member('Items');
     }
 
     class TooManyCertificates does AWS::SDK::Shape {
@@ -305,7 +320,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class InvalidationList does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[InvalidationSummary] $.items is shape-member('Items');
+        has InvalidationSummary @.items is shape-member('Items');
         has Int $.max-items is required is shape-member('MaxItems');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has Str $.marker is required is shape-member('Marker');
@@ -314,7 +329,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class StreamingDistributionList does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[StreamingDistributionSummary] $.items is shape-member('Items');
+        has StreamingDistributionSummary @.items is shape-member('Items');
         has Int $.max-items is required is shape-member('MaxItems');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has Str $.marker is required is shape-member('Marker');
@@ -341,7 +356,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
     class ActiveTrustedSigners does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
         has Bool $.enabled is required is shape-member('Enabled');
-        has Array[Signer] $.items is shape-member('Items');
+        has Signer @.items is shape-member('Items');
     }
 
     class InvalidArgument does AWS::SDK::Shape {
@@ -392,7 +407,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class Headers does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[Str] $.items is shape-member('Items');
+        has Str @.items is shape-member('Items');
     }
 
     class CloudFrontOriginAccessIdentityAlreadyExists does AWS::SDK::Shape {
@@ -402,7 +417,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
     class GeoRestriction does AWS::SDK::Shape {
         has GeoRestrictionType $.restriction-type is required is shape-member('RestrictionType');
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[Str] $.items is shape-member('Items');
+        has Str @.items is shape-member('Items');
     }
 
     class DefaultCacheBehavior does AWS::SDK::Shape {
@@ -438,8 +453,6 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
         has Bool $.enabled is required is shape-member('Enabled');
     }
 
-    subset ViewerProtocolPolicy of Str where $_ ~~ any('allow-all', 'https-only', 'redirect-to-https');
-
     class TooManyCookieNamesInWhiteList does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -460,7 +473,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class CacheBehaviors does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[CacheBehavior] $.items is shape-member('Items');
+        has CacheBehavior @.items is shape-member('Items');
     }
 
     class GetDistributionRequest does AWS::SDK::Shape {
@@ -481,8 +494,6 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
         has CloudFrontOriginAccessIdentityConfig $.cloud-front-origin-access-identity-config is shape-member('CloudFrontOriginAccessIdentityConfig');
     }
 
-    subset SSLSupportMethod of Str where $_ ~~ any('sni-only', 'vip');
-
     class CNAMEAlreadyExists does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -490,8 +501,6 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
     class InvalidRequiredProtocol does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset OriginProtocolPolicy of Str where $_ ~~ any('http-only', 'match-viewer');
 
     class ForwardedValues does AWS::SDK::Shape {
         has Headers $.headers is shape-member('Headers');
@@ -510,7 +519,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class AllowedMethods does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[Method] $.items is shape-member('Items');
+        has Method @.items is shape-member('Items');
     }
 
     class GetStreamingDistributionResult does AWS::SDK::Shape {
@@ -532,8 +541,6 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
         has Str $.e-tag is shape-member('ETag');
         has Distribution $.distribution is shape-member('Distribution');
     }
-
-    subset ItemSelection of Str where $_ ~~ any('none', 'whitelist', 'all');
 
     class NoSuchCloudFrontOriginAccessIdentity does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -558,7 +565,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
     class TrustedSigners does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
         has Bool $.enabled is required is shape-member('Enabled');
-        has Array[Str] $.items is shape-member('Items');
+        has Str @.items is shape-member('Items');
     }
 
     class InvalidLocationCode does AWS::SDK::Shape {
@@ -605,8 +612,6 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
         has DateTime $.create-time is required is shape-member('CreateTime');
     }
 
-    subset OriginList of Array[Origin] where 1 <= *.elems;
-
     class TooManyDistributionCNAMEs does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -623,7 +628,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class CustomErrorResponses does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[CustomErrorResponse] $.items is shape-member('Items');
+        has CustomErrorResponse @.items is shape-member('Items');
     }
 
     class Origin does AWS::SDK::Shape {
@@ -648,7 +653,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class KeyPairIds does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[Str] $.items is shape-member('Items');
+        has Str @.items is shape-member('Items');
     }
 
     class InvalidViewerCertificate does AWS::SDK::Shape {
@@ -665,7 +670,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class Aliases does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[Str] $.items is shape-member('Items');
+        has Str @.items is shape-member('Items');
     }
 
     class UpdateDistributionResult does AWS::SDK::Shape {
@@ -683,7 +688,7 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class DistributionList does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[DistributionSummary] $.items is shape-member('Items');
+        has DistributionSummary @.items is shape-member('Items');
         has Int $.max-items is required is shape-member('MaxItems');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has Str $.marker is required is shape-member('Marker');
@@ -717,13 +722,9 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
         has Str $.id is required is shape-member('Id');
     }
 
-    subset GeoRestrictionType of Str where $_ ~~ any('blacklist', 'whitelist', 'none');
-
     class TooManyStreamingDistributions does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset PriceClass of Str where $_ ~~ any('PriceClass_100', 'PriceClass_200', 'PriceClass_All');
 
     class InvalidResponseCode does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -812,13 +813,14 @@ class AWS::SDK::Service::CloudFront20140531 does AWS::SDK::Service {
 
     class Paths does AWS::SDK::Shape {
         has Int $.quantity is required is shape-member('Quantity');
-        has Array[Str] $.items is shape-member('Items');
+        has Str @.items is shape-member('Items');
     }
 
     class CloudFrontOriginAccessIdentityConfig does AWS::SDK::Shape {
         has Str $.comment is required is shape-member('Comment');
         has Str $.caller-reference is required is shape-member('CallerReference');
     }
+
 
     method list-invalidations(
         Str :$distribution-id!,

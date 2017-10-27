@@ -41,6 +41,11 @@ class AWS::SDK::Service::Mobile does AWS::SDK::Service {
     class ExportBundleRequest { ... }
     class DescribeProjectRequest { ... }
 
+    subset ProjectState of Str where $_ eq any('NORMAL', 'SYNCING', 'IMPORTING');
+
+    subset Platform of Str where $_ eq any('OSX', 'WINDOWS', 'LINUX', 'OBJC', 'SWIFT', 'ANDROID', 'JAVASCRIPT');
+
+
     class AccountActionRequiredException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -51,8 +56,8 @@ class AWS::SDK::Service::Mobile does AWS::SDK::Service {
     }
 
     class DeleteProjectResult does AWS::SDK::Shape {
-        has Array[Resource] $.deleted-resources is shape-member('deletedResources');
-        has Array[Resource] $.orphaned-resources is shape-member('orphanedResources');
+        has Resource @.deleted-resources is shape-member('deletedResources');
+        has Resource @.orphaned-resources is shape-member('orphanedResources');
     }
 
     class LimitExceededException does AWS::SDK::Shape {
@@ -60,15 +65,11 @@ class AWS::SDK::Service::Mobile does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ProjectState of Str where $_ ~~ any('NORMAL', 'SYNCING', 'IMPORTING');
-
     class ExportProjectResult does AWS::SDK::Shape {
         has Str $.download-url is shape-member('downloadUrl');
         has Str $.share-url is shape-member('shareUrl');
         has Str $.snapshot-id is shape-member('snapshotId');
     }
-
-    subset Platform of Str where $_ ~~ any('OSX', 'WINDOWS', 'LINUX', 'OBJC', 'SWIFT', 'ANDROID', 'JAVASCRIPT');
 
     class ListBundlesRequest does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
@@ -84,7 +85,7 @@ class AWS::SDK::Service::Mobile does AWS::SDK::Service {
         has Str $.icon-url is shape-member('iconUrl');
         has Str $.bundle-id is shape-member('bundleId');
         has Str $.title is shape-member('title');
-        has Array[Platform] $.available-platforms is shape-member('availablePlatforms');
+        has Platform @.available-platforms is shape-member('availablePlatforms');
         has Str $.version is shape-member('version');
         has Str $.description is shape-member('description');
     }
@@ -106,7 +107,7 @@ class AWS::SDK::Service::Mobile does AWS::SDK::Service {
         has Str $.feature is shape-member('feature');
         has Str $.arn is shape-member('arn');
         has Str $.name is shape-member('name');
-        has Hash[Str, Str] $.attributes is shape-member('attributes');
+        has Str %.attributes{Str} is shape-member('attributes');
         has Str $.type is shape-member('type');
     }
 
@@ -141,7 +142,7 @@ class AWS::SDK::Service::Mobile does AWS::SDK::Service {
     class ProjectDetails does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
         has Str $.project-id is shape-member('projectId');
-        has Array[Resource] $.resources is shape-member('resources');
+        has Resource @.resources is shape-member('resources');
         has Str $.console-url is shape-member('consoleUrl');
         has DateTime $.last-updated-date is shape-member('lastUpdatedDate');
         has Str $.region is shape-member('region');
@@ -156,11 +157,11 @@ class AWS::SDK::Service::Mobile does AWS::SDK::Service {
 
     class ListProjectsResult does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[ProjectSummary] $.projects is shape-member('projects');
+        has ProjectSummary @.projects is shape-member('projects');
     }
 
     class ListBundlesResult does AWS::SDK::Shape {
-        has Array[BundleDetails] $.bundle-list is shape-member('bundleList');
+        has BundleDetails @.bundle-list is shape-member('bundleList');
         has Str $.next-token is shape-member('nextToken');
     }
 
@@ -198,6 +199,7 @@ class AWS::SDK::Service::Mobile does AWS::SDK::Service {
         has Str $.project-id is required is shape-member('projectId');
         has Bool $.sync-from-resources is shape-member('syncFromResources');
     }
+
 
     method delete-project(
         Str :$project-id!

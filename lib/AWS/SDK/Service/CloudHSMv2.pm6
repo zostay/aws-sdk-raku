@@ -41,12 +41,61 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
     class CreateHsmRequest { ... }
     class Tag { ... }
 
+    subset BackupState of Str where $_ eq any('CREATE_IN_PROGRESS', 'READY', 'DELETED');
+
+    subset MaxSize of Int where 1 <= * <= 100;
+
+    subset EniId of Str where rx:P5/eni-[0-9a-fA-F]{8}/;
+
+    subset BackupPolicy of Str where $_ eq any('DEFAULT');
+
+    subset HsmType of Str where rx:P5/(hsm1\.medium)/;
+
+    subset TagList of Array[Tag] where 1 <= *.elems <= 50;
+
+    subset Field of Str where rx:P5/[a-zA-Z0-9_-]+/;
+
+    subset BackupId of Str where rx:P5/backup-[2-7a-zA-Z]{11,16}/;
+
+    subset NextToken of Str where .chars <= 256 && rx:P5/.*/;
+
+    subset TagKeyList of Array[TagKey] where 1 <= *.elems <= 50;
+
+    subset ClusterState of Str where $_ eq any('CREATE_IN_PROGRESS', 'UNINITIALIZED', 'INITIALIZE_IN_PROGRESS', 'INITIALIZED', 'ACTIVE', 'UPDATE_IN_PROGRESS', 'DELETE_IN_PROGRESS', 'DELETED', 'DEGRADED');
+
+    subset HsmState of Str where $_ eq any('CREATE_IN_PROGRESS', 'ACTIVE', 'DEGRADED', 'DELETE_IN_PROGRESS', 'DELETED');
+
+    subset VpcId of Str where rx:P5/vpc-[0-9a-fA-F]/;
+
+    subset StateMessage of Str where .chars <= 300 && rx:P5/.*/;
+
+    subset SubnetId of Str where rx:P5/subnet-[0-9a-fA-F]{8}/;
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset TagValue of Str where 0 <= .chars <= 256;
+
+    subset IpAddress of Str where rx:P5/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
+
+    subset PreCoPassword of Str where 7 <= .chars <= 32;
+
+    subset Cert of Str where .chars <= 5000 && rx:P5/[a-zA-Z0-9+-\/=\s]*/;
+
+    subset HsmId of Str where rx:P5/hsm-[2-7a-zA-Z]{11,16}/;
+
+    subset SubnetIds of Array[SubnetId] where 1 <= *.elems <= 10;
+
+    subset ClusterId of Str where rx:P5/cluster-[2-7a-zA-Z]{11,16}/;
+
+    subset ExternalAz of Str where rx:P5/[a-z]{2}(-(gov|isob|iso))?-(east|west|north|south|central){1,2}-\d[a-z]/;
+
+    subset SecurityGroup of Str where rx:P5/sg-[0-9a-fA-F]/;
+
+
     class UntagResourceRequest does AWS::SDK::Shape {
         has ClusterId $.resource-id is required is shape-member('ResourceId');
         has TagKeyList $.tag-key-list is required is shape-member('TagKeyList');
     }
-
-    subset BackupState of Str where $_ ~~ any('CREATE_IN_PROGRESS', 'READY', 'DELETED');
 
     class Certificates does AWS::SDK::Shape {
         has Cert $.manufacturer-hardware-certificate is shape-member('ManufacturerHardwareCertificate');
@@ -60,18 +109,16 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
         has Hsm $.hsm is shape-member('Hsm');
     }
 
-    subset MaxSize of Int where 1 <= * <= 100;
-
     class TagResourceResponse does AWS::SDK::Shape {
     }
 
     class DescribeBackupsResponse does AWS::SDK::Shape {
-        has Array[Backup] $.backups is shape-member('Backups');
+        has Backup @.backups is shape-member('Backups');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
     class DescribeClustersResponse does AWS::SDK::Shape {
-        has Array[Cluster] $.clusters is shape-member('Clusters');
+        has Cluster @.clusters is shape-member('Clusters');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -87,26 +134,14 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
         has Cluster $.cluster is shape-member('Cluster');
     }
 
-    subset EniId of Str where rx:P5/eni-[0-9a-fA-F]{8}/;
-
-    subset BackupPolicy of Str where $_ ~~ any('DEFAULT');
-
-    subset HsmType of Str where rx:P5/(hsm1\.medium)/;
-
     class ListTagsResponse does AWS::SDK::Shape {
         has TagList $.tag-list is required is shape-member('TagList');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
-    subset TagList of Array[Tag] where 1 <= *.elems <= 50;
-
     class CloudHsmInternalFailureException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset Field of Str where rx:P5/[a-zA-Z0-9_-]+/;
-
-    subset BackupId of Str where rx:P5/backup-[2-7a-zA-Z]{11,16}/;
 
     class CloudHsmResourceNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -114,7 +149,7 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
 
     class DescribeBackupsRequest does AWS::SDK::Shape {
         has MaxSize $.max-results is shape-member('MaxResults');
-        has Hash[Array[Str], Field] $.filters is shape-member('Filters');
+        has Array[Str] %.filters{Field} is shape-member('Filters');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -123,10 +158,6 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
         has ClusterId $.resource-id is required is shape-member('ResourceId');
         has NextToken $.next-token is shape-member('NextToken');
     }
-
-    subset NextToken of Str where .chars <= 256 && rx:P5/.*/;
-
-    subset TagKeyList of Array[TagKey] where 1 <= *.elems <= 50;
 
     class InitializeClusterResponse does AWS::SDK::Shape {
         has StateMessage $.state-message is shape-member('StateMessage');
@@ -140,27 +171,15 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
         has ClusterId $.cluster-id is shape-member('ClusterId');
     }
 
-    subset ClusterState of Str where $_ ~~ any('CREATE_IN_PROGRESS', 'UNINITIALIZED', 'INITIALIZE_IN_PROGRESS', 'INITIALIZED', 'ACTIVE', 'UPDATE_IN_PROGRESS', 'DELETE_IN_PROGRESS', 'DELETED', 'DEGRADED');
-
     class CreateClusterRequest does AWS::SDK::Shape {
         has HsmType $.hsm-type is required is shape-member('HsmType');
         has BackupId $.source-backup-id is shape-member('SourceBackupId');
         has SubnetIds $.subnet-ids is required is shape-member('SubnetIds');
     }
 
-    subset HsmState of Str where $_ ~~ any('CREATE_IN_PROGRESS', 'ACTIVE', 'DEGRADED', 'DELETE_IN_PROGRESS', 'DELETED');
-
-    subset VpcId of Str where rx:P5/vpc-[0-9a-fA-F]/;
-
     class CloudHsmAccessDeniedException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset StateMessage of Str where .chars <= 300 && rx:P5/.*/;
-
-    subset SubnetId of Str where rx:P5/subnet-[0-9a-fA-F]{8}/;
-
-    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
     class CloudHsmInvalidRequestException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -168,7 +187,7 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
 
     class DescribeClustersRequest does AWS::SDK::Shape {
         has MaxSize $.max-results is shape-member('MaxResults');
-        has Hash[Array[Str], Field] $.filters is shape-member('Filters');
+        has Array[Str] %.filters{Field} is shape-member('Filters');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -177,8 +196,6 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
         has Cert $.trust-anchor is required is shape-member('TrustAnchor');
         has ClusterId $.cluster-id is required is shape-member('ClusterId');
     }
-
-    subset TagValue of Str where 0 <= .chars <= 256;
 
     class TagResourceRequest does AWS::SDK::Shape {
         has TagList $.tag-list is required is shape-member('TagList');
@@ -203,14 +220,8 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
         has ClusterId $.cluster-id is shape-member('ClusterId');
     }
 
-    subset IpAddress of Str where rx:P5/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
-
-    subset PreCoPassword of Str where 7 <= .chars <= 32;
-
     class UntagResourceResponse does AWS::SDK::Shape {
     }
-
-    subset Cert of Str where .chars <= 5000 && rx:P5/[a-zA-Z0-9+-\/=\s]*/;
 
     class Cluster does AWS::SDK::Shape {
         has Certificates $.certificates is shape-member('Certificates');
@@ -221,8 +232,8 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
         has BackupPolicy $.backup-policy is shape-member('BackupPolicy');
         has ClusterState $.state is shape-member('State');
         has BackupId $.source-backup-id is shape-member('SourceBackupId');
-        has Array[Hsm] $.hsms is shape-member('Hsms');
-        has Hash[SubnetId, ExternalAz] $.subnet-mapping is shape-member('SubnetMapping');
+        has Hsm @.hsms is shape-member('Hsms');
+        has SubnetId %.subnet-mapping{ExternalAz} is shape-member('SubnetMapping');
         has DateTime $.create-timestamp is shape-member('CreateTimestamp');
         has SecurityGroup $.security-group is shape-member('SecurityGroup');
         has ClusterId $.cluster-id is shape-member('ClusterId');
@@ -242,20 +253,11 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
         has ClusterId $.cluster-id is required is shape-member('ClusterId');
     }
 
-    subset HsmId of Str where rx:P5/hsm-[2-7a-zA-Z]{11,16}/;
-
-    subset SubnetIds of Array[SubnetId] where 1 <= *.elems <= 10;
-
-    subset ClusterId of Str where rx:P5/cluster-[2-7a-zA-Z]{11,16}/;
-
-    subset ExternalAz of Str where rx:P5/[a-z]{2}(-(gov|isob|iso))?-(east|west|north|south|central){1,2}-\d[a-z]/;
-
-    subset SecurityGroup of Str where rx:P5/sg-[0-9a-fA-F]/;
-
     class Tag does AWS::SDK::Shape {
         has TagValue $.value is required is shape-member('Value');
         has TagKey $.key is required is shape-member('Key');
     }
+
 
     method list-tags(
         MaxSize :$max-results,
@@ -276,12 +278,12 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
 
     method describe-backups(
         MaxSize :$max-results,
-        Hash[Array[Str], Field] :$filters,
+        Array[Str] :%filters,
         NextToken :$next-token
     ) returns DescribeBackupsResponse is service-operation('DescribeBackups') {
         my $request-input = DescribeBackupsRequest.new(
             :$max-results,
-            :$filters,
+            :%filters,
             :$next-token
         );
 
@@ -393,12 +395,12 @@ class AWS::SDK::Service::CloudHSMv2 does AWS::SDK::Service {
 
     method describe-clusters(
         MaxSize :$max-results,
-        Hash[Array[Str], Field] :$filters,
+        Array[Str] :%filters,
         NextToken :$next-token
     ) returns DescribeClustersResponse is service-operation('DescribeClusters') {
         my $request-input = DescribeClustersRequest.new(
             :$max-results,
-            :$filters,
+            :%filters,
             :$next-token
         );
 

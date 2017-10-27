@@ -233,11 +233,178 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class AttributeType { ... }
     class SetUICustomizationRequest { ... }
 
+    subset ProviderNameType of Str where 1 <= .chars <= 32 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
+
+    subset RefreshTokenValidityType of Int where 0 <= * <= 3650;
+
+    subset PasswordPolicyMinLengthType of Int where 6 <= * <= 99;
+
+    subset VerifiedAttributeType of Str where $_ eq any('phone_number', 'email');
+
+    subset ScopeType of Str where 1 <= .chars <= 256 && rx:P5/[\x21\x23-\x5B\x5D-\x7E]+/;
+
+    subset DomainType of Str where 1 <= .chars <= 63 && rx:P5/^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$/;
+
+    subset CallbackURLsListType of Array[RedirectUrlType] where 0 <= *.elems <= 100;
+
+    subset AuthFlowType of Str where $_ eq any('USER_SRP_AUTH', 'REFRESH_TOKEN_AUTH', 'REFRESH_TOKEN', 'CUSTOM_AUTH', 'ADMIN_NO_SRP_AUTH');
+
+    subset SecretHashType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=\/]+/;
+
+    subset GroupNameType of Str where 1 <= .chars <= 128 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
+
+    subset EmailAddressType of Str where rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+@[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
+
+    subset AttributeNameType of Str where 1 <= .chars <= 32 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
+
+    subset ResourceServerIdentifierType of Str where 1 <= .chars <= 256 && rx:P5/[\x21\x23-\x5B\x5D-\x7E]+/;
+
+    subset AttributeMappingKeyType of Str where 1 <= .chars <= 32;
+
+    subset PrecedenceType of Int where 0 <= *;
+
+    subset UserPoolMfaType of Str where $_ eq any('OFF', 'ON', 'OPTIONAL');
+
+    subset CompletionMessageType of Str where 1 <= .chars <= 128 && rx:P5/[\w]+/;
+
+    subset DeliveryMediumType of Str where $_ eq any('SMS', 'EMAIL');
+
+    subset IdpIdentifiersListType of Array[IdpIdentifierType] where 0 <= *.elems <= 50;
+
+    subset ScopeListType of Array[ScopeType] where *.elems <= 25;
+
+    subset DescriptionType of Str where .chars <= 2048;
+
+    subset CustomAttributesListType of Array[SchemaAttributeType] where 1 <= *.elems <= 25;
+
+    subset UserImportJobIdType of Str where 1 <= .chars <= 55 && rx:P5/import-[0-9a-zA-Z-]+/;
+
+    subset DomainStatusType of Str where $_ eq any('CREATING', 'DELETING', 'UPDATING', 'ACTIVE', 'FAILED');
+
+    subset PreSignedUrlType of Str where 0 <= .chars <= 2048;
+
+    subset UserImportJobsListType of Array[UserImportJobType] where 1 <= *.elems <= 50;
+
+    subset AttributeValueType of Str where .chars <= 2048;
+
+    subset PasswordType of Str where 6 <= .chars <= 256 && rx:P5/[\S]+/;
+
+    subset PaginationKey of Str where 1 <= .chars && rx:P5/[\S]+/;
+
+    subset ClientNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w\s+=,.@-]+/;
+
+    subset ProviderNameTypeV1 of Str where 1 <= .chars <= 32 && rx:P5/[^_][\p{L}\p{M}\p{S}\p{N}\p{P}][^_]+/;
+
+    subset SchemaAttributesListType of Array[SchemaAttributeType] where 1 <= *.elems <= 50;
+
+    subset ClientSecretType of Str where 1 <= .chars <= 64 && rx:P5/[\w+]+/;
+
+    subset ResourceServerNameType of Str where 1 <= .chars <= 256 && rx:P5/[\w\s+=,.@-]+/;
+
+    subset S3BucketType of Str where 3 <= .chars <= 1024 && rx:P5/^[0-9A-Za-z\.\-_]*(?<!\.)$/;
+
+    subset OAuthFlowsType of Array[OAuthFlowType] where 0 <= *.elems <= 3;
+
+    subset DeviceNameType of Str where 1 <= .chars <= 1024;
+
+    subset DeviceRememberedStatusType of Str where $_ eq any('remembered', 'not_remembered');
+
+    subset RedirectUrlType of Str where 1 <= .chars <= 1024 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
+
+    subset ArnType of Str where 20 <= .chars <= 2048 && rx:P5/arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:([\w+=\/,.@-]*)?:[0-9]+:[\w+=\/,.@-]+(:[\w+=\/,.@-]+)?(:[\w+=\/,.@-]+)?/;
+
+    subset UserPoolIdType of Str where 1 <= .chars <= 55 && rx:P5/[\w-]+_[0-9a-zA-Z]+/;
+
+    subset AttributeDataType of Str where $_ eq any('String', 'Number', 'DateTime', 'Boolean');
+
+    subset ResourceServerScopeDescriptionType of Str where 1 <= .chars <= 256;
+
+    subset ConfirmationCodeType of Str where 1 <= .chars <= 2048 && rx:P5/[\S]+/;
+
+    subset ClientPermissionType of Str where 1 <= .chars <= 2048;
+
+    subset EmailVerificationSubjectType of Str where 1 <= .chars <= 140 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}\s]+/;
+
+    subset ExplicitAuthFlowsType of Str where $_ eq any('ADMIN_NO_SRP_AUTH', 'CUSTOM_AUTH_FLOW_ONLY');
+
+    subset DomainVersionType of Str where 1 <= .chars <= 20;
+
+    subset EmailVerificationSubjectByLinkType of Str where 1 <= .chars <= 140 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}\s]+/;
+
+    subset DefaultEmailOptionType of Str where $_ eq any('CONFIRM_WITH_LINK', 'CONFIRM_WITH_CODE');
+
+    subset DeviceKeyType of Str where 1 <= .chars <= 55 && rx:P5/[\w-]+_[0-9a-f-]+/;
+
+    subset EmailVerificationMessageByLinkType of Str where 6 <= .chars <= 20000 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*\{##[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*##\}[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*/;
+
+    subset PoolQueryLimitType of Int where 1 <= * <= 60;
+
+    subset ProvidersListType of Array[ProviderDescription] where 0 <= *.elems <= 50;
+
+    subset PaginationKeyType of Str where 1 <= .chars && rx:P5/[\S]+/;
+
+    subset UserFilterType of Str where .chars <= 256;
+
+    subset TokenModelType of Str where rx:P5/[A-Za-z0-9-_=.]+/;
+
+    subset ListResourceServersLimitType of Int where 1 <= * <= 50;
+
+    subset UsernameType of Str where 1 <= .chars <= 128 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
+
+    subset CustomAttributeNameType of Str where 1 <= .chars <= 20 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
+
+    subset AdminCreateUserUnusedAccountValidityDaysType of Int where 0 <= * <= 90;
+
+    subset UserImportJobStatusType of Str where $_ eq any('Created', 'Pending', 'InProgress', 'Stopping', 'Expired', 'Stopped', 'Failed', 'Succeeded');
+
+    subset ListProvidersLimitType of Int where 1 <= * <= 60;
+
+    subset ClientIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+]+/;
+
+    subset SmsVerificationMessageType of Str where 6 <= .chars <= 140 && rx:P5/.*\{####\}.*/;
+
+    subset AliasAttributeType of Str where $_ eq any('phone_number', 'email', 'preferred_username');
+
+    subset IdentityProviderTypeType of Str where $_ eq any('SAML', 'Facebook', 'Google', 'LoginWithAmazon');
+
+    subset SessionType of Str where 20 <= .chars <= 2048;
+
+    subset LogoutURLsListType of Array[RedirectUrlType] where 0 <= *.elems <= 100;
+
+    subset UserPoolNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w\s+=,.@-]+/;
+
+    subset UserStatusType of Str where $_ eq any('UNCONFIRMED', 'CONFIRMED', 'ARCHIVED', 'COMPROMISED', 'UNKNOWN', 'RESET_REQUIRED', 'FORCE_CHANGE_PASSWORD');
+
+    subset UserImportJobNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w\s+=,.@-]+/;
+
+    subset StatusType of Str where $_ eq any('Enabled', 'Disabled');
+
+    subset QueryLimitType of Int where 0 <= * <= 60;
+
+    subset ChallengeNameType of Str where $_ eq any('SMS_MFA', 'PASSWORD_VERIFIER', 'CUSTOM_CHALLENGE', 'DEVICE_SRP_AUTH', 'DEVICE_PASSWORD_VERIFIER', 'ADMIN_NO_SRP_AUTH', 'NEW_PASSWORD_REQUIRED');
+
+    subset QueryLimit of Int where 1 <= * <= 60;
+
+    subset ResourceServerScopeListType of Array[ResourceServerScopeType] where *.elems <= 25;
+
+    subset MessageActionType of Str where $_ eq any('RESEND', 'SUPPRESS');
+
+    subset ResourceServerScopeNameType of Str where 1 <= .chars <= 256 && rx:P5/[\x21\x23-\x2E\x30-\x5B\x5D-\x7E]+/;
+
+    subset IdpIdentifierType of Str where 1 <= .chars <= 40 && rx:P5/[\w\s+=.@-]+/;
+
+    subset UsernameAttributeType of Str where $_ eq any('phone_number', 'email');
+
+    subset EmailVerificationMessageType of Str where 6 <= .chars <= 20000 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*\{####\}[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*/;
+
+    subset SearchPaginationTokenType of Str where 1 <= .chars && rx:P5/[\S]+/;
+
+    subset OAuthFlowType of Str where $_ eq any('code', 'implicit', 'client_credentials');
+
+
     class UserPoolTaggingException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset ProviderNameType of Str where 1 <= .chars <= 32 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
 
     class ProviderDescription does AWS::SDK::Shape {
         has DateTime $.creation-date is shape-member('CreationDate');
@@ -245,8 +412,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has ProviderNameType $.provider-name is shape-member('ProviderName');
         has IdentityProviderTypeType $.provider-type is shape-member('ProviderType');
     }
-
-    subset RefreshTokenValidityType of Int where 0 <= * <= 3650;
 
     class DescribeUserPoolClientResponse does AWS::SDK::Shape {
         has UserPoolClientType $.user-pool-client is shape-member('UserPoolClient');
@@ -256,10 +421,8 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has CodeDeliveryDetailsType $.code-delivery-details is shape-member('CodeDeliveryDetails');
     }
 
-    subset PasswordPolicyMinLengthType of Int where 6 <= * <= 99;
-
     class ListGroupsResponse does AWS::SDK::Shape {
-        has Array[GroupType] $.groups is shape-member('Groups');
+        has GroupType @.groups is shape-member('Groups');
         has PaginationKey $.next-token is shape-member('NextToken');
     }
 
@@ -267,7 +430,7 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has UserFilterType $.filter is shape-member('Filter');
         has SearchPaginationTokenType $.pagination-token is shape-member('PaginationToken');
         has QueryLimitType $.limit is shape-member('Limit');
-        has Array[AttributeNameType] $.attributes-to-get is shape-member('AttributesToGet');
+        has AttributeNameType @.attributes-to-get is shape-member('AttributesToGet');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
 
@@ -290,10 +453,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has Str $.aws-account-id is shape-member('AWSAccountId');
     }
 
-    subset VerifiedAttributeType of Str where $_ ~~ any('phone_number', 'email');
-
-    subset ScopeType of Str where 1 <= .chars <= 256 && rx:P5/[\x21\x23-\x5B\x5D-\x7E]+/;
-
     class MFAOptionType does AWS::SDK::Shape {
         has AttributeNameType $.attribute-name is shape-member('AttributeName');
         has DeliveryMediumType $.delivery-medium is shape-member('DeliveryMedium');
@@ -305,8 +464,8 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     class InitiateAuthRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.client-metadata is shape-member('ClientMetadata');
-        has Hash[Str, Str] $.auth-parameters is shape-member('AuthParameters');
+        has Str %.client-metadata{Str} is shape-member('ClientMetadata');
+        has Str %.auth-parameters{Str} is shape-member('AuthParameters');
         has ClientIdType $.client-id is required is shape-member('ClientId');
         has AuthFlowType $.auth-flow is required is shape-member('AuthFlow');
     }
@@ -336,32 +495,30 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class CreateUserPoolClientRequest does AWS::SDK::Shape {
         has LogoutURLsListType $.logout-urls is shape-member('LogoutURLs');
         has ScopeListType $.allowed-oauth-scopes is shape-member('AllowedOAuthScopes');
-        has Array[ClientPermissionType] $.read-attributes is shape-member('ReadAttributes');
+        has ClientPermissionType @.read-attributes is shape-member('ReadAttributes');
         has ClientNameType $.client-name is required is shape-member('ClientName');
         has RedirectUrlType $.default-redirect-uri is shape-member('DefaultRedirectURI');
-        has Array[ProviderNameType] $.supported-identity-providers is shape-member('SupportedIdentityProviders');
+        has ProviderNameType @.supported-identity-providers is shape-member('SupportedIdentityProviders');
         has Bool $.generate-secret is shape-member('GenerateSecret');
-        has Array[ClientPermissionType] $.write-attributes is shape-member('WriteAttributes');
+        has ClientPermissionType @.write-attributes is shape-member('WriteAttributes');
         has Bool $.allowed-oauth-flows-user-pool-client is shape-member('AllowedOAuthFlowsUserPoolClient');
-        has Array[ExplicitAuthFlowsType] $.explicit-auth-flows is shape-member('ExplicitAuthFlows');
+        has ExplicitAuthFlowsType @.explicit-auth-flows is shape-member('ExplicitAuthFlows');
         has RefreshTokenValidityType $.refresh-token-validity is shape-member('RefreshTokenValidity');
         has OAuthFlowsType $.allowed-oauth-flows is shape-member('AllowedOAuthFlows');
         has CallbackURLsListType $.callback-urls is shape-member('CallbackURLs');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
 
-    subset DomainType of Str where 1 <= .chars <= 63 && rx:P5/^[a-z0-9](?:[a-z0-9\-]{0,61}[a-z0-9])?$/;
-
     class CreateUserPoolDomainResponse does AWS::SDK::Shape {
     }
 
     class AdminCreateUserRequest does AWS::SDK::Shape {
         has Bool $.force-alias-creation is shape-member('ForceAliasCreation');
-        has Array[AttributeType] $.user-attributes is shape-member('UserAttributes');
-        has Array[DeliveryMediumType] $.desired-delivery-mediums is shape-member('DesiredDeliveryMediums');
+        has AttributeType @.user-attributes is shape-member('UserAttributes');
+        has DeliveryMediumType @.desired-delivery-mediums is shape-member('DesiredDeliveryMediums');
         has PasswordType $.temporary-password is shape-member('TemporaryPassword');
         has MessageActionType $.message-action is shape-member('MessageAction');
-        has Array[AttributeType] $.validation-data is shape-member('ValidationData');
+        has AttributeType @.validation-data is shape-member('ValidationData');
         has UsernameType $.username is required is shape-member('Username');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
@@ -371,22 +528,20 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has GroupNameType $.group-name is required is shape-member('GroupName');
     }
 
-    subset CallbackURLsListType of Array[RedirectUrlType] where 0 <= *.elems <= 100;
-
     class UserPoolClientType does AWS::SDK::Shape {
         has LogoutURLsListType $.logout-urls is shape-member('LogoutURLs');
         has DateTime $.creation-date is shape-member('CreationDate');
         has DateTime $.last-modified-date is shape-member('LastModifiedDate');
         has ScopeListType $.allowed-oauth-scopes is shape-member('AllowedOAuthScopes');
-        has Array[ClientPermissionType] $.read-attributes is shape-member('ReadAttributes');
+        has ClientPermissionType @.read-attributes is shape-member('ReadAttributes');
         has ClientSecretType $.client-secret is shape-member('ClientSecret');
         has ClientNameType $.client-name is shape-member('ClientName');
         has RedirectUrlType $.default-redirect-uri is shape-member('DefaultRedirectURI');
-        has Array[ProviderNameType] $.supported-identity-providers is shape-member('SupportedIdentityProviders');
+        has ProviderNameType @.supported-identity-providers is shape-member('SupportedIdentityProviders');
         has ClientIdType $.client-id is shape-member('ClientId');
-        has Array[ClientPermissionType] $.write-attributes is shape-member('WriteAttributes');
+        has ClientPermissionType @.write-attributes is shape-member('WriteAttributes');
         has Bool $.allowed-oauth-flows-user-pool-client is shape-member('AllowedOAuthFlowsUserPoolClient');
-        has Array[ExplicitAuthFlowsType] $.explicit-auth-flows is shape-member('ExplicitAuthFlows');
+        has ExplicitAuthFlowsType @.explicit-auth-flows is shape-member('ExplicitAuthFlows');
         has RefreshTokenValidityType $.refresh-token-validity is shape-member('RefreshTokenValidity');
         has OAuthFlowsType $.allowed-oauth-flows is shape-member('AllowedOAuthFlows');
         has CallbackURLsListType $.callback-urls is shape-member('CallbackURLs');
@@ -430,27 +585,17 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
 
-    subset AuthFlowType of Str where $_ ~~ any('USER_SRP_AUTH', 'REFRESH_TOKEN_AUTH', 'REFRESH_TOKEN', 'CUSTOM_AUTH', 'ADMIN_NO_SRP_AUTH');
-
-    subset SecretHashType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=\/]+/;
-
     class StopUserImportJobRequest does AWS::SDK::Shape {
         has UserImportJobIdType $.job-id is required is shape-member('JobId');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
 
-    subset GroupNameType of Str where 1 <= .chars <= 128 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
-
     class DeleteUserAttributesResponse does AWS::SDK::Shape {
     }
-
-    subset EmailAddressType of Str where rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+@[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
 
     class DescribeUserPoolRequest does AWS::SDK::Shape {
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
-
-    subset AttributeNameType of Str where 1 <= .chars <= 32 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
 
     class AdminLinkProviderForUserResponse does AWS::SDK::Shape {
     }
@@ -460,18 +605,18 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     class ListUsersResponse does AWS::SDK::Shape {
-        has Array[UserType] $.users is shape-member('Users');
+        has UserType @.users is shape-member('Users');
         has SearchPaginationTokenType $.pagination-token is shape-member('PaginationToken');
     }
 
     class AdminGetUserResponse does AWS::SDK::Shape {
         has DateTime $.user-last-modified-date is shape-member('UserLastModifiedDate');
-        has Array[AttributeType] $.user-attributes is shape-member('UserAttributes');
+        has AttributeType @.user-attributes is shape-member('UserAttributes');
         has DateTime $.user-create-date is shape-member('UserCreateDate');
         has Bool $.enabled is shape-member('Enabled');
         has UserStatusType $.user-status is shape-member('UserStatus');
         has UsernameType $.username is required is shape-member('Username');
-        has Array[MFAOptionType] $.mfa-options is shape-member('MFAOptions');
+        has MFAOptionType @.mfa-options is shape-member('MFAOptions');
     }
 
     class DuplicateProviderException does AWS::SDK::Shape {
@@ -487,7 +632,7 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has SmsVerificationMessageType $.sms-verification-message is shape-member('SmsVerificationMessage');
         has SmsVerificationMessageType $.sms-authentication-message is shape-member('SmsAuthenticationMessage');
         has UserPoolMfaType $.mfa-configuration is shape-member('MfaConfiguration');
-        has Array[UsernameAttributeType] $.username-attributes is shape-member('UsernameAttributes');
+        has UsernameAttributeType @.username-attributes is shape-member('UsernameAttributes');
         has UserPoolNameType $.pool-name is required is shape-member('PoolName');
         has AdminCreateUserConfigType $.admin-create-user-config is shape-member('AdminCreateUserConfig');
         has UserPoolPolicyType $.policies is shape-member('Policies');
@@ -495,16 +640,14 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has LambdaConfigType $.lambda-config is shape-member('LambdaConfig');
         has SmsConfigurationType $.sms-configuration is shape-member('SmsConfiguration');
         has EmailVerificationMessageType $.email-verification-message is shape-member('EmailVerificationMessage');
-        has Array[AliasAttributeType] $.alias-attributes is shape-member('AliasAttributes');
-        has Array[VerifiedAttributeType] $.auto-verified-attributes is shape-member('AutoVerifiedAttributes');
+        has AliasAttributeType @.alias-attributes is shape-member('AliasAttributes');
+        has VerifiedAttributeType @.auto-verified-attributes is shape-member('AutoVerifiedAttributes');
         has SchemaAttributesListType $.schema is shape-member('Schema');
-        has Hash[Str, Str] $.user-pool-tags is shape-member('UserPoolTags');
+        has Str %.user-pool-tags{Str} is shape-member('UserPoolTags');
         has EmailConfigurationType $.email-configuration is shape-member('EmailConfiguration');
         has VerificationMessageTemplateType $.verification-message-template is shape-member('VerificationMessageTemplate');
         has EmailVerificationSubjectType $.email-verification-subject is shape-member('EmailVerificationSubject');
     }
-
-    subset ResourceServerIdentifierType of Str where 1 <= .chars <= 256 && rx:P5/[\x21\x23-\x5B\x5D-\x7E]+/;
 
     class VerifyUserAttributeRequest does AWS::SDK::Shape {
         has AttributeNameType $.attribute-name is required is shape-member('AttributeName');
@@ -538,40 +681,34 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has TokenModelType $.access-token is required is shape-member('AccessToken');
     }
 
-    subset AttributeMappingKeyType of Str where 1 <= .chars <= 32;
-
     class GetIdentityProviderByIdentifierRequest does AWS::SDK::Shape {
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
         has IdpIdentifierType $.idp-identifier is required is shape-member('IdpIdentifier');
     }
 
     class UpdateUserAttributesRequest does AWS::SDK::Shape {
-        has Array[AttributeType] $.user-attributes is required is shape-member('UserAttributes');
+        has AttributeType @.user-attributes is required is shape-member('UserAttributes');
         has TokenModelType $.access-token is required is shape-member('AccessToken');
     }
 
     class SetUserSettingsRequest does AWS::SDK::Shape {
         has TokenModelType $.access-token is required is shape-member('AccessToken');
-        has Array[MFAOptionType] $.mfa-options is required is shape-member('MFAOptions');
+        has MFAOptionType @.mfa-options is required is shape-member('MFAOptions');
     }
 
     class UpdateUserPoolClientResponse does AWS::SDK::Shape {
         has UserPoolClientType $.user-pool-client is shape-member('UserPoolClient');
     }
 
-    subset PrecedenceType of Int where 0 <= *;
-
-    subset UserPoolMfaType of Str where $_ ~~ any('OFF', 'ON', 'OPTIONAL');
-
     class IdentityProviderType does AWS::SDK::Shape {
         has DateTime $.creation-date is shape-member('CreationDate');
         has DateTime $.last-modified-date is shape-member('LastModifiedDate');
         has ProviderNameType $.provider-name is shape-member('ProviderName');
         has IdpIdentifiersListType $.idp-identifiers is shape-member('IdpIdentifiers');
-        has Hash[Str, AttributeMappingKeyType] $.attribute-mapping is shape-member('AttributeMapping');
+        has Str %.attribute-mapping{AttributeMappingKeyType} is shape-member('AttributeMapping');
         has IdentityProviderTypeType $.provider-type is shape-member('ProviderType');
         has UserPoolIdType $.user-pool-id is shape-member('UserPoolId');
-        has Hash[Str, Str] $.provider-details is shape-member('ProviderDetails');
+        has Str %.provider-details{Str} is shape-member('ProviderDetails');
     }
 
     class ListUsersInGroupRequest does AWS::SDK::Shape {
@@ -584,8 +721,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class InvalidUserPoolConfigurationException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset CompletionMessageType of Str where 1 <= .chars <= 128 && rx:P5/[\w]+/;
 
     class InvalidOAuthFlowException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -601,8 +736,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset DeliveryMediumType of Str where $_ ~~ any('SMS', 'EMAIL');
-
     class AuthenticationResultType does AWS::SDK::Shape {
         has Str $.token-type is shape-member('TokenType');
         has TokenModelType $.id-token is shape-member('IdToken');
@@ -611,8 +744,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has NewDeviceMetadataType $.new-device-metadata is shape-member('NewDeviceMetadata');
         has TokenModelType $.refresh-token is shape-member('RefreshToken');
     }
-
-    subset IdpIdentifiersListType of Array[IdpIdentifierType] where 0 <= *.elems <= 50;
 
     class AdminDisableProviderForUserRequest does AWS::SDK::Shape {
         has ProviderUserIdentifierType $.user is required is shape-member('User');
@@ -673,8 +804,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has UsernameType $.username is required is shape-member('Username');
     }
 
-    subset ScopeListType of Array[ScopeType] where *.elems <= 25;
-
     class UserPoolDescriptionType does AWS::SDK::Shape {
         has DateTime $.creation-date is shape-member('CreationDate');
         has DateTime $.last-modified-date is shape-member('LastModifiedDate');
@@ -717,14 +846,10 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
 
     class RespondToAuthChallengeRequest does AWS::SDK::Shape {
         has ClientIdType $.client-id is required is shape-member('ClientId');
-        has Hash[Str, Str] $.challenge-responses is shape-member('ChallengeResponses');
+        has Str %.challenge-responses{Str} is shape-member('ChallengeResponses');
         has SessionType $.session is shape-member('Session');
         has ChallengeNameType $.challenge-name is required is shape-member('ChallengeName');
     }
-
-    subset DescriptionType of Str where .chars <= 2048;
-
-    subset CustomAttributesListType of Array[SchemaAttributeType] where 1 <= *.elems <= 25;
 
     class CreateGroupRequest does AWS::SDK::Shape {
         has ArnType $.role-arn is shape-member('RoleArn');
@@ -738,10 +863,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has UserImportJobIdType $.job-id is required is shape-member('JobId');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
-
-    subset UserImportJobIdType of Str where 1 <= .chars <= 55 && rx:P5/import-[0-9a-zA-Z-]+/;
-
-    subset DomainStatusType of Str where $_ ~~ any('CREATING', 'DELETING', 'UPDATING', 'ACTIVE', 'FAILED');
 
     class DeleteUserPoolDomainRequest does AWS::SDK::Shape {
         has DomainType $.domain is required is shape-member('Domain');
@@ -765,23 +886,19 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     class GetUserResponse does AWS::SDK::Shape {
-        has Array[AttributeType] $.user-attributes is required is shape-member('UserAttributes');
+        has AttributeType @.user-attributes is required is shape-member('UserAttributes');
         has UsernameType $.username is required is shape-member('Username');
-        has Array[MFAOptionType] $.mfa-options is shape-member('MFAOptions');
+        has MFAOptionType @.mfa-options is shape-member('MFAOptions');
     }
-
-    subset PreSignedUrlType of Str where 0 <= .chars <= 2048;
 
     class DescribeUserPoolDomainRequest does AWS::SDK::Shape {
         has DomainType $.domain is required is shape-member('Domain');
     }
 
     class AdminListGroupsForUserResponse does AWS::SDK::Shape {
-        has Array[GroupType] $.groups is shape-member('Groups');
+        has GroupType @.groups is shape-member('Groups');
         has PaginationKey $.next-token is shape-member('NextToken');
     }
-
-    subset UserImportJobsListType of Array[UserImportJobType] where 1 <= *.elems <= 50;
 
     class DescribeResourceServerRequest does AWS::SDK::Shape {
         has ResourceServerIdentifierType $.identifier is required is shape-member('Identifier');
@@ -809,8 +926,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class SetUserSettingsResponse does AWS::SDK::Shape {
     }
 
-    subset AttributeValueType of Str where .chars <= 2048;
-
     class ChangePasswordRequest does AWS::SDK::Shape {
         has TokenModelType $.access-token is required is shape-member('AccessToken');
         has PasswordType $.proposed-password is required is shape-member('ProposedPassword');
@@ -831,24 +946,22 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
 
     class AdminListDevicesResponse does AWS::SDK::Shape {
         has SearchPaginationTokenType $.pagination-token is shape-member('PaginationToken');
-        has Array[DeviceType] $.devices is shape-member('Devices');
+        has DeviceType @.devices is shape-member('Devices');
     }
 
     class CreateGroupResponse does AWS::SDK::Shape {
         has GroupType $.group is shape-member('Group');
     }
 
-    subset PasswordType of Str where 6 <= .chars <= 256 && rx:P5/[\S]+/;
-
     class PreconditionNotMetException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
     class SignUpRequest does AWS::SDK::Shape {
-        has Array[AttributeType] $.user-attributes is shape-member('UserAttributes');
+        has AttributeType @.user-attributes is shape-member('UserAttributes');
         has PasswordType $.password is required is shape-member('Password');
         has ClientIdType $.client-id is required is shape-member('ClientId');
-        has Array[AttributeType] $.validation-data is shape-member('ValidationData');
+        has AttributeType @.validation-data is shape-member('ValidationData');
         has SecretHashType $.secret-hash is shape-member('SecretHash');
         has UsernameType $.username is required is shape-member('Username');
     }
@@ -872,23 +985,17 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset PaginationKey of Str where 1 <= .chars && rx:P5/[\S]+/;
-
-    subset ClientNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w\s+=,.@-]+/;
-
-    subset ProviderNameTypeV1 of Str where 1 <= .chars <= 32 && rx:P5/[^_][\p{L}\p{M}\p{S}\p{N}\p{P}][^_]+/;
-
     class UpdateUserPoolClientRequest does AWS::SDK::Shape {
         has LogoutURLsListType $.logout-urls is shape-member('LogoutURLs');
         has ScopeListType $.allowed-oauth-scopes is shape-member('AllowedOAuthScopes');
-        has Array[ClientPermissionType] $.read-attributes is shape-member('ReadAttributes');
+        has ClientPermissionType @.read-attributes is shape-member('ReadAttributes');
         has ClientNameType $.client-name is shape-member('ClientName');
         has RedirectUrlType $.default-redirect-uri is shape-member('DefaultRedirectURI');
-        has Array[ProviderNameType] $.supported-identity-providers is shape-member('SupportedIdentityProviders');
+        has ProviderNameType @.supported-identity-providers is shape-member('SupportedIdentityProviders');
         has ClientIdType $.client-id is required is shape-member('ClientId');
-        has Array[ClientPermissionType] $.write-attributes is shape-member('WriteAttributes');
+        has ClientPermissionType @.write-attributes is shape-member('WriteAttributes');
         has Bool $.allowed-oauth-flows-user-pool-client is shape-member('AllowedOAuthFlowsUserPoolClient');
-        has Array[ExplicitAuthFlowsType] $.explicit-auth-flows is shape-member('ExplicitAuthFlows');
+        has ExplicitAuthFlowsType @.explicit-auth-flows is shape-member('ExplicitAuthFlows');
         has RefreshTokenValidityType $.refresh-token-validity is shape-member('RefreshTokenValidity');
         has OAuthFlowsType $.allowed-oauth-flows is shape-member('AllowedOAuthFlows');
         has CallbackURLsListType $.callback-urls is shape-member('CallbackURLs');
@@ -896,7 +1003,7 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     class GetCSVHeaderResponse does AWS::SDK::Shape {
-        has Array[Str] $.csv-header is shape-member('CSVHeader');
+        has Str @.csv-header is shape-member('CSVHeader');
         has UserPoolIdType $.user-pool-id is shape-member('UserPoolId');
     }
 
@@ -908,10 +1015,8 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
 
     class ListUserPoolClientsResponse does AWS::SDK::Shape {
         has PaginationKey $.next-token is shape-member('NextToken');
-        has Array[UserPoolClientDescription] $.user-pool-clients is shape-member('UserPoolClients');
+        has UserPoolClientDescription @.user-pool-clients is shape-member('UserPoolClients');
     }
-
-    subset SchemaAttributesListType of Array[SchemaAttributeType] where 1 <= *.elems <= 50;
 
     class LambdaConfigType does AWS::SDK::Shape {
         has ArnType $.define-auth-challenge is shape-member('DefineAuthChallenge');
@@ -933,8 +1038,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has ResourceServerType $.resource-server is required is shape-member('ResourceServer');
     }
 
-    subset ClientSecretType of Str where 1 <= .chars <= 64 && rx:P5/[\w+]+/;
-
     class UserNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -944,13 +1047,9 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     class ListUsersInGroupResponse does AWS::SDK::Shape {
-        has Array[UserType] $.users is shape-member('Users');
+        has UserType @.users is shape-member('Users');
         has PaginationKey $.next-token is shape-member('NextToken');
     }
-
-    subset ResourceServerNameType of Str where 1 <= .chars <= 256 && rx:P5/[\w\s+=,.@-]+/;
-
-    subset S3BucketType of Str where 3 <= .chars <= 1024 && rx:P5/^[0-9A-Za-z\.\-_]*(?<!\.)$/;
 
     class UpdateGroupRequest does AWS::SDK::Shape {
         has ArnType $.role-arn is shape-member('RoleArn');
@@ -960,13 +1059,9 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has PrecedenceType $.precedence is shape-member('Precedence');
     }
 
-    subset OAuthFlowsType of Array[OAuthFlowType] where 0 <= *.elems <= 3;
-
     class GetIdentityProviderByIdentifierResponse does AWS::SDK::Shape {
         has IdentityProviderType $.identity-provider is required is shape-member('IdentityProvider');
     }
-
-    subset DeviceNameType of Str where 1 <= .chars <= 1024;
 
     class DescribeUserImportJobRequest does AWS::SDK::Shape {
         has UserImportJobIdType $.job-id is required is shape-member('JobId');
@@ -987,7 +1082,7 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     class AdminDeleteUserAttributesRequest does AWS::SDK::Shape {
-        has Array[AttributeNameType] $.user-attribute-names is required is shape-member('UserAttributeNames');
+        has AttributeNameType @.user-attribute-names is required is shape-member('UserAttributeNames');
         has UsernameType $.username is required is shape-member('Username');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
@@ -995,10 +1090,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class InternalErrorException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset DeviceRememberedStatusType of Str where $_ ~~ any('remembered', 'not_remembered');
-
-    subset RedirectUrlType of Str where 1 <= .chars <= 1024 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
 
     class ConfirmDeviceRequest does AWS::SDK::Shape {
         has DeviceNameType $.device-name is shape-member('DeviceName');
@@ -1045,8 +1136,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has GroupNameType $.group-name is required is shape-member('GroupName');
     }
 
-    subset ArnType of Str where 20 <= .chars <= 2048 && rx:P5/arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:([\w+=\/,.@-]*)?:[0-9]+:[\w+=\/,.@-]+(:[\w+=\/,.@-]+)?(:[\w+=\/,.@-]+)?/;
-
     class UICustomizationType does AWS::SDK::Shape {
         has DateTime $.creation-date is shape-member('CreationDate');
         has DateTime $.last-modified-date is shape-member('LastModifiedDate');
@@ -1061,26 +1150,20 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has ResourceServerType $.resource-server is required is shape-member('ResourceServer');
     }
 
-    subset UserPoolIdType of Str where 1 <= .chars <= 55 && rx:P5/[\w-]+_[0-9a-zA-Z]+/;
-
     class DescribeUserImportJobResponse does AWS::SDK::Shape {
         has UserImportJobType $.user-import-job is shape-member('UserImportJob');
     }
-
-    subset AttributeDataType of Str where $_ ~~ any('String', 'Number', 'DateTime', 'Boolean');
 
     class AdminEnableUserResponse does AWS::SDK::Shape {
     }
 
     class ListResourceServersResponse does AWS::SDK::Shape {
-        has Array[ResourceServerType] $.resource-servers is required is shape-member('ResourceServers');
+        has ResourceServerType @.resource-servers is required is shape-member('ResourceServers');
         has PaginationKeyType $.next-token is shape-member('NextToken');
     }
 
-    subset ResourceServerScopeDescriptionType of Str where 1 <= .chars <= 256;
-
     class AdminUpdateUserAttributesRequest does AWS::SDK::Shape {
-        has Array[AttributeType] $.user-attributes is required is shape-member('UserAttributes');
+        has AttributeType @.user-attributes is required is shape-member('UserAttributes');
         has UsernameType $.username is required is shape-member('Username');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
@@ -1090,8 +1173,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
 
     class ConfirmForgotPasswordResponse does AWS::SDK::Shape {
     }
-
-    subset ConfirmationCodeType of Str where 1 <= .chars <= 2048 && rx:P5/[\S]+/;
 
     class AdminDisableUserResponse does AWS::SDK::Shape {
     }
@@ -1105,8 +1186,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
 
-    subset ClientPermissionType of Str where 1 <= .chars <= 2048;
-
     class AdminCreateUserResponse does AWS::SDK::Shape {
         has UserType $.user is shape-member('User');
     }
@@ -1117,10 +1196,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has Str $.destination is shape-member('Destination');
     }
 
-    subset EmailVerificationSubjectType of Str where 1 <= .chars <= 140 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}\s]+/;
-
-    subset ExplicitAuthFlowsType of Str where $_ ~~ any('ADMIN_NO_SRP_AUTH', 'CUSTOM_AUTH_FLOW_ONLY');
-
     class AdminSetUserSettingsResponse does AWS::SDK::Shape {
     }
 
@@ -1130,16 +1205,12 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     class AdminInitiateAuthRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.client-metadata is shape-member('ClientMetadata');
-        has Hash[Str, Str] $.auth-parameters is shape-member('AuthParameters');
+        has Str %.client-metadata{Str} is shape-member('ClientMetadata');
+        has Str %.auth-parameters{Str} is shape-member('AuthParameters');
         has ClientIdType $.client-id is required is shape-member('ClientId');
         has AuthFlowType $.auth-flow is required is shape-member('AuthFlow');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
-
-    subset DomainVersionType of Str where 1 <= .chars <= 20;
-
-    subset EmailVerificationSubjectByLinkType of Str where 1 <= .chars <= 140 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}\s]+/;
 
     class UserPoolClientDescription does AWS::SDK::Shape {
         has ClientNameType $.client-name is shape-member('ClientName');
@@ -1153,17 +1224,9 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has UserImportJobNameType $.job-name is required is shape-member('JobName');
     }
 
-    subset DefaultEmailOptionType of Str where $_ ~~ any('CONFIRM_WITH_LINK', 'CONFIRM_WITH_CODE');
-
-    subset DeviceKeyType of Str where 1 <= .chars <= 55 && rx:P5/[\w-]+_[0-9a-f-]+/;
-
-    subset EmailVerificationMessageByLinkType of Str where 6 <= .chars <= 20000 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*\{##[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*##\}[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*/;
-
     class LimitExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset PoolQueryLimitType of Int where 1 <= * <= 60;
 
     class GlobalSignOutRequest does AWS::SDK::Shape {
         has TokenModelType $.access-token is required is shape-member('AccessToken');
@@ -1178,10 +1241,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class UpdateGroupResponse does AWS::SDK::Shape {
         has GroupType $.group is shape-member('Group');
     }
-
-    subset ProvidersListType of Array[ProviderDescription] where 0 <= *.elems <= 50;
-
-    subset PaginationKeyType of Str where 1 <= .chars && rx:P5/[\S]+/;
 
     class ListUserPoolsRequest does AWS::SDK::Shape {
         has PoolQueryLimitType $.max-results is required is shape-member('MaxResults');
@@ -1200,20 +1259,16 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class AdminSetUserSettingsRequest does AWS::SDK::Shape {
         has UsernameType $.username is required is shape-member('Username');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
-        has Array[MFAOptionType] $.mfa-options is required is shape-member('MFAOptions');
+        has MFAOptionType @.mfa-options is required is shape-member('MFAOptions');
     }
 
     class DeleteUserPoolRequest does AWS::SDK::Shape {
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
 
-    subset UserFilterType of Str where .chars <= 256;
-
-    subset TokenModelType of Str where rx:P5/[A-Za-z0-9-_=.]+/;
-
     class RespondToAuthChallengeResponse does AWS::SDK::Shape {
         has AuthenticationResultType $.authentication-result is shape-member('AuthenticationResult');
-        has Hash[Str, Str] $.challenge-parameters is shape-member('ChallengeParameters');
+        has Str %.challenge-parameters{Str} is shape-member('ChallengeParameters');
         has SessionType $.session is shape-member('Session');
         has ChallengeNameType $.challenge-name is shape-member('ChallengeName');
     }
@@ -1235,7 +1290,7 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has DateTime $.last-modified-date is shape-member('LastModifiedDate');
         has SmsVerificationMessageType $.sms-authentication-message is shape-member('SmsAuthenticationMessage');
         has UserPoolMfaType $.mfa-configuration is shape-member('MfaConfiguration');
-        has Array[UsernameAttributeType] $.username-attributes is shape-member('UsernameAttributes');
+        has UsernameAttributeType @.username-attributes is shape-member('UsernameAttributes');
         has AdminCreateUserConfigType $.admin-create-user-config is shape-member('AdminCreateUserConfig');
         has UserPoolPolicyType $.policies is shape-member('Policies');
         has UserPoolIdType $.id is shape-member('Id');
@@ -1246,16 +1301,14 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has Str $.sms-configuration-failure is shape-member('SmsConfigurationFailure');
         has SmsConfigurationType $.sms-configuration is shape-member('SmsConfiguration');
         has EmailVerificationMessageType $.email-verification-message is shape-member('EmailVerificationMessage');
-        has Array[AliasAttributeType] $.alias-attributes is shape-member('AliasAttributes');
-        has Array[VerifiedAttributeType] $.auto-verified-attributes is shape-member('AutoVerifiedAttributes');
+        has AliasAttributeType @.alias-attributes is shape-member('AliasAttributes');
+        has VerifiedAttributeType @.auto-verified-attributes is shape-member('AutoVerifiedAttributes');
         has StatusType $.status is shape-member('Status');
-        has Hash[Str, Str] $.user-pool-tags is shape-member('UserPoolTags');
+        has Str %.user-pool-tags{Str} is shape-member('UserPoolTags');
         has EmailConfigurationType $.email-configuration is shape-member('EmailConfiguration');
         has VerificationMessageTemplateType $.verification-message-template is shape-member('VerificationMessageTemplate');
         has EmailVerificationSubjectType $.email-verification-subject is shape-member('EmailVerificationSubject');
     }
-
-    subset ListResourceServersLimitType of Int where 1 <= * <= 50;
 
     class AdminDisableProviderForUserResponse does AWS::SDK::Shape {
     }
@@ -1270,9 +1323,9 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has DateTime $.user-create-date is shape-member('UserCreateDate');
         has Bool $.enabled is shape-member('Enabled');
         has UserStatusType $.user-status is shape-member('UserStatus');
-        has Array[AttributeType] $.attributes is shape-member('Attributes');
+        has AttributeType @.attributes is shape-member('Attributes');
         has UsernameType $.username is shape-member('Username');
-        has Array[MFAOptionType] $.mfa-options is shape-member('MFAOptions');
+        has MFAOptionType @.mfa-options is shape-member('MFAOptions');
     }
 
     class EmailConfigurationType does AWS::SDK::Shape {
@@ -1287,40 +1340,28 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has UsernameType $.username is required is shape-member('Username');
     }
 
-    subset UsernameType of Str where 1 <= .chars <= 128 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
-
     class UpdateUserAttributesResponse does AWS::SDK::Shape {
-        has Array[CodeDeliveryDetailsType] $.code-delivery-details-list is shape-member('CodeDeliveryDetailsList');
+        has CodeDeliveryDetailsType @.code-delivery-details-list is shape-member('CodeDeliveryDetailsList');
     }
 
     class InvalidLambdaResponseException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
-    subset CustomAttributeNameType of Str where 1 <= .chars <= 20 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}]+/;
-
     class AdminRespondToAuthChallengeResponse does AWS::SDK::Shape {
         has AuthenticationResultType $.authentication-result is shape-member('AuthenticationResult');
-        has Hash[Str, Str] $.challenge-parameters is shape-member('ChallengeParameters');
+        has Str %.challenge-parameters{Str} is shape-member('ChallengeParameters');
         has SessionType $.session is shape-member('Session');
         has ChallengeNameType $.challenge-name is shape-member('ChallengeName');
     }
 
-    subset AdminCreateUserUnusedAccountValidityDaysType of Int where 0 <= * <= 90;
-
-    subset UserImportJobStatusType of Str where $_ ~~ any('Created', 'Pending', 'InProgress', 'Stopping', 'Expired', 'Stopped', 'Failed', 'Succeeded');
-
     class DeviceType does AWS::SDK::Shape {
         has DateTime $.device-create-date is shape-member('DeviceCreateDate');
-        has Array[AttributeType] $.device-attributes is shape-member('DeviceAttributes');
+        has AttributeType @.device-attributes is shape-member('DeviceAttributes');
         has DeviceKeyType $.device-key is shape-member('DeviceKey');
         has DateTime $.device-last-modified-date is shape-member('DeviceLastModifiedDate');
         has DateTime $.device-last-authenticated-date is shape-member('DeviceLastAuthenticatedDate');
     }
-
-    subset ListProvidersLimitType of Int where 1 <= * <= 60;
-
-    subset ClientIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+]+/;
 
     class ExpiredCodeException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -1328,7 +1369,7 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
 
     class AdminRespondToAuthChallengeRequest does AWS::SDK::Shape {
         has ClientIdType $.client-id is required is shape-member('ClientId');
-        has Hash[Str, Str] $.challenge-responses is shape-member('ChallengeResponses');
+        has Str %.challenge-responses{Str} is shape-member('ChallengeResponses');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
         has SessionType $.session is shape-member('Session');
         has ChallengeNameType $.challenge-name is required is shape-member('ChallengeName');
@@ -1358,7 +1399,7 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
 
     class InitiateAuthResponse does AWS::SDK::Shape {
         has AuthenticationResultType $.authentication-result is shape-member('AuthenticationResult');
-        has Hash[Str, Str] $.challenge-parameters is shape-member('ChallengeParameters');
+        has Str %.challenge-parameters{Str} is shape-member('ChallengeParameters');
         has SessionType $.session is shape-member('Session');
         has ChallengeNameType $.challenge-name is shape-member('ChallengeName');
     }
@@ -1373,17 +1414,13 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has LambdaConfigType $.lambda-config is shape-member('LambdaConfig');
         has SmsConfigurationType $.sms-configuration is shape-member('SmsConfiguration');
         has EmailVerificationMessageType $.email-verification-message is shape-member('EmailVerificationMessage');
-        has Array[VerifiedAttributeType] $.auto-verified-attributes is shape-member('AutoVerifiedAttributes');
-        has Hash[Str, Str] $.user-pool-tags is shape-member('UserPoolTags');
+        has VerifiedAttributeType @.auto-verified-attributes is shape-member('AutoVerifiedAttributes');
+        has Str %.user-pool-tags{Str} is shape-member('UserPoolTags');
         has EmailConfigurationType $.email-configuration is shape-member('EmailConfiguration');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
         has VerificationMessageTemplateType $.verification-message-template is shape-member('VerificationMessageTemplate');
         has EmailVerificationSubjectType $.email-verification-subject is shape-member('EmailVerificationSubject');
     }
-
-    subset SmsVerificationMessageType of Str where 6 <= .chars <= 140 && rx:P5/.*\{####\}.*/;
-
-    subset AliasAttributeType of Str where $_ ~~ any('phone_number', 'email', 'preferred_username');
 
     class ListUserImportJobsRequest does AWS::SDK::Shape {
         has PoolQueryLimitType $.max-results is required is shape-member('MaxResults');
@@ -1403,16 +1440,16 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     class ListUserPoolsResponse does AWS::SDK::Shape {
-        has Array[UserPoolDescriptionType] $.user-pools is shape-member('UserPools');
+        has UserPoolDescriptionType @.user-pools is shape-member('UserPools');
         has PaginationKeyType $.next-token is shape-member('NextToken');
     }
 
     class UpdateIdentityProviderRequest does AWS::SDK::Shape {
         has ProviderNameType $.provider-name is required is shape-member('ProviderName');
         has IdpIdentifiersListType $.idp-identifiers is shape-member('IdpIdentifiers');
-        has Hash[Str, AttributeMappingKeyType] $.attribute-mapping is shape-member('AttributeMapping');
+        has Str %.attribute-mapping{AttributeMappingKeyType} is shape-member('AttributeMapping');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
-        has Hash[Str, Str] $.provider-details is shape-member('ProviderDetails');
+        has Str %.provider-details{Str} is shape-member('ProviderDetails');
     }
 
     class TooManyFailedAttemptsException does AWS::SDK::Shape {
@@ -1425,8 +1462,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
 
-    subset IdentityProviderTypeType of Str where $_ ~~ any('SAML', 'Facebook', 'Google', 'LoginWithAmazon');
-
     class CreateResourceServerRequest does AWS::SDK::Shape {
         has ResourceServerNameType $.name is required is shape-member('Name');
         has ResourceServerScopeListType $.scopes is shape-member('Scopes');
@@ -1437,10 +1472,10 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class CreateIdentityProviderRequest does AWS::SDK::Shape {
         has ProviderNameTypeV1 $.provider-name is required is shape-member('ProviderName');
         has IdpIdentifiersListType $.idp-identifiers is shape-member('IdpIdentifiers');
-        has Hash[Str, AttributeMappingKeyType] $.attribute-mapping is shape-member('AttributeMapping');
+        has Str %.attribute-mapping{AttributeMappingKeyType} is shape-member('AttributeMapping');
         has IdentityProviderTypeType $.provider-type is required is shape-member('ProviderType');
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
-        has Hash[Str, Str] $.provider-details is required is shape-member('ProviderDetails');
+        has Str %.provider-details{Str} is required is shape-member('ProviderDetails');
     }
 
     class ListIdentityProvidersResponse does AWS::SDK::Shape {
@@ -1456,14 +1491,10 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset SessionType of Str where 20 <= .chars <= 2048;
-
     class ListDevicesResponse does AWS::SDK::Shape {
         has SearchPaginationTokenType $.pagination-token is shape-member('PaginationToken');
-        has Array[DeviceType] $.devices is shape-member('Devices');
+        has DeviceType @.devices is shape-member('Devices');
     }
-
-    subset LogoutURLsListType of Array[RedirectUrlType] where 0 <= *.elems <= 100;
 
     class InvalidEmailRoleAccessPolicyException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -1472,10 +1503,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class ScopeDoesNotExistException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset UserPoolNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w\s+=,.@-]+/;
-
-    subset UserStatusType of Str where $_ ~~ any('UNCONFIRMED', 'CONFIRMED', 'ARCHIVED', 'COMPROMISED', 'UNKNOWN', 'RESET_REQUIRED', 'FORCE_CHANGE_PASSWORD');
 
     class DescribeUserPoolDomainResponse does AWS::SDK::Shape {
         has DomainDescriptionType $.domain-description is shape-member('DomainDescription');
@@ -1489,28 +1516,22 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has Str $.max-length is shape-member('MaxLength');
     }
 
-    subset UserImportJobNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w\s+=,.@-]+/;
-
     class CreateIdentityProviderResponse does AWS::SDK::Shape {
         has IdentityProviderType $.identity-provider is required is shape-member('IdentityProvider');
     }
-
-    subset StatusType of Str where $_ ~~ any('Enabled', 'Disabled');
 
     class UsernameExistsException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
     class DeleteUserAttributesRequest does AWS::SDK::Shape {
-        has Array[AttributeNameType] $.user-attribute-names is required is shape-member('UserAttributeNames');
+        has AttributeNameType @.user-attribute-names is required is shape-member('UserAttributeNames');
         has TokenModelType $.access-token is required is shape-member('AccessToken');
     }
 
     class CreateResourceServerResponse does AWS::SDK::Shape {
         has ResourceServerType $.resource-server is required is shape-member('ResourceServer');
     }
-
-    subset QueryLimitType of Int where 0 <= * <= 60;
 
     class UnsupportedUserStateException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -1540,14 +1561,10 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ChallengeNameType of Str where $_ ~~ any('SMS_MFA', 'PASSWORD_VERIFIER', 'CUSTOM_CHALLENGE', 'DEVICE_SRP_AUTH', 'DEVICE_PASSWORD_VERIFIER', 'ADMIN_NO_SRP_AUTH', 'NEW_PASSWORD_REQUIRED');
-
     class SmsConfigurationType does AWS::SDK::Shape {
         has Str $.external-id is shape-member('ExternalId');
         has ArnType $.sns-caller-arn is required is shape-member('SnsCallerArn');
     }
-
-    subset QueryLimit of Int where 1 <= * <= 60;
 
     class AdminDeleteUserRequest does AWS::SDK::Shape {
         has UsernameType $.username is required is shape-member('Username');
@@ -1568,11 +1585,9 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class UpdateDeviceStatusResponse does AWS::SDK::Shape {
     }
 
-    subset ResourceServerScopeListType of Array[ResourceServerScopeType] where *.elems <= 25;
-
     class AdminInitiateAuthResponse does AWS::SDK::Shape {
         has AuthenticationResultType $.authentication-result is shape-member('AuthenticationResult');
-        has Hash[Str, Str] $.challenge-parameters is shape-member('ChallengeParameters');
+        has Str %.challenge-parameters{Str} is shape-member('ChallengeParameters');
         has SessionType $.session is shape-member('Session');
         has ChallengeNameType $.challenge-name is shape-member('ChallengeName');
     }
@@ -1585,8 +1600,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset MessageActionType of Str where $_ ~~ any('RESEND', 'SUPPRESS');
-
     class ListResourceServersRequest does AWS::SDK::Shape {
         has ListResourceServersLimitType $.max-results is shape-member('MaxResults');
         has PaginationKeyType $.next-token is shape-member('NextToken');
@@ -1597,10 +1610,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ResourceServerScopeNameType of Str where 1 <= .chars <= 256 && rx:P5/[\x21\x23-\x2E\x30-\x5B\x5D-\x7E]+/;
-
-    subset IdpIdentifierType of Str where 1 <= .chars <= 40 && rx:P5/[\w\s+=.@-]+/;
-
     class UserLambdaValidationException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -1610,8 +1619,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has TokenModelType $.access-token is shape-member('AccessToken');
     }
 
-    subset UsernameAttributeType of Str where $_ ~~ any('phone_number', 'email');
-
     class AdminGetDeviceResponse does AWS::SDK::Shape {
         has DeviceType $.device is required is shape-member('Device');
     }
@@ -1619,8 +1626,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     class DescribeUserPoolResponse does AWS::SDK::Shape {
         has UserPoolType $.user-pool is shape-member('UserPool');
     }
-
-    subset EmailVerificationMessageType of Str where 6 <= .chars <= 20000 && rx:P5/[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*\{####\}[\p{L}\p{M}\p{S}\p{N}\p{P}\s*]*/;
 
     class VerificationMessageTemplateType does AWS::SDK::Shape {
         has EmailVerificationSubjectByLinkType $.email-subject-by-link is shape-member('EmailSubjectByLink');
@@ -1648,9 +1653,6 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         has UserPoolIdType $.user-pool-id is required is shape-member('UserPoolId');
     }
 
-    subset SearchPaginationTokenType of Str where 1 <= .chars && rx:P5/[\S]+/;
-
-    subset OAuthFlowType of Str where $_ ~~ any('code', 'implicit', 'client_credentials');
 
     method delete-user(
         TokenModelType :$access-token!
@@ -1786,12 +1788,12 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     method admin-set-user-settings(
         UsernameType :$username!,
         UserPoolIdType :$user-pool-id!,
-        Array[MFAOptionType] :$mfa-options!
+        MFAOptionType :@mfa-options!
     ) returns AdminSetUserSettingsResponse is service-operation('AdminSetUserSettings') {
         my $request-input = AdminSetUserSettingsRequest.new(
             :$username,
             :$user-pool-id,
-            :$mfa-options
+            :@mfa-options
         );
 
         self.perform-operation(
@@ -1873,14 +1875,14 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     method create-user-pool-client(
         LogoutURLsListType :$logout-urls,
         ScopeListType :$allowed-oauth-scopes,
-        Array[ClientPermissionType] :$read-attributes,
+        ClientPermissionType :@read-attributes,
         ClientNameType :$client-name!,
         RedirectUrlType :$default-redirect-uri,
-        Array[ProviderNameType] :$supported-identity-providers,
+        ProviderNameType :@supported-identity-providers,
         Bool :$generate-secret,
-        Array[ClientPermissionType] :$write-attributes,
+        ClientPermissionType :@write-attributes,
         Bool :$allowed-oauth-flows-user-pool-client,
-        Array[ExplicitAuthFlowsType] :$explicit-auth-flows,
+        ExplicitAuthFlowsType :@explicit-auth-flows,
         RefreshTokenValidityType :$refresh-token-validity,
         OAuthFlowsType :$allowed-oauth-flows,
         CallbackURLsListType :$callback-urls,
@@ -1889,14 +1891,14 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         my $request-input = CreateUserPoolClientRequest.new(
             :$logout-urls,
             :$allowed-oauth-scopes,
-            :$read-attributes,
+            :@read-attributes,
             :$client-name,
             :$default-redirect-uri,
-            :$supported-identity-providers,
+            :@supported-identity-providers,
             :$generate-secret,
-            :$write-attributes,
+            :@write-attributes,
             :$allowed-oauth-flows-user-pool-client,
-            :$explicit-auth-flows,
+            :@explicit-auth-flows,
             :$refresh-token-validity,
             :$allowed-oauth-flows,
             :$callback-urls,
@@ -1910,12 +1912,12 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     method admin-update-user-attributes(
-        Array[AttributeType] :$user-attributes!,
+        AttributeType :@user-attributes!,
         UsernameType :$username!,
         UserPoolIdType :$user-pool-id!
     ) returns AdminUpdateUserAttributesResponse is service-operation('AdminUpdateUserAttributes') {
         my $request-input = AdminUpdateUserAttributesRequest.new(
-            :$user-attributes,
+            :@user-attributes,
             :$username,
             :$user-pool-id
         );
@@ -1927,15 +1929,15 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     method admin-initiate-auth(
-        Hash[Str, Str] :$client-metadata,
-        Hash[Str, Str] :$auth-parameters,
+        Str :%client-metadata,
+        Str :%auth-parameters,
         ClientIdType :$client-id!,
         AuthFlowType :$auth-flow!,
         UserPoolIdType :$user-pool-id!
     ) returns AdminInitiateAuthResponse is service-operation('AdminInitiateAuth') {
         my $request-input = AdminInitiateAuthRequest.new(
-            :$client-metadata,
-            :$auth-parameters,
+            :%client-metadata,
+            :%auth-parameters,
             :$client-id,
             :$auth-flow,
             :$user-pool-id
@@ -1949,21 +1951,21 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
 
     method admin-create-user(
         Bool :$force-alias-creation,
-        Array[AttributeType] :$user-attributes,
-        Array[DeliveryMediumType] :$desired-delivery-mediums,
+        AttributeType :@user-attributes,
+        DeliveryMediumType :@desired-delivery-mediums,
         PasswordType :$temporary-password,
         MessageActionType :$message-action,
-        Array[AttributeType] :$validation-data,
+        AttributeType :@validation-data,
         UsernameType :$username!,
         UserPoolIdType :$user-pool-id!
     ) returns AdminCreateUserResponse is service-operation('AdminCreateUser') {
         my $request-input = AdminCreateUserRequest.new(
             :$force-alias-creation,
-            :$user-attributes,
-            :$desired-delivery-mediums,
+            :@user-attributes,
+            :@desired-delivery-mediums,
             :$temporary-password,
             :$message-action,
-            :$validation-data,
+            :@validation-data,
             :$username,
             :$user-pool-id
         );
@@ -2092,18 +2094,18 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     method create-identity-provider(
         ProviderNameTypeV1 :$provider-name!,
         IdpIdentifiersListType :$idp-identifiers,
-        Hash[Str, AttributeMappingKeyType] :$attribute-mapping,
+        Str :%attribute-mapping,
         IdentityProviderTypeType :$provider-type!,
         UserPoolIdType :$user-pool-id!,
-        Hash[Str, Str] :$provider-details!
+        Str :%provider-details!
     ) returns CreateIdentityProviderResponse is service-operation('CreateIdentityProvider') {
         my $request-input = CreateIdentityProviderRequest.new(
             :$provider-name,
             :$idp-identifiers,
-            :$attribute-mapping,
+            :%attribute-mapping,
             :$provider-type,
             :$user-pool-id,
-            :$provider-details
+            :%provider-details
         );
 
         self.perform-operation(
@@ -2139,8 +2141,8 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         LambdaConfigType :$lambda-config,
         SmsConfigurationType :$sms-configuration,
         EmailVerificationMessageType :$email-verification-message,
-        Array[VerifiedAttributeType] :$auto-verified-attributes,
-        Hash[Str, Str] :$user-pool-tags,
+        VerifiedAttributeType :@auto-verified-attributes,
+        Str :%user-pool-tags,
         EmailConfigurationType :$email-configuration,
         UserPoolIdType :$user-pool-id!,
         VerificationMessageTemplateType :$verification-message-template,
@@ -2156,8 +2158,8 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
             :$lambda-config,
             :$sms-configuration,
             :$email-verification-message,
-            :$auto-verified-attributes,
-            :$user-pool-tags,
+            :@auto-verified-attributes,
+            :%user-pool-tags,
             :$email-configuration,
             :$user-pool-id,
             :$verification-message-template,
@@ -2288,16 +2290,16 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     method update-identity-provider(
         ProviderNameType :$provider-name!,
         IdpIdentifiersListType :$idp-identifiers,
-        Hash[Str, AttributeMappingKeyType] :$attribute-mapping,
+        Str :%attribute-mapping,
         UserPoolIdType :$user-pool-id!,
-        Hash[Str, Str] :$provider-details
+        Str :%provider-details
     ) returns UpdateIdentityProviderResponse is service-operation('UpdateIdentityProvider') {
         my $request-input = UpdateIdentityProviderRequest.new(
             :$provider-name,
             :$idp-identifiers,
-            :$attribute-mapping,
+            :%attribute-mapping,
             :$user-pool-id,
-            :$provider-details
+            :%provider-details
         );
 
         self.perform-operation(
@@ -2308,13 +2310,13 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
 
     method respond-to-auth-challenge(
         ClientIdType :$client-id!,
-        Hash[Str, Str] :$challenge-responses,
+        Str :%challenge-responses,
         SessionType :$session,
         ChallengeNameType :$challenge-name!
     ) returns RespondToAuthChallengeResponse is service-operation('RespondToAuthChallenge') {
         my $request-input = RespondToAuthChallengeRequest.new(
             :$client-id,
-            :$challenge-responses,
+            :%challenge-responses,
             :$session,
             :$challenge-name
         );
@@ -2370,14 +2372,14 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
 
     method admin-respond-to-auth-challenge(
         ClientIdType :$client-id!,
-        Hash[Str, Str] :$challenge-responses,
+        Str :%challenge-responses,
         UserPoolIdType :$user-pool-id!,
         SessionType :$session,
         ChallengeNameType :$challenge-name!
     ) returns AdminRespondToAuthChallengeResponse is service-operation('AdminRespondToAuthChallenge') {
         my $request-input = AdminRespondToAuthChallengeRequest.new(
             :$client-id,
-            :$challenge-responses,
+            :%challenge-responses,
             :$user-pool-id,
             :$session,
             :$challenge-name
@@ -2424,14 +2426,14 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     method initiate-auth(
-        Hash[Str, Str] :$client-metadata,
-        Hash[Str, Str] :$auth-parameters,
+        Str :%client-metadata,
+        Str :%auth-parameters,
         ClientIdType :$client-id!,
         AuthFlowType :$auth-flow!
     ) returns InitiateAuthResponse is service-operation('InitiateAuth') {
         my $request-input = InitiateAuthRequest.new(
-            :$client-metadata,
-            :$auth-parameters,
+            :%client-metadata,
+            :%auth-parameters,
             :$client-id,
             :$auth-flow
         );
@@ -2506,11 +2508,11 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
 
     method set-user-settings(
         TokenModelType :$access-token!,
-        Array[MFAOptionType] :$mfa-options!
+        MFAOptionType :@mfa-options!
     ) returns SetUserSettingsResponse is service-operation('SetUserSettings') {
         my $request-input = SetUserSettingsRequest.new(
             :$access-token,
-            :$mfa-options
+            :@mfa-options
         );
 
         self.perform-operation(
@@ -2522,14 +2524,14 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     method update-user-pool-client(
         LogoutURLsListType :$logout-urls,
         ScopeListType :$allowed-oauth-scopes,
-        Array[ClientPermissionType] :$read-attributes,
+        ClientPermissionType :@read-attributes,
         ClientNameType :$client-name,
         RedirectUrlType :$default-redirect-uri,
-        Array[ProviderNameType] :$supported-identity-providers,
+        ProviderNameType :@supported-identity-providers,
         ClientIdType :$client-id!,
-        Array[ClientPermissionType] :$write-attributes,
+        ClientPermissionType :@write-attributes,
         Bool :$allowed-oauth-flows-user-pool-client,
-        Array[ExplicitAuthFlowsType] :$explicit-auth-flows,
+        ExplicitAuthFlowsType :@explicit-auth-flows,
         RefreshTokenValidityType :$refresh-token-validity,
         OAuthFlowsType :$allowed-oauth-flows,
         CallbackURLsListType :$callback-urls,
@@ -2538,14 +2540,14 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         my $request-input = UpdateUserPoolClientRequest.new(
             :$logout-urls,
             :$allowed-oauth-scopes,
-            :$read-attributes,
+            :@read-attributes,
             :$client-name,
             :$default-redirect-uri,
-            :$supported-identity-providers,
+            :@supported-identity-providers,
             :$client-id,
-            :$write-attributes,
+            :@write-attributes,
             :$allowed-oauth-flows-user-pool-client,
-            :$explicit-auth-flows,
+            :@explicit-auth-flows,
             :$refresh-token-validity,
             :$allowed-oauth-flows,
             :$callback-urls,
@@ -2559,12 +2561,12 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     method admin-delete-user-attributes(
-        Array[AttributeNameType] :$user-attribute-names!,
+        AttributeNameType :@user-attribute-names!,
         UsernameType :$username!,
         UserPoolIdType :$user-pool-id!
     ) returns AdminDeleteUserAttributesResponse is service-operation('AdminDeleteUserAttributes') {
         my $request-input = AdminDeleteUserAttributesRequest.new(
-            :$user-attribute-names,
+            :@user-attribute-names,
             :$username,
             :$user-pool-id
         );
@@ -2842,7 +2844,7 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         SmsVerificationMessageType :$sms-verification-message,
         SmsVerificationMessageType :$sms-authentication-message,
         UserPoolMfaType :$mfa-configuration,
-        Array[UsernameAttributeType] :$username-attributes,
+        UsernameAttributeType :@username-attributes,
         UserPoolNameType :$pool-name!,
         AdminCreateUserConfigType :$admin-create-user-config,
         UserPoolPolicyType :$policies,
@@ -2850,10 +2852,10 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         LambdaConfigType :$lambda-config,
         SmsConfigurationType :$sms-configuration,
         EmailVerificationMessageType :$email-verification-message,
-        Array[AliasAttributeType] :$alias-attributes,
-        Array[VerifiedAttributeType] :$auto-verified-attributes,
+        AliasAttributeType :@alias-attributes,
+        VerifiedAttributeType :@auto-verified-attributes,
         SchemaAttributesListType :$schema,
-        Hash[Str, Str] :$user-pool-tags,
+        Str :%user-pool-tags,
         EmailConfigurationType :$email-configuration,
         VerificationMessageTemplateType :$verification-message-template,
         EmailVerificationSubjectType :$email-verification-subject
@@ -2862,7 +2864,7 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
             :$sms-verification-message,
             :$sms-authentication-message,
             :$mfa-configuration,
-            :$username-attributes,
+            :@username-attributes,
             :$pool-name,
             :$admin-create-user-config,
             :$policies,
@@ -2870,10 +2872,10 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
             :$lambda-config,
             :$sms-configuration,
             :$email-verification-message,
-            :$alias-attributes,
-            :$auto-verified-attributes,
+            :@alias-attributes,
+            :@auto-verified-attributes,
             :$schema,
-            :$user-pool-tags,
+            :%user-pool-tags,
             :$email-configuration,
             :$verification-message-template,
             :$email-verification-subject
@@ -2918,11 +2920,11 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     method update-user-attributes(
-        Array[AttributeType] :$user-attributes!,
+        AttributeType :@user-attributes!,
         TokenModelType :$access-token!
     ) returns UpdateUserAttributesResponse is service-operation('UpdateUserAttributes') {
         my $request-input = UpdateUserAttributesRequest.new(
-            :$user-attributes,
+            :@user-attributes,
             :$access-token
         );
 
@@ -2936,14 +2938,14 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
         UserFilterType :$filter,
         SearchPaginationTokenType :$pagination-token,
         QueryLimitType :$limit,
-        Array[AttributeNameType] :$attributes-to-get,
+        AttributeNameType :@attributes-to-get,
         UserPoolIdType :$user-pool-id!
     ) returns ListUsersResponse is service-operation('ListUsers') {
         my $request-input = ListUsersRequest.new(
             :$filter,
             :$pagination-token,
             :$limit,
-            :$attributes-to-get,
+            :@attributes-to-get,
             :$user-pool-id
         );
 
@@ -2984,11 +2986,11 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     method delete-user-attributes(
-        Array[AttributeNameType] :$user-attribute-names!,
+        AttributeNameType :@user-attribute-names!,
         TokenModelType :$access-token!
     ) returns DeleteUserAttributesResponse is service-operation('DeleteUserAttributes') {
         my $request-input = DeleteUserAttributesRequest.new(
-            :$user-attribute-names,
+            :@user-attribute-names,
             :$access-token
         );
 
@@ -3029,18 +3031,18 @@ class AWS::SDK::Service::CognitoIDP does AWS::SDK::Service {
     }
 
     method sign-up(
-        Array[AttributeType] :$user-attributes,
+        AttributeType :@user-attributes,
         PasswordType :$password!,
         ClientIdType :$client-id!,
-        Array[AttributeType] :$validation-data,
+        AttributeType :@validation-data,
         SecretHashType :$secret-hash,
         UsernameType :$username!
     ) returns SignUpResponse is service-operation('SignUp') {
         my $request-input = SignUpRequest.new(
-            :$user-attributes,
+            :@user-attributes,
             :$password,
             :$client-id,
-            :$validation-data,
+            :@validation-data,
             :$secret-hash,
             :$username
         );

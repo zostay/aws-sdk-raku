@@ -65,6 +65,85 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
     class ExtendedS3DestinationConfiguration { ... }
     class KinesisStreamSourceDescription { ... }
 
+    subset ElasticsearchIndexRotationPeriod of Str where $_ eq any('NoRotation', 'OneHour', 'OneDay', 'OneWeek', 'OneMonth');
+
+    subset RedshiftRetryDurationInSeconds of Int where 0 <= * <= 7200;
+
+    subset Data of Blob where 0 <= *.bytes <= 1024000;
+
+    subset RoleARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
+
+    subset ElasticsearchBufferingIntervalInSeconds of Int where 60 <= * <= 900;
+
+    subset BucketARN of Str where 1 <= .chars <= 2048 && rx:P5/arn:.*/;
+
+    subset PutRecordBatchResponseEntryList of Array[PutRecordBatchResponseEntry] where 1 <= *.elems <= 500;
+
+    subset SizeInMBs of Int where 1 <= * <= 128;
+
+    subset DeliveryStreamType of Str where $_ eq any('DirectPut', 'KinesisStreamAsSource');
+
+    subset ElasticsearchS3BackupMode of Str where $_ eq any('FailedDocumentsOnly', 'AllDocuments');
+
+    subset ElasticsearchRetryDurationInSeconds of Int where 0 <= * <= 7200;
+
+    subset DescribeDeliveryStreamInputLimit of Int where 1 <= * <= 10000;
+
+    subset DataTableName of Str where 1 <= .chars;
+
+    subset ProcessorParameterName of Str where $_ eq any('LambdaArn', 'NumberOfRetries');
+
+    subset ElasticsearchIndexName of Str where 1 <= .chars <= 80;
+
+    subset ClusterJDBCURL of Str where 1 <= .chars && rx:P5/jdbc:(redshift|postgresql):\/\/((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+redshift\.amazonaws\.com:\d{1,5}\/[a-zA-Z0-9_$]+/;
+
+    subset NonNegativeIntegerObject of Int where 0 <= *;
+
+    subset ProcessorParameterValue of Str where 1 <= .chars <= 512;
+
+    subset S3BackupMode of Str where $_ eq any('Disabled', 'Enabled');
+
+    subset ElasticsearchBufferingSizeInMBs of Int where 1 <= * <= 100;
+
+    subset CompressionFormat of Str where $_ eq any('UNCOMPRESSED', 'GZIP', 'ZIP', 'Snappy');
+
+    subset Username of Str where 1 <= .chars;
+
+    subset DeliveryStreamName of Str where 1 <= .chars <= 64 && rx:P5/[a-zA-Z0-9_.-]+/;
+
+    subset ProcessorType of Str where $_ eq any('Lambda');
+
+    subset KinesisStreamARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
+
+    subset PutRecordBatchRequestEntryList of Array[Record] where 1 <= *.elems <= 500;
+
+    subset DeliveryStreamStatus of Str where $_ eq any('CREATING', 'DELETING', 'ACTIVE');
+
+    subset ElasticsearchDomainARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
+
+    subset DeliveryStreamVersionId of Str where 1 <= .chars <= 50 && rx:P5/[0-9]+/;
+
+    subset Password of Str where 6 <= .chars;
+
+    subset DestinationId of Str where 1 <= .chars <= 100;
+
+    subset IntervalInSeconds of Int where 60 <= * <= 900;
+
+    subset PutResponseRecordId of Str where 1 <= .chars;
+
+    subset RedshiftS3BackupMode of Str where $_ eq any('Disabled', 'Enabled');
+
+    subset ElasticsearchTypeName of Str where 1 <= .chars <= 100;
+
+    subset AWSKMSKeyARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
+
+    subset ListDeliveryStreamsInputLimit of Int where 1 <= * <= 10000;
+
+    subset DeliveryStreamARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
+
+    subset NoEncryptionConfig of Str where $_ eq any('NoEncryption');
+
+
     class CreateDeliveryStreamOutput does AWS::SDK::Shape {
         has DeliveryStreamARN $.delivery-stream-arn is shape-member('DeliveryStreamARN');
     }
@@ -82,20 +161,14 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has BufferingHints $.buffering-hints is required is shape-member('BufferingHints');
     }
 
-    subset ElasticsearchIndexRotationPeriod of Str where $_ ~~ any('NoRotation', 'OneHour', 'OneDay', 'OneWeek', 'OneMonth');
-
-    subset RedshiftRetryDurationInSeconds of Int where 0 <= * <= 7200;
-
     class ProcessingConfiguration does AWS::SDK::Shape {
         has Bool $.enabled is shape-member('Enabled');
-        has Array[Processor] $.processors is shape-member('Processors');
+        has Processor @.processors is shape-member('Processors');
     }
 
     class LimitExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset Data of Blob where 0 <= *.bytes <= 1024000;
 
     class ElasticsearchBufferingHints does AWS::SDK::Shape {
         has ElasticsearchBufferingSizeInMBs $.size-in-mbs is shape-member('SizeInMBs');
@@ -111,7 +184,7 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has DeliveryStreamVersionId $.version-id is required is shape-member('VersionId');
         has DateTime $.last-update-timestamp is shape-member('LastUpdateTimestamp');
         has DateTime $.create-timestamp is shape-member('CreateTimestamp');
-        has Array[DestinationDescription] $.destinations is required is shape-member('Destinations');
+        has DestinationDescription @.destinations is required is shape-member('Destinations');
         has DeliveryStreamName $.delivery-stream-name is required is shape-member('DeliveryStreamName');
     }
 
@@ -128,8 +201,6 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has RedshiftRetryOptions $.retry-options is shape-member('RetryOptions');
     }
 
-    subset RoleARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
-
     class S3DestinationConfiguration does AWS::SDK::Shape {
         has RoleARN $.role-arn is required is shape-member('RoleARN');
         has EncryptionConfiguration $.encryption-configuration is shape-member('EncryptionConfiguration');
@@ -144,8 +215,6 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ElasticsearchBufferingIntervalInSeconds of Int where 60 <= * <= 900;
-
     class EncryptionConfiguration does AWS::SDK::Shape {
         has KMSEncryptionConfig $.kms-encryption-config is shape-member('KMSEncryptionConfig');
         has NoEncryptionConfig $.no-encryption-config is shape-member('NoEncryptionConfig');
@@ -155,15 +224,9 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has DeliveryStreamName $.delivery-stream-name is required is shape-member('DeliveryStreamName');
     }
 
-    subset BucketARN of Str where 1 <= .chars <= 2048 && rx:P5/arn:.*/;
-
-    subset PutRecordBatchResponseEntryList of Array[PutRecordBatchResponseEntry] where 1 <= *.elems <= 500;
-
     class PutRecordOutput does AWS::SDK::Shape {
         has PutResponseRecordId $.record-id is required is shape-member('RecordId');
     }
-
-    subset SizeInMBs of Int where 1 <= * <= 128;
 
     class SourceDescription does AWS::SDK::Shape {
         has KinesisStreamSourceDescription $.kinesis-stream-source-description is shape-member('KinesisStreamSourceDescription');
@@ -183,23 +246,11 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has RedshiftRetryOptions $.retry-options is shape-member('RetryOptions');
     }
 
-    subset DeliveryStreamType of Str where $_ ~~ any('DirectPut', 'KinesisStreamAsSource');
-
-    subset ElasticsearchS3BackupMode of Str where $_ ~~ any('FailedDocumentsOnly', 'AllDocuments');
-
-    subset ElasticsearchRetryDurationInSeconds of Int where 0 <= * <= 7200;
-
-    subset DescribeDeliveryStreamInputLimit of Int where 1 <= * <= 10000;
-
-    subset DataTableName of Str where 1 <= .chars;
-
     class ListDeliveryStreamsInput does AWS::SDK::Shape {
         has ListDeliveryStreamsInputLimit $.limit is shape-member('Limit');
         has DeliveryStreamType $.delivery-stream-type is shape-member('DeliveryStreamType');
         has DeliveryStreamName $.exclusive-start-delivery-stream-name is shape-member('ExclusiveStartDeliveryStreamName');
     }
-
-    subset ProcessorParameterName of Str where $_ ~~ any('LambdaArn', 'NumberOfRetries');
 
     class ExtendedS3DestinationUpdate does AWS::SDK::Shape {
         has ProcessingConfiguration $.processing-configuration is shape-member('ProcessingConfiguration');
@@ -213,8 +264,6 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has S3DestinationUpdate $.s3-backup-update is shape-member('S3BackupUpdate');
         has BufferingHints $.buffering-hints is shape-member('BufferingHints');
     }
-
-    subset ElasticsearchIndexName of Str where 1 <= .chars <= 80;
 
     class InvalidArgumentException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -245,18 +294,10 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ClusterJDBCURL of Str where 1 <= .chars && rx:P5/jdbc:(redshift|postgresql):\/\/((?!-)[A-Za-z0-9-]{1,63}(?<!-)\.)+redshift\.amazonaws\.com:\d{1,5}\/[a-zA-Z0-9_$]+/;
-
-    subset NonNegativeIntegerObject of Int where 0 <= *;
-
-    subset ProcessorParameterValue of Str where 1 <= .chars <= 512;
-
     class PutRecordInput does AWS::SDK::Shape {
         has Record $.record is required is shape-member('Record');
         has DeliveryStreamName $.delivery-stream-name is required is shape-member('DeliveryStreamName');
     }
-
-    subset S3BackupMode of Str where $_ ~~ any('Disabled', 'Enabled');
 
     class DescribeDeliveryStreamInput does AWS::SDK::Shape {
         has DestinationId $.exclusive-start-destination-id is shape-member('ExclusiveStartDestinationId');
@@ -292,12 +333,6 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has ElasticsearchBufferingHints $.buffering-hints is shape-member('BufferingHints');
     }
 
-    subset ElasticsearchBufferingSizeInMBs of Int where 1 <= * <= 100;
-
-    subset CompressionFormat of Str where $_ ~~ any('UNCOMPRESSED', 'GZIP', 'ZIP', 'Snappy');
-
-    subset Username of Str where 1 <= .chars;
-
     class ResourceInUseException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -313,17 +348,9 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has SizeInMBs $.size-in-mbs is shape-member('SizeInMBs');
     }
 
-    subset DeliveryStreamName of Str where 1 <= .chars <= 64 && rx:P5/[a-zA-Z0-9_.-]+/;
-
     class ElasticsearchRetryOptions does AWS::SDK::Shape {
         has ElasticsearchRetryDurationInSeconds $.duration-in-seconds is shape-member('DurationInSeconds');
     }
-
-    subset ProcessorType of Str where $_ ~~ any('Lambda');
-
-    subset KinesisStreamARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
-
-    subset PutRecordBatchRequestEntryList of Array[Record] where 1 <= *.elems <= 500;
 
     class RedshiftRetryOptions does AWS::SDK::Shape {
         has RedshiftRetryDurationInSeconds $.duration-in-seconds is shape-member('DurationInSeconds');
@@ -332,23 +359,11 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
     class DeleteDeliveryStreamOutput does AWS::SDK::Shape {
     }
 
-    subset DeliveryStreamStatus of Str where $_ ~~ any('CREATING', 'DELETING', 'ACTIVE');
-
-    subset ElasticsearchDomainARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
-
-    subset DeliveryStreamVersionId of Str where 1 <= .chars <= 50 && rx:P5/[0-9]+/;
-
     class CopyCommand does AWS::SDK::Shape {
         has Str $.copy-options is shape-member('CopyOptions');
         has Str $.data-table-columns is shape-member('DataTableColumns');
         has DataTableName $.data-table-name is required is shape-member('DataTableName');
     }
-
-    subset Password of Str where 6 <= .chars;
-
-    subset DestinationId of Str where 1 <= .chars <= 100;
-
-    subset IntervalInSeconds of Int where 60 <= * <= 900;
 
     class InvalidStreamTypeException does AWS::SDK::Shape {
         has Str $.source is shape-member('source');
@@ -356,7 +371,7 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
     }
 
     class Processor does AWS::SDK::Shape {
-        has Array[ProcessorParameter] $.parameters is shape-member('Parameters');
+        has ProcessorParameter @.parameters is shape-member('Parameters');
         has ProcessorType $.type is required is shape-member('Type');
     }
 
@@ -365,19 +380,9 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has DeliveryStreamName $.delivery-stream-name is required is shape-member('DeliveryStreamName');
     }
 
-    subset PutResponseRecordId of Str where 1 <= .chars;
-
-    subset RedshiftS3BackupMode of Str where $_ ~~ any('Disabled', 'Enabled');
-
-    subset ElasticsearchTypeName of Str where 1 <= .chars <= 100;
-
-    subset AWSKMSKeyARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
-
     class KMSEncryptionConfig does AWS::SDK::Shape {
         has AWSKMSKeyARN $.aws-kms-key-arn is required is shape-member('AWSKMSKeyARN');
     }
-
-    subset ListDeliveryStreamsInputLimit of Int where 1 <= * <= 10000;
 
     class GetKinesisStreamOutput does AWS::SDK::Shape {
         has KinesisStreamARN $.kinesis-stream-arn is shape-member('KinesisStreamARN');
@@ -393,8 +398,6 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has Str $.log-group-name is shape-member('LogGroupName');
         has Bool $.enabled is shape-member('Enabled');
     }
-
-    subset DeliveryStreamARN of Str where 1 <= .chars <= 512 && rx:P5/arn:.*/;
 
     class ElasticsearchDestinationUpdate does AWS::SDK::Shape {
         has ProcessingConfiguration $.processing-configuration is shape-member('ProcessingConfiguration');
@@ -460,7 +463,7 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
 
     class ListDeliveryStreamsOutput does AWS::SDK::Shape {
         has Bool $.has-more-delivery-streams is required is shape-member('HasMoreDeliveryStreams');
-        has Array[DeliveryStreamName] $.delivery-stream-names is required is shape-member('DeliveryStreamNames');
+        has DeliveryStreamName @.delivery-stream-names is required is shape-member('DeliveryStreamNames');
     }
 
     class S3DestinationDescription does AWS::SDK::Shape {
@@ -492,8 +495,6 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has ProcessorParameterName $.parameter-name is required is shape-member('ParameterName');
     }
 
-    subset NoEncryptionConfig of Str where $_ ~~ any('NoEncryption');
-
     class ExtendedS3DestinationConfiguration does AWS::SDK::Shape {
         has S3DestinationConfiguration $.s3-backup-configuration is shape-member('S3BackupConfiguration');
         has ProcessingConfiguration $.processing-configuration is shape-member('ProcessingConfiguration');
@@ -512,6 +513,7 @@ class AWS::SDK::Service::Firehose does AWS::SDK::Service {
         has RoleARN $.role-arn is shape-member('RoleARN');
         has DateTime $.delivery-start-timestamp is shape-member('DeliveryStartTimestamp');
     }
+
 
     method describe-delivery-stream(
         DestinationId :$exclusive-start-destination-id,

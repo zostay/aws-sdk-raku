@@ -90,6 +90,79 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
 
     subset SecurityGroupIds of Array[Str] where *.elems <= 5;
 
+    subset InvocationType of Str where $_ eq any('Event', 'RequestResponse', 'DryRun');
+
+    subset RoleArn of Str where rx:P5/arn:aws:iam::\d{12}:role\/?[a-zA-Z_0-9+=,.@\-_\/]+/;
+
+    subset Description of Str where 0 <= .chars <= 256;
+
+    subset Qualifier of Str where 1 <= .chars <= 128 && rx:P5/(|[a-zA-Z0-9$_-]+)/;
+
+    subset FunctionVersion of Str where $_ eq any('ALL');
+
+    subset MemorySize of Int where 128 <= * <= 1536;
+
+    subset Principal of Str where rx:P5/.*/;
+
+    subset ThrottleReason of Str where $_ eq any('ConcurrentInvocationLimitExceeded', 'FunctionInvocationRateLimitExceeded', 'CallerRateLimitExceeded');
+
+    subset NamespacedFunctionName of Str where 1 <= .chars <= 170 && rx:P5/(arn:aws:lambda:)?([a-z]{2}-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_\.]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?/;
+
+    subset KMSKeyArn of Str where rx:P5/(arn:aws:[a-z0-9-.]+:.*)|()/;
+
+    subset NameSpacedFunctionArn of Str where rx:P5/arn:aws:lambda:[a-z]{2}-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_\.]+(:(\$LATEST|[a-zA-Z0-9-_]+))?/;
+
+    subset S3ObjectVersion of Str where 1 <= .chars <= 1024;
+
+    subset Version of Str where 1 <= .chars <= 1024 && rx:P5/(\$LATEST|[0-9]+)/;
+
+    subset S3Key of Str where 1 <= .chars <= 1024;
+
+    subset S3Bucket of Str where 3 <= .chars <= 63 && rx:P5/^[0-9A-Za-z\.\-_]*(?<!\.)$/;
+
+    subset Arn of Str where rx:P5/arn:aws:([a-zA-Z0-9\-])+:([a-z]{2}-[a-z]+-\d{1})?:(\d{12})?:(.*)/;
+
+    subset EventSourcePosition of Str where $_ eq any('TRIM_HORIZON', 'LATEST', 'AT_TIMESTAMP');
+
+    subset FunctionName of Str where 1 <= .chars <= 140 && rx:P5/(arn:aws:lambda:)?([a-z]{2}-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?/;
+
+    subset Runtime of Str where $_ eq any('nodejs', 'nodejs4.3', 'nodejs6.10', 'java8', 'python2.7', 'python3.6', 'dotnetcore1.0', 'nodejs4.3-edge');
+
+    subset SourceOwner of Str where rx:P5/\d{12}/;
+
+    subset LogType of Str where $_ eq any('None', 'Tail');
+
+    subset Alias of Str where 1 <= .chars <= 128 && rx:P5/(?!^[0-9]+$)([a-zA-Z0-9-_]+)/;
+
+    subset Handler of Str where .chars <= 128 && rx:P5/[^\s]+/;
+
+    subset StatementId of Str where 1 <= .chars <= 100 && rx:P5/([a-zA-Z0-9-_]+)/;
+
+    subset Action of Str where rx:P5/(lambda:[*]|lambda:[a-zA-Z]+|[*])/;
+
+    subset ResourceArn of Str where rx:P5/(arn:aws:[a-z0-9-.]+:.*)|()/;
+
+    subset FunctionArn of Str where rx:P5/arn:aws:lambda:[a-z]{2}-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(:(\$LATEST|[a-zA-Z0-9-_]+))?/;
+
+    subset Timeout of Int where 1 <= *;
+
+    subset EventSourceToken of Str where 0 <= .chars <= 256 && rx:P5/[a-zA-Z0-9._\-]+/;
+
+    subset TracingMode of Str where $_ eq any('Active', 'PassThrough');
+
+    subset MasterRegion of Str where rx:P5/ALL|[a-z]{2}(-gov)?-[a-z]+-\d{1}/;
+
+    subset EnvironmentVariableName of Str where rx:P5/[a-zA-Z]([a-zA-Z0-9_])+/;
+
+    subset MaxListItems of Int where 1 <= * <= 10000;
+
+    subset SubnetIds of Array[Str] where *.elems <= 16;
+
+    subset NamespacedStatementId of Str where 1 <= .chars <= 100 && rx:P5/([a-zA-Z0-9-_.]+)/;
+
+    subset BatchSize of Int where 1 <= * <= 10000;
+
+
     class KMSDisabledException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
         has Str $.message is shape-member('Message');
@@ -102,14 +175,8 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has Alias $.name is required is shape-member('Name');
     }
 
-    subset InvocationType of Str where $_ ~~ any('Event', 'RequestResponse', 'DryRun');
-
-    subset RoleArn of Str where rx:P5/arn:aws:iam::\d{12}:role\/?[a-zA-Z_0-9+=,.@\-_\/]+/;
-
-    subset Description of Str where 0 <= .chars <= 256;
-
     class GetFunctionResponse does AWS::SDK::Shape {
-        has Hash[Str, Str] $.tags is shape-member('Tags');
+        has Str %.tags{Str} is shape-member('Tags');
         has FunctionConfiguration $.configuration is shape-member('Configuration');
         has FunctionCodeLocation $.code is shape-member('Code');
     }
@@ -143,10 +210,8 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     }
 
     class ListTagsResponse does AWS::SDK::Shape {
-        has Hash[Str, Str] $.tags is shape-member('Tags');
+        has Str %.tags{Str} is shape-member('Tags');
     }
-
-    subset Qualifier of Str where 1 <= .chars <= 128 && rx:P5/(|[a-zA-Z0-9$_-]+)/;
 
     class VpcConfig does AWS::SDK::Shape {
         has SecurityGroupIds $.security-group-ids is shape-member('SecurityGroupIds');
@@ -157,18 +222,10 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has TracingMode $.mode is shape-member('Mode');
     }
 
-    subset FunctionVersion of Str where $_ ~~ any('ALL');
-
     class InvalidSubnetIDException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
         has Str $.message is shape-member('Message');
     }
-
-    subset MemorySize of Int where 128 <= * <= 1536;
-
-    subset Principal of Str where rx:P5/.*/;
-
-    subset ThrottleReason of Str where $_ ~~ any('ConcurrentInvocationLimitExceeded', 'FunctionInvocationRateLimitExceeded', 'CallerRateLimitExceeded');
 
     class AccountUsage does AWS::SDK::Shape {
         has Int $.total-code-size is shape-member('TotalCodeSize');
@@ -180,12 +237,12 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     }
 
     class ListVersionsByFunctionResponse does AWS::SDK::Shape {
-        has Array[FunctionConfiguration] $.versions is shape-member('Versions');
+        has FunctionConfiguration @.versions is shape-member('Versions');
         has Str $.next-marker is shape-member('NextMarker');
     }
 
     class Environment does AWS::SDK::Shape {
-        has Hash[Str, EnvironmentVariableName] $.variables is shape-member('Variables');
+        has Str %.variables{EnvironmentVariableName} is shape-member('Variables');
     }
 
     class CreateAliasRequest does AWS::SDK::Shape {
@@ -201,8 +258,6 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has Version $.function-version is shape-member('FunctionVersion');
         has Alias $.name is shape-member('Name');
     }
-
-    subset NamespacedFunctionName of Str where 1 <= .chars <= 170 && rx:P5/(arn:aws:lambda:)?([a-z]{2}-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_\.]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?/;
 
     class DeleteEventSourceMappingRequest does AWS::SDK::Shape {
         has Str $.uuid is required is shape-member('UUID');
@@ -227,8 +282,6 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has Arn $.source-arn is shape-member('SourceArn');
     }
 
-    subset KMSKeyArn of Str where rx:P5/(arn:aws:[a-z0-9-.]+:.*)|()/;
-
     class ListAliasesRequest does AWS::SDK::Shape {
         has FunctionName $.function-name is required is shape-member('FunctionName');
         has Version $.function-version is shape-member('FunctionVersion');
@@ -237,11 +290,9 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     }
 
     class ListFunctionsResponse does AWS::SDK::Shape {
-        has Array[FunctionConfiguration] $.functions is shape-member('Functions');
+        has FunctionConfiguration @.functions is shape-member('Functions');
         has Str $.next-marker is shape-member('NextMarker');
     }
-
-    subset NameSpacedFunctionArn of Str where rx:P5/arn:aws:lambda:[a-z]{2}-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_\.]+(:(\$LATEST|[a-zA-Z0-9-_]+))?/;
 
     class PolicyLengthExceededException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
@@ -274,21 +325,15 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset S3ObjectVersion of Str where 1 <= .chars <= 1024;
-
     class KMSNotFoundException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
         has Str $.message is shape-member('Message');
     }
 
-    subset Version of Str where 1 <= .chars <= 1024 && rx:P5/(\$LATEST|[0-9]+)/;
-
     class SubnetIPAddressLimitReachedException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
         has Str $.message is shape-member('Message');
     }
-
-    subset S3Key of Str where 1 <= .chars <= 1024;
 
     class InvalidParameterValueException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
@@ -315,7 +360,7 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     }
 
     class ListAliasesResponse does AWS::SDK::Shape {
-        has Array[AliasConfiguration] $.aliases is shape-member('Aliases');
+        has AliasConfiguration @.aliases is shape-member('Aliases');
         has Str $.next-marker is shape-member('NextMarker');
     }
 
@@ -328,7 +373,7 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has FunctionName $.function-name is required is shape-member('FunctionName');
         has Description $.description is shape-member('Description');
         has Handler $.handler is required is shape-member('Handler');
-        has Hash[Str, Str] $.tags is shape-member('Tags');
+        has Str %.tags{Str} is shape-member('Tags');
         has TracingConfig $.tracing-config is shape-member('TracingConfig');
         has DeadLetterConfig $.dead-letter-config is shape-member('DeadLetterConfig');
         has VpcConfig $.vpc-config is shape-member('VpcConfig');
@@ -340,8 +385,6 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     class GetEventSourceMappingRequest does AWS::SDK::Shape {
         has Str $.uuid is required is shape-member('UUID');
     }
-
-    subset S3Bucket of Str where 3 <= .chars <= 63 && rx:P5/^[0-9A-Za-z\.\-_]*(?<!\.)$/;
 
     class CreateEventSourceMappingRequest does AWS::SDK::Shape {
         has Arn $.event-source-arn is required is shape-member('EventSourceArn');
@@ -380,7 +423,7 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     }
 
     class UntagResourceRequest does AWS::SDK::Shape {
-        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.tag-keys is required is shape-member('TagKeys');
         has FunctionArn $.resource is required is shape-member('Resource');
     }
 
@@ -388,8 +431,6 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
         has Str $.error-code is shape-member('ErrorCode');
     }
-
-    subset Arn of Str where rx:P5/arn:aws:([a-zA-Z0-9\-])+:([a-z]{2}-[a-z]+-\d{1})?:(\d{12})?:(.*)/;
 
     class ListEventSourceMappingsRequest does AWS::SDK::Shape {
         has Arn $.event-source-arn is shape-member('EventSourceArn');
@@ -399,18 +440,14 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     }
 
     class ListEventSourceMappingsResponse does AWS::SDK::Shape {
-        has Array[EventSourceMappingConfiguration] $.event-source-mappings is shape-member('EventSourceMappings');
+        has EventSourceMappingConfiguration @.event-source-mappings is shape-member('EventSourceMappings');
         has Str $.next-marker is shape-member('NextMarker');
     }
-
-    subset EventSourcePosition of Str where $_ ~~ any('TRIM_HORIZON', 'LATEST', 'AT_TIMESTAMP');
 
     class DeleteFunctionRequest does AWS::SDK::Shape {
         has FunctionName $.function-name is required is shape-member('FunctionName');
         has Qualifier $.qualifier is shape-member('Qualifier');
     }
-
-    subset FunctionName of Str where 1 <= .chars <= 140 && rx:P5/(arn:aws:lambda:)?([a-z]{2}-[a-z]+-\d{1}:)?(\d{12}:)?(function:)?([a-zA-Z0-9-_]+)(:(\$LATEST|[a-zA-Z0-9-_]+))?/;
 
     class InvokeAsyncResponse does AWS::SDK::Shape {
         has Int $.status is shape-member('Status');
@@ -423,14 +460,10 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset Runtime of Str where $_ ~~ any('nodejs', 'nodejs4.3', 'nodejs6.10', 'java8', 'python2.7', 'python3.6', 'dotnetcore1.0', 'nodejs4.3-edge');
-
     class UnsupportedMediaTypeException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
         has Str $.message is shape-member('message');
     }
-
-    subset SourceOwner of Str where rx:P5/\d{12}/;
 
     class ResourceNotFoundException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
@@ -449,29 +482,21 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has Qualifier $.qualifier is shape-member('Qualifier');
     }
 
-    subset LogType of Str where $_ ~~ any('None', 'Tail');
-
     class EC2ThrottledException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
         has Str $.message is shape-member('Message');
     }
-
-    subset Alias of Str where 1 <= .chars <= 128 && rx:P5/(?!^[0-9]+$)([a-zA-Z0-9-_]+)/;
 
     class GetAccountSettingsResponse does AWS::SDK::Shape {
         has AccountLimit $.account-limit is shape-member('AccountLimit');
         has AccountUsage $.account-usage is shape-member('AccountUsage');
     }
 
-    subset Handler of Str where .chars <= 128 && rx:P5/[^\s]+/;
-
     class RemovePermissionRequest does AWS::SDK::Shape {
         has FunctionName $.function-name is required is shape-member('FunctionName');
         has Qualifier $.qualifier is shape-member('Qualifier');
         has NamespacedStatementId $.statement-id is required is shape-member('StatementId');
     }
-
-    subset StatementId of Str where 1 <= .chars <= 100 && rx:P5/([a-zA-Z0-9-_]+)/;
 
     class EventSourceMappingConfiguration does AWS::SDK::Shape {
         has Arn $.event-source-arn is shape-member('EventSourceArn');
@@ -487,8 +512,6 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     class DeadLetterConfig does AWS::SDK::Shape {
         has ResourceArn $.target-arn is shape-member('TargetArn');
     }
-
-    subset Action of Str where rx:P5/(lambda:[*]|lambda:[a-zA-Z]+|[*])/;
 
     class InvalidRequestContentException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
@@ -522,23 +545,15 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has SubnetIds $.subnet-ids is shape-member('SubnetIds');
     }
 
-    subset ResourceArn of Str where rx:P5/(arn:aws:[a-z0-9-.]+:.*)|()/;
-
-    subset FunctionArn of Str where rx:P5/arn:aws:lambda:[a-z]{2}-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(:(\$LATEST|[a-zA-Z0-9-_]+))?/;
-
     class EnvironmentResponse does AWS::SDK::Shape {
         has EnvironmentError $.error is shape-member('Error');
-        has Hash[Str, EnvironmentVariableName] $.variables is shape-member('Variables');
+        has Str %.variables{EnvironmentVariableName} is shape-member('Variables');
     }
 
     class InvalidZipFileException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
         has Str $.message is shape-member('Message');
     }
-
-    subset Timeout of Int where 1 <= *;
-
-    subset EventSourceToken of Str where 0 <= .chars <= 256 && rx:P5/[a-zA-Z0-9._\-]+/;
 
     class EC2UnexpectedException does AWS::SDK::Shape {
         has Str $.ec2-error-code is shape-member('EC2ErrorCode');
@@ -551,23 +566,15 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has Qualifier $.qualifier is shape-member('Qualifier');
     }
 
-    subset TracingMode of Str where $_ ~~ any('Active', 'PassThrough');
-
-    subset MasterRegion of Str where rx:P5/ALL|[a-z]{2}(-gov)?-[a-z]+-\d{1}/;
-
     class TagResourceRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.tags is required is shape-member('Tags');
+        has Str %.tags{Str} is required is shape-member('Tags');
         has FunctionArn $.resource is required is shape-member('Resource');
     }
-
-    subset EnvironmentVariableName of Str where rx:P5/[a-zA-Z]([a-zA-Z0-9_])+/;
 
     class ENILimitReachedException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
         has Str $.message is shape-member('Message');
     }
-
-    subset MaxListItems of Int where 1 <= * <= 10000;
 
     class PublishVersionRequest does AWS::SDK::Shape {
         has FunctionName $.function-name is required is shape-member('FunctionName');
@@ -610,21 +617,16 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset SubnetIds of Array[Str] where *.elems <= 16;
-
-    subset NamespacedStatementId of Str where 1 <= .chars <= 100 && rx:P5/([a-zA-Z0-9-_.]+)/;
-
     class CodeStorageExceededException does AWS::SDK::Shape {
         has Str $.type is shape-member('Type');
         has Str $.message is shape-member('message');
     }
 
-    subset BatchSize of Int where 1 <= * <= 10000;
-
     class FunctionCodeLocation does AWS::SDK::Shape {
         has Str $.repository-type is shape-member('RepositoryType');
         has Str $.location is shape-member('Location');
     }
+
 
     method update-alias(
         FunctionName :$function-name!,
@@ -762,11 +764,11 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     }
 
     method tag-resource(
-        Hash[Str, Str] :$tags!,
+        Str :%tags!,
         FunctionArn :$resource!
     ) is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-            :$tags,
+            :%tags,
             :$resource
         );
 
@@ -927,11 +929,11 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
     }
 
     method untag-resource(
-        Array[Str] :$tag-keys!,
+        Str :@tag-keys!,
         FunctionArn :$resource!
     ) is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-            :$tag-keys,
+            :@tag-keys,
             :$resource
         );
 
@@ -965,7 +967,7 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
         FunctionName :$function-name!,
         Description :$description,
         Handler :$handler!,
-        Hash[Str, Str] :$tags,
+        Str :%tags,
         TracingConfig :$tracing-config,
         DeadLetterConfig :$dead-letter-config,
         VpcConfig :$vpc-config,
@@ -982,7 +984,7 @@ class AWS::SDK::Service::Lambda does AWS::SDK::Service {
             :$function-name,
             :$description,
             :$handler,
-            :$tags,
+            :%tags,
             :$tracing-config,
             :$dead-letter-config,
             :$vpc-config,

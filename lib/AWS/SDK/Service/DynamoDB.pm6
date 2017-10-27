@@ -85,17 +85,86 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
 
     subset AttributeName of Str where .chars <= 65535;
 
+    subset StreamViewType of Str where $_ eq any('NEW_IMAGE', 'OLD_IMAGE', 'NEW_AND_OLD_IMAGES', 'KEYS_ONLY');
+
+    subset ProjectionType of Str where $_ eq any('ALL', 'KEYS_ONLY', 'INCLUDE');
+
+    subset ResourceArnString of Str where 1 <= .chars <= 1283;
+
+    subset PositiveLongObject of Int where 1 <= *;
+
+    subset BatchGetRequestMap of Hash[KeysAndAttributes, TableName] where 1 <= *.elems <= 100;
+
+    subset TableStatus of Str where $_ eq any('CREATING', 'UPDATING', 'DELETING', 'ACTIVE');
+
+    subset ConditionalOperator of Str where $_ eq any('AND', 'OR');
+
+    subset ScalarAttributeType of Str where $_ eq any('S', 'N', 'B');
+
+    subset AttributeAction of Str where $_ eq any('ADD', 'PUT', 'DELETE');
+
+    subset TableName of Str where 3 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.-]+/;
+
+    subset AttributeNameList of Array[AttributeName] where 1 <= *.elems;
+
+    subset IndexName of Str where 3 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.-]+/;
+
+    subset ReturnItemCollectionMetrics of Str where $_ eq any('SIZE', 'NONE');
+
+    subset TagKeyString of Str where 1 <= .chars <= 128;
+
+    subset KeySchema of Array[KeySchemaElement] where 1 <= *.elems <= 2;
+
+    subset ReturnValue of Str where $_ eq any('NONE', 'ALL_OLD', 'UPDATED_OLD', 'ALL_NEW', 'UPDATED_NEW');
+
+    subset BatchWriteItemRequestMap of Hash[WriteRequests, TableName] where 1 <= *.elems <= 25;
+
+    subset ReturnConsumedCapacity of Str where $_ eq any('INDEXES', 'TOTAL', 'NONE');
+
+    subset StreamArn of Str where 37 <= .chars <= 1024;
+
+    subset NonKeyAttributeNameList of Array[NonKeyAttributeName] where 1 <= *.elems <= 20;
+
+    subset ScanTotalSegments of Int where 1 <= * <= 1000000;
+
+    subset TimeToLiveAttributeName of Str where 1 <= .chars <= 255;
+
+    subset KeyList of Array[Hash[AttributeValue, AttributeName]] where 1 <= *.elems <= 100;
+
+    subset IndexStatus of Str where $_ eq any('CREATING', 'UPDATING', 'DELETING', 'ACTIVE');
+
+    subset ScanSegment of Int where 0 <= * <= 999999;
+
+    subset KeySchemaAttributeName of Str where 1 <= .chars <= 255;
+
+    subset KeyType of Str where $_ eq any('HASH', 'RANGE');
+
+    subset Select of Str where $_ eq any('ALL_ATTRIBUTES', 'ALL_PROJECTED_ATTRIBUTES', 'SPECIFIC_ATTRIBUTES', 'COUNT');
+
+    subset NonKeyAttributeName of Str where 1 <= .chars <= 255;
+
+    subset TimeToLiveStatus of Str where $_ eq any('ENABLING', 'DISABLING', 'ENABLED', 'DISABLED');
+
+    subset WriteRequests of Array[WriteRequest] where 1 <= *.elems <= 25;
+
+    subset ListTablesInputLimit of Int where 1 <= * <= 100;
+
+    subset PositiveIntegerObject of Int where 1 <= *;
+
+    subset TagValueString of Str where 0 <= .chars <= 256;
+
+    subset ComparisonOperator of Str where $_ eq any('EQ', 'NE', 'IN', 'LE', 'LT', 'GE', 'GT', 'BETWEEN', 'NOT_NULL', 'NULL', 'CONTAINS', 'NOT_CONTAINS', 'BEGINS_WITH');
+
+
     class GetItemInput does AWS::SDK::Shape {
         has Str $.projection-expression is shape-member('ProjectionExpression');
         has Bool $.consistent-read is shape-member('ConsistentRead');
         has TableName $.table-name is required is shape-member('TableName');
         has AttributeNameList $.attributes-to-get is shape-member('AttributesToGet');
-        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
-        has Hash[AttributeValue, AttributeName] $.key is required is shape-member('Key');
+        has AttributeName %.expression-attribute-names{Str} is shape-member('ExpressionAttributeNames');
+        has AttributeValue %.key{AttributeName} is required is shape-member('Key');
         has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
     }
-
-    subset StreamViewType of Str where $_ ~~ any('NEW_IMAGE', 'OLD_IMAGE', 'NEW_AND_OLD_IMAGES', 'KEYS_ONLY');
 
     class DescribeLimitsOutput does AWS::SDK::Shape {
         has PositiveLongObject $.table-max-read-capacity-units is shape-member('TableMaxReadCapacityUnits');
@@ -105,15 +174,9 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     class Condition does AWS::SDK::Shape {
-        has Array[AttributeValue] $.attribute-value-list is shape-member('AttributeValueList');
+        has AttributeValue @.attribute-value-list is shape-member('AttributeValueList');
         has ComparisonOperator $.comparison-operator is required is shape-member('ComparisonOperator');
     }
-
-    subset ProjectionType of Str where $_ ~~ any('ALL', 'KEYS_ONLY', 'INCLUDE');
-
-    subset ResourceArnString of Str where 1 <= .chars <= 1283;
-
-    subset PositiveLongObject of Int where 1 <= *;
 
     class GlobalSecondaryIndex does AWS::SDK::Shape {
         has Projection $.projection is required is shape-member('Projection');
@@ -131,10 +194,6 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         has IndexName $.index-name is required is shape-member('IndexName');
     }
 
-    subset BatchGetRequestMap of Hash[KeysAndAttributes, TableName] where 1 <= *.elems <= 100;
-
-    subset TableStatus of Str where $_ ~~ any('CREATING', 'UPDATING', 'DELETING', 'ACTIVE');
-
     class DescribeLimitsInput does AWS::SDK::Shape {
     }
 
@@ -142,18 +201,14 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ConditionalOperator of Str where $_ ~~ any('AND', 'OR');
-
     class DeleteTableOutput does AWS::SDK::Shape {
         has TableDescription $.table-description is shape-member('TableDescription');
     }
 
     class UntagResourceInput does AWS::SDK::Shape {
-        has Array[TagKeyString] $.tag-keys is required is shape-member('TagKeys');
+        has TagKeyString @.tag-keys is required is shape-member('TagKeys');
         has ResourceArnString $.resource-arn is required is shape-member('ResourceArn');
     }
-
-    subset ScalarAttributeType of Str where $_ ~~ any('S', 'N', 'B');
 
     class TimeToLiveDescription does AWS::SDK::Shape {
         has TimeToLiveAttributeName $.attribute-name is shape-member('AttributeName');
@@ -167,28 +222,20 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     class ExpectedAttributeValue does AWS::SDK::Shape {
-        has Array[AttributeValue] $.attribute-value-list is shape-member('AttributeValueList');
+        has AttributeValue @.attribute-value-list is shape-member('AttributeValueList');
         has Bool $.exists is shape-member('Exists');
         has AttributeValue $.value is shape-member('Value');
         has ComparisonOperator $.comparison-operator is shape-member('ComparisonOperator');
     }
 
-    subset AttributeAction of Str where $_ ~~ any('ADD', 'PUT', 'DELETE');
-
-    subset TableName of Str where 3 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.-]+/;
-
-    subset AttributeNameList of Array[AttributeName] where 1 <= *.elems;
-
     class TagResourceInput does AWS::SDK::Shape {
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
         has ResourceArnString $.resource-arn is required is shape-member('ResourceArn');
     }
 
     class CreateTableOutput does AWS::SDK::Shape {
         has TableDescription $.table-description is shape-member('TableDescription');
     }
-
-    subset IndexName of Str where 3 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.-]+/;
 
     class CreateGlobalSecondaryIndexAction does AWS::SDK::Shape {
         has Projection $.projection is required is shape-member('Projection');
@@ -201,22 +248,18 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ReturnItemCollectionMetrics of Str where $_ ~~ any('SIZE', 'NONE');
-
     class UpdateTimeToLiveOutput does AWS::SDK::Shape {
         has TimeToLiveSpecification $.time-to-live-specification is shape-member('TimeToLiveSpecification');
     }
 
-    subset TagKeyString of Str where 1 <= .chars <= 128;
-
     class PutItemInput does AWS::SDK::Shape {
-        has Hash[AttributeValue, Str] $.expression-attribute-values is shape-member('ExpressionAttributeValues');
-        has Hash[AttributeValue, AttributeName] $.item is required is shape-member('Item');
+        has AttributeValue %.expression-attribute-values{Str} is shape-member('ExpressionAttributeValues');
+        has AttributeValue %.item{AttributeName} is required is shape-member('Item');
         has TableName $.table-name is required is shape-member('TableName');
         has ReturnItemCollectionMetrics $.return-item-collection-metrics is shape-member('ReturnItemCollectionMetrics');
         has ConditionalOperator $.conditional-operator is shape-member('ConditionalOperator');
-        has Hash[ExpectedAttributeValue, AttributeName] $.expected is shape-member('Expected');
-        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has ExpectedAttributeValue %.expected{AttributeName} is shape-member('Expected');
+        has AttributeName %.expression-attribute-names{Str} is shape-member('ExpressionAttributeNames');
         has Str $.condition-expression is shape-member('ConditionExpression');
         has ReturnValue $.return-values is shape-member('ReturnValues');
         has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
@@ -225,7 +268,7 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     class ScanInput does AWS::SDK::Shape {
         has Bool $.consistent-read is shape-member('ConsistentRead');
         has Str $.projection-expression is shape-member('ProjectionExpression');
-        has Hash[AttributeValue, Str] $.expression-attribute-values is shape-member('ExpressionAttributeValues');
+        has AttributeValue %.expression-attribute-values{Str} is shape-member('ExpressionAttributeValues');
         has Select $.select is shape-member('Select');
         has PositiveIntegerObject $.limit is shape-member('Limit');
         has IndexName $.index-name is shape-member('IndexName');
@@ -233,12 +276,12 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         has ScanTotalSegments $.total-segments is shape-member('TotalSegments');
         has ConditionalOperator $.conditional-operator is shape-member('ConditionalOperator');
         has AttributeNameList $.attributes-to-get is shape-member('AttributesToGet');
-        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has AttributeName %.expression-attribute-names{Str} is shape-member('ExpressionAttributeNames');
         has Str $.filter-expression is shape-member('FilterExpression');
         has ScanSegment $.segment is shape-member('Segment');
-        has Hash[Condition, AttributeName] $.scan-filter is shape-member('ScanFilter');
+        has Condition %.scan-filter{AttributeName} is shape-member('ScanFilter');
         has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
-        has Hash[AttributeValue, AttributeName] $.exclusive-start-key is shape-member('ExclusiveStartKey');
+        has AttributeValue %.exclusive-start-key{AttributeName} is shape-member('ExclusiveStartKey');
     }
 
     class ListTagsOfResourceInput does AWS::SDK::Shape {
@@ -263,18 +306,14 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         has TableName $.table-name is required is shape-member('TableName');
     }
 
-    subset KeySchema of Array[KeySchemaElement] where 1 <= *.elems <= 2;
-
-    subset ReturnValue of Str where $_ ~~ any('NONE', 'ALL_OLD', 'UPDATED_OLD', 'ALL_NEW', 'UPDATED_NEW');
-
     class CreateTableInput does AWS::SDK::Shape {
-        has Array[GlobalSecondaryIndex] $.global-secondary-indexes is shape-member('GlobalSecondaryIndexes');
+        has GlobalSecondaryIndex @.global-secondary-indexes is shape-member('GlobalSecondaryIndexes');
         has StreamSpecification $.stream-specification is shape-member('StreamSpecification');
         has TableName $.table-name is required is shape-member('TableName');
-        has Array[LocalSecondaryIndex] $.local-secondary-indexes is shape-member('LocalSecondaryIndexes');
+        has LocalSecondaryIndex @.local-secondary-indexes is shape-member('LocalSecondaryIndexes');
         has ProvisionedThroughput $.provisioned-throughput is required is shape-member('ProvisionedThroughput');
         has KeySchema $.key-schema is required is shape-member('KeySchema');
-        has Array[AttributeDefinition] $.attribute-definitions is required is shape-member('AttributeDefinitions');
+        has AttributeDefinition @.attribute-definitions is required is shape-member('AttributeDefinitions');
     }
 
     class UpdateGlobalSecondaryIndexAction does AWS::SDK::Shape {
@@ -283,21 +322,15 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     class BatchWriteItemOutput does AWS::SDK::Shape {
-        has Hash[Array[ItemCollectionMetrics], TableName] $.item-collection-metrics is shape-member('ItemCollectionMetrics');
-        has Array[ConsumedCapacity] $.consumed-capacity is shape-member('ConsumedCapacity');
-        has BatchWriteItemRequestMap $.unprocessed-items is shape-member('UnprocessedItems');
+        has Array[ItemCollectionMetrics] %.item-collection-metrics{TableName} is shape-member('ItemCollectionMetrics');
+        has ConsumedCapacity @.consumed-capacity is shape-member('ConsumedCapacity');
+        has WriteRequests $.unprocessed-items{TableName} is shape-member('UnprocessedItems');
     }
-
-    subset BatchWriteItemRequestMap of Hash[WriteRequests, TableName] where 1 <= *.elems <= 25;
-
-    subset ReturnConsumedCapacity of Str where $_ ~~ any('INDEXES', 'TOTAL', 'NONE');
 
     class BatchGetItemInput does AWS::SDK::Shape {
-        has BatchGetRequestMap $.request-items is required is shape-member('RequestItems');
+        has KeysAndAttributes $.request-items{TableName} is required is shape-member('RequestItems');
         has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
     }
-
-    subset StreamArn of Str where 37 <= .chars <= 1024;
 
     class Tag does AWS::SDK::Shape {
         has TagValueString $.value is required is shape-member('Value');
@@ -306,14 +339,14 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
 
     class UpdateItemInput does AWS::SDK::Shape {
         has Str $.update-expression is shape-member('UpdateExpression');
-        has Hash[AttributeValue, Str] $.expression-attribute-values is shape-member('ExpressionAttributeValues');
+        has AttributeValue %.expression-attribute-values{Str} is shape-member('ExpressionAttributeValues');
         has TableName $.table-name is required is shape-member('TableName');
         has ReturnItemCollectionMetrics $.return-item-collection-metrics is shape-member('ReturnItemCollectionMetrics');
         has ConditionalOperator $.conditional-operator is shape-member('ConditionalOperator');
-        has Hash[ExpectedAttributeValue, AttributeName] $.expected is shape-member('Expected');
-        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
-        has Hash[AttributeValueUpdate, AttributeName] $.attribute-updates is shape-member('AttributeUpdates');
-        has Hash[AttributeValue, AttributeName] $.key is required is shape-member('Key');
+        has ExpectedAttributeValue %.expected{AttributeName} is shape-member('Expected');
+        has AttributeName %.expression-attribute-names{Str} is shape-member('ExpressionAttributeNames');
+        has AttributeValueUpdate %.attribute-updates{AttributeName} is shape-member('AttributeUpdates');
+        has AttributeValue %.key{AttributeName} is required is shape-member('Key');
         has Str $.condition-expression is shape-member('ConditionExpression');
         has ReturnValue $.return-values is shape-member('ReturnValues');
         has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
@@ -321,45 +354,45 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
 
     class QueryOutput does AWS::SDK::Shape {
         has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
-        has Hash[AttributeValue, AttributeName] $.last-evaluated-key is shape-member('LastEvaluatedKey');
+        has AttributeValue %.last-evaluated-key{AttributeName} is shape-member('LastEvaluatedKey');
         has Int $.scanned-count is shape-member('ScannedCount');
         has Int $.count is shape-member('Count');
-        has Array[Hash[AttributeValue, AttributeName]] $.items is shape-member('Items');
+        has Hash[AttributeValue, AttributeName] @.items is shape-member('Items');
     }
 
     class GetItemOutput does AWS::SDK::Shape {
-        has Hash[AttributeValue, AttributeName] $.item is shape-member('Item');
+        has AttributeValue %.item{AttributeName} is shape-member('Item');
         has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
     }
 
     class QueryInput does AWS::SDK::Shape {
         has Str $.projection-expression is shape-member('ProjectionExpression');
         has Bool $.consistent-read is shape-member('ConsistentRead');
-        has Hash[AttributeValue, Str] $.expression-attribute-values is shape-member('ExpressionAttributeValues');
-        has Hash[Condition, AttributeName] $.query-filter is shape-member('QueryFilter');
+        has AttributeValue %.expression-attribute-values{Str} is shape-member('ExpressionAttributeValues');
+        has Condition %.query-filter{AttributeName} is shape-member('QueryFilter');
         has Select $.select is shape-member('Select');
         has PositiveIntegerObject $.limit is shape-member('Limit');
         has IndexName $.index-name is shape-member('IndexName');
         has TableName $.table-name is required is shape-member('TableName');
         has Str $.key-condition-expression is shape-member('KeyConditionExpression');
-        has Hash[Condition, AttributeName] $.key-conditions is shape-member('KeyConditions');
+        has Condition %.key-conditions{AttributeName} is shape-member('KeyConditions');
         has ConditionalOperator $.conditional-operator is shape-member('ConditionalOperator');
         has AttributeNameList $.attributes-to-get is shape-member('AttributesToGet');
-        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has AttributeName %.expression-attribute-names{Str} is shape-member('ExpressionAttributeNames');
         has Str $.filter-expression is shape-member('FilterExpression');
         has Bool $.scan-index-forward is shape-member('ScanIndexForward');
         has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
-        has Hash[AttributeValue, AttributeName] $.exclusive-start-key is shape-member('ExclusiveStartKey');
+        has AttributeValue %.exclusive-start-key{AttributeName} is shape-member('ExclusiveStartKey');
     }
 
     class DeleteItemInput does AWS::SDK::Shape {
-        has Hash[AttributeValue, Str] $.expression-attribute-values is shape-member('ExpressionAttributeValues');
+        has AttributeValue %.expression-attribute-values{Str} is shape-member('ExpressionAttributeValues');
         has TableName $.table-name is required is shape-member('TableName');
         has ReturnItemCollectionMetrics $.return-item-collection-metrics is shape-member('ReturnItemCollectionMetrics');
         has ConditionalOperator $.conditional-operator is shape-member('ConditionalOperator');
-        has Hash[ExpectedAttributeValue, AttributeName] $.expected is shape-member('Expected');
-        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
-        has Hash[AttributeValue, AttributeName] $.key is required is shape-member('Key');
+        has ExpectedAttributeValue %.expected{AttributeName} is shape-member('Expected');
+        has AttributeName %.expression-attribute-names{Str} is shape-member('ExpressionAttributeNames');
+        has AttributeValue %.key{AttributeName} is required is shape-member('Key');
         has Str $.condition-expression is shape-member('ConditionExpression');
         has ReturnValue $.return-values is shape-member('ReturnValues');
         has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
@@ -382,8 +415,6 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         has DateTime $.last-increase-date-time is shape-member('LastIncreaseDateTime');
     }
 
-    subset NonKeyAttributeNameList of Array[NonKeyAttributeName] where 1 <= *.elems <= 20;
-
     class UpdateTimeToLiveInput does AWS::SDK::Shape {
         has TimeToLiveSpecification $.time-to-live-specification is required is shape-member('TimeToLiveSpecification');
         has TableName $.table-name is required is shape-member('TableName');
@@ -392,8 +423,6 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     class ResourceNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset ScanTotalSegments of Int where 1 <= * <= 1000000;
 
     class DescribeTableOutput does AWS::SDK::Shape {
         has TableDescription $.table is shape-member('Table');
@@ -405,25 +434,17 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     class DeleteRequest does AWS::SDK::Shape {
-        has Hash[AttributeValue, AttributeName] $.key is required is shape-member('Key');
+        has AttributeValue %.key{AttributeName} is required is shape-member('Key');
     }
-
-    subset TimeToLiveAttributeName of Str where 1 <= .chars <= 255;
-
-    subset KeyList of Array[Hash[AttributeValue, AttributeName]] where 1 <= *.elems <= 100;
-
-    subset IndexStatus of Str where $_ ~~ any('CREATING', 'UPDATING', 'DELETING', 'ACTIVE');
 
     class UpdateItemOutput does AWS::SDK::Shape {
         has ItemCollectionMetrics $.item-collection-metrics is shape-member('ItemCollectionMetrics');
         has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
-        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('Attributes');
+        has AttributeValue %.attributes{AttributeName} is shape-member('Attributes');
     }
 
-    subset ScanSegment of Int where 0 <= * <= 999999;
-
     class ListTagsOfResourceOutput does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -432,18 +453,16 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     class PutRequest does AWS::SDK::Shape {
-        has Hash[AttributeValue, AttributeName] $.item is required is shape-member('Item');
+        has AttributeValue %.item{AttributeName} is required is shape-member('Item');
     }
 
     class KeysAndAttributes does AWS::SDK::Shape {
         has Str $.projection-expression is shape-member('ProjectionExpression');
         has Bool $.consistent-read is shape-member('ConsistentRead');
         has AttributeNameList $.attributes-to-get is shape-member('AttributesToGet');
-        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has AttributeName %.expression-attribute-names{Str} is shape-member('ExpressionAttributeNames');
         has KeyList $.keys is required is shape-member('Keys');
     }
-
-    subset KeySchemaAttributeName of Str where 1 <= .chars <= 255;
 
     class DescribeTableInput does AWS::SDK::Shape {
         has TableName $.table-name is required is shape-member('TableName');
@@ -452,15 +471,13 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     class DeleteItemOutput does AWS::SDK::Shape {
         has ItemCollectionMetrics $.item-collection-metrics is shape-member('ItemCollectionMetrics');
         has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
-        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('Attributes');
+        has AttributeValue %.attributes{AttributeName} is shape-member('Attributes');
     }
 
     class TimeToLiveSpecification does AWS::SDK::Shape {
         has TimeToLiveAttributeName $.attribute-name is required is shape-member('AttributeName');
         has Bool $.enabled is required is shape-member('Enabled');
     }
-
-    subset KeyType of Str where $_ ~~ any('HASH', 'RANGE');
 
     class LocalSecondaryIndexDescription does AWS::SDK::Shape {
         has Str $.index-arn is shape-member('IndexArn');
@@ -472,16 +489,16 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     class ItemCollectionMetrics does AWS::SDK::Shape {
-        has Hash[AttributeValue, AttributeName] $.item-collection-key is shape-member('ItemCollectionKey');
-        has Array[Numeric] $.size-estimate-range-gb is shape-member('SizeEstimateRangeGB');
+        has AttributeValue %.item-collection-key{AttributeName} is shape-member('ItemCollectionKey');
+        has Numeric @.size-estimate-range-gb is shape-member('SizeEstimateRangeGB');
     }
 
     class UpdateTableInput does AWS::SDK::Shape {
         has StreamSpecification $.stream-specification is shape-member('StreamSpecification');
         has TableName $.table-name is required is shape-member('TableName');
-        has Array[GlobalSecondaryIndexUpdate] $.global-secondary-index-updates is shape-member('GlobalSecondaryIndexUpdates');
+        has GlobalSecondaryIndexUpdate @.global-secondary-index-updates is shape-member('GlobalSecondaryIndexUpdates');
         has ProvisionedThroughput $.provisioned-throughput is shape-member('ProvisionedThroughput');
-        has Array[AttributeDefinition] $.attribute-definitions is shape-member('AttributeDefinitions');
+        has AttributeDefinition @.attribute-definitions is shape-member('AttributeDefinitions');
     }
 
     class DescribeTimeToLiveInput does AWS::SDK::Shape {
@@ -491,8 +508,6 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     class InternalServerError does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset Select of Str where $_ ~~ any('ALL_ATTRIBUTES', 'ALL_PROJECTED_ATTRIBUTES', 'SPECIFIC_ATTRIBUTES', 'COUNT');
 
     class GlobalSecondaryIndexDescription does AWS::SDK::Shape {
         has Str $.index-arn is shape-member('IndexArn');
@@ -511,20 +526,20 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     class AttributeValue does AWS::SDK::Shape {
-        has Array[Str] $.n-s is shape-member('NS');
-        has Array[Blob] $.b-s is shape-member('BS');
+        has Str @.n-s is shape-member('NS');
+        has Blob @.b-s is shape-member('BS');
         has Blob $.b is shape-member('B');
         has Bool $.bool is shape-member('BOOL');
-        has Array[AttributeValue] $.l is shape-member('L');
+        has AttributeValue @.l is shape-member('L');
         has Str $.n is shape-member('N');
         has Str $.s is shape-member('S');
         has Bool $.null is shape-member('NULL');
-        has Hash[AttributeValue, AttributeName] $.m is shape-member('M');
-        has Array[Str] $.s-s is shape-member('SS');
+        has AttributeValue %.m{AttributeName} is shape-member('M');
+        has Str @.s-s is shape-member('SS');
     }
 
     class ListTablesOutput does AWS::SDK::Shape {
-        has Array[TableName] $.table-names is shape-member('TableNames');
+        has TableName @.table-names is shape-member('TableNames');
         has TableName $.last-evaluated-table-name is shape-member('LastEvaluatedTableName');
     }
 
@@ -535,24 +550,24 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
 
     class ScanOutput does AWS::SDK::Shape {
         has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
-        has Hash[AttributeValue, AttributeName] $.last-evaluated-key is shape-member('LastEvaluatedKey');
+        has AttributeValue %.last-evaluated-key{AttributeName} is shape-member('LastEvaluatedKey');
         has Int $.scanned-count is shape-member('ScannedCount');
         has Int $.count is shape-member('Count');
-        has Array[Hash[AttributeValue, AttributeName]] $.items is shape-member('Items');
+        has Hash[AttributeValue, AttributeName] @.items is shape-member('Items');
     }
 
     class BatchGetItemOutput does AWS::SDK::Shape {
-        has BatchGetRequestMap $.unprocessed-keys is shape-member('UnprocessedKeys');
-        has Array[ConsumedCapacity] $.consumed-capacity is shape-member('ConsumedCapacity');
-        has Hash[Array[Hash[AttributeValue, AttributeName]], TableName] $.responses is shape-member('Responses');
+        has KeysAndAttributes $.unprocessed-keys{TableName} is shape-member('UnprocessedKeys');
+        has ConsumedCapacity @.consumed-capacity is shape-member('ConsumedCapacity');
+        has Array[Hash[AttributeValue, AttributeName]] %.responses{TableName} is shape-member('Responses');
     }
 
     class ConsumedCapacity does AWS::SDK::Shape {
-        has Hash[Capacity, IndexName] $.global-secondary-indexes is shape-member('GlobalSecondaryIndexes');
+        has Capacity %.global-secondary-indexes{IndexName} is shape-member('GlobalSecondaryIndexes');
         has Numeric $.capacity-units is shape-member('CapacityUnits');
         has Capacity $.table is shape-member('Table');
         has TableName $.table-name is shape-member('TableName');
-        has Hash[Capacity, IndexName] $.local-secondary-indexes is shape-member('LocalSecondaryIndexes');
+        has Capacity %.local-secondary-indexes{IndexName} is shape-member('LocalSecondaryIndexes');
     }
 
     class WriteRequest does AWS::SDK::Shape {
@@ -560,61 +575,47 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         has PutRequest $.put-request is shape-member('PutRequest');
     }
 
-    subset NonKeyAttributeName of Str where 1 <= .chars <= 255;
-
     class AttributeValueUpdate does AWS::SDK::Shape {
         has AttributeAction $.action is shape-member('Action');
         has AttributeValue $.value is shape-member('Value');
     }
 
     class TableDescription does AWS::SDK::Shape {
-        has Array[GlobalSecondaryIndexDescription] $.global-secondary-indexes is shape-member('GlobalSecondaryIndexes');
+        has GlobalSecondaryIndexDescription @.global-secondary-indexes is shape-member('GlobalSecondaryIndexes');
         has Int $.table-size-bytes is shape-member('TableSizeBytes');
         has StreamSpecification $.stream-specification is shape-member('StreamSpecification');
         has TableName $.table-name is shape-member('TableName');
-        has Array[LocalSecondaryIndexDescription] $.local-secondary-indexes is shape-member('LocalSecondaryIndexes');
+        has LocalSecondaryIndexDescription @.local-secondary-indexes is shape-member('LocalSecondaryIndexes');
         has TableStatus $.table-status is shape-member('TableStatus');
         has Str $.table-arn is shape-member('TableArn');
         has Int $.item-count is shape-member('ItemCount');
         has ProvisionedThroughputDescription $.provisioned-throughput is shape-member('ProvisionedThroughput');
         has DateTime $.creation-date-time is shape-member('CreationDateTime');
         has KeySchema $.key-schema is shape-member('KeySchema');
-        has Array[AttributeDefinition] $.attribute-definitions is shape-member('AttributeDefinitions');
+        has AttributeDefinition @.attribute-definitions is shape-member('AttributeDefinitions');
         has StreamArn $.latest-stream-arn is shape-member('LatestStreamArn');
         has Str $.latest-stream-label is shape-member('LatestStreamLabel');
     }
 
     class BatchWriteItemInput does AWS::SDK::Shape {
         has ReturnItemCollectionMetrics $.return-item-collection-metrics is shape-member('ReturnItemCollectionMetrics');
-        has BatchWriteItemRequestMap $.request-items is required is shape-member('RequestItems');
+        has WriteRequests $.request-items{TableName} is required is shape-member('RequestItems');
         has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
     }
-
-    subset TimeToLiveStatus of Str where $_ ~~ any('ENABLING', 'DISABLING', 'ENABLED', 'DISABLED');
-
-    subset WriteRequests of Array[WriteRequest] where 1 <= *.elems <= 25;
 
     class KeySchemaElement does AWS::SDK::Shape {
         has KeyType $.key-type is required is shape-member('KeyType');
         has KeySchemaAttributeName $.attribute-name is required is shape-member('AttributeName');
     }
 
-    subset ListTablesInputLimit of Int where 1 <= * <= 100;
-
-    subset PositiveIntegerObject of Int where 1 <= *;
-
     class UpdateTableOutput does AWS::SDK::Shape {
         has TableDescription $.table-description is shape-member('TableDescription');
     }
 
-    subset TagValueString of Str where 0 <= .chars <= 256;
-
-    subset ComparisonOperator of Str where $_ ~~ any('EQ', 'NE', 'IN', 'LE', 'LT', 'GE', 'GT', 'BETWEEN', 'NOT_NULL', 'NULL', 'CONTAINS', 'NOT_CONTAINS', 'BEGINS_WITH');
-
     class PutItemOutput does AWS::SDK::Shape {
         has ItemCollectionMetrics $.item-collection-metrics is shape-member('ItemCollectionMetrics');
         has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
-        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('Attributes');
+        has AttributeValue %.attributes{AttributeName} is shape-member('Attributes');
     }
 
     class GlobalSecondaryIndexUpdate does AWS::SDK::Shape {
@@ -623,30 +624,31 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         has DeleteGlobalSecondaryIndexAction $.delete is shape-member('Delete');
     }
 
+
     method update-item(
         Str :$update-expression,
-        Hash[AttributeValue, Str] :$expression-attribute-values,
+        AttributeValue :%expression-attribute-values,
         TableName :$table-name!,
         ReturnItemCollectionMetrics :$return-item-collection-metrics,
         ConditionalOperator :$conditional-operator,
-        Hash[ExpectedAttributeValue, AttributeName] :$expected,
-        Hash[AttributeName, Str] :$expression-attribute-names,
-        Hash[AttributeValueUpdate, AttributeName] :$attribute-updates,
-        Hash[AttributeValue, AttributeName] :$key!,
+        ExpectedAttributeValue :%expected,
+        AttributeName :%expression-attribute-names,
+        AttributeValueUpdate :%attribute-updates,
+        AttributeValue :%key!,
         Str :$condition-expression,
         ReturnValue :$return-values,
         ReturnConsumedCapacity :$return-consumed-capacity
     ) returns UpdateItemOutput is service-operation('UpdateItem') {
         my $request-input = UpdateItemInput.new(
             :$update-expression,
-            :$expression-attribute-values,
+            :%expression-attribute-values,
             :$table-name,
             :$return-item-collection-metrics,
             :$conditional-operator,
-            :$expected,
-            :$expression-attribute-names,
-            :$attribute-updates,
-            :$key,
+            :%expected,
+            :%expression-attribute-names,
+            :%attribute-updates,
+            :%key,
             :$condition-expression,
             :$return-values,
             :$return-consumed-capacity
@@ -659,25 +661,25 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     method put-item(
-        Hash[AttributeValue, Str] :$expression-attribute-values,
-        Hash[AttributeValue, AttributeName] :$item!,
+        AttributeValue :%expression-attribute-values,
+        AttributeValue :%item!,
         TableName :$table-name!,
         ReturnItemCollectionMetrics :$return-item-collection-metrics,
         ConditionalOperator :$conditional-operator,
-        Hash[ExpectedAttributeValue, AttributeName] :$expected,
-        Hash[AttributeName, Str] :$expression-attribute-names,
+        ExpectedAttributeValue :%expected,
+        AttributeName :%expression-attribute-names,
         Str :$condition-expression,
         ReturnValue :$return-values,
         ReturnConsumedCapacity :$return-consumed-capacity
     ) returns PutItemOutput is service-operation('PutItem') {
         my $request-input = PutItemInput.new(
-            :$expression-attribute-values,
-            :$item,
+            :%expression-attribute-values,
+            :%item,
             :$table-name,
             :$return-item-collection-metrics,
             :$conditional-operator,
-            :$expected,
-            :$expression-attribute-names,
+            :%expected,
+            :%expression-attribute-names,
             :$condition-expression,
             :$return-values,
             :$return-consumed-capacity
@@ -703,11 +705,11 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     method tag-resource(
-        Array[Tag] :$tags!,
+        Tag :@tags!,
         ResourceArnString :$resource-arn!
     ) is service-operation('TagResource') {
         my $request-input = TagResourceInput.new(
-            :$tags,
+            :@tags,
             :$resource-arn
         );
 
@@ -722,8 +724,8 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         Bool :$consistent-read,
         TableName :$table-name!,
         AttributeNameList :$attributes-to-get,
-        Hash[AttributeName, Str] :$expression-attribute-names,
-        Hash[AttributeValue, AttributeName] :$key!,
+        AttributeName :%expression-attribute-names,
+        AttributeValue :%key!,
         ReturnConsumedCapacity :$return-consumed-capacity
     ) returns GetItemOutput is service-operation('GetItem') {
         my $request-input = GetItemInput.new(
@@ -731,8 +733,8 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
             :$consistent-read,
             :$table-name,
             :$attributes-to-get,
-            :$expression-attribute-names,
-            :$key,
+            :%expression-attribute-names,
+            :%key,
             :$return-consumed-capacity
         );
 
@@ -757,7 +759,7 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
 
     method batch-write-item(
         ReturnItemCollectionMetrics :$return-item-collection-metrics,
-        BatchWriteItemRequestMap :$request-items!,
+        WriteRequests :$request-items!,
         ReturnConsumedCapacity :$return-consumed-capacity
     ) returns BatchWriteItemOutput is service-operation('BatchWriteItem') {
         my $request-input = BatchWriteItemInput.new(
@@ -773,25 +775,25 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     method delete-item(
-        Hash[AttributeValue, Str] :$expression-attribute-values,
+        AttributeValue :%expression-attribute-values,
         TableName :$table-name!,
         ReturnItemCollectionMetrics :$return-item-collection-metrics,
         ConditionalOperator :$conditional-operator,
-        Hash[ExpectedAttributeValue, AttributeName] :$expected,
-        Hash[AttributeName, Str] :$expression-attribute-names,
-        Hash[AttributeValue, AttributeName] :$key!,
+        ExpectedAttributeValue :%expected,
+        AttributeName :%expression-attribute-names,
+        AttributeValue :%key!,
         Str :$condition-expression,
         ReturnValue :$return-values,
         ReturnConsumedCapacity :$return-consumed-capacity
     ) returns DeleteItemOutput is service-operation('DeleteItem') {
         my $request-input = DeleteItemInput.new(
-            :$expression-attribute-values,
+            :%expression-attribute-values,
             :$table-name,
             :$return-item-collection-metrics,
             :$conditional-operator,
-            :$expected,
-            :$expression-attribute-names,
-            :$key,
+            :%expected,
+            :%expression-attribute-names,
+            :%key,
             :$condition-expression,
             :$return-values,
             :$return-consumed-capacity
@@ -804,11 +806,11 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     method untag-resource(
-        Array[TagKeyString] :$tag-keys!,
+        TagKeyString :@tag-keys!,
         ResourceArnString :$resource-arn!
     ) is service-operation('UntagResource') {
         my $request-input = UntagResourceInput.new(
-            :$tag-keys,
+            :@tag-keys,
             :$resource-arn
         );
 
@@ -821,7 +823,7 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     method scan(
         Bool :$consistent-read,
         Str :$projection-expression,
-        Hash[AttributeValue, Str] :$expression-attribute-values,
+        AttributeValue :%expression-attribute-values,
         Select :$select,
         PositiveIntegerObject :$limit,
         IndexName :$index-name,
@@ -829,17 +831,17 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
         ScanTotalSegments :$total-segments,
         ConditionalOperator :$conditional-operator,
         AttributeNameList :$attributes-to-get,
-        Hash[AttributeName, Str] :$expression-attribute-names,
+        AttributeName :%expression-attribute-names,
         Str :$filter-expression,
         ScanSegment :$segment,
-        Hash[Condition, AttributeName] :$scan-filter,
+        Condition :%scan-filter,
         ReturnConsumedCapacity :$return-consumed-capacity,
-        Hash[AttributeValue, AttributeName] :$exclusive-start-key
+        AttributeValue :%exclusive-start-key
     ) returns ScanOutput is service-operation('Scan') {
         my $request-input = ScanInput.new(
             :$consistent-read,
             :$projection-expression,
-            :$expression-attribute-values,
+            :%expression-attribute-values,
             :$select,
             :$limit,
             :$index-name,
@@ -847,12 +849,12 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
             :$total-segments,
             :$conditional-operator,
             :$attributes-to-get,
-            :$expression-attribute-names,
+            :%expression-attribute-names,
             :$filter-expression,
             :$segment,
-            :$scan-filter,
+            :%scan-filter,
             :$return-consumed-capacity,
-            :$exclusive-start-key
+            :%exclusive-start-key
         );
 
         self.perform-operation(
@@ -892,16 +894,16 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     method update-table(
         StreamSpecification :$stream-specification,
         TableName :$table-name!,
-        Array[GlobalSecondaryIndexUpdate] :$global-secondary-index-updates,
+        GlobalSecondaryIndexUpdate :@global-secondary-index-updates,
         ProvisionedThroughput :$provisioned-throughput,
-        Array[AttributeDefinition] :$attribute-definitions
+        AttributeDefinition :@attribute-definitions
     ) returns UpdateTableOutput is service-operation('UpdateTable') {
         my $request-input = UpdateTableInput.new(
             :$stream-specification,
             :$table-name,
-            :$global-secondary-index-updates,
+            :@global-secondary-index-updates,
             :$provisioned-throughput,
-            :$attribute-definitions
+            :@attribute-definitions
         );
 
         self.perform-operation(
@@ -939,22 +941,22 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     method create-table(
-        Array[GlobalSecondaryIndex] :$global-secondary-indexes,
+        GlobalSecondaryIndex :@global-secondary-indexes,
         StreamSpecification :$stream-specification,
         TableName :$table-name!,
-        Array[LocalSecondaryIndex] :$local-secondary-indexes,
+        LocalSecondaryIndex :@local-secondary-indexes,
         ProvisionedThroughput :$provisioned-throughput!,
         KeySchema :$key-schema!,
-        Array[AttributeDefinition] :$attribute-definitions!
+        AttributeDefinition :@attribute-definitions!
     ) returns CreateTableOutput is service-operation('CreateTable') {
         my $request-input = CreateTableInput.new(
-            :$global-secondary-indexes,
+            :@global-secondary-indexes,
             :$stream-specification,
             :$table-name,
-            :$local-secondary-indexes,
+            :@local-secondary-indexes,
             :$provisioned-throughput,
             :$key-schema,
-            :$attribute-definitions
+            :@attribute-definitions
         );
 
         self.perform-operation(
@@ -981,40 +983,40 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     method query(
         Str :$projection-expression,
         Bool :$consistent-read,
-        Hash[AttributeValue, Str] :$expression-attribute-values,
-        Hash[Condition, AttributeName] :$query-filter,
+        AttributeValue :%expression-attribute-values,
+        Condition :%query-filter,
         Select :$select,
         PositiveIntegerObject :$limit,
         IndexName :$index-name,
         TableName :$table-name!,
         Str :$key-condition-expression,
-        Hash[Condition, AttributeName] :$key-conditions,
+        Condition :%key-conditions,
         ConditionalOperator :$conditional-operator,
         AttributeNameList :$attributes-to-get,
-        Hash[AttributeName, Str] :$expression-attribute-names,
+        AttributeName :%expression-attribute-names,
         Str :$filter-expression,
         Bool :$scan-index-forward,
         ReturnConsumedCapacity :$return-consumed-capacity,
-        Hash[AttributeValue, AttributeName] :$exclusive-start-key
+        AttributeValue :%exclusive-start-key
     ) returns QueryOutput is service-operation('Query') {
         my $request-input = QueryInput.new(
             :$projection-expression,
             :$consistent-read,
-            :$expression-attribute-values,
-            :$query-filter,
+            :%expression-attribute-values,
+            :%query-filter,
             :$select,
             :$limit,
             :$index-name,
             :$table-name,
             :$key-condition-expression,
-            :$key-conditions,
+            :%key-conditions,
             :$conditional-operator,
             :$attributes-to-get,
-            :$expression-attribute-names,
+            :%expression-attribute-names,
             :$filter-expression,
             :$scan-index-forward,
             :$return-consumed-capacity,
-            :$exclusive-start-key
+            :%exclusive-start-key
         );
 
         self.perform-operation(
@@ -1024,7 +1026,7 @@ class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
     }
 
     method batch-get-item(
-        BatchGetRequestMap :$request-items!,
+        KeysAndAttributes :$request-items!,
         ReturnConsumedCapacity :$return-consumed-capacity
     ) returns BatchGetItemOutput is service-operation('BatchGetItem') {
         my $request-input = BatchGetItemInput.new(

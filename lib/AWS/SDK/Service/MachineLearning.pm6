@@ -92,10 +92,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
     class PredictInput { ... }
     class RDSDataSpec { ... }
 
-    class DeleteDataSourceInput does AWS::SDK::Shape {
-        has EntityId $.data-source-id is required is shape-member('DataSourceId');
-    }
-
     subset PageLimit of Int where 1 <= * <= 100;
 
     subset RoleARN of Str where 1 <= .chars <= 110;
@@ -105,6 +101,91 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
     subset ComparatorValue of Str where .chars <= 1024 && rx:P5/.*\S.*|^$/;
 
     subset RedshiftClusterIdentifier of Str where 1 <= .chars <= 63 && rx:P5/[a-z0-9-]+/;
+
+    subset RDSInstanceIdentifier of Str where 1 <= .chars <= 63 && rx:P5/[a-z0-9-]+/;
+
+    subset TagList of Array[Tag] where *.elems <= 100;
+
+    subset BatchPredictionFilterVariable of Str where $_ eq any('CreatedAt', 'LastUpdatedAt', 'Status', 'Name', 'IAMUser', 'MLModelId', 'DataSourceId', 'DataURI');
+
+    subset Algorithm of Str where $_ eq any('sgd');
+
+    subset EvaluationFilterVariable of Str where $_ eq any('CreatedAt', 'LastUpdatedAt', 'Status', 'Name', 'IAMUser', 'MLModelId', 'DataSourceId', 'DataURI');
+
+    subset SortOrder of Str where $_ eq any('asc', 'dsc');
+
+    subset RDSDatabasePassword of Str where 8 <= .chars <= 128;
+
+    subset DetailsAttributes of Str where $_ eq any('PredictiveModelType', 'Algorithm');
+
+    subset DataSchema of Str where .chars <= 131071;
+
+    subset MLModelType of Str where $_ eq any('REGRESSION', 'BINARY', 'MULTICLASS');
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset MLModelFilterVariable of Str where $_ eq any('CreatedAt', 'LastUpdatedAt', 'Status', 'Name', 'IAMUser', 'TrainingDataSourceId', 'RealtimeEndpointStatus', 'MLModelType', 'Algorithm', 'TrainingDataURI');
+
+    subset S3Url of Str where .chars <= 2048 && rx:P5/s3:\/\/([^\/]+)(\/.*)?/;
+
+    subset RDSDatabaseName of Str where 1 <= .chars <= 64;
+
+    subset VipURL of Str where .chars <= 2048 && rx:P5/https:\/\/[a-zA-Z0-9-.]*\.amazon(aws)?\.com[\/]?/;
+
+    subset EDPResourceRole of Str where 1 <= .chars <= 64;
+
+    subset EntityStatus of Str where $_ eq any('PENDING', 'INPROGRESS', 'FAILED', 'COMPLETED', 'DELETED');
+
+    subset EntityId of Str where 1 <= .chars <= 64 && rx:P5/[a-zA-Z0-9_.-]+/;
+
+    subset RealtimeEndpointStatus of Str where $_ eq any('NONE', 'READY', 'UPDATING', 'FAILED');
+
+    subset DataSourceFilterVariable of Str where $_ eq any('CreatedAt', 'LastUpdatedAt', 'Status', 'Name', 'DataLocationS3', 'IAMUser');
+
+    subset Label of Str where 1 <= .chars;
+
+    subset TagKeyList of Array[TagKey] where *.elems <= 100;
+
+    subset RedshiftSelectSqlQuery of Str where 1 <= .chars <= 16777216;
+
+    subset EDPSecurityGroupId of Str where 1 <= .chars <= 255;
+
+    subset DetailsValue of Str where 1 <= .chars;
+
+    subset RedshiftDatabasePassword of Str where 8 <= .chars <= 64;
+
+    subset EDPSubnetId of Str where 1 <= .chars <= 255;
+
+    subset RedshiftDatabaseName of Str where 1 <= .chars <= 64 && rx:P5/[a-z0-9]+/;
+
+    subset TaggableResourceType of Str where $_ eq any('BatchPrediction', 'DataSource', 'Evaluation', 'MLModel');
+
+    subset RedshiftDatabaseUsername of Str where 1 <= .chars <= 128;
+
+    subset MLModelName of Str where .chars <= 1024;
+
+    subset Recipe of Str where .chars <= 131071;
+
+    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset ErrorMessage of Str where .chars <= 2048;
+
+    subset RDSSelectSqlQuery of Str where 1 <= .chars <= 16777216;
+
+    subset EDPServiceRole of Str where 1 <= .chars <= 64;
+
+    subset EntityName of Str where .chars <= 1024 && rx:P5/.*\S.*|^$/;
+
+    subset AwsUserArn of Str where rx:P5/arn:aws:iam::[0-9]+:((user\/.+)|(root))/;
+
+    subset RDSDatabaseUsername of Str where 1 <= .chars <= 128;
+
+    subset Message of Str where .chars <= 10240;
+
+
+    class DeleteDataSourceInput does AWS::SDK::Shape {
+        has EntityId $.data-source-id is required is shape-member('DataSourceId');
+    }
 
     class RedshiftDataSpec does AWS::SDK::Shape {
         has DataSchema $.data-schema is shape-member('DataSchema');
@@ -136,7 +217,7 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has S3Url $.recipe-uri is shape-member('RecipeUri');
         has Recipe $.recipe is shape-member('Recipe');
         has EntityName $.ml-model-name is shape-member('MLModelName');
-        has Hash[Str, Str] $.parameters is shape-member('Parameters');
+        has Str %.parameters{Str} is shape-member('Parameters');
         has EntityId $.training-data-source-id is required is shape-member('TrainingDataSourceId');
     }
 
@@ -147,8 +228,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has Bool $.compute-statistics is shape-member('ComputeStatistics');
         has EntityName $.data-source-name is shape-member('DataSourceName');
     }
-
-    subset RDSInstanceIdentifier of Str where 1 <= .chars <= 63 && rx:P5/[a-z0-9-]+/;
 
     class UpdateEvaluationInput does AWS::SDK::Shape {
         has EntityId $.evaluation-id is required is shape-member('EvaluationId');
@@ -175,8 +254,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has RDSDatabaseName $.database-name is required is shape-member('DatabaseName');
     }
 
-    subset TagList of Array[Tag] where *.elems <= 100;
-
     class DeleteRealtimeEndpointOutput does AWS::SDK::Shape {
         has EntityId $.ml-model-id is shape-member('MLModelId');
         has RealtimeEndpointInfo $.realtime-endpoint-info is shape-member('RealtimeEndpointInfo');
@@ -193,12 +270,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has Str $.data-rearrangement is shape-member('DataRearrangement');
     }
 
-    subset BatchPredictionFilterVariable of Str where $_ ~~ any('CreatedAt', 'LastUpdatedAt', 'Status', 'Name', 'IAMUser', 'MLModelId', 'DataSourceId', 'DataURI');
-
-    subset Algorithm of Str where $_ ~~ any('sgd');
-
-    subset EvaluationFilterVariable of Str where $_ ~~ any('CreatedAt', 'LastUpdatedAt', 'Status', 'Name', 'IAMUser', 'MLModelId', 'DataSourceId', 'DataURI');
-
     class UpdateEvaluationOutput does AWS::SDK::Shape {
         has EntityId $.evaluation-id is shape-member('EvaluationId');
     }
@@ -209,22 +280,10 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has TaggableResourceType $.resource-type is required is shape-member('ResourceType');
     }
 
-    subset SortOrder of Str where $_ ~~ any('asc', 'dsc');
-
     class DescribeTagsInput does AWS::SDK::Shape {
         has EntityId $.resource-id is required is shape-member('ResourceId');
         has TaggableResourceType $.resource-type is required is shape-member('ResourceType');
     }
-
-    subset RDSDatabasePassword of Str where 8 <= .chars <= 128;
-
-    subset DetailsAttributes of Str where $_ ~~ any('PredictiveModelType', 'Algorithm');
-
-    subset DataSchema of Str where .chars <= 131071;
-
-    subset MLModelType of Str where $_ ~~ any('REGRESSION', 'BINARY', 'MULTICLASS');
-
-    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
     class RedshiftMetadata does AWS::SDK::Shape {
         has RedshiftDatabaseUsername $.database-user-name is shape-member('DatabaseUserName');
@@ -272,21 +331,15 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has Algorithm $.algorithm is shape-member('Algorithm');
         has EntityStatus $.status is shape-member('Status');
         has AwsUserArn $.created-by-iam-user is shape-member('CreatedByIamUser');
-        has Hash[Str, Str] $.training-parameters is shape-member('TrainingParameters');
+        has Str %.training-parameters{Str} is shape-member('TrainingParameters');
         has DateTime $.started-at is shape-member('StartedAt');
         has Message $.message is shape-member('Message');
         has S3Url $.input-data-location-s3 is shape-member('InputDataLocationS3');
     }
 
-    subset MLModelFilterVariable of Str where $_ ~~ any('CreatedAt', 'LastUpdatedAt', 'Status', 'Name', 'IAMUser', 'TrainingDataSourceId', 'RealtimeEndpointStatus', 'MLModelType', 'Algorithm', 'TrainingDataURI');
-
-    subset S3Url of Str where .chars <= 2048 && rx:P5/s3:\/\/([^\/]+)(\/.*)?/;
-
     class CreateMLModelOutput does AWS::SDK::Shape {
         has EntityId $.ml-model-id is shape-member('MLModelId');
     }
-
-    subset RDSDatabaseName of Str where 1 <= .chars <= 64;
 
     class TagLimitExceededException does AWS::SDK::Shape {
         has ErrorMessage $.message is shape-member('message');
@@ -302,18 +355,14 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has EntityId $.evaluation-id is required is shape-member('EvaluationId');
     }
 
-    subset VipURL of Str where .chars <= 2048 && rx:P5/https:\/\/[a-zA-Z0-9-.]*\.amazon(aws)?\.com[\/]?/;
-
-    subset EDPResourceRole of Str where 1 <= .chars <= 64;
-
     class GetMLModelInput does AWS::SDK::Shape {
         has EntityId $.ml-model-id is required is shape-member('MLModelId');
         has Bool $.verbose is shape-member('Verbose');
     }
 
     class Prediction does AWS::SDK::Shape {
-        has Hash[Numeric, Label] $.predicted-scores is shape-member('predictedScores');
-        has Hash[DetailsValue, DetailsAttributes] $.details is shape-member('details');
+        has Numeric %.predicted-scores{Label} is shape-member('predictedScores');
+        has DetailsValue %.details{DetailsAttributes} is shape-member('details');
         has Numeric $.predicted-value is shape-member('predictedValue');
         has Label $.predicted-label is shape-member('predictedLabel');
     }
@@ -328,7 +377,7 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
     }
 
     class DescribeDataSourcesOutput does AWS::SDK::Shape {
-        has Array[DataSource] $.results is shape-member('Results');
+        has DataSource @.results is shape-member('Results');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -356,8 +405,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
     class CreateBatchPredictionOutput does AWS::SDK::Shape {
         has EntityId $.batch-prediction-id is shape-member('BatchPredictionId');
     }
-
-    subset EntityStatus of Str where $_ ~~ any('PENDING', 'INPROGRESS', 'FAILED', 'COMPLETED', 'DELETED');
 
     class RDSDatabaseCredentials does AWS::SDK::Shape {
         has RDSDatabasePassword $.password is required is shape-member('Password');
@@ -397,8 +444,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has TagKey $.key is shape-member('Key');
     }
 
-    subset EntityId of Str where 1 <= .chars <= 64 && rx:P5/[a-zA-Z0-9_.-]+/;
-
     class GetMLModelOutput does AWS::SDK::Shape {
         has MLModelType $.ml-model-type is shape-member('MLModelType');
         has EntityId $.ml-model-id is shape-member('MLModelId');
@@ -417,13 +462,11 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has EntityStatus $.status is shape-member('Status');
         has AwsUserArn $.created-by-iam-user is shape-member('CreatedByIamUser');
         has DataSchema $.schema is shape-member('Schema');
-        has Hash[Str, Str] $.training-parameters is shape-member('TrainingParameters');
+        has Str %.training-parameters{Str} is shape-member('TrainingParameters');
         has DateTime $.started-at is shape-member('StartedAt');
         has Message $.message is shape-member('Message');
         has S3Url $.input-data-location-s3 is shape-member('InputDataLocationS3');
     }
-
-    subset RealtimeEndpointStatus of Str where $_ ~~ any('NONE', 'READY', 'UPDATING', 'FAILED');
 
     class UpdateMLModelInput does AWS::SDK::Shape {
         has EntityId $.ml-model-id is required is shape-member('MLModelId');
@@ -464,7 +507,7 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
     }
 
     class PerformanceMetrics does AWS::SDK::Shape {
-        has Hash[Str, Str] $.properties is shape-member('Properties');
+        has Str %.properties{Str} is shape-member('Properties');
     }
 
     class ResourceNotFoundException does AWS::SDK::Shape {
@@ -513,8 +556,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has RedshiftDatabaseUsername $.username is required is shape-member('Username');
     }
 
-    subset DataSourceFilterVariable of Str where $_ ~~ any('CreatedAt', 'LastUpdatedAt', 'Status', 'Name', 'DataLocationS3', 'IAMUser');
-
     class CreateBatchPredictionInput does AWS::SDK::Shape {
         has S3Url $.output-uri is required is shape-member('OutputUri');
         has EntityId $.batch-prediction-data-source-id is required is shape-member('BatchPredictionDataSourceId');
@@ -522,12 +563,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has EntityName $.batch-prediction-name is shape-member('BatchPredictionName');
         has EntityId $.batch-prediction-id is required is shape-member('BatchPredictionId');
     }
-
-    subset Label of Str where 1 <= .chars;
-
-    subset TagKeyList of Array[TagKey] where *.elems <= 100;
-
-    subset RedshiftSelectSqlQuery of Str where 1 <= .chars <= 16777216;
 
     class DeleteEvaluationOutput does AWS::SDK::Shape {
         has EntityId $.evaluation-id is shape-member('EvaluationId');
@@ -567,12 +602,8 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has ErrorMessage $.message is shape-member('message');
     }
 
-    subset EDPSecurityGroupId of Str where 1 <= .chars <= 255;
-
-    subset DetailsValue of Str where 1 <= .chars;
-
     class DescribeEvaluationsOutput does AWS::SDK::Shape {
-        has Array[Evaluation] $.results is shape-member('Results');
+        has Evaluation @.results is shape-member('Results');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -590,10 +621,8 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has EntityId $.ml-model-id is shape-member('MLModelId');
     }
 
-    subset RedshiftDatabasePassword of Str where 8 <= .chars <= 64;
-
     class DescribeMLModelsOutput does AWS::SDK::Shape {
-        has Array[MLModel] $.results is shape-member('Results');
+        has MLModel @.results is shape-member('Results');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -610,8 +639,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has ComparatorValue $.n-e is shape-member('NE');
         has ComparatorValue $.g-t is shape-member('GT');
     }
-
-    subset EDPSubnetId of Str where 1 <= .chars <= 255;
 
     class GetDataSourceOutput does AWS::SDK::Shape {
         has DataSchema $.data-source-schema is shape-member('DataSourceSchema');
@@ -640,10 +667,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has Prediction $.prediction is shape-member('Prediction');
     }
 
-    subset RedshiftDatabaseName of Str where 1 <= .chars <= 64 && rx:P5/[a-z0-9]+/;
-
-    subset TaggableResourceType of Str where $_ ~~ any('BatchPrediction', 'DataSource', 'Evaluation', 'MLModel');
-
     class CreateEvaluationOutput does AWS::SDK::Shape {
         has EntityId $.evaluation-id is shape-member('EvaluationId');
     }
@@ -658,17 +681,9 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has ErrorMessage $.message is shape-member('message');
     }
 
-    subset RedshiftDatabaseUsername of Str where 1 <= .chars <= 128;
-
-    subset MLModelName of Str where .chars <= 1024;
-
-    subset Recipe of Str where .chars <= 131071;
-
     class UpdateBatchPredictionOutput does AWS::SDK::Shape {
         has EntityId $.batch-prediction-id is shape-member('BatchPredictionId');
     }
-
-    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
     class BatchPrediction does AWS::SDK::Shape {
         has S3Url $.output-uri is shape-member('OutputUri');
@@ -689,15 +704,9 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has S3Url $.input-data-location-s3 is shape-member('InputDataLocationS3');
     }
 
-    subset ErrorMessage of Str where .chars <= 2048;
-
-    subset RDSSelectSqlQuery of Str where 1 <= .chars <= 16777216;
-
     class UpdateDataSourceOutput does AWS::SDK::Shape {
         has EntityId $.data-source-id is shape-member('DataSourceId');
     }
-
-    subset EDPServiceRole of Str where 1 <= .chars <= 64;
 
     class CreateDataSourceFromS3Input does AWS::SDK::Shape {
         has S3DataSpec $.data-spec is required is shape-member('DataSpec');
@@ -705,8 +714,6 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has Bool $.compute-statistics is shape-member('ComputeStatistics');
         has EntityName $.data-source-name is shape-member('DataSourceName');
     }
-
-    subset EntityName of Str where .chars <= 1024 && rx:P5/.*\S.*|^$/;
 
     class GetBatchPredictionInput does AWS::SDK::Shape {
         has EntityId $.batch-prediction-id is required is shape-member('BatchPredictionId');
@@ -723,12 +730,8 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has EntityId $.ml-model-id is required is shape-member('MLModelId');
     }
 
-    subset AwsUserArn of Str where rx:P5/arn:aws:iam::[0-9]+:((user\/.+)|(root))/;
-
-    subset RDSDatabaseUsername of Str where 1 <= .chars <= 128;
-
     class DescribeBatchPredictionsOutput does AWS::SDK::Shape {
-        has Array[BatchPrediction] $.results is shape-member('Results');
+        has BatchPrediction @.results is shape-member('Results');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -746,16 +749,14 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has ComparatorValue $.g-t is shape-member('GT');
     }
 
-    subset Message of Str where .chars <= 10240;
-
     class PredictInput does AWS::SDK::Shape {
         has EntityId $.ml-model-id is required is shape-member('MLModelId');
-        has Hash[Str, Str] $.record is required is shape-member('Record');
+        has Str %.record{Str} is required is shape-member('Record');
         has VipURL $.predict-endpoint is required is shape-member('PredictEndpoint');
     }
 
     class RDSDataSpec does AWS::SDK::Shape {
-        has Array[EDPSecurityGroupId] $.security-group-ids is required is shape-member('SecurityGroupIds');
+        has EDPSecurityGroupId @.security-group-ids is required is shape-member('SecurityGroupIds');
         has DataSchema $.data-schema is shape-member('DataSchema');
         has EDPSubnetId $.subnet-id is required is shape-member('SubnetId');
         has EDPResourceRole $.resource-role is required is shape-member('ResourceRole');
@@ -767,6 +768,7 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         has Str $.data-rearrangement is shape-member('DataRearrangement');
         has RDSDatabaseCredentials $.database-credentials is required is shape-member('DatabaseCredentials');
     }
+
 
     method update-ml-model(
         EntityId :$ml-model-id!,
@@ -848,12 +850,12 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
 
     method predict(
         EntityId :$ml-model-id!,
-        Hash[Str, Str] :$record!,
+        Str :%record!,
         VipURL :$predict-endpoint!
     ) returns PredictOutput is service-operation('Predict') {
         my $request-input = PredictInput.new(
             :$ml-model-id,
-            :$record,
+            :%record,
             :$predict-endpoint
         );
 
@@ -1040,7 +1042,7 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
         S3Url :$recipe-uri,
         Recipe :$recipe,
         EntityName :$ml-model-name,
-        Hash[Str, Str] :$parameters,
+        Str :%parameters,
         EntityId :$training-data-source-id!
     ) returns CreateMLModelOutput is service-operation('CreateMLModel') {
         my $request-input = CreateMLModelInput.new(
@@ -1049,7 +1051,7 @@ class AWS::SDK::Service::MachineLearning does AWS::SDK::Service {
             :$recipe-uri,
             :$recipe,
             :$ml-model-name,
-            :$parameters,
+            :%parameters,
             :$training-data-source-id
         );
 

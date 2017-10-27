@@ -97,7 +97,94 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
     class GetBotChannelAssociationsResponse { ... }
     class Message { ... }
 
-    subset SlotConstraint of Str where $_ ~~ any('Required', 'Optional');
+    subset SlotConstraint of Str where $_ eq any('Required', 'Optional');
+
+    subset ReferenceType of Str where $_ eq any('Intent', 'Bot', 'BotAlias', 'BotChannel');
+
+    subset Description of Str where 0 <= .chars <= 200;
+
+    subset AliasNameOrListAll of Str where 1 <= .chars <= 100 && rx:P5/^(-|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*))$/;
+
+    subset SlotUtteranceList of Array[Utterance] where 0 <= *.elems <= 10;
+
+    subset Status of Str where $_ eq any('BUILDING', 'READY', 'FAILED', 'NOT_BUILT');
+
+    subset Priority of Int where 0 <= * <= 100;
+
+    subset SlotList of Array[Slot] where 0 <= *.elems <= 100;
+
+    subset SessionTTL of Int where 60 <= * <= 86400;
+
+    subset CustomOrBuiltinSlotTypeName of Str where 1 <= .chars <= 100 && rx:P5/^([a-zA-Z]|AMAZON.)+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
+
+    subset PromptMaxAttempts of Int where 1 <= * <= 5;
+
+    subset Version of Str where 1 <= .chars <= 64 && rx:P5/\$LATEST|[0-9]+/;
+
+    subset MessageVersion of Str where 1 <= .chars <= 5;
+
+    subset UserId of Str where 2 <= .chars <= 100;
+
+    subset ResourceType of Str where $_ eq any('BOT');
+
+    subset ProcessBehavior of Str where $_ eq any('SAVE', 'BUILD');
+
+    subset StatusType of Str where $_ eq any('Detected', 'Missed');
+
+    subset LambdaARN of Str where 20 <= .chars <= 2048 && rx:P5/arn:aws:lambda:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:function:[a-zA-Z0-9-_]+(\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})?(:[a-zA-Z0-9-_]+)?/;
+
+    subset ChannelType of Str where $_ eq any('Facebook', 'Slack', 'Twilio-Sms');
+
+    subset ExportStatus of Str where $_ eq any('IN_PROGRESS', 'READY', 'FAILED');
+
+    subset ContentString of Str where 1 <= .chars <= 1000;
+
+    subset AliasName of Str where 1 <= .chars <= 100 && rx:P5/^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
+
+    subset FulfillmentActivityType of Str where $_ eq any('ReturnIntent', 'CodeHook');
+
+    subset MessageList of Array[Message] where 1 <= *.elems <= 5;
+
+    subset ContentType of Str where $_ eq any('PlainText', 'SSML');
+
+    subset SlotTypeName of Str where 1 <= .chars <= 100 && rx:P5/^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
+
+    subset EnumerationValues of Array[EnumerationValue] where 1 <= *.elems <= 10000;
+
+    subset BotChannelName of Str where 1 <= .chars <= 100 && rx:P5/^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
+
+    subset Locale of Str where $_ eq any('en-US');
+
+    subset SlotName of Str where 1 <= .chars <= 100 && rx:P5/^[a-zA-Z]+(((_|.)[a-zA-Z]+)*|([a-zA-Z]+(_|.))*|(_|.))/;
+
+    subset BotName of Str where 2 <= .chars <= 50 && rx:P5/^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
+
+    subset IntentName of Str where 1 <= .chars <= 100 && rx:P5/^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
+
+    subset MaxResults of Int where 1 <= * <= 50;
+
+    subset UtteranceString of Str where 1 <= .chars <= 2000;
+
+    subset Utterance of Str where 1 <= .chars <= 200;
+
+    subset ExportType of Str where $_ eq any('ALEXA_SKILLS_KIT');
+
+    subset ChannelConfigurationMap of Hash[Str, Str] where 1 <= *.elems <= 10;
+
+    subset BotVersions of Array[Version] where 1 <= *.elems <= 5;
+
+    subset Name of Str where 1 <= .chars <= 64 && rx:P5/[a-zA-Z_]+/;
+
+    subset Value of Str where 1 <= .chars <= 140;
+
+    subset SlotValueSelectionStrategy of Str where $_ eq any('ORIGINAL_VALUE', 'TOP_RESOLUTION');
+
+    subset ResponseCard of Str where 1 <= .chars <= 50000;
+
+    subset IntentUtteranceList of Array[Utterance] where 0 <= *.elems <= 1500;
+
+    subset NumericalVersion of Str where 1 <= .chars <= 64 && rx:P5/[0-9]+/;
+
 
     class BotAliasMetadata does AWS::SDK::Shape {
         has BotName $.bot-name is shape-member('botName');
@@ -110,7 +197,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
     }
 
     class GetBotVersionsResponse does AWS::SDK::Shape {
-        has Array[BotMetadata] $.bots is shape-member('bots');
+        has BotMetadata @.bots is shape-member('bots');
         has Str $.next-token is shape-member('nextToken');
     }
 
@@ -126,16 +213,10 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Description $.description is shape-member('description');
     }
 
-    subset ReferenceType of Str where $_ ~~ any('Intent', 'Bot', 'BotAlias', 'BotChannel');
-
-    subset Description of Str where 0 <= .chars <= 200;
-
     class DeleteIntentVersionRequest does AWS::SDK::Shape {
         has IntentName $.name is required is shape-member('name');
         has NumericalVersion $.version is required is shape-member('version');
     }
-
-    subset AliasNameOrListAll of Str where 1 <= .chars <= 100 && rx:P5/^(-|^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*))$/;
 
     class FollowUpPrompt does AWS::SDK::Shape {
         has Prompt $.prompt is required is shape-member('prompt');
@@ -163,7 +244,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
     }
 
     class BotChannelAssociation does AWS::SDK::Shape {
-        has ChannelConfigurationMap $.bot-configuration is shape-member('botConfiguration');
+        has Str $.bot-configuration{Str} is shape-member('botConfiguration');
         has BotName $.bot-name is shape-member('botName');
         has BotChannelName $.name is shape-member('name');
         has AliasName $.bot-alias is shape-member('botAlias');
@@ -174,8 +255,8 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
 
     class GetBuiltinIntentResponse does AWS::SDK::Shape {
         has Str $.signature is shape-member('signature');
-        has Array[BuiltinIntentSlot] $.slots is shape-member('slots');
-        has Array[Locale] $.supported-locales is shape-member('supportedLocales');
+        has BuiltinIntentSlot @.slots is shape-member('slots');
+        has Locale @.supported-locales is shape-member('supportedLocales');
     }
 
     class GetSlotTypesRequest does AWS::SDK::Shape {
@@ -183,8 +264,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Str $.next-token is shape-member('nextToken');
         has SlotTypeName $.name-contains is shape-member('nameContains');
     }
-
-    subset SlotUtteranceList of Array[Utterance] where 0 <= *.elems <= 10;
 
     class PutIntentResponse does AWS::SDK::Shape {
         has CodeHook $.dialog-code-hook is shape-member('dialogCodeHook');
@@ -224,7 +303,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
 
     class GetSlotTypesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[SlotTypeMetadata] $.slot-types is shape-member('slotTypes');
+        has SlotTypeMetadata @.slot-types is shape-member('slotTypes');
     }
 
     class IntentMetadata does AWS::SDK::Shape {
@@ -235,11 +314,9 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Description $.description is shape-member('description');
     }
 
-    subset Status of Str where $_ ~~ any('BUILDING', 'READY', 'FAILED', 'NOT_BUILT');
-
     class GetBuiltinIntentsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[BuiltinIntentMetadata] $.intents is shape-member('intents');
+        has BuiltinIntentMetadata @.intents is shape-member('intents');
     }
 
     class ResourceReference does AWS::SDK::Shape {
@@ -274,15 +351,9 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Description $.description is shape-member('description');
     }
 
-    subset Priority of Int where 0 <= * <= 100;
-
-    subset SlotList of Array[Slot] where 0 <= *.elems <= 100;
-
-    subset SessionTTL of Int where 60 <= * <= 86400;
-
     class EnumerationValue does AWS::SDK::Shape {
         has Value $.value is required is shape-member('value');
-        has Array[Value] $.synonyms is shape-member('synonyms');
+        has Value @.synonyms is shape-member('synonyms');
     }
 
     class CreateIntentVersionRequest does AWS::SDK::Shape {
@@ -317,7 +388,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Str $.checksum is shape-member('checksum');
         has Str $.voice-id is shape-member('voiceId');
         has DateTime $.last-updated-date is shape-member('lastUpdatedDate');
-        has Array[Intent] $.intents is shape-member('intents');
+        has Intent @.intents is shape-member('intents');
         has Version $.version is shape-member('version');
         has DateTime $.created-date is shape-member('createdDate');
         has Locale $.locale is shape-member('locale');
@@ -379,8 +450,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Str $.url is shape-member('url');
     }
 
-    subset CustomOrBuiltinSlotTypeName of Str where 1 <= .chars <= 100 && rx:P5/^([a-zA-Z]|AMAZON.)+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
-
     class GetBotResponse does AWS::SDK::Shape {
         has Str $.failure-reason is shape-member('failureReason');
         has Statement $.abort-statement is shape-member('abortStatement');
@@ -391,7 +460,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Str $.checksum is shape-member('checksum');
         has Str $.voice-id is shape-member('voiceId');
         has DateTime $.last-updated-date is shape-member('lastUpdatedDate');
-        has Array[Intent] $.intents is shape-member('intents');
+        has Intent @.intents is shape-member('intents');
         has Version $.version is shape-member('version');
         has DateTime $.created-date is shape-member('createdDate');
         has Locale $.locale is shape-member('locale');
@@ -402,10 +471,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
     class PreconditionFailedException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset PromptMaxAttempts of Int where 1 <= * <= 5;
-
-    subset Version of Str where 1 <= .chars <= 64 && rx:P5/\$LATEST|[0-9]+/;
 
     class BotMetadata does AWS::SDK::Shape {
         has BotName $.name is shape-member('name');
@@ -418,15 +483,13 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
 
     class GetIntentVersionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[IntentMetadata] $.intents is shape-member('intents');
+        has IntentMetadata @.intents is shape-member('intents');
     }
 
     class GetSlotTypeVersionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[SlotTypeMetadata] $.slot-types is shape-member('slotTypes');
+        has SlotTypeMetadata @.slot-types is shape-member('slotTypes');
     }
-
-    subset MessageVersion of Str where 1 <= .chars <= 5;
 
     class UtteranceData does AWS::SDK::Shape {
         has DateTime $.first-uttered-date is shape-member('firstUtteredDate');
@@ -435,10 +498,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Int $.distinct-users is shape-member('distinctUsers');
         has Int $.count is shape-member('count');
     }
-
-    subset UserId of Str where 2 <= .chars <= 100;
-
-    subset ResourceType of Str where $_ ~~ any('BOT');
 
     class PutIntentRequest does AWS::SDK::Shape {
         has CodeHook $.dialog-code-hook is shape-member('dialogCodeHook');
@@ -466,10 +525,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ProcessBehavior of Str where $_ ~~ any('SAVE', 'BUILD');
-
-    subset StatusType of Str where $_ ~~ any('Detected', 'Missed');
-
     class ConflictException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -482,10 +537,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has BotChannelName $.name-contains is shape-member('nameContains');
     }
 
-    subset LambdaARN of Str where 20 <= .chars <= 2048 && rx:P5/arn:aws:lambda:[a-z]+-[a-z]+-[0-9]:[0-9]{12}:function:[a-zA-Z0-9-_]+(\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})?(:[a-zA-Z0-9-_]+)?/;
-
-    subset ChannelType of Str where $_ ~~ any('Facebook', 'Slack', 'Twilio-Sms');
-
     class GetBotsRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('maxResults');
         has Str $.next-token is shape-member('nextToken');
@@ -494,26 +545,18 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
 
     class UtteranceList does AWS::SDK::Shape {
         has Version $.bot-version is shape-member('botVersion');
-        has Array[UtteranceData] $.utterances is shape-member('utterances');
+        has UtteranceData @.utterances is shape-member('utterances');
     }
-
-    subset ExportStatus of Str where $_ ~~ any('IN_PROGRESS', 'READY', 'FAILED');
-
-    subset ContentString of Str where 1 <= .chars <= 1000;
 
     class BuiltinSlotTypeMetadata does AWS::SDK::Shape {
         has Str $.signature is shape-member('signature');
-        has Array[Locale] $.supported-locales is shape-member('supportedLocales');
+        has Locale @.supported-locales is shape-member('supportedLocales');
     }
-
-    subset AliasName of Str where 1 <= .chars <= 100 && rx:P5/^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
 
     class GetIntentRequest does AWS::SDK::Shape {
         has IntentName $.name is required is shape-member('name');
         has Version $.version is required is shape-member('version');
     }
-
-    subset FulfillmentActivityType of Str where $_ ~~ any('ReturnIntent', 'CodeHook');
 
     class LimitExceededException does AWS::SDK::Shape {
         has Str $.retry-after-seconds is shape-member('retryAfterSeconds');
@@ -524,10 +567,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Str $.name is shape-member('name');
     }
 
-    subset MessageList of Array[Message] where 1 <= *.elems <= 5;
-
-    subset ContentType of Str where $_ ~~ any('PlainText', 'SSML');
-
     class GetExportRequest does AWS::SDK::Shape {
         has Name $.name is required is shape-member('name');
         has ResourceType $.resource-type is required is shape-member('resourceType');
@@ -536,7 +575,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
     }
 
     class GetBotChannelAssociationResponse does AWS::SDK::Shape {
-        has ChannelConfigurationMap $.bot-configuration is shape-member('botConfiguration');
+        has Str $.bot-configuration{Str} is shape-member('botConfiguration');
         has BotName $.bot-name is shape-member('botName');
         has BotChannelName $.name is shape-member('name');
         has AliasName $.bot-alias is shape-member('botAlias');
@@ -544,10 +583,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has DateTime $.created-date is shape-member('createdDate');
         has Description $.description is shape-member('description');
     }
-
-    subset SlotTypeName of Str where 1 <= .chars <= 100 && rx:P5/^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
-
-    subset EnumerationValues of Array[EnumerationValue] where 1 <= *.elems <= 10000;
 
     class CreateSlotTypeVersionRequest does AWS::SDK::Shape {
         has SlotTypeName $.name is required is shape-member('name');
@@ -563,8 +598,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has BotName $.name is required is shape-member('name');
         has NumericalVersion $.version is required is shape-member('version');
     }
-
-    subset BotChannelName of Str where 1 <= .chars <= 100 && rx:P5/^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
 
     class GetIntentResponse does AWS::SDK::Shape {
         has CodeHook $.dialog-code-hook is shape-member('dialogCodeHook');
@@ -586,7 +619,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
 
     class GetIntentsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[IntentMetadata] $.intents is shape-member('intents');
+        has IntentMetadata @.intents is shape-member('intents');
     }
 
     class NotFoundException does AWS::SDK::Shape {
@@ -600,7 +633,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
 
     class BuiltinIntentMetadata does AWS::SDK::Shape {
         has Str $.signature is shape-member('signature');
-        has Array[Locale] $.supported-locales is shape-member('supportedLocales');
+        has Locale @.supported-locales is shape-member('supportedLocales');
     }
 
     class GetIntentVersionsRequest does AWS::SDK::Shape {
@@ -608,12 +641,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has MaxResults $.max-results is shape-member('maxResults');
         has Str $.next-token is shape-member('nextToken');
     }
-
-    subset Locale of Str where $_ ~~ any('en-US');
-
-    subset SlotName of Str where 1 <= .chars <= 100 && rx:P5/^[a-zA-Z]+(((_|.)[a-zA-Z]+)*|([a-zA-Z]+(_|.))*|(_|.))/;
-
-    subset BotName of Str where 2 <= .chars <= 50 && rx:P5/^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
 
     class BadRequestException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -625,16 +652,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Str $.next-token is shape-member('nextToken');
     }
 
-    subset IntentName of Str where 1 <= .chars <= 100 && rx:P5/^[a-zA-Z]+((_[a-zA-Z]+)*|([a-zA-Z]+_)*|_)/;
-
-    subset MaxResults of Int where 1 <= * <= 50;
-
-    subset UtteranceString of Str where 1 <= .chars <= 2000;
-
-    subset Utterance of Str where 1 <= .chars <= 200;
-
-    subset ExportType of Str where $_ ~~ any('ALEXA_SKILLS_KIT');
-
     class CreateSlotTypeVersionResponse does AWS::SDK::Shape {
         has SlotTypeName $.name is shape-member('name');
         has EnumerationValues $.enumeration-values is shape-member('enumerationValues');
@@ -645,8 +662,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has DateTime $.created-date is shape-member('createdDate');
         has Description $.description is shape-member('description');
     }
-
-    subset ChannelConfigurationMap of Hash[Str, Str] where 1 <= *.elems <= 10;
 
     class GetSlotTypeResponse does AWS::SDK::Shape {
         has SlotTypeName $.name is shape-member('name');
@@ -672,7 +687,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Prompt $.clarification-prompt is shape-member('clarificationPrompt');
         has Str $.checksum is shape-member('checksum');
         has Str $.voice-id is shape-member('voiceId');
-        has Array[Intent] $.intents is shape-member('intents');
+        has Intent @.intents is shape-member('intents');
         has Locale $.locale is required is shape-member('locale');
         has ProcessBehavior $.process-behavior is shape-member('processBehavior');
         has SessionTTL $.idle-session-ttl-in-seconds is shape-member('idleSessionTTLInSeconds');
@@ -681,11 +696,11 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
 
     class GetBotAliasesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[BotAliasMetadata] $.bot-aliases is shape-member('BotAliases');
+        has BotAliasMetadata @.bot-aliases is shape-member('BotAliases');
     }
 
     class GetBotsResponse does AWS::SDK::Shape {
-        has Array[BotMetadata] $.bots is shape-member('bots');
+        has BotMetadata @.bots is shape-member('bots');
         has Str $.next-token is shape-member('nextToken');
     }
 
@@ -704,7 +719,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
 
     class GetBuiltinSlotTypesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[BuiltinSlotTypeMetadata] $.slot-types is shape-member('slotTypes');
+        has BuiltinSlotTypeMetadata @.slot-types is shape-member('slotTypes');
     }
 
     class GetSlotTypeRequest does AWS::SDK::Shape {
@@ -714,7 +729,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
 
     class GetUtterancesViewResponse does AWS::SDK::Shape {
         has BotName $.bot-name is shape-member('botName');
-        has Array[UtteranceList] $.utterances is shape-member('utterances');
+        has UtteranceList @.utterances is shape-member('utterances');
     }
 
     class PutBotResponse does AWS::SDK::Shape {
@@ -727,7 +742,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Str $.checksum is shape-member('checksum');
         has Str $.voice-id is shape-member('voiceId');
         has DateTime $.last-updated-date is shape-member('lastUpdatedDate');
-        has Array[Intent] $.intents is shape-member('intents');
+        has Intent @.intents is shape-member('intents');
         has Version $.version is shape-member('version');
         has DateTime $.created-date is shape-member('createdDate');
         has Locale $.locale is shape-member('locale');
@@ -735,18 +750,12 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Description $.description is shape-member('description');
     }
 
-    subset BotVersions of Array[Version] where 1 <= *.elems <= 5;
-
     class GetBuiltinIntentsRequest does AWS::SDK::Shape {
         has Str $.signature-contains is shape-member('signatureContains');
         has MaxResults $.max-results is shape-member('maxResults');
         has Str $.next-token is shape-member('nextToken');
         has Locale $.locale is shape-member('locale');
     }
-
-    subset Name of Str where 1 <= .chars <= 64 && rx:P5/[a-zA-Z_]+/;
-
-    subset Value of Str where 1 <= .chars <= 140;
 
     class Statement does AWS::SDK::Shape {
         has ResponseCard $.response-card is shape-member('responseCard');
@@ -774,21 +783,15 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has Str $.next-token is shape-member('nextToken');
     }
 
-    subset SlotValueSelectionStrategy of Str where $_ ~~ any('ORIGINAL_VALUE', 'TOP_RESOLUTION');
-
-    subset ResponseCard of Str where 1 <= .chars <= 50000;
-
     class GetUtterancesViewRequest does AWS::SDK::Shape {
         has StatusType $.status-type is required is shape-member('statusType');
         has BotName $.bot-name is required is shape-member('botName');
         has BotVersions $.bot-versions is required is shape-member('botVersions');
     }
 
-    subset IntentUtteranceList of Array[Utterance] where 0 <= *.elems <= 1500;
-
     class GetBotChannelAssociationsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[BotChannelAssociation] $.bot-channel-associations is shape-member('botChannelAssociations');
+        has BotChannelAssociation @.bot-channel-associations is shape-member('botChannelAssociations');
     }
 
     class Message does AWS::SDK::Shape {
@@ -796,7 +799,6 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         has ContentType $.content-type is required is shape-member('contentType');
     }
 
-    subset NumericalVersion of Str where 1 <= .chars <= 64 && rx:P5/[0-9]+/;
 
     method get-slot-type(
         SlotTypeName :$name!,
@@ -1096,7 +1098,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
         Prompt :$clarification-prompt,
         Str :$checksum,
         Str :$voice-id,
-        Array[Intent] :$intents,
+        Intent :@intents,
         Locale :$locale!,
         ProcessBehavior :$process-behavior,
         SessionTTL :$idle-session-ttl-in-seconds,
@@ -1109,7 +1111,7 @@ class AWS::SDK::Service::LexModels does AWS::SDK::Service {
             :$clarification-prompt,
             :$checksum,
             :$voice-id,
-            :$intents,
+            :@intents,
             :$locale,
             :$process-behavior,
             :$idle-session-ttl-in-seconds,

@@ -43,6 +43,37 @@ class AWS::SDK::Service::Events20140203 does AWS::SDK::Service {
     class InternalException { ... }
     class ListRuleNamesByTargetRequest { ... }
 
+    subset ScheduleExpression of Str where .chars <= 256;
+
+    subset TargetId of Str where 1 <= .chars <= 64 && rx:P5/[\.\-_A-Za-z0-9]+/;
+
+    subset RoleArn of Str where 1 <= .chars <= 1600;
+
+    subset LimitMax100 of Int where 1 <= * <= 100;
+
+    subset RuleArn of Str where 1 <= .chars <= 1600;
+
+    subset RuleState of Str where $_ eq any('ENABLED', 'DISABLED');
+
+    subset NextToken of Str where 1 <= .chars <= 2048;
+
+    subset TargetInputPath of Str where .chars <= 256;
+
+    subset TargetInput of Str where .chars <= 8192;
+
+    subset EventPattern of Str where .chars <= 2048;
+
+    subset TargetArn of Str where 1 <= .chars <= 1600;
+
+    subset TargetIdList of Array[TargetId] where 1 <= *.elems <= 100;
+
+    subset RuleDescription of Str where .chars <= 512;
+
+    subset PutEventsRequestEntryList of Array[PutEventsRequestEntry] where 1 <= *.elems <= 10;
+
+    subset RuleName of Str where 1 <= .chars <= 64 && rx:P5/[\.\-_A-Za-z0-9]+/;
+
+
     class PutEventsResultEntry does AWS::SDK::Shape {
         has Str $.error-message is shape-member('ErrorMessage');
         has Str $.event-id is shape-member('EventId');
@@ -50,7 +81,7 @@ class AWS::SDK::Service::Events20140203 does AWS::SDK::Service {
     }
 
     class PutTargetsResponse does AWS::SDK::Shape {
-        has Array[PutTargetsResultEntry] $.failed-entries is shape-member('FailedEntries');
+        has PutTargetsResultEntry @.failed-entries is shape-member('FailedEntries');
         has Int $.failed-entry-count is shape-member('FailedEntryCount');
     }
 
@@ -67,18 +98,12 @@ class AWS::SDK::Service::Events20140203 does AWS::SDK::Service {
         has Str $.error-code is shape-member('ErrorCode');
     }
 
-    subset ScheduleExpression of Str where .chars <= 256;
-
-    subset TargetId of Str where 1 <= .chars <= 64 && rx:P5/[\.\-_A-Za-z0-9]+/;
-
     class DeleteRuleRequest does AWS::SDK::Shape {
         has RuleName $.name is required is shape-member('Name');
     }
 
     class ResourceNotFoundException does AWS::SDK::Shape {
     }
-
-    subset RoleArn of Str where 1 <= .chars <= 1600;
 
     class DescribeRuleRequest does AWS::SDK::Shape {
         has RuleName $.name is required is shape-member('Name');
@@ -90,44 +115,32 @@ class AWS::SDK::Service::Events20140203 does AWS::SDK::Service {
         has RuleName $.name-prefix is shape-member('NamePrefix');
     }
 
-    subset LimitMax100 of Int where 1 <= * <= 100;
-
-    subset RuleArn of Str where 1 <= .chars <= 1600;
-
-    subset RuleState of Str where $_ ~~ any('ENABLED', 'DISABLED');
-
     class ConcurrentModificationException does AWS::SDK::Shape {
     }
 
     class ListRulesResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[Rule] $.rules is shape-member('Rules');
+        has Rule @.rules is shape-member('Rules');
     }
-
-    subset NextToken of Str where 1 <= .chars <= 2048;
 
     class PutTargetsRequest does AWS::SDK::Shape {
         has RuleName $.rule is required is shape-member('Rule');
-        has Array[Target] $.targets is required is shape-member('Targets');
+        has Target @.targets is required is shape-member('Targets');
     }
 
-    subset TargetInputPath of Str where .chars <= 256;
-
-    subset TargetInput of Str where .chars <= 8192;
-
     class PutEventsResponse does AWS::SDK::Shape {
-        has Array[PutEventsResultEntry] $.entries is shape-member('Entries');
+        has PutEventsResultEntry @.entries is shape-member('Entries');
         has Int $.failed-entry-count is shape-member('FailedEntryCount');
     }
 
     class RemoveTargetsResponse does AWS::SDK::Shape {
-        has Array[RemoveTargetsResultEntry] $.failed-entries is shape-member('FailedEntries');
+        has RemoveTargetsResultEntry @.failed-entries is shape-member('FailedEntries');
         has Int $.failed-entry-count is shape-member('FailedEntryCount');
     }
 
     class ListTargetsByRuleResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[Target] $.targets is shape-member('Targets');
+        has Target @.targets is shape-member('Targets');
     }
 
     class TestEventPatternResponse does AWS::SDK::Shape {
@@ -152,14 +165,10 @@ class AWS::SDK::Service::Events20140203 does AWS::SDK::Service {
         has TargetIdList $.ids is required is shape-member('Ids');
     }
 
-    subset EventPattern of Str where .chars <= 2048;
-
     class TestEventPatternRequest does AWS::SDK::Shape {
         has Str $.event is required is shape-member('Event');
         has EventPattern $.event-pattern is required is shape-member('EventPattern');
     }
-
-    subset TargetArn of Str where 1 <= .chars <= 1600;
 
     class DescribeRuleResponse does AWS::SDK::Shape {
         has RuleArn $.arn is shape-member('Arn');
@@ -177,13 +186,9 @@ class AWS::SDK::Service::Events20140203 does AWS::SDK::Service {
         has RuleName $.rule is required is shape-member('Rule');
     }
 
-    subset TargetIdList of Array[TargetId] where 1 <= *.elems <= 100;
-
     class PutRuleResponse does AWS::SDK::Shape {
         has RuleArn $.rule-arn is shape-member('RuleArn');
     }
-
-    subset RuleDescription of Str where .chars <= 512;
 
     class EnableRuleRequest does AWS::SDK::Shape {
         has RuleName $.name is required is shape-member('Name');
@@ -193,12 +198,12 @@ class AWS::SDK::Service::Events20140203 does AWS::SDK::Service {
     }
 
     class ListRuleNamesByTargetResponse does AWS::SDK::Shape {
-        has Array[RuleName] $.rule-names is shape-member('RuleNames');
+        has RuleName @.rule-names is shape-member('RuleNames');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
     class PutEventsRequestEntry does AWS::SDK::Shape {
-        has Array[Str] $.resources is shape-member('Resources');
+        has Str @.resources is shape-member('Resources');
         has Str $.source is shape-member('Source');
         has DateTime $.time is shape-member('Time');
         has Str $.detail-type is shape-member('DetailType');
@@ -237,17 +242,14 @@ class AWS::SDK::Service::Events20140203 does AWS::SDK::Service {
         has NextToken $.next-token is shape-member('NextToken');
     }
 
-    subset PutEventsRequestEntryList of Array[PutEventsRequestEntry] where 1 <= *.elems <= 10;
-
-    subset RuleName of Str where 1 <= .chars <= 64 && rx:P5/[\.\-_A-Za-z0-9]+/;
 
     method put-targets(
         RuleName :$rule!,
-        Array[Target] :$targets!
+        Target :@targets!
     ) returns PutTargetsResponse is service-operation('PutTargets') {
         my $request-input = PutTargetsRequest.new(
             :$rule,
-            :$targets
+            :@targets
         );
 
         self.perform-operation(

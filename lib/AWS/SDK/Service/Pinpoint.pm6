@@ -201,6 +201,33 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     class GetEventStreamRequest { ... }
     class GetSegmentImportJobsRequest { ... }
 
+    subset DimensionType of Str where $_ eq any('INCLUSIVE', 'EXCLUSIVE');
+
+    subset Frequency of Str where $_ eq any('ONCE', 'HOURLY', 'DAILY', 'WEEKLY', 'MONTHLY');
+
+    subset MessageType of Str where $_ eq any('TRANSACTIONAL', 'PROMOTIONAL');
+
+    subset Format of Str where $_ eq any('CSV', 'JSON');
+
+    subset ChannelType of Str where $_ eq any('GCM', 'APNS', 'APNS_SANDBOX', 'ADM', 'SMS', 'EMAIL', 'BAIDU');
+
+    subset Duration of Str where $_ eq any('HR_24', 'DAY_7', 'DAY_14', 'DAY_30');
+
+    subset SegmentType of Str where $_ eq any('DIMENSIONAL', 'IMPORT');
+
+    subset Action of Str where $_ eq any('OPEN_APP', 'DEEP_LINK', 'URL');
+
+    subset RecencyType of Str where $_ eq any('ACTIVE', 'INACTIVE');
+
+    subset JobStatus of Str where $_ eq any('CREATED', 'INITIALIZING', 'PROCESSING', 'COMPLETING', 'COMPLETED', 'FAILING', 'FAILED');
+
+    subset CampaignStatus of Str where $_ eq any('SCHEDULED', 'EXECUTING', 'PENDING_NEXT_RUN', 'COMPLETED', 'PAUSED');
+
+    subset AttributeType of Str where $_ eq any('INCLUSIVE', 'EXCLUSIVE');
+
+    subset DeliveryStatus of Str where $_ eq any('SUCCESSFUL', 'THROTTLED', 'TEMPORARY_FAILURE', 'PERMANENT_FAILURE', 'UNKNOWN_FAILURE', 'OPT_OUT', 'DUPLICATE');
+
+
     class MethodNotAllowedException does AWS::SDK::Shape {
         has Str $.request-id is shape-member('RequestID');
         has Str $.message is shape-member('Message');
@@ -231,10 +258,10 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
 
     class SegmentDimensions does AWS::SDK::Shape {
         has SegmentBehaviors $.behavior is shape-member('Behavior');
-        has Hash[AttributeDimension, Str] $.user-attributes is shape-member('UserAttributes');
+        has AttributeDimension %.user-attributes{Str} is shape-member('UserAttributes');
         has SegmentLocation $.location is shape-member('Location');
         has SegmentDemographics $.demographic is shape-member('Demographic');
-        has Hash[AttributeDimension, Str] $.attributes is shape-member('Attributes');
+        has AttributeDimension %.attributes{Str} is shape-member('Attributes');
     }
 
     class DeleteEmailChannelRequest does AWS::SDK::Shape {
@@ -318,8 +345,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has ApplicationSettingsResource $.application-settings-resource is required is shape-member('ApplicationSettingsResource');
     }
 
-    subset DimensionType of Str where $_ ~~ any('INCLUSIVE', 'EXCLUSIVE');
-
     class GetBaiduChannelRequest does AWS::SDK::Shape {
         has Str $.application-id is required is shape-member('ApplicationId');
     }
@@ -333,7 +358,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.description is shape-member('Description');
         has Bool $.trace is shape-member('Trace');
         has Str $.name is shape-member('Name');
-        has Array[WriteTreatmentResource] $.additional-treatments is shape-member('AdditionalTreatments');
+        has WriteTreatmentResource @.additional-treatments is shape-member('AdditionalTreatments');
         has Str $.treatment-description is shape-member('TreatmentDescription');
         has Bool $.is-paused is shape-member('IsPaused');
         has Int $.segment-version is shape-member('SegmentVersion');
@@ -351,7 +376,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class EndpointUser does AWS::SDK::Shape {
-        has Hash[Array[Str], Str] $.user-attributes is shape-member('UserAttributes');
+        has Array[Str] %.user-attributes{Str} is shape-member('UserAttributes');
         has Str $.user-id is shape-member('UserId');
     }
 
@@ -398,10 +423,10 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     class DefaultPushNotificationMessage does AWS::SDK::Shape {
         has Str $.body is shape-member('Body');
         has Str $.json-data is shape-member('JsonData');
-        has Hash[Str, Str] $.data is shape-member('Data');
+        has Str %.data{Str} is shape-member('Data');
         has Str $.title is shape-member('Title');
         has Action $.action is shape-member('Action');
-        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Array[Str] %.substitutions{Str} is shape-member('Substitutions');
         has Str $.url is shape-member('Url');
         has Bool $.silent-push is shape-member('SilentPush');
     }
@@ -411,12 +436,12 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class CampaignsResponse does AWS::SDK::Shape {
-        has Array[CampaignResponse] $.item is shape-member('Item');
+        has CampaignResponse @.item is shape-member('Item');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class AttributeDimension does AWS::SDK::Shape {
-        has Array[Str] $.values is shape-member('Values');
+        has Str @.values is shape-member('Values');
         has AttributeType $.attribute-type is shape-member('AttributeType');
     }
 
@@ -448,9 +473,9 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class MessageResponse does AWS::SDK::Shape {
-        has Hash[MessageResult, Str] $.result is shape-member('Result');
+        has MessageResult %.result{Str} is shape-member('Result');
         has Str $.request-id is shape-member('RequestId');
-        has Hash[EndpointMessageResult, Str] $.endpoint-result is shape-member('EndpointResult');
+        has EndpointMessageResult %.endpoint-result{Str} is shape-member('EndpointResult');
         has Str $.application-id is shape-member('ApplicationId');
     }
 
@@ -515,12 +540,12 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.image-icon-url is shape-member('ImageIconUrl');
         has Str $.body is shape-member('Body');
         has Str $.json-data is shape-member('JsonData');
-        has Hash[Str, Str] $.data is shape-member('Data');
+        has Str %.data{Str} is shape-member('Data');
         has Str $.sound is shape-member('Sound');
         has Str $.title is shape-member('Title');
         has Str $.raw-content is shape-member('RawContent');
         has Action $.action is shape-member('Action');
-        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Array[Str] %.substitutions{Str} is shape-member('Substitutions');
         has Str $.url is shape-member('Url');
         has Str $.small-image-icon-url is shape-member('SmallImageIconUrl');
         has Bool $.silent-push is shape-member('SilentPush');
@@ -551,7 +576,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class EndpointBatchRequest does AWS::SDK::Shape {
-        has Array[EndpointBatchItem] $.item is shape-member('Item');
+        has EndpointBatchItem @.item is shape-member('Item');
     }
 
     class GetEndpointRequest does AWS::SDK::Shape {
@@ -584,15 +609,13 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.application-id is shape-member('ApplicationId');
     }
 
-    subset Frequency of Str where $_ ~~ any('ONCE', 'HOURLY', 'DAILY', 'WEEKLY', 'MONTHLY');
-
     class PutEventStreamRequest does AWS::SDK::Shape {
         has WriteEventStream $.write-event-stream is required is shape-member('WriteEventStream');
         has Str $.application-id is required is shape-member('ApplicationId');
     }
 
     class ImportJobsResponse does AWS::SDK::Shape {
-        has Array[ImportJobResponse] $.item is shape-member('Item');
+        has ImportJobResponse @.item is shape-member('Item');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -611,7 +634,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
 
     class ImportJobResponse does AWS::SDK::Shape {
         has JobStatus $.job-status is shape-member('JobStatus');
-        has Array[Str] $.failures is shape-member('Failures');
+        has Str @.failures is shape-member('Failures');
         has Str $.creation-date is shape-member('CreationDate');
         has Int $.total-pieces is shape-member('TotalPieces');
         has Int $.failed-pieces is shape-member('FailedPieces');
@@ -643,14 +666,14 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.image-icon-url is shape-member('ImageIconUrl');
         has Str $.body is shape-member('Body');
         has Str $.json-data is shape-member('JsonData');
-        has Hash[Str, Str] $.data is shape-member('Data');
+        has Str %.data{Str} is shape-member('Data');
         has Str $.sound is shape-member('Sound');
         has Str $.md5 is shape-member('MD5');
         has Str $.consolidation-key is shape-member('ConsolidationKey');
         has Str $.title is shape-member('Title');
         has Str $.raw-content is shape-member('RawContent');
         has Action $.action is shape-member('Action');
-        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Array[Str] %.substitutions{Str} is shape-member('Substitutions');
         has Str $.url is shape-member('Url');
         has Str $.small-image-icon-url is shape-member('SmallImageIconUrl');
         has Bool $.silent-push is shape-member('SilentPush');
@@ -680,7 +703,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class SetDimension does AWS::SDK::Shape {
-        has Array[Str] $.values is shape-member('Values');
+        has Str @.values is shape-member('Values');
         has DimensionType $.dimension-type is shape-member('DimensionType');
     }
 
@@ -688,7 +711,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.external-id is shape-member('ExternalId');
         has Str $.s3-url is shape-member('S3Url');
         has Str $.role-arn is shape-member('RoleArn');
-        has Hash[Int, Str] $.channel-counts is shape-member('ChannelCounts');
+        has Int %.channel-counts{Str} is shape-member('ChannelCounts');
         has Int $.size is shape-member('Size');
         has Format $.format is shape-member('Format');
     }
@@ -704,12 +727,12 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class MessageRequest does AWS::SDK::Shape {
-        has Hash[Str, Str] $.context is shape-member('Context');
-        has Hash[AddressConfiguration, Str] $.addresses is shape-member('Addresses');
+        has Str %.context{Str} is shape-member('Context');
+        has AddressConfiguration %.addresses{Str} is shape-member('Addresses');
         has Str $.request-id is shape-member('RequestId');
-        has Hash[Str, Str] $.campaign is shape-member('Campaign');
+        has Str %.campaign{Str} is shape-member('Campaign');
         has DirectMessageConfiguration $.message-configuration is shape-member('MessageConfiguration');
-        has Hash[EndpointSendConfiguration, Str] $.endpoints is shape-member('Endpoints');
+        has EndpointSendConfiguration %.endpoints{Str} is shape-member('Endpoints');
     }
 
     class CreateImportJobRequest does AWS::SDK::Shape {
@@ -724,7 +747,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class SegmentsResponse does AWS::SDK::Shape {
-        has Array[SegmentResponse] $.item is shape-member('Item');
+        has SegmentResponse @.item is shape-member('Item');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -752,7 +775,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
 
     class DefaultMessage does AWS::SDK::Shape {
         has Str $.body is shape-member('Body');
-        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Array[Str] %.substitutions{Str} is shape-member('Substitutions');
     }
 
     class APNSMessage does AWS::SDK::Shape {
@@ -760,7 +783,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.media-url is shape-member('MediaUrl');
         has Str $.body is shape-member('Body');
         has Str $.json-data is shape-member('JsonData');
-        has Hash[Str, Str] $.data is shape-member('Data');
+        has Str %.data{Str} is shape-member('Data');
         has Str $.sound is shape-member('Sound');
         has Str $.title is shape-member('Title');
         has Str $.raw-content is shape-member('RawContent');
@@ -768,7 +791,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.category is shape-member('Category');
         has Int $.badge is shape-member('Badge');
         has Action $.action is shape-member('Action');
-        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Array[Str] %.substitutions{Str} is shape-member('Substitutions');
         has Str $.url is shape-member('Url');
         has Bool $.silent-push is shape-member('SilentPush');
     }
@@ -812,7 +835,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.body is shape-member('Body');
         has Str $.sender-id is shape-member('SenderId');
         has MessageType $.message-type is shape-member('MessageType');
-        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Array[Str] %.substitutions{Str} is shape-member('Substitutions');
     }
 
     class DeleteAppResponse does AWS::SDK::Shape {
@@ -847,7 +870,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.title is shape-member('Title');
         has Str $.from-address is shape-member('FromAddress');
         has Str $.template-arn is shape-member('TemplateArn');
-        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Array[Str] %.substitutions{Str} is shape-member('Substitutions');
         has Str $.html-body is shape-member('HtmlBody');
     }
 
@@ -877,8 +900,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has BaiduChannelResponse $.baidu-channel-response is required is shape-member('BaiduChannelResponse');
     }
 
-    subset MessageType of Str where $_ ~~ any('TRANSACTIONAL', 'PROMOTIONAL');
-
     class WriteApplicationSettingsRequest does AWS::SDK::Shape {
         has QuietTime $.quiet-time is shape-member('QuietTime');
         has CampaignLimits $.limits is shape-member('Limits');
@@ -894,10 +915,10 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
 
     class EndpointSendConfiguration does AWS::SDK::Shape {
         has Str $.raw-content is shape-member('RawContent');
-        has Hash[Str, Str] $.context is shape-member('Context');
+        has Str %.context{Str} is shape-member('Context');
         has Str $.body-override is shape-member('BodyOverride');
         has Str $.title-override is shape-member('TitleOverride');
-        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Array[Str] %.substitutions{Str} is shape-member('Substitutions');
     }
 
     class EmailChannelResponse does AWS::SDK::Shape {
@@ -937,8 +958,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Bool $.enabled is shape-member('Enabled');
     }
 
-    subset Format of Str where $_ ~~ any('CSV', 'JSON');
-
     class SegmentResponse does AWS::SDK::Shape {
         has Str $.last-modified-date is shape-member('LastModifiedDate');
         has Str $.creation-date is shape-member('CreationDate');
@@ -967,8 +986,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has ImportJobResponse $.import-job-response is required is shape-member('ImportJobResponse');
     }
 
-    subset ChannelType of Str where $_ ~~ any('GCM', 'APNS', 'APNS_SANDBOX', 'ADM', 'SMS', 'EMAIL', 'BAIDU');
-
     class CreateSegmentRequest does AWS::SDK::Shape {
         has WriteSegmentRequest $.write-segment-request is required is shape-member('WriteSegmentRequest');
         has Str $.application-id is required is shape-member('ApplicationId');
@@ -984,8 +1001,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.from-address is shape-member('FromAddress');
         has Str $.html-body is shape-member('HtmlBody');
     }
-
-    subset Duration of Str where $_ ~~ any('HR_24', 'DAY_7', 'DAY_14', 'DAY_30');
 
     class GetApnsSandboxChannelRequest does AWS::SDK::Shape {
         has Str $.application-id is required is shape-member('ApplicationId');
@@ -1011,10 +1026,10 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
 
     class AddressConfiguration does AWS::SDK::Shape {
         has Str $.raw-content is shape-member('RawContent');
-        has Hash[Str, Str] $.context is shape-member('Context');
+        has Str %.context{Str} is shape-member('Context');
         has Str $.body-override is shape-member('BodyOverride');
         has Str $.title-override is shape-member('TitleOverride');
-        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Array[Str] %.substitutions{Str} is shape-member('Substitutions');
         has ChannelType $.channel-type is shape-member('ChannelType');
     }
 
@@ -1029,8 +1044,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     class GetSegmentImportJobsResponse does AWS::SDK::Shape {
         has ImportJobsResponse $.import-jobs-response is required is shape-member('ImportJobsResponse');
     }
-
-    subset SegmentType of Str where $_ ~~ any('DIMENSIONAL', 'IMPORT');
 
     class ImportJobResource does AWS::SDK::Shape {
         has Str $.segment-id is shape-member('SegmentId');
@@ -1053,7 +1066,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class SendUsersMessageResponse does AWS::SDK::Shape {
-        has Hash[Hash[EndpointMessageResult, Str], Str] $.result is shape-member('Result');
+        has Hash[EndpointMessageResult, Str] %.result{Str} is shape-member('Result');
         has Str $.request-id is shape-member('RequestId');
         has Str $.application-id is shape-member('ApplicationId');
     }
@@ -1078,8 +1091,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Int $.maximum-duration is shape-member('MaximumDuration');
     }
 
-    subset Action of Str where $_ ~~ any('OPEN_APP', 'DEEP_LINK', 'URL');
-
     class APNSChannelResponse does AWS::SDK::Shape {
         has Str $.last-modified-date is shape-member('LastModifiedDate');
         has Str $.last-modified-by is shape-member('LastModifiedBy');
@@ -1091,8 +1102,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Bool $.enabled is shape-member('Enabled');
         has Str $.application-id is shape-member('ApplicationId');
     }
-
-    subset RecencyType of Str where $_ ~~ any('ACTIVE', 'INACTIVE');
 
     class ImportJobRequest does AWS::SDK::Shape {
         has Str $.segment-id is shape-member('SegmentId');
@@ -1141,11 +1150,11 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.id is shape-member('Id');
         has Str $.effective-date is shape-member('EffectiveDate');
         has Str $.request-id is shape-member('RequestId');
-        has Hash[Numeric, Str] $.metrics is shape-member('Metrics');
+        has Numeric %.metrics{Str} is shape-member('Metrics');
         has EndpointLocation $.location is shape-member('Location');
         has EndpointUser $.user is shape-member('User');
         has EndpointDemographic $.demographic is shape-member('Demographic');
-        has Hash[Array[Str], Str] $.attributes is shape-member('Attributes');
+        has Array[Str] %.attributes{Str} is shape-member('Attributes');
         has Str $.endpoint-status is shape-member('EndpointStatus');
         has ChannelType $.channel-type is shape-member('ChannelType');
     }
@@ -1155,12 +1164,12 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.body is shape-member('Body');
         has Str $.restricted-package-name is shape-member('RestrictedPackageName');
         has Str $.json-data is shape-member('JsonData');
-        has Hash[Str, Str] $.data is shape-member('Data');
+        has Str %.data{Str} is shape-member('Data');
         has Str $.sound is shape-member('Sound');
         has Str $.title is shape-member('Title');
         has Str $.raw-content is shape-member('RawContent');
         has Action $.action is shape-member('Action');
-        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Array[Str] %.substitutions{Str} is shape-member('Substitutions');
         has Str $.url is shape-member('Url');
         has Str $.collapse-key is shape-member('CollapseKey');
         has Str $.small-image-icon-url is shape-member('SmallImageIconUrl');
@@ -1174,8 +1183,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.endpoint-id is required is shape-member('EndpointId');
         has Str $.application-id is required is shape-member('ApplicationId');
     }
-
-    subset JobStatus of Str where $_ ~~ any('CREATED', 'INITIALIZING', 'PROCESSING', 'COMPLETING', 'COMPLETED', 'FAILING', 'FAILED');
 
     class BadRequestException does AWS::SDK::Shape {
         has Str $.request-id is shape-member('RequestID');
@@ -1233,8 +1240,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    subset CampaignStatus of Str where $_ ~~ any('SCHEDULED', 'EXECUTING', 'PENDING_NEXT_RUN', 'COMPLETED', 'PAUSED');
-
     class CampaignResponse does AWS::SDK::Shape {
         has Str $.treatment-name is shape-member('TreatmentName');
         has Str $.segment-id is shape-member('SegmentId');
@@ -1249,7 +1254,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has CampaignState $.state is shape-member('State');
         has Str $.name is shape-member('Name');
         has CampaignState $.default-state is shape-member('DefaultState');
-        has Array[TreatmentResource] $.additional-treatments is shape-member('AdditionalTreatments');
+        has TreatmentResource @.additional-treatments is shape-member('AdditionalTreatments');
         has Str $.treatment-description is shape-member('TreatmentDescription');
         has Bool $.is-paused is shape-member('IsPaused');
         has Int $.segment-version is shape-member('SegmentVersion');
@@ -1265,11 +1270,11 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.id is shape-member('Id');
         has Str $.effective-date is shape-member('EffectiveDate');
         has Str $.request-id is shape-member('RequestId');
-        has Hash[Numeric, Str] $.metrics is shape-member('Metrics');
+        has Numeric %.metrics{Str} is shape-member('Metrics');
         has EndpointLocation $.location is shape-member('Location');
         has EndpointUser $.user is shape-member('User');
         has EndpointDemographic $.demographic is shape-member('Demographic');
-        has Hash[Array[Str], Str] $.attributes is shape-member('Attributes');
+        has Array[Str] %.attributes{Str} is shape-member('Attributes');
         has Str $.cohort-id is shape-member('CohortId');
         has Str $.endpoint-status is shape-member('EndpointStatus');
         has ChannelType $.channel-type is shape-member('ChannelType');
@@ -1322,10 +1327,6 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    subset AttributeType of Str where $_ ~~ any('INCLUSIVE', 'EXCLUSIVE');
-
-    subset DeliveryStatus of Str where $_ ~~ any('SUCCESSFUL', 'THROTTLED', 'TEMPORARY_FAILURE', 'PERMANENT_FAILURE', 'UNKNOWN_FAILURE', 'OPT_OUT', 'DUPLICATE');
-
     class UpdateSegmentRequest does AWS::SDK::Shape {
         has Str $.segment-id is required is shape-member('SegmentId');
         has WriteSegmentRequest $.write-segment-request is required is shape-member('WriteSegmentRequest');
@@ -1337,8 +1338,8 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class SendUsersMessageRequest does AWS::SDK::Shape {
-        has Hash[EndpointSendConfiguration, Str] $.users is shape-member('Users');
-        has Hash[Str, Str] $.context is shape-member('Context');
+        has EndpointSendConfiguration %.users{Str} is shape-member('Users');
+        has Str %.context{Str} is shape-member('Context');
         has Str $.request-id is shape-member('RequestId');
         has DirectMessageConfiguration $.message-configuration is shape-member('MessageConfiguration');
     }
@@ -1348,7 +1349,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class ApplicationsResponse does AWS::SDK::Shape {
-        has Array[ApplicationResponse] $.item is shape-member('Item');
+        has ApplicationResponse @.item is shape-member('Item');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1400,7 +1401,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
     }
 
     class ActivitiesResponse does AWS::SDK::Shape {
-        has Array[ActivityResponse] $.item is shape-member('Item');
+        has ActivityResponse @.item is shape-member('Item');
     }
 
     class ADMChannelRequest does AWS::SDK::Shape {
@@ -1414,11 +1415,11 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.address is shape-member('Address');
         has Str $.effective-date is shape-member('EffectiveDate');
         has Str $.request-id is shape-member('RequestId');
-        has Hash[Numeric, Str] $.metrics is shape-member('Metrics');
+        has Numeric %.metrics{Str} is shape-member('Metrics');
         has EndpointLocation $.location is shape-member('Location');
         has EndpointUser $.user is shape-member('User');
         has EndpointDemographic $.demographic is shape-member('Demographic');
-        has Hash[Array[Str], Str] $.attributes is shape-member('Attributes');
+        has Array[Str] %.attributes{Str} is shape-member('Attributes');
         has Str $.endpoint-status is shape-member('EndpointStatus');
         has ChannelType $.channel-type is shape-member('ChannelType');
     }
@@ -1437,6 +1438,7 @@ class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
         has Str $.page-size is shape-member('PageSize');
         has Str $.application-id is required is shape-member('ApplicationId');
     }
+
 
     method get-gcm-channel(
         Str :$application-id!

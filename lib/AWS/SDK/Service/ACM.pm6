@@ -46,6 +46,49 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
 
     subset CertificateChainBlob of Blob where 1 <= *.bytes <= 2097152;
 
+    subset CertificateType of Str where $_ eq any('IMPORTED', 'AMAZON_ISSUED');
+
+    subset DomainNameString of Str where 1 <= .chars <= 253 && rx:P5/^(\*\.)?(((?!-)[A-Za-z0-9-]{0,62}[A-Za-z0-9])\.)+((?!-)[A-Za-z0-9-]{1,62}[A-Za-z0-9])$/;
+
+    subset DomainStatus of Str where $_ eq any('PENDING_VALIDATION', 'SUCCESS', 'FAILED');
+
+    subset TagList of Array[Tag] where 1 <= *.elems <= 50;
+
+    subset CertificateStatus of Str where $_ eq any('PENDING_VALIDATION', 'ISSUED', 'INACTIVE', 'EXPIRED', 'VALIDATION_TIMED_OUT', 'REVOKED', 'FAILED');
+
+    subset MaxItems of Int where 1 <= * <= 1000;
+
+    subset NextToken of Str where 1 <= .chars <= 320 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]*/;
+
+    subset DomainList of Array[DomainNameString] where 1 <= *.elems <= 100;
+
+    subset CertificateBodyBlob of Blob where 1 <= *.bytes <= 32768;
+
+    subset PrivateKeyBlob of Blob where 1 <= *.bytes <= 524288;
+
+    subset FailureReason of Str where $_ eq any('NO_AVAILABLE_CONTACTS', 'ADDITIONAL_VERIFICATION_REQUIRED', 'DOMAIN_NOT_ALLOWED', 'INVALID_PUBLIC_DOMAIN', 'OTHER');
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/[\p{L}\p{Z}\p{N}_.:\\/=+\-@]*/;
+
+    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/[\p{L}\p{Z}\p{N}_.:\\/=+\-@]*/;
+
+    subset CertificateChain of Str where 1 <= .chars <= 2097152 && rx:P5/(-{5}BEGIN CERTIFICATE-{5}\u000D?\u000A([A-Za-z0-9\/+]{64}\u000D?\u000A)*[A-Za-z0-9\/+]{1,64}={0,2}\u000D?\u000A-{5}END CERTIFICATE-{5}\u000D?\u000A)*-{5}BEGIN CERTIFICATE-{5}\u000D?\u000A([A-Za-z0-9\/+]{64}\u000D?\u000A)*[A-Za-z0-9\/+]{1,64}={0,2}\u000D?\u000A-{5}END CERTIFICATE-{5}(\u000D?\u000A)?/;
+
+    subset DomainValidationList of Array[DomainValidation] where 1 <= *.elems <= 1000;
+
+    subset RenewalStatus of Str where $_ eq any('PENDING_AUTO_RENEWAL', 'PENDING_VALIDATION', 'SUCCESS', 'FAILED');
+
+    subset CertificateBody of Str where 1 <= .chars <= 32768 && rx:P5/-{5}BEGIN CERTIFICATE-{5}\u000D?\u000A([A-Za-z0-9\/+]{64}\u000D?\u000A)*[A-Za-z0-9\/+]{1,64}={0,2}\u000D?\u000A-{5}END CERTIFICATE-{5}(\u000D?\u000A)?/;
+
+    subset RevocationReason of Str where $_ eq any('UNSPECIFIED', 'KEY_COMPROMISE', 'CA_COMPROMISE', 'AFFILIATION_CHANGED', 'SUPERCEDED', 'CESSATION_OF_OPERATION', 'CERTIFICATE_HOLD', 'REMOVE_FROM_CRL', 'PRIVILEGE_WITHDRAWN', 'A_A_COMPROMISE');
+
+    subset IdempotencyToken of Str where 1 <= .chars <= 32 && rx:P5/\w+/;
+
+    subset DomainValidationOptionList of Array[DomainValidationOption] where 1 <= *.elems <= 100;
+
+    subset KeyAlgorithm of Str where $_ eq any('RSA_2048', 'RSA_1024', 'EC_prime256v1');
+
+
     class CertificateDetail does AWS::SDK::Shape {
         has RenewalSummary $.renewal-summary is shape-member('RenewalSummary');
         has Str $.signature-algorithm is shape-member('SignatureAlgorithm');
@@ -63,7 +106,7 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
         has RevocationReason $.revocation-reason is shape-member('RevocationReason');
         has CertificateStatus $.status is shape-member('Status');
         has DomainValidationList $.domain-validation-options is shape-member('DomainValidationOptions');
-        has Array[Str] $.in-use-by is shape-member('InUseBy');
+        has Str @.in-use-by is shape-member('InUseBy');
         has DateTime $.issued-at is shape-member('IssuedAt');
         has KeyAlgorithm $.key-algorithm is shape-member('KeyAlgorithm');
         has DateTime $.revoked-at is shape-member('RevokedAt');
@@ -82,15 +125,9 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset CertificateType of Str where $_ ~~ any('IMPORTED', 'AMAZON_ISSUED');
-
     class DescribeCertificateRequest does AWS::SDK::Shape {
         has Arn $.certificate-arn is required is shape-member('CertificateArn');
     }
-
-    subset DomainNameString of Str where 1 <= .chars <= 253 && rx:P5/^(\*\.)?(((?!-)[A-Za-z0-9-]{0,62}[A-Za-z0-9])\.)+((?!-)[A-Za-z0-9-]{1,62}[A-Za-z0-9])$/;
-
-    subset DomainStatus of Str where $_ ~~ any('PENDING_VALIDATION', 'SUCCESS', 'FAILED');
 
     class InvalidTagException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -136,16 +173,8 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
         has TagList $.tags is shape-member('Tags');
     }
 
-    subset TagList of Array[Tag] where 1 <= *.elems <= 50;
-
-    subset CertificateStatus of Str where $_ ~~ any('PENDING_VALIDATION', 'ISSUED', 'INACTIVE', 'EXPIRED', 'VALIDATION_TIMED_OUT', 'REVOKED', 'FAILED');
-
-    subset MaxItems of Int where 1 <= * <= 1000;
-
-    subset NextToken of Str where 1 <= .chars <= 320 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]*/;
-
     class ListCertificatesRequest does AWS::SDK::Shape {
-        has Array[CertificateStatus] $.certificate-statuses is shape-member('CertificateStatuses');
+        has CertificateStatus @.certificate-statuses is shape-member('CertificateStatuses');
         has MaxItems $.max-items is shape-member('MaxItems');
         has NextToken $.next-token is shape-member('NextToken');
     }
@@ -157,10 +186,8 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
         has DomainList $.subject-alternative-names is shape-member('SubjectAlternativeNames');
     }
 
-    subset DomainList of Array[DomainNameString] where 1 <= *.elems <= 100;
-
     class ListCertificatesResponse does AWS::SDK::Shape {
-        has Array[CertificateSummary] $.certificate-summary-list is shape-member('CertificateSummaryList');
+        has CertificateSummary @.certificate-summary-list is shape-member('CertificateSummaryList');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -168,22 +195,14 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset CertificateBodyBlob of Blob where 1 <= *.bytes <= 32768;
-
-    subset PrivateKeyBlob of Blob where 1 <= *.bytes <= 524288;
-
     class RenewalSummary does AWS::SDK::Shape {
         has RenewalStatus $.renewal-status is required is shape-member('RenewalStatus');
         has DomainValidationList $.domain-validation-options is required is shape-member('DomainValidationOptions');
     }
 
-    subset FailureReason of Str where $_ ~~ any('NO_AVAILABLE_CONTACTS', 'ADDITIONAL_VERIFICATION_REQUIRED', 'DOMAIN_NOT_ALLOWED', 'INVALID_PUBLIC_DOMAIN', 'OTHER');
-
     class ListTagsForCertificateRequest does AWS::SDK::Shape {
         has Arn $.certificate-arn is required is shape-member('CertificateArn');
     }
-
-    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/[\p{L}\p{Z}\p{N}_.:\\/=+\-@]*/;
 
     class CertificateSummary does AWS::SDK::Shape {
         has DomainNameString $.domain-name is shape-member('DomainName');
@@ -195,8 +214,6 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
         has TagList $.tags is required is shape-member('Tags');
     }
 
-    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/[\p{L}\p{Z}\p{N}_.:\\/=+\-@]*/;
-
     class DescribeCertificateResponse does AWS::SDK::Shape {
         has CertificateDetail $.certificate is shape-member('Certificate');
     }
@@ -206,24 +223,16 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
         has CertificateBody $.certificate is shape-member('Certificate');
     }
 
-    subset CertificateChain of Str where 1 <= .chars <= 2097152 && rx:P5/(-{5}BEGIN CERTIFICATE-{5}\u000D?\u000A([A-Za-z0-9\/+]{64}\u000D?\u000A)*[A-Za-z0-9\/+]{1,64}={0,2}\u000D?\u000A-{5}END CERTIFICATE-{5}\u000D?\u000A)*-{5}BEGIN CERTIFICATE-{5}\u000D?\u000A([A-Za-z0-9\/+]{64}\u000D?\u000A)*[A-Za-z0-9\/+]{1,64}={0,2}\u000D?\u000A-{5}END CERTIFICATE-{5}(\u000D?\u000A)?/;
-
     class DomainValidation does AWS::SDK::Shape {
         has DomainNameString $.validation-domain is shape-member('ValidationDomain');
         has DomainNameString $.domain-name is required is shape-member('DomainName');
         has DomainStatus $.validation-status is shape-member('ValidationStatus');
-        has Array[Str] $.validation-emails is shape-member('ValidationEmails');
+        has Str @.validation-emails is shape-member('ValidationEmails');
     }
-
-    subset DomainValidationList of Array[DomainValidation] where 1 <= *.elems <= 1000;
-
-    subset RenewalStatus of Str where $_ ~~ any('PENDING_AUTO_RENEWAL', 'PENDING_VALIDATION', 'SUCCESS', 'FAILED');
 
     class TooManyTagsException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset CertificateBody of Str where 1 <= .chars <= 32768 && rx:P5/-{5}BEGIN CERTIFICATE-{5}\u000D?\u000A([A-Za-z0-9\/+]{64}\u000D?\u000A)*[A-Za-z0-9\/+]{1,64}={0,2}\u000D?\u000A-{5}END CERTIFICATE-{5}(\u000D?\u000A)?/;
 
     class DomainValidationOption does AWS::SDK::Shape {
         has DomainNameString $.validation-domain is required is shape-member('ValidationDomain');
@@ -236,22 +245,15 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
         has Arn $.certificate-arn is required is shape-member('CertificateArn');
     }
 
-    subset RevocationReason of Str where $_ ~~ any('UNSPECIFIED', 'KEY_COMPROMISE', 'CA_COMPROMISE', 'AFFILIATION_CHANGED', 'SUPERCEDED', 'CESSATION_OF_OPERATION', 'CERTIFICATE_HOLD', 'REMOVE_FROM_CRL', 'PRIVILEGE_WITHDRAWN', 'A_A_COMPROMISE');
-
     class DeleteCertificateRequest does AWS::SDK::Shape {
         has Arn $.certificate-arn is required is shape-member('CertificateArn');
     }
-
-    subset IdempotencyToken of Str where 1 <= .chars <= 32 && rx:P5/\w+/;
-
-    subset DomainValidationOptionList of Array[DomainValidationOption] where 1 <= *.elems <= 100;
-
-    subset KeyAlgorithm of Str where $_ ~~ any('RSA_2048', 'RSA_1024', 'EC_prime256v1');
 
     class Tag does AWS::SDK::Shape {
         has TagValue $.value is shape-member('Value');
         has TagKey $.key is required is shape-member('Key');
     }
+
 
     method list-tags-for-certificate(
         Arn :$certificate-arn!
@@ -282,12 +284,12 @@ class AWS::SDK::Service::ACM does AWS::SDK::Service {
     }
 
     method list-certificates(
-        Array[CertificateStatus] :$certificate-statuses,
+        CertificateStatus :@certificate-statuses,
         MaxItems :$max-items,
         NextToken :$next-token
     ) returns ListCertificatesResponse is service-operation('ListCertificates') {
         my $request-input = ListCertificatesRequest.new(
-            :$certificate-statuses,
+            :@certificate-statuses,
             :$max-items,
             :$next-token
         );

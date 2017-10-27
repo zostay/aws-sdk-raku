@@ -33,13 +33,30 @@ class AWS::SDK::Service::Lambda20141111 does AWS::SDK::Service {
     class FunctionCodeLocation { ... }
     class FunctionConfiguration { ... }
 
-    subset Runtime of Str where $_ ~~ any('nodejs');
+    subset Runtime of Str where $_ eq any('nodejs');
+
+    subset FunctionName of Str where 1 <= .chars <= 64 && rx:P5/[a-zA-Z0-9-_]+/;
+
+    subset Description of Str where 0 <= .chars <= 256;
+
+    subset RoleArn of Str where rx:P5/arn:aws:iam::\d{12}:role\/?[a-zA-Z_0-9+=,.@\-_\/]+/;
+
+    subset Handler of Str where rx:P5/[a-zA-Z0-9.\/\-_]+/;
+
+    subset MemorySize of Int where 128 <= * <= 1024;
+
+    subset Mode of Str where $_ eq any('event');
+
+    subset FunctionArn of Str where rx:P5/arn:aws:lambda:[a-z]{2}-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(\\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})?/;
+
+    subset Timeout of Int where 1 <= * <= 60;
+
+    subset MaxListItems of Int where 1 <= * <= 10000;
+
 
     class DeleteFunctionRequest does AWS::SDK::Shape {
         has FunctionName $.function-name is required is shape-member('FunctionName');
     }
-
-    subset FunctionName of Str where 1 <= .chars <= 64 && rx:P5/[a-zA-Z0-9-_]+/;
 
     class InvokeAsyncResponse does AWS::SDK::Shape {
         has Int $.status is shape-member('Status');
@@ -48,12 +65,10 @@ class AWS::SDK::Service::Lambda20141111 does AWS::SDK::Service {
     class AddEventSourceRequest does AWS::SDK::Shape {
         has RoleArn $.role is required is shape-member('Role');
         has FunctionName $.function-name is required is shape-member('FunctionName');
-        has Hash[Str, Str] $.parameters is shape-member('Parameters');
+        has Str %.parameters{Str} is shape-member('Parameters');
         has Str $.event-source is required is shape-member('EventSource');
         has Int $.batch-size is shape-member('BatchSize');
     }
-
-    subset Description of Str where 0 <= .chars <= 256;
 
     class GetEventSourceRequest does AWS::SDK::Shape {
         has Str $.uuid is required is shape-member('UUID');
@@ -73,10 +88,6 @@ class AWS::SDK::Service::Lambda20141111 does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset RoleArn of Str where rx:P5/arn:aws:iam::\d{12}:role\/?[a-zA-Z_0-9+=,.@\-_\/]+/;
-
-    subset Handler of Str where rx:P5/[a-zA-Z0-9.\/\-_]+/;
-
     class ListEventSourcesRequest does AWS::SDK::Shape {
         has Str $.event-source-arn is shape-member('EventSourceArn');
         has FunctionName $.function-name is shape-member('FunctionName');
@@ -94,21 +105,13 @@ class AWS::SDK::Service::Lambda20141111 does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset MemorySize of Int where 128 <= * <= 1024;
-
-    subset Mode of Str where $_ ~~ any('event');
-
-    subset FunctionArn of Str where rx:P5/arn:aws:lambda:[a-z]{2}-[a-z]+-\d{1}:\d{12}:function:[a-zA-Z0-9-_]+(\\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})?/;
-
     class ListEventSourcesResponse does AWS::SDK::Shape {
-        has Array[EventSourceConfiguration] $.event-sources is shape-member('EventSources');
+        has EventSourceConfiguration @.event-sources is shape-member('EventSources');
         has Str $.next-marker is shape-member('NextMarker');
     }
 
-    subset Timeout of Int where 1 <= * <= 60;
-
     class ListFunctionsResponse does AWS::SDK::Shape {
-        has Array[FunctionConfiguration] $.functions is shape-member('Functions');
+        has FunctionConfiguration @.functions is shape-member('Functions');
         has Str $.next-marker is shape-member('NextMarker');
     }
 
@@ -120,8 +123,6 @@ class AWS::SDK::Service::Lambda20141111 does AWS::SDK::Service {
         has Str $.type is shape-member('Type');
         has Str $.message is shape-member('Message');
     }
-
-    subset MaxListItems of Int where 1 <= * <= 10000;
 
     class RemoveEventSourceRequest does AWS::SDK::Shape {
         has Str $.uuid is required is shape-member('UUID');
@@ -161,7 +162,7 @@ class AWS::SDK::Service::Lambda20141111 does AWS::SDK::Service {
     class EventSourceConfiguration does AWS::SDK::Shape {
         has RoleArn $.role is shape-member('Role');
         has FunctionName $.function-name is shape-member('FunctionName');
-        has Hash[Str, Str] $.parameters is shape-member('Parameters');
+        has Str %.parameters{Str} is shape-member('Parameters');
         has Bool $.is-active is shape-member('IsActive');
         has Str $.status is shape-member('Status');
         has Str $.event-source is shape-member('EventSource');
@@ -189,6 +190,7 @@ class AWS::SDK::Service::Lambda20141111 does AWS::SDK::Service {
         has Str $.last-modified is shape-member('LastModified');
         has Mode $.mode is shape-member('Mode');
     }
+
 
     method list-event-sources(
         Str :$event-source-arn,
@@ -276,14 +278,14 @@ class AWS::SDK::Service::Lambda20141111 does AWS::SDK::Service {
     method add-event-source(
         RoleArn :$role!,
         FunctionName :$function-name!,
-        Hash[Str, Str] :$parameters,
+        Str :%parameters,
         Str :$event-source!,
         Int :$batch-size
     ) returns EventSourceConfiguration is service-operation('AddEventSource') {
         my $request-input = AddEventSourceRequest.new(
             :$role,
             :$function-name,
-            :$parameters,
+            :%parameters,
             :$event-source,
             :$batch-size
         );

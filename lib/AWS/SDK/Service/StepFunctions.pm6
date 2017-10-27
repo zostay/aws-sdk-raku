@@ -86,18 +86,41 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
     class GetActivityTaskInput { ... }
     class ExecutionAbortedEventDetails { ... }
 
+    subset Arn of Str where 1 <= .chars <= 256;
+
+    subset Data of Str where .chars <= 32768;
+
+    subset Identity of Str where .chars <= 256;
+
+    subset Cause of Str where 0 <= .chars <= 32768;
+
+    subset ExecutionStatus of Str where $_ eq any('RUNNING', 'SUCCEEDED', 'FAILED', 'TIMED_OUT', 'ABORTED');
+
+    subset TaskToken of Str where 1 <= .chars <= 1024;
+
+    subset Error of Str where 0 <= .chars <= 256;
+
+    subset Name of Str where 1 <= .chars <= 80;
+
+    subset HistoryEventType of Str where $_ eq any('ActivityFailed', 'ActivityScheduleFailed', 'ActivityScheduled', 'ActivityStarted', 'ActivitySucceeded', 'ActivityTimedOut', 'ChoiceStateEntered', 'ChoiceStateExited', 'ExecutionFailed', 'ExecutionStarted', 'ExecutionSucceeded', 'ExecutionAborted', 'ExecutionTimedOut', 'FailStateEntered', 'LambdaFunctionFailed', 'LambdaFunctionScheduleFailed', 'LambdaFunctionScheduled', 'LambdaFunctionStartFailed', 'LambdaFunctionStarted', 'LambdaFunctionSucceeded', 'LambdaFunctionTimedOut', 'SucceedStateEntered', 'SucceedStateExited', 'TaskStateEntered', 'TaskStateExited', 'PassStateEntered', 'PassStateExited', 'ParallelStateEntered', 'ParallelStateExited', 'WaitStateEntered', 'WaitStateExited');
+
+    subset Definition of Str where 1 <= .chars <= 1048576;
+
+    subset StateMachineStatus of Str where $_ eq any('ACTIVE', 'DELETING');
+
+    subset PageToken of Str where 1 <= .chars <= 1024;
+
+    subset PageSize of Int where 0 <= * <= 1000;
+
+
     class LambdaFunctionFailedEventDetails does AWS::SDK::Shape {
         has Error $.error is shape-member('error');
         has Cause $.cause is shape-member('cause');
     }
 
-    subset Arn of Str where 1 <= .chars <= 256;
-
     class ExecutionAlreadyExists does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset Data of Str where .chars <= 32768;
 
     class LambdaFunctionSucceededEventDetails does AWS::SDK::Shape {
         has Data $.output is shape-member('output');
@@ -153,10 +176,8 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
 
     class ListStateMachinesOutput does AWS::SDK::Shape {
         has PageToken $.next-token is shape-member('nextToken');
-        has Array[StateMachineListItem] $.state-machines is required is shape-member('stateMachines');
+        has StateMachineListItem @.state-machines is required is shape-member('stateMachines');
     }
-
-    subset Identity of Str where .chars <= 256;
 
     class StopExecutionOutput does AWS::SDK::Shape {
         has DateTime $.stop-date is required is shape-member('stopDate');
@@ -185,13 +206,9 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
         has PageSize $.max-results is shape-member('maxResults');
     }
 
-    subset Cause of Str where 0 <= .chars <= 32768;
-
     class DescribeExecutionInput does AWS::SDK::Shape {
         has Arn $.execution-arn is required is shape-member('executionArn');
     }
-
-    subset ExecutionStatus of Str where $_ ~~ any('RUNNING', 'SUCCEEDED', 'FAILED', 'TIMED_OUT', 'ABORTED');
 
     class StateMachineListItem does AWS::SDK::Shape {
         has Name $.name is required is shape-member('name');
@@ -256,8 +273,6 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
     class InvalidOutput does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset TaskToken of Str where 1 <= .chars <= 1024;
 
     class DescribeStateMachineInput does AWS::SDK::Shape {
         has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
@@ -382,8 +397,6 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
     class DeleteActivityOutput does AWS::SDK::Shape {
     }
 
-    subset Error of Str where 0 <= .chars <= 256;
-
     class DeleteStateMachineInput does AWS::SDK::Shape {
         has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
     }
@@ -394,7 +407,7 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
     }
 
     class GetExecutionHistoryOutput does AWS::SDK::Shape {
-        has Array[HistoryEvent] $.events is required is shape-member('events');
+        has HistoryEvent @.events is required is shape-member('events');
         has PageToken $.next-token is shape-member('nextToken');
     }
 
@@ -402,8 +415,6 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
         has Error $.error is shape-member('error');
         has Cause $.cause is shape-member('cause');
     }
-
-    subset Name of Str where 1 <= .chars <= 80;
 
     class TaskTimedOut does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -428,11 +439,9 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
         has Cause $.cause is shape-member('cause');
     }
 
-    subset HistoryEventType of Str where $_ ~~ any('ActivityFailed', 'ActivityScheduleFailed', 'ActivityScheduled', 'ActivityStarted', 'ActivitySucceeded', 'ActivityTimedOut', 'ChoiceStateEntered', 'ChoiceStateExited', 'ExecutionFailed', 'ExecutionStarted', 'ExecutionSucceeded', 'ExecutionAborted', 'ExecutionTimedOut', 'FailStateEntered', 'LambdaFunctionFailed', 'LambdaFunctionScheduleFailed', 'LambdaFunctionScheduled', 'LambdaFunctionStartFailed', 'LambdaFunctionStarted', 'LambdaFunctionSucceeded', 'LambdaFunctionTimedOut', 'SucceedStateEntered', 'SucceedStateExited', 'TaskStateEntered', 'TaskStateExited', 'PassStateEntered', 'PassStateExited', 'ParallelStateEntered', 'ParallelStateExited', 'WaitStateEntered', 'WaitStateExited');
-
     class ListActivitiesOutput does AWS::SDK::Shape {
         has PageToken $.next-token is shape-member('nextToken');
-        has Array[ActivityListItem] $.activities is required is shape-member('activities');
+        has ActivityListItem @.activities is required is shape-member('activities');
     }
 
     class SendTaskFailureInput does AWS::SDK::Shape {
@@ -446,17 +455,9 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
         has PageSize $.max-results is shape-member('maxResults');
     }
 
-    subset Definition of Str where 1 <= .chars <= 1048576;
-
     class ExecutionDoesNotExist does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset StateMachineStatus of Str where $_ ~~ any('ACTIVE', 'DELETING');
-
-    subset PageToken of Str where 1 <= .chars <= 1024;
-
-    subset PageSize of Int where 0 <= * <= 1000;
 
     class ListActivitiesInput does AWS::SDK::Shape {
         has PageToken $.next-token is shape-member('nextToken');
@@ -470,7 +471,7 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
 
     class ListExecutionsOutput does AWS::SDK::Shape {
         has PageToken $.next-token is shape-member('nextToken');
-        has Array[ExecutionListItem] $.executions is required is shape-member('executions');
+        has ExecutionListItem @.executions is required is shape-member('executions');
     }
 
     class ActivityFailedEventDetails does AWS::SDK::Shape {
@@ -495,6 +496,7 @@ class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
         has Error $.error is shape-member('error');
         has Cause $.cause is shape-member('cause');
     }
+
 
     method describe-activity(
         Arn :$activity-arn!

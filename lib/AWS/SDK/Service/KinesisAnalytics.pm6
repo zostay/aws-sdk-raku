@@ -93,10 +93,53 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
     class ListApplicationsResponse { ... }
     class DeleteApplicationOutputResponse { ... }
 
+    subset RoleARN of Str where 1 <= .chars <= 2048 && rx:P5/arn:aws:iam::\d{12}:role\/?[a-zA-Z_0-9+=,.@\-_\/]+/;
+
+    subset ApplicationStatus of Str where $_ eq any('DELETING', 'STARTING', 'STOPPING', 'READY', 'RUNNING', 'UPDATING');
+
+    subset BucketARN of Str where 1 <= .chars <= 2048 && rx:P5/arn:.*/;
+
+    subset ResourceARN of Str where 1 <= .chars <= 2048 && rx:P5/arn:[a-zA-Z0-9\-]+:[a-zA-Z0-9\-]+:[a-zA-Z0-9\-]*:\d{12}:[a-zA-Z_0-9+=,.@\-_\/:]+/;
+
+    subset ApplicationCode of Str where 0 <= .chars <= 51200;
+
+    subset RecordColumnDelimiter of Str where 1 <= .chars;
+
+    subset InputStartingPosition of Str where $_ eq any('NOW', 'TRIM_HORIZON', 'LAST_STOPPED_POINT');
+
+    subset ApplicationDescription of Str where 0 <= .chars <= 1024;
+
+    subset RecordColumns of Array[RecordColumn] where 1 <= *.elems <= 1000;
+
+    subset RecordRowDelimiter of Str where 1 <= .chars;
+
+    subset ListApplicationsInputLimit of Int where 1 <= * <= 50;
+
+    subset InAppStreamName of Str where 1 <= .chars <= 32 && rx:P5/[a-zA-Z][a-zA-Z0-9_]+/;
+
+    subset RecordFormatType of Str where $_ eq any('JSON', 'CSV');
+
+    subset ApplicationVersionId of Int where 1 <= * <= 999999999;
+
+    subset LogStreamARN of Str where 1 <= .chars <= 2048 && rx:P5/arn:.*/;
+
+    subset InputParallelismCount of Int where 1 <= * <= 64;
+
+    subset ApplicationName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9_.-]+/;
+
+    subset Id of Str where 1 <= .chars <= 50 && rx:P5/[a-zA-Z0-9_.-]+/;
+
+    subset RecordColumnName of Str where rx:P5/[a-zA-Z_][a-zA-Z0-9_]*/;
+
+    subset RecordEncoding of Str where rx:P5/UTF-8/;
+
+    subset InAppTableName of Str where 1 <= .chars <= 32 && rx:P5/[a-zA-Z][a-zA-Z0-9_]+/;
+
+
     class InputDescription does AWS::SDK::Shape {
         has KinesisStreamsInputDescription $.kinesis-streams-input-description is shape-member('KinesisStreamsInputDescription');
         has SourceSchema $.input-schema is shape-member('InputSchema');
-        has Array[InAppStreamName] $.in-app-stream-names is shape-member('InAppStreamNames');
+        has InAppStreamName @.in-app-stream-names is shape-member('InAppStreamNames');
         has InAppStreamName $.name-prefix is shape-member('NamePrefix');
         has Id $.input-id is shape-member('InputId');
         has KinesisFirehoseInputDescription $.kinesis-firehose-input-description is shape-member('KinesisFirehoseInputDescription');
@@ -115,8 +158,6 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
         has ApplicationVersionId $.current-application-version-id is required is shape-member('CurrentApplicationVersionId');
     }
-
-    subset RoleARN of Str where 1 <= .chars <= 2048 && rx:P5/arn:aws:iam::\d{12}:role\/?[a-zA-Z_0-9+=,.@\-_\/]+/;
 
     class ReferenceDataSource does AWS::SDK::Shape {
         has SourceSchema $.reference-schema is required is shape-member('ReferenceSchema');
@@ -138,8 +179,6 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has Id $.cloud-watch-logging-option-id is required is shape-member('CloudWatchLoggingOptionId');
     }
 
-    subset ApplicationStatus of Str where $_ ~~ any('DELETING', 'STARTING', 'STOPPING', 'READY', 'RUNNING', 'UPDATING');
-
     class ReferenceDataSourceUpdate does AWS::SDK::Shape {
         has InAppTableName $.table-name-update is shape-member('TableNameUpdate');
         has SourceSchema $.reference-schema-update is shape-member('ReferenceSchemaUpdate');
@@ -147,16 +186,12 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has Id $.reference-id is required is shape-member('ReferenceId');
     }
 
-    subset BucketARN of Str where 1 <= .chars <= 2048 && rx:P5/arn:.*/;
-
     class AddApplicationOutputResponse does AWS::SDK::Shape {
     }
 
     class ResourceProvisionedThroughputExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset ResourceARN of Str where 1 <= .chars <= 2048 && rx:P5/arn:[a-zA-Z0-9\-]+:[a-zA-Z0-9\-]+:[a-zA-Z0-9\-]*:\d{12}:[a-zA-Z_0-9+=,.@\-_\/:]+/;
 
     class ReferenceDataSourceDescription does AWS::SDK::Shape {
         has SourceSchema $.reference-schema is shape-member('ReferenceSchema');
@@ -175,8 +210,6 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has ApplicationVersionId $.current-application-version-id is required is shape-member('CurrentApplicationVersionId');
     }
 
-    subset ApplicationCode of Str where 0 <= .chars <= 51200;
-
     class AddApplicationInputResponse does AWS::SDK::Shape {
     }
 
@@ -184,14 +217,10 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset RecordColumnDelimiter of Str where 1 <= .chars;
-
     class UnableToDetectSchemaException does AWS::SDK::Shape {
-        has Array[Str] $.raw-input-records is shape-member('RawInputRecords');
+        has Str @.raw-input-records is shape-member('RawInputRecords');
         has Str $.message is shape-member('message');
     }
-
-    subset InputStartingPosition of Str where $_ ~~ any('NOW', 'TRIM_HORIZON', 'LAST_STOPPED_POINT');
 
     class ConcurrentModificationException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -202,14 +231,10 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has LogStreamARN $.log-stream-arn is required is shape-member('LogStreamARN');
     }
 
-    subset ApplicationDescription of Str where 0 <= .chars <= 1024;
-
     class KinesisFirehoseInputDescription does AWS::SDK::Shape {
         has RoleARN $.role-arn is shape-member('RoleARN');
         has ResourceARN $.resource-arn is shape-member('ResourceARN');
     }
-
-    subset RecordColumns of Array[RecordColumn] where 1 <= *.elems <= 1000;
 
     class DeleteApplicationCloudWatchLoggingOptionResponse does AWS::SDK::Shape {
     }
@@ -219,15 +244,9 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has MappingParameters $.mapping-parameters is shape-member('MappingParameters');
     }
 
-    subset RecordRowDelimiter of Str where 1 <= .chars;
-
     class InvalidApplicationConfigurationException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset ListApplicationsInputLimit of Int where 1 <= * <= 50;
-
-    subset InAppStreamName of Str where 1 <= .chars <= 32 && rx:P5/[a-zA-Z][a-zA-Z0-9_]+/;
 
     class DeleteApplicationOutputRequest does AWS::SDK::Shape {
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
@@ -237,10 +256,10 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
 
     class CreateApplicationRequest does AWS::SDK::Shape {
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
-        has Array[CloudWatchLoggingOption] $.cloud-watch-logging-options is shape-member('CloudWatchLoggingOptions');
+        has CloudWatchLoggingOption @.cloud-watch-logging-options is shape-member('CloudWatchLoggingOptions');
         has ApplicationCode $.application-code is shape-member('ApplicationCode');
-        has Array[Input] $.inputs is shape-member('Inputs');
-        has Array[Output] $.outputs is shape-member('Outputs');
+        has Input @.inputs is shape-member('Inputs');
+        has Output @.outputs is shape-member('Outputs');
         has ApplicationDescription $.application-description is shape-member('ApplicationDescription');
     }
 
@@ -258,8 +277,6 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has RoleARN $.role-arn is shape-member('RoleARN');
         has ResourceARN $.resource-arn is shape-member('ResourceARN');
     }
-
-    subset RecordFormatType of Str where $_ ~~ any('JSON', 'CSV');
 
     class AddApplicationCloudWatchLoggingOptionResponse does AWS::SDK::Shape {
     }
@@ -287,10 +304,6 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has RecordFormatType $.record-format-type is shape-member('RecordFormatType');
     }
 
-    subset ApplicationVersionId of Int where 1 <= * <= 999999999;
-
-    subset LogStreamARN of Str where 1 <= .chars <= 2048 && rx:P5/arn:.*/;
-
     class S3ReferenceDataSourceUpdate does AWS::SDK::Shape {
         has RoleARN $.reference-role-arn-update is shape-member('ReferenceRoleARNUpdate');
         has BucketARN $.bucket-arn-update is shape-member('BucketARNUpdate');
@@ -308,8 +321,6 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
     class StartApplicationResponse does AWS::SDK::Shape {
     }
 
-    subset InputParallelismCount of Int where 1 <= * <= 64;
-
     class DiscoverInputSchemaRequest does AWS::SDK::Shape {
         has RoleARN $.role-arn is required is shape-member('RoleARN');
         has ResourceARN $.resource-arn is required is shape-member('ResourceARN');
@@ -322,13 +333,13 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
         has ApplicationVersionId $.application-version-id is required is shape-member('ApplicationVersionId');
         has ApplicationCode $.application-code is shape-member('ApplicationCode');
-        has Array[ReferenceDataSourceDescription] $.reference-data-source-descriptions is shape-member('ReferenceDataSourceDescriptions');
-        has Array[OutputDescription] $.output-descriptions is shape-member('OutputDescriptions');
-        has Array[InputDescription] $.input-descriptions is shape-member('InputDescriptions');
+        has ReferenceDataSourceDescription @.reference-data-source-descriptions is shape-member('ReferenceDataSourceDescriptions');
+        has OutputDescription @.output-descriptions is shape-member('OutputDescriptions');
+        has InputDescription @.input-descriptions is shape-member('InputDescriptions');
         has DateTime $.last-update-timestamp is shape-member('LastUpdateTimestamp');
         has DateTime $.create-timestamp is shape-member('CreateTimestamp');
         has ApplicationDescription $.application-description is shape-member('ApplicationDescription');
-        has Array[CloudWatchLoggingOptionDescription] $.cloud-watch-logging-option-descriptions is shape-member('CloudWatchLoggingOptionDescriptions');
+        has CloudWatchLoggingOptionDescription @.cloud-watch-logging-option-descriptions is shape-member('CloudWatchLoggingOptionDescriptions');
     }
 
     class InputUpdate does AWS::SDK::Shape {
@@ -370,15 +381,15 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
 
     class StartApplicationRequest does AWS::SDK::Shape {
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
-        has Array[InputConfiguration] $.input-configurations is required is shape-member('InputConfigurations');
+        has InputConfiguration @.input-configurations is required is shape-member('InputConfigurations');
     }
 
     class ApplicationUpdate does AWS::SDK::Shape {
         has ApplicationCode $.application-code-update is shape-member('ApplicationCodeUpdate');
-        has Array[CloudWatchLoggingOptionUpdate] $.cloud-watch-logging-option-updates is shape-member('CloudWatchLoggingOptionUpdates');
-        has Array[OutputUpdate] $.output-updates is shape-member('OutputUpdates');
-        has Array[InputUpdate] $.input-updates is shape-member('InputUpdates');
-        has Array[ReferenceDataSourceUpdate] $.reference-data-source-updates is shape-member('ReferenceDataSourceUpdates');
+        has CloudWatchLoggingOptionUpdate @.cloud-watch-logging-option-updates is shape-member('CloudWatchLoggingOptionUpdates');
+        has OutputUpdate @.output-updates is shape-member('OutputUpdates');
+        has InputUpdate @.input-updates is shape-member('InputUpdates');
+        has ReferenceDataSourceUpdate @.reference-data-source-updates is shape-member('ReferenceDataSourceUpdates');
     }
 
     class AddApplicationInputRequest does AWS::SDK::Shape {
@@ -400,10 +411,6 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ApplicationName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9_.-]+/;
-
-    subset Id of Str where 1 <= .chars <= 50 && rx:P5/[a-zA-Z0-9_.-]+/;
-
     class JSONMappingParameters does AWS::SDK::Shape {
         has Str $.record-row-path is required is shape-member('RecordRowPath');
     }
@@ -421,8 +428,6 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
 
     class UpdateApplicationResponse does AWS::SDK::Shape {
     }
-
-    subset RecordColumnName of Str where rx:P5/[a-zA-Z_][a-zA-Z0-9_]*/;
 
     class SourceSchema does AWS::SDK::Shape {
         has RecordEncoding $.record-encoding is shape-member('RecordEncoding');
@@ -496,12 +501,10 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has InputParallelismCount $.count-update is shape-member('CountUpdate');
     }
 
-    subset RecordEncoding of Str where rx:P5/UTF-8/;
-
     class DiscoverInputSchemaResponse does AWS::SDK::Shape {
-        has Array[Str] $.raw-input-records is shape-member('RawInputRecords');
+        has Str @.raw-input-records is shape-member('RawInputRecords');
         has SourceSchema $.input-schema is shape-member('InputSchema');
-        has Array[Array[Str]] $.parsed-input-records is shape-member('ParsedInputRecords');
+        has Array[Str] @.parsed-input-records is shape-member('ParsedInputRecords');
     }
 
     class AddApplicationReferenceDataSourceRequest does AWS::SDK::Shape {
@@ -536,8 +539,6 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
         has Id $.output-id is required is shape-member('OutputId');
     }
 
-    subset InAppTableName of Str where 1 <= .chars <= 32 && rx:P5/[a-zA-Z][a-zA-Z0-9_]+/;
-
     class DescribeApplicationResponse does AWS::SDK::Shape {
         has ApplicationDetail $.application-detail is required is shape-member('ApplicationDetail');
     }
@@ -561,26 +562,27 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
 
     class ListApplicationsResponse does AWS::SDK::Shape {
         has Bool $.has-more-applications is required is shape-member('HasMoreApplications');
-        has Array[ApplicationSummary] $.application-summaries is required is shape-member('ApplicationSummaries');
+        has ApplicationSummary @.application-summaries is required is shape-member('ApplicationSummaries');
     }
 
     class DeleteApplicationOutputResponse does AWS::SDK::Shape {
     }
 
+
     method create-application(
         ApplicationName :$application-name!,
-        Array[CloudWatchLoggingOption] :$cloud-watch-logging-options,
+        CloudWatchLoggingOption :@cloud-watch-logging-options,
         ApplicationCode :$application-code,
-        Array[Input] :$inputs,
-        Array[Output] :$outputs,
+        Input :@inputs,
+        Output :@outputs,
         ApplicationDescription :$application-description
     ) returns CreateApplicationResponse is service-operation('CreateApplication') {
         my $request-input = CreateApplicationRequest.new(
             :$application-name,
-            :$cloud-watch-logging-options,
+            :@cloud-watch-logging-options,
             :$application-code,
-            :$inputs,
-            :$outputs,
+            :@inputs,
+            :@outputs,
             :$application-description
         );
 
@@ -737,11 +739,11 @@ class AWS::SDK::Service::KinesisAnalytics does AWS::SDK::Service {
 
     method start-application(
         ApplicationName :$application-name!,
-        Array[InputConfiguration] :$input-configurations!
+        InputConfiguration :@input-configurations!
     ) returns StartApplicationResponse is service-operation('StartApplication') {
         my $request-input = StartApplicationRequest.new(
             :$application-name,
-            :$input-configurations
+            :@input-configurations
         );
 
         self.perform-operation(

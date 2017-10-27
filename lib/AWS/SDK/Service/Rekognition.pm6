@@ -78,6 +78,47 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
 
     subset UInteger of Int where 0 <= *;
 
+    subset CollectionId of Str where 1 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.\-]+/;
+
+    subset Degree of Numeric where -180 <= * <= 180;
+
+    subset MaxFaces of Int where 1 <= * <= 4096;
+
+    subset FaceIdList of Array[FaceId] where 1 <= *.elems <= 4096;
+
+    subset FaceId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    subset LandmarkType of Str where $_ eq any('eyeLeft', 'eyeRight', 'nose', 'mouthLeft', 'mouthRight', 'leftEyeBrowLeft', 'leftEyeBrowRight', 'leftEyeBrowUp', 'rightEyeBrowLeft', 'rightEyeBrowRight', 'rightEyeBrowUp', 'leftEyeLeft', 'leftEyeRight', 'leftEyeUp', 'leftEyeDown', 'rightEyeLeft', 'rightEyeRight', 'rightEyeUp', 'rightEyeDown', 'noseLeft', 'noseRight', 'mouthUp', 'mouthDown', 'leftPupil', 'rightPupil');
+
+    subset EmotionName of Str where $_ eq any('HAPPY', 'SAD', 'ANGRY', 'CONFUSED', 'DISGUSTED', 'SURPRISED', 'CALM', 'UNKNOWN');
+
+    subset S3ObjectName of Str where 1 <= .chars <= 1024;
+
+    subset RekognitionUniqueId of Str where rx:P5/[0-9A-Za-z]*/;
+
+    subset PaginationToken of Str where .chars <= 255;
+
+    subset ExternalImageId of Str where 1 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.\-:]+/;
+
+    subset ImageId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    subset ImageBlob of Blob where 1 <= *.bytes <= 5242880;
+
+    subset S3ObjectVersion of Str where 1 <= .chars <= 1024;
+
+    subset Attribute of Str where $_ eq any('DEFAULT', 'ALL');
+
+    subset GenderType of Str where $_ eq any('Male', 'Female');
+
+    subset OrientationCorrection of Str where $_ eq any('ROTATE_0', 'ROTATE_90', 'ROTATE_180', 'ROTATE_270');
+
+    subset PageSize of Int where 0 <= * <= 4096;
+
+    subset Percent of Numeric where 0 <= * <= 100;
+
+    subset S3Bucket of Str where 3 <= .chars <= 255 && rx:P5/[0-9A-Za-z\.\-_]*/;
+
+
     class DeleteFacesResponse does AWS::SDK::Shape {
         has FaceIdList $.deleted-faces is shape-member('DeletedFaces');
     }
@@ -89,7 +130,7 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
 
     class DetectFacesRequest does AWS::SDK::Shape {
         has Image $.image is required is shape-member('Image');
-        has Array[Attribute] $.attributes is shape-member('Attributes');
+        has Attribute @.attributes is shape-member('Attributes');
     }
 
     class Beard does AWS::SDK::Shape {
@@ -104,7 +145,7 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
 
     class SearchFacesResponse does AWS::SDK::Shape {
         has FaceId $.searched-face-id is shape-member('SearchedFaceId');
-        has Array[FaceMatch] $.face-matches is shape-member('FaceMatches');
+        has FaceMatch @.face-matches is shape-member('FaceMatches');
     }
 
     class EyeOpen does AWS::SDK::Shape {
@@ -112,20 +153,14 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has Bool $.value is shape-member('Value');
     }
 
-    subset CollectionId of Str where 1 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.\-]+/;
-
     class DeleteCollectionResponse does AWS::SDK::Shape {
         has UInteger $.status-code is shape-member('StatusCode');
     }
-
-    subset Degree of Numeric where -180 <= * <= 180;
 
     class ImageQuality does AWS::SDK::Shape {
         has Numeric $.sharpness is shape-member('Sharpness');
         has Numeric $.brightness is shape-member('Brightness');
     }
-
-    subset MaxFaces of Int where 1 <= * <= 4096;
 
     class ResourceNotFoundException does AWS::SDK::Shape {
     }
@@ -146,12 +181,12 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
 
     class ListFacesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Face] $.faces is shape-member('Faces');
+        has Face @.faces is shape-member('Faces');
     }
 
     class GetCelebrityInfoResponse does AWS::SDK::Shape {
         has Str $.name is shape-member('Name');
-        has Array[Str] $.urls is shape-member('Urls');
+        has Str @.urls is shape-member('Urls');
     }
 
     class GetCelebrityInfoRequest does AWS::SDK::Shape {
@@ -174,21 +209,15 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has Str $.name is shape-member('Name');
     }
 
-    subset FaceIdList of Array[FaceId] where 1 <= *.elems <= 4096;
-
-    subset FaceId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
-
     class IndexFacesResponse does AWS::SDK::Shape {
-        has Array[FaceRecord] $.face-records is shape-member('FaceRecords');
+        has FaceRecord @.face-records is shape-member('FaceRecords');
         has OrientationCorrection $.orientation-correction is shape-member('OrientationCorrection');
     }
 
-    subset LandmarkType of Str where $_ ~~ any('eyeLeft', 'eyeRight', 'nose', 'mouthLeft', 'mouthRight', 'leftEyeBrowLeft', 'leftEyeBrowRight', 'leftEyeBrowUp', 'rightEyeBrowLeft', 'rightEyeBrowRight', 'rightEyeBrowUp', 'leftEyeLeft', 'leftEyeRight', 'leftEyeUp', 'leftEyeDown', 'rightEyeLeft', 'rightEyeRight', 'rightEyeUp', 'rightEyeDown', 'noseLeft', 'noseRight', 'mouthUp', 'mouthDown', 'leftPupil', 'rightPupil');
-
     class RecognizeCelebritiesResponse does AWS::SDK::Shape {
-        has Array[ComparedFace] $.unrecognized-faces is shape-member('UnrecognizedFaces');
+        has ComparedFace @.unrecognized-faces is shape-member('UnrecognizedFaces');
         has OrientationCorrection $.orientation-correction is shape-member('OrientationCorrection');
-        has Array[Celebrity] $.celebrity-faces is shape-member('CelebrityFaces');
+        has Celebrity @.celebrity-faces is shape-member('CelebrityFaces');
     }
 
     class InvalidImageFormatException does AWS::SDK::Shape {
@@ -210,17 +239,13 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has EmotionName $.type is shape-member('Type');
     }
 
-    subset EmotionName of Str where $_ ~~ any('HAPPY', 'SAD', 'ANGRY', 'CONFUSED', 'DISGUSTED', 'SURPRISED', 'CALM', 'UNKNOWN');
-
     class CompareFacesResponse does AWS::SDK::Shape {
         has OrientationCorrection $.source-image-orientation-correction is shape-member('SourceImageOrientationCorrection');
         has ComparedSourceImageFace $.source-image-face is shape-member('SourceImageFace');
-        has Array[ComparedFace] $.unmatched-faces is shape-member('UnmatchedFaces');
+        has ComparedFace @.unmatched-faces is shape-member('UnmatchedFaces');
         has OrientationCorrection $.target-image-orientation-correction is shape-member('TargetImageOrientationCorrection');
-        has Array[CompareFacesMatch] $.face-matches is shape-member('FaceMatches');
+        has CompareFacesMatch @.face-matches is shape-member('FaceMatches');
     }
-
-    subset S3ObjectName of Str where 1 <= .chars <= 1024;
 
     class Smile does AWS::SDK::Shape {
         has Percent $.confidence is shape-member('Confidence');
@@ -243,7 +268,7 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
     }
 
     class DetectModerationLabelsResponse does AWS::SDK::Shape {
-        has Array[ModerationLabel] $.moderation-labels is shape-member('ModerationLabels');
+        has ModerationLabel @.moderation-labels is shape-member('ModerationLabels');
     }
 
     class Image does AWS::SDK::Shape {
@@ -253,8 +278,6 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
 
     class InvalidS3ObjectException does AWS::SDK::Shape {
     }
-
-    subset RekognitionUniqueId of Str where rx:P5/[0-9A-Za-z]*/;
 
     class ListFacesRequest does AWS::SDK::Shape {
         has PageSize $.max-results is shape-member('MaxResults');
@@ -267,7 +290,7 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
 
     class DetectFacesResponse does AWS::SDK::Shape {
         has OrientationCorrection $.orientation-correction is shape-member('OrientationCorrection');
-        has Array[FaceDetail] $.face-details is shape-member('FaceDetails');
+        has FaceDetail @.face-details is shape-member('FaceDetails');
     }
 
     class InternalServerError does AWS::SDK::Shape {
@@ -276,15 +299,11 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
     class InvalidPaginationTokenException does AWS::SDK::Shape {
     }
 
-    subset PaginationToken of Str where .chars <= 255;
-
     class SearchFacesByImageResponse does AWS::SDK::Shape {
         has BoundingBox $.searched-face-bounding-box is shape-member('SearchedFaceBoundingBox');
         has Percent $.searched-face-confidence is shape-member('SearchedFaceConfidence');
-        has Array[FaceMatch] $.face-matches is shape-member('FaceMatches');
+        has FaceMatch @.face-matches is shape-member('FaceMatches');
     }
-
-    subset ExternalImageId of Str where 1 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.\-:]+/;
 
     class DeleteFacesRequest does AWS::SDK::Shape {
         has CollectionId $.collection-id is required is shape-member('CollectionId');
@@ -296,7 +315,7 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has ComparedFace $.face is shape-member('Face');
         has RekognitionUniqueId $.id is shape-member('Id');
         has Str $.name is shape-member('Name');
-        has Array[Str] $.urls is shape-member('Urls');
+        has Str @.urls is shape-member('Urls');
     }
 
     class ImageTooLargeException does AWS::SDK::Shape {
@@ -304,7 +323,7 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
 
     class ListCollectionsResponse does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('NextToken');
-        has Array[CollectionId] $.collection-ids is shape-member('CollectionIds');
+        has CollectionId @.collection-ids is shape-member('CollectionIds');
     }
 
     class Landmark does AWS::SDK::Shape {
@@ -313,12 +332,8 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has LandmarkType $.type is shape-member('Type');
     }
 
-    subset ImageId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
-
-    subset ImageBlob of Blob where 1 <= *.bytes <= 5242880;
-
     class DetectLabelsResponse does AWS::SDK::Shape {
-        has Array[Label] $.labels is shape-member('Labels');
+        has Label @.labels is shape-member('Labels');
         has OrientationCorrection $.orientation-correction is shape-member('OrientationCorrection');
     }
 
@@ -337,13 +352,13 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has Gender $.gender is shape-member('Gender');
         has AgeRange $.age-range is shape-member('AgeRange');
         has Sunglasses $.sunglasses is shape-member('Sunglasses');
-        has Array[Emotion] $.emotions is shape-member('Emotions');
+        has Emotion @.emotions is shape-member('Emotions');
         has BoundingBox $.bounding-box is shape-member('BoundingBox');
         has ImageQuality $.quality is shape-member('Quality');
         has Eyeglasses $.eyeglasses is shape-member('Eyeglasses');
         has Smile $.smile is shape-member('Smile');
         has Pose $.pose is shape-member('Pose');
-        has Array[Landmark] $.landmarks is shape-member('Landmarks');
+        has Landmark @.landmarks is shape-member('Landmarks');
         has MouthOpen $.mouth-open is shape-member('MouthOpen');
         has Mustache $.mustache is shape-member('Mustache');
     }
@@ -351,8 +366,6 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
     class RecognizeCelebritiesRequest does AWS::SDK::Shape {
         has Image $.image is required is shape-member('Image');
     }
-
-    subset S3ObjectVersion of Str where 1 <= .chars <= 1024;
 
     class Gender does AWS::SDK::Shape {
         has Percent $.confidence is shape-member('Confidence');
@@ -376,13 +389,11 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has BoundingBox $.bounding-box is shape-member('BoundingBox');
         has ImageQuality $.quality is shape-member('Quality');
         has Pose $.pose is shape-member('Pose');
-        has Array[Landmark] $.landmarks is shape-member('Landmarks');
+        has Landmark @.landmarks is shape-member('Landmarks');
     }
 
     class ResourceAlreadyExistsException does AWS::SDK::Shape {
     }
-
-    subset Attribute of Str where $_ ~~ any('DEFAULT', 'ALL');
 
     class CompareFacesRequest does AWS::SDK::Shape {
         has Image $.target-image is required is shape-member('TargetImage');
@@ -405,14 +416,6 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has Face $.face is shape-member('Face');
     }
 
-    subset GenderType of Str where $_ ~~ any('Male', 'Female');
-
-    subset OrientationCorrection of Str where $_ ~~ any('ROTATE_0', 'ROTATE_90', 'ROTATE_180', 'ROTATE_270');
-
-    subset PageSize of Int where 0 <= * <= 4096;
-
-    subset Percent of Numeric where 0 <= * <= 100;
-
     class S3Object does AWS::SDK::Shape {
         has S3Bucket $.bucket is shape-member('Bucket');
         has S3ObjectVersion $.version is shape-member('Version');
@@ -428,7 +431,7 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has Image $.image is required is shape-member('Image');
         has ExternalImageId $.external-image-id is shape-member('ExternalImageId');
         has CollectionId $.collection-id is required is shape-member('CollectionId');
-        has Array[Attribute] $.detection-attributes is shape-member('DetectionAttributes');
+        has Attribute @.detection-attributes is shape-member('DetectionAttributes');
     }
 
     class MouthOpen does AWS::SDK::Shape {
@@ -440,8 +443,6 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has Percent $.confidence is shape-member('Confidence');
         has Bool $.value is shape-member('Value');
     }
-
-    subset S3Bucket of Str where 3 <= .chars <= 255 && rx:P5/[0-9A-Za-z\.\-_]*/;
 
     class DetectLabelsRequest does AWS::SDK::Shape {
         has Image $.image is required is shape-member('Image');
@@ -455,6 +456,7 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         has MaxFaces $.max-faces is shape-member('MaxFaces');
         has CollectionId $.collection-id is required is shape-member('CollectionId');
     }
+
 
     method search-faces(
         Percent :$face-match-threshold,
@@ -479,13 +481,13 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
         Image :$image!,
         ExternalImageId :$external-image-id,
         CollectionId :$collection-id!,
-        Array[Attribute] :$detection-attributes
+        Attribute :@detection-attributes
     ) returns IndexFacesResponse is service-operation('IndexFaces') {
         my $request-input = IndexFacesRequest.new(
             :$image,
             :$external-image-id,
             :$collection-id,
-            :$detection-attributes
+            :@detection-attributes
         );
 
         self.perform-operation(
@@ -573,11 +575,11 @@ class AWS::SDK::Service::Rekognition does AWS::SDK::Service {
 
     method detect-faces(
         Image :$image!,
-        Array[Attribute] :$attributes
+        Attribute :@attributes
     ) returns DetectFacesResponse is service-operation('DetectFaces') {
         my $request-input = DetectFacesRequest.new(
             :$image,
-            :$attributes
+            :@attributes
         );
 
         self.perform-operation(

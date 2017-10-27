@@ -63,6 +63,63 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
     class EnableEnhancedMonitoringInput { ... }
     class ListStreamsInput { ... }
 
+    subset Data of Blob where 0 <= *.bytes <= 1048576;
+
+    subset StreamName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9_.-]+/;
+
+    subset ShardId of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9_.-]+/;
+
+    subset MillisBehindLatest of Int where 0 <= *;
+
+    subset TagList of Array[Tag] where 0 <= *.elems;
+
+    subset StreamStatus of Str where $_ eq any('CREATING', 'DELETING', 'ACTIVE', 'UPDATING');
+
+    subset SequenceNumber of Str where rx:P5/0|([1-9]\d{0,128})/;
+
+    subset TagKeyList of Array[TagKey] where 1 <= *.elems <= 10;
+
+    subset PutRecordsResultEntryList of Array[PutRecordsResultEntry] where 1 <= *.elems <= 500;
+
+    subset KeyId of Str where 1 <= .chars <= 2048;
+
+    subset ListStreamsInputLimit of Int where 1 <= * <= 10000;
+
+    subset ListTagsForStreamInputLimit of Int where 1 <= * <= 10;
+
+    subset ShardIteratorType of Str where $_ eq any('AT_SEQUENCE_NUMBER', 'AFTER_SEQUENCE_NUMBER', 'TRIM_HORIZON', 'LATEST', 'AT_TIMESTAMP');
+
+    subset ShardIterator of Str where 1 <= .chars <= 512;
+
+    subset ScalingType of Str where $_ eq any('UNIFORM_SCALING');
+
+    subset PartitionKey of Str where 1 <= .chars <= 256;
+
+    subset EncryptionType of Str where $_ eq any('NONE', 'KMS');
+
+    subset MetricsName of Str where $_ eq any('IncomingBytes', 'IncomingRecords', 'OutgoingBytes', 'OutgoingRecords', 'WriteProvisionedThroughputExceeded', 'ReadProvisionedThroughputExceeded', 'IteratorAgeMilliseconds', 'ALL');
+
+    subset TagKey of Str where 1 <= .chars <= 128;
+
+    subset MetricsNameList of Array[MetricsName] where 1 <= *.elems <= 7;
+
+    subset PutRecordsRequestEntryList of Array[PutRecordsRequestEntry] where 1 <= *.elems <= 500;
+
+    subset TagValue of Str where 0 <= .chars <= 256;
+
+    subset HashKey of Str where rx:P5/0|([1-9]\d{0,38})/;
+
+    subset PositiveIntegerObject of Int where 1 <= * <= 100000;
+
+    subset GetRecordsInputLimit of Int where 1 <= * <= 10000;
+
+    subset ShardCountObject of Int where 0 <= * <= 1000000;
+
+    subset TagMap of Hash[TagValue, TagKey] where 1 <= *.elems <= 10;
+
+    subset DescribeStreamInputLimit of Int where 1 <= * <= 10000;
+
+
     class UpdateShardCountInput does AWS::SDK::Shape {
         has StreamName $.stream-name is required is shape-member('StreamName');
         has PositiveIntegerObject $.target-shard-count is required is shape-member('TargetShardCount');
@@ -99,8 +156,6 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         has PartitionKey $.partition-key is required is shape-member('PartitionKey');
     }
 
-    subset Data of Blob where 0 <= *.bytes <= 1048576;
-
     class ExpiredIteratorException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -119,10 +174,6 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         has EncryptionType $.encryption-type is shape-member('EncryptionType');
     }
 
-    subset StreamName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9_.-]+/;
-
-    subset ShardId of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9_.-]+/;
-
     class ProvisionedThroughputExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -136,16 +187,8 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
 
     class ListStreamsOutput does AWS::SDK::Shape {
         has Bool $.has-more-streams is required is shape-member('HasMoreStreams');
-        has Array[StreamName] $.stream-names is required is shape-member('StreamNames');
+        has StreamName @.stream-names is required is shape-member('StreamNames');
     }
-
-    subset MillisBehindLatest of Int where 0 <= *;
-
-    subset TagList of Array[Tag] where 0 <= *.elems;
-
-    subset StreamStatus of Str where $_ ~~ any('CREATING', 'DELETING', 'ACTIVE', 'UPDATING');
-
-    subset SequenceNumber of Str where rx:P5/0|([1-9]\d{0,128})/;
 
     class Record does AWS::SDK::Shape {
         has Data $.data is required is shape-member('Data');
@@ -163,15 +206,11 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset TagKeyList of Array[TagKey] where 1 <= *.elems <= 10;
-
     class StartStreamEncryptionInput does AWS::SDK::Shape {
         has StreamName $.stream-name is required is shape-member('StreamName');
         has KeyId $.key-id is required is shape-member('KeyId');
         has EncryptionType $.encryption-type is required is shape-member('EncryptionType');
     }
-
-    subset PutRecordsResultEntryList of Array[PutRecordsResultEntry] where 1 <= *.elems <= 500;
 
     class PutRecordInput does AWS::SDK::Shape {
         has HashKey $.explicit-hash-key is shape-member('ExplicitHashKey');
@@ -181,17 +220,11 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         has PartitionKey $.partition-key is required is shape-member('PartitionKey');
     }
 
-    subset KeyId of Str where 1 <= .chars <= 2048;
-
-    subset ListStreamsInputLimit of Int where 1 <= * <= 10000;
-
     class ListTagsForStreamInput does AWS::SDK::Shape {
         has ListTagsForStreamInputLimit $.limit is shape-member('Limit');
         has StreamName $.stream-name is required is shape-member('StreamName');
         has TagKey $.exclusive-start-tag-key is shape-member('ExclusiveStartTagKey');
     }
-
-    subset ListTagsForStreamInputLimit of Int where 1 <= * <= 10;
 
     class StopStreamEncryptionInput does AWS::SDK::Shape {
         has StreamName $.stream-name is required is shape-member('StreamName');
@@ -211,8 +244,8 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
     class StreamDescription does AWS::SDK::Shape {
         has DateTime $.stream-creation-timestamp is required is shape-member('StreamCreationTimestamp');
         has Str $.stream-arn is required is shape-member('StreamARN');
-        has Array[EnhancedMetrics] $.enhanced-monitoring is required is shape-member('EnhancedMonitoring');
-        has Array[Shard] $.shards is required is shape-member('Shards');
+        has EnhancedMetrics @.enhanced-monitoring is required is shape-member('EnhancedMonitoring');
+        has Shard @.shards is required is shape-member('Shards');
         has StreamName $.stream-name is required is shape-member('StreamName');
         has StreamStatus $.stream-status is required is shape-member('StreamStatus');
         has KeyId $.key-id is shape-member('KeyId');
@@ -221,24 +254,14 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         has EncryptionType $.encryption-type is shape-member('EncryptionType');
     }
 
-    subset ShardIteratorType of Str where $_ ~~ any('AT_SEQUENCE_NUMBER', 'AFTER_SEQUENCE_NUMBER', 'TRIM_HORIZON', 'LATEST', 'AT_TIMESTAMP');
-
-    subset ShardIterator of Str where 1 <= .chars <= 512;
-
-    subset ScalingType of Str where $_ ~~ any('UNIFORM_SCALING');
-
     class ResourceInUseException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset PartitionKey of Str where 1 <= .chars <= 256;
 
     class DecreaseStreamRetentionPeriodInput does AWS::SDK::Shape {
         has StreamName $.stream-name is required is shape-member('StreamName');
         has PositiveIntegerObject $.retention-period-hours is required is shape-member('RetentionPeriodHours');
     }
-
-    subset EncryptionType of Str where $_ ~~ any('NONE', 'KMS');
 
     class ListTagsForStreamOutput does AWS::SDK::Shape {
         has Bool $.has-more-tags is required is shape-member('HasMoreTags');
@@ -258,18 +281,10 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         has ShardId $.exclusive-start-shard-id is shape-member('ExclusiveStartShardId');
     }
 
-    subset MetricsName of Str where $_ ~~ any('IncomingBytes', 'IncomingRecords', 'OutgoingBytes', 'OutgoingRecords', 'WriteProvisionedThroughputExceeded', 'ReadProvisionedThroughputExceeded', 'IteratorAgeMilliseconds', 'ALL');
-
-    subset TagKey of Str where 1 <= .chars <= 128;
-
     class CreateStreamInput does AWS::SDK::Shape {
         has StreamName $.stream-name is required is shape-member('StreamName');
         has PositiveIntegerObject $.shard-count is required is shape-member('ShardCount');
     }
-
-    subset MetricsNameList of Array[MetricsName] where 1 <= *.elems <= 7;
-
-    subset PutRecordsRequestEntryList of Array[PutRecordsRequestEntry] where 1 <= *.elems <= 500;
 
     class GetRecordsInput does AWS::SDK::Shape {
         has GetRecordsInputLimit $.limit is shape-member('Limit');
@@ -294,15 +309,11 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         has SequenceNumberRange $.sequence-number-range is required is shape-member('SequenceNumberRange');
     }
 
-    subset TagValue of Str where 0 <= .chars <= 256;
-
     class PutRecordsOutput does AWS::SDK::Shape {
         has PutRecordsResultEntryList $.records is required is shape-member('Records');
         has PositiveIntegerObject $.failed-record-count is shape-member('FailedRecordCount');
         has EncryptionType $.encryption-type is shape-member('EncryptionType');
     }
-
-    subset HashKey of Str where rx:P5/0|([1-9]\d{0,38})/;
 
     class HashKeyRange does AWS::SDK::Shape {
         has HashKey $.ending-hash-key is required is shape-member('EndingHashKey');
@@ -333,13 +344,9 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         has StreamName $.stream-name is required is shape-member('StreamName');
     }
 
-    subset PositiveIntegerObject of Int where 1 <= * <= 100000;
-
-    subset GetRecordsInputLimit of Int where 1 <= * <= 10000;
-
     class GetRecordsOutput does AWS::SDK::Shape {
         has ShardIterator $.next-shard-iterator is shape-member('NextShardIterator');
-        has Array[Record] $.records is required is shape-member('Records');
+        has Record @.records is required is shape-member('Records');
         has MillisBehindLatest $.millis-behind-latest is shape-member('MillisBehindLatest');
     }
 
@@ -355,8 +362,6 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ShardCountObject of Int where 0 <= * <= 1000000;
-
     class EnhancedMonitoringOutput does AWS::SDK::Shape {
         has MetricsNameList $.current-shard-level-metrics is shape-member('CurrentShardLevelMetrics');
         has MetricsNameList $.desired-shard-level-metrics is shape-member('DesiredShardLevelMetrics');
@@ -366,8 +371,6 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
     class KMSOptInRequired does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset TagMap of Hash[TagValue, TagKey] where 1 <= *.elems <= 10;
 
     class Tag does AWS::SDK::Shape {
         has TagValue $.value is shape-member('Value');
@@ -381,10 +384,8 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
 
     class AddTagsToStreamInput does AWS::SDK::Shape {
         has StreamName $.stream-name is required is shape-member('StreamName');
-        has TagMap $.tags is required is shape-member('Tags');
+        has TagValue $.tags{TagKey} is required is shape-member('Tags');
     }
-
-    subset DescribeStreamInputLimit of Int where 1 <= * <= 10000;
 
     class EnableEnhancedMonitoringInput does AWS::SDK::Shape {
         has MetricsNameList $.shard-level-metrics is required is shape-member('ShardLevelMetrics');
@@ -395,6 +396,7 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
         has ListStreamsInputLimit $.limit is shape-member('Limit');
         has StreamName $.exclusive-start-stream-name is shape-member('ExclusiveStartStreamName');
     }
+
 
     method put-records(
         PutRecordsRequestEntryList :$records!,
@@ -443,7 +445,7 @@ class AWS::SDK::Service::Kinesis does AWS::SDK::Service {
 
     method add-tags-to-stream(
         StreamName :$stream-name!,
-        TagMap :$tags!
+        TagValue :$tags!
     ) is service-operation('AddTagsToStream') {
         my $request-input = AddTagsToStreamInput.new(
             :$stream-name,

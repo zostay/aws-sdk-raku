@@ -168,8 +168,17 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     class CreateGroupVersionRequest { ... }
     class ErrorDetail { ... }
 
+    subset LoggerLevel of Str where $_ eq any('DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL');
+
+    subset LoggerComponent of Str where $_ eq any('GreengrassSystem', 'Lambda');
+
+    subset DeploymentType of Str where $_ eq any('NewDeployment', 'Redeployment', 'ResetDeployment', 'ForceResetDeployment');
+
+    subset LoggerType of Str where $_ eq any('FileSystem', 'AWSCloudWatch');
+
+
     class ListFunctionDefinitionsResponse does AWS::SDK::Shape {
-        has Array[DefinitionInformation] $.definitions is shape-member('Definitions');
+        has DefinitionInformation @.definitions is shape-member('Definitions');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -178,7 +187,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class ListSubscriptionDefinitionVersionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[VersionInformation] $.versions is shape-member('Versions');
+        has VersionInformation @.versions is shape-member('Versions');
     }
 
     class UpdateCoreDefinitionRequest does AWS::SDK::Shape {
@@ -193,12 +202,12 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class ListCoreDefinitionsResponse does AWS::SDK::Shape {
-        has Array[DefinitionInformation] $.definitions is shape-member('Definitions');
+        has DefinitionInformation @.definitions is shape-member('Definitions');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class ListGroupsResponse does AWS::SDK::Shape {
-        has Array[GroupInformation] $.groups is shape-member('Groups');
+        has GroupInformation @.groups is shape-member('Groups');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -216,7 +225,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class GeneralError does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
-        has Array[ErrorDetail] $.error-details is shape-member('ErrorDetails');
+        has ErrorDetail @.error-details is shape-member('ErrorDetails');
     }
 
     class GetDeviceDefinitionRequest does AWS::SDK::Shape {
@@ -224,7 +233,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class SubscriptionDefinitionVersion does AWS::SDK::Shape {
-        has Array[Subscription] $.subscriptions is shape-member('Subscriptions');
+        has Subscription @.subscriptions is shape-member('Subscriptions');
     }
 
     class GetFunctionDefinitionRequest does AWS::SDK::Shape {
@@ -277,7 +286,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class CreateSubscriptionDefinitionVersionRequest does AWS::SDK::Shape {
-        has Array[Subscription] $.subscriptions is shape-member('Subscriptions');
+        has Subscription @.subscriptions is shape-member('Subscriptions');
         has Str $.amzn-client-token is shape-member('AmznClientToken');
         has Str $.subscription-definition-id is required is shape-member('SubscriptionDefinitionId');
     }
@@ -286,7 +295,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class ListDefinitionsResponse does AWS::SDK::Shape {
-        has Array[DefinitionInformation] $.definitions is shape-member('Definitions');
+        has DefinitionInformation @.definitions is shape-member('Definitions');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -307,7 +316,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class GetConnectivityInfoResponse does AWS::SDK::Shape {
-        has Array[ConnectivityInfo] $.connectivity-info is shape-member('ConnectivityInfo');
+        has ConnectivityInfo @.connectivity-info is shape-member('ConnectivityInfo');
         has Str $.message is shape-member('Message');
     }
 
@@ -370,7 +379,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class CoreDefinitionVersion does AWS::SDK::Shape {
-        has Array[Core] $.cores is shape-member('Cores');
+        has Core @.cores is shape-member('Cores');
     }
 
     class ListCoreDefinitionsRequest does AWS::SDK::Shape {
@@ -390,16 +399,16 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class UpdateConnectivityInfoRequest does AWS::SDK::Shape {
         has Str $.thing-name is required is shape-member('ThingName');
-        has Array[ConnectivityInfo] $.connectivity-info is shape-member('ConnectivityInfo');
+        has ConnectivityInfo @.connectivity-info is shape-member('ConnectivityInfo');
     }
 
     class ListVersionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[VersionInformation] $.versions is shape-member('Versions');
+        has VersionInformation @.versions is shape-member('Versions');
     }
 
     class DeviceDefinitionVersion does AWS::SDK::Shape {
-        has Array[Device] $.devices is shape-member('Devices');
+        has Device @.devices is shape-member('Devices');
     }
 
     class DeleteSubscriptionDefinitionResponse does AWS::SDK::Shape {
@@ -420,7 +429,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
         has Str $.deployment-status is shape-member('DeploymentStatus');
         has Str $.error-message is shape-member('ErrorMessage');
         has DeploymentType $.deployment-type is shape-member('DeploymentType');
-        has Array[ErrorDetail] $.error-details is shape-member('ErrorDetails');
+        has ErrorDetail @.error-details is shape-member('ErrorDetails');
     }
 
     class ListFunctionDefinitionsRequest does AWS::SDK::Shape {
@@ -429,14 +438,14 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class CreateDeviceDefinitionVersionRequest does AWS::SDK::Shape {
-        has Array[Device] $.devices is shape-member('Devices');
+        has Device @.devices is shape-member('Devices');
         has Str $.amzn-client-token is shape-member('AmznClientToken');
         has Str $.device-definition-id is required is shape-member('DeviceDefinitionId');
     }
 
     class ListCoreDefinitionVersionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[VersionInformation] $.versions is shape-member('Versions');
+        has VersionInformation @.versions is shape-member('Versions');
     }
 
     class ListDeploymentsRequest does AWS::SDK::Shape {
@@ -468,7 +477,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class InternalServerErrorException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
-        has Array[ErrorDetail] $.error-details is shape-member('ErrorDetails');
+        has ErrorDetail @.error-details is shape-member('ErrorDetails');
     }
 
     class ListLoggerDefinitionVersionsRequest does AWS::SDK::Shape {
@@ -476,8 +485,6 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
         has Str $.logger-definition-id is required is shape-member('LoggerDefinitionId');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset LoggerLevel of Str where $_ ~~ any('DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL');
 
     class CreateSubscriptionDefinitionVersionResponse does AWS::SDK::Shape {
         has Str $.arn is shape-member('Arn');
@@ -515,7 +522,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class ListDeviceDefinitionsResponse does AWS::SDK::Shape {
-        has Array[DefinitionInformation] $.definitions is shape-member('Definitions');
+        has DefinitionInformation @.definitions is shape-member('Definitions');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -523,7 +530,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class FunctionDefinitionVersion does AWS::SDK::Shape {
-        has Array[Function] $.functions is shape-member('Functions');
+        has Function @.functions is shape-member('Functions');
     }
 
     class GetConnectivityInfoRequest does AWS::SDK::Shape {
@@ -591,7 +598,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class ListLoggerDefinitionsResponse does AWS::SDK::Shape {
-        has Array[DefinitionInformation] $.definitions is shape-member('Definitions');
+        has DefinitionInformation @.definitions is shape-member('Definitions');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -613,7 +620,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class FunctionConfigurationEnvironment does AWS::SDK::Shape {
-        has Hash[Str, Str] $.variables is shape-member('Variables');
+        has Str %.variables{Str} is shape-member('Variables');
     }
 
     class UpdateConnectivityInfoResponse does AWS::SDK::Shape {
@@ -623,7 +630,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class ListLoggerDefinitionVersionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[VersionInformation] $.versions is shape-member('Versions');
+        has VersionInformation @.versions is shape-member('Versions');
     }
 
     class ListFunctionDefinitionVersionsRequest does AWS::SDK::Shape {
@@ -635,7 +642,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     class CreateLoggerDefinitionVersionRequest does AWS::SDK::Shape {
         has Str $.logger-definition-id is required is shape-member('LoggerDefinitionId');
         has Str $.amzn-client-token is shape-member('AmznClientToken');
-        has Array[Logger] $.loggers is shape-member('Loggers');
+        has Logger @.loggers is shape-member('Loggers');
     }
 
     class GetSubscriptionDefinitionRequest does AWS::SDK::Shape {
@@ -687,7 +694,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class ListFunctionDefinitionVersionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[VersionInformation] $.versions is shape-member('Versions');
+        has VersionInformation @.versions is shape-member('Versions');
     }
 
     class CreateGroupRequest does AWS::SDK::Shape {
@@ -743,7 +750,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class ListDeploymentsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Deployment] $.deployments is shape-member('Deployments');
+        has Deployment @.deployments is shape-member('Deployments');
     }
 
     class ResetDeploymentsResponse does AWS::SDK::Shape {
@@ -753,7 +760,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class ListDeviceDefinitionVersionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[VersionInformation] $.versions is shape-member('Versions');
+        has VersionInformation @.versions is shape-member('Versions');
     }
 
     class UpdateFunctionDefinitionRequest does AWS::SDK::Shape {
@@ -782,7 +789,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class ListGroupVersionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[VersionInformation] $.versions is shape-member('Versions');
+        has VersionInformation @.versions is shape-member('Versions');
     }
 
     class GroupCertificateConfiguration does AWS::SDK::Shape {
@@ -851,7 +858,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class CreateFunctionDefinitionVersionRequest does AWS::SDK::Shape {
         has Str $.function-definition-id is required is shape-member('FunctionDefinitionId');
-        has Array[Function] $.functions is shape-member('Functions');
+        has Function @.functions is shape-member('Functions');
         has Str $.amzn-client-token is shape-member('AmznClientToken');
     }
 
@@ -906,7 +913,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     class BadRequestException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
-        has Array[ErrorDetail] $.error-details is shape-member('ErrorDetails');
+        has ErrorDetail @.error-details is shape-member('ErrorDetails');
     }
 
     class CreateSubscriptionDefinitionResponse does AWS::SDK::Shape {
@@ -920,7 +927,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class LoggerDefinitionVersion does AWS::SDK::Shape {
-        has Array[Logger] $.loggers is shape-member('Loggers');
+        has Logger @.loggers is shape-member('Loggers');
     }
 
     class GroupInformation does AWS::SDK::Shape {
@@ -957,7 +964,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class ListGroupCertificateAuthoritiesResponse does AWS::SDK::Shape {
-        has Array[GroupCertificateAuthorityProperties] $.group-certificate-authorities is shape-member('GroupCertificateAuthorities');
+        has GroupCertificateAuthorityProperties @.group-certificate-authorities is shape-member('GroupCertificateAuthorities');
     }
 
     class UpdateGroupRequest does AWS::SDK::Shape {
@@ -974,7 +981,7 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     class CreateCoreDefinitionVersionRequest does AWS::SDK::Shape {
-        has Array[Core] $.cores is shape-member('Cores');
+        has Core @.cores is shape-member('Cores');
         has Str $.core-definition-id is required is shape-member('CoreDefinitionId');
         has Str $.amzn-client-token is shape-member('AmznClientToken');
     }
@@ -1002,10 +1009,6 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
         has Str $.logger-definition-id is required is shape-member('LoggerDefinitionId');
     }
 
-    subset LoggerComponent of Str where $_ ~~ any('GreengrassSystem', 'Lambda');
-
-    subset DeploymentType of Str where $_ ~~ any('NewDeployment', 'Redeployment', 'ResetDeployment', 'ForceResetDeployment');
-
     class ConnectivityInfo does AWS::SDK::Shape {
         has Int $.port-number is shape-member('PortNumber');
         has Str $.id is shape-member('Id');
@@ -1026,10 +1029,8 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
         has Str $.group-certificate-authority-id is shape-member('GroupCertificateAuthorityId');
     }
 
-    subset LoggerType of Str where $_ ~~ any('FileSystem', 'AWSCloudWatch');
-
     class ListSubscriptionDefinitionsResponse does AWS::SDK::Shape {
-        has Array[DefinitionInformation] $.definitions is shape-member('Definitions');
+        has DefinitionInformation @.definitions is shape-member('Definitions');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1059,15 +1060,16 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
         has Str $.detailed-error-message is shape-member('DetailedErrorMessage');
     }
 
+
     method create-logger-definition-version(
         Str :$logger-definition-id!,
         Str :$amzn-client-token,
-        Array[Logger] :$loggers
+        Logger :@loggers
     ) returns CreateLoggerDefinitionVersionResponse is service-operation('CreateLoggerDefinitionVersion') {
         my $request-input = CreateLoggerDefinitionVersionRequest.new(
             :$logger-definition-id,
             :$amzn-client-token,
-            :$loggers
+            :@loggers
         );
 
         self.perform-operation(
@@ -1126,12 +1128,12 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     method create-core-definition-version(
-        Array[Core] :$cores,
+        Core :@cores,
         Str :$core-definition-id!,
         Str :$amzn-client-token
     ) returns CreateCoreDefinitionVersionResponse is service-operation('CreateCoreDefinitionVersion') {
         my $request-input = CreateCoreDefinitionVersionRequest.new(
-            :$cores,
+            :@cores,
             :$core-definition-id,
             :$amzn-client-token
         );
@@ -1250,12 +1252,12 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     method create-device-definition-version(
-        Array[Device] :$devices,
+        Device :@devices,
         Str :$amzn-client-token,
         Str :$device-definition-id!
     ) returns CreateDeviceDefinitionVersionResponse is service-operation('CreateDeviceDefinitionVersion') {
         my $request-input = CreateDeviceDefinitionVersionRequest.new(
-            :$devices,
+            :@devices,
             :$amzn-client-token,
             :$device-definition-id
         );
@@ -1658,11 +1660,11 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     method update-connectivity-info(
         Str :$thing-name!,
-        Array[ConnectivityInfo] :$connectivity-info
+        ConnectivityInfo :@connectivity-info
     ) returns UpdateConnectivityInfoResponse is service-operation('UpdateConnectivityInfo') {
         my $request-input = UpdateConnectivityInfoRequest.new(
             :$thing-name,
-            :$connectivity-info
+            :@connectivity-info
         );
 
         self.perform-operation(
@@ -1704,12 +1706,12 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
     }
 
     method create-subscription-definition-version(
-        Array[Subscription] :$subscriptions,
+        Subscription :@subscriptions,
         Str :$amzn-client-token,
         Str :$subscription-definition-id!
     ) returns CreateSubscriptionDefinitionVersionResponse is service-operation('CreateSubscriptionDefinitionVersion') {
         my $request-input = CreateSubscriptionDefinitionVersionRequest.new(
-            :$subscriptions,
+            :@subscriptions,
             :$amzn-client-token,
             :$subscription-definition-id
         );
@@ -2033,12 +2035,12 @@ class AWS::SDK::Service::Greengrass does AWS::SDK::Service {
 
     method create-function-definition-version(
         Str :$function-definition-id!,
-        Array[Function] :$functions,
+        Function :@functions,
         Str :$amzn-client-token
     ) returns CreateFunctionDefinitionVersionResponse is service-operation('CreateFunctionDefinitionVersion') {
         my $request-input = CreateFunctionDefinitionVersionRequest.new(
             :$function-definition-id,
-            :$functions,
+            :@functions,
             :$amzn-client-token
         );
 

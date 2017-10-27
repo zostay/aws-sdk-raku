@@ -82,6 +82,13 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     class PutEventSelectorsResponse { ... }
     class InvalidHomeRegionException { ... }
 
+    subset MaxResults of Int where 1 <= * <= 50;
+
+    subset ReadWriteType of Str where $_ eq any('ReadOnly', 'WriteOnly', 'All');
+
+    subset LookupAttributeKey of Str where $_ eq any('EventId', 'EventName', 'Username', 'ResourceType', 'ResourceName', 'EventSource');
+
+
     class StopLoggingRequest does AWS::SDK::Shape {
         has Str $.name is required is shape-member('Name');
     }
@@ -90,13 +97,13 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     class DataResource does AWS::SDK::Shape {
-        has Array[Str] $.values is shape-member('Values');
+        has Str @.values is shape-member('Values');
         has Str $.type is shape-member('Type');
     }
 
     class EventSelector does AWS::SDK::Shape {
         has Bool $.include-management-events is shape-member('IncludeManagementEvents');
-        has Array[DataResource] $.data-resources is shape-member('DataResources');
+        has DataResource @.data-resources is shape-member('DataResources');
         has ReadWriteType $.read-write-type is shape-member('ReadWriteType');
     }
 
@@ -133,7 +140,7 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     class GetEventSelectorsResponse does AWS::SDK::Shape {
-        has Array[EventSelector] $.event-selectors is shape-member('EventSelectors');
+        has EventSelector @.event-selectors is shape-member('EventSelectors');
         has Str $.trail-arn is shape-member('TrailARN');
     }
 
@@ -177,7 +184,7 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     class ListTagsResponse does AWS::SDK::Shape {
-        has Array[ResourceTag] $.resource-tag-list is shape-member('ResourceTagList');
+        has ResourceTag @.resource-tag-list is shape-member('ResourceTagList');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -190,7 +197,7 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
 
     class PutEventSelectorsRequest does AWS::SDK::Shape {
         has Str $.trail-name is required is shape-member('TrailName');
-        has Array[EventSelector] $.event-selectors is required is shape-member('EventSelectors');
+        has EventSelector @.event-selectors is required is shape-member('EventSelectors');
     }
 
     class RemoveTagsResponse does AWS::SDK::Shape {
@@ -217,7 +224,7 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     class ListPublicKeysResponse does AWS::SDK::Shape {
-        has Array[PublicKey] $.public-key-list is shape-member('PublicKeyList');
+        has PublicKey @.public-key-list is shape-member('PublicKeyList');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -249,7 +256,7 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     class ListTagsRequest does AWS::SDK::Shape {
-        has Array[Str] $.resource-id-list is required is shape-member('ResourceIdList');
+        has Str @.resource-id-list is required is shape-member('ResourceIdList');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -257,7 +264,7 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     class AddTagsRequest does AWS::SDK::Shape {
-        has Array[Tag] $.tags-list is shape-member('TagsList');
+        has Tag @.tags-list is shape-member('TagsList');
         has Str $.resource-id is required is shape-member('ResourceId');
     }
 
@@ -274,7 +281,7 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     class LookupEventsResponse does AWS::SDK::Shape {
-        has Array[Event] $.events is shape-member('Events');
+        has Event @.events is shape-member('Events');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -282,11 +289,11 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     class DescribeTrailsResponse does AWS::SDK::Shape {
-        has Array[Trail] $.trail-list is shape-member('trailList');
+        has Trail @.trail-list is shape-member('trailList');
     }
 
     class ResourceTag does AWS::SDK::Shape {
-        has Array[Tag] $.tags-list is shape-member('TagsList');
+        has Tag @.tags-list is shape-member('TagsList');
         has Str $.resource-id is shape-member('ResourceId');
     }
 
@@ -306,10 +313,8 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
         has Str $.trail-name is required is shape-member('TrailName');
     }
 
-    subset MaxResults of Int where 1 <= * <= 50;
-
     class Event does AWS::SDK::Shape {
-        has Array[Resource] $.resources is shape-member('Resources');
+        has Resource @.resources is shape-member('Resources');
         has Str $.cloud-trail-event is shape-member('CloudTrailEvent');
         has Str $.event-source is shape-member('EventSource');
         has Str $.event-id is shape-member('EventId');
@@ -329,7 +334,7 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
         has DateTime $.end-time is shape-member('EndTime');
         has DateTime $.start-time is shape-member('StartTime');
         has Str $.next-token is shape-member('NextToken');
-        has Array[LookupAttribute] $.lookup-attributes is shape-member('LookupAttributes');
+        has LookupAttribute @.lookup-attributes is shape-member('LookupAttributes');
     }
 
     class InvalidSnsTopicNameException does AWS::SDK::Shape {
@@ -345,7 +350,7 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     class RemoveTagsRequest does AWS::SDK::Shape {
-        has Array[Tag] $.tags-list is shape-member('TagsList');
+        has Tag @.tags-list is shape-member('TagsList');
         has Str $.resource-id is required is shape-member('ResourceId');
     }
 
@@ -366,7 +371,7 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
 
     class DescribeTrailsRequest does AWS::SDK::Shape {
         has Bool $.include-shadow-trails is shape-member('includeShadowTrails');
-        has Array[Str] $.trail-name-list is shape-member('trailNameList');
+        has Str @.trail-name-list is shape-member('trailNameList');
     }
 
     class TrailAlreadyExistsException does AWS::SDK::Shape {
@@ -417,29 +422,26 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     class InsufficientSnsTopicPolicyException does AWS::SDK::Shape {
     }
 
-    subset ReadWriteType of Str where $_ ~~ any('ReadOnly', 'WriteOnly', 'All');
-
     class Tag does AWS::SDK::Shape {
         has Str $.value is shape-member('Value');
         has Str $.key is required is shape-member('Key');
     }
 
     class PutEventSelectorsResponse does AWS::SDK::Shape {
-        has Array[EventSelector] $.event-selectors is shape-member('EventSelectors');
+        has EventSelector @.event-selectors is shape-member('EventSelectors');
         has Str $.trail-arn is shape-member('TrailARN');
     }
 
     class InvalidHomeRegionException does AWS::SDK::Shape {
     }
 
-    subset LookupAttributeKey of Str where $_ ~~ any('EventId', 'EventName', 'Username', 'ResourceType', 'ResourceName', 'EventSource');
 
     method list-tags(
-        Array[Str] :$resource-id-list!,
+        Str :@resource-id-list!,
         Str :$next-token
     ) returns ListTagsResponse is service-operation('ListTags') {
         my $request-input = ListTagsRequest.new(
-            :$resource-id-list,
+            :@resource-id-list,
             :$next-token
         );
 
@@ -494,11 +496,11 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
 
     method describe-trails(
         Bool :$include-shadow-trails,
-        Array[Str] :$trail-name-list
+        Str :@trail-name-list
     ) returns DescribeTrailsResponse is service-operation('DescribeTrails') {
         my $request-input = DescribeTrailsRequest.new(
             :$include-shadow-trails,
-            :$trail-name-list
+            :@trail-name-list
         );
 
         self.perform-operation(
@@ -552,11 +554,11 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     method add-tags(
-        Array[Tag] :$tags-list,
+        Tag :@tags-list,
         Str :$resource-id!
     ) returns AddTagsResponse is service-operation('AddTags') {
         my $request-input = AddTagsRequest.new(
-            :$tags-list,
+            :@tags-list,
             :$resource-id
         );
 
@@ -611,11 +613,11 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
     }
 
     method remove-tags(
-        Array[Tag] :$tags-list,
+        Tag :@tags-list,
         Str :$resource-id!
     ) returns RemoveTagsResponse is service-operation('RemoveTags') {
         my $request-input = RemoveTagsRequest.new(
-            :$tags-list,
+            :@tags-list,
             :$resource-id
         );
 
@@ -630,14 +632,14 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
         DateTime :$end-time,
         DateTime :$start-time,
         Str :$next-token,
-        Array[LookupAttribute] :$lookup-attributes
+        LookupAttribute :@lookup-attributes
     ) returns LookupEventsResponse is service-operation('LookupEvents') {
         my $request-input = LookupEventsRequest.new(
             :$max-results,
             :$end-time,
             :$start-time,
             :$next-token,
-            :$lookup-attributes
+            :@lookup-attributes
         );
 
         self.perform-operation(
@@ -661,11 +663,11 @@ class AWS::SDK::Service::CloudTrail does AWS::SDK::Service {
 
     method put-event-selectors(
         Str :$trail-name!,
-        Array[EventSelector] :$event-selectors!
+        EventSelector :@event-selectors!
     ) returns PutEventSelectorsResponse is service-operation('PutEventSelectors') {
         my $request-input = PutEventSelectorsRequest.new(
             :$trail-name,
-            :$event-selectors
+            :@event-selectors
         );
 
         self.perform-operation(

@@ -193,6 +193,155 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
 
     subset VPCId of Str where .chars <= 1024;
 
+    subset HealthCheckNonce of Str where 1 <= .chars <= 64;
+
+    subset Nonce of Str where 1 <= .chars <= 128;
+
+    subset TTL of Int where 0 <= * <= 2147483647;
+
+    subset HealthCheckId of Str where .chars <= 64;
+
+    subset HealthThreshold of Int where 0 <= * <= 256;
+
+    subset TrafficPolicyInstanceId of Str where 1 <= .chars <= 36;
+
+    subset Period of Int where 60 <= *;
+
+    subset TagResourceType of Str where $_ eq any('healthcheck', 'hostedzone');
+
+    subset SearchString of Str where .chars <= 255;
+
+    subset TrafficPolicyVersion of Int where 1 <= * <= 1000;
+
+    subset ResourceRecordSetRegion of Str where 1 <= .chars <= 64 && $_ eq any('us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'ca-central-1', 'eu-west-1', 'eu-west-2', 'eu-central-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'ap-northeast-2', 'sa-east-1', 'cn-north-1', 'ap-south-1');
+
+    subset ChildHealthCheckList of Array[HealthCheckId] where *.elems <= 256;
+
+    subset TagResourceId of Str where .chars <= 64;
+
+    subset GeoLocationContinentName of Str where 1 <= .chars <= 32;
+
+    subset TrafficPolicyId of Str where 1 <= .chars <= 36;
+
+    subset TagKeyList of Array[TagKey] where 1 <= *.elems <= 10;
+
+    subset ResourceRecords of Array[ResourceRecord] where 1 <= *.elems;
+
+    subset Changes of Array[Change] where 1 <= *.elems;
+
+    subset DelegationSetNameServers of Array[DNSName] where 1 <= *.elems;
+
+    subset ResettableElementNameList of Array[ResettableElementName] where *.elems <= 64;
+
+    subset RecordDataEntry of Str where 0 <= .chars <= 512;
+
+    subset SubnetMask of Str where 0 <= .chars <= 3;
+
+    subset PaginationToken of Str where .chars <= 256;
+
+    subset TagValue of Str where .chars <= 256;
+
+    subset ResourceId of Str where .chars <= 32;
+
+    subset QueryLoggingConfigId of Str where 1 <= .chars <= 36;
+
+    subset GeoLocationCountryCode of Str where 1 <= .chars <= 2;
+
+    subset ResourceRecordSetWeight of Int where 0 <= * <= 255;
+
+    subset ResourcePath of Str where .chars <= 255;
+
+    subset ComparisonOperator of Str where $_ eq any('GreaterThanOrEqualToThreshold', 'GreaterThanThreshold', 'LessThanThreshold', 'LessThanOrEqualToThreshold');
+
+    subset TrafficPolicyDocument of Str where .chars <= 102400;
+
+    subset RData of Str where .chars <= 4000;
+
+    subset VPCRegion of Str where 1 <= .chars <= 64 && $_ eq any('us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'eu-west-1', 'eu-west-2', 'eu-central-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-south-1', 'ap-northeast-1', 'ap-northeast-2', 'sa-east-1', 'ca-central-1', 'cn-north-1');
+
+    subset GeoLocationSubdivisionCode of Str where 1 <= .chars <= 3;
+
+    subset DimensionField of Str where 1 <= .chars <= 255;
+
+    subset DNSName of Str where .chars <= 1024;
+
+    subset HealthCheckType of Str where $_ eq any('HTTP', 'HTTPS', 'HTTP_STR_MATCH', 'HTTPS_STR_MATCH', 'TCP', 'CALCULATED', 'CLOUDWATCH_METRIC');
+
+    subset MetricName of Str where 1 <= .chars <= 255;
+
+    subset TrafficPolicyVersionMarker of Str where .chars <= 4;
+
+    subset TagList of Array[Tag] where 1 <= *.elems <= 10;
+
+    subset ResourceRecordSetFailover of Str where $_ eq any('PRIMARY', 'SECONDARY');
+
+    subset HealthCheckRegionList of Array[HealthCheckRegion] where 3 <= *.elems <= 64;
+
+    subset ResettableElementName of Str where 1 <= .chars <= 64 && $_ eq any('FullyQualifiedDomainName', 'Regions', 'ResourcePath', 'ChildHealthChecks');
+
+    subset GeoLocationCountryName of Str where 1 <= .chars <= 64;
+
+    subset EvaluationPeriods of Int where 1 <= *;
+
+    subset HealthCheckRegion of Str where 1 <= .chars <= 64 && $_ eq any('us-east-1', 'us-west-1', 'us-west-2', 'eu-west-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'sa-east-1');
+
+    subset TagKey of Str where .chars <= 128;
+
+    subset ResourceURI of Str where .chars <= 1024;
+
+    subset GeoLocationContinentCode of Str where 2 <= .chars <= 2;
+
+    subset TrafficPolicyName of Str where .chars <= 512;
+
+    subset FailureThreshold of Int where 1 <= * <= 10;
+
+    subset CloudWatchRegion of Str where 1 <= .chars <= 64 && $_ eq any('us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'ca-central-1', 'eu-central-1', 'eu-west-1', 'eu-west-2', 'ap-south-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'ap-northeast-2', 'sa-east-1');
+
+    subset VPCs of Array[VPC] where 1 <= *.elems;
+
+    subset RequestInterval of Int where 10 <= * <= 30;
+
+    subset AlarmName of Str where 1 <= .chars <= 256;
+
+    subset ChangeAction of Str where $_ eq any('CREATE', 'DELETE', 'UPSERT');
+
+    subset TrafficPolicyComment of Str where .chars <= 1024;
+
+    subset DimensionList of Array[Dimension] where *.elems <= 10;
+
+    subset Namespace of Str where 1 <= .chars <= 255;
+
+    subset IPAddress of Str where .chars <= 45 && rx:P5/(^((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))$|^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$)/;
+
+    subset RRType of Str where $_ eq any('SOA', 'A', 'TXT', 'NS', 'CNAME', 'MX', 'NAPTR', 'PTR', 'SRV', 'SPF', 'AAAA', 'CAA');
+
+    subset ResourceDescription of Str where .chars <= 256;
+
+    subset Nameserver of Str where 0 <= .chars <= 255;
+
+    subset GeoLocationSubdivisionName of Str where 1 <= .chars <= 64;
+
+    subset ChangeStatus of Str where $_ eq any('PENDING', 'INSYNC');
+
+    subset FullyQualifiedDomainName of Str where .chars <= 255;
+
+    subset Statistic of Str where $_ eq any('Average', 'Sum', 'SampleCount', 'Maximum', 'Minimum');
+
+    subset PageMarker of Str where .chars <= 64;
+
+    subset TagResourceIdList of Array[TagResourceId] where 1 <= *.elems <= 10;
+
+    subset HealthCheckVersion of Int where 1 <= *;
+
+    subset InsufficientDataHealthStatus of Str where $_ eq any('Healthy', 'Unhealthy', 'LastKnownStatus');
+
+    subset ResourceRecordSetIdentifier of Str where 1 <= .chars <= 128;
+
+    subset Port of Int where 1 <= * <= 65535;
+
+    subset Message of Str where .chars <= 1024;
+
+
     class TrafficPolicyInstanceAlreadyExists does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -200,10 +349,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     class TooManyHealthChecks does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset HealthCheckNonce of Str where 1 <= .chars <= 64;
-
-    subset Nonce of Str where 1 <= .chars <= 128;
 
     class TrafficPolicyAlreadyExists does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -219,8 +364,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has TagResourceType $.resource-type is required is shape-member('ResourceType');
         has TagResourceIdList $.resource-ids is required is shape-member('ResourceIds');
     }
-
-    subset TTL of Int where 0 <= * <= 2147483647;
 
     class Change does AWS::SDK::Shape {
         has ChangeAction $.action is required is shape-member('Action');
@@ -245,7 +388,7 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     }
 
     class ListQueryLoggingConfigsResponse does AWS::SDK::Shape {
-        has Array[QueryLoggingConfig] $.query-logging-configs is required is shape-member('QueryLoggingConfigs');
+        has QueryLoggingConfig @.query-logging-configs is required is shape-member('QueryLoggingConfigs');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
 
@@ -256,10 +399,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     class NoSuchChange does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset HealthCheckId of Str where .chars <= 64;
-
-    subset HealthThreshold of Int where 0 <= * <= 256;
 
     class InvalidArgument does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -276,7 +415,7 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     class ListTrafficPolicyInstancesByHostedZoneResponse does AWS::SDK::Shape {
         has RRType $.traffic-policy-instance-type-marker is shape-member('TrafficPolicyInstanceTypeMarker');
         has Str $.max-items is required is shape-member('MaxItems');
-        has Array[TrafficPolicyInstance] $.traffic-policy-instances is required is shape-member('TrafficPolicyInstances');
+        has TrafficPolicyInstance @.traffic-policy-instances is required is shape-member('TrafficPolicyInstances');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has DNSName $.traffic-policy-instance-name-marker is shape-member('TrafficPolicyInstanceNameMarker');
     }
@@ -284,10 +423,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     class NoSuchHostedZone does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset TrafficPolicyInstanceId of Str where 1 <= .chars <= 36;
-
-    subset Period of Int where 60 <= *;
 
     class Dimension does AWS::SDK::Shape {
         has DimensionField $.name is required is shape-member('Name');
@@ -309,7 +444,7 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has RRType $.traffic-policy-instance-type-marker is shape-member('TrafficPolicyInstanceTypeMarker');
         has ResourceId $.hosted-zone-id-marker is shape-member('HostedZoneIdMarker');
         has Str $.max-items is required is shape-member('MaxItems');
-        has Array[TrafficPolicyInstance] $.traffic-policy-instances is required is shape-member('TrafficPolicyInstances');
+        has TrafficPolicyInstance @.traffic-policy-instances is required is shape-member('TrafficPolicyInstances');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has DNSName $.traffic-policy-instance-name-marker is shape-member('TrafficPolicyInstanceNameMarker');
     }
@@ -338,23 +473,13 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset TagResourceType of Str where $_ ~~ any('healthcheck', 'hostedzone');
-
-    subset SearchString of Str where .chars <= 255;
-
     class GetGeoLocationResponse does AWS::SDK::Shape {
         has GeoLocationDetails $.geo-location-details is required is shape-member('GeoLocationDetails');
     }
 
-    subset TrafficPolicyVersion of Int where 1 <= * <= 1000;
-
-    subset ResourceRecordSetRegion of Str where 1 <= .chars <= 64 && $_ ~~ any('us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'ca-central-1', 'eu-west-1', 'eu-west-2', 'eu-central-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'ap-northeast-2', 'sa-east-1', 'cn-north-1', 'ap-south-1');
-
     class PriorRequestNotComplete does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset ChildHealthCheckList of Array[HealthCheckId] where *.elems <= 256;
 
     class CreateQueryLoggingConfigRequest does AWS::SDK::Shape {
         has ResourceId $.hosted-zone-id is required is shape-member('HostedZoneId');
@@ -383,7 +508,7 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     }
 
     class ListHostedZonesResponse does AWS::SDK::Shape {
-        has Array[HostedZone] $.hosted-zones is required is shape-member('HostedZones');
+        has HostedZone @.hosted-zones is required is shape-member('HostedZones');
         has Str $.max-items is required is shape-member('MaxItems');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has PageMarker $.marker is required is shape-member('Marker');
@@ -415,10 +540,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset TagResourceId of Str where .chars <= 64;
-
-    subset GeoLocationContinentName of Str where 1 <= .chars <= 32;
-
     class DeleteReusableDelegationSetRequest does AWS::SDK::Shape {
         has ResourceId $.id is required is shape-member('Id');
     }
@@ -439,14 +560,12 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     }
 
     class ListReusableDelegationSetsResponse does AWS::SDK::Shape {
-        has Array[DelegationSet] $.delegation-sets is required is shape-member('DelegationSets');
+        has DelegationSet @.delegation-sets is required is shape-member('DelegationSets');
         has Str $.max-items is required is shape-member('MaxItems');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has PageMarker $.marker is required is shape-member('Marker');
         has PageMarker $.next-marker is shape-member('NextMarker');
     }
-
-    subset TrafficPolicyId of Str where 1 <= .chars <= 36;
 
     class ThrottlingException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -478,14 +597,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has DNSName $.name is required is shape-member('Name');
     }
 
-    subset TagKeyList of Array[TagKey] where 1 <= *.elems <= 10;
-
-    subset ResourceRecords of Array[ResourceRecord] where 1 <= *.elems;
-
-    subset Changes of Array[Change] where 1 <= *.elems;
-
-    subset DelegationSetNameServers of Array[DNSName] where 1 <= *.elems;
-
     class GetQueryLoggingConfigResponse does AWS::SDK::Shape {
         has QueryLoggingConfig $.query-logging-config is required is shape-member('QueryLoggingConfig');
     }
@@ -501,10 +612,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has DNSName $.traffic-policy-instance-name-marker is shape-member('TrafficPolicyInstanceNameMarker');
     }
 
-    subset ResettableElementNameList of Array[ResettableElementName] where *.elems <= 64;
-
-    subset RecordDataEntry of Str where 0 <= .chars <= 512;
-
     class DeleteTrafficPolicyRequest does AWS::SDK::Shape {
         has TrafficPolicyId $.id is required is shape-member('Id');
         has TrafficPolicyVersion $.version is required is shape-member('Version');
@@ -514,17 +621,13 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has ResourceId $.id is required is shape-member('Id');
     }
 
-    subset SubnetMask of Str where 0 <= .chars <= 3;
-
-    subset PaginationToken of Str where .chars <= 256;
-
     class AlarmIdentifier does AWS::SDK::Shape {
         has AlarmName $.name is required is shape-member('Name');
         has CloudWatchRegion $.region is required is shape-member('Region');
     }
 
     class GetHealthCheckLastFailureReasonResponse does AWS::SDK::Shape {
-        has Array[HealthCheckObservation] $.health-check-observations is required is shape-member('HealthCheckObservations');
+        has HealthCheckObservation @.health-check-observations is required is shape-member('HealthCheckObservations');
     }
 
     class GetTrafficPolicyInstanceRequest does AWS::SDK::Shape {
@@ -536,7 +639,7 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Str $.max-items is required is shape-member('MaxItems');
         has GeoLocationCountryCode $.next-country-code is shape-member('NextCountryCode');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
-        has Array[GeoLocationDetails] $.geo-location-details-list is required is shape-member('GeoLocationDetailsList');
+        has GeoLocationDetails @.geo-location-details-list is required is shape-member('GeoLocationDetailsList');
         has GeoLocationContinentCode $.next-continent-code is shape-member('NextContinentCode');
     }
 
@@ -544,17 +647,9 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has TrafficPolicyInstance $.traffic-policy-instance is required is shape-member('TrafficPolicyInstance');
     }
 
-    subset TagValue of Str where .chars <= 256;
-
     class VPCAssociationNotFound does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset ResourceId of Str where .chars <= 32;
-
-    subset QueryLoggingConfigId of Str where 1 <= .chars <= 36;
-
-    subset GeoLocationCountryCode of Str where 1 <= .chars <= 2;
 
     class DeleteHostedZoneResponse does AWS::SDK::Shape {
         has ChangeInfo $.change-info is required is shape-member('ChangeInfo');
@@ -575,8 +670,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has VPCRegion $.vpc-region is shape-member('VPCRegion');
     }
 
-    subset ResourceRecordSetWeight of Int where 0 <= * <= 255;
-
     class ResourceRecordSet does AWS::SDK::Shape {
         has GeoLocation $.geo-location is shape-member('GeoLocation');
         has ResourceRecordSetWeight $.weight is shape-member('Weight');
@@ -593,15 +686,13 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Bool $.multi-value-answer is shape-member('MultiValueAnswer');
     }
 
-    subset ResourcePath of Str where .chars <= 255;
-
     class ChangeResourceRecordSetsRequest does AWS::SDK::Shape {
         has ChangeBatch $.change-batch is required is shape-member('ChangeBatch');
         has ResourceId $.hosted-zone-id is required is shape-member('HostedZoneId');
     }
 
     class InvalidChangeBatch does AWS::SDK::Shape {
-        has Array[Str] $.messages is shape-member('messages');
+        has Str @.messages is shape-member('messages');
         has Str $.message is shape-member('message');
     }
 
@@ -619,8 +710,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has ChangeInfo $.change-info is required is shape-member('ChangeInfo');
     }
 
-    subset ComparisonOperator of Str where $_ ~~ any('GreaterThanOrEqualToThreshold', 'GreaterThanThreshold', 'LessThanThreshold', 'LessThanOrEqualToThreshold');
-
     class GetTrafficPolicyResponse does AWS::SDK::Shape {
         has TrafficPolicy $.traffic-policy is required is shape-member('TrafficPolicy');
     }
@@ -629,10 +718,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Str $.max-items is shape-member('MaxItems');
         has PageMarker $.marker is shape-member('Marker');
     }
-
-    subset TrafficPolicyDocument of Str where .chars <= 102400;
-
-    subset RData of Str where .chars <= 4000;
 
     class CreateVPCAssociationAuthorizationRequest does AWS::SDK::Shape {
         has ResourceId $.hosted-zone-id is required is shape-member('HostedZoneId');
@@ -651,14 +736,10 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset VPCRegion of Str where 1 <= .chars <= 64 && $_ ~~ any('us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'eu-west-1', 'eu-west-2', 'eu-central-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-south-1', 'ap-northeast-1', 'ap-northeast-2', 'sa-east-1', 'ca-central-1', 'cn-north-1');
-
     class UpdateHostedZoneCommentRequest does AWS::SDK::Shape {
         has ResourceDescription $.comment is shape-member('Comment');
         has ResourceId $.id is required is shape-member('Id');
     }
-
-    subset GeoLocationSubdivisionCode of Str where 1 <= .chars <= 3;
 
     class DeleteVPCAssociationAuthorizationRequest does AWS::SDK::Shape {
         has ResourceId $.hosted-zone-id is required is shape-member('HostedZoneId');
@@ -675,8 +756,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has TrafficPolicyId $.traffic-policy-id-marker is shape-member('TrafficPolicyIdMarker');
     }
 
-    subset DimensionField of Str where 1 <= .chars <= 255;
-
     class GetHealthCheckResponse does AWS::SDK::Shape {
         has HealthCheck $.health-check is required is shape-member('HealthCheck');
     }
@@ -691,13 +770,9 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has QueryLoggingConfigId $.id is required is shape-member('Id');
     }
 
-    subset DNSName of Str where .chars <= 1024;
-
     class GetHealthCheckLastFailureReasonRequest does AWS::SDK::Shape {
         has HealthCheckId $.health-check-id is required is shape-member('HealthCheckId');
     }
-
-    subset HealthCheckType of Str where $_ ~~ any('HTTP', 'HTTPS', 'HTTP_STR_MATCH', 'HTTPS_STR_MATCH', 'TCP', 'CALCULATED', 'CLOUDWATCH_METRIC');
 
     class ListTrafficPolicyInstancesByHostedZoneRequest does AWS::SDK::Shape {
         has ResourceId $.hosted-zone-id is required is shape-member('HostedZoneId');
@@ -712,12 +787,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Str $.max-items is shape-member('MaxItems');
     }
 
-    subset MetricName of Str where 1 <= .chars <= 255;
-
-    subset TrafficPolicyVersionMarker of Str where .chars <= 4;
-
-    subset TagList of Array[Tag] where 1 <= *.elems <= 10;
-
     class ListVPCAssociationAuthorizationsResponse does AWS::SDK::Shape {
         has ResourceId $.hosted-zone-id is required is shape-member('HostedZoneId');
         has VPCs $.vpcs is required is shape-member('VPCs');
@@ -728,13 +797,9 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ResourceRecordSetFailover of Str where $_ ~~ any('PRIMARY', 'SECONDARY');
-
     class ChangeResourceRecordSetsResponse does AWS::SDK::Shape {
         has ChangeInfo $.change-info is required is shape-member('ChangeInfo');
     }
-
-    subset HealthCheckRegionList of Array[HealthCheckRegion] where 3 <= *.elems <= 64;
 
     class ListHostedZonesRequest does AWS::SDK::Shape {
         has Str $.max-items is shape-member('MaxItems');
@@ -755,13 +820,9 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has RRType $.type is required is shape-member('Type');
     }
 
-    subset ResettableElementName of Str where 1 <= .chars <= 64 && $_ ~~ any('FullyQualifiedDomainName', 'Regions', 'ResourcePath', 'ChildHealthChecks');
-
     class GetChangeResponse does AWS::SDK::Shape {
         has ChangeInfo $.change-info is required is shape-member('ChangeInfo');
     }
-
-    subset GeoLocationCountryName of Str where 1 <= .chars <= 64;
 
     class TooManyVPCAssociationAuthorizations does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -769,7 +830,7 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
 
     class TestDNSAnswerResponse does AWS::SDK::Shape {
         has DNSName $.record-name is required is shape-member('RecordName');
-        has Array[RecordDataEntry] $.record-data is required is shape-member('RecordData');
+        has RecordDataEntry @.record-data is required is shape-member('RecordData');
         has RRType $.record-type is required is shape-member('RecordType');
         has Nameserver $.nameserver is required is shape-member('Nameserver');
         has Str $.response-code is required is shape-member('ResponseCode');
@@ -802,7 +863,7 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has RRType $.traffic-policy-instance-type-marker is shape-member('TrafficPolicyInstanceTypeMarker');
         has ResourceId $.hosted-zone-id-marker is shape-member('HostedZoneIdMarker');
         has Str $.max-items is required is shape-member('MaxItems');
-        has Array[TrafficPolicyInstance] $.traffic-policy-instances is required is shape-member('TrafficPolicyInstances');
+        has TrafficPolicyInstance @.traffic-policy-instances is required is shape-member('TrafficPolicyInstances');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has DNSName $.traffic-policy-instance-name-marker is shape-member('TrafficPolicyInstanceNameMarker');
     }
@@ -814,8 +875,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     class TooManyTrafficPolicies does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset EvaluationPeriods of Int where 1 <= *;
 
     class CreateReusableDelegationSetRequest does AWS::SDK::Shape {
         has ResourceId $.hosted-zone-id is shape-member('HostedZoneId');
@@ -831,16 +890,8 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has HealthCheckId $.health-check-id is required is shape-member('HealthCheckId');
     }
 
-    subset HealthCheckRegion of Str where 1 <= .chars <= 64 && $_ ~~ any('us-east-1', 'us-west-1', 'us-west-2', 'eu-west-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'sa-east-1');
-
-    subset TagKey of Str where .chars <= 128;
-
-    subset ResourceURI of Str where .chars <= 1024;
-
     class GetCheckerIpRangesRequest does AWS::SDK::Shape {
     }
-
-    subset GeoLocationContinentCode of Str where 2 <= .chars <= 2;
 
     class ListHostedZonesByNameRequest does AWS::SDK::Shape {
         has ResourceId $.hosted-zone-id is shape-member('HostedZoneId');
@@ -849,7 +900,7 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     }
 
     class ListTrafficPolicyVersionsResponse does AWS::SDK::Shape {
-        has Array[TrafficPolicy] $.traffic-policies is required is shape-member('TrafficPolicies');
+        has TrafficPolicy @.traffic-policies is required is shape-member('TrafficPolicies');
         has TrafficPolicyVersionMarker $.traffic-policy-version-marker is required is shape-member('TrafficPolicyVersionMarker');
         has Str $.max-items is required is shape-member('MaxItems');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
@@ -878,10 +929,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset TrafficPolicyName of Str where .chars <= 512;
-
-    subset FailureThreshold of Int where 1 <= * <= 10;
-
     class DeleteTrafficPolicyResponse does AWS::SDK::Shape {
     }
 
@@ -895,8 +942,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Namespace $.namespace is required is shape-member('Namespace');
         has ComparisonOperator $.comparison-operator is required is shape-member('ComparisonOperator');
     }
-
-    subset CloudWatchRegion of Str where 1 <= .chars <= 64 && $_ ~~ any('us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'ca-central-1', 'eu-central-1', 'eu-west-1', 'eu-west-2', 'ap-south-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'ap-northeast-2', 'sa-east-1');
 
     class LastVPCAssociation does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -942,7 +987,7 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     }
 
     class GetCheckerIpRangesResponse does AWS::SDK::Shape {
-        has Array[Str] $.checker-ip-ranges is required is shape-member('CheckerIpRanges');
+        has Str @.checker-ip-ranges is required is shape-member('CheckerIpRanges');
     }
 
     class ListResourceRecordSetsResponse does AWS::SDK::Shape {
@@ -951,26 +996,18 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Str $.max-items is required is shape-member('MaxItems');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has ResourceRecordSetIdentifier $.next-record-identifier is shape-member('NextRecordIdentifier');
-        has Array[ResourceRecordSet] $.resource-record-sets is required is shape-member('ResourceRecordSets');
+        has ResourceRecordSet @.resource-record-sets is required is shape-member('ResourceRecordSets');
     }
 
     class NoSuchCloudWatchLogsLogGroup does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
-    subset VPCs of Array[VPC] where 1 <= *.elems;
-
-    subset RequestInterval of Int where 10 <= * <= 30;
-
-    subset AlarmName of Str where 1 <= .chars <= 256;
-
     class AliasTarget does AWS::SDK::Shape {
         has Bool $.evaluate-target-health is required is shape-member('EvaluateTargetHealth');
         has DNSName $.dns-name is required is shape-member('DNSName');
         has ResourceId $.hosted-zone-id is required is shape-member('HostedZoneId');
     }
-
-    subset ChangeAction of Str where $_ ~~ any('CREATE', 'DELETE', 'UPSERT');
 
     class GetReusableDelegationSetResponse does AWS::SDK::Shape {
         has DelegationSet $.delegation-set is required is shape-member('DelegationSet');
@@ -980,15 +1017,9 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset TrafficPolicyComment of Str where .chars <= 1024;
-
-    subset DimensionList of Array[Dimension] where *.elems <= 10;
-
     class HealthCheckAlreadyExists does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset Namespace of Str where 1 <= .chars <= 255;
 
     class CreateHealthCheckRequest does AWS::SDK::Shape {
         has HealthCheckNonce $.caller-reference is required is shape-member('CallerReference');
@@ -1003,8 +1034,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Bool $.private-zone is shape-member('PrivateZone');
         has ResourceDescription $.comment is shape-member('Comment');
     }
-
-    subset IPAddress of Str where .chars <= 45 && rx:P5/(^((([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]))$|^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$)/;
 
     class DisassociateVPCFromHostedZoneRequest does AWS::SDK::Shape {
         has Str $.comment is shape-member('Comment');
@@ -1028,8 +1057,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has HealthCheckRegion $.region is shape-member('Region');
         has IPAddress $.ip-address is shape-member('IPAddress');
     }
-
-    subset RRType of Str where $_ ~~ any('SOA', 'A', 'TXT', 'NS', 'CNAME', 'MX', 'NAPTR', 'PTR', 'SRV', 'SPF', 'AAAA', 'CAA');
 
     class DelegationSetNotAvailable does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -1070,19 +1097,15 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has TrafficPolicyVersion $.traffic-policy-version is required is shape-member('TrafficPolicyVersion');
     }
 
-    subset ResourceDescription of Str where .chars <= 256;
-
     class ListHostedZonesByNameResponse does AWS::SDK::Shape {
         has ResourceId $.hosted-zone-id is shape-member('HostedZoneId');
         has DNSName $.dns-name is shape-member('DNSName');
-        has Array[HostedZone] $.hosted-zones is required is shape-member('HostedZones');
+        has HostedZone @.hosted-zones is required is shape-member('HostedZones');
         has Str $.max-items is required is shape-member('MaxItems');
         has DNSName $.next-dns-name is shape-member('NextDNSName');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has ResourceId $.next-hosted-zone-id is shape-member('NextHostedZoneId');
     }
-
-    subset Nameserver of Str where 0 <= .chars <= 255;
 
     class HostedZoneAlreadyExists does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -1095,7 +1118,7 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     class ListTrafficPoliciesResponse does AWS::SDK::Shape {
         has Str $.max-items is required is shape-member('MaxItems');
         has TrafficPolicyId $.traffic-policy-id-marker is required is shape-member('TrafficPolicyIdMarker');
-        has Array[TrafficPolicySummary] $.traffic-policy-summaries is required is shape-member('TrafficPolicySummaries');
+        has TrafficPolicySummary @.traffic-policy-summaries is required is shape-member('TrafficPolicySummaries');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
     }
 
@@ -1109,12 +1132,8 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has TagResourceType $.resource-type is shape-member('ResourceType');
     }
 
-    subset GeoLocationSubdivisionName of Str where 1 <= .chars <= 64;
-
     class DeleteQueryLoggingConfigResponse does AWS::SDK::Shape {
     }
-
-    subset ChangeStatus of Str where $_ ~~ any('PENDING', 'INSYNC');
 
     class CreateTrafficPolicyRequest does AWS::SDK::Shape {
         has TrafficPolicyDocument $.document is required is shape-member('Document');
@@ -1125,8 +1144,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     class HostedZoneNotEmpty does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset FullyQualifiedDomainName of Str where .chars <= 255;
 
     class DeleteHealthCheckRequest does AWS::SDK::Shape {
         has HealthCheckId $.health-check-id is required is shape-member('HealthCheckId');
@@ -1154,14 +1171,12 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     }
 
     class GetHealthCheckStatusResponse does AWS::SDK::Shape {
-        has Array[HealthCheckObservation] $.health-check-observations is required is shape-member('HealthCheckObservations');
+        has HealthCheckObservation @.health-check-observations is required is shape-member('HealthCheckObservations');
     }
 
     class ListTagsForResourceResponse does AWS::SDK::Shape {
         has ResourceTagSet $.resource-tag-set is required is shape-member('ResourceTagSet');
     }
-
-    subset Statistic of Str where $_ ~~ any('Average', 'Sum', 'SampleCount', 'Maximum', 'Minimum');
 
     class ChangeTagsForResourceResponse does AWS::SDK::Shape {
     }
@@ -1170,17 +1185,13 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Int $.traffic-policy-instance-count is required is shape-member('TrafficPolicyInstanceCount');
     }
 
-    subset PageMarker of Str where .chars <= 64;
-
     class ConcurrentModification does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
     class ListTagsForResourcesResponse does AWS::SDK::Shape {
-        has Array[ResourceTagSet] $.resource-tag-sets is required is shape-member('ResourceTagSets');
+        has ResourceTagSet @.resource-tag-sets is required is shape-member('ResourceTagSets');
     }
-
-    subset TagResourceIdList of Array[TagResourceId] where 1 <= *.elems <= 10;
 
     class InvalidVPCId does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -1193,8 +1204,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has RRType $.type is required is shape-member('Type');
         has TrafficPolicyVersion $.traffic-policy-count is required is shape-member('TrafficPolicyCount');
     }
-
-    subset HealthCheckVersion of Int where 1 <= *;
 
     class NoSuchGeoLocation does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -1211,17 +1220,13 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
     class DeleteVPCAssociationAuthorizationResponse does AWS::SDK::Shape {
     }
 
-    subset InsufficientDataHealthStatus of Str where $_ ~~ any('Healthy', 'Unhealthy', 'LastKnownStatus');
-
     class ListHealthChecksResponse does AWS::SDK::Shape {
-        has Array[HealthCheck] $.health-checks is required is shape-member('HealthChecks');
+        has HealthCheck @.health-checks is required is shape-member('HealthChecks');
         has Str $.max-items is required is shape-member('MaxItems');
         has Bool $.is-truncated is required is shape-member('IsTruncated');
         has PageMarker $.marker is required is shape-member('Marker');
         has PageMarker $.next-marker is shape-member('NextMarker');
     }
-
-    subset ResourceRecordSetIdentifier of Str where 1 <= .chars <= 128;
 
     class DelegationSet does AWS::SDK::Shape {
         has DelegationSetNameServers $.name-servers is required is shape-member('NameServers');
@@ -1251,8 +1256,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has Bool $.inverted is shape-member('Inverted');
         has IPAddress $.ip-address is shape-member('IPAddress');
     }
-
-    subset Port of Int where 1 <= * <= 65535;
 
     class GetGeoLocationRequest does AWS::SDK::Shape {
         has GeoLocationCountryCode $.country-code is shape-member('CountryCode');
@@ -1293,7 +1296,6 @@ class AWS::SDK::Service::Route53 does AWS::SDK::Service {
         has TrafficPolicyVersion $.traffic-policy-version is required is shape-member('TrafficPolicyVersion');
     }
 
-    subset Message of Str where .chars <= 1024;
 
     method update-traffic-policy-comment(
         TrafficPolicyComment :$comment!,

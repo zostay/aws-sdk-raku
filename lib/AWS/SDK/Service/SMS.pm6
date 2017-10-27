@@ -49,13 +49,32 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
     class UpdateReplicationJobResponse { ... }
     class InternalError { ... }
 
+    subset ReplicationJobState of Str where $_ eq any('PENDING', 'ACTIVE', 'FAILED', 'DELETING', 'DELETED');
+
+    subset ReplicationRunState of Str where $_ eq any('PENDING', 'MISSED', 'ACTIVE', 'FAILED', 'COMPLETED', 'DELETING', 'DELETED');
+
+    subset ServerCatalogStatus of Str where $_ eq any('NOT_IMPORTED', 'IMPORTING', 'AVAILABLE', 'DELETED', 'EXPIRED');
+
+    subset VmManagerType of Str where $_ eq any('VSPHERE');
+
+    subset ReplicationRunType of Str where $_ eq any('ON_DEMAND', 'AUTOMATIC');
+
+    subset ConnectorCapability of Str where $_ eq any('VSPHERE');
+
+    subset LicenseType of Str where $_ eq any('AWS', 'BYOL');
+
+    subset ServerType of Str where $_ eq any('VIRTUAL_MACHINE');
+
+    subset ConnectorStatus of Str where $_ eq any('HEALTHY', 'UNHEALTHY');
+
+
     class ReplicationJob does AWS::SDK::Shape {
         has LicenseType $.license-type is shape-member('licenseType');
         has VmServer $.vm-server is shape-member('vmServer');
         has Str $.latest-ami-id is shape-member('latestAmiId');
         has DateTime $.next-replication-run-start-time is shape-member('nextReplicationRunStartTime');
         has ReplicationJobState $.state is shape-member('state');
-        has Array[ReplicationRun] $.replication-run-list is shape-member('replicationRunList');
+        has ReplicationRun @.replication-run-list is shape-member('replicationRunList');
         has Str $.role-name is shape-member('roleName');
         has DateTime $.seed-replication-time is shape-member('seedReplicationTime');
         has ServerType $.server-type is shape-member('serverType');
@@ -66,8 +85,6 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
         has Str $.replication-job-id is shape-member('replicationJobId');
     }
 
-    subset ReplicationJobState of Str where $_ ~~ any('PENDING', 'ACTIVE', 'FAILED', 'DELETING', 'DELETED');
-
     class VmServer does AWS::SDK::Shape {
         has VmServerAddress $.vm-server-address is shape-member('vmServerAddress');
         has Str $.vm-path is shape-member('vmPath');
@@ -75,8 +92,6 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
         has Str $.vm-name is shape-member('vmName');
         has VmManagerType $.vm-manager-type is shape-member('vmManagerType');
     }
-
-    subset ReplicationRunState of Str where $_ ~~ any('PENDING', 'MISSED', 'ACTIVE', 'FAILED', 'COMPLETED', 'DELETING', 'DELETED');
 
     class UpdateReplicationJobRequest does AWS::SDK::Shape {
         has LicenseType $.license-type is shape-member('licenseType');
@@ -86,8 +101,6 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
         has Int $.frequency is shape-member('frequency');
         has Str $.replication-job-id is required is shape-member('replicationJobId');
     }
-
-    subset ServerCatalogStatus of Str where $_ ~~ any('NOT_IMPORTED', 'IMPORTING', 'AVAILABLE', 'DELETED', 'EXPIRED');
 
     class Server does AWS::SDK::Shape {
         has VmServer $.vm-server is shape-member('vmServer');
@@ -124,7 +137,7 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
 
     class GetReplicationJobsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[ReplicationJob] $.replication-job-list is shape-member('replicationJobList');
+        has ReplicationJob @.replication-job-list is shape-member('replicationJobList');
     }
 
     class ReplicationJobAlreadyExistsException does AWS::SDK::Shape {
@@ -137,7 +150,7 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
     class GetServersResponse does AWS::SDK::Shape {
         has ServerCatalogStatus $.server-catalog-status is shape-member('serverCatalogStatus');
         has Str $.next-token is shape-member('nextToken');
-        has Array[Server] $.server-list is shape-member('serverList');
+        has Server @.server-list is shape-member('serverList');
         has DateTime $.last-modified-on is shape-member('lastModifiedOn');
     }
 
@@ -152,15 +165,13 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
         has Str $.connector-id is required is shape-member('connectorId');
     }
 
-    subset VmManagerType of Str where $_ ~~ any('VSPHERE');
-
     class UnauthorizedOperationException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
     class Connector does AWS::SDK::Shape {
         has ConnectorStatus $.status is shape-member('status');
-        has Array[ConnectorCapability] $.capability-list is shape-member('capabilityList');
+        has ConnectorCapability @.capability-list is shape-member('capabilityList');
         has Str $.vm-manager-id is shape-member('vmManagerId');
         has Str $.vm-manager-name is shape-member('vmManagerName');
         has VmManagerType $.vm-manager-type is shape-member('vmManagerType');
@@ -175,15 +186,9 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ReplicationRunType of Str where $_ ~~ any('ON_DEMAND', 'AUTOMATIC');
-
-    subset ConnectorCapability of Str where $_ ~~ any('VSPHERE');
-
     class InvalidParameterException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset LicenseType of Str where $_ ~~ any('AWS', 'BYOL');
 
     class GetReplicationJobsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('maxResults');
@@ -210,10 +215,6 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ServerType of Str where $_ ~~ any('VIRTUAL_MACHINE');
-
-    subset ConnectorStatus of Str where $_ ~~ any('HEALTHY', 'UNHEALTHY');
-
     class CreateReplicationJobRequest does AWS::SDK::Shape {
         has LicenseType $.license-type is shape-member('licenseType');
         has Str $.role-name is shape-member('roleName');
@@ -226,7 +227,7 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
     class GetReplicationRunsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
         has ReplicationJob $.replication-job is shape-member('replicationJob');
-        has Array[ReplicationRun] $.replication-run-list is shape-member('replicationRunList');
+        has ReplicationRun @.replication-run-list is shape-member('replicationRunList');
     }
 
     class ReplicationRun does AWS::SDK::Shape {
@@ -242,7 +243,7 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
 
     class GetConnectorsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Connector] $.connector-list is shape-member('connectorList');
+        has Connector @.connector-list is shape-member('connectorList');
     }
 
     class CreateReplicationJobResponse does AWS::SDK::Shape {
@@ -273,6 +274,7 @@ class AWS::SDK::Service::SMS does AWS::SDK::Service {
     class InternalError does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
+
 
     method update-replication-job(
         LicenseType :$license-type,

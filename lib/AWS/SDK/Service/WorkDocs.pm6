@@ -118,8 +118,123 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     class EntityNotExistsException { ... }
     class FolderMetadata { ... }
 
+    subset UserSortType of Str where $_ eq any('USER_NAME', 'FULL_NAME', 'STORAGE_LIMIT', 'USER_STATUS', 'STORAGE_USED');
+
+    subset DocumentContentType of Str where 1 <= .chars <= 128;
+
+    subset RoleType of Str where $_ eq any('VIEWER', 'CONTRIBUTOR', 'OWNER', 'COOWNER');
+
+    subset CommentIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+-.@]+/;
+
+    subset DocumentVersionIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+-.@]+/;
+
+    subset Labels of Array[Label] where *.elems <= 20;
+
+    subset SearchQueryType of Str where 1 <= .chars <= 512 && rx:P5/[\u0020-\uFFFF]+/;
+
+    subset SubscriptionList of Array[Subscription] where *.elems <= 256;
+
+    subset DocumentStatusType of Str where $_ eq any('INITIALIZED', 'ACTIVE');
+
+    subset FolderContentType of Str where $_ eq any('ALL', 'DOCUMENT', 'FOLDER');
+
+    subset CommentVisibilityType of Str where $_ eq any('PUBLIC', 'PRIVATE');
+
+    subset CustomMetadataValueType of Str where 1 <= .chars <= 256 && rx:P5/[a-zA-Z0-9._+-\/=][a-zA-Z0-9 ._+-\/=]*/;
+
+    subset RolePermissionType of Str where $_ eq any('DIRECT', 'INHERITED');
+
+    subset DocumentThumbnailType of Str where $_ eq any('SMALL', 'SMALL_HQ', 'LARGE');
+
+    subset SubscriptionProtocolType of Str where $_ eq any('HTTPS');
+
+    subset SubscriptionEndPointType of Str where 1 <= .chars <= 256;
+
+    subset LocaleType of Str where $_ eq any('en', 'fr', 'ko', 'de', 'es', 'ja', 'ru', 'zh_CN', 'zh_TW', 'pt_BR', 'default');
+
+    subset PositiveSizeType of Int where 0 <= *;
+
+    subset CustomMetadataKeyType of Str where 1 <= .chars <= 56 && rx:P5/[a-zA-Z0-9._+-\/=][a-zA-Z0-9 ._+-\/=]*/;
+
+    subset MessageType of Str where 0 <= .chars <= 2048;
+
+    subset UserStatusType of Str where $_ eq any('ACTIVE', 'INACTIVE', 'PENDING');
+
+    subset ResourceType of Str where $_ eq any('FOLDER', 'DOCUMENT');
+
+    subset HeaderNameType of Str where 1 <= .chars <= 256 && rx:P5/[\w-]+/;
+
+    subset HeaderValueType of Str where 1 <= .chars <= 1024;
+
+    subset CommentStatusType of Str where $_ eq any('DRAFT', 'PUBLISHED', 'DELETED');
+
+    subset PrincipalType of Str where $_ eq any('USER', 'GROUP', 'INVITE', 'ANONYMOUS', 'ORGANIZATION');
+
+    subset ResourceNameType of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\u202D\u202F-\uFFFF]+/;
+
+    subset EmailAddressType of Str where 1 <= .chars <= 256 && rx:P5/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+
+    subset MarkerType of Str where 1 <= .chars <= 2048 && rx:P5/[\u0000-\u00FF]+/;
+
+    subset FieldNamesType of Str where 1 <= .chars <= 256 && rx:P5/[\w,]+/;
+
+    subset PasswordType of Str where 4 <= .chars <= 32 && rx:P5/[\u0020-\u00FF]+/;
+
+    subset ShareStatusType of Str where $_ eq any('SUCCESS', 'FAILURE');
+
+    subset AuthenticationHeaderType of Str where 1 <= .chars <= 8199;
+
+    subset LimitType of Int where 1 <= * <= 999;
+
+    subset StorageType of Str where $_ eq any('UNLIMITED', 'QUOTA');
+
+    subset HashType of Str where 0 <= .chars <= 128 && rx:P5/[&\w+-.@]+/;
+
+    subset Label of Str where 1 <= .chars <= 32 && rx:P5/[a-zA-Z0-9._+-\/=][a-zA-Z0-9 ._+-\/=]*/;
+
+    subset UserFilterType of Str where $_ eq any('ALL', 'ACTIVE_PENDING');
+
+    subset CustomMetadataKeyList of Array[CustomMetadataKeyType] where *.elems <= 8;
+
+    subset DocumentVersionStatus of Str where $_ eq any('ACTIVE');
+
+    subset UserType of Str where $_ eq any('USER', 'ADMIN');
+
+    subset ResourceIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+-.@]+/;
+
+    subset UserAttributeValueType of Str where 1 <= .chars <= 64;
+
+    subset ActivityType of Str where $_ eq any('DOCUMENT_CHECKED_IN', 'DOCUMENT_CHECKED_OUT', 'DOCUMENT_RENAMED', 'DOCUMENT_VERSION_UPLOADED', 'DOCUMENT_VERSION_DELETED', 'DOCUMENT_RECYCLED', 'DOCUMENT_RESTORED', 'DOCUMENT_REVERTED', 'DOCUMENT_SHARED', 'DOCUMENT_UNSHARED', 'DOCUMENT_SHARE_PERMISSION_CHANGED', 'DOCUMENT_SHAREABLE_LINK_CREATED', 'DOCUMENT_SHAREABLE_LINK_REMOVED', 'DOCUMENT_SHAREABLE_LINK_PERMISSION_CHANGED', 'DOCUMENT_MOVED', 'DOCUMENT_COMMENT_ADDED', 'DOCUMENT_COMMENT_DELETED', 'DOCUMENT_ANNOTATION_ADDED', 'DOCUMENT_ANNOTATION_DELETED', 'FOLDER_CREATED', 'FOLDER_DELETED', 'FOLDER_RENAMED', 'FOLDER_RECYCLED', 'FOLDER_RESTORED', 'FOLDER_SHARED', 'FOLDER_UNSHARED', 'FOLDER_SHARE_PERMISSION_CHANGED', 'FOLDER_SHAREABLE_LINK_CREATED', 'FOLDER_SHAREABLE_LINK_REMOVED', 'FOLDER_SHAREABLE_LINK_PERMISSION_CHANGED', 'FOLDER_MOVED');
+
+    subset UsernameType of Str where 1 <= .chars <= 256 && rx:P5/[\w\-+.]+(@[a-zA-Z0-9.\-]+\.[a-zA-Z]+)?/;
+
+    subset TimeZoneIdType of Str where 1 <= .chars <= 256;
+
+    subset SubscriptionType of Str where $_ eq any('ALL');
+
+    subset CommentTextType of Str where 1 <= .chars <= 2048;
+
+    subset OrderType of Str where $_ eq any('ASCENDING', 'DESCENDING');
+
+    subset PageMarkerType of Str where 1 <= .chars <= 2048;
+
+    subset UserIdsType of Str where 1 <= .chars <= 2000 && rx:P5/[&\w+-.@, ]+/;
+
+    subset UrlType of Str where 1 <= .chars <= 1024;
+
+    subset ResourceStateType of Str where $_ eq any('ACTIVE', 'RESTORING', 'RECYCLING', 'RECYCLED');
+
+    subset CustomMetadataMap of Hash[CustomMetadataValueType, CustomMetadataKeyType] where 1 <= *.elems <= 8;
+
+    subset ResourceSortType of Str where $_ eq any('DATE', 'NAME');
+
+    subset DocumentSourceType of Str where $_ eq any('ORIGINAL', 'WITH_COMMENTS');
+
+    subset IdType of Str where 1 <= .chars <= 256 && rx:P5/[&\w+-.@]+/;
+
+
     class GetDocumentVersionResponse does AWS::SDK::Shape {
-        has CustomMetadataMap $.custom-metadata is shape-member('CustomMetadata');
+        has CustomMetadataValueType $.custom-metadata{CustomMetadataKeyType} is shape-member('CustomMetadata');
         has DocumentVersionMetadata $.metadata is shape-member('Metadata');
     }
 
@@ -133,8 +248,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has ResourceIdType $.parent-folder-id is required is shape-member('ParentFolderId');
         has ResourceNameType $.name is shape-member('Name');
     }
-
-    subset UserSortType of Str where $_ ~~ any('USER_NAME', 'FULL_NAME', 'STORAGE_LIMIT', 'USER_STATUS', 'STORAGE_USED');
 
     class UpdateUserResponse does AWS::SDK::Shape {
         has User $.user is shape-member('User');
@@ -166,7 +279,7 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     }
 
     class AddResourcePermissionsResponse does AWS::SDK::Shape {
-        has Array[ShareResult] $.share-results is shape-member('ShareResults');
+        has ShareResult @.share-results is shape-member('ShareResults');
     }
 
     class DeleteLabelsRequest does AWS::SDK::Shape {
@@ -184,19 +297,13 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has ResourceIdType $.document-id is required is shape-member('DocumentId');
     }
 
-    subset DocumentContentType of Str where 1 <= .chars <= 128;
-
-    subset RoleType of Str where $_ ~~ any('VIEWER', 'CONTRIBUTOR', 'OWNER', 'COOWNER');
-
     class CreateUserResponse does AWS::SDK::Shape {
         has User $.user is shape-member('User');
     }
 
-    subset CommentIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+-.@]+/;
-
     class AddResourcePermissionsRequest does AWS::SDK::Shape {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
-        has Array[SharePrincipal] $.principals is required is shape-member('Principals');
+        has SharePrincipal @.principals is required is shape-member('Principals');
         has ResourceIdType $.resource-id is required is shape-member('ResourceId');
     }
 
@@ -204,12 +311,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
         has IdType $.user-id is required is shape-member('UserId');
     }
-
-    subset DocumentVersionIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+-.@]+/;
-
-    subset Labels of Array[Label] where *.elems <= 20;
-
-    subset SearchQueryType of Str where 1 <= .chars <= 512 && rx:P5/[\u0020-\uFFFF]+/;
 
     class ResourceAlreadyCheckedOutException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -221,7 +322,7 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
 
     class Principal does AWS::SDK::Shape {
         has IdType $.id is shape-member('Id');
-        has Array[PermissionInfo] $.roles is shape-member('Roles');
+        has PermissionInfo @.roles is shape-member('Roles');
         has PrincipalType $.type is shape-member('Type');
     }
 
@@ -268,12 +369,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has EmailAddressType $.email-address is shape-member('EmailAddress');
     }
 
-    subset SubscriptionList of Array[Subscription] where *.elems <= 256;
-
-    subset DocumentStatusType of Str where $_ ~~ any('INITIALIZED', 'ACTIVE');
-
-    subset FolderContentType of Str where $_ ~~ any('ALL', 'DOCUMENT', 'FOLDER');
-
     class UserStorageMetadata does AWS::SDK::Shape {
         has StorageRuleType $.storage-rule is shape-member('StorageRule');
         has Int $.storage-utilized-in-bytes is shape-member('StorageUtilizedInBytes');
@@ -281,10 +376,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
 
     class UnauthorizedOperationException does AWS::SDK::Shape {
     }
-
-    subset CommentVisibilityType of Str where $_ ~~ any('PUBLIC', 'PRIVATE');
-
-    subset CustomMetadataValueType of Str where 1 <= .chars <= 256 && rx:P5/[a-zA-Z0-9._+-\/=][a-zA-Z0-9 ._+-\/=]*/;
 
     class DescribeFolderContentsRequest does AWS::SDK::Shape {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
@@ -305,8 +396,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has ResourceIdType $.document-id is required is shape-member('DocumentId');
     }
 
-    subset RolePermissionType of Str where $_ ~~ any('DIRECT', 'INHERITED');
-
     class DescribeActivitiesRequest does AWS::SDK::Shape {
         has IdType $.organization-id is shape-member('OrganizationId');
         has DateTime $.end-time is shape-member('EndTime');
@@ -317,14 +406,12 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has MarkerType $.marker is shape-member('Marker');
     }
 
-    subset DocumentThumbnailType of Str where $_ ~~ any('SMALL', 'SMALL_HQ', 'LARGE');
-
     class DraftUploadOutOfSyncException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
 
     class GetFolderResponse does AWS::SDK::Shape {
-        has CustomMetadataMap $.custom-metadata is shape-member('CustomMetadata');
+        has CustomMetadataValueType $.custom-metadata{CustomMetadataKeyType} is shape-member('CustomMetadata');
         has FolderMetadata $.metadata is shape-member('Metadata');
     }
 
@@ -335,10 +422,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has ResourceIdType $.document-id is required is shape-member('DocumentId');
     }
 
-    subset SubscriptionProtocolType of Str where $_ ~~ any('HTTPS');
-
-    subset SubscriptionEndPointType of Str where 1 <= .chars <= 256;
-
     class CreateLabelsResponse does AWS::SDK::Shape {
     }
 
@@ -346,8 +429,8 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     }
 
     class DescribeFolderContentsResponse does AWS::SDK::Shape {
-        has Array[FolderMetadata] $.folders is shape-member('Folders');
-        has Array[DocumentMetadata] $.documents is shape-member('Documents');
+        has FolderMetadata @.folders is shape-member('Folders');
+        has DocumentMetadata @.documents is shape-member('Documents');
         has PageMarkerType $.marker is shape-member('Marker');
     }
 
@@ -358,24 +441,14 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has PageMarkerType $.marker is shape-member('Marker');
     }
 
-    subset LocaleType of Str where $_ ~~ any('en', 'fr', 'ko', 'de', 'es', 'ja', 'ru', 'zh_CN', 'zh_TW', 'pt_BR', 'default');
-
-    subset PositiveSizeType of Int where 0 <= *;
-
     class UploadMetadata does AWS::SDK::Shape {
-        has Hash[HeaderValueType, HeaderNameType] $.signed-headers is shape-member('SignedHeaders');
+        has HeaderValueType %.signed-headers{HeaderNameType} is shape-member('SignedHeaders');
         has UrlType $.upload-url is shape-member('UploadUrl');
     }
 
     class CustomMetadataLimitExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset CustomMetadataKeyType of Str where 1 <= .chars <= 56 && rx:P5/[a-zA-Z0-9._+-\/=][a-zA-Z0-9 ._+-\/=]*/;
-
-    subset MessageType of Str where 0 <= .chars <= 2048;
-
-    subset UserStatusType of Str where $_ ~~ any('ACTIVE', 'INACTIVE', 'PENDING');
 
     class ServiceUnavailableException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -395,7 +468,7 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     }
 
     class DescribeActivitiesResponse does AWS::SDK::Shape {
-        has Array[Activity] $.user-activities is shape-member('UserActivities');
+        has Activity @.user-activities is shape-member('UserActivities');
         has MarkerType $.marker is shape-member('Marker');
     }
 
@@ -409,7 +482,7 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     }
 
     class DescribeUsersResponse does AWS::SDK::Shape {
-        has Array[User] $.users is shape-member('Users');
+        has User @.users is shape-member('Users');
         has PageMarkerType $.marker is shape-member('Marker');
         has Int $.total-number-of-users is shape-member('TotalNumberOfUsers');
     }
@@ -442,8 +515,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has EmailAddressType $.email-address is shape-member('EmailAddress');
     }
 
-    subset ResourceType of Str where $_ ~~ any('FOLDER', 'DOCUMENT');
-
     class DeactivateUserRequest does AWS::SDK::Shape {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
         has IdType $.user-id is required is shape-member('UserId');
@@ -464,8 +535,8 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     }
 
     class Participants does AWS::SDK::Shape {
-        has Array[UserMetadata] $.users is shape-member('Users');
-        has Array[GroupMetadata] $.groups is shape-member('Groups');
+        has UserMetadata @.users is shape-member('Users');
+        has GroupMetadata @.groups is shape-member('Groups');
     }
 
     class Activity does AWS::SDK::Shape {
@@ -478,10 +549,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has ActivityType $.type is shape-member('Type');
         has ResourceMetadata $.resource-metadata is shape-member('ResourceMetadata');
     }
-
-    subset HeaderNameType of Str where 1 <= .chars <= 256 && rx:P5/[\w-]+/;
-
-    subset HeaderValueType of Str where 1 <= .chars <= 1024;
 
     class InitiateDocumentVersionUploadResponse does AWS::SDK::Shape {
         has UploadMetadata $.upload-metadata is shape-member('UploadMetadata');
@@ -498,8 +565,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has ResourceNameType $.original-name is shape-member('OriginalName');
     }
 
-    subset CommentStatusType of Str where $_ ~~ any('DRAFT', 'PUBLISHED', 'DELETED');
-
     class DeactivatingLastSystemUserException does AWS::SDK::Shape {
     }
 
@@ -508,8 +573,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has LimitType $.limit is shape-member('Limit');
         has PageMarkerType $.marker is shape-member('Marker');
     }
-
-    subset PrincipalType of Str where $_ ~~ any('USER', 'GROUP', 'INVITE', 'ANONYMOUS', 'ORGANIZATION');
 
     class UpdateUserRequest does AWS::SDK::Shape {
         has TimeZoneIdType $.time-zone-id is shape-member('TimeZoneId');
@@ -529,8 +592,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     class StorageLimitExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset ResourceNameType of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\u202D\u202F-\uFFFF]+/;
 
     class RemoveAllResourcePermissionsRequest does AWS::SDK::Shape {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
@@ -553,9 +614,9 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     }
 
     class DocumentVersionMetadata does AWS::SDK::Shape {
-        has Hash[UrlType, DocumentThumbnailType] $.thumbnail is shape-member('Thumbnail');
+        has UrlType %.thumbnail{DocumentThumbnailType} is shape-member('Thumbnail');
         has DateTime $.modified-timestamp is shape-member('ModifiedTimestamp');
-        has Hash[UrlType, DocumentSourceType] $.source is shape-member('Source');
+        has UrlType %.source{DocumentSourceType} is shape-member('Source');
         has HashType $.signature is shape-member('Signature');
         has DateTime $.content-created-timestamp is shape-member('ContentCreatedTimestamp');
         has DateTime $.content-modified-timestamp is shape-member('ContentModifiedTimestamp');
@@ -568,29 +629,19 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has Int $.size is shape-member('Size');
     }
 
-    subset EmailAddressType of Str where 1 <= .chars <= 256 && rx:P5/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
-
-    subset MarkerType of Str where 1 <= .chars <= 2048 && rx:P5/[\u0000-\u00FF]+/;
-
     class SharePrincipal does AWS::SDK::Shape {
         has RoleType $.role is required is shape-member('Role');
         has IdType $.id is required is shape-member('Id');
         has PrincipalType $.type is required is shape-member('Type');
     }
 
-    subset FieldNamesType of Str where 1 <= .chars <= 256 && rx:P5/[\w,]+/;
-
     class LimitExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
 
-    subset PasswordType of Str where 4 <= .chars <= 32 && rx:P5/[\u0020-\u00FF]+/;
-
     class StorageLimitWillExceedException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset ShareStatusType of Str where $_ ~~ any('SUCCESS', 'FAILURE');
 
     class DocumentMetadata does AWS::SDK::Shape {
         has ResourceStateType $.resource-state is shape-member('ResourceState');
@@ -639,15 +690,9 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has CommentIdType $.comment-id is required is shape-member('CommentId');
     }
 
-    subset AuthenticationHeaderType of Str where 1 <= .chars <= 8199;
-
     class GetFolderPathResponse does AWS::SDK::Shape {
         has ResourcePath $.path is shape-member('Path');
     }
-
-    subset LimitType of Int where 1 <= * <= 999;
-
-    subset StorageType of Str where $_ ~~ any('UNLIMITED', 'QUOTA');
 
     class CreateFolderRequest does AWS::SDK::Shape {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
@@ -660,15 +705,9 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     }
 
     class DescribeDocumentVersionsResponse does AWS::SDK::Shape {
-        has Array[DocumentVersionMetadata] $.document-versions is shape-member('DocumentVersions');
+        has DocumentVersionMetadata @.document-versions is shape-member('DocumentVersions');
         has PageMarkerType $.marker is shape-member('Marker');
     }
-
-    subset HashType of Str where 0 <= .chars <= 128 && rx:P5/[&\w+-.@]+/;
-
-    subset Label of Str where 1 <= .chars <= 32 && rx:P5/[a-zA-Z0-9._+-\/=][a-zA-Z0-9 ._+-\/=]*/;
-
-    subset UserFilterType of Str where $_ ~~ any('ALL', 'ACTIVE_PENDING');
 
     class UpdateFolderRequest does AWS::SDK::Shape {
         has ResourceStateType $.resource-state is shape-member('ResourceState');
@@ -678,11 +717,9 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has ResourceNameType $.name is shape-member('Name');
     }
 
-    subset CustomMetadataKeyList of Array[CustomMetadataKeyType] where *.elems <= 8;
-
     class CreateCustomMetadataRequest does AWS::SDK::Shape {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
-        has CustomMetadataMap $.custom-metadata is required is shape-member('CustomMetadata');
+        has CustomMetadataValueType $.custom-metadata{CustomMetadataKeyType} is required is shape-member('CustomMetadata');
         has ResourceIdType $.resource-id is required is shape-member('ResourceId');
         has DocumentVersionIdType $.version-id is shape-member('VersionId');
     }
@@ -695,8 +732,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has SubscriptionList $.subscriptions is shape-member('Subscriptions');
         has PageMarkerType $.marker is shape-member('Marker');
     }
-
-    subset DocumentVersionStatus of Str where $_ ~~ any('ACTIVE');
 
     class GetDocumentVersionRequest does AWS::SDK::Shape {
         has FieldNamesType $.fields is shape-member('Fields');
@@ -711,7 +746,7 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     }
 
     class DescribeRootFoldersResponse does AWS::SDK::Shape {
-        has Array[FolderMetadata] $.folders is shape-member('Folders');
+        has FolderMetadata @.folders is shape-member('Folders');
         has PageMarkerType $.marker is shape-member('Marker');
     }
 
@@ -721,14 +756,10 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has Bool $.include-custom-metadata is shape-member('IncludeCustomMetadata');
     }
 
-    subset UserType of Str where $_ ~~ any('USER', 'ADMIN');
-
     class StorageRuleType does AWS::SDK::Shape {
         has PositiveSizeType $.storage-allocated-in-bytes is shape-member('StorageAllocatedInBytes');
         has StorageType $.storage-type is shape-member('StorageType');
     }
-
-    subset ResourceIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+-.@]+/;
 
     class EntityAlreadyExistsException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -739,13 +770,9 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     }
 
     class GetDocumentResponse does AWS::SDK::Shape {
-        has CustomMetadataMap $.custom-metadata is shape-member('CustomMetadata');
+        has CustomMetadataValueType $.custom-metadata{CustomMetadataKeyType} is shape-member('CustomMetadata');
         has DocumentMetadata $.metadata is shape-member('Metadata');
     }
-
-    subset UserAttributeValueType of Str where 1 <= .chars <= 64;
-
-    subset ActivityType of Str where $_ ~~ any('DOCUMENT_CHECKED_IN', 'DOCUMENT_CHECKED_OUT', 'DOCUMENT_RENAMED', 'DOCUMENT_VERSION_UPLOADED', 'DOCUMENT_VERSION_DELETED', 'DOCUMENT_RECYCLED', 'DOCUMENT_RESTORED', 'DOCUMENT_REVERTED', 'DOCUMENT_SHARED', 'DOCUMENT_UNSHARED', 'DOCUMENT_SHARE_PERMISSION_CHANGED', 'DOCUMENT_SHAREABLE_LINK_CREATED', 'DOCUMENT_SHAREABLE_LINK_REMOVED', 'DOCUMENT_SHAREABLE_LINK_PERMISSION_CHANGED', 'DOCUMENT_MOVED', 'DOCUMENT_COMMENT_ADDED', 'DOCUMENT_COMMENT_DELETED', 'DOCUMENT_ANNOTATION_ADDED', 'DOCUMENT_ANNOTATION_DELETED', 'FOLDER_CREATED', 'FOLDER_DELETED', 'FOLDER_RENAMED', 'FOLDER_RECYCLED', 'FOLDER_RESTORED', 'FOLDER_SHARED', 'FOLDER_UNSHARED', 'FOLDER_SHARE_PERMISSION_CHANGED', 'FOLDER_SHAREABLE_LINK_CREATED', 'FOLDER_SHAREABLE_LINK_REMOVED', 'FOLDER_SHAREABLE_LINK_PERMISSION_CHANGED', 'FOLDER_MOVED');
 
     class DeleteCommentRequest does AWS::SDK::Shape {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
@@ -754,18 +781,10 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has CommentIdType $.comment-id is required is shape-member('CommentId');
     }
 
-    subset UsernameType of Str where 1 <= .chars <= 256 && rx:P5/[\w\-+.]+(@[a-zA-Z0-9.\-]+\.[a-zA-Z]+)?/;
-
-    subset TimeZoneIdType of Str where 1 <= .chars <= 256;
-
     class DeleteFolderRequest does AWS::SDK::Shape {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
         has ResourceIdType $.folder-id is required is shape-member('FolderId');
     }
-
-    subset SubscriptionType of Str where $_ ~~ any('ALL');
-
-    subset CommentTextType of Str where 1 <= .chars <= 2048;
 
     class AbortDocumentVersionUploadRequest does AWS::SDK::Shape {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
@@ -777,23 +796,13 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset OrderType of Str where $_ ~~ any('ASCENDING', 'DESCENDING');
-
-    subset PageMarkerType of Str where 1 <= .chars <= 2048;
-
-    subset UserIdsType of Str where 1 <= .chars <= 2000 && rx:P5/[&\w+-.@, ]+/;
-
-    subset UrlType of Str where 1 <= .chars <= 1024;
-
-    subset ResourceStateType of Str where $_ ~~ any('ACTIVE', 'RESTORING', 'RECYCLING', 'RECYCLED');
-
     class ResourcePathComponent does AWS::SDK::Shape {
         has IdType $.id is shape-member('Id');
         has ResourceNameType $.name is shape-member('Name');
     }
 
     class DescribeResourcePermissionsResponse does AWS::SDK::Shape {
-        has Array[Principal] $.principals is shape-member('Principals');
+        has Principal @.principals is shape-member('Principals');
         has PageMarkerType $.marker is shape-member('Marker');
     }
 
@@ -819,7 +828,7 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
     }
 
     class ResourcePath does AWS::SDK::Shape {
-        has Array[ResourcePathComponent] $.components is shape-member('Components');
+        has ResourcePathComponent @.components is shape-member('Components');
     }
 
     class ActivateUserRequest does AWS::SDK::Shape {
@@ -827,14 +836,12 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has IdType $.user-id is required is shape-member('UserId');
     }
 
-    subset CustomMetadataMap of Hash[CustomMetadataValueType, CustomMetadataKeyType] where 1 <= *.elems <= 8;
-
     class DeleteCustomMetadataResponse does AWS::SDK::Shape {
     }
 
     class DescribeCommentsResponse does AWS::SDK::Shape {
         has MarkerType $.marker is shape-member('Marker');
-        has Array[Comment] $.comments is shape-member('Comments');
+        has Comment @.comments is shape-member('Comments');
     }
 
     class RemoveResourcePermissionRequest does AWS::SDK::Shape {
@@ -854,8 +861,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has ResourceIdType $.resource-id is required is shape-member('ResourceId');
     }
 
-    subset ResourceSortType of Str where $_ ~~ any('DATE', 'NAME');
-
     class DeleteCustomMetadataRequest does AWS::SDK::Shape {
         has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
         has ResourceIdType $.resource-id is required is shape-member('ResourceId');
@@ -864,10 +869,8 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has Bool $.delete-all is shape-member('DeleteAll');
     }
 
-    subset DocumentSourceType of Str where $_ ~~ any('ORIGINAL', 'WITH_COMMENTS');
-
     class EntityNotExistsException does AWS::SDK::Shape {
-        has Array[IdType] $.entity-ids is shape-member('EntityIds');
+        has IdType @.entity-ids is shape-member('EntityIds');
         has Str $.message is shape-member('Message');
     }
 
@@ -885,7 +888,6 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
         has Int $.latest-version-size is shape-member('LatestVersionSize');
     }
 
-    subset IdType of Str where 1 <= .chars <= 256 && rx:P5/[&\w+-.@]+/;
 
     method get-document(
         AuthenticationHeaderType :$authentication-token,
@@ -1563,7 +1565,7 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
 
     method create-custom-metadata(
         AuthenticationHeaderType :$authentication-token,
-        CustomMetadataMap :$custom-metadata!,
+        CustomMetadataValueType :$custom-metadata!,
         ResourceIdType :$resource-id!,
         DocumentVersionIdType :$version-id
     ) returns CreateCustomMetadataResponse is service-operation('CreateCustomMetadata') {
@@ -1637,12 +1639,12 @@ class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
 
     method add-resource-permissions(
         AuthenticationHeaderType :$authentication-token,
-        Array[SharePrincipal] :$principals!,
+        SharePrincipal :@principals!,
         ResourceIdType :$resource-id!
     ) returns AddResourcePermissionsResponse is service-operation('AddResourcePermissions') {
         my $request-input = AddResourcePermissionsRequest.new(
             :$authentication-token,
-            :$principals,
+            :@principals,
             :$resource-id
         );
 

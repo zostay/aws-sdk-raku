@@ -92,8 +92,17 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     class SubnetGroupQuotaExceededFault { ... }
     class DescribeParametersRequest { ... }
 
+    subset IsModifiable of Str where $_ eq any('TRUE', 'FALSE', 'CONDITIONAL');
+
+    subset ParameterType of Str where $_ eq any('DEFAULT', 'NODE_TYPE_SPECIFIC');
+
+    subset ChangeType of Str where $_ eq any('IMMEDIATE', 'REQUIRES_REBOOT');
+
+    subset SourceType of Str where $_ eq any('CLUSTER', 'PARAMETER_GROUP', 'SUBNET_GROUP');
+
+
     class TagResourceResponse does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
     }
 
     class DescribeDefaultParametersRequest does AWS::SDK::Shape {
@@ -110,7 +119,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     class ParameterGroupStatus does AWS::SDK::Shape {
         has Str $.parameter-apply-status is shape-member('ParameterApplyStatus');
         has Str $.parameter-group-name is shape-member('ParameterGroupName');
-        has Array[Str] $.node-ids-to-reboot is shape-member('NodeIdsToReboot');
+        has Str @.node-ids-to-reboot is shape-member('NodeIdsToReboot');
     }
 
     class DeleteClusterResponse does AWS::SDK::Shape {
@@ -122,7 +131,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     class ListTagsResponse does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -139,7 +148,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     class SubnetGroup does AWS::SDK::Shape {
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[Subnet] $.subnets is shape-member('Subnets');
+        has Subnet @.subnets is shape-member('Subnets');
         has Str $.description is shape-member('Description');
         has Str $.subnet-group-name is shape-member('SubnetGroupName');
     }
@@ -149,12 +158,10 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
         has Str $.security-group-identifier is shape-member('SecurityGroupIdentifier');
     }
 
-    subset IsModifiable of Str where $_ ~~ any('TRUE', 'FALSE', 'CONDITIONAL');
-
     class DecreaseReplicationFactorRequest does AWS::SDK::Shape {
         has Int $.new-replication-factor is required is shape-member('NewReplicationFactor');
-        has Array[Str] $.availability-zones is shape-member('AvailabilityZones');
-        has Array[Str] $.node-ids-to-remove is shape-member('NodeIdsToRemove');
+        has Str @.availability-zones is shape-member('AvailabilityZones');
+        has Str @.node-ids-to-remove is shape-member('NodeIdsToRemove');
         has Str $.cluster-name is required is shape-member('ClusterName');
     }
 
@@ -215,7 +222,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     class DescribeParametersResponse does AWS::SDK::Shape {
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -226,7 +233,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     class DescribeClustersRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.cluster-names is shape-member('ClusterNames');
+        has Str @.cluster-names is shape-member('ClusterNames');
     }
 
     class IncreaseReplicationFactorResponse does AWS::SDK::Shape {
@@ -241,11 +248,11 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     class UntagResourceResponse does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
     }
 
     class DescribeDefaultParametersResponse does AWS::SDK::Shape {
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -256,7 +263,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     class DescribeParameterGroupsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.parameter-group-names is shape-member('ParameterGroupNames');
+        has Str @.parameter-group-names is shape-member('ParameterGroupNames');
     }
 
     class DeleteSubnetGroupRequest does AWS::SDK::Shape {
@@ -265,7 +272,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     class Cluster does AWS::SDK::Shape {
         has Str $.iam-role-arn is shape-member('IamRoleArn');
-        has Array[SecurityGroupMembership] $.security-groups is shape-member('SecurityGroups');
+        has SecurityGroupMembership @.security-groups is shape-member('SecurityGroups');
         has Endpoint $.cluster-discovery-endpoint is shape-member('ClusterDiscoveryEndpoint');
         has Int $.active-nodes is shape-member('ActiveNodes');
         has Int $.total-nodes is shape-member('TotalNodes');
@@ -274,8 +281,8 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
         has NotificationConfiguration $.notification-configuration is shape-member('NotificationConfiguration');
         has ParameterGroupStatus $.parameter-group is shape-member('ParameterGroup');
         has Str $.subnet-group is shape-member('SubnetGroup');
-        has Array[Node] $.nodes is shape-member('Nodes');
-        has Array[Str] $.node-ids-to-remove is shape-member('NodeIdsToRemove');
+        has Node @.nodes is shape-member('Nodes');
+        has Str @.node-ids-to-remove is shape-member('NodeIdsToRemove');
         has Str $.status is shape-member('Status');
         has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
         has Str $.cluster-name is shape-member('ClusterName');
@@ -302,13 +309,11 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     class UntagResourceRequest does AWS::SDK::Shape {
         has Str $.resource-name is required is shape-member('ResourceName');
-        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.tag-keys is required is shape-member('TagKeys');
     }
 
-    subset ParameterType of Str where $_ ~~ any('DEFAULT', 'NODE_TYPE_SPECIFIC');
-
     class UpdateParameterGroupRequest does AWS::SDK::Shape {
-        has Array[ParameterNameValue] $.parameter-name-values is required is shape-member('ParameterNameValues');
+        has ParameterNameValue @.parameter-name-values is required is shape-member('ParameterNameValues');
         has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
     }
 
@@ -320,7 +325,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     class DescribeClustersResponse does AWS::SDK::Shape {
-        has Array[Cluster] $.clusters is shape-member('Clusters');
+        has Cluster @.clusters is shape-member('Clusters');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -332,7 +337,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     class DescribeSubnetGroupsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
-        has Array[Str] $.subnet-group-names is shape-member('SubnetGroupNames');
+        has Str @.subnet-group-names is shape-member('SubnetGroupNames');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -345,8 +350,6 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
         has Int $.port is shape-member('Port');
     }
 
-    subset ChangeType of Str where $_ ~~ any('IMMEDIATE', 'REQUIRES_REBOOT');
-
     class ParameterGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
@@ -356,7 +359,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     class DescribeParameterGroupsResponse does AWS::SDK::Shape {
-        has Array[ParameterGroup] $.parameter-groups is shape-member('ParameterGroups');
+        has ParameterGroup @.parameter-groups is shape-member('ParameterGroups');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -364,7 +367,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     class UpdateClusterRequest does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.parameter-group-name is shape-member('ParameterGroupName');
         has Str $.notification-topic-arn is shape-member('NotificationTopicArn');
         has Str $.description is shape-member('Description');
@@ -374,7 +377,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     class DescribeEventsResponse does AWS::SDK::Shape {
-        has Array[Event] $.events is shape-member('Events');
+        has Event @.events is shape-member('Events');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -385,12 +388,12 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     class CreateSubnetGroupRequest does AWS::SDK::Shape {
         has Str $.description is shape-member('Description');
         has Str $.subnet-group-name is required is shape-member('SubnetGroupName');
-        has Array[Str] $.subnet-ids is required is shape-member('SubnetIds');
+        has Str @.subnet-ids is required is shape-member('SubnetIds');
     }
 
     class IncreaseReplicationFactorRequest does AWS::SDK::Shape {
         has Int $.new-replication-factor is required is shape-member('NewReplicationFactor');
-        has Array[Str] $.availability-zones is shape-member('AvailabilityZones');
+        has Str @.availability-zones is shape-member('AvailabilityZones');
         has Str $.cluster-name is required is shape-member('ClusterName');
     }
 
@@ -408,14 +411,14 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     class CreateClusterRequest does AWS::SDK::Shape {
         has Str $.iam-role-arn is required is shape-member('IamRoleArn');
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.parameter-group-name is shape-member('ParameterGroupName');
         has Str $.notification-topic-arn is shape-member('NotificationTopicArn');
         has Str $.subnet-group-name is shape-member('SubnetGroupName');
         has Int $.replication-factor is required is shape-member('ReplicationFactor');
         has Str $.description is shape-member('Description');
-        has Array[Str] $.availability-zones is shape-member('AvailabilityZones');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Str @.availability-zones is shape-member('AvailabilityZones');
+        has Tag @.tags is shape-member('Tags');
         has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
         has Str $.cluster-name is required is shape-member('ClusterName');
         has Str $.node-type is required is shape-member('NodeType');
@@ -427,7 +430,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
         has Str $.allowed-values is shape-member('AllowedValues');
         has Str $.source is shape-member('Source');
         has Str $.description is shape-member('Description');
-        has Array[NodeTypeSpecificValue] $.node-type-specific-values is shape-member('NodeTypeSpecificValues');
+        has NodeTypeSpecificValue @.node-type-specific-values is shape-member('NodeTypeSpecificValues');
         has ChangeType $.change-type is shape-member('ChangeType');
         has Str $.data-type is shape-member('DataType');
         has IsModifiable $.is-modifiable is shape-member('IsModifiable');
@@ -453,12 +456,12 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     class UpdateSubnetGroupRequest does AWS::SDK::Shape {
         has Str $.description is shape-member('Description');
         has Str $.subnet-group-name is required is shape-member('SubnetGroupName');
-        has Array[Str] $.subnet-ids is shape-member('SubnetIds');
+        has Str @.subnet-ids is shape-member('SubnetIds');
     }
 
     class TagResourceRequest does AWS::SDK::Shape {
         has Str $.resource-name is required is shape-member('ResourceName');
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
     }
 
     class DecreaseReplicationFactorResponse does AWS::SDK::Shape {
@@ -475,8 +478,6 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
         has Cluster $.cluster is shape-member('Cluster');
     }
 
-    subset SourceType of Str where $_ ~~ any('CLUSTER', 'PARAMETER_GROUP', 'SUBNET_GROUP');
-
     class CreateParameterGroupRequest does AWS::SDK::Shape {
         has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
         has Str $.description is shape-member('Description');
@@ -487,7 +488,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     class DescribeSubnetGroupsResponse does AWS::SDK::Shape {
-        has Array[SubnetGroup] $.subnet-groups is shape-member('SubnetGroups');
+        has SubnetGroup @.subnet-groups is shape-member('SubnetGroups');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -500,6 +501,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
         has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
         has Str $.next-token is shape-member('NextToken');
     }
+
 
     method list-tags(
         Str :$resource-name!,
@@ -532,12 +534,12 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     method create-subnet-group(
         Str :$description,
         Str :$subnet-group-name!,
-        Array[Str] :$subnet-ids!
+        Str :@subnet-ids!
     ) returns CreateSubnetGroupResponse is service-operation('CreateSubnetGroup') {
         my $request-input = CreateSubnetGroupRequest.new(
             :$description,
             :$subnet-group-name,
-            :$subnet-ids
+            :@subnet-ids
         );
 
         self.perform-operation(
@@ -548,12 +550,12 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     method increase-replication-factor(
         Int :$new-replication-factor!,
-        Array[Str] :$availability-zones,
+        Str :@availability-zones,
         Str :$cluster-name!
     ) returns IncreaseReplicationFactorResponse is service-operation('IncreaseReplicationFactor') {
         my $request-input = IncreaseReplicationFactorRequest.new(
             :$new-replication-factor,
-            :$availability-zones,
+            :@availability-zones,
             :$cluster-name
         );
 
@@ -577,7 +579,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     method update-cluster(
-        Array[Str] :$security-group-ids,
+        Str :@security-group-ids,
         Str :$parameter-group-name,
         Str :$notification-topic-arn,
         Str :$description,
@@ -586,7 +588,7 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
         Str :$notification-topic-status
     ) returns UpdateClusterResponse is service-operation('UpdateCluster') {
         my $request-input = UpdateClusterRequest.new(
-            :$security-group-ids,
+            :@security-group-ids,
             :$parameter-group-name,
             :$notification-topic-arn,
             :$description,
@@ -603,11 +605,11 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     method tag-resource(
         Str :$resource-name!,
-        Array[Tag] :$tags!
+        Tag :@tags!
     ) returns TagResourceResponse is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
             :$resource-name,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -618,12 +620,12 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     method describe-subnet-groups(
         Int :$max-results,
-        Array[Str] :$subnet-group-names,
+        Str :@subnet-group-names,
         Str :$next-token
     ) returns DescribeSubnetGroupsResponse is service-operation('DescribeSubnetGroups') {
         my $request-input = DescribeSubnetGroupsRequest.new(
             :$max-results,
-            :$subnet-group-names,
+            :@subnet-group-names,
             :$next-token
         );
 
@@ -636,12 +638,12 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     method describe-parameter-groups(
         Int :$max-results,
         Str :$next-token,
-        Array[Str] :$parameter-group-names
+        Str :@parameter-group-names
     ) returns DescribeParameterGroupsResponse is service-operation('DescribeParameterGroups') {
         my $request-input = DescribeParameterGroupsRequest.new(
             :$max-results,
             :$next-token,
-            :$parameter-group-names
+            :@parameter-group-names
         );
 
         self.perform-operation(
@@ -692,28 +694,28 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     method create-cluster(
         Str :$iam-role-arn!,
-        Array[Str] :$security-group-ids,
+        Str :@security-group-ids,
         Str :$parameter-group-name,
         Str :$notification-topic-arn,
         Str :$subnet-group-name,
         Int :$replication-factor!,
         Str :$description,
-        Array[Str] :$availability-zones,
-        Array[Tag] :$tags,
+        Str :@availability-zones,
+        Tag :@tags,
         Str :$preferred-maintenance-window,
         Str :$cluster-name!,
         Str :$node-type!
     ) returns CreateClusterResponse is service-operation('CreateCluster') {
         my $request-input = CreateClusterRequest.new(
             :$iam-role-arn,
-            :$security-group-ids,
+            :@security-group-ids,
             :$parameter-group-name,
             :$notification-topic-arn,
             :$subnet-group-name,
             :$replication-factor,
             :$description,
-            :$availability-zones,
-            :$tags,
+            :@availability-zones,
+            :@tags,
             :$preferred-maintenance-window,
             :$cluster-name,
             :$node-type
@@ -757,11 +759,11 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     method untag-resource(
         Str :$resource-name!,
-        Array[Str] :$tag-keys!
+        Str :@tag-keys!
     ) returns UntagResourceResponse is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
             :$resource-name,
-            :$tag-keys
+            :@tag-keys
         );
 
         self.perform-operation(
@@ -773,12 +775,12 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     method update-subnet-group(
         Str :$description,
         Str :$subnet-group-name!,
-        Array[Str] :$subnet-ids
+        Str :@subnet-ids
     ) returns UpdateSubnetGroupResponse is service-operation('UpdateSubnetGroup') {
         my $request-input = UpdateSubnetGroupRequest.new(
             :$description,
             :$subnet-group-name,
-            :$subnet-ids
+            :@subnet-ids
         );
 
         self.perform-operation(
@@ -788,11 +790,11 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     }
 
     method update-parameter-group(
-        Array[ParameterNameValue] :$parameter-name-values!,
+        ParameterNameValue :@parameter-name-values!,
         Str :$parameter-group-name!
     ) returns UpdateParameterGroupResponse is service-operation('UpdateParameterGroup') {
         my $request-input = UpdateParameterGroupRequest.new(
-            :$parameter-name-values,
+            :@parameter-name-values,
             :$parameter-group-name
         );
 
@@ -824,12 +826,12 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
     method describe-clusters(
         Int :$max-results,
         Str :$next-token,
-        Array[Str] :$cluster-names
+        Str :@cluster-names
     ) returns DescribeClustersResponse is service-operation('DescribeClusters') {
         my $request-input = DescribeClustersRequest.new(
             :$max-results,
             :$next-token,
-            :$cluster-names
+            :@cluster-names
         );
 
         self.perform-operation(
@@ -853,14 +855,14 @@ class AWS::SDK::Service::DAX does AWS::SDK::Service {
 
     method decrease-replication-factor(
         Int :$new-replication-factor!,
-        Array[Str] :$availability-zones,
-        Array[Str] :$node-ids-to-remove,
+        Str :@availability-zones,
+        Str :@node-ids-to-remove,
         Str :$cluster-name!
     ) returns DecreaseReplicationFactorResponse is service-operation('DecreaseReplicationFactor') {
         my $request-input = DecreaseReplicationFactorRequest.new(
             :$new-replication-factor,
-            :$availability-zones,
-            :$node-ids-to-remove,
+            :@availability-zones,
+            :@node-ids-to-remove,
             :$cluster-name
         );
 

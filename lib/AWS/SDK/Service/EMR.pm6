@@ -135,8 +135,77 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     class InstanceGroupTimeline { ... }
     class DescribeClusterInput { ... }
 
+    subset InstanceRoleType of Str where $_ eq any('MASTER', 'CORE', 'TASK');
+
+    subset ClusterStateChangeReasonCode of Str where $_ eq any('INTERNAL_ERROR', 'VALIDATION_ERROR', 'INSTANCE_FAILURE', 'INSTANCE_FLEET_TIMEOUT', 'BOOTSTRAP_FAILURE', 'USER_REQUEST', 'STEP_FAILURE', 'ALL_STEPS_COMPLETED');
+
+    subset ScaleDownBehavior of Str where $_ eq any('TERMINATE_AT_INSTANCE_HOUR', 'TERMINATE_AT_TASK_COMPLETION');
+
+    subset CancelStepsRequestStatus of Str where $_ eq any('SUBMITTED', 'FAILED');
+
+    subset SpotProvisioningTimeoutAction of Str where $_ eq any('SWITCH_TO_ON_DEMAND', 'TERMINATE_CLUSTER');
+
+    subset InstanceStateChangeReasonCode of Str where $_ eq any('INTERNAL_ERROR', 'VALIDATION_ERROR', 'INSTANCE_FAILURE', 'BOOTSTRAP_FAILURE', 'CLUSTER_TERMINATED');
+
+    subset MarketType of Str where $_ eq any('ON_DEMAND', 'SPOT');
+
+    subset InstanceFleetStateChangeReasonCode of Str where $_ eq any('INTERNAL_ERROR', 'VALIDATION_ERROR', 'INSTANCE_FAILURE', 'CLUSTER_TERMINATED');
+
+    subset StepState of Str where $_ eq any('PENDING', 'CANCEL_PENDING', 'RUNNING', 'COMPLETED', 'CANCELLED', 'FAILED', 'INTERRUPTED');
+
+    subset InstanceFleetType of Str where $_ eq any('MASTER', 'CORE', 'TASK');
+
+    subset ActionOnFailure of Str where $_ eq any('TERMINATE_JOB_FLOW', 'TERMINATE_CLUSTER', 'CANCEL_AND_WAIT', 'CONTINUE');
+
+    subset InstanceGroupStateChangeReasonCode of Str where $_ eq any('INTERNAL_ERROR', 'VALIDATION_ERROR', 'INSTANCE_FAILURE', 'CLUSTER_TERMINATED');
+
+    subset InstanceState of Str where $_ eq any('AWAITING_FULFILLMENT', 'PROVISIONING', 'BOOTSTRAPPING', 'RUNNING', 'TERMINATED');
+
+    subset InstanceGroupType of Str where $_ eq any('MASTER', 'CORE', 'TASK');
+
+    subset InstanceType of Str where 1 <= .chars <= 256 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset ComparisonOperator of Str where $_ eq any('GREATER_THAN_OR_EQUAL', 'GREATER_THAN', 'LESS_THAN', 'LESS_THAN_OR_EQUAL');
+
+    subset ErrorCode of Str where 1 <= .chars <= 256;
+
+    subset StepExecutionState of Str where $_ eq any('PENDING', 'RUNNING', 'CONTINUE', 'COMPLETED', 'CANCELLED', 'FAILED', 'INTERRUPTED');
+
+    subset Unit of Str where $_ eq any('NONE', 'SECONDS', 'MICRO_SECONDS', 'MILLI_SECONDS', 'BYTES', 'KILO_BYTES', 'MEGA_BYTES', 'GIGA_BYTES', 'TERA_BYTES', 'BITS', 'KILO_BITS', 'MEGA_BITS', 'GIGA_BITS', 'TERA_BITS', 'PERCENT', 'COUNT', 'BYTES_PER_SECOND', 'KILO_BYTES_PER_SECOND', 'MEGA_BYTES_PER_SECOND', 'GIGA_BYTES_PER_SECOND', 'TERA_BYTES_PER_SECOND', 'BITS_PER_SECOND', 'KILO_BITS_PER_SECOND', 'MEGA_BITS_PER_SECOND', 'GIGA_BITS_PER_SECOND', 'TERA_BITS_PER_SECOND', 'COUNT_PER_SECOND');
+
+    subset NonNegativeDouble of Numeric where 0 <= *;
+
+    subset WholeNumber of Int where 0 <= *;
+
+    subset AdjustmentType of Str where $_ eq any('CHANGE_IN_CAPACITY', 'PERCENT_CHANGE_IN_CAPACITY', 'EXACT_CAPACITY');
+
+    subset InstanceCollectionType of Str where $_ eq any('INSTANCE_FLEET', 'INSTANCE_GROUP');
+
+    subset XmlStringMaxLen256 of Str where 0 <= .chars <= 256 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset AutoScalingPolicyState of Str where $_ eq any('PENDING', 'ATTACHING', 'ATTACHED', 'DETACHING', 'DETACHED', 'FAILED');
+
+    subset XmlString of Str where 0 <= .chars <= 10280 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset AutoScalingPolicyStateChangeReasonCode of Str where $_ eq any('USER_REQUEST', 'PROVISION_FAILURE', 'CLEANUP_FAILURE');
+
+    subset RepoUpgradeOnBoot of Str where $_ eq any('SECURITY', 'NONE');
+
+    subset InstanceGroupState of Str where $_ eq any('PROVISIONING', 'BOOTSTRAPPING', 'RUNNING', 'RESIZING', 'SUSPENDED', 'TERMINATING', 'TERMINATED', 'ARRESTED', 'SHUTTING_DOWN', 'ENDED');
+
+    subset JobFlowExecutionState of Str where $_ eq any('STARTING', 'BOOTSTRAPPING', 'RUNNING', 'WAITING', 'SHUTTING_DOWN', 'TERMINATED', 'COMPLETED', 'FAILED');
+
+    subset StepStateChangeReasonCode of Str where $_ eq any('NONE');
+
+    subset ClusterState of Str where $_ eq any('STARTING', 'BOOTSTRAPPING', 'RUNNING', 'WAITING', 'TERMINATING', 'TERMINATED', 'TERMINATED_WITH_ERRORS');
+
+    subset InstanceFleetState of Str where $_ eq any('PROVISIONING', 'BOOTSTRAPPING', 'RUNNING', 'RESIZING', 'SUSPENDED', 'TERMINATING', 'TERMINATED');
+
+    subset Statistic of Str where $_ eq any('SAMPLE_COUNT', 'AVERAGE', 'SUM', 'MINIMUM', 'MAXIMUM');
+
+
     class ListInstanceFleetsOutput does AWS::SDK::Shape {
-        has Array[InstanceFleet] $.instance-fleets is shape-member('InstanceFleets');
+        has InstanceFleet @.instance-fleets is shape-member('InstanceFleets');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -164,14 +233,12 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     class CancelStepsOutput does AWS::SDK::Shape {
-        has Array[CancelStepsInfo] $.cancel-steps-info-list is shape-member('CancelStepsInfoList');
+        has CancelStepsInfo @.cancel-steps-info-list is shape-member('CancelStepsInfoList');
     }
 
-    subset InstanceRoleType of Str where $_ ~~ any('MASTER', 'CORE', 'TASK');
-
     class InstanceResizePolicy does AWS::SDK::Shape {
-        has Array[Str] $.instances-to-protect is shape-member('InstancesToProtect');
-        has Array[Str] $.instances-to-terminate is shape-member('InstancesToTerminate');
+        has Str @.instances-to-protect is shape-member('InstancesToProtect');
+        has Str @.instances-to-terminate is shape-member('InstancesToTerminate');
         has Int $.instance-termination-timeout is shape-member('InstanceTerminationTimeout');
     }
 
@@ -187,7 +254,7 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     class CancelStepsInput does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen256] $.step-ids is shape-member('StepIds');
+        has XmlStringMaxLen256 @.step-ids is shape-member('StepIds');
         has XmlStringMaxLen256 $.cluster-id is shape-member('ClusterId');
     }
 
@@ -219,7 +286,7 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
 
     class SetTerminationProtectionInput does AWS::SDK::Shape {
         has Bool $.termination-protected is required is shape-member('TerminationProtected');
-        has Array[XmlString] $.job-flow-ids is required is shape-member('JobFlowIds');
+        has XmlString @.job-flow-ids is required is shape-member('JobFlowIds');
     }
 
     class ScalingRule does AWS::SDK::Shape {
@@ -230,27 +297,23 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     class ListStepsOutput does AWS::SDK::Shape {
-        has Array[StepSummary] $.steps is shape-member('Steps');
+        has StepSummary @.steps is shape-member('Steps');
         has Str $.marker is shape-member('Marker');
     }
 
-    subset ClusterStateChangeReasonCode of Str where $_ ~~ any('INTERNAL_ERROR', 'VALIDATION_ERROR', 'INSTANCE_FAILURE', 'INSTANCE_FLEET_TIMEOUT', 'BOOTSTRAP_FAILURE', 'USER_REQUEST', 'STEP_FAILURE', 'ALL_STEPS_COMPLETED');
-
     class AddInstanceGroupsInput does AWS::SDK::Shape {
-        has Array[InstanceGroupConfig] $.instance-groups is required is shape-member('InstanceGroups');
+        has InstanceGroupConfig @.instance-groups is required is shape-member('InstanceGroups');
         has XmlStringMaxLen256 $.job-flow-id is required is shape-member('JobFlowId');
     }
 
-    subset ScaleDownBehavior of Str where $_ ~~ any('TERMINATE_AT_INSTANCE_HOUR', 'TERMINATE_AT_TASK_COMPLETION');
-
     class Command does AWS::SDK::Shape {
-        has Array[Str] $.args is shape-member('Args');
+        has Str @.args is shape-member('Args');
         has Str $.script-path is shape-member('ScriptPath');
         has Str $.name is shape-member('Name');
     }
 
     class AddJobFlowStepsInput does AWS::SDK::Shape {
-        has Array[StepConfig] $.steps is required is shape-member('Steps');
+        has StepConfig @.steps is required is shape-member('Steps');
         has XmlStringMaxLen256 $.job-flow-id is required is shape-member('JobFlowId');
     }
 
@@ -261,7 +324,7 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     class ListInstanceGroupsOutput does AWS::SDK::Shape {
-        has Array[InstanceGroup] $.instance-groups is shape-member('InstanceGroups');
+        has InstanceGroup @.instance-groups is shape-member('InstanceGroups');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -280,14 +343,12 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     class AddJobFlowStepsOutput does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen256] $.step-ids is shape-member('StepIds');
+        has XmlStringMaxLen256 @.step-ids is shape-member('StepIds');
     }
-
-    subset CancelStepsRequestStatus of Str where $_ ~~ any('SUBMITTED', 'FAILED');
 
     class InstanceGroupModifyConfig does AWS::SDK::Shape {
         has XmlStringMaxLen256 $.instance-group-id is required is shape-member('InstanceGroupId');
-        has Array[Str] $.ec2-instance-ids-to-terminate is shape-member('EC2InstanceIdsToTerminate');
+        has Str @.ec2-instance-ids-to-terminate is shape-member('EC2InstanceIdsToTerminate');
         has ShrinkPolicy $.shrink-policy is shape-member('ShrinkPolicy');
         has Int $.instance-count is shape-member('InstanceCount');
     }
@@ -304,18 +365,18 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has InstanceFleetType $.instance-fleet-type is required is shape-member('InstanceFleetType');
         has XmlStringMaxLen256 $.name is shape-member('Name');
         has InstanceFleetProvisioningSpecifications $.launch-specifications is shape-member('LaunchSpecifications');
-        has Array[InstanceTypeConfig] $.instance-type-configs is shape-member('InstanceTypeConfigs');
+        has InstanceTypeConfig @.instance-type-configs is shape-member('InstanceTypeConfigs');
     }
 
     class HadoopStepConfig does AWS::SDK::Shape {
-        has Array[Str] $.args is shape-member('Args');
+        has Str @.args is shape-member('Args');
         has Str $.jar is shape-member('Jar');
         has Str $.main-class is shape-member('MainClass');
-        has Hash[Str, Str] $.properties is shape-member('Properties');
+        has Str %.properties{Str} is shape-member('Properties');
     }
 
     class PlacementType does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen256] $.availability-zones is shape-member('AvailabilityZones');
+        has XmlStringMaxLen256 @.availability-zones is shape-member('AvailabilityZones');
         has XmlString $.availability-zone is shape-member('AvailabilityZone');
     }
 
@@ -324,17 +385,13 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has VolumeSpecification $.volume-specification is shape-member('VolumeSpecification');
     }
 
-    subset SpotProvisioningTimeoutAction of Str where $_ ~~ any('SWITCH_TO_ON_DEMAND', 'TERMINATE_CLUSTER');
-
-    subset InstanceStateChangeReasonCode of Str where $_ ~~ any('INTERNAL_ERROR', 'VALIDATION_ERROR', 'INSTANCE_FAILURE', 'BOOTSTRAP_FAILURE', 'CLUSTER_TERMINATED');
-
     class Instance does AWS::SDK::Shape {
         has Str $.instance-group-id is shape-member('InstanceGroupId');
         has Str $.ec2-instance-id is shape-member('Ec2InstanceId');
         has MarketType $.market is shape-member('Market');
         has Str $.public-ip-address is shape-member('PublicIpAddress');
         has Str $.id is shape-member('Id');
-        has Array[EbsVolume] $.ebs-volumes is shape-member('EbsVolumes');
+        has EbsVolume @.ebs-volumes is shape-member('EbsVolumes');
         has InstanceType $.instance-type is shape-member('InstanceType');
         has InstanceStatus $.status is shape-member('Status');
         has Str $.instance-fleet-id is shape-member('InstanceFleetId');
@@ -342,8 +399,6 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has Str $.public-dns-name is shape-member('PublicDnsName');
         has Str $.private-dns-name is shape-member('PrivateDnsName');
     }
-
-    subset MarketType of Str where $_ ~~ any('ON_DEMAND', 'SPOT');
 
     class Tag does AWS::SDK::Shape {
         has Str $.value is shape-member('Value');
@@ -353,12 +408,10 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     class RemoveTagsOutput does AWS::SDK::Shape {
     }
 
-    subset InstanceFleetStateChangeReasonCode of Str where $_ ~~ any('INTERNAL_ERROR', 'VALIDATION_ERROR', 'INSTANCE_FAILURE', 'CLUSTER_TERMINATED');
-
     class InstanceTypeConfig does AWS::SDK::Shape {
         has NonNegativeDouble $.bid-price-as-percentage-of-on-demand-price is shape-member('BidPriceAsPercentageOfOnDemandPrice');
         has XmlStringMaxLen256 $.bid-price is shape-member('BidPrice');
-        has Array[Configuration] $.configurations is shape-member('Configurations');
+        has Configuration @.configurations is shape-member('Configurations');
         has EbsConfiguration $.ebs-configuration is shape-member('EbsConfiguration');
         has WholeNumber $.weighted-capacity is shape-member('WeightedCapacity');
         has InstanceType $.instance-type is required is shape-member('InstanceType');
@@ -375,13 +428,13 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     class Ec2InstanceAttributes does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen256] $.requested-ec2-subnet-ids is shape-member('RequestedEc2SubnetIds');
+        has XmlStringMaxLen256 @.requested-ec2-subnet-ids is shape-member('RequestedEc2SubnetIds');
         has Str $.emr-managed-slave-security-group is shape-member('EmrManagedSlaveSecurityGroup');
         has Str $.emr-managed-master-security-group is shape-member('EmrManagedMasterSecurityGroup');
-        has Array[XmlStringMaxLen256] $.requested-ec2-availability-zones is shape-member('RequestedEc2AvailabilityZones');
+        has XmlStringMaxLen256 @.requested-ec2-availability-zones is shape-member('RequestedEc2AvailabilityZones');
         has Str $.ec2-key-name is shape-member('Ec2KeyName');
-        has Array[Str] $.additional-master-security-groups is shape-member('AdditionalMasterSecurityGroups');
-        has Array[Str] $.additional-slave-security-groups is shape-member('AdditionalSlaveSecurityGroups');
+        has Str @.additional-master-security-groups is shape-member('AdditionalMasterSecurityGroups');
+        has Str @.additional-slave-security-groups is shape-member('AdditionalSlaveSecurityGroups');
         has Str $.service-access-security-group is shape-member('ServiceAccessSecurityGroup');
         has Str $.ec2-subnet-id is shape-member('Ec2SubnetId');
         has Str $.iam-instance-profile is shape-member('IamInstanceProfile');
@@ -393,16 +446,14 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has XmlStringMaxLen256 $.cluster-id is shape-member('ClusterId');
     }
 
-    subset StepState of Str where $_ ~~ any('PENDING', 'CANCEL_PENDING', 'RUNNING', 'COMPLETED', 'CANCELLED', 'FAILED', 'INTERRUPTED');
-
     class EbsConfiguration does AWS::SDK::Shape {
-        has Array[EbsBlockDeviceConfig] $.ebs-block-device-configs is shape-member('EbsBlockDeviceConfigs');
+        has EbsBlockDeviceConfig @.ebs-block-device-configs is shape-member('EbsBlockDeviceConfigs');
         has Bool $.ebs-optimized is shape-member('EbsOptimized');
     }
 
     class Application does AWS::SDK::Shape {
-        has Array[Str] $.args is shape-member('Args');
-        has Hash[Str, Str] $.additional-info is shape-member('AdditionalInfo');
+        has Str @.args is shape-member('Args');
+        has Str %.additional-info{Str} is shape-member('AdditionalInfo');
         has Str $.version is shape-member('Version');
         has Str $.name is shape-member('Name');
     }
@@ -424,13 +475,13 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has NonNegativeDouble $.threshold is required is shape-member('Threshold');
         has Int $.period is required is shape-member('Period');
         has Str $.metric-name is required is shape-member('MetricName');
-        has Array[MetricDimension] $.dimensions is shape-member('Dimensions');
+        has MetricDimension @.dimensions is shape-member('Dimensions');
         has Str $.namespace is shape-member('Namespace');
         has ComparisonOperator $.comparison-operator is required is shape-member('ComparisonOperator');
     }
 
     class RemoveTagsInput does AWS::SDK::Shape {
-        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.tag-keys is required is shape-member('TagKeys');
         has Str $.resource-id is required is shape-member('ResourceId');
     }
 
@@ -438,35 +489,31 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has PlacementType $.placement is shape-member('Placement');
         has XmlStringMaxLen256 $.emr-managed-slave-security-group is shape-member('EmrManagedSlaveSecurityGroup');
         has Bool $.termination-protected is shape-member('TerminationProtected');
-        has Array[InstanceFleetConfig] $.instance-fleets is shape-member('InstanceFleets');
+        has InstanceFleetConfig @.instance-fleets is shape-member('InstanceFleets');
         has XmlStringMaxLen256 $.emr-managed-master-security-group is shape-member('EmrManagedMasterSecurityGroup');
         has XmlStringMaxLen256 $.hadoop-version is shape-member('HadoopVersion');
         has XmlStringMaxLen256 $.ec2-key-name is shape-member('Ec2KeyName');
         has InstanceType $.master-instance-type is shape-member('MasterInstanceType');
-        has Array[XmlStringMaxLen256] $.additional-master-security-groups is shape-member('AdditionalMasterSecurityGroups');
+        has XmlStringMaxLen256 @.additional-master-security-groups is shape-member('AdditionalMasterSecurityGroups');
         has Bool $.keep-job-flow-alive-when-no-steps is shape-member('KeepJobFlowAliveWhenNoSteps');
         has InstanceType $.slave-instance-type is shape-member('SlaveInstanceType');
-        has Array[XmlStringMaxLen256] $.additional-slave-security-groups is shape-member('AdditionalSlaveSecurityGroups');
+        has XmlStringMaxLen256 @.additional-slave-security-groups is shape-member('AdditionalSlaveSecurityGroups');
         has XmlStringMaxLen256 $.service-access-security-group is shape-member('ServiceAccessSecurityGroup');
-        has Array[XmlStringMaxLen256] $.ec2-subnet-ids is shape-member('Ec2SubnetIds');
+        has XmlStringMaxLen256 @.ec2-subnet-ids is shape-member('Ec2SubnetIds');
         has XmlStringMaxLen256 $.ec2-subnet-id is shape-member('Ec2SubnetId');
-        has Array[InstanceGroupConfig] $.instance-groups is shape-member('InstanceGroups');
+        has InstanceGroupConfig @.instance-groups is shape-member('InstanceGroups');
         has Int $.instance-count is shape-member('InstanceCount');
     }
 
-    subset InstanceFleetType of Str where $_ ~~ any('MASTER', 'CORE', 'TASK');
-
-    subset ActionOnFailure of Str where $_ ~~ any('TERMINATE_JOB_FLOW', 'TERMINATE_CLUSTER', 'CANCEL_AND_WAIT', 'CONTINUE');
-
     class DescribeJobFlowsInput does AWS::SDK::Shape {
-        has Array[JobFlowExecutionState] $.job-flow-states is shape-member('JobFlowStates');
+        has JobFlowExecutionState @.job-flow-states is shape-member('JobFlowStates');
         has DateTime $.created-before is shape-member('CreatedBefore');
         has DateTime $.created-after is shape-member('CreatedAfter');
-        has Array[XmlString] $.job-flow-ids is shape-member('JobFlowIds');
+        has XmlString @.job-flow-ids is shape-member('JobFlowIds');
     }
 
     class ListInstancesOutput does AWS::SDK::Shape {
-        has Array[Instance] $.instances is shape-member('Instances');
+        has Instance @.instances is shape-member('Instances');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -499,12 +546,10 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
 
     class ListClustersInput does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[ClusterState] $.cluster-states is shape-member('ClusterStates');
+        has ClusterState @.cluster-states is shape-member('ClusterStates');
         has DateTime $.created-before is shape-member('CreatedBefore');
         has DateTime $.created-after is shape-member('CreatedAfter');
     }
-
-    subset InstanceGroupStateChangeReasonCode of Str where $_ ~~ any('INTERNAL_ERROR', 'VALIDATION_ERROR', 'INSTANCE_FAILURE', 'CLUSTER_TERMINATED');
 
     class Step does AWS::SDK::Shape {
         has HadoopStepConfig $.config is shape-member('Config');
@@ -516,8 +561,6 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
 
     class InternalServerError does AWS::SDK::Shape {
     }
-
-    subset InstanceState of Str where $_ ~~ any('AWAITING_FULFILLMENT', 'PROVISIONING', 'BOOTSTRAPPING', 'RUNNING', 'TERMINATED');
 
     class InstanceGroupStatus does AWS::SDK::Shape {
         has InstanceGroupStateChangeReason $.state-change-reason is shape-member('StateChangeReason');
@@ -537,10 +580,10 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     class HadoopJarStepConfig does AWS::SDK::Shape {
-        has Array[XmlString] $.args is shape-member('Args');
+        has XmlString @.args is shape-member('Args');
         has XmlString $.jar is required is shape-member('Jar');
         has XmlString $.main-class is shape-member('MainClass');
-        has Array[KeyValue] $.properties is shape-member('Properties');
+        has KeyValue @.properties is shape-member('Properties');
     }
 
     class InstanceFleet does AWS::SDK::Shape {
@@ -553,24 +596,22 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has XmlStringMaxLen256 $.name is shape-member('Name');
         has InstanceFleetStatus $.status is shape-member('Status');
         has InstanceFleetProvisioningSpecifications $.launch-specifications is shape-member('LaunchSpecifications');
-        has Array[InstanceTypeSpecification] $.instance-type-specifications is shape-member('InstanceTypeSpecifications');
+        has InstanceTypeSpecification @.instance-type-specifications is shape-member('InstanceTypeSpecifications');
     }
 
     class TerminateJobFlowsInput does AWS::SDK::Shape {
-        has Array[XmlString] $.job-flow-ids is required is shape-member('JobFlowIds');
+        has XmlString @.job-flow-ids is required is shape-member('JobFlowIds');
     }
 
     class ListSecurityConfigurationsOutput does AWS::SDK::Shape {
-        has Array[SecurityConfigurationSummary] $.security-configurations is shape-member('SecurityConfigurations');
+        has SecurityConfigurationSummary @.security-configurations is shape-member('SecurityConfigurations');
         has Str $.marker is shape-member('Marker');
     }
 
     class ListClustersOutput does AWS::SDK::Shape {
-        has Array[ClusterSummary] $.clusters is shape-member('Clusters');
+        has ClusterSummary @.clusters is shape-member('Clusters');
         has Str $.marker is shape-member('Marker');
     }
-
-    subset InstanceGroupType of Str where $_ ~~ any('MASTER', 'CORE', 'TASK');
 
     class CreateSecurityConfigurationOutput does AWS::SDK::Shape {
         has DateTime $.creation-date-time is required is shape-member('CreationDateTime');
@@ -589,31 +630,31 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
 
     class RunJobFlowInput does AWS::SDK::Shape {
         has XmlString $.security-configuration is shape-member('SecurityConfiguration');
-        has Array[Configuration] $.configurations is shape-member('Configurations');
+        has Configuration @.configurations is shape-member('Configurations');
         has XmlStringMaxLen256 $.ami-version is shape-member('AmiVersion');
         has Bool $.visible-to-all-users is shape-member('VisibleToAllUsers');
-        has Array[Application] $.applications is shape-member('Applications');
+        has Application @.applications is shape-member('Applications');
         has XmlStringMaxLen256 $.release-label is shape-member('ReleaseLabel');
         has XmlString $.job-flow-role is shape-member('JobFlowRole');
         has JobFlowInstancesConfig $.instances is required is shape-member('Instances');
         has XmlString $.additional-info is shape-member('AdditionalInfo');
         has Int $.ebs-root-volume-size is shape-member('EbsRootVolumeSize');
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[XmlStringMaxLen256] $.supported-products is shape-member('SupportedProducts');
-        has Array[BootstrapActionConfig] $.bootstrap-actions is shape-member('BootstrapActions');
+        has Tag @.tags is shape-member('Tags');
+        has XmlStringMaxLen256 @.supported-products is shape-member('SupportedProducts');
+        has BootstrapActionConfig @.bootstrap-actions is shape-member('BootstrapActions');
         has XmlString $.log-uri is shape-member('LogUri');
         has XmlStringMaxLen256 $.name is required is shape-member('Name');
-        has Array[StepConfig] $.steps is shape-member('Steps');
+        has StepConfig @.steps is shape-member('Steps');
         has XmlStringMaxLen256 $.custom-ami-id is shape-member('CustomAmiId');
         has ScaleDownBehavior $.scale-down-behavior is shape-member('ScaleDownBehavior');
         has XmlString $.auto-scaling-role is shape-member('AutoScalingRole');
         has XmlString $.service-role is shape-member('ServiceRole');
-        has Array[SupportedProductConfig] $.new-supported-products is shape-member('NewSupportedProducts');
+        has SupportedProductConfig @.new-supported-products is shape-member('NewSupportedProducts');
         has RepoUpgradeOnBoot $.repo-upgrade-on-boot is shape-member('RepoUpgradeOnBoot');
     }
 
     class ListBootstrapActionsOutput does AWS::SDK::Shape {
-        has Array[Command] $.bootstrap-actions is shape-member('BootstrapActions');
+        has Command @.bootstrap-actions is shape-member('BootstrapActions');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -622,13 +663,9 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has Int $.volumes-per-instance is shape-member('VolumesPerInstance');
     }
 
-    subset InstanceType of Str where 1 <= .chars <= 256 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class DescribeJobFlowsOutput does AWS::SDK::Shape {
-        has Array[JobFlowDetail] $.job-flows is shape-member('JobFlows');
+        has JobFlowDetail @.job-flows is shape-member('JobFlows');
     }
-
-    subset ComparisonOperator of Str where $_ ~~ any('GREATER_THAN_OR_EQUAL', 'GREATER_THAN', 'LESS_THAN', 'LESS_THAN_OR_EQUAL');
 
     class KeyValue does AWS::SDK::Shape {
         has XmlString $.value is shape-member('Value');
@@ -639,16 +676,10 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has Cluster $.cluster is shape-member('Cluster');
     }
 
-    subset ErrorCode of Str where 1 <= .chars <= 256;
-
-    subset StepExecutionState of Str where $_ ~~ any('PENDING', 'RUNNING', 'CONTINUE', 'COMPLETED', 'CANCELLED', 'FAILED', 'INTERRUPTED');
-
     class RemoveAutoScalingPolicyInput does AWS::SDK::Shape {
         has Str $.instance-group-id is required is shape-member('InstanceGroupId');
         has Str $.cluster-id is required is shape-member('ClusterId');
     }
-
-    subset Unit of Str where $_ ~~ any('NONE', 'SECONDS', 'MICRO_SECONDS', 'MILLI_SECONDS', 'BYTES', 'KILO_BYTES', 'MEGA_BYTES', 'GIGA_BYTES', 'TERA_BYTES', 'BITS', 'KILO_BITS', 'MEGA_BITS', 'GIGA_BITS', 'TERA_BITS', 'PERCENT', 'COUNT', 'BYTES_PER_SECOND', 'KILO_BYTES_PER_SECOND', 'MEGA_BYTES_PER_SECOND', 'GIGA_BYTES_PER_SECOND', 'TERA_BYTES_PER_SECOND', 'BITS_PER_SECOND', 'KILO_BITS_PER_SECOND', 'MEGA_BITS_PER_SECOND', 'GIGA_BITS_PER_SECOND', 'TERA_BITS_PER_SECOND', 'COUNT_PER_SECOND');
 
     class JobFlowExecutionStatusDetail does AWS::SDK::Shape {
         has DateTime $.end-date-time is shape-member('EndDateTime');
@@ -664,10 +695,6 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has Str $.cluster-id is required is shape-member('ClusterId');
     }
 
-    subset NonNegativeDouble of Numeric where 0 <= *;
-
-    subset WholeNumber of Int where 0 <= *;
-
     class ClusterSummary does AWS::SDK::Shape {
         has Int $.normalized-instance-hours is shape-member('NormalizedInstanceHours');
         has Str $.id is shape-member('Id');
@@ -677,7 +704,7 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
 
     class SetVisibleToAllUsersInput does AWS::SDK::Shape {
         has Bool $.visible-to-all-users is required is shape-member('VisibleToAllUsers');
-        has Array[XmlString] $.job-flow-ids is required is shape-member('JobFlowIds');
+        has XmlString @.job-flow-ids is required is shape-member('JobFlowIds');
     }
 
     class RunJobFlowOutput does AWS::SDK::Shape {
@@ -689,23 +716,17 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset AdjustmentType of Str where $_ ~~ any('CHANGE_IN_CAPACITY', 'PERCENT_CHANGE_IN_CAPACITY', 'EXACT_CAPACITY');
-
     class ListStepsInput does AWS::SDK::Shape {
-        has Array[StepState] $.step-states is shape-member('StepStates');
-        has Array[XmlString] $.step-ids is shape-member('StepIds');
+        has StepState @.step-states is shape-member('StepStates');
+        has XmlString @.step-ids is shape-member('StepIds');
         has Str $.marker is shape-member('Marker');
         has Str $.cluster-id is required is shape-member('ClusterId');
     }
-
-    subset InstanceCollectionType of Str where $_ ~~ any('INSTANCE_FLEET', 'INSTANCE_GROUP');
 
     class InstanceGroupStateChangeReason does AWS::SDK::Shape {
         has InstanceGroupStateChangeReasonCode $.code is shape-member('Code');
         has Str $.message is shape-member('Message');
     }
-
-    subset XmlStringMaxLen256 of Str where 0 <= .chars <= 256 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class CancelStepsInfo does AWS::SDK::Shape {
         has Str $.step-id is shape-member('StepId');
@@ -720,8 +741,6 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has StepExecutionState $.state is required is shape-member('State');
         has XmlString $.last-state-change-reason is shape-member('LastStateChangeReason');
     }
-
-    subset AutoScalingPolicyState of Str where $_ ~~ any('PENDING', 'ATTACHING', 'ATTACHED', 'DETACHING', 'DETACHED', 'FAILED');
 
     class DescribeStepOutput does AWS::SDK::Shape {
         has Step $.step is shape-member('Step');
@@ -741,21 +760,19 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     class ScriptBootstrapActionConfig does AWS::SDK::Shape {
-        has Array[XmlString] $.args is shape-member('Args');
+        has XmlString @.args is shape-member('Args');
         has XmlString $.path is required is shape-member('Path');
     }
 
     class AddTagsInput does AWS::SDK::Shape {
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
         has Str $.resource-id is required is shape-member('ResourceId');
     }
 
-    subset XmlString of Str where 0 <= .chars <= 10280 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class Configuration does AWS::SDK::Shape {
-        has Array[Configuration] $.configurations is shape-member('Configurations');
+        has Configuration @.configurations is shape-member('Configurations');
         has Str $.classification is shape-member('Classification');
-        has Hash[Str, Str] $.properties is shape-member('Properties');
+        has Str %.properties{Str} is shape-member('Properties');
     }
 
     class CreateSecurityConfigurationInput does AWS::SDK::Shape {
@@ -776,18 +793,18 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     class Cluster does AWS::SDK::Shape {
         has Ec2InstanceAttributes $.ec2-instance-attributes is shape-member('Ec2InstanceAttributes');
         has XmlString $.security-configuration is shape-member('SecurityConfiguration');
-        has Array[Configuration] $.configurations is shape-member('Configurations');
+        has Configuration @.configurations is shape-member('Configurations');
         has Bool $.termination-protected is shape-member('TerminationProtected');
         has Str $.running-ami-version is shape-member('RunningAmiVersion');
         has Int $.normalized-instance-hours is shape-member('NormalizedInstanceHours');
-        has Array[Application] $.applications is shape-member('Applications');
+        has Application @.applications is shape-member('Applications');
         has Bool $.visible-to-all-users is shape-member('VisibleToAllUsers');
         has Bool $.auto-terminate is shape-member('AutoTerminate');
         has Str $.release-label is shape-member('ReleaseLabel');
         has Str $.id is shape-member('Id');
         has Int $.ebs-root-volume-size is shape-member('EbsRootVolumeSize');
         has Str $.master-public-dns-name is shape-member('MasterPublicDnsName');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.log-uri is shape-member('LogUri');
         has Str $.name is shape-member('Name');
         has ClusterStatus $.status is shape-member('Status');
@@ -800,10 +817,6 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has InstanceCollectionType $.instance-collection-type is shape-member('InstanceCollectionType');
     }
 
-    subset AutoScalingPolicyStateChangeReasonCode of Str where $_ ~~ any('USER_REQUEST', 'PROVISION_FAILURE', 'CLEANUP_FAILURE');
-
-    subset RepoUpgradeOnBoot of Str where $_ ~~ any('SECURITY', 'NONE');
-
     class RemoveAutoScalingPolicyOutput does AWS::SDK::Shape {
     }
 
@@ -813,12 +826,10 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has XmlString $.name is shape-member('Name');
     }
 
-    subset InstanceGroupState of Str where $_ ~~ any('PROVISIONING', 'BOOTSTRAPPING', 'RUNNING', 'RESIZING', 'SUSPENDED', 'TERMINATING', 'TERMINATED', 'ARRESTED', 'SHUTTING_DOWN', 'ENDED');
-
     class ListInstancesInput does AWS::SDK::Shape {
         has Str $.instance-group-id is shape-member('InstanceGroupId');
-        has Array[InstanceState] $.instance-states is shape-member('InstanceStates');
-        has Array[InstanceGroupType] $.instance-group-types is shape-member('InstanceGroupTypes');
+        has InstanceState @.instance-states is shape-member('InstanceStates');
+        has InstanceGroupType @.instance-group-types is shape-member('InstanceGroupTypes');
         has InstanceFleetType $.instance-fleet-type is shape-member('InstanceFleetType');
         has Str $.marker is shape-member('Marker');
         has Str $.instance-fleet-id is shape-member('InstanceFleetId');
@@ -840,23 +851,13 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset JobFlowExecutionState of Str where $_ ~~ any('STARTING', 'BOOTSTRAPPING', 'RUNNING', 'WAITING', 'SHUTTING_DOWN', 'TERMINATED', 'COMPLETED', 'FAILED');
-
-    subset StepStateChangeReasonCode of Str where $_ ~~ any('NONE');
-
     class StepDetail does AWS::SDK::Shape {
         has StepConfig $.step-config is required is shape-member('StepConfig');
         has StepExecutionStatusDetail $.execution-status-detail is required is shape-member('ExecutionStatusDetail');
     }
 
-    subset ClusterState of Str where $_ ~~ any('STARTING', 'BOOTSTRAPPING', 'RUNNING', 'WAITING', 'TERMINATING', 'TERMINATED', 'TERMINATED_WITH_ERRORS');
-
-    subset InstanceFleetState of Str where $_ ~~ any('PROVISIONING', 'BOOTSTRAPPING', 'RUNNING', 'RESIZING', 'SUSPENDED', 'TERMINATING', 'TERMINATED');
-
-    subset Statistic of Str where $_ ~~ any('SAMPLE_COUNT', 'AVERAGE', 'SUM', 'MINIMUM', 'MAXIMUM');
-
     class AutoScalingPolicyDescription does AWS::SDK::Shape {
-        has Array[ScalingRule] $.rules is shape-member('Rules');
+        has ScalingRule @.rules is shape-member('Rules');
         has AutoScalingPolicyStatus $.status is shape-member('Status');
         has ScalingConstraints $.constraints is shape-member('Constraints');
     }
@@ -868,7 +869,7 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     class AutoScalingPolicy does AWS::SDK::Shape {
-        has Array[ScalingRule] $.rules is required is shape-member('Rules');
+        has ScalingRule @.rules is required is shape-member('Rules');
         has ScalingConstraints $.constraints is required is shape-member('Constraints');
     }
 
@@ -896,14 +897,14 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has Bool $.keep-job-flow-alive-when-no-steps is shape-member('KeepJobFlowAliveWhenNoSteps');
         has InstanceType $.slave-instance-type is required is shape-member('SlaveInstanceType');
         has XmlStringMaxLen256 $.ec2-subnet-id is shape-member('Ec2SubnetId');
-        has Array[InstanceGroupDetail] $.instance-groups is shape-member('InstanceGroups');
+        has InstanceGroupDetail @.instance-groups is shape-member('InstanceGroups');
         has XmlString $.master-public-dns-name is shape-member('MasterPublicDnsName');
         has Int $.instance-count is required is shape-member('InstanceCount');
         has XmlString $.master-instance-id is shape-member('MasterInstanceId');
     }
 
     class SupportedProductConfig does AWS::SDK::Shape {
-        has Array[XmlString] $.args is shape-member('Args');
+        has XmlString @.args is shape-member('Args');
         has XmlStringMaxLen256 $.name is shape-member('Name');
     }
 
@@ -912,11 +913,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has Bool $.visible-to-all-users is shape-member('VisibleToAllUsers');
         has XmlString $.job-flow-role is shape-member('JobFlowRole');
         has JobFlowInstancesDetail $.instances is required is shape-member('Instances');
-        has Array[XmlStringMaxLen256] $.supported-products is shape-member('SupportedProducts');
-        has Array[BootstrapActionDetail] $.bootstrap-actions is shape-member('BootstrapActions');
+        has XmlStringMaxLen256 @.supported-products is shape-member('SupportedProducts');
+        has BootstrapActionDetail @.bootstrap-actions is shape-member('BootstrapActions');
         has XmlString $.log-uri is shape-member('LogUri');
         has XmlStringMaxLen256 $.name is required is shape-member('Name');
-        has Array[StepDetail] $.steps is shape-member('Steps');
+        has StepDetail @.steps is shape-member('Steps');
         has XmlStringMaxLen256 $.job-flow-id is required is shape-member('JobFlowId');
         has ScaleDownBehavior $.scale-down-behavior is shape-member('ScaleDownBehavior');
         has XmlString $.auto-scaling-role is shape-member('AutoScalingRole');
@@ -927,7 +928,7 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     class InstanceGroupConfig does AWS::SDK::Shape {
         has XmlStringMaxLen256 $.bid-price is shape-member('BidPrice');
         has AutoScalingPolicy $.auto-scaling-policy is shape-member('AutoScalingPolicy');
-        has Array[Configuration] $.configurations is shape-member('Configurations');
+        has Configuration @.configurations is shape-member('Configurations');
         has InstanceRoleType $.instance-role is required is shape-member('InstanceRole');
         has MarketType $.market is shape-member('Market');
         has EbsConfiguration $.ebs-configuration is shape-member('EbsConfiguration');
@@ -951,7 +952,7 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has Int $.running-instance-count is shape-member('RunningInstanceCount');
         has Str $.bid-price is shape-member('BidPrice');
         has AutoScalingPolicyDescription $.auto-scaling-policy is shape-member('AutoScalingPolicy');
-        has Array[Configuration] $.configurations is shape-member('Configurations');
+        has Configuration @.configurations is shape-member('Configurations');
         has MarketType $.market is shape-member('Market');
         has InstanceGroupType $.instance-group-type is shape-member('InstanceGroupType');
         has Str $.id is shape-member('Id');
@@ -961,7 +962,7 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has InstanceGroupStatus $.status is shape-member('Status');
         has Int $.requested-instance-count is shape-member('RequestedInstanceCount');
         has InstanceType $.instance-type is shape-member('InstanceType');
-        has Array[EbsBlockDevice] $.ebs-block-devices is shape-member('EbsBlockDevices');
+        has EbsBlockDevice @.ebs-block-devices is shape-member('EbsBlockDevices');
     }
 
     class AddInstanceFleetInput does AWS::SDK::Shape {
@@ -970,12 +971,12 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     class AddInstanceGroupsOutput does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen256] $.instance-group-ids is shape-member('InstanceGroupIds');
+        has XmlStringMaxLen256 @.instance-group-ids is shape-member('InstanceGroupIds');
         has XmlStringMaxLen256 $.job-flow-id is shape-member('JobFlowId');
     }
 
     class ModifyInstanceGroupsInput does AWS::SDK::Shape {
-        has Array[InstanceGroupModifyConfig] $.instance-groups is shape-member('InstanceGroups');
+        has InstanceGroupModifyConfig @.instance-groups is shape-member('InstanceGroups');
         has Str $.cluster-id is shape-member('ClusterId');
     }
 
@@ -1000,11 +1001,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     class InstanceTypeSpecification does AWS::SDK::Shape {
         has NonNegativeDouble $.bid-price-as-percentage-of-on-demand-price is shape-member('BidPriceAsPercentageOfOnDemandPrice');
         has XmlStringMaxLen256 $.bid-price is shape-member('BidPrice');
-        has Array[Configuration] $.configurations is shape-member('Configurations');
+        has Configuration @.configurations is shape-member('Configurations');
         has Bool $.ebs-optimized is shape-member('EbsOptimized');
         has WholeNumber $.weighted-capacity is shape-member('WeightedCapacity');
         has InstanceType $.instance-type is shape-member('InstanceType');
-        has Array[EbsBlockDevice] $.ebs-block-devices is shape-member('EbsBlockDevices');
+        has EbsBlockDevice @.ebs-block-devices is shape-member('EbsBlockDevices');
     }
 
     class InstanceGroupTimeline does AWS::SDK::Shape {
@@ -1017,10 +1018,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
         has Str $.cluster-id is required is shape-member('ClusterId');
     }
 
+
     method list-instances(
         Str :$instance-group-id,
-        Array[InstanceState] :$instance-states,
-        Array[InstanceGroupType] :$instance-group-types,
+        InstanceState :@instance-states,
+        InstanceGroupType :@instance-group-types,
         InstanceFleetType :$instance-fleet-type,
         Str :$marker,
         Str :$instance-fleet-id,
@@ -1028,8 +1030,8 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     ) returns ListInstancesOutput is service-operation('ListInstances') {
         my $request-input = ListInstancesInput.new(
             :$instance-group-id,
-            :$instance-states,
-            :$instance-group-types,
+            :@instance-states,
+            :@instance-group-types,
             :$instance-fleet-type,
             :$marker,
             :$instance-fleet-id,
@@ -1071,11 +1073,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     method add-tags(
-        Array[Tag] :$tags!,
+        Tag :@tags!,
         Str :$resource-id!
     ) returns AddTagsOutput is service-operation('AddTags') {
         my $request-input = AddTagsInput.new(
-            :$tags,
+            :@tags,
             :$resource-id
         );
 
@@ -1086,14 +1088,14 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     method list-steps(
-        Array[StepState] :$step-states,
-        Array[XmlString] :$step-ids,
+        StepState :@step-states,
+        XmlString :@step-ids,
         Str :$marker,
         Str :$cluster-id!
     ) returns ListStepsOutput is service-operation('ListSteps') {
         my $request-input = ListStepsInput.new(
-            :$step-states,
-            :$step-ids,
+            :@step-states,
+            :@step-ids,
             :$marker,
             :$cluster-id
         );
@@ -1120,11 +1122,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     method add-instance-groups(
-        Array[InstanceGroupConfig] :$instance-groups!,
+        InstanceGroupConfig :@instance-groups!,
         XmlStringMaxLen256 :$job-flow-id!
     ) returns AddInstanceGroupsOutput is service-operation('AddInstanceGroups') {
         my $request-input = AddInstanceGroupsInput.new(
-            :$instance-groups,
+            :@instance-groups,
             :$job-flow-id
         );
 
@@ -1178,11 +1180,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     method cancel-steps(
-        Array[XmlStringMaxLen256] :$step-ids,
+        XmlStringMaxLen256 :@step-ids,
         XmlStringMaxLen256 :$cluster-id
     ) returns CancelStepsOutput is service-operation('CancelSteps') {
         my $request-input = CancelStepsInput.new(
-            :$step-ids,
+            :@step-ids,
             :$cluster-id
         );
 
@@ -1194,11 +1196,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
 
     method set-visible-to-all-users(
         Bool :$visible-to-all-users!,
-        Array[XmlString] :$job-flow-ids!
+        XmlString :@job-flow-ids!
     ) is service-operation('SetVisibleToAllUsers') {
         my $request-input = SetVisibleToAllUsersInput.new(
             :$visible-to-all-users,
-            :$job-flow-ids
+            :@job-flow-ids
         );
 
         self.perform-operation(
@@ -1223,11 +1225,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     method add-job-flow-steps(
-        Array[StepConfig] :$steps!,
+        StepConfig :@steps!,
         XmlStringMaxLen256 :$job-flow-id!
     ) returns AddJobFlowStepsOutput is service-operation('AddJobFlowSteps') {
         my $request-input = AddJobFlowStepsInput.new(
-            :$steps,
+            :@steps,
             :$job-flow-id
         );
 
@@ -1253,11 +1255,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     method remove-tags(
-        Array[Str] :$tag-keys!,
+        Str :@tag-keys!,
         Str :$resource-id!
     ) returns RemoveTagsOutput is service-operation('RemoveTags') {
         my $request-input = RemoveTagsInput.new(
-            :$tag-keys,
+            :@tag-keys,
             :$resource-id
         );
 
@@ -1268,11 +1270,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     method modify-instance-groups(
-        Array[InstanceGroupModifyConfig] :$instance-groups,
+        InstanceGroupModifyConfig :@instance-groups,
         Str :$cluster-id
     ) is service-operation('ModifyInstanceGroups') {
         my $request-input = ModifyInstanceGroupsInput.new(
-            :$instance-groups,
+            :@instance-groups,
             :$cluster-id
         );
 
@@ -1297,11 +1299,11 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
 
     method set-termination-protection(
         Bool :$termination-protected!,
-        Array[XmlString] :$job-flow-ids!
+        XmlString :@job-flow-ids!
     ) is service-operation('SetTerminationProtection') {
         my $request-input = SetTerminationProtectionInput.new(
             :$termination-protected,
-            :$job-flow-ids
+            :@job-flow-ids
         );
 
         self.perform-operation(
@@ -1356,10 +1358,10 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     method terminate-job-flows(
-        Array[XmlString] :$job-flow-ids!
+        XmlString :@job-flow-ids!
     ) is service-operation('TerminateJobFlows') {
         my $request-input = TerminateJobFlowsInput.new(
-            :$job-flow-ids
+            :@job-flow-ids
         );
 
         self.perform-operation(
@@ -1370,50 +1372,50 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
 
     method run-job-flow(
         XmlString :$security-configuration,
-        Array[Configuration] :$configurations,
+        Configuration :@configurations,
         XmlStringMaxLen256 :$ami-version,
         Bool :$visible-to-all-users,
-        Array[Application] :$applications,
+        Application :@applications,
         XmlStringMaxLen256 :$release-label,
         XmlString :$job-flow-role,
         JobFlowInstancesConfig :$instances!,
         XmlString :$additional-info,
         Int :$ebs-root-volume-size,
-        Array[Tag] :$tags,
-        Array[XmlStringMaxLen256] :$supported-products,
-        Array[BootstrapActionConfig] :$bootstrap-actions,
+        Tag :@tags,
+        XmlStringMaxLen256 :@supported-products,
+        BootstrapActionConfig :@bootstrap-actions,
         XmlString :$log-uri,
         XmlStringMaxLen256 :$name!,
-        Array[StepConfig] :$steps,
+        StepConfig :@steps,
         XmlStringMaxLen256 :$custom-ami-id,
         ScaleDownBehavior :$scale-down-behavior,
         XmlString :$auto-scaling-role,
         XmlString :$service-role,
-        Array[SupportedProductConfig] :$new-supported-products,
+        SupportedProductConfig :@new-supported-products,
         RepoUpgradeOnBoot :$repo-upgrade-on-boot
     ) returns RunJobFlowOutput is service-operation('RunJobFlow') {
         my $request-input = RunJobFlowInput.new(
             :$security-configuration,
-            :$configurations,
+            :@configurations,
             :$ami-version,
             :$visible-to-all-users,
-            :$applications,
+            :@applications,
             :$release-label,
             :$job-flow-role,
             :$instances,
             :$additional-info,
             :$ebs-root-volume-size,
-            :$tags,
-            :$supported-products,
-            :$bootstrap-actions,
+            :@tags,
+            :@supported-products,
+            :@bootstrap-actions,
             :$log-uri,
             :$name,
-            :$steps,
+            :@steps,
             :$custom-ami-id,
             :$scale-down-behavior,
             :$auto-scaling-role,
             :$service-role,
-            :$new-supported-products,
+            :@new-supported-products,
             :$repo-upgrade-on-boot
         );
 
@@ -1440,13 +1442,13 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
 
     method list-clusters(
         Str :$marker,
-        Array[ClusterState] :$cluster-states,
+        ClusterState :@cluster-states,
         DateTime :$created-before,
         DateTime :$created-after
     ) returns ListClustersOutput is service-operation('ListClusters') {
         my $request-input = ListClustersInput.new(
             :$marker,
-            :$cluster-states,
+            :@cluster-states,
             :$created-before,
             :$created-after
         );
@@ -1458,16 +1460,16 @@ class AWS::SDK::Service::EMR does AWS::SDK::Service {
     }
 
     method describe-job-flows(
-        Array[JobFlowExecutionState] :$job-flow-states,
+        JobFlowExecutionState :@job-flow-states,
         DateTime :$created-before,
         DateTime :$created-after,
-        Array[XmlString] :$job-flow-ids
+        XmlString :@job-flow-ids
     ) returns DescribeJobFlowsOutput is service-operation('DescribeJobFlows') {
         my $request-input = DescribeJobFlowsInput.new(
-            :$job-flow-states,
+            :@job-flow-states,
             :$created-before,
             :$created-after,
-            :$job-flow-ids
+            :@job-flow-ids
         );
 
         self.perform-operation(

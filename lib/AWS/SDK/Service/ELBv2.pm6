@@ -129,6 +129,55 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     class DescribeTargetGroupsInput { ... }
     class DeregisterTargetsOutput { ... }
 
+    subset ActionTypeEnum of Str where $_ eq any('forward');
+
+    subset ConditionFieldName of Str where .chars <= 64;
+
+    subset LoadBalancerAttributes of Array[LoadBalancerAttribute] where *.elems <= 20;
+
+    subset HealthCheckTimeoutSeconds of Int where 2 <= * <= 60;
+
+    subset LoadBalancerAttributeKey of Str where .chars <= 256 && rx:P5/^[a-zA-Z0-9._]+$/;
+
+    subset IpAddressType of Str where $_ eq any('ipv4', 'dualstack');
+
+    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset TargetHealthReasonEnum of Str where $_ eq any('Elb.RegistrationInProgress', 'Elb.InitialHealthChecking', 'Target.ResponseCodeMismatch', 'Target.Timeout', 'Target.FailedHealthChecks', 'Target.NotRegistered', 'Target.NotInUse', 'Target.DeregistrationInProgress', 'Target.InvalidState', 'Target.IpUnusable', 'Elb.InternalError');
+
+    subset LoadBalancerTypeEnum of Str where $_ eq any('application', 'network');
+
+    subset PageSize of Int where 1 <= * <= 400;
+
+    subset TargetTypeEnum of Str where $_ eq any('instance', 'ip');
+
+    subset TargetHealthStateEnum of Str where $_ eq any('initial', 'healthy', 'unhealthy', 'unused', 'draining', 'unavailable');
+
+    subset HealthCheckThresholdCount of Int where 2 <= * <= 10;
+
+    subset TagList of Array[Tag] where 1 <= *.elems;
+
+    subset LoadBalancerAttributeValue of Str where .chars <= 1024;
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset Path of Str where 1 <= .chars <= 1024;
+
+    subset RulePriority of Int where 1 <= * <= 50000;
+
+    subset HealthCheckIntervalSeconds of Int where 5 <= * <= 300;
+
+    subset ProtocolEnum of Str where $_ eq any('HTTP', 'HTTPS', 'TCP');
+
+    subset TargetGroupAttributeKey of Str where .chars <= 256 && rx:P5/^[a-zA-Z0-9._]+$/;
+
+    subset Port of Int where 1 <= * <= 65535;
+
+    subset LoadBalancerSchemeEnum of Str where $_ eq any('internet-facing', 'internal');
+
+    subset LoadBalancerStateEnum of Str where $_ eq any('active', 'provisioning', 'active_impaired', 'failed');
+
+
     class TargetDescription does AWS::SDK::Shape {
         has Str $.id is required is shape-member('Id');
         has Str $.availability-zone is shape-member('AvailabilityZone');
@@ -136,7 +185,7 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class ModifyTargetGroupAttributesInput does AWS::SDK::Shape {
-        has Array[TargetGroupAttribute] $.attributes is required is shape-member('Attributes');
+        has TargetGroupAttribute @.attributes is required is shape-member('Attributes');
         has Str $.target-group-arn is required is shape-member('TargetGroupArn');
     }
 
@@ -157,8 +206,6 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     class InvalidConfigurationRequestException does AWS::SDK::Shape {
     }
 
-    subset ActionTypeEnum of Str where $_ ~~ any('forward');
-
     class TooManyRulesException does AWS::SDK::Shape {
     }
 
@@ -176,10 +223,8 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class DescribeTagsInput does AWS::SDK::Shape {
-        has Array[Str] $.resource-arns is required is shape-member('ResourceArns');
+        has Str @.resource-arns is required is shape-member('ResourceArns');
     }
-
-    subset ConditionFieldName of Str where .chars <= 64;
 
     class OperationNotPermittedException does AWS::SDK::Shape {
     }
@@ -194,14 +239,14 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class DescribeTargetGroupAttributesOutput does AWS::SDK::Shape {
-        has Array[TargetGroupAttribute] $.attributes is shape-member('Attributes');
+        has TargetGroupAttribute @.attributes is shape-member('Attributes');
     }
 
     class HealthUnavailableException does AWS::SDK::Shape {
     }
 
     class ModifyRuleOutput does AWS::SDK::Shape {
-        has Array[Rule] $.rules is shape-member('Rules');
+        has Rule @.rules is shape-member('Rules');
     }
 
     class TagDescription does AWS::SDK::Shape {
@@ -209,15 +254,13 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
         has Str $.resource-arn is shape-member('ResourceArn');
     }
 
-    subset LoadBalancerAttributes of Array[LoadBalancerAttribute] where *.elems <= 20;
-
     class DescribeTargetGroupAttributesInput does AWS::SDK::Shape {
         has Str $.target-group-arn is required is shape-member('TargetGroupArn');
     }
 
     class RegisterTargetsInput does AWS::SDK::Shape {
         has Str $.target-group-arn is required is shape-member('TargetGroupArn');
-        has Array[TargetDescription] $.targets is required is shape-member('Targets');
+        has TargetDescription @.targets is required is shape-member('Targets');
     }
 
     class SubnetMapping does AWS::SDK::Shape {
@@ -226,17 +269,13 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class CreateLoadBalancerOutput does AWS::SDK::Shape {
-        has Array[LoadBalancer] $.load-balancers is shape-member('LoadBalancers');
+        has LoadBalancer @.load-balancers is shape-member('LoadBalancers');
     }
 
     class DescribeAccountLimitsOutput does AWS::SDK::Shape {
-        has Array[Limit] $.limits is shape-member('Limits');
+        has Limit @.limits is shape-member('Limits');
         has Str $.next-marker is shape-member('NextMarker');
     }
-
-    subset HealthCheckTimeoutSeconds of Int where 2 <= * <= 60;
-
-    subset LoadBalancerAttributeKey of Str where .chars <= 256 && rx:P5/^[a-zA-Z0-9._]+$/;
 
     class TargetGroup does AWS::SDK::Shape {
         has Matcher $.matcher is shape-member('Matcher');
@@ -244,7 +283,7 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
         has ProtocolEnum $.health-check-protocol is shape-member('HealthCheckProtocol');
         has Str $.vpc-id is shape-member('VpcId');
         has TargetTypeEnum $.target-type is shape-member('TargetType');
-        has Array[Str] $.load-balancer-arns is shape-member('LoadBalancerArns');
+        has Str @.load-balancer-arns is shape-member('LoadBalancerArns');
         has HealthCheckThresholdCount $.unhealthy-threshold-count is shape-member('UnhealthyThresholdCount');
         has Str $.target-group-name is shape-member('TargetGroupName');
         has HealthCheckIntervalSeconds $.health-check-interval-seconds is shape-member('HealthCheckIntervalSeconds');
@@ -265,14 +304,14 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class CreateRuleInput does AWS::SDK::Shape {
-        has Array[RuleCondition] $.conditions is required is shape-member('Conditions');
-        has Array[Action] $.actions is required is shape-member('Actions');
+        has RuleCondition @.conditions is required is shape-member('Conditions');
+        has Action @.actions is required is shape-member('Actions');
         has Str $.listener-arn is required is shape-member('ListenerArn');
         has RulePriority $.priority is required is shape-member('Priority');
     }
 
     class SetRulePrioritiesOutput does AWS::SDK::Shape {
-        has Array[Rule] $.rules is shape-member('Rules');
+        has Rule @.rules is shape-member('Rules');
     }
 
     class UnsupportedProtocolException does AWS::SDK::Shape {
@@ -282,7 +321,7 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class DescribeTargetGroupsOutput does AWS::SDK::Shape {
-        has Array[TargetGroup] $.target-groups is shape-member('TargetGroups');
+        has TargetGroup @.target-groups is shape-member('TargetGroups');
         has Str $.next-marker is shape-member('NextMarker');
     }
 
@@ -291,8 +330,8 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class RemoveTagsInput does AWS::SDK::Shape {
-        has Array[Str] $.resource-arns is required is shape-member('ResourceArns');
-        has Array[TagKey] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.resource-arns is required is shape-member('ResourceArns');
+        has TagKey @.tag-keys is required is shape-member('TagKeys');
     }
 
     class InvalidSecurityGroupException does AWS::SDK::Shape {
@@ -302,8 +341,8 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class Listener does AWS::SDK::Shape {
-        has Array[Certificate] $.certificates is shape-member('Certificates');
-        has Array[Action] $.default-actions is shape-member('DefaultActions');
+        has Certificate @.certificates is shape-member('Certificates');
+        has Action @.default-actions is shape-member('DefaultActions');
         has Str $.load-balancer-arn is shape-member('LoadBalancerArn');
         has Str $.listener-arn is shape-member('ListenerArn');
         has ProtocolEnum $.protocol is shape-member('Protocol');
@@ -312,12 +351,12 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class DescribeRulesOutput does AWS::SDK::Shape {
-        has Array[Rule] $.rules is shape-member('Rules');
+        has Rule @.rules is shape-member('Rules');
         has Str $.next-marker is shape-member('NextMarker');
     }
 
     class SetSecurityGroupsInput does AWS::SDK::Shape {
-        has Array[Str] $.security-groups is required is shape-member('SecurityGroups');
+        has Str @.security-groups is required is shape-member('SecurityGroups');
         has Str $.load-balancer-arn is required is shape-member('LoadBalancerArn');
     }
 
@@ -328,11 +367,11 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class DescribeTargetHealthOutput does AWS::SDK::Shape {
-        has Array[TargetHealthDescription] $.target-health-descriptions is shape-member('TargetHealthDescriptions');
+        has TargetHealthDescription @.target-health-descriptions is shape-member('TargetHealthDescriptions');
     }
 
     class ModifyTargetGroupAttributesOutput does AWS::SDK::Shape {
-        has Array[TargetGroupAttribute] $.attributes is shape-member('Attributes');
+        has TargetGroupAttribute @.attributes is shape-member('Attributes');
     }
 
     class SSLPolicyNotFoundException does AWS::SDK::Shape {
@@ -342,33 +381,25 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class SetSecurityGroupsOutput does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
     }
-
-    subset IpAddressType of Str where $_ ~~ any('ipv4', 'dualstack');
 
     class RegisterTargetsOutput does AWS::SDK::Shape {
     }
 
     class ModifyListenerOutput does AWS::SDK::Shape {
-        has Array[Listener] $.listeners is shape-member('Listeners');
+        has Listener @.listeners is shape-member('Listeners');
     }
 
     class SetIpAddressTypeOutput does AWS::SDK::Shape {
         has IpAddressType $.ip-address-type is shape-member('IpAddressType');
     }
 
-    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
-
-    subset TargetHealthReasonEnum of Str where $_ ~~ any('Elb.RegistrationInProgress', 'Elb.InitialHealthChecking', 'Target.ResponseCodeMismatch', 'Target.Timeout', 'Target.FailedHealthChecks', 'Target.NotRegistered', 'Target.NotInUse', 'Target.DeregistrationInProgress', 'Target.InvalidState', 'Target.IpUnusable', 'Elb.InternalError');
-
     class DeleteListenerOutput does AWS::SDK::Shape {
     }
 
-    subset LoadBalancerTypeEnum of Str where $_ ~~ any('application', 'network');
-
     class ModifyTargetGroupOutput does AWS::SDK::Shape {
-        has Array[TargetGroup] $.target-groups is shape-member('TargetGroups');
+        has TargetGroup @.target-groups is shape-member('TargetGroups');
     }
 
     class TooManyTagsException does AWS::SDK::Shape {
@@ -377,25 +408,21 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     class DeleteRuleOutput does AWS::SDK::Shape {
     }
 
-    subset PageSize of Int where 1 <= * <= 400;
-
     class Rule does AWS::SDK::Shape {
         has Bool $.is-default is shape-member('IsDefault');
-        has Array[RuleCondition] $.conditions is shape-member('Conditions');
-        has Array[Action] $.actions is shape-member('Actions');
+        has RuleCondition @.conditions is shape-member('Conditions');
+        has Action @.actions is shape-member('Actions');
         has Str $.rule-arn is shape-member('RuleArn');
         has Str $.priority is shape-member('Priority');
     }
-
-    subset TargetTypeEnum of Str where $_ ~~ any('instance', 'ip');
 
     class LoadBalancer does AWS::SDK::Shape {
         has Str $.vpc-id is shape-member('VpcId');
         has LoadBalancerSchemeEnum $.scheme is shape-member('Scheme');
         has IpAddressType $.ip-address-type is shape-member('IpAddressType');
-        has Array[Str] $.security-groups is shape-member('SecurityGroups');
+        has Str @.security-groups is shape-member('SecurityGroups');
         has Str $.canonical-hosted-zone-id is shape-member('CanonicalHostedZoneId');
-        has Array[AvailabilityZone] $.availability-zones is shape-member('AvailabilityZones');
+        has AvailabilityZone @.availability-zones is shape-member('AvailabilityZones');
         has Str $.dns-name is shape-member('DNSName');
         has Str $.load-balancer-arn is shape-member('LoadBalancerArn');
         has LoadBalancerState $.state is shape-member('State');
@@ -409,15 +436,11 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
         has LoadBalancerAttributes $.attributes is required is shape-member('Attributes');
     }
 
-    subset TargetHealthStateEnum of Str where $_ ~~ any('initial', 'healthy', 'unhealthy', 'unused', 'draining', 'unavailable');
-
     class IncompatibleProtocolsException does AWS::SDK::Shape {
     }
 
-    subset HealthCheckThresholdCount of Int where 2 <= * <= 10;
-
     class DescribeLoadBalancersOutput does AWS::SDK::Shape {
-        has Array[LoadBalancer] $.load-balancers is shape-member('LoadBalancers');
+        has LoadBalancer @.load-balancers is shape-member('LoadBalancers');
         has Str $.next-marker is shape-member('NextMarker');
     }
 
@@ -428,45 +451,43 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
 
     class DescribeTargetHealthInput does AWS::SDK::Shape {
         has Str $.target-group-arn is required is shape-member('TargetGroupArn');
-        has Array[TargetDescription] $.targets is shape-member('Targets');
+        has TargetDescription @.targets is shape-member('Targets');
     }
 
     class DescribeTagsOutput does AWS::SDK::Shape {
-        has Array[TagDescription] $.tag-descriptions is shape-member('TagDescriptions');
+        has TagDescription @.tag-descriptions is shape-member('TagDescriptions');
     }
 
     class AvailabilityZoneNotSupportedException does AWS::SDK::Shape {
     }
 
     class SetSubnetsOutput does AWS::SDK::Shape {
-        has Array[AvailabilityZone] $.availability-zones is shape-member('AvailabilityZones');
+        has AvailabilityZone @.availability-zones is shape-member('AvailabilityZones');
     }
 
     class DescribeSSLPoliciesInput does AWS::SDK::Shape {
-        has Array[Str] $.names is shape-member('Names');
+        has Str @.names is shape-member('Names');
         has PageSize $.page-size is shape-member('PageSize');
         has Str $.marker is shape-member('Marker');
     }
 
     class CreateListenerOutput does AWS::SDK::Shape {
-        has Array[Listener] $.listeners is shape-member('Listeners');
+        has Listener @.listeners is shape-member('Listeners');
     }
 
     class DeleteTargetGroupOutput does AWS::SDK::Shape {
     }
 
-    subset TagList of Array[Tag] where 1 <= *.elems;
-
     class PriorityInUseException does AWS::SDK::Shape {
     }
 
     class CreateTargetGroupOutput does AWS::SDK::Shape {
-        has Array[TargetGroup] $.target-groups is shape-member('TargetGroups');
+        has TargetGroup @.target-groups is shape-member('TargetGroups');
     }
 
     class CreateListenerInput does AWS::SDK::Shape {
-        has Array[Certificate] $.certificates is shape-member('Certificates');
-        has Array[Action] $.default-actions is required is shape-member('DefaultActions');
+        has Certificate @.certificates is shape-member('Certificates');
+        has Action @.default-actions is required is shape-member('DefaultActions');
         has Str $.load-balancer-arn is required is shape-member('LoadBalancerArn');
         has Port $.port is required is shape-member('Port');
         has ProtocolEnum $.protocol is required is shape-member('Protocol');
@@ -474,12 +495,12 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class CreateRuleOutput does AWS::SDK::Shape {
-        has Array[Rule] $.rules is shape-member('Rules');
+        has Rule @.rules is shape-member('Rules');
     }
 
     class ModifyRuleInput does AWS::SDK::Shape {
-        has Array[RuleCondition] $.conditions is shape-member('Conditions');
-        has Array[Action] $.actions is shape-member('Actions');
+        has RuleCondition @.conditions is shape-member('Conditions');
+        has Action @.actions is shape-member('Actions');
         has Str $.rule-arn is required is shape-member('RuleArn');
     }
 
@@ -490,12 +511,8 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
         has LoadBalancerAttributes $.attributes is shape-member('Attributes');
     }
 
-    subset LoadBalancerAttributeValue of Str where .chars <= 1024;
-
     class InvalidTargetException does AWS::SDK::Shape {
     }
-
-    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
     class TargetGroupAssociationLimitException does AWS::SDK::Shape {
     }
@@ -513,20 +530,18 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
         has LoadBalancerAttributeKey $.key is shape-member('Key');
     }
 
-    subset Path of Str where 1 <= .chars <= 1024;
-
     class AddTagsInput does AWS::SDK::Shape {
-        has Array[Str] $.resource-arns is required is shape-member('ResourceArns');
+        has Str @.resource-arns is required is shape-member('ResourceArns');
         has TagList $.tags is required is shape-member('Tags');
     }
 
     class RuleCondition does AWS::SDK::Shape {
-        has Array[Str] $.values is shape-member('Values');
+        has Str @.values is shape-member('Values');
         has ConditionFieldName $.field is shape-member('Field');
     }
 
     class DescribeRulesInput does AWS::SDK::Shape {
-        has Array[Str] $.rule-arns is shape-member('RuleArns');
+        has Str @.rule-arns is shape-member('RuleArns');
         has Str $.listener-arn is shape-member('ListenerArn');
         has PageSize $.page-size is shape-member('PageSize');
         has Str $.marker is shape-member('Marker');
@@ -548,21 +563,15 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
 
     class DeregisterTargetsInput does AWS::SDK::Shape {
         has Str $.target-group-arn is required is shape-member('TargetGroupArn');
-        has Array[TargetDescription] $.targets is required is shape-member('Targets');
+        has TargetDescription @.targets is required is shape-member('Targets');
     }
-
-    subset RulePriority of Int where 1 <= * <= 50000;
-
-    subset HealthCheckIntervalSeconds of Int where 5 <= * <= 300;
-
-    subset ProtocolEnum of Str where $_ ~~ any('HTTP', 'HTTPS', 'TCP');
 
     class SubnetNotFoundException does AWS::SDK::Shape {
     }
 
     class SslPolicy does AWS::SDK::Shape {
-        has Array[Str] $.ssl-protocols is shape-member('SslProtocols');
-        has Array[Cipher] $.ciphers is shape-member('Ciphers');
+        has Str @.ssl-protocols is shape-member('SslProtocols');
+        has Cipher @.ciphers is shape-member('Ciphers');
         has Str $.name is shape-member('Name');
     }
 
@@ -596,8 +605,8 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class DescribeLoadBalancersInput does AWS::SDK::Shape {
-        has Array[Str] $.load-balancer-arns is shape-member('LoadBalancerArns');
-        has Array[Str] $.names is shape-member('Names');
+        has Str @.load-balancer-arns is shape-member('LoadBalancerArns');
+        has Str @.names is shape-member('Names');
         has PageSize $.page-size is shape-member('PageSize');
         has Str $.marker is shape-member('Marker');
     }
@@ -611,16 +620,14 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
         has RulePriority $.priority is shape-member('Priority');
     }
 
-    subset TargetGroupAttributeKey of Str where .chars <= 256 && rx:P5/^[a-zA-Z0-9._]+$/;
-
     class DescribeListenersOutput does AWS::SDK::Shape {
-        has Array[Listener] $.listeners is shape-member('Listeners');
+        has Listener @.listeners is shape-member('Listeners');
         has Str $.next-marker is shape-member('NextMarker');
     }
 
     class SetSubnetsInput does AWS::SDK::Shape {
-        has Array[SubnetMapping] $.subnet-mappings is shape-member('SubnetMappings');
-        has Array[Str] $.subnets is required is shape-member('Subnets');
+        has SubnetMapping @.subnet-mappings is shape-member('SubnetMappings');
+        has Str @.subnets is required is shape-member('Subnets');
         has Str $.load-balancer-arn is required is shape-member('LoadBalancerArn');
     }
 
@@ -635,12 +642,12 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     class AvailabilityZone does AWS::SDK::Shape {
         has Str $.subnet-id is shape-member('SubnetId');
         has Str $.zone-name is shape-member('ZoneName');
-        has Array[LoadBalancerAddress] $.load-balancer-addresses is shape-member('LoadBalancerAddresses');
+        has LoadBalancerAddress @.load-balancer-addresses is shape-member('LoadBalancerAddresses');
     }
 
     class DescribeListenersInput does AWS::SDK::Shape {
         has Str $.load-balancer-arn is shape-member('LoadBalancerArn');
-        has Array[Str] $.listener-arns is shape-member('ListenerArns');
+        has Str @.listener-arns is shape-member('ListenerArns');
         has PageSize $.page-size is shape-member('PageSize');
         has Str $.marker is shape-member('Marker');
     }
@@ -664,7 +671,7 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class DescribeSSLPoliciesOutput does AWS::SDK::Shape {
-        has Array[SslPolicy] $.ssl-policies is shape-member('SslPolicies');
+        has SslPolicy @.ssl-policies is shape-member('SslPolicies');
         has Str $.next-marker is shape-member('NextMarker');
     }
 
@@ -684,7 +691,7 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class SetRulePrioritiesInput does AWS::SDK::Shape {
-        has Array[RulePriorityPair] $.rule-priorities is required is shape-member('RulePriorities');
+        has RulePriorityPair @.rule-priorities is required is shape-member('RulePriorities');
     }
 
     class TooManyRegistrationsForTargetIdException does AWS::SDK::Shape {
@@ -696,8 +703,8 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     class ModifyListenerInput does AWS::SDK::Shape {
-        has Array[Certificate] $.certificates is shape-member('Certificates');
-        has Array[Action] $.default-actions is shape-member('DefaultActions');
+        has Certificate @.certificates is shape-member('Certificates');
+        has Action @.default-actions is shape-member('DefaultActions');
         has Str $.listener-arn is required is shape-member('ListenerArn');
         has ProtocolEnum $.protocol is shape-member('Protocol');
         has Port $.port is shape-member('Port');
@@ -706,10 +713,10 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
 
     class CreateLoadBalancerInput does AWS::SDK::Shape {
         has LoadBalancerSchemeEnum $.scheme is shape-member('Scheme');
-        has Array[SubnetMapping] $.subnet-mappings is shape-member('SubnetMappings');
+        has SubnetMapping @.subnet-mappings is shape-member('SubnetMappings');
         has IpAddressType $.ip-address-type is shape-member('IpAddressType');
-        has Array[Str] $.security-groups is shape-member('SecurityGroups');
-        has Array[Str] $.subnets is shape-member('Subnets');
+        has Str @.security-groups is shape-member('SecurityGroups');
+        has Str @.subnets is shape-member('Subnets');
         has TagList $.tags is shape-member('Tags');
         has Str $.name is required is shape-member('Name');
         has LoadBalancerTypeEnum $.type is shape-member('Type');
@@ -720,17 +727,13 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
         has Str $.marker is shape-member('Marker');
     }
 
-    subset Port of Int where 1 <= * <= 65535;
-
     class RuleNotFoundException does AWS::SDK::Shape {
     }
 
-    subset LoadBalancerSchemeEnum of Str where $_ ~~ any('internet-facing', 'internal');
-
     class DescribeTargetGroupsInput does AWS::SDK::Shape {
-        has Array[Str] $.target-group-arns is shape-member('TargetGroupArns');
+        has Str @.target-group-arns is shape-member('TargetGroupArns');
         has Str $.load-balancer-arn is shape-member('LoadBalancerArn');
-        has Array[Str] $.names is shape-member('Names');
+        has Str @.names is shape-member('Names');
         has PageSize $.page-size is shape-member('PageSize');
         has Str $.marker is shape-member('Marker');
     }
@@ -738,14 +741,13 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     class DeregisterTargetsOutput does AWS::SDK::Shape {
     }
 
-    subset LoadBalancerStateEnum of Str where $_ ~~ any('active', 'provisioning', 'active_impaired', 'failed');
 
     method set-security-groups(
-        Array[Str] :$security-groups!,
+        Str :@security-groups!,
         Str :$load-balancer-arn!
     ) returns SetSecurityGroupsOutput is service-operation('SetSecurityGroups') {
         my $request-input = SetSecurityGroupsInput.new(
-            :$security-groups,
+            :@security-groups,
             :$load-balancer-arn
         );
 
@@ -756,10 +758,10 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method set-rule-priorities(
-        Array[RulePriorityPair] :$rule-priorities!
+        RulePriorityPair :@rule-priorities!
     ) returns SetRulePrioritiesOutput is service-operation('SetRulePriorities') {
         my $request-input = SetRulePrioritiesInput.new(
-            :$rule-priorities
+            :@rule-priorities
         );
 
         self.perform-operation(
@@ -769,13 +771,13 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method modify-rule(
-        Array[RuleCondition] :$conditions,
-        Array[Action] :$actions,
+        RuleCondition :@conditions,
+        Action :@actions,
         Str :$rule-arn!
     ) returns ModifyRuleOutput is service-operation('ModifyRule') {
         my $request-input = ModifyRuleInput.new(
-            :$conditions,
-            :$actions,
+            :@conditions,
+            :@actions,
             :$rule-arn
         );
 
@@ -786,16 +788,16 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method modify-listener(
-        Array[Certificate] :$certificates,
-        Array[Action] :$default-actions,
+        Certificate :@certificates,
+        Action :@default-actions,
         Str :$listener-arn!,
         ProtocolEnum :$protocol,
         Port :$port,
         Str :$ssl-policy
     ) returns ModifyListenerOutput is service-operation('ModifyListener') {
         my $request-input = ModifyListenerInput.new(
-            :$certificates,
-            :$default-actions,
+            :@certificates,
+            :@default-actions,
             :$listener-arn,
             :$protocol,
             :$port,
@@ -810,11 +812,11 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
 
     method describe-target-health(
         Str :$target-group-arn!,
-        Array[TargetDescription] :$targets
+        TargetDescription :@targets
     ) returns DescribeTargetHealthOutput is service-operation('DescribeTargetHealth') {
         my $request-input = DescribeTargetHealthInput.new(
             :$target-group-arn,
-            :$targets
+            :@targets
         );
 
         self.perform-operation(
@@ -824,16 +826,16 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method describe-target-groups(
-        Array[Str] :$target-group-arns,
+        Str :@target-group-arns,
         Str :$load-balancer-arn,
-        Array[Str] :$names,
+        Str :@names,
         PageSize :$page-size,
         Str :$marker
     ) returns DescribeTargetGroupsOutput is service-operation('DescribeTargetGroups') {
         my $request-input = DescribeTargetGroupsInput.new(
-            :$target-group-arns,
+            :@target-group-arns,
             :$load-balancer-arn,
-            :$names,
+            :@names,
             :$page-size,
             :$marker
         );
@@ -845,14 +847,14 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method describe-load-balancers(
-        Array[Str] :$load-balancer-arns,
-        Array[Str] :$names,
+        Str :@load-balancer-arns,
+        Str :@names,
         PageSize :$page-size,
         Str :$marker
     ) returns DescribeLoadBalancersOutput is service-operation('DescribeLoadBalancers') {
         my $request-input = DescribeLoadBalancersInput.new(
-            :$load-balancer-arns,
-            :$names,
+            :@load-balancer-arns,
+            :@names,
             :$page-size,
             :$marker
         );
@@ -901,11 +903,11 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method modify-target-group-attributes(
-        Array[TargetGroupAttribute] :$attributes!,
+        TargetGroupAttribute :@attributes!,
         Str :$target-group-arn!
     ) returns ModifyTargetGroupAttributesOutput is service-operation('ModifyTargetGroupAttributes') {
         my $request-input = ModifyTargetGroupAttributesInput.new(
-            :$attributes,
+            :@attributes,
             :$target-group-arn
         );
 
@@ -916,12 +918,12 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method describe-ssl-policies(
-        Array[Str] :$names,
+        Str :@names,
         PageSize :$page-size,
         Str :$marker
     ) returns DescribeSSLPoliciesOutput is service-operation('DescribeSSLPolicies') {
         my $request-input = DescribeSSLPoliciesInput.new(
-            :$names,
+            :@names,
             :$page-size,
             :$marker
         );
@@ -961,11 +963,11 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method add-tags(
-        Array[Str] :$resource-arns!,
+        Str :@resource-arns!,
         TagList :$tags!
     ) returns AddTagsOutput is service-operation('AddTags') {
         my $request-input = AddTagsInput.new(
-            :$resource-arns,
+            :@resource-arns,
             :$tags
         );
 
@@ -976,13 +978,13 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method describe-rules(
-        Array[Str] :$rule-arns,
+        Str :@rule-arns,
         Str :$listener-arn,
         PageSize :$page-size,
         Str :$marker
     ) returns DescribeRulesOutput is service-operation('DescribeRules') {
         my $request-input = DescribeRulesInput.new(
-            :$rule-arns,
+            :@rule-arns,
             :$listener-arn,
             :$page-size,
             :$marker
@@ -1021,13 +1023,13 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method set-subnets(
-        Array[SubnetMapping] :$subnet-mappings,
-        Array[Str] :$subnets!,
+        SubnetMapping :@subnet-mappings,
+        Str :@subnets!,
         Str :$load-balancer-arn!
     ) returns SetSubnetsOutput is service-operation('SetSubnets') {
         my $request-input = SetSubnetsInput.new(
-            :$subnet-mappings,
-            :$subnets,
+            :@subnet-mappings,
+            :@subnets,
             :$load-balancer-arn
         );
 
@@ -1039,11 +1041,11 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
 
     method deregister-targets(
         Str :$target-group-arn!,
-        Array[TargetDescription] :$targets!
+        TargetDescription :@targets!
     ) returns DeregisterTargetsOutput is service-operation('DeregisterTargets') {
         my $request-input = DeregisterTargetsInput.new(
             :$target-group-arn,
-            :$targets
+            :@targets
         );
 
         self.perform-operation(
@@ -1053,16 +1055,16 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method create-listener(
-        Array[Certificate] :$certificates,
-        Array[Action] :$default-actions!,
+        Certificate :@certificates,
+        Action :@default-actions!,
         Str :$load-balancer-arn!,
         Port :$port!,
         ProtocolEnum :$protocol!,
         Str :$ssl-policy
     ) returns CreateListenerOutput is service-operation('CreateListener') {
         my $request-input = CreateListenerInput.new(
-            :$certificates,
-            :$default-actions,
+            :@certificates,
+            :@default-actions,
             :$load-balancer-arn,
             :$port,
             :$protocol,
@@ -1077,11 +1079,11 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
 
     method register-targets(
         Str :$target-group-arn!,
-        Array[TargetDescription] :$targets!
+        TargetDescription :@targets!
     ) returns RegisterTargetsOutput is service-operation('RegisterTargets') {
         my $request-input = RegisterTargetsInput.new(
             :$target-group-arn,
-            :$targets
+            :@targets
         );
 
         self.perform-operation(
@@ -1092,13 +1094,13 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
 
     method describe-listeners(
         Str :$load-balancer-arn,
-        Array[Str] :$listener-arns,
+        Str :@listener-arns,
         PageSize :$page-size,
         Str :$marker
     ) returns DescribeListenersOutput is service-operation('DescribeListeners') {
         my $request-input = DescribeListenersInput.new(
             :$load-balancer-arn,
-            :$listener-arns,
+            :@listener-arns,
             :$page-size,
             :$marker
         );
@@ -1111,20 +1113,20 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
 
     method create-load-balancer(
         LoadBalancerSchemeEnum :$scheme,
-        Array[SubnetMapping] :$subnet-mappings,
+        SubnetMapping :@subnet-mappings,
         IpAddressType :$ip-address-type,
-        Array[Str] :$security-groups,
-        Array[Str] :$subnets,
+        Str :@security-groups,
+        Str :@subnets,
         TagList :$tags,
         Str :$name!,
         LoadBalancerTypeEnum :$type
     ) returns CreateLoadBalancerOutput is service-operation('CreateLoadBalancer') {
         my $request-input = CreateLoadBalancerInput.new(
             :$scheme,
-            :$subnet-mappings,
+            :@subnet-mappings,
             :$ip-address-type,
-            :$security-groups,
-            :$subnets,
+            :@security-groups,
+            :@subnets,
             :$tags,
             :$name,
             :$type
@@ -1137,12 +1139,12 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method remove-tags(
-        Array[Str] :$resource-arns!,
-        Array[TagKey] :$tag-keys!
+        Str :@resource-arns!,
+        TagKey :@tag-keys!
     ) returns RemoveTagsOutput is service-operation('RemoveTags') {
         my $request-input = RemoveTagsInput.new(
-            :$resource-arns,
-            :$tag-keys
+            :@resource-arns,
+            :@tag-keys
         );
 
         self.perform-operation(
@@ -1165,10 +1167,10 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method describe-tags(
-        Array[Str] :$resource-arns!
+        Str :@resource-arns!
     ) returns DescribeTagsOutput is service-operation('DescribeTags') {
         my $request-input = DescribeTagsInput.new(
-            :$resource-arns
+            :@resource-arns
         );
 
         self.perform-operation(
@@ -1263,14 +1265,14 @@ class AWS::SDK::Service::ELBv2 does AWS::SDK::Service {
     }
 
     method create-rule(
-        Array[RuleCondition] :$conditions!,
-        Array[Action] :$actions!,
+        RuleCondition :@conditions!,
+        Action :@actions!,
         Str :$listener-arn!,
         RulePriority :$priority!
     ) returns CreateRuleOutput is service-operation('CreateRule') {
         my $request-input = CreateRuleInput.new(
-            :$conditions,
-            :$actions,
+            :@conditions,
+            :@actions,
             :$listener-arn,
             :$priority
         );

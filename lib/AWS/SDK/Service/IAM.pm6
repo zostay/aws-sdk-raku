@@ -262,8 +262,131 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
 
     subset serviceUserName of Str where 17 <= .chars <= 200 && rx:P5/[\w+=,.@-]+/;
 
+    subset privateKeyType of Str where 1 <= .chars <= 16384 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
+
+    subset idType of Str where 16 <= .chars <= 128 && rx:P5/[\w]+/;
+
+    subset serverCertificateNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
+
+    subset maxItemsType of Int where 1 <= * <= 1000;
+
+    subset clientIDType of Str where 1 <= .chars <= 255;
+
+    subset ReasonType of Str where .chars <= 1000;
+
+    subset publicKeyIdType of Str where 20 <= .chars <= 128 && rx:P5/[\w]+/;
+
+    subset policyNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
+
+    subset pathPrefixType of Str where 1 <= .chars <= 512 && rx:P5/\u002F[\u0021-\u007F]*/;
+
+    subset minimumPasswordLengthType of Int where 6 <= * <= 128;
+
+    subset ActionNameType of Str where 3 <= .chars <= 128;
+
+    subset virtualMFADeviceName of Str where 1 <= .chars && rx:P5/[\w+=,.@-]+/;
+
+    subset accessKeyIdType of Str where 16 <= .chars <= 128 && rx:P5/[\w]+/;
+
+    subset publicKeyMaterialType of Str where 1 <= .chars <= 16384 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
+
+    subset ReportStateType of Str where $_ eq any('STARTED', 'INPROGRESS', 'COMPLETE');
+
+    subset userNameType of Str where 1 <= .chars <= 64 && rx:P5/[\w+=,.@-]+/;
+
+    subset certificateChainType of Str where 1 <= .chars <= 2097152 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
+
+    subset ContextKeyTypeEnum of Str where $_ eq any('string', 'stringList', 'numeric', 'numericList', 'boolean', 'booleanList', 'ip', 'ipList', 'binary', 'binaryList', 'date', 'dateList');
+
+    subset authenticationCodeType of Str where 6 <= .chars <= 6 && rx:P5/[\d]+/;
+
+    subset policyDocumentType of Str where 1 <= .chars <= 131072 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
+
+    subset accountAliasType of Str where 3 <= .chars <= 63 && rx:P5/^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$/;
+
+    subset pathType of Str where 1 <= .chars <= 512 && rx:P5/(\u002F)|(\u002F[\u0021-\u007F]+\u002F)/;
+
+    subset EntityType of Str where $_ eq any('User', 'Role', 'Group', 'LocalManagedPolicy', 'AWSManagedPolicy');
+
+    subset policyScopeType of Str where $_ eq any('All', 'AWS', 'Local');
+
+    subset groupNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
+
+    subset policyPathType of Str where rx:P5/((\/[A-Za-z0-9\.,\+@=_-]+)*)\//;
+
+    subset arnType of Str where 20 <= .chars <= 2048;
+
+    subset certificateIdType of Str where 24 <= .chars <= 128 && rx:P5/[\w]+/;
+
+    subset DeletionTaskIdType of Str where 1 <= .chars <= 1000;
+
+    subset DeletionTaskStatusType of Str where $_ eq any('SUCCEEDED', 'IN_PROGRESS', 'FAILED', 'NOT_STARTED');
+
+    subset serialNumberType of Str where 9 <= .chars <= 256 && rx:P5/[\w+=\/:,.@-]+/;
+
+    subset existingUserNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
+
+    subset passwordType of Str where 1 <= .chars <= 128 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
+
+    subset passwordReusePreventionType of Int where 1 <= * <= 24;
+
+    subset summaryKeyType of Str where $_ eq any('Users', 'UsersQuota', 'Groups', 'GroupsQuota', 'ServerCertificates', 'ServerCertificatesQuota', 'UserPolicySizeQuota', 'GroupPolicySizeQuota', 'GroupsPerUserQuota', 'SigningCertificatesPerUserQuota', 'AccessKeysPerUserQuota', 'MFADevices', 'MFADevicesInUse', 'AccountMFAEnabled', 'AccountAccessKeysPresent', 'AccountSigningCertificatesPresent', 'AttachedPoliciesPerGroupQuota', 'AttachedPoliciesPerRoleQuota', 'AttachedPoliciesPerUserQuota', 'Policies', 'PoliciesQuota', 'PolicySizeQuota', 'PolicyVersionsInUse', 'PolicyVersionsInUseQuota', 'VersionsPerPolicyQuota');
+
+    subset roleDescriptionType of Str where .chars <= 1000 && rx:P5/[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]*/;
+
+    subset ResourceNameType of Str where 1 <= .chars <= 2048;
+
+    subset ContextKeyNameType of Str where 5 <= .chars <= 256;
+
+    subset roleNameType of Str where 1 <= .chars <= 64 && rx:P5/[\w+=,.@-]+/;
+
+    subset OpenIDConnectProviderUrlType of Str where 1 <= .chars <= 255;
+
+    subset certificateBodyType of Str where 1 <= .chars <= 16384 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
+
+    subset publicKeyFingerprintType of Str where 48 <= .chars <= 48 && rx:P5/[:\w]+/;
+
+    subset policyDescriptionType of Str where .chars <= 1000;
+
+    subset maxPasswordAgeType of Int where 1 <= * <= 1095;
+
+    subset SAMLProviderNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w._-]+/;
+
+    subset statusType of Str where $_ eq any('Active', 'Inactive');
+
+    subset EvalDecisionSourceType of Str where 3 <= .chars <= 256;
+
+    subset ReportFormatType of Str where $_ eq any('text/csv');
+
+    subset assignmentStatusType of Str where $_ eq any('Assigned', 'Unassigned', 'Any');
+
+    subset customSuffixType of Str where 1 <= .chars <= 64 && rx:P5/[\w+=,.@-]+/;
+
+    subset instanceProfileNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
+
+    subset PolicyEvaluationDecisionType of Str where $_ eq any('allowed', 'explicitDeny', 'implicitDeny');
+
+    subset markerType of Str where 1 <= .chars <= 320 && rx:P5/[\u0020-\u00FF]+/;
+
+    subset encodingType of Str where $_ eq any('SSH', 'PEM');
+
+    subset RegionNameType of Str where 1 <= .chars <= 100;
+
+    subset PolicySourceType of Str where $_ eq any('user', 'group', 'role', 'aws-managed', 'user-managed', 'resource', 'none');
+
+    subset ResourceHandlingOptionType of Str where 1 <= .chars <= 64;
+
+    subset SAMLMetadataDocumentType of Str where 1000 <= .chars <= 10000000;
+
+    subset serviceSpecificCredentialId of Str where 20 <= .chars <= 128 && rx:P5/[\w]+/;
+
+    subset thumbprintType of Str where 40 <= .chars <= 40;
+
+    subset policyVersionIdType of Str where rx:P5/v[1-9][0-9]*(\.[A-Za-z0-9-]*)?/;
+
+
     class ListAttachedRolePoliciesResponse does AWS::SDK::Shape {
-        has Array[AttachedPolicy] $.attached-policies is shape-member('AttachedPolicies');
+        has AttachedPolicy @.attached-policies is shape-member('AttachedPolicies');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -272,8 +395,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset privateKeyType of Str where 1 <= .chars <= 16384 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
-
     class ListRolePoliciesRequest does AWS::SDK::Shape {
         has maxItemsType $.max-items is shape-member('MaxItems');
         has markerType $.marker is shape-member('Marker');
@@ -281,7 +402,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ListGroupsResponse does AWS::SDK::Shape {
-        has Array[Group] $.groups is required is shape-member('Groups');
+        has Group @.groups is required is shape-member('Groups');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -314,25 +435,19 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has Role $.role is required is shape-member('Role');
     }
 
-    subset idType of Str where 16 <= .chars <= 128 && rx:P5/[\w]+/;
-
     class DeleteGroupPolicyRequest does AWS::SDK::Shape {
         has policyNameType $.policy-name is required is shape-member('PolicyName');
         has groupNameType $.group-name is required is shape-member('GroupName');
     }
 
     class ListOpenIDConnectProvidersResponse does AWS::SDK::Shape {
-        has Array[OpenIDConnectProviderListEntry] $.open-id-connect-provider-list is shape-member('OpenIDConnectProviderList');
+        has OpenIDConnectProviderListEntry @.open-id-connect-provider-list is shape-member('OpenIDConnectProviderList');
     }
 
     class Position does AWS::SDK::Shape {
         has Int $.column is shape-member('Column');
         has Int $.line is shape-member('Line');
     }
-
-    subset serverCertificateNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
-
-    subset maxItemsType of Int where 1 <= * <= 1000;
 
     class Role does AWS::SDK::Shape {
         has arnType $.arn is required is shape-member('Arn');
@@ -354,8 +469,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has serialNumberType $.serial-number is required is shape-member('SerialNumber');
         has userNameType $.user-name is required is shape-member('UserName');
     }
-
-    subset clientIDType of Str where 1 <= .chars <= 255;
 
     class DeleteGroupRequest does AWS::SDK::Shape {
         has groupNameType $.group-name is required is shape-member('GroupName');
@@ -381,7 +494,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class GetAccountAuthorizationDetailsRequest does AWS::SDK::Shape {
-        has Array[EntityType] $.filter is shape-member('Filter');
+        has EntityType @.filter is shape-member('Filter');
         has maxItemsType $.max-items is shape-member('MaxItems');
         has markerType $.marker is shape-member('Marker');
     }
@@ -403,7 +516,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ListAttachedGroupPoliciesResponse does AWS::SDK::Shape {
-        has Array[AttachedPolicy] $.attached-policies is shape-member('AttachedPolicies');
+        has AttachedPolicy @.attached-policies is shape-member('AttachedPolicies');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -414,7 +527,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
 
     class ContextEntry does AWS::SDK::Shape {
         has ContextKeyTypeEnum $.context-key-type is shape-member('ContextKeyType');
-        has Array[Str] $.context-key-values is shape-member('ContextKeyValues');
+        has Str @.context-key-values is shape-member('ContextKeyValues');
         has ContextKeyNameType $.context-key-name is shape-member('ContextKeyName');
     }
 
@@ -437,15 +550,13 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has DateTime $.create-date is shape-member('CreateDate');
         has policyDescriptionType $.description is shape-member('Description');
         has policyPathType $.path is shape-member('Path');
-        has Array[PolicyVersion] $.policy-version-list is shape-member('PolicyVersionList');
+        has PolicyVersion @.policy-version-list is shape-member('PolicyVersionList');
         has DateTime $.update-date is shape-member('UpdateDate');
         has idType $.policy-id is shape-member('PolicyId');
         has Bool $.is-attachable is shape-member('IsAttachable');
         has policyNameType $.policy-name is shape-member('PolicyName');
         has Int $.attachment-count is shape-member('AttachmentCount');
     }
-
-    subset ReasonType of Str where .chars <= 1000;
 
     class UpdateUserRequest does AWS::SDK::Shape {
         has userNameType $.new-user-name is shape-member('NewUserName');
@@ -458,14 +569,8 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has roleNameType $.role-name is shape-member('RoleName');
     }
 
-    subset publicKeyIdType of Str where 20 <= .chars <= 128 && rx:P5/[\w]+/;
-
-    subset policyNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
-
-    subset pathPrefixType of Str where 1 <= .chars <= 512 && rx:P5/\u002F[\u0021-\u007F]*/;
-
     class ListUsersResponse does AWS::SDK::Shape {
-        has Array[User] $.users is required is shape-member('Users');
+        has User @.users is required is shape-member('Users');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -488,10 +593,8 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has certificateBodyType $.certificate-body is required is shape-member('CertificateBody');
     }
 
-    subset minimumPasswordLengthType of Int where 6 <= * <= 128;
-
     class GetContextKeysForCustomPolicyRequest does AWS::SDK::Shape {
-        has Array[policyDocumentType] $.policy-input-list is required is shape-member('PolicyInputList');
+        has policyDocumentType @.policy-input-list is required is shape-member('PolicyInputList');
     }
 
     class SSHPublicKey does AWS::SDK::Shape {
@@ -504,7 +607,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ListVirtualMFADevicesResponse does AWS::SDK::Shape {
-        has Array[VirtualMFADevice] $.virtual-mfa-devices is required is shape-member('VirtualMFADevices');
+        has VirtualMFADevice @.virtual-mfa-devices is required is shape-member('VirtualMFADevices');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -521,7 +624,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class GetAccountSummaryResponse does AWS::SDK::Shape {
-        has Hash[Int, summaryKeyType] $.summary-map is shape-member('SummaryMap');
+        has Int %.summary-map{summaryKeyType} is shape-member('SummaryMap');
     }
 
     class UpdateSSHPublicKeyRequest does AWS::SDK::Shape {
@@ -544,12 +647,8 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has accessKeyIdType $.access-key-id is required is shape-member('AccessKeyId');
     }
 
-    subset ActionNameType of Str where 3 <= .chars <= 128;
-
-    subset virtualMFADeviceName of Str where 1 <= .chars && rx:P5/[\w+=,.@-]+/;
-
     class ListSSHPublicKeysResponse does AWS::SDK::Shape {
-        has Array[SSHPublicKeyMetadata] $.ssh-public-keys is shape-member('SSHPublicKeys');
+        has SSHPublicKeyMetadata @.ssh-public-keys is shape-member('SSHPublicKeys');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -565,12 +664,8 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has statusType $.status is required is shape-member('Status');
     }
 
-    subset accessKeyIdType of Str where 16 <= .chars <= 128 && rx:P5/[\w]+/;
-
-    subset publicKeyMaterialType of Str where 1 <= .chars <= 16384 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
-
     class ListPoliciesResponse does AWS::SDK::Shape {
-        has Array[Policy] $.policies is shape-member('Policies');
+        has Policy @.policies is shape-member('Policies');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -589,10 +684,10 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class GetAccountAuthorizationDetailsResponse does AWS::SDK::Shape {
-        has Array[GroupDetail] $.group-detail-list is shape-member('GroupDetailList');
-        has Array[ManagedPolicyDetail] $.policies is shape-member('Policies');
-        has Array[RoleDetail] $.role-detail-list is shape-member('RoleDetailList');
-        has Array[UserDetail] $.user-detail-list is shape-member('UserDetailList');
+        has GroupDetail @.group-detail-list is shape-member('GroupDetailList');
+        has ManagedPolicyDetail @.policies is shape-member('Policies');
+        has RoleDetail @.role-detail-list is shape-member('RoleDetailList');
+        has UserDetail @.user-detail-list is shape-member('UserDetailList');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -607,10 +702,8 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has markerType $.marker is shape-member('Marker');
     }
 
-    subset ReportStateType of Str where $_ ~~ any('STARTED', 'INPROGRESS', 'COMPLETE');
-
     class ListInstanceProfilesForRoleResponse does AWS::SDK::Shape {
-        has Array[InstanceProfile] $.instance-profiles is required is shape-member('InstanceProfiles');
+        has InstanceProfile @.instance-profiles is required is shape-member('InstanceProfiles');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -651,8 +744,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has SigningCertificate $.certificate is required is shape-member('Certificate');
     }
 
-    subset userNameType of Str where 1 <= .chars <= 64 && rx:P5/[\w+=,.@-]+/;
-
     class ListSSHPublicKeysRequest does AWS::SDK::Shape {
         has userNameType $.user-name is shape-member('UserName');
         has maxItemsType $.max-items is shape-member('MaxItems');
@@ -666,14 +757,14 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class EvaluationResult does AWS::SDK::Shape {
-        has Hash[PolicyEvaluationDecisionType, EvalDecisionSourceType] $.eval-decision-details is shape-member('EvalDecisionDetails');
+        has PolicyEvaluationDecisionType %.eval-decision-details{EvalDecisionSourceType} is shape-member('EvalDecisionDetails');
         has ActionNameType $.eval-action-name is required is shape-member('EvalActionName');
-        has Array[ContextKeyNameType] $.missing-context-values is shape-member('MissingContextValues');
+        has ContextKeyNameType @.missing-context-values is shape-member('MissingContextValues');
         has OrganizationsDecisionDetail $.organizations-decision-detail is shape-member('OrganizationsDecisionDetail');
         has PolicyEvaluationDecisionType $.eval-decision is required is shape-member('EvalDecision');
         has ResourceNameType $.eval-resource-name is shape-member('EvalResourceName');
-        has Array[ResourceSpecificResult] $.resource-specific-results is shape-member('ResourceSpecificResults');
-        has Array[Statement] $.matched-statements is shape-member('MatchedStatements');
+        has ResourceSpecificResult @.resource-specific-results is shape-member('ResourceSpecificResults');
+        has Statement @.matched-statements is shape-member('MatchedStatements');
     }
 
     class UpdateAccountPasswordPolicyRequest does AWS::SDK::Shape {
@@ -687,8 +778,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has Bool $.require-symbols is shape-member('RequireSymbols');
         has Bool $.hard-expiry is shape-member('HardExpiry');
     }
-
-    subset certificateChainType of Str where 1 <= .chars <= 2097152 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
 
     class CreateSAMLProviderRequest does AWS::SDK::Shape {
         has SAMLMetadataDocumentType $.saml-metadata-document is required is shape-member('SAMLMetadataDocument');
@@ -737,14 +826,10 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ContextKeyTypeEnum of Str where $_ ~~ any('string', 'stringList', 'numeric', 'numericList', 'boolean', 'booleanList', 'ip', 'ipList', 'binary', 'binaryList', 'date', 'dateList');
-
     class CreateGroupRequest does AWS::SDK::Shape {
         has pathType $.path is shape-member('Path');
         has groupNameType $.group-name is required is shape-member('GroupName');
     }
-
-    subset authenticationCodeType of Str where 6 <= .chars <= 6 && rx:P5/[\d]+/;
 
     class DeleteServiceSpecificCredentialRequest does AWS::SDK::Shape {
         has userNameType $.user-name is shape-member('UserName');
@@ -756,14 +841,10 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ListAccountAliasesResponse does AWS::SDK::Shape {
-        has Array[accountAliasType] $.account-aliases is required is shape-member('AccountAliases');
+        has accountAliasType @.account-aliases is required is shape-member('AccountAliases');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
-
-    subset policyDocumentType of Str where 1 <= .chars <= 131072 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
-
-    subset accountAliasType of Str where 3 <= .chars <= 63 && rx:P5/^[a-z0-9](([a-z0-9]|-(?!-))*[a-z0-9])?$/;
 
     class ServerCertificateMetadata does AWS::SDK::Shape {
         has arnType $.arn is required is shape-member('Arn');
@@ -783,8 +864,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has Str $.description is shape-member('Description');
         has ReportStateType $.state is shape-member('State');
     }
-
-    subset pathType of Str where 1 <= .chars <= 512 && rx:P5/(\u002F)|(\u002F[\u0021-\u007F]+\u002F)/;
 
     class GetUserResponse does AWS::SDK::Shape {
         has User $.user is required is shape-member('User');
@@ -821,14 +900,14 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class RoleDetail does AWS::SDK::Shape {
-        has Array[AttachedPolicy] $.attached-managed-policies is shape-member('AttachedManagedPolicies');
+        has AttachedPolicy @.attached-managed-policies is shape-member('AttachedManagedPolicies');
         has arnType $.arn is shape-member('Arn');
         has idType $.role-id is shape-member('RoleId');
         has DateTime $.create-date is shape-member('CreateDate');
         has pathType $.path is shape-member('Path');
-        has Array[InstanceProfile] $.instance-profile-list is shape-member('InstanceProfileList');
+        has InstanceProfile @.instance-profile-list is shape-member('InstanceProfileList');
         has policyDocumentType $.assume-role-policy-document is shape-member('AssumeRolePolicyDocument');
-        has Array[PolicyDetail] $.role-policy-list is shape-member('RolePolicyList');
+        has PolicyDetail @.role-policy-list is shape-member('RolePolicyList');
         has roleNameType $.role-name is shape-member('RoleName');
     }
 
@@ -855,8 +934,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has groupNameType $.aws-service-name is required is shape-member('AWSServiceName');
     }
 
-    subset EntityType of Str where $_ ~~ any('User', 'Role', 'Group', 'LocalManagedPolicy', 'AWSManagedPolicy');
-
     class GetCredentialReportResponse does AWS::SDK::Shape {
         has Blob $.content is shape-member('Content');
         has DateTime $.generated-time is shape-member('GeneratedTime');
@@ -875,17 +952,17 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class SimulatePrincipalPolicyRequest does AWS::SDK::Shape {
-        has Array[ResourceNameType] $.resource-arns is shape-member('ResourceArns');
+        has ResourceNameType @.resource-arns is shape-member('ResourceArns');
         has arnType $.policy-source-arn is required is shape-member('PolicySourceArn');
-        has Array[ActionNameType] $.action-names is required is shape-member('ActionNames');
-        has Array[policyDocumentType] $.policy-input-list is shape-member('PolicyInputList');
+        has ActionNameType @.action-names is required is shape-member('ActionNames');
+        has policyDocumentType @.policy-input-list is shape-member('PolicyInputList');
         has ResourceNameType $.resource-owner is shape-member('ResourceOwner');
         has maxItemsType $.max-items is shape-member('MaxItems');
         has ResourceHandlingOptionType $.resource-handling-option is shape-member('ResourceHandlingOption');
         has ResourceNameType $.caller-arn is shape-member('CallerArn');
         has policyDocumentType $.resource-policy is shape-member('ResourcePolicy');
         has markerType $.marker is shape-member('Marker');
-        has Array[ContextEntry] $.context-entries is shape-member('ContextEntries');
+        has ContextEntry @.context-entries is shape-member('ContextEntries');
     }
 
     class GetServiceLinkedRoleDeletionStatusResponse does AWS::SDK::Shape {
@@ -902,7 +979,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class GetGroupResponse does AWS::SDK::Shape {
-        has Array[User] $.users is required is shape-member('Users');
+        has User @.users is required is shape-member('Users');
         has Group $.group is required is shape-member('Group');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
@@ -915,7 +992,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ListUserPoliciesResponse does AWS::SDK::Shape {
-        has Array[policyNameType] $.policy-names is required is shape-member('PolicyNames');
+        has policyNameType @.policy-names is required is shape-member('PolicyNames');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -941,23 +1018,19 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class GetContextKeysForPolicyResponse does AWS::SDK::Shape {
-        has Array[ContextKeyNameType] $.context-key-names is shape-member('ContextKeyNames');
+        has ContextKeyNameType @.context-key-names is shape-member('ContextKeyNames');
     }
 
     class UserDetail does AWS::SDK::Shape {
-        has Array[AttachedPolicy] $.attached-managed-policies is shape-member('AttachedManagedPolicies');
+        has AttachedPolicy @.attached-managed-policies is shape-member('AttachedManagedPolicies');
         has arnType $.arn is shape-member('Arn');
-        has Array[groupNameType] $.group-list is shape-member('GroupList');
+        has groupNameType @.group-list is shape-member('GroupList');
         has DateTime $.create-date is shape-member('CreateDate');
         has pathType $.path is shape-member('Path');
         has userNameType $.user-name is shape-member('UserName');
-        has Array[PolicyDetail] $.user-policy-list is shape-member('UserPolicyList');
+        has PolicyDetail @.user-policy-list is shape-member('UserPolicyList');
         has idType $.user-id is shape-member('UserId');
     }
-
-    subset policyScopeType of Str where $_ ~~ any('All', 'AWS', 'Local');
-
-    subset groupNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
 
     class ResetServiceSpecificCredentialResponse does AWS::SDK::Shape {
         has ServiceSpecificCredential $.service-specific-credential is shape-member('ServiceSpecificCredential');
@@ -969,13 +1042,9 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has DateTime $.create-date is shape-member('CreateDate');
     }
 
-    subset policyPathType of Str where rx:P5/((\/[A-Za-z0-9\.,\+@=_-]+)*)\//;
-
     class EntityAlreadyExistsException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset arnType of Str where 20 <= .chars <= 2048;
 
     class AccessKeyLastUsed does AWS::SDK::Shape {
         has Str $.service-name is required is shape-member('ServiceName');
@@ -986,7 +1055,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     class ListAccessKeysResponse does AWS::SDK::Shape {
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
-        has Array[AccessKeyMetadata] $.access-key-metadata is required is shape-member('AccessKeyMetadata');
+        has AccessKeyMetadata @.access-key-metadata is required is shape-member('AccessKeyMetadata');
     }
 
     class InvalidUserTypeException does AWS::SDK::Shape {
@@ -1003,11 +1072,11 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ResourceSpecificResult does AWS::SDK::Shape {
-        has Hash[PolicyEvaluationDecisionType, EvalDecisionSourceType] $.eval-decision-details is shape-member('EvalDecisionDetails');
-        has Array[ContextKeyNameType] $.missing-context-values is shape-member('MissingContextValues');
+        has PolicyEvaluationDecisionType %.eval-decision-details{EvalDecisionSourceType} is shape-member('EvalDecisionDetails');
+        has ContextKeyNameType @.missing-context-values is shape-member('MissingContextValues');
         has PolicyEvaluationDecisionType $.eval-resource-decision is required is shape-member('EvalResourceDecision');
         has ResourceNameType $.eval-resource-name is required is shape-member('EvalResourceName');
-        has Array[Statement] $.matched-statements is shape-member('MatchedStatements');
+        has Statement @.matched-statements is shape-member('MatchedStatements');
     }
 
     class UpdateServiceSpecificCredentialRequest does AWS::SDK::Shape {
@@ -1041,10 +1110,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has groupNameType $.new-group-name is shape-member('NewGroupName');
         has groupNameType $.group-name is required is shape-member('GroupName');
     }
-
-    subset certificateIdType of Str where 24 <= .chars <= 128 && rx:P5/[\w]+/;
-
-    subset DeletionTaskIdType of Str where 1 <= .chars <= 1000;
 
     class SetDefaultPolicyVersionRequest does AWS::SDK::Shape {
         has policyVersionIdType $.version-id is required is shape-member('VersionId');
@@ -1095,12 +1160,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has existingUserNameType $.user-name is shape-member('UserName');
     }
 
-    subset DeletionTaskStatusType of Str where $_ ~~ any('SUCCEEDED', 'IN_PROGRESS', 'FAILED', 'NOT_STARTED');
-
-    subset serialNumberType of Str where 9 <= .chars <= 256 && rx:P5/[\w+=\/:,.@-]+/;
-
-    subset existingUserNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
-
     class GetRoleRequest does AWS::SDK::Shape {
         has roleNameType $.role-name is required is shape-member('RoleName');
     }
@@ -1110,13 +1169,13 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ListRolesResponse does AWS::SDK::Shape {
-        has Array[Role] $.roles is required is shape-member('Roles');
+        has Role @.roles is required is shape-member('Roles');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
 
     class ListMFADevicesResponse does AWS::SDK::Shape {
-        has Array[MFADevice] $.mfa-devices is required is shape-member('MFADevices');
+        has MFADevice @.mfa-devices is required is shape-member('MFADevices');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -1173,10 +1232,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has roleNameType $.role-name is required is shape-member('RoleName');
     }
 
-    subset passwordType of Str where 1 <= .chars <= 128 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
-
-    subset passwordReusePreventionType of Int where 1 <= * <= 24;
-
     class UpdateAccessKeyRequest does AWS::SDK::Shape {
         has accessKeyIdType $.access-key-id is required is shape-member('AccessKeyId');
         has existingUserNameType $.user-name is shape-member('UserName');
@@ -1190,18 +1245,18 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ListGroupPoliciesResponse does AWS::SDK::Shape {
-        has Array[policyNameType] $.policy-names is required is shape-member('PolicyNames');
+        has policyNameType @.policy-names is required is shape-member('PolicyNames');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
 
     class GroupDetail does AWS::SDK::Shape {
-        has Array[AttachedPolicy] $.attached-managed-policies is shape-member('AttachedManagedPolicies');
+        has AttachedPolicy @.attached-managed-policies is shape-member('AttachedManagedPolicies');
         has arnType $.arn is shape-member('Arn');
         has idType $.group-id is shape-member('GroupId');
         has DateTime $.create-date is shape-member('CreateDate');
         has pathType $.path is shape-member('Path');
-        has Array[PolicyDetail] $.group-policy-list is shape-member('GroupPolicyList');
+        has PolicyDetail @.group-policy-list is shape-member('GroupPolicyList');
         has groupNameType $.group-name is shape-member('GroupName');
     }
 
@@ -1223,7 +1278,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ListServerCertificatesResponse does AWS::SDK::Shape {
-        has Array[ServerCertificateMetadata] $.server-certificate-metadata-list is required is shape-member('ServerCertificateMetadataList');
+        has ServerCertificateMetadata @.server-certificate-metadata-list is required is shape-member('ServerCertificateMetadataList');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -1235,8 +1290,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has pathType $.path is required is shape-member('Path');
         has groupNameType $.group-name is required is shape-member('GroupName');
     }
-
-    subset summaryKeyType of Str where $_ ~~ any('Users', 'UsersQuota', 'Groups', 'GroupsQuota', 'ServerCertificates', 'ServerCertificatesQuota', 'UserPolicySizeQuota', 'GroupPolicySizeQuota', 'GroupsPerUserQuota', 'SigningCertificatesPerUserQuota', 'AccessKeysPerUserQuota', 'MFADevices', 'MFADevicesInUse', 'AccountMFAEnabled', 'AccountAccessKeysPresent', 'AccountSigningCertificatesPresent', 'AttachedPoliciesPerGroupQuota', 'AttachedPoliciesPerRoleQuota', 'AttachedPoliciesPerUserQuota', 'Policies', 'PoliciesQuota', 'PolicySizeQuota', 'PolicyVersionsInUse', 'PolicyVersionsInUseQuota', 'VersionsPerPolicyQuota');
 
     class GetPolicyVersionResponse does AWS::SDK::Shape {
         has PolicyVersion $.policy-version is shape-member('PolicyVersion');
@@ -1264,28 +1317,24 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset roleDescriptionType of Str where .chars <= 1000 && rx:P5/[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]*/;
-
     class ListServiceSpecificCredentialsResponse does AWS::SDK::Shape {
-        has Array[ServiceSpecificCredentialMetadata] $.service-specific-credentials is shape-member('ServiceSpecificCredentials');
+        has ServiceSpecificCredentialMetadata @.service-specific-credentials is shape-member('ServiceSpecificCredentials');
     }
 
     class ListOpenIDConnectProvidersRequest does AWS::SDK::Shape {
     }
 
-    subset ResourceNameType of Str where 1 <= .chars <= 2048;
-
     class RoleUsageType does AWS::SDK::Shape {
-        has Array[arnType] $.resources is shape-member('Resources');
+        has arnType @.resources is shape-member('Resources');
         has RegionNameType $.region is shape-member('Region');
     }
 
     class ListEntitiesForPolicyResponse does AWS::SDK::Shape {
-        has Array[PolicyGroup] $.policy-groups is shape-member('PolicyGroups');
-        has Array[PolicyUser] $.policy-users is shape-member('PolicyUsers');
+        has PolicyGroup @.policy-groups is shape-member('PolicyGroups');
+        has PolicyUser @.policy-users is shape-member('PolicyUsers');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
-        has Array[PolicyRole] $.policy-roles is shape-member('PolicyRoles');
+        has PolicyRole @.policy-roles is shape-member('PolicyRoles');
     }
 
     class LimitExceededException does AWS::SDK::Shape {
@@ -1302,7 +1351,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has DateTime $.create-date is required is shape-member('CreateDate');
         has pathType $.path is required is shape-member('Path');
         has instanceProfileNameType $.instance-profile-name is required is shape-member('InstanceProfileName');
-        has Array[Role] $.roles is required is shape-member('Roles');
+        has Role @.roles is required is shape-member('Roles');
     }
 
     class DeleteAccountAliasRequest does AWS::SDK::Shape {
@@ -1315,15 +1364,11 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has roleNameType $.role-name is required is shape-member('RoleName');
     }
 
-    subset ContextKeyNameType of Str where 5 <= .chars <= 256;
-
     class PutRolePolicyRequest does AWS::SDK::Shape {
         has policyDocumentType $.policy-document is required is shape-member('PolicyDocument');
         has policyNameType $.policy-name is required is shape-member('PolicyName');
         has roleNameType $.role-name is required is shape-member('RoleName');
     }
-
-    subset roleNameType of Str where 1 <= .chars <= 64 && rx:P5/[\w+=,.@-]+/;
 
     class ListServerCertificatesRequest does AWS::SDK::Shape {
         has pathPrefixType $.path-prefix is shape-member('PathPrefix');
@@ -1343,28 +1388,18 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset OpenIDConnectProviderUrlType of Str where 1 <= .chars <= 255;
-
-    subset certificateBodyType of Str where 1 <= .chars <= 16384 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
-
     class SimulateCustomPolicyRequest does AWS::SDK::Shape {
-        has Array[ResourceNameType] $.resource-arns is shape-member('ResourceArns');
-        has Array[ActionNameType] $.action-names is required is shape-member('ActionNames');
-        has Array[policyDocumentType] $.policy-input-list is required is shape-member('PolicyInputList');
+        has ResourceNameType @.resource-arns is shape-member('ResourceArns');
+        has ActionNameType @.action-names is required is shape-member('ActionNames');
+        has policyDocumentType @.policy-input-list is required is shape-member('PolicyInputList');
         has ResourceNameType $.resource-owner is shape-member('ResourceOwner');
         has maxItemsType $.max-items is shape-member('MaxItems');
         has ResourceHandlingOptionType $.resource-handling-option is shape-member('ResourceHandlingOption');
         has ResourceNameType $.caller-arn is shape-member('CallerArn');
         has policyDocumentType $.resource-policy is shape-member('ResourcePolicy');
         has markerType $.marker is shape-member('Marker');
-        has Array[ContextEntry] $.context-entries is shape-member('ContextEntries');
+        has ContextEntry @.context-entries is shape-member('ContextEntries');
     }
-
-    subset publicKeyFingerprintType of Str where 48 <= .chars <= 48 && rx:P5/[:\w]+/;
-
-    subset policyDescriptionType of Str where .chars <= 1000;
-
-    subset maxPasswordAgeType of Int where 1 <= * <= 1095;
 
     class ListPolicyVersionsRequest does AWS::SDK::Shape {
         has maxItemsType $.max-items is shape-member('MaxItems');
@@ -1378,8 +1413,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has policyVersionIdType $.version-id is shape-member('VersionId');
         has Bool $.is-default-version is shape-member('IsDefaultVersion');
     }
-
-    subset SAMLProviderNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w._-]+/;
 
     class UnrecognizedPublicKeyEncodingException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -1422,8 +1455,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has statusType $.status is shape-member('Status');
     }
 
-    subset statusType of Str where $_ ~~ any('Active', 'Inactive');
-
     class DetachGroupPolicyRequest does AWS::SDK::Shape {
         has arnType $.policy-arn is required is shape-member('PolicyArn');
         has groupNameType $.group-name is required is shape-member('GroupName');
@@ -1438,14 +1469,12 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has userNameType $.user-name is required is shape-member('UserName');
     }
 
-    subset EvalDecisionSourceType of Str where 3 <= .chars <= 256;
-
     class GetInstanceProfileRequest does AWS::SDK::Shape {
         has instanceProfileNameType $.instance-profile-name is required is shape-member('InstanceProfileName');
     }
 
     class ListRolePoliciesResponse does AWS::SDK::Shape {
-        has Array[policyNameType] $.policy-names is required is shape-member('PolicyNames');
+        has policyNameType @.policy-names is required is shape-member('PolicyNames');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -1464,8 +1493,8 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class CreateOpenIDConnectProviderRequest does AWS::SDK::Shape {
-        has Array[clientIDType] $.client-id-list is shape-member('ClientIDList');
-        has Array[thumbprintType] $.thumbprint-list is required is shape-member('ThumbprintList');
+        has clientIDType @.client-id-list is shape-member('ClientIDList');
+        has thumbprintType @.thumbprint-list is required is shape-member('ThumbprintList');
         has OpenIDConnectProviderUrlType $.url is required is shape-member('Url');
     }
 
@@ -1490,7 +1519,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ListSAMLProvidersResponse does AWS::SDK::Shape {
-        has Array[SAMLProviderListEntry] $.saml-provider-list is shape-member('SAMLProviderList');
+        has SAMLProviderListEntry @.saml-provider-list is shape-member('SAMLProviderList');
     }
 
     class DeleteUserPolicyRequest does AWS::SDK::Shape {
@@ -1507,16 +1536,14 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has arnType $.policy-arn is required is shape-member('PolicyArn');
     }
 
-    subset ReportFormatType of Str where $_ ~~ any('text/csv');
-
     class SimulatePolicyResponse does AWS::SDK::Shape {
-        has Array[EvaluationResult] $.evaluation-results is shape-member('EvaluationResults');
+        has EvaluationResult @.evaluation-results is shape-member('EvaluationResults');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
 
     class ListInstanceProfilesResponse does AWS::SDK::Shape {
-        has Array[InstanceProfile] $.instance-profiles is required is shape-member('InstanceProfiles');
+        has InstanceProfile @.instance-profiles is required is shape-member('InstanceProfiles');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -1524,10 +1551,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     class CredentialReportNotPresentException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset assignmentStatusType of Str where $_ ~~ any('Assigned', 'Unassigned', 'Any');
-
-    subset customSuffixType of Str where 1 <= .chars <= 64 && rx:P5/[\w+=,.@-]+/;
 
     class ListPoliciesRequest does AWS::SDK::Shape {
         has policyScopeType $.scope is shape-member('Scope');
@@ -1561,7 +1584,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class ListAttachedUserPoliciesResponse does AWS::SDK::Shape {
-        has Array[AttachedPolicy] $.attached-policies is shape-member('AttachedPolicies');
+        has AttachedPolicy @.attached-policies is shape-member('AttachedPolicies');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -1571,25 +1594,17 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has policyNameType $.policy-name is shape-member('PolicyName');
     }
 
-    subset instanceProfileNameType of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
-
-    subset PolicyEvaluationDecisionType of Str where $_ ~~ any('allowed', 'explicitDeny', 'implicitDeny');
-
     class PutUserPolicyRequest does AWS::SDK::Shape {
         has existingUserNameType $.user-name is required is shape-member('UserName');
         has policyDocumentType $.policy-document is required is shape-member('PolicyDocument');
         has policyNameType $.policy-name is required is shape-member('PolicyName');
     }
 
-    subset markerType of Str where 1 <= .chars <= 320 && rx:P5/[\u0020-\u00FF]+/;
-
     class PutGroupPolicyRequest does AWS::SDK::Shape {
         has policyDocumentType $.policy-document is required is shape-member('PolicyDocument');
         has policyNameType $.policy-name is required is shape-member('PolicyName');
         has groupNameType $.group-name is required is shape-member('GroupName');
     }
-
-    subset encodingType of Str where $_ ~~ any('SSH', 'PEM');
 
     class ListGroupPoliciesRequest does AWS::SDK::Shape {
         has maxItemsType $.max-items is shape-member('MaxItems');
@@ -1609,7 +1624,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     class ListPolicyVersionsResponse does AWS::SDK::Shape {
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
-        has Array[PolicyVersion] $.versions is shape-member('Versions');
+        has PolicyVersion @.versions is shape-member('Versions');
     }
 
     class ListGroupsRequest does AWS::SDK::Shape {
@@ -1634,18 +1649,14 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset RegionNameType of Str where 1 <= .chars <= 100;
-
-    subset PolicySourceType of Str where $_ ~~ any('user', 'group', 'role', 'aws-managed', 'user-managed', 'resource', 'none');
-
     class ListSigningCertificatesResponse does AWS::SDK::Shape {
-        has Array[SigningCertificate] $.certificates is required is shape-member('Certificates');
+        has SigningCertificate @.certificates is required is shape-member('Certificates');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
 
     class ListGroupsForUserResponse does AWS::SDK::Shape {
-        has Array[Group] $.groups is required is shape-member('Groups');
+        has Group @.groups is required is shape-member('Groups');
         has markerType $.marker is shape-member('Marker');
         has Bool $.is-truncated is shape-member('IsTruncated');
     }
@@ -1680,13 +1691,9 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has groupNameType $.group-name is required is shape-member('GroupName');
     }
 
-    subset ResourceHandlingOptionType of Str where 1 <= .chars <= 64;
-
-    subset SAMLMetadataDocumentType of Str where 1000 <= .chars <= 10000000;
-
     class UpdateOpenIDConnectProviderThumbprintRequest does AWS::SDK::Shape {
         has arnType $.open-id-connect-provider-arn is required is shape-member('OpenIDConnectProviderArn');
-        has Array[thumbprintType] $.thumbprint-list is required is shape-member('ThumbprintList');
+        has thumbprintType @.thumbprint-list is required is shape-member('ThumbprintList');
     }
 
     class InvalidInputException does AWS::SDK::Shape {
@@ -1702,10 +1709,8 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has arnType $.open-id-connect-provider-arn is shape-member('OpenIDConnectProviderArn');
     }
 
-    subset serviceSpecificCredentialId of Str where 20 <= .chars <= 128 && rx:P5/[\w]+/;
-
     class DeletionTaskFailureReasonType does AWS::SDK::Shape {
-        has Array[RoleUsageType] $.role-usage-list is shape-member('RoleUsageList');
+        has RoleUsageType @.role-usage-list is shape-member('RoleUsageList');
         has ReasonType $.reason is shape-member('Reason');
     }
 
@@ -1717,10 +1722,6 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
         has serverCertificateNameType $.server-certificate-name is required is shape-member('ServerCertificateName');
     }
 
-    subset thumbprintType of Str where 40 <= .chars <= 40;
-
-    subset policyVersionIdType of Str where rx:P5/v[1-9][0-9]*(\.[A-Za-z0-9-]*)?/;
-
     class CreatePolicyRequest does AWS::SDK::Shape {
         has policyDescriptionType $.description is shape-member('Description');
         has policyPathType $.path is shape-member('Path');
@@ -1730,7 +1731,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
 
     class GetContextKeysForPrincipalPolicyRequest does AWS::SDK::Shape {
         has arnType $.policy-source-arn is required is shape-member('PolicySourceArn');
-        has Array[policyDocumentType] $.policy-input-list is shape-member('PolicyInputList');
+        has policyDocumentType @.policy-input-list is shape-member('PolicyInputList');
     }
 
     class ListEntitiesForPolicyRequest does AWS::SDK::Shape {
@@ -1756,8 +1757,8 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     class GetOpenIDConnectProviderResponse does AWS::SDK::Shape {
-        has Array[clientIDType] $.client-id-list is shape-member('ClientIDList');
-        has Array[thumbprintType] $.thumbprint-list is shape-member('ThumbprintList');
+        has clientIDType @.client-id-list is shape-member('ClientIDList');
+        has thumbprintType @.thumbprint-list is shape-member('ThumbprintList');
         has DateTime $.create-date is shape-member('CreateDate');
         has OpenIDConnectProviderUrlType $.url is shape-member('Url');
     }
@@ -1765,6 +1766,7 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     class UploadSSHPublicKeyResponse does AWS::SDK::Shape {
         has SSHPublicKey $.ssh-public-key is shape-member('SSHPublicKey');
     }
+
 
     method delete-user(
         existingUserNameType :$user-name!
@@ -1983,30 +1985,30 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     method simulate-principal-policy(
-        Array[ResourceNameType] :$resource-arns,
+        ResourceNameType :@resource-arns,
         arnType :$policy-source-arn!,
-        Array[ActionNameType] :$action-names!,
-        Array[policyDocumentType] :$policy-input-list,
+        ActionNameType :@action-names!,
+        policyDocumentType :@policy-input-list,
         ResourceNameType :$resource-owner,
         maxItemsType :$max-items,
         ResourceHandlingOptionType :$resource-handling-option,
         ResourceNameType :$caller-arn,
         policyDocumentType :$resource-policy,
         markerType :$marker,
-        Array[ContextEntry] :$context-entries
+        ContextEntry :@context-entries
     ) returns SimulatePolicyResponse is service-operation('SimulatePrincipalPolicy') {
         my $request-input = SimulatePrincipalPolicyRequest.new(
-            :$resource-arns,
+            :@resource-arns,
             :$policy-source-arn,
-            :$action-names,
-            :$policy-input-list,
+            :@action-names,
+            :@policy-input-list,
             :$resource-owner,
             :$max-items,
             :$resource-handling-option,
             :$caller-arn,
             :$resource-policy,
             :$marker,
-            :$context-entries
+            :@context-entries
         );
 
         self.perform-operation(
@@ -2077,11 +2079,11 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
 
     method get-context-keys-for-principal-policy(
         arnType :$policy-source-arn!,
-        Array[policyDocumentType] :$policy-input-list
+        policyDocumentType :@policy-input-list
     ) returns GetContextKeysForPolicyResponse is service-operation('GetContextKeysForPrincipalPolicy') {
         my $request-input = GetContextKeysForPrincipalPolicyRequest.new(
             :$policy-source-arn,
-            :$policy-input-list
+            :@policy-input-list
         );
 
         self.perform-operation(
@@ -2618,10 +2620,10 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     method get-context-keys-for-custom-policy(
-        Array[policyDocumentType] :$policy-input-list!
+        policyDocumentType :@policy-input-list!
     ) returns GetContextKeysForPolicyResponse is service-operation('GetContextKeysForCustomPolicy') {
         my $request-input = GetContextKeysForCustomPolicyRequest.new(
-            :$policy-input-list
+            :@policy-input-list
         );
 
         self.perform-operation(
@@ -3245,13 +3247,13 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     method create-open-id-connect-provider(
-        Array[clientIDType] :$client-id-list,
-        Array[thumbprintType] :$thumbprint-list!,
+        clientIDType :@client-id-list,
+        thumbprintType :@thumbprint-list!,
         OpenIDConnectProviderUrlType :$url!
     ) returns CreateOpenIDConnectProviderResponse is service-operation('CreateOpenIDConnectProvider') {
         my $request-input = CreateOpenIDConnectProviderRequest.new(
-            :$client-id-list,
-            :$thumbprint-list,
+            :@client-id-list,
+            :@thumbprint-list,
             :$url
         );
 
@@ -3277,28 +3279,28 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     method simulate-custom-policy(
-        Array[ResourceNameType] :$resource-arns,
-        Array[ActionNameType] :$action-names!,
-        Array[policyDocumentType] :$policy-input-list!,
+        ResourceNameType :@resource-arns,
+        ActionNameType :@action-names!,
+        policyDocumentType :@policy-input-list!,
         ResourceNameType :$resource-owner,
         maxItemsType :$max-items,
         ResourceHandlingOptionType :$resource-handling-option,
         ResourceNameType :$caller-arn,
         policyDocumentType :$resource-policy,
         markerType :$marker,
-        Array[ContextEntry] :$context-entries
+        ContextEntry :@context-entries
     ) returns SimulatePolicyResponse is service-operation('SimulateCustomPolicy') {
         my $request-input = SimulateCustomPolicyRequest.new(
-            :$resource-arns,
-            :$action-names,
-            :$policy-input-list,
+            :@resource-arns,
+            :@action-names,
+            :@policy-input-list,
             :$resource-owner,
             :$max-items,
             :$resource-handling-option,
             :$caller-arn,
             :$resource-policy,
             :$marker,
-            :$context-entries
+            :@context-entries
         );
 
         self.perform-operation(
@@ -3600,11 +3602,11 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
 
     method update-open-id-connect-provider-thumbprint(
         arnType :$open-id-connect-provider-arn!,
-        Array[thumbprintType] :$thumbprint-list!
+        thumbprintType :@thumbprint-list!
     ) is service-operation('UpdateOpenIDConnectProviderThumbprint') {
         my $request-input = UpdateOpenIDConnectProviderThumbprintRequest.new(
             :$open-id-connect-provider-arn,
-            :$thumbprint-list
+            :@thumbprint-list
         );
 
         self.perform-operation(
@@ -3631,12 +3633,12 @@ class AWS::SDK::Service::IAM does AWS::SDK::Service {
     }
 
     method get-account-authorization-details(
-        Array[EntityType] :$filter,
+        EntityType :@filter,
         maxItemsType :$max-items,
         markerType :$marker
     ) returns GetAccountAuthorizationDetailsResponse is service-operation('GetAccountAuthorizationDetails') {
         my $request-input = GetAccountAuthorizationDetailsRequest.new(
-            :$filter,
+            :@filter,
             :$max-items,
             :$marker
         );

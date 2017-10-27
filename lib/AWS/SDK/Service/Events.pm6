@@ -55,6 +55,63 @@ class AWS::SDK::Service::Events does AWS::SDK::Service {
 
     subset Arn of Str where 1 <= .chars <= 1600;
 
+    subset ScheduleExpression of Str where .chars <= 256;
+
+    subset TargetPartitionKeyPath of Str where .chars <= 256;
+
+    subset TargetId of Str where 1 <= .chars <= 64 && rx:P5/[\.\-_A-Za-z0-9]+/;
+
+    subset RoleArn of Str where 1 <= .chars <= 1600;
+
+    subset StatementId of Str where 1 <= .chars <= 64 && rx:P5/[a-zA-Z0-9-_]+/;
+
+    subset RunCommandTargets of Array[RunCommandTarget] where 1 <= *.elems <= 5;
+
+    subset RunCommandTargetValue of Str where 1 <= .chars <= 256;
+
+    subset RuleState of Str where $_ eq any('ENABLED', 'DISABLED');
+
+    subset RuleArn of Str where 1 <= .chars <= 1600;
+
+    subset Action of Str where 1 <= .chars <= 64 && rx:P5/events:[a-zA-Z]+/;
+
+    subset LimitMax100 of Int where 1 <= * <= 100;
+
+    subset Principal of Str where 1 <= .chars <= 12 && rx:P5/(\d{12}|\*)/;
+
+    subset NextToken of Str where 1 <= .chars <= 2048;
+
+    subset TransformerInput of Str where 1 <= .chars <= 8192;
+
+    subset TransformerPaths of Hash[TargetInputPath, InputTransformerPathKey] where *.elems <= 10;
+
+    subset TargetInputPath of Str where .chars <= 256;
+
+    subset TargetInput of Str where .chars <= 8192;
+
+    subset InputTransformerPathKey of Str where 1 <= .chars <= 256 && rx:P5/[A-Za-z0-9\_\-]+/;
+
+    subset TargetList of Array[Target] where 1 <= *.elems <= 100;
+
+    subset LimitMin1 of Int where 1 <= *;
+
+    subset EventPattern of Str where .chars <= 2048;
+
+    subset TargetArn of Str where 1 <= .chars <= 1600;
+
+    subset RunCommandTargetKey of Str where 1 <= .chars <= 128 && rx:P5/^[\p{L}\p{Z}\p{N}_.:\/=+\-@]*$/;
+
+    subset TargetIdList of Array[TargetId] where 1 <= *.elems <= 100;
+
+    subset RuleDescription of Str where .chars <= 512;
+
+    subset RunCommandTargetValues of Array[RunCommandTargetValue] where 1 <= *.elems <= 50;
+
+    subset RuleName of Str where 1 <= .chars <= 64 && rx:P5/[\.\-_A-Za-z0-9]+/;
+
+    subset PutEventsRequestEntryList of Array[PutEventsRequestEntry] where 1 <= *.elems <= 10;
+
+
     class PutEventsResultEntry does AWS::SDK::Shape {
         has Str $.error-message is shape-member('ErrorMessage');
         has Str $.event-id is shape-member('EventId');
@@ -62,11 +119,9 @@ class AWS::SDK::Service::Events does AWS::SDK::Service {
     }
 
     class PutTargetsResponse does AWS::SDK::Shape {
-        has Array[PutTargetsResultEntry] $.failed-entries is shape-member('FailedEntries');
+        has PutTargetsResultEntry @.failed-entries is shape-member('FailedEntries');
         has Int $.failed-entry-count is shape-member('FailedEntryCount');
     }
-
-    subset ScheduleExpression of Str where .chars <= 256;
 
     class DisableRuleRequest does AWS::SDK::Shape {
         has RuleName $.name is required is shape-member('Name');
@@ -80,12 +135,6 @@ class AWS::SDK::Service::Events does AWS::SDK::Service {
         has Str $.error-message is shape-member('ErrorMessage');
         has Str $.error-code is shape-member('ErrorCode');
     }
-
-    subset TargetPartitionKeyPath of Str where .chars <= 256;
-
-    subset TargetId of Str where 1 <= .chars <= 64 && rx:P5/[\.\-_A-Za-z0-9]+/;
-
-    subset RoleArn of Str where 1 <= .chars <= 1600;
 
     class ResourceNotFoundException does AWS::SDK::Shape {
     }
@@ -116,65 +165,33 @@ class AWS::SDK::Service::Events does AWS::SDK::Service {
         has RuleName $.name-prefix is shape-member('NamePrefix');
     }
 
-    subset StatementId of Str where 1 <= .chars <= 64 && rx:P5/[a-zA-Z0-9-_]+/;
-
-    subset RunCommandTargets of Array[RunCommandTarget] where 1 <= *.elems <= 5;
-
-    subset RunCommandTargetValue of Str where 1 <= .chars <= 256;
-
-    subset RuleState of Str where $_ ~~ any('ENABLED', 'DISABLED');
-
-    subset RuleArn of Str where 1 <= .chars <= 1600;
-
-    subset Action of Str where 1 <= .chars <= 64 && rx:P5/events:[a-zA-Z]+/;
-
-    subset LimitMax100 of Int where 1 <= * <= 100;
-
-    subset Principal of Str where 1 <= .chars <= 12 && rx:P5/(\d{12}|\*)/;
-
     class ConcurrentModificationException does AWS::SDK::Shape {
     }
 
     class ListRulesResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
-        has Array[Rule] $.rules is shape-member('Rules');
+        has Rule @.rules is shape-member('Rules');
     }
-
-    subset NextToken of Str where 1 <= .chars <= 2048;
-
-    subset TransformerInput of Str where 1 <= .chars <= 8192;
 
     class PutTargetsRequest does AWS::SDK::Shape {
         has RuleName $.rule is required is shape-member('Rule');
         has TargetList $.targets is required is shape-member('Targets');
     }
 
-    subset TransformerPaths of Hash[TargetInputPath, InputTransformerPathKey] where *.elems <= 10;
-
-    subset TargetInputPath of Str where .chars <= 256;
-
-    subset TargetInput of Str where .chars <= 8192;
-
     class RemoveTargetsResponse does AWS::SDK::Shape {
-        has Array[RemoveTargetsResultEntry] $.failed-entries is shape-member('FailedEntries');
+        has RemoveTargetsResultEntry @.failed-entries is shape-member('FailedEntries');
         has Int $.failed-entry-count is shape-member('FailedEntryCount');
     }
 
     class InputTransformer does AWS::SDK::Shape {
         has TransformerInput $.input-template is required is shape-member('InputTemplate');
-        has TransformerPaths $.input-paths-map is shape-member('InputPathsMap');
+        has TargetInputPath $.input-paths-map{InputTransformerPathKey} is shape-member('InputPathsMap');
     }
-
-    subset InputTransformerPathKey of Str where 1 <= .chars <= 256 && rx:P5/[A-Za-z0-9\_\-]+/;
 
     class PutEventsResponse does AWS::SDK::Shape {
-        has Array[PutEventsResultEntry] $.entries is shape-member('Entries');
+        has PutEventsResultEntry @.entries is shape-member('Entries');
         has Int $.failed-entry-count is shape-member('FailedEntryCount');
     }
-
-    subset TargetList of Array[Target] where 1 <= *.elems <= 100;
-
-    subset LimitMin1 of Int where 1 <= *;
 
     class ListTargetsByRuleResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
@@ -220,16 +237,10 @@ class AWS::SDK::Service::Events does AWS::SDK::Service {
     class PolicyLengthExceededException does AWS::SDK::Shape {
     }
 
-    subset EventPattern of Str where .chars <= 2048;
-
     class TestEventPatternRequest does AWS::SDK::Shape {
         has Str $.event is required is shape-member('Event');
         has EventPattern $.event-pattern is required is shape-member('EventPattern');
     }
-
-    subset TargetArn of Str where 1 <= .chars <= 1600;
-
-    subset RunCommandTargetKey of Str where 1 <= .chars <= 128 && rx:P5/^[\p{L}\p{Z}\p{N}_.:\/=+\-@]*$/;
 
     class DescribeRuleResponse does AWS::SDK::Shape {
         has RuleArn $.arn is shape-member('Arn');
@@ -246,10 +257,6 @@ class AWS::SDK::Service::Events does AWS::SDK::Service {
         has NextToken $.next-token is shape-member('NextToken');
         has RuleName $.rule is required is shape-member('Rule');
     }
-
-    subset TargetIdList of Array[TargetId] where 1 <= *.elems <= 100;
-
-    subset RuleDescription of Str where .chars <= 512;
 
     class PutRuleResponse does AWS::SDK::Shape {
         has RuleArn $.rule-arn is shape-member('RuleArn');
@@ -284,12 +291,12 @@ class AWS::SDK::Service::Events does AWS::SDK::Service {
     }
 
     class ListRuleNamesByTargetResponse does AWS::SDK::Shape {
-        has Array[RuleName] $.rule-names is shape-member('RuleNames');
+        has RuleName @.rule-names is shape-member('RuleNames');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
     class PutEventsRequestEntry does AWS::SDK::Shape {
-        has Array[Str] $.resources is shape-member('Resources');
+        has Str @.resources is shape-member('Resources');
         has Str $.source is shape-member('Source');
         has DateTime $.time is shape-member('Time');
         has Str $.detail-type is shape-member('DetailType');
@@ -308,10 +315,6 @@ class AWS::SDK::Service::Events does AWS::SDK::Service {
         has InputTransformer $.input-transformer is shape-member('InputTransformer');
     }
 
-    subset RunCommandTargetValues of Array[RunCommandTargetValue] where 1 <= *.elems <= 50;
-
-    subset RuleName of Str where 1 <= .chars <= 64 && rx:P5/[\.\-_A-Za-z0-9]+/;
-
     class DescribeEventBusResponse does AWS::SDK::Shape {
         has Str $.arn is shape-member('Arn');
         has Str $.name is shape-member('Name');
@@ -327,7 +330,6 @@ class AWS::SDK::Service::Events does AWS::SDK::Service {
         has NextToken $.next-token is shape-member('NextToken');
     }
 
-    subset PutEventsRequestEntryList of Array[PutEventsRequestEntry] where 1 <= *.elems <= 10;
 
     method put-targets(
         RuleName :$rule!,

@@ -84,6 +84,29 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     class AssociateVirtualInterfaceRequest { ... }
     class AssociateHostedConnectionRequest { ... }
 
+    subset TagList of Array[Tag] where 1 <= *.elems;
+
+    subset LoaContentType of Str where $_ eq any('application/pdf');
+
+    subset InterconnectState of Str where $_ eq any('requested', 'pending', 'available', 'down', 'deleting', 'deleted');
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset AddressFamily of Str where $_ eq any('ipv4', 'ipv6');
+
+    subset BGPStatus of Str where $_ eq any('up', 'down');
+
+    subset VirtualInterfaceState of Str where $_ eq any('confirming', 'verifying', 'pending', 'available', 'down', 'deleting', 'deleted', 'rejected');
+
+    subset BGPPeerState of Str where $_ eq any('verifying', 'pending', 'available', 'deleting', 'deleted');
+
+    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset LagState of Str where $_ eq any('requested', 'pending', 'available', 'down', 'deleting', 'deleted');
+
+    subset ConnectionState of Str where $_ eq any('ordering', 'requested', 'pending', 'available', 'down', 'deleting', 'deleted', 'rejected');
+
+
     class AllocateConnectionOnInterconnectRequest does AWS::SDK::Shape {
         has Str $.bandwidth is required is shape-member('bandwidth');
         has Str $.owner-account is required is shape-member('ownerAccount');
@@ -105,7 +128,7 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
         has Str $.customer-address is shape-member('customerAddress');
         has Str $.auth-key is shape-member('authKey');
         has Str $.virtual-interface-name is required is shape-member('virtualInterfaceName');
-        has Array[RouteFilterPrefix] $.route-filter-prefixes is shape-member('routeFilterPrefixes');
+        has RouteFilterPrefix @.route-filter-prefixes is shape-member('routeFilterPrefixes');
         has AddressFamily $.address-family is shape-member('addressFamily');
         has Str $.amazon-address is shape-member('amazonAddress');
         has Int $.vlan is required is shape-member('vlan');
@@ -120,7 +143,7 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     }
 
     class DescribeTagsResponse does AWS::SDK::Shape {
-        has Array[ResourceTag] $.resource-tags is shape-member('resourceTags');
+        has ResourceTag @.resource-tags is shape-member('resourceTags');
     }
 
     class DescribeVirtualInterfacesRequest does AWS::SDK::Shape {
@@ -161,16 +184,12 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     }
 
     class VirtualGateways does AWS::SDK::Shape {
-        has Array[VirtualGateway] $.virtual-gateways is shape-member('virtualGateways');
+        has VirtualGateway @.virtual-gateways is shape-member('virtualGateways');
     }
 
     class VirtualInterfaces does AWS::SDK::Shape {
-        has Array[VirtualInterface] $.virtual-interfaces is shape-member('virtualInterfaces');
+        has VirtualInterface @.virtual-interfaces is shape-member('virtualInterfaces');
     }
-
-    subset TagList of Array[Tag] where 1 <= *.elems;
-
-    subset LoaContentType of Str where $_ ~~ any('application/pdf');
 
     class DescribeConnectionLoaRequest does AWS::SDK::Shape {
         has Str $.connection-id is required is shape-member('connectionId');
@@ -187,8 +206,6 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
         has Str $.amazon-address is shape-member('amazonAddress');
         has Int $.vlan is required is shape-member('vlan');
     }
-
-    subset InterconnectState of Str where $_ ~~ any('requested', 'pending', 'available', 'down', 'deleting', 'deleted');
 
     class CreateBGPPeerResponse does AWS::SDK::Shape {
         has VirtualInterface $.virtual-interface is shape-member('virtualInterface');
@@ -210,7 +227,7 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
         has Str $.customer-address is shape-member('customerAddress');
         has Str $.auth-key is shape-member('authKey');
         has Str $.virtual-interface-name is required is shape-member('virtualInterfaceName');
-        has Array[RouteFilterPrefix] $.route-filter-prefixes is shape-member('routeFilterPrefixes');
+        has RouteFilterPrefix @.route-filter-prefixes is shape-member('routeFilterPrefixes');
         has AddressFamily $.address-family is shape-member('addressFamily');
         has Str $.amazon-address is shape-member('amazonAddress');
         has Int $.vlan is required is shape-member('vlan');
@@ -223,8 +240,6 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     class DescribeHostedConnectionsRequest does AWS::SDK::Shape {
         has Str $.connection-id is required is shape-member('connectionId');
     }
-
-    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
     class NewPrivateVirtualInterface does AWS::SDK::Shape {
         has Int $.asn is required is shape-member('asn');
@@ -254,8 +269,6 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
 
     class UntagResourceResponse does AWS::SDK::Shape {
     }
-
-    subset AddressFamily of Str where $_ ~~ any('ipv4', 'ipv6');
 
     class ConfirmPublicVirtualInterfaceResponse does AWS::SDK::Shape {
         has VirtualInterfaceState $.virtual-interface-state is shape-member('virtualInterfaceState');
@@ -313,7 +326,7 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     }
 
     class DescribeTagsRequest does AWS::SDK::Shape {
-        has Array[Str] $.resource-arns is required is shape-member('resourceArns');
+        has Str @.resource-arns is required is shape-member('resourceArns');
     }
 
     class DirectConnectServerException does AWS::SDK::Shape {
@@ -322,7 +335,7 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
 
     class UntagResourceRequest does AWS::SDK::Shape {
         has Str $.resource-arn is required is shape-member('resourceArn');
-        has Array[TagKey] $.tag-keys is required is shape-member('tagKeys');
+        has TagKey @.tag-keys is required is shape-member('tagKeys');
     }
 
     class DeleteVirtualInterfaceResponse does AWS::SDK::Shape {
@@ -346,10 +359,8 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     }
 
     class Lags does AWS::SDK::Shape {
-        has Array[Lag] $.lags is shape-member('lags');
+        has Lag @.lags is shape-member('lags');
     }
-
-    subset BGPStatus of Str where $_ ~~ any('up', 'down');
 
     class DeleteInterconnectResponse does AWS::SDK::Shape {
         has InterconnectState $.interconnect-state is shape-member('interconnectState');
@@ -368,16 +379,12 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     }
 
     class Interconnects does AWS::SDK::Shape {
-        has Array[Interconnect] $.interconnects is shape-member('interconnects');
+        has Interconnect @.interconnects is shape-member('interconnects');
     }
-
-    subset VirtualInterfaceState of Str where $_ ~~ any('confirming', 'verifying', 'pending', 'available', 'down', 'deleting', 'deleted', 'rejected');
 
     class DeleteVirtualInterfaceRequest does AWS::SDK::Shape {
         has Str $.virtual-interface-id is required is shape-member('virtualInterfaceId');
     }
-
-    subset BGPPeerState of Str where $_ ~~ any('verifying', 'pending', 'available', 'deleting', 'deleted');
 
     class AllocateHostedConnectionRequest does AWS::SDK::Shape {
         has Str $.connection-id is required is shape-member('connectionId');
@@ -405,7 +412,7 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     }
 
     class Connections does AWS::SDK::Shape {
-        has Array[Connection] $.connections is shape-member('connections');
+        has Connection @.connections is shape-member('connections');
     }
 
     class CreateConnectionRequest does AWS::SDK::Shape {
@@ -416,7 +423,7 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     }
 
     class Lag does AWS::SDK::Shape {
-        has Array[Connection] $.connections is shape-member('connections');
+        has Connection @.connections is shape-member('connections');
         has Str $.aws-device is shape-member('awsDevice');
         has Str $.region is shape-member('region');
         has Int $.number-of-connections is shape-member('numberOfConnections');
@@ -431,15 +438,13 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     }
 
     class Locations does AWS::SDK::Shape {
-        has Array[Location] $.locations is shape-member('locations');
+        has Location @.locations is shape-member('locations');
     }
 
     class TagResourceRequest does AWS::SDK::Shape {
         has TagList $.tags is required is shape-member('tags');
         has Str $.resource-arn is required is shape-member('resourceArn');
     }
-
-    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
     class DirectConnectClientException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -486,8 +491,6 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
         has Str $.lag-id is shape-member('lagId');
     }
 
-    subset LagState of Str where $_ ~~ any('requested', 'pending', 'available', 'down', 'deleting', 'deleted');
-
     class VirtualGateway does AWS::SDK::Shape {
         has Str $.virtual-gateway-id is shape-member('virtualGatewayId');
         has Str $.virtual-gateway-state is shape-member('virtualGatewayState');
@@ -501,19 +504,17 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
         has Str $.connection-id is shape-member('connectionId');
         has Str $.auth-key is shape-member('authKey');
         has Str $.virtual-interface-name is shape-member('virtualInterfaceName');
-        has Array[BGPPeer] $.bgp-peers is shape-member('bgpPeers');
+        has BGPPeer @.bgp-peers is shape-member('bgpPeers');
         has Str $.customer-router-config is shape-member('customerRouterConfig');
         has Str $.virtual-interface-type is shape-member('virtualInterfaceType');
         has Str $.location is shape-member('location');
         has Str $.virtual-interface-id is shape-member('virtualInterfaceId');
         has Str $.owner-account is shape-member('ownerAccount');
-        has Array[RouteFilterPrefix] $.route-filter-prefixes is shape-member('routeFilterPrefixes');
+        has RouteFilterPrefix @.route-filter-prefixes is shape-member('routeFilterPrefixes');
         has AddressFamily $.address-family is shape-member('addressFamily');
         has Str $.amazon-address is shape-member('amazonAddress');
         has Int $.vlan is shape-member('vlan');
     }
-
-    subset ConnectionState of Str where $_ ~~ any('ordering', 'requested', 'pending', 'available', 'down', 'deleting', 'deleted', 'rejected');
 
     class AssociateVirtualInterfaceRequest does AWS::SDK::Shape {
         has Str $.connection-id is required is shape-member('connectionId');
@@ -524,6 +525,7 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
         has Str $.connection-id is required is shape-member('connectionId');
         has Str $.parent-connection-id is required is shape-member('parentConnectionId');
     }
+
 
     method describe-virtual-interfaces(
         Str :$connection-id,
@@ -890,11 +892,11 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
 
     method untag-resource(
         Str :$resource-arn!,
-        Array[TagKey] :$tag-keys!
+        TagKey :@tag-keys!
     ) returns UntagResourceResponse is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
             :$resource-arn,
-            :$tag-keys
+            :@tag-keys
         );
 
         self.perform-operation(
@@ -968,10 +970,10 @@ class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
     }
 
     method describe-tags(
-        Array[Str] :$resource-arns!
+        Str :@resource-arns!
     ) returns DescribeTagsResponse is service-operation('DescribeTags') {
         my $request-input = DescribeTagsRequest.new(
-            :$resource-arns
+            :@resource-arns
         );
 
         self.perform-operation(

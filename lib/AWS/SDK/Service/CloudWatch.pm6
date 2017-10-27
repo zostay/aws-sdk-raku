@@ -57,6 +57,73 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
 
     subset ActionPrefix of Str where 1 <= .chars <= 1024;
 
+    subset ExtendedStatistics of Array[ExtendedStatistic] where 1 <= *.elems <= 10;
+
+    subset HistoryItemType of Str where $_ eq any('ConfigurationUpdate', 'StateUpdate', 'Action');
+
+    subset MetricName of Str where 1 <= .chars <= 255;
+
+    subset DimensionName of Str where 1 <= .chars <= 255;
+
+    subset StateReasonData of Str where 0 <= .chars <= 4000;
+
+    subset AlarmArn of Str where 1 <= .chars <= 1600;
+
+    subset NextToken of Str where 0 <= .chars <= 1024;
+
+    subset EvaluationPeriods of Int where 1 <= *;
+
+    subset HistorySummary of Str where 1 <= .chars <= 255;
+
+    subset Period of Int where 1 <= *;
+
+    subset ResourceName of Str where 1 <= .chars <= 1024;
+
+    subset TreatMissingData of Str where 1 <= .chars <= 255;
+
+    subset HistoryData of Str where 1 <= .chars <= 4095;
+
+    subset StorageResolution of Int where 1 <= *;
+
+    subset AlarmNames of Array[AlarmName] where *.elems <= 100;
+
+    subset AlarmName of Str where 1 <= .chars <= 255;
+
+    subset AlarmDescription of Str where 0 <= .chars <= 1024;
+
+    subset DimensionFilters of Array[DimensionFilter] where *.elems <= 10;
+
+    subset ExtendedStatistic of Str where rx:P5/p(\d{1,2}(\.\d{0,2})?|100)/;
+
+    subset Namespace of Str where 1 <= .chars <= 255 && rx:P5/[^:].*/;
+
+    subset DimensionValue of Str where 1 <= .chars <= 255;
+
+    subset EvaluateLowSampleCountPercentile of Str where 1 <= .chars <= 255;
+
+    subset ResourceList of Array[ResourceName] where *.elems <= 5;
+
+    subset Dimensions of Array[Dimension] where *.elems <= 10;
+
+    subset MaxRecords of Int where 1 <= * <= 100;
+
+    subset Statistic of Str where $_ eq any('SampleCount', 'Average', 'Sum', 'Minimum', 'Maximum');
+
+    subset AlarmNamePrefix of Str where 1 <= .chars <= 255;
+
+    subset ErrorMessage of Str where 1 <= .chars <= 255;
+
+    subset Statistics of Array[Statistic] where 1 <= *.elems <= 5;
+
+    subset StandardUnit of Str where $_ eq any('Seconds', 'Microseconds', 'Milliseconds', 'Bytes', 'Kilobytes', 'Megabytes', 'Gigabytes', 'Terabytes', 'Bits', 'Kilobits', 'Megabits', 'Gigabits', 'Terabits', 'Percent', 'Count', 'Bytes/Second', 'Kilobytes/Second', 'Megabytes/Second', 'Gigabytes/Second', 'Terabytes/Second', 'Bits/Second', 'Kilobits/Second', 'Megabits/Second', 'Gigabits/Second', 'Terabits/Second', 'Count/Second', 'None');
+
+    subset ComparisonOperator of Str where $_ eq any('GreaterThanOrEqualToThreshold', 'GreaterThanThreshold', 'LessThanThreshold', 'LessThanOrEqualToThreshold');
+
+    subset StateValue of Str where $_ eq any('OK', 'ALARM', 'INSUFFICIENT_DATA');
+
+    subset StateReason of Str where 0 <= .chars <= 1023;
+
+
     class MetricAlarm does AWS::SDK::Shape {
         has EvaluationPeriods $.evaluation-periods is shape-member('EvaluationPeriods');
         has StandardUnit $.unit is shape-member('Unit');
@@ -84,28 +151,14 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
         has StateValue $.state-value is shape-member('StateValue');
     }
 
-    subset ExtendedStatistics of Array[ExtendedStatistic] where 1 <= *.elems <= 10;
-
-    subset HistoryItemType of Str where $_ ~~ any('ConfigurationUpdate', 'StateUpdate', 'Action');
-
-    subset MetricName of Str where 1 <= .chars <= 255;
-
     class InvalidNextToken does AWS::SDK::Shape {
         has ErrorMessage $.message is shape-member('message');
     }
-
-    subset DimensionName of Str where 1 <= .chars <= 255;
 
     class DashboardValidationMessage does AWS::SDK::Shape {
         has Str $.data-path is shape-member('DataPath');
         has Str $.message is shape-member('Message');
     }
-
-    subset StateReasonData of Str where 0 <= .chars <= 4000;
-
-    subset AlarmArn of Str where 1 <= .chars <= 1600;
-
-    subset NextToken of Str where 0 <= .chars <= 1024;
 
     class PutDashboardInput does AWS::SDK::Shape {
         has Str $.dashboard-name is shape-member('DashboardName');
@@ -155,23 +208,17 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
         has AlarmNames $.alarm-names is required is shape-member('AlarmNames');
     }
 
-    subset EvaluationPeriods of Int where 1 <= *;
-
     class GetDashboardInput does AWS::SDK::Shape {
         has Str $.dashboard-name is shape-member('DashboardName');
     }
-
-    subset HistorySummary of Str where 1 <= .chars <= 255;
 
     class LimitExceededFault does AWS::SDK::Shape {
         has ErrorMessage $.message is shape-member('message');
     }
 
     class PutDashboardOutput does AWS::SDK::Shape {
-        has Array[DashboardValidationMessage] $.dashboard-validation-messages is shape-member('DashboardValidationMessages');
+        has DashboardValidationMessage @.dashboard-validation-messages is shape-member('DashboardValidationMessages');
     }
-
-    subset Period of Int where 1 <= *;
 
     class DashboardEntry does AWS::SDK::Shape {
         has Str $.dashboard-name is shape-member('DashboardName');
@@ -181,11 +228,11 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
     }
 
     class DeleteDashboardsInput does AWS::SDK::Shape {
-        has Array[Str] $.dashboard-names is shape-member('DashboardNames');
+        has Str @.dashboard-names is shape-member('DashboardNames');
     }
 
     class DescribeAlarmsOutput does AWS::SDK::Shape {
-        has Array[MetricAlarm] $.metric-alarms is shape-member('MetricAlarms');
+        has MetricAlarm @.metric-alarms is shape-member('MetricAlarms');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -201,37 +248,17 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
         has StateValue $.state-value is required is shape-member('StateValue');
     }
 
-    subset ResourceName of Str where 1 <= .chars <= 1024;
-
     class DescribeAlarmHistoryOutput does AWS::SDK::Shape {
-        has Array[AlarmHistoryItem] $.alarm-history-items is shape-member('AlarmHistoryItems');
+        has AlarmHistoryItem @.alarm-history-items is shape-member('AlarmHistoryItems');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
     class DeleteDashboardsOutput does AWS::SDK::Shape {
     }
 
-    subset TreatMissingData of Str where 1 <= .chars <= 255;
-
-    subset HistoryData of Str where 1 <= .chars <= 4095;
-
     class InvalidParameterValueException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset StorageResolution of Int where 1 <= *;
-
-    subset AlarmNames of Array[AlarmName] where *.elems <= 100;
-
-    subset AlarmName of Str where 1 <= .chars <= 255;
-
-    subset AlarmDescription of Str where 0 <= .chars <= 1024;
-
-    subset DimensionFilters of Array[DimensionFilter] where *.elems <= 10;
-
-    subset ExtendedStatistic of Str where rx:P5/p(\d{1,2}(\.\d{0,2})?|100)/;
-
-    subset Namespace of Str where 1 <= .chars <= 255 && rx:P5/[^:].*/;
 
     class ListMetricsInput does AWS::SDK::Shape {
         has MetricName $.metric-name is shape-member('MetricName');
@@ -241,17 +268,13 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
     }
 
     class ListDashboardsOutput does AWS::SDK::Shape {
-        has Array[DashboardEntry] $.dashboard-entries is shape-member('DashboardEntries');
+        has DashboardEntry @.dashboard-entries is shape-member('DashboardEntries');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
     class DescribeAlarmsForMetricOutput does AWS::SDK::Shape {
-        has Array[MetricAlarm] $.metric-alarms is shape-member('MetricAlarms');
+        has MetricAlarm @.metric-alarms is shape-member('MetricAlarms');
     }
-
-    subset DimensionValue of Str where 1 <= .chars <= 255;
-
-    subset EvaluateLowSampleCountPercentile of Str where 1 <= .chars <= 255;
 
     class GetDashboardOutput does AWS::SDK::Shape {
         has Str $.dashboard-name is shape-member('DashboardName');
@@ -261,18 +284,12 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
 
     class PutMetricDataInput does AWS::SDK::Shape {
         has Namespace $.namespace is required is shape-member('Namespace');
-        has Array[MetricDatum] $.metric-data is required is shape-member('MetricData');
+        has MetricDatum @.metric-data is required is shape-member('MetricData');
     }
-
-    subset ResourceList of Array[ResourceName] where *.elems <= 5;
 
     class DisableAlarmActionsInput does AWS::SDK::Shape {
         has AlarmNames $.alarm-names is required is shape-member('AlarmNames');
     }
-
-    subset Dimensions of Array[Dimension] where *.elems <= 10;
-
-    subset MaxRecords of Int where 1 <= * <= 100;
 
     class InvalidFormatFault does AWS::SDK::Shape {
         has ErrorMessage $.message is shape-member('message');
@@ -282,7 +299,7 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
         has StandardUnit $.unit is shape-member('Unit');
         has Numeric $.sum is shape-member('Sum');
         has Numeric $.average is shape-member('Average');
-        has Hash[Numeric, ExtendedStatistic] $.extended-statistics is shape-member('ExtendedStatistics');
+        has Numeric %.extended-statistics{ExtendedStatistic} is shape-member('ExtendedStatistics');
         has Numeric $.maximum is shape-member('Maximum');
         has Numeric $.sample-count is shape-member('SampleCount');
         has DateTime $.timestamp is shape-member('Timestamp');
@@ -297,8 +314,6 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
         has MaxRecords $.max-records is shape-member('MaxRecords');
         has StateValue $.state-value is shape-member('StateValue');
     }
-
-    subset Statistic of Str where $_ ~~ any('SampleCount', 'Average', 'Sum', 'Minimum', 'Maximum');
 
     class MissingRequiredParameterException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -321,7 +336,7 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
 
     class GetMetricStatisticsOutput does AWS::SDK::Shape {
         has Str $.label is shape-member('Label');
-        has Array[Datapoint] $.datapoints is shape-member('Datapoints');
+        has Datapoint @.datapoints is shape-member('Datapoints');
     }
 
     class DescribeAlarmsForMetricInput does AWS::SDK::Shape {
@@ -345,20 +360,12 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
         has Numeric $.minimum is required is shape-member('Minimum');
     }
 
-    subset AlarmNamePrefix of Str where 1 <= .chars <= 255;
-
-    subset ErrorMessage of Str where 1 <= .chars <= 255;
-
-    subset Statistics of Array[Statistic] where 1 <= *.elems <= 5;
-
-    subset StandardUnit of Str where $_ ~~ any('Seconds', 'Microseconds', 'Milliseconds', 'Bytes', 'Kilobytes', 'Megabytes', 'Gigabytes', 'Terabytes', 'Bits', 'Kilobits', 'Megabits', 'Gigabits', 'Terabits', 'Percent', 'Count', 'Bytes/Second', 'Kilobytes/Second', 'Megabytes/Second', 'Gigabytes/Second', 'Terabytes/Second', 'Bits/Second', 'Kilobits/Second', 'Megabits/Second', 'Gigabits/Second', 'Terabits/Second', 'Count/Second', 'None');
-
     class InvalidParameterCombinationException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
     class ListMetricsOutput does AWS::SDK::Shape {
-        has Array[Metric] $.metrics is shape-member('Metrics');
+        has Metric @.metrics is shape-member('Metrics');
         has NextToken $.next-token is shape-member('NextToken');
     }
 
@@ -366,8 +373,6 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
         has DimensionName $.name is required is shape-member('Name');
         has DimensionValue $.value is shape-member('Value');
     }
-
-    subset ComparisonOperator of Str where $_ ~~ any('GreaterThanOrEqualToThreshold', 'GreaterThanThreshold', 'LessThanThreshold', 'LessThanOrEqualToThreshold');
 
     class AlarmHistoryItem does AWS::SDK::Shape {
         has HistorySummary $.history-summary is shape-member('HistorySummary');
@@ -389,10 +394,6 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
         has Namespace $.namespace is required is shape-member('Namespace');
     }
 
-    subset StateValue of Str where $_ ~~ any('OK', 'ALARM', 'INSUFFICIENT_DATA');
-
-    subset StateReason of Str where 0 <= .chars <= 1023;
-
     class DescribeAlarmHistoryInput does AWS::SDK::Shape {
         has DateTime $.start-date is shape-member('StartDate');
         has DateTime $.end-date is shape-member('EndDate');
@@ -403,9 +404,10 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
     }
 
     class DashboardInvalidInputError does AWS::SDK::Shape {
-        has Array[DashboardValidationMessage] $.dashboard-validation-messages is shape-member('dashboardValidationMessages');
+        has DashboardValidationMessage @.dashboard-validation-messages is shape-member('dashboardValidationMessages');
         has Str $.message is shape-member('message');
     }
+
 
     method list-metrics(
         MetricName :$metric-name,
@@ -499,10 +501,10 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
     }
 
     method delete-dashboards(
-        Array[Str] :$dashboard-names
+        Str :@dashboard-names
     ) returns DeleteDashboardsOutput is service-operation('DeleteDashboards') {
         my $request-input = DeleteDashboardsInput.new(
-            :$dashboard-names
+            :@dashboard-names
         );
 
         self.perform-operation(
@@ -545,11 +547,11 @@ class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
 
     method put-metric-data(
         Namespace :$namespace!,
-        Array[MetricDatum] :$metric-data!
+        MetricDatum :@metric-data!
     ) is service-operation('PutMetricData') {
         my $request-input = PutMetricDataInput.new(
             :$namespace,
-            :$metric-data
+            :@metric-data
         );
 
         self.perform-operation(

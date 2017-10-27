@@ -29,7 +29,20 @@ class AWS::SDK::Service::MeteringMarketplace does AWS::SDK::Service {
     class BatchMeterUsageRequest { ... }
     class ResolveCustomerResult { ... }
 
-    subset UsageRecordResultStatus of Str where $_ ~~ any('Success', 'CustomerNotSubscribed', 'DuplicateRecord');
+    subset UsageRecordResultStatus of Str where $_ eq any('Success', 'CustomerNotSubscribed', 'DuplicateRecord');
+
+    subset UsageRecordList of Array[UsageRecord] where 0 <= *.elems <= 25;
+
+    subset ProductCode of Str where 1 <= .chars <= 255;
+
+    subset UsageQuantity of Int where 0 <= * <= 1000000;
+
+    subset UsageDimension of Str where 1 <= .chars <= 255;
+
+    subset NonEmptyString of Str where rx:P5/\S+/;
+
+    subset CustomerIdentifier of Str where 1 <= .chars <= 255;
+
 
     class MeterUsageRequest does AWS::SDK::Shape {
         has Bool $.dry-run is required is shape-member('DryRun');
@@ -49,16 +62,12 @@ class AWS::SDK::Service::MeteringMarketplace does AWS::SDK::Service {
         has UsageRecordResultStatus $.status is shape-member('Status');
     }
 
-    subset UsageRecordList of Array[UsageRecord] where 0 <= *.elems <= 25;
-
     class UsageRecord does AWS::SDK::Shape {
         has UsageDimension $.dimension is required is shape-member('Dimension');
         has UsageQuantity $.quantity is required is shape-member('Quantity');
         has CustomerIdentifier $.customer-identifier is required is shape-member('CustomerIdentifier');
         has DateTime $.timestamp is required is shape-member('Timestamp');
     }
-
-    subset ProductCode of Str where 1 <= .chars <= 255;
 
     class MeterUsageResult does AWS::SDK::Shape {
         has Str $.metering-record-id is shape-member('MeteringRecordId');
@@ -70,10 +79,8 @@ class AWS::SDK::Service::MeteringMarketplace does AWS::SDK::Service {
 
     class BatchMeterUsageResult does AWS::SDK::Shape {
         has UsageRecordList $.unprocessed-records is shape-member('UnprocessedRecords');
-        has Array[UsageRecordResult] $.results is shape-member('Results');
+        has UsageRecordResult @.results is shape-member('Results');
     }
-
-    subset UsageQuantity of Int where 0 <= * <= 1000000;
 
     class ResolveCustomerRequest does AWS::SDK::Shape {
         has NonEmptyString $.registration-token is required is shape-member('RegistrationToken');
@@ -83,10 +90,6 @@ class AWS::SDK::Service::MeteringMarketplace does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset UsageDimension of Str where 1 <= .chars <= 255;
-
-    subset NonEmptyString of Str where rx:P5/\S+/;
-
     class InvalidUsageDimensionException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -94,8 +97,6 @@ class AWS::SDK::Service::MeteringMarketplace does AWS::SDK::Service {
     class DuplicateRequestException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset CustomerIdentifier of Str where 1 <= .chars <= 255;
 
     class ThrottlingException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -126,6 +127,7 @@ class AWS::SDK::Service::MeteringMarketplace does AWS::SDK::Service {
         has ProductCode $.product-code is shape-member('ProductCode');
         has CustomerIdentifier $.customer-identifier is shape-member('CustomerIdentifier');
     }
+
 
     method resolve-customer(
         NonEmptyString :$registration-token!

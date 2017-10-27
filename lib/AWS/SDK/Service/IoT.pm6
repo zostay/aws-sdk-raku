@@ -161,6 +161,69 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
     class SnsAction { ... }
     class SalesforceAction { ... }
 
+    subset AttributeName of Str where .chars <= 128 && rx:P5/[a-zA-Z0-9_.,@\/:#-]+/;
+
+    subset AwsAccountId of Str where rx:P5/[0-9]{12}/;
+
+    subset CertificateSigningRequest of Str where 1 <= .chars;
+
+    subset PolicyName of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
+
+    subset SalesforceToken of Str where 40 <= .chars;
+
+    subset ThingName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9:_-]+/;
+
+    subset SalesforceEndpoint of Str where .chars <= 2000 && rx:P5/https:\/\/ingestion-[a-zA-Z0-9]{1,12}\.[a-zA-Z0-9]+\.((sfdc-matrix\.net)|(sfdcnow\.com))\/streams\/\w{1,20}\/\w{1,20}\/event/;
+
+    subset CertificateId of Str where 64 <= .chars <= 64 && rx:P5/(0x)?[a-fA-F0-9]+/;
+
+    subset PublicKey of Str where 1 <= .chars;
+
+    subset CannedAccessControlList of Str where $_ eq any('private', 'public-read', 'public-read-write', 'aws-exec-read', 'authenticated-read', 'bucket-owner-read', 'bucket-owner-full-control', 'log-delivery-write');
+
+    subset CertificateStatus of Str where $_ eq any('ACTIVE', 'INACTIVE', 'REVOKED', 'PENDING_TRANSFER', 'REGISTER_INACTIVE', 'PENDING_ACTIVATION');
+
+    subset ThingTypeDescription of Str where .chars <= 2028 && rx:P5/[\p{Graph}\x20]*/;
+
+    subset FirehoseSeparator of Str where rx:P5/([\n\t])|(\r\n)|(,)/;
+
+    subset ElasticsearchEndpoint of Str where rx:P5/https?:\/\/.*/;
+
+    subset MessageFormat of Str where $_ eq any('RAW', 'JSON');
+
+    subset CACertificateStatus of Str where $_ eq any('ACTIVE', 'INACTIVE');
+
+    subset DynamoKeyType of Str where $_ eq any('STRING', 'NUMBER');
+
+    subset AttributeValue of Str where .chars <= 800 && rx:P5/[a-zA-Z0-9_.,@\/:#-]*/;
+
+    subset AutoRegistrationStatus of Str where $_ eq any('ENABLE', 'DISABLE');
+
+    subset PolicyVersionId of Str where rx:P5/[0-9]+/;
+
+    subset PrivateKey of Str where 1 <= .chars;
+
+    subset PageSize of Int where 1 <= * <= 250;
+
+    subset RuleName of Str where 1 <= .chars <= 128 && rx:P5/^[a-zA-Z0-9_]+$/;
+
+    subset RegistryMaxResults of Int where 1 <= * <= 250;
+
+    subset RegistrationCode of Str where 64 <= .chars <= 64 && rx:P5/(0x)?[a-fA-F0-9]+/;
+
+    subset CertificatePem of Str where 1 <= .chars <= 65536;
+
+    subset ActionList of Array[Action] where 0 <= *.elems <= 10;
+
+    subset MaxResults of Int where 1 <= * <= 10000;
+
+    subset LogLevel of Str where $_ eq any('DEBUG', 'INFO', 'ERROR', 'WARN', 'DISABLED');
+
+    subset ThingTypeName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9:_-]+/;
+
+    subset Message of Str where .chars <= 128;
+
+
     class S3Action does AWS::SDK::Shape {
         has Str $.bucket-name is required is shape-member('bucketName');
         has Str $.key is required is shape-member('key');
@@ -171,10 +234,8 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
     class DeleteThingTypeResponse does AWS::SDK::Shape {
     }
 
-    subset AttributeName of Str where .chars <= 128 && rx:P5/[a-zA-Z0-9_.,@\/:#-]+/;
-
     class ListThingPrincipalsResponse does AWS::SDK::Shape {
-        has Array[Str] $.principals is shape-member('principals');
+        has Str @.principals is shape-member('principals');
     }
 
     class DetachThingPrincipalRequest does AWS::SDK::Shape {
@@ -189,8 +250,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has DateTime $.created-at is shape-member('createdAt');
         has Str $.rule-arn is shape-member('ruleArn');
     }
-
-    subset AwsAccountId of Str where rx:P5/[0-9]{12}/;
 
     class UpdateCertificateRequest does AWS::SDK::Shape {
         has CertificateStatus $.new-status is required is shape-member('newStatus');
@@ -212,8 +271,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    subset CertificateSigningRequest of Str where 1 <= .chars;
-
     class RejectCertificateTransferRequest does AWS::SDK::Shape {
         has Message $.reject-reason is shape-member('rejectReason');
         has CertificateId $.certificate-id is required is shape-member('certificateId');
@@ -229,8 +286,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class GetRegistrationCodeRequest does AWS::SDK::Shape {
     }
-
-    subset PolicyName of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
 
     class GetLoggingOptionsRequest does AWS::SDK::Shape {
     }
@@ -274,15 +329,13 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset SalesforceToken of Str where 40 <= .chars;
-
     class CertificateConflictException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
     class ListPrincipalThingsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[ThingName] $.things is shape-member('things');
+        has ThingName @.things is shape-member('things');
     }
 
     class PutItemInput does AWS::SDK::Shape {
@@ -351,8 +404,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has ThingName $.thing-name is required is shape-member('thingName');
     }
 
-    subset ThingName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9:_-]+/;
-
     class DynamoDBv2Action does AWS::SDK::Shape {
         has Str $.role-arn is shape-member('roleArn');
         has PutItemInput $.put-item is shape-member('putItem');
@@ -365,8 +416,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
     class LimitExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset SalesforceEndpoint of Str where .chars <= 2000 && rx:P5/https:\/\/ingestion-[a-zA-Z0-9]{1,12}\.[a-zA-Z0-9]+\.((sfdc-matrix\.net)|(sfdcnow\.com))\/streams\/\w{1,20}\/\w{1,20}\/event/;
 
     class ResourceNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -383,8 +432,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has KeyPair $.key-pair is shape-member('keyPair');
     }
 
-    subset CertificateId of Str where 64 <= .chars <= 64 && rx:P5/(0x)?[a-fA-F0-9]+/;
-
     class TopicRule does AWS::SDK::Shape {
         has Bool $.rule-disabled is shape-member('ruleDisabled');
         has RuleName $.rule-name is shape-member('ruleName');
@@ -394,8 +441,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has Str $.description is shape-member('description');
         has Str $.sql is shape-member('sql');
     }
-
-    subset PublicKey of Str where 1 <= .chars;
 
     class CACertificate does AWS::SDK::Shape {
         has CACertificateStatus $.status is shape-member('status');
@@ -422,7 +467,7 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class ListCertificatesByCAResponse does AWS::SDK::Shape {
         has Str $.next-marker is shape-member('nextMarker');
-        has Array[Certificate] $.certificates is shape-member('certificates');
+        has Certificate @.certificates is shape-member('certificates');
     }
 
     class ThingTypeMetadata does AWS::SDK::Shape {
@@ -448,10 +493,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has Str $.metric-name is required is shape-member('metricName');
     }
 
-    subset CannedAccessControlList of Str where $_ ~~ any('private', 'public-read', 'public-read-write', 'aws-exec-read', 'authenticated-read', 'bucket-owner-read', 'bucket-owner-full-control', 'log-delivery-write');
-
-    subset CertificateStatus of Str where $_ ~~ any('ACTIVE', 'INACTIVE', 'REVOKED', 'PENDING_TRANSFER', 'REGISTER_INACTIVE', 'PENDING_ACTIVATION');
-
     class ListPrincipalPoliciesRequest does AWS::SDK::Shape {
         has Bool $.ascending-order is shape-member('ascendingOrder');
         has PageSize $.page-size is shape-member('pageSize');
@@ -467,15 +508,13 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has Int $.expected-version is shape-member('expectedVersion');
     }
 
-    subset ThingTypeDescription of Str where .chars <= 2028 && rx:P5/[\p{Graph}\x20]*/;
-
     class DescribeThingTypeRequest does AWS::SDK::Shape {
         has ThingTypeName $.thing-type-name is required is shape-member('thingTypeName');
     }
 
     class ListOutgoingCertificatesResponse does AWS::SDK::Shape {
         has Str $.next-marker is shape-member('nextMarker');
-        has Array[OutgoingCertificate] $.outgoing-certificates is shape-member('outgoingCertificates');
+        has OutgoingCertificate @.outgoing-certificates is shape-member('outgoingCertificates');
     }
 
     class ThingTypeDefinition does AWS::SDK::Shape {
@@ -483,10 +522,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has ThingTypeProperties $.thing-type-properties is shape-member('thingTypeProperties');
         has ThingTypeMetadata $.thing-type-metadata is shape-member('thingTypeMetadata');
     }
-
-    subset FirehoseSeparator of Str where rx:P5/([\n\t])|(\r\n)|(,)/;
-
-    subset ElasticsearchEndpoint of Str where rx:P5/https?:\/\/.*/;
 
     class DeleteConflictException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -499,14 +534,12 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class AttributePayload does AWS::SDK::Shape {
         has Bool $.merge is shape-member('merge');
-        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('attributes');
+        has AttributeValue %.attributes{AttributeName} is shape-member('attributes');
     }
 
     class CertificateValidationException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset MessageFormat of Str where $_ ~~ any('RAW', 'JSON');
 
     class UpdateThingResponse does AWS::SDK::Shape {
     }
@@ -519,8 +552,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
     class DescribeCACertificateResponse does AWS::SDK::Shape {
         has CACertificateDescription $.certificate-description is shape-member('certificateDescription');
     }
-
-    subset CACertificateStatus of Str where $_ ~~ any('ACTIVE', 'INACTIVE');
 
     class InvalidRequestException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -538,13 +569,9 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has Bool $.is-default-version is shape-member('isDefaultVersion');
     }
 
-    subset DynamoKeyType of Str where $_ ~~ any('STRING', 'NUMBER');
-
-    subset AttributeValue of Str where .chars <= 800 && rx:P5/[a-zA-Z0-9_.,@\/:#-]*/;
-
     class ListPoliciesResponse does AWS::SDK::Shape {
         has Str $.next-marker is shape-member('nextMarker');
-        has Array[Policy] $.policies is shape-member('policies');
+        has Policy @.policies is shape-member('policies');
     }
 
     class ListPolicyVersionsRequest does AWS::SDK::Shape {
@@ -562,14 +589,10 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    subset AutoRegistrationStatus of Str where $_ ~~ any('ENABLE', 'DISABLE');
-
     class RepublishAction does AWS::SDK::Shape {
         has Str $.topic is required is shape-member('topic');
         has Str $.role-arn is required is shape-member('roleArn');
     }
-
-    subset PolicyVersionId of Str where rx:P5/[0-9]+/;
 
     class CreateThingTypeResponse does AWS::SDK::Shape {
         has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
@@ -595,8 +618,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset PrivateKey of Str where 1 <= .chars;
-
     class CreatePolicyResponse does AWS::SDK::Shape {
         has Str $.policy-document is shape-member('policyDocument');
         has PolicyVersionId $.policy-version-id is shape-member('policyVersionId');
@@ -606,22 +627,18 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class ListPolicyPrincipalsResponse does AWS::SDK::Shape {
         has Str $.next-marker is shape-member('nextMarker');
-        has Array[Str] $.principals is shape-member('principals');
+        has Str @.principals is shape-member('principals');
     }
 
     class TransferAlreadyCompletedException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
-    subset PageSize of Int where 1 <= * <= 250;
-
     class FirehoseAction does AWS::SDK::Shape {
         has Str $.delivery-stream-name is required is shape-member('deliveryStreamName');
         has FirehoseSeparator $.separator is shape-member('separator');
         has Str $.role-arn is required is shape-member('roleArn');
     }
-
-    subset RuleName of Str where 1 <= .chars <= 128 && rx:P5/^[a-zA-Z0-9_]+$/;
 
     class DetachPrincipalPolicyRequest does AWS::SDK::Shape {
         has Str $.principal is required is shape-member('principal');
@@ -639,7 +656,7 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class ListCACertificatesResponse does AWS::SDK::Shape {
         has Str $.next-marker is shape-member('nextMarker');
-        has Array[CACertificate] $.certificates is shape-member('certificates');
+        has CACertificate @.certificates is shape-member('certificates');
     }
 
     class DeleteThingTypeRequest does AWS::SDK::Shape {
@@ -669,12 +686,12 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class ListThingsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[ThingAttribute] $.things is shape-member('things');
+        has ThingAttribute @.things is shape-member('things');
     }
 
     class ThingTypeProperties does AWS::SDK::Shape {
         has ThingTypeDescription $.thing-type-description is shape-member('thingTypeDescription');
-        has Array[AttributeName] $.searchable-attributes is shape-member('searchableAttributes');
+        has AttributeName @.searchable-attributes is shape-member('searchableAttributes');
     }
 
     class AttachPrincipalPolicyRequest does AWS::SDK::Shape {
@@ -683,7 +700,7 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
     }
 
     class ListThingTypesResponse does AWS::SDK::Shape {
-        has Array[ThingTypeDefinition] $.thing-types is shape-member('thingTypes');
+        has ThingTypeDefinition @.thing-types is shape-member('thingTypes');
         has Str $.next-token is shape-member('nextToken');
     }
 
@@ -693,18 +710,12 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has AwsAccountId $.target-aws-account is required is shape-member('targetAwsAccount');
     }
 
-    subset RegistryMaxResults of Int where 1 <= * <= 250;
-
-    subset RegistrationCode of Str where 64 <= .chars <= 64 && rx:P5/(0x)?[a-fA-F0-9]+/;
-
     class GetPolicyResponse does AWS::SDK::Shape {
         has PolicyVersionId $.default-version-id is shape-member('defaultVersionId');
         has Str $.policy-document is shape-member('policyDocument');
         has Str $.policy-arn is shape-member('policyArn');
         has PolicyName $.policy-name is shape-member('policyName');
     }
-
-    subset CertificatePem of Str where 1 <= .chars <= 65536;
 
     class ListCertificatesRequest does AWS::SDK::Shape {
         has Bool $.ascending-order is shape-member('ascendingOrder');
@@ -716,8 +727,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has Str $.policy-arn is shape-member('policyArn');
         has PolicyName $.policy-name is shape-member('policyName');
     }
-
-    subset ActionList of Array[Action] where 0 <= *.elems <= 10;
 
     class ListPrincipalThingsRequest does AWS::SDK::Shape {
         has RegistryMaxResults $.max-results is shape-member('maxResults');
@@ -738,7 +747,7 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class DescribeThingResponse does AWS::SDK::Shape {
         has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
-        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('attributes');
+        has AttributeValue %.attributes{AttributeName} is shape-member('attributes');
         has ThingName $.thing-name is shape-member('thingName');
         has Int $.version is shape-member('version');
         has Str $.default-client-id is shape-member('defaultClientId');
@@ -794,7 +803,7 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class ListPrincipalPoliciesResponse does AWS::SDK::Shape {
         has Str $.next-marker is shape-member('nextMarker');
-        has Array[Policy] $.policies is shape-member('policies');
+        has Policy @.policies is shape-member('policies');
     }
 
     class InternalException does AWS::SDK::Shape {
@@ -822,7 +831,7 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class ThingAttribute does AWS::SDK::Shape {
         has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
-        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('attributes');
+        has AttributeValue %.attributes{AttributeName} is shape-member('attributes');
         has ThingName $.thing-name is shape-member('thingName');
         has Int $.version is shape-member('version');
     }
@@ -841,7 +850,7 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
     }
 
     class ListPolicyVersionsResponse does AWS::SDK::Shape {
-        has Array[PolicyVersion] $.policy-versions is shape-member('policyVersions');
+        has PolicyVersion @.policy-versions is shape-member('policyVersions');
     }
 
     class Action does AWS::SDK::Shape {
@@ -884,7 +893,7 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class ListCertificatesResponse does AWS::SDK::Shape {
         has Str $.next-marker is shape-member('nextMarker');
-        has Array[Certificate] $.certificates is shape-member('certificates');
+        has Certificate @.certificates is shape-member('certificates');
     }
 
     class SqsAction does AWS::SDK::Shape {
@@ -902,8 +911,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has PrivateKey $.private-key is shape-member('PrivateKey');
     }
 
-    subset MaxResults of Int where 1 <= * <= 10000;
-
     class GetLoggingOptionsResponse does AWS::SDK::Shape {
         has LogLevel $.log-level is shape-member('logLevel');
         has Str $.role-arn is shape-member('roleArn');
@@ -915,7 +922,7 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     class ListTopicRulesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[TopicRuleListItem] $.rules is shape-member('rules');
+        has TopicRuleListItem @.rules is shape-member('rules');
     }
 
     class DisableTopicRuleRequest does AWS::SDK::Shape {
@@ -1001,13 +1008,9 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has Str $.certificate-arn is shape-member('certificateArn');
     }
 
-    subset LogLevel of Str where $_ ~~ any('DEBUG', 'INFO', 'ERROR', 'WARN', 'DISABLED');
-
     class VersionsLimitExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset ThingTypeName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9:_-]+/;
 
     class SnsAction does AWS::SDK::Shape {
         has MessageFormat $.message-format is shape-member('messageFormat');
@@ -1020,7 +1023,6 @@ class AWS::SDK::Service::IoT does AWS::SDK::Service {
         has SalesforceToken $.token is required is shape-member('token');
     }
 
-    subset Message of Str where .chars <= 128;
 
     method create-topic-rule(
         TopicRulePayload :$topic-rule-payload!,

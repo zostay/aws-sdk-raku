@@ -86,12 +86,81 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
 
     subset DestinationName of Str where 1 <= .chars <= 512 && rx:P5/[^:*]*/;
 
+    subset MetricValue of Str where .chars <= 100;
+
+    subset RoleArn of Str where 1 <= .chars;
+
+    subset MetricName of Str where .chars <= 255 && rx:P5/[^:*$]*/;
+
+    subset Timestamp of Int where 0 <= *;
+
+    subset TestEventMessages of Array[EventMessage] where 1 <= *.elems <= 50;
+
+    subset TagList of Array[TagKey] where 1 <= *.elems;
+
+    subset ExportTaskId of Str where 1 <= .chars <= 512;
+
+    subset MetricTransformations of Array[MetricTransformation] where 1 <= *.elems <= 1;
+
+    subset DestinationArn of Str where 1 <= .chars;
+
+    subset InputLogEvents of Array[InputLogEvent] where 1 <= *.elems <= 10000;
+
+    subset NextToken of Str where 1 <= .chars;
+
+    subset Distribution of Str where $_ eq any('Random', 'ByLogStream');
+
+    subset SequenceToken of Str where 1 <= .chars;
+
+    subset MetricNamespace of Str where .chars <= 255 && rx:P5/[^:*$]*/;
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]+)$/;
+
+    subset ExportTaskName of Str where 1 <= .chars <= 512;
+
+    subset LogStreamName of Str where 1 <= .chars <= 512 && rx:P5/[^:*]*/;
+
+    subset FilterPattern of Str where 0 <= .chars <= 1024;
+
+    subset Tags of Hash[TagValue, TagKey] where 1 <= *.elems <= 50;
+
+    subset PolicyDocument of Str where 1 <= .chars <= 5120;
+
+    subset InputLogStreamNames of Array[LogStreamName] where 1 <= *.elems <= 100;
+
+    subset KmsKeyId of Str where .chars <= 256;
+
+    subset OrderBy of Str where $_ eq any('LogStreamName', 'LastEventTime');
+
+    subset EventsLimit of Int where 1 <= * <= 10000;
+
+    subset AccessPolicy of Str where 1 <= .chars;
+
+    subset EventMessage of Str where 1 <= .chars;
+
+    subset StoredBytes of Int where 0 <= *;
+
+    subset ExportDestinationBucket of Str where 1 <= .chars <= 512;
+
+    subset FilterName of Str where 1 <= .chars <= 512 && rx:P5/[^:*]*/;
+
+    subset ExportTaskStatusCode of Str where $_ eq any('CANCELLED', 'COMPLETED', 'FAILED', 'PENDING', 'PENDING_CANCEL', 'RUNNING');
+
+    subset DescribeLimit of Int where 1 <= * <= 50;
+
+    subset LogGroupName of Str where 1 <= .chars <= 512 && rx:P5/[\.\-_\/#A-Za-z0-9]+/;
+
+    subset TargetArn of Str where 1 <= .chars;
+
+    subset TagValue of Str where .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+
     class InvalidSequenceTokenException does AWS::SDK::Shape {
         has SequenceToken $.expected-sequence-token is shape-member('expectedSequenceToken');
     }
 
     class ListTagsLogGroupResponse does AWS::SDK::Shape {
-        has Tags $.tags is shape-member('tags');
+        has TagValue $.tags{TagKey} is shape-member('tags');
     }
 
     class PutSubscriptionFilterRequest does AWS::SDK::Shape {
@@ -103,15 +172,13 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has RoleArn $.role-arn is shape-member('roleArn');
     }
 
-    subset MetricValue of Str where .chars <= 100;
-
     class DisassociateKmsKeyRequest does AWS::SDK::Shape {
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
 
     class DescribeLogGroupsResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('nextToken');
-        has Array[LogGroup] $.log-groups is shape-member('logGroups');
+        has LogGroup @.log-groups is shape-member('logGroups');
     }
 
     class PutRetentionPolicyRequest does AWS::SDK::Shape {
@@ -119,26 +186,14 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has Int $.retention-in-days is required is shape-member('retentionInDays');
     }
 
-    subset RoleArn of Str where 1 <= .chars;
-
-    subset MetricName of Str where .chars <= 255 && rx:P5/[^:*$]*/;
-
     class PutLogEventsResponse does AWS::SDK::Shape {
         has RejectedLogEventsInfo $.rejected-log-events-info is shape-member('rejectedLogEventsInfo');
         has SequenceToken $.next-sequence-token is shape-member('nextSequenceToken');
     }
 
-    subset Timestamp of Int where 0 <= *;
-
     class TestMetricFilterResponse does AWS::SDK::Shape {
-        has Array[MetricFilterMatchRecord] $.matches is shape-member('matches');
+        has MetricFilterMatchRecord @.matches is shape-member('matches');
     }
-
-    subset TestEventMessages of Array[EventMessage] where 1 <= *.elems <= 50;
-
-    subset TagList of Array[TagKey] where 1 <= *.elems;
-
-    subset ExportTaskId of Str where 1 <= .chars <= 512;
 
     class CreateExportTaskRequest does AWS::SDK::Shape {
         has Str $.destination-prefix is shape-member('destinationPrefix');
@@ -150,10 +205,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has Timestamp $.from is required is shape-member('from');
     }
 
-    subset MetricTransformations of Array[MetricTransformation] where 1 <= *.elems <= 1;
-
-    subset DestinationArn of Str where 1 <= .chars;
-
     class DeleteLogGroupRequest does AWS::SDK::Shape {
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
@@ -162,22 +213,14 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has DestinationName $.destination-name is required is shape-member('destinationName');
     }
 
-    subset InputLogEvents of Array[InputLogEvent] where 1 <= *.elems <= 10000;
-
-    subset NextToken of Str where 1 <= .chars;
-
     class ExportTaskExecutionInfo does AWS::SDK::Shape {
         has Timestamp $.completion-time is shape-member('completionTime');
         has Timestamp $.creation-time is shape-member('creationTime');
     }
 
-    subset Distribution of Str where $_ ~~ any('Random', 'ByLogStream');
-
     class CancelExportTaskRequest does AWS::SDK::Shape {
         has ExportTaskId $.task-id is required is shape-member('taskId');
     }
-
-    subset SequenceToken of Str where 1 <= .chars;
 
     class DescribeSubscriptionFiltersRequest does AWS::SDK::Shape {
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
@@ -187,9 +230,9 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
     }
 
     class FilterLogEventsResponse does AWS::SDK::Shape {
-        has Array[FilteredLogEvent] $.events is shape-member('events');
+        has FilteredLogEvent @.events is shape-member('events');
         has NextToken $.next-token is shape-member('nextToken');
-        has Array[SearchedLogStream] $.searched-log-streams is shape-member('searchedLogStreams');
+        has SearchedLogStream @.searched-log-streams is shape-member('searchedLogStreams');
     }
 
     class MetricFilter does AWS::SDK::Shape {
@@ -199,8 +242,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has MetricTransformations $.metric-transformations is shape-member('metricTransformations');
         has Timestamp $.creation-time is shape-member('creationTime');
     }
-
-    subset MetricNamespace of Str where .chars <= 255 && rx:P5/[^:*$]*/;
 
     class PutLogEventsRequest does AWS::SDK::Shape {
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
@@ -217,10 +258,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
     class InvalidParameterException does AWS::SDK::Shape {
     }
 
-    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]+)$/;
-
-    subset ExportTaskName of Str where 1 <= .chars <= 512;
-
     class DescribeLogStreamsRequest does AWS::SDK::Shape {
         has Bool $.descending is shape-member('descending');
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
@@ -229,8 +266,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has LogStreamName $.log-stream-name-prefix is shape-member('logStreamNamePrefix');
         has OrderBy $.order-by is shape-member('orderBy');
     }
-
-    subset LogStreamName of Str where 1 <= .chars <= 512 && rx:P5/[^:*]*/;
 
     class InputLogEvent does AWS::SDK::Shape {
         has Timestamp $.timestamp is required is shape-member('timestamp');
@@ -241,8 +276,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has LogStreamName $.log-stream-name is shape-member('logStreamName');
         has Bool $.searched-completely is shape-member('searchedCompletely');
     }
-
-    subset FilterPattern of Str where 0 <= .chars <= 1024;
 
     class OutputLogEvent does AWS::SDK::Shape {
         has Timestamp $.ingestion-time is shape-member('ingestionTime');
@@ -267,8 +300,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has Int $.too-old-log-event-end-index is shape-member('tooOldLogEventEndIndex');
     }
 
-    subset Tags of Hash[TagValue, TagKey] where 1 <= *.elems <= 50;
-
     class ServiceUnavailableException does AWS::SDK::Shape {
     }
 
@@ -284,15 +315,13 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
 
     class DescribeSubscriptionFiltersResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('nextToken');
-        has Array[SubscriptionFilter] $.subscription-filters is shape-member('subscriptionFilters');
+        has SubscriptionFilter @.subscription-filters is shape-member('subscriptionFilters');
     }
 
     class DeleteSubscriptionFilterRequest does AWS::SDK::Shape {
         has FilterName $.filter-name is required is shape-member('filterName');
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
-
-    subset PolicyDocument of Str where 1 <= .chars <= 5120;
 
     class UntagLogGroupRequest does AWS::SDK::Shape {
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
@@ -318,11 +347,9 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
 
-    subset InputLogStreamNames of Array[LogStreamName] where 1 <= *.elems <= 100;
-
     class DescribeResourcePoliciesResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('nextToken');
-        has Array[ResourcePolicy] $.resource-policies is shape-member('resourcePolicies');
+        has ResourcePolicy @.resource-policies is shape-member('resourcePolicies');
     }
 
     class DescribeLogGroupsRequest does AWS::SDK::Shape {
@@ -335,10 +362,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has Str $.policy-name is shape-member('policyName');
     }
 
-    subset KmsKeyId of Str where .chars <= 256;
-
-    subset OrderBy of Str where $_ ~~ any('LogStreamName', 'LastEventTime');
-
     class LimitExceededException does AWS::SDK::Shape {
     }
 
@@ -346,8 +369,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has PolicyDocument $.policy-document is shape-member('policyDocument');
         has Str $.policy-name is shape-member('policyName');
     }
-
-    subset EventsLimit of Int where 1 <= * <= 10000;
 
     class PutDestinationPolicyRequest does AWS::SDK::Shape {
         has AccessPolicy $.access-policy is required is shape-member('accessPolicy');
@@ -359,7 +380,7 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
 
     class TagLogGroupRequest does AWS::SDK::Shape {
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
-        has Tags $.tags is required is shape-member('tags');
+        has TagValue $.tags{TagKey} is required is shape-member('tags');
     }
 
     class Destination does AWS::SDK::Shape {
@@ -373,7 +394,7 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
 
     class DescribeMetricFiltersResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('nextToken');
-        has Array[MetricFilter] $.metric-filters is shape-member('metricFilters');
+        has MetricFilter @.metric-filters is shape-member('metricFilters');
     }
 
     class DescribeDestinationsRequest does AWS::SDK::Shape {
@@ -381,8 +402,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has DescribeLimit $.limit is shape-member('limit');
         has NextToken $.next-token is shape-member('nextToken');
     }
-
-    subset AccessPolicy of Str where 1 <= .chars;
 
     class LogStream does AWS::SDK::Shape {
         has Str $.arn is shape-member('arn');
@@ -404,10 +423,8 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has MetricName $.metric-name is shape-member('metricName');
     }
 
-    subset EventMessage of Str where 1 <= .chars;
-
     class GetLogEventsResponse does AWS::SDK::Shape {
-        has Array[OutputLogEvent] $.events is shape-member('events');
+        has OutputLogEvent @.events is shape-member('events');
         has NextToken $.next-backward-token is shape-member('nextBackwardToken');
         has NextToken $.next-forward-token is shape-member('nextForwardToken');
     }
@@ -424,8 +441,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has Str $.policy-name is shape-member('policyName');
     }
 
-    subset StoredBytes of Int where 0 <= *;
-
     class ExportTask does AWS::SDK::Shape {
         has ExportTaskExecutionInfo $.execution-info is shape-member('executionInfo');
         has Str $.destination-prefix is shape-member('destinationPrefix');
@@ -438,14 +453,10 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has Timestamp $.from is shape-member('from');
     }
 
-    subset ExportDestinationBucket of Str where 1 <= .chars <= 512;
-
     class DeleteMetricFilterRequest does AWS::SDK::Shape {
         has FilterName $.filter-name is required is shape-member('filterName');
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
-
-    subset FilterName of Str where 1 <= .chars <= 512 && rx:P5/[^:*]*/;
 
     class GetLogEventsRequest does AWS::SDK::Shape {
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
@@ -471,11 +482,9 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
     class OperationAbortedException does AWS::SDK::Shape {
     }
 
-    subset ExportTaskStatusCode of Str where $_ ~~ any('CANCELLED', 'COMPLETED', 'FAILED', 'PENDING', 'PENDING_CANCEL', 'RUNNING');
-
     class DescribeLogStreamsResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('nextToken');
-        has Array[LogStream] $.log-streams is shape-member('logStreams');
+        has LogStream @.log-streams is shape-member('logStreams');
     }
 
     class DescribeExportTasksRequest does AWS::SDK::Shape {
@@ -496,7 +505,7 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
     class CreateLogGroupRequest does AWS::SDK::Shape {
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
         has KmsKeyId $.kms-key-id is shape-member('kmsKeyId');
-        has Tags $.tags is shape-member('tags');
+        has TagValue $.tags{TagKey} is shape-member('tags');
     }
 
     class FilteredLogEvent does AWS::SDK::Shape {
@@ -506,8 +515,6 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has LogStreamName $.log-stream-name is shape-member('logStreamName');
         has EventMessage $.message is shape-member('message');
     }
-
-    subset DescribeLimit of Int where 1 <= * <= 50;
 
     class DeleteLogStreamRequest does AWS::SDK::Shape {
         has LogGroupName $.log-group-name is required is shape-member('logGroupName');
@@ -529,26 +536,20 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
         has Timestamp $.creation-time is shape-member('creationTime');
     }
 
-    subset LogGroupName of Str where 1 <= .chars <= 512 && rx:P5/[\.\-_\/#A-Za-z0-9]+/;
-
     class MetricFilterMatchRecord does AWS::SDK::Shape {
-        has Hash[Str, Str] $.extracted-values is shape-member('extractedValues');
+        has Str %.extracted-values{Str} is shape-member('extractedValues');
         has Int $.event-number is shape-member('eventNumber');
         has EventMessage $.event-message is shape-member('eventMessage');
     }
 
-    subset TargetArn of Str where 1 <= .chars;
-
-    subset TagValue of Str where .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
-
     class DescribeExportTasksResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('nextToken');
-        has Array[ExportTask] $.export-tasks is shape-member('exportTasks');
+        has ExportTask @.export-tasks is shape-member('exportTasks');
     }
 
     class DescribeDestinationsResponse does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('nextToken');
-        has Array[Destination] $.destinations is shape-member('destinations');
+        has Destination @.destinations is shape-member('destinations');
     }
 
     class InvalidOperationException does AWS::SDK::Shape {
@@ -571,6 +572,7 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
     class PutResourcePolicyResponse does AWS::SDK::Shape {
         has ResourcePolicy $.resource-policy is shape-member('resourcePolicy');
     }
+
 
     method put-subscription-filter(
         FilterName :$filter-name!,
@@ -689,7 +691,7 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
 
     method tag-log-group(
         LogGroupName :$log-group-name!,
-        Tags :$tags!
+        TagValue :$tags!
     ) is service-operation('TagLogGroup') {
         my $request-input = TagLogGroupRequest.new(
             :$log-group-name,
@@ -940,7 +942,7 @@ class AWS::SDK::Service::Logs does AWS::SDK::Service {
     method create-log-group(
         LogGroupName :$log-group-name!,
         KmsKeyId :$kms-key-id,
-        Tags :$tags
+        TagValue :$tags
     ) is service-operation('CreateLogGroup') {
         my $request-input = CreateLogGroupRequest.new(
             :$log-group-name,

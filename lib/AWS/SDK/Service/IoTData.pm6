@@ -28,6 +28,11 @@ class AWS::SDK::Service::IoTData does AWS::SDK::Service {
     class ConflictException { ... }
     class GetThingShadowResponse { ... }
 
+    subset ThingName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9_-]+/;
+
+    subset Qos of Int where 0 <= * <= 1;
+
+
     class MethodNotAllowedException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
@@ -35,8 +40,6 @@ class AWS::SDK::Service::IoTData does AWS::SDK::Service {
     class UnauthorizedException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset ThingName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9_-]+/;
 
     class InvalidRequestException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -97,11 +100,10 @@ class AWS::SDK::Service::IoTData does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset Qos of Int where 0 <= * <= 1;
-
     class GetThingShadowResponse does AWS::SDK::Shape {
         has Blob $.payload is shape-member('payload');
     }
+
 
     method publish(
         Blob :$payload,

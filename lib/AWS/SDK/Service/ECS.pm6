@@ -118,7 +118,34 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     class ListContainerInstancesRequest { ... }
     class LoadBalancer { ... }
 
-    subset ContainerInstanceStatus of Str where $_ ~~ any('ACTIVE', 'DRAINING');
+    subset ContainerInstanceStatus of Str where $_ eq any('ACTIVE', 'DRAINING');
+
+    subset DesiredStatus of Str where $_ eq any('RUNNING', 'PENDING', 'STOPPED');
+
+    subset NetworkMode of Str where $_ eq any('bridge', 'host', 'none');
+
+    subset SortOrder of Str where $_ eq any('ASC', 'DESC');
+
+    subset PlacementConstraintType of Str where $_ eq any('distinctInstance', 'memberOf');
+
+    subset TransportProtocol of Str where $_ eq any('tcp', 'udp');
+
+    subset PlacementStrategyType of Str where $_ eq any('random', 'spread', 'binpack');
+
+    subset AgentUpdateStatus of Str where $_ eq any('PENDING', 'STAGING', 'STAGED', 'UPDATING', 'UPDATED', 'FAILED');
+
+    subset LogDriver of Str where $_ eq any('json-file', 'syslog', 'journald', 'gelf', 'fluentd', 'awslogs', 'splunk');
+
+    subset TargetType of Str where $_ eq any('container-instance');
+
+    subset TaskDefinitionPlacementConstraintType of Str where $_ eq any('memberOf');
+
+    subset UlimitName of Str where $_ eq any('core', 'cpu', 'data', 'fsize', 'locks', 'memlock', 'msgqueue', 'nice', 'nofile', 'nproc', 'rss', 'rtprio', 'rttime', 'sigpending', 'stack');
+
+    subset TaskDefinitionFamilyStatus of Str where $_ eq any('ACTIVE', 'INACTIVE', 'ALL');
+
+    subset TaskDefinitionStatus of Str where $_ eq any('ACTIVE', 'INACTIVE');
+
 
     class NetworkBinding does AWS::SDK::Shape {
         has TransportProtocol $.protocol is shape-member('protocol');
@@ -134,7 +161,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     class DescribeTasksRequest does AWS::SDK::Shape {
         has Str $.cluster is shape-member('cluster');
-        has Array[Str] $.tasks is required is shape-member('tasks');
+        has Str @.tasks is required is shape-member('tasks');
     }
 
     class DiscoverPollEndpointRequest does AWS::SDK::Shape {
@@ -144,15 +171,15 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     class ListAttributesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Attribute] $.attributes is shape-member('attributes');
+        has Attribute @.attributes is shape-member('attributes');
     }
 
     class ServiceNotFoundException does AWS::SDK::Shape {
     }
 
     class UpdateContainerInstancesStateResponse does AWS::SDK::Shape {
-        has Array[ContainerInstance] $.container-instances is shape-member('containerInstances');
-        has Array[Failure] $.failures is shape-member('failures');
+        has ContainerInstance @.container-instances is shape-member('containerInstances');
+        has Failure @.failures is shape-member('failures');
     }
 
     class DeleteClusterResponse does AWS::SDK::Shape {
@@ -165,15 +192,15 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     class ListTaskDefinitionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.task-definition-arns is shape-member('taskDefinitionArns');
+        has Str @.task-definition-arns is shape-member('taskDefinitionArns');
     }
 
     class PutAttributesResponse does AWS::SDK::Shape {
-        has Array[Attribute] $.attributes is shape-member('attributes');
+        has Attribute @.attributes is shape-member('attributes');
     }
 
     class StartTaskRequest does AWS::SDK::Shape {
-        has Array[Str] $.container-instances is required is shape-member('containerInstances');
+        has Str @.container-instances is required is shape-member('containerInstances');
         has Str $.cluster is shape-member('cluster');
         has Str $.task-definition is required is shape-member('taskDefinition');
         has Str $.group is shape-member('group');
@@ -211,7 +238,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     class ListServicesResponse does AWS::SDK::Shape {
-        has Array[Str] $.service-arns is shape-member('serviceArns');
+        has Str @.service-arns is shape-member('serviceArns');
         has Str $.next-token is shape-member('nextToken');
     }
 
@@ -236,10 +263,8 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     class AttributeLimitExceededException does AWS::SDK::Shape {
     }
 
-    subset DesiredStatus of Str where $_ ~~ any('RUNNING', 'PENDING', 'STOPPED');
-
     class ListTaskDefinitionFamiliesResponse does AWS::SDK::Shape {
-        has Array[Str] $.families is shape-member('families');
+        has Str @.families is shape-member('families');
         has Str $.next-token is shape-member('nextToken');
     }
 
@@ -255,10 +280,6 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         has Str $.container-path is shape-member('containerPath');
         has Str $.source-volume is shape-member('sourceVolume');
     }
-
-    subset NetworkMode of Str where $_ ~~ any('bridge', 'host', 'none');
-
-    subset SortOrder of Str where $_ ~~ any('ASC', 'DESC');
 
     class UpdateServiceRequest does AWS::SDK::Shape {
         has DeploymentConfiguration $.deployment-configuration is shape-member('deploymentConfiguration');
@@ -279,7 +300,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         has Str $.last-status is shape-member('lastStatus');
         has DateTime $.stopped-at is shape-member('stoppedAt');
         has DateTime $.started-at is shape-member('startedAt');
-        has Array[Container] $.containers is shape-member('containers');
+        has Container @.containers is shape-member('containers');
         has Str $.desired-status is shape-member('desiredStatus');
         has Str $.group is shape-member('group');
         has Str $.started-by is shape-member('startedBy');
@@ -303,51 +324,51 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     class RunTaskRequest does AWS::SDK::Shape {
         has Str $.cluster is shape-member('cluster');
         has Str $.task-definition is required is shape-member('taskDefinition');
-        has Array[PlacementConstraint] $.placement-constraints is shape-member('placementConstraints');
+        has PlacementConstraint @.placement-constraints is shape-member('placementConstraints');
         has Int $.count is shape-member('count');
-        has Array[PlacementStrategy] $.placement-strategy is shape-member('placementStrategy');
+        has PlacementStrategy @.placement-strategy is shape-member('placementStrategy');
         has Str $.group is shape-member('group');
         has Str $.started-by is shape-member('startedBy');
         has TaskOverride $.overrides is shape-member('overrides');
     }
 
     class ContainerDefinition does AWS::SDK::Shape {
-        has Array[Str] $.docker-security-options is shape-member('dockerSecurityOptions');
+        has Str @.docker-security-options is shape-member('dockerSecurityOptions');
         has Str $.working-directory is shape-member('workingDirectory');
         has LinuxParameters $.linux-parameters is shape-member('linuxParameters');
-        has Array[VolumeFrom] $.volumes-from is shape-member('volumesFrom');
-        has Array[KeyValuePair] $.environment is shape-member('environment');
+        has VolumeFrom @.volumes-from is shape-member('volumesFrom');
+        has KeyValuePair @.environment is shape-member('environment');
         has Int $.cpu is shape-member('cpu');
         has Str $.name is shape-member('name');
-        has Array[Str] $.dns-search-domains is shape-member('dnsSearchDomains');
-        has Array[Str] $.dns-servers is shape-member('dnsServers');
+        has Str @.dns-search-domains is shape-member('dnsSearchDomains');
+        has Str @.dns-servers is shape-member('dnsServers');
         has Bool $.essential is shape-member('essential');
         has LogConfiguration $.log-configuration is shape-member('logConfiguration');
         has Str $.hostname is shape-member('hostname');
-        has Array[Str] $.command is shape-member('command');
+        has Str @.command is shape-member('command');
         has Int $.memory-reservation is shape-member('memoryReservation');
         has Int $.memory is shape-member('memory');
         has Str $.image is shape-member('image');
-        has Hash[Str, Str] $.docker-labels is shape-member('dockerLabels');
-        has Array[PortMapping] $.port-mappings is shape-member('portMappings');
-        has Array[Str] $.links is shape-member('links');
-        has Array[Ulimit] $.ulimits is shape-member('ulimits');
+        has Str %.docker-labels{Str} is shape-member('dockerLabels');
+        has PortMapping @.port-mappings is shape-member('portMappings');
+        has Str @.links is shape-member('links');
+        has Ulimit @.ulimits is shape-member('ulimits');
         has Bool $.readonly-root-filesystem is shape-member('readonlyRootFilesystem');
         has Bool $.privileged is shape-member('privileged');
-        has Array[HostEntry] $.extra-hosts is shape-member('extraHosts');
+        has HostEntry @.extra-hosts is shape-member('extraHosts');
         has Bool $.disable-networking is shape-member('disableNetworking');
         has Str $.user is shape-member('user');
-        has Array[MountPoint] $.mount-points is shape-member('mountPoints');
-        has Array[Str] $.entry-point is shape-member('entryPoint');
+        has MountPoint @.mount-points is shape-member('mountPoints');
+        has Str @.entry-point is shape-member('entryPoint');
     }
 
     class KernelCapabilities does AWS::SDK::Shape {
-        has Array[Str] $.add is shape-member('add');
-        has Array[Str] $.drop is shape-member('drop');
+        has Str @.add is shape-member('add');
+        has Str @.drop is shape-member('drop');
     }
 
     class DescribeClustersRequest does AWS::SDK::Shape {
-        has Array[Str] $.clusters is shape-member('clusters');
+        has Str @.clusters is shape-member('clusters');
     }
 
     class KeyValuePair does AWS::SDK::Shape {
@@ -363,13 +384,13 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     class DescribeServicesResponse does AWS::SDK::Shape {
-        has Array[Failure] $.failures is shape-member('failures');
-        has Array[Service] $.services is shape-member('services');
+        has Failure @.failures is shape-member('failures');
+        has Service @.services is shape-member('services');
     }
 
     class DescribeTasksResponse does AWS::SDK::Shape {
-        has Array[Failure] $.failures is shape-member('failures');
-        has Array[Task] $.tasks is shape-member('tasks');
+        has Failure @.failures is shape-member('failures');
+        has Task @.tasks is shape-member('tasks');
     }
 
     class PlacementConstraint does AWS::SDK::Shape {
@@ -381,7 +402,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     class DescribeContainerInstancesRequest does AWS::SDK::Shape {
-        has Array[Str] $.container-instances is required is shape-member('containerInstances');
+        has Str @.container-instances is required is shape-member('containerInstances');
         has Str $.cluster is shape-member('cluster');
     }
 
@@ -409,11 +430,11 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     class ContainerOverride does AWS::SDK::Shape {
         has Int $.cpu is shape-member('cpu');
-        has Array[KeyValuePair] $.environment is shape-member('environment');
+        has KeyValuePair @.environment is shape-member('environment');
         has Str $.name is shape-member('name');
         has Int $.memory-reservation is shape-member('memoryReservation');
         has Int $.memory is shape-member('memory');
-        has Array[Str] $.command is shape-member('command');
+        has Str @.command is shape-member('command');
     }
 
     class Cluster does AWS::SDK::Shape {
@@ -443,7 +464,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     class PutAttributesRequest does AWS::SDK::Shape {
         has Str $.cluster is shape-member('cluster');
-        has Array[Attribute] $.attributes is required is shape-member('attributes');
+        has Attribute @.attributes is required is shape-member('attributes');
     }
 
     class StopTaskResponse does AWS::SDK::Shape {
@@ -452,7 +473,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     class DeleteAttributesRequest does AWS::SDK::Shape {
         has Str $.cluster is shape-member('cluster');
-        has Array[Attribute] $.attributes is required is shape-member('attributes');
+        has Attribute @.attributes is required is shape-member('attributes');
     }
 
     class DescribeTaskDefinitionRequest does AWS::SDK::Shape {
@@ -465,24 +486,24 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     class UpdateContainerInstancesStateRequest does AWS::SDK::Shape {
-        has Array[Str] $.container-instances is required is shape-member('containerInstances');
+        has Str @.container-instances is required is shape-member('containerInstances');
         has Str $.cluster is shape-member('cluster');
         has ContainerInstanceStatus $.status is required is shape-member('status');
     }
 
     class DescribeClustersResponse does AWS::SDK::Shape {
-        has Array[Failure] $.failures is shape-member('failures');
-        has Array[Cluster] $.clusters is shape-member('clusters');
+        has Failure @.failures is shape-member('failures');
+        has Cluster @.clusters is shape-member('clusters');
     }
 
     class ListContainerInstancesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.container-instance-arns is shape-member('containerInstanceArns');
+        has Str @.container-instance-arns is shape-member('containerInstanceArns');
     }
 
     class RunTaskResponse does AWS::SDK::Shape {
-        has Array[Failure] $.failures is shape-member('failures');
-        has Array[Task] $.tasks is shape-member('tasks');
+        has Failure @.failures is shape-member('failures');
+        has Task @.tasks is shape-member('tasks');
     }
 
     class Volume does AWS::SDK::Shape {
@@ -503,23 +524,19 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         has Str $.ip-address is required is shape-member('ipAddress');
     }
 
-    subset PlacementConstraintType of Str where $_ ~~ any('distinctInstance', 'memberOf');
-
-    subset TransportProtocol of Str where $_ ~~ any('tcp', 'udp');
-
     class SubmitContainerStateChangeRequest does AWS::SDK::Shape {
         has Str $.cluster is shape-member('cluster');
         has Str $.status is shape-member('status');
         has Str $.container-name is shape-member('containerName');
         has Str $.task is shape-member('task');
-        has Array[NetworkBinding] $.network-bindings is shape-member('networkBindings');
+        has NetworkBinding @.network-bindings is shape-member('networkBindings');
         has Int $.exit-code is shape-member('exitCode');
         has Str $.reason is shape-member('reason');
     }
 
     class LogConfiguration does AWS::SDK::Shape {
         has LogDriver $.log-driver is required is shape-member('logDriver');
-        has Hash[Str, Str] $.options is shape-member('options');
+        has Str %.options{Str} is shape-member('options');
     }
 
     class DescribeTaskDefinitionResponse does AWS::SDK::Shape {
@@ -534,14 +551,14 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     class TaskDefinition does AWS::SDK::Shape {
         has TaskDefinitionStatus $.status is shape-member('status');
         has Int $.revision is shape-member('revision');
-        has Array[Volume] $.volumes is shape-member('volumes');
-        has Array[TaskDefinitionPlacementConstraint] $.placement-constraints is shape-member('placementConstraints');
+        has Volume @.volumes is shape-member('volumes');
+        has TaskDefinitionPlacementConstraint @.placement-constraints is shape-member('placementConstraints');
         has NetworkMode $.network-mode is shape-member('networkMode');
         has Str $.task-definition-arn is shape-member('taskDefinitionArn');
-        has Array[Attribute] $.requires-attributes is shape-member('requiresAttributes');
+        has Attribute @.requires-attributes is shape-member('requiresAttributes');
         has Str $.task-role-arn is shape-member('taskRoleArn');
         has Str $.family is shape-member('family');
-        has Array[ContainerDefinition] $.container-definitions is shape-member('containerDefinitions');
+        has ContainerDefinition @.container-definitions is shape-member('containerDefinitions');
     }
 
     class DeregisterTaskDefinitionRequest does AWS::SDK::Shape {
@@ -564,21 +581,21 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     class ListClustersResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.cluster-arns is shape-member('clusterArns');
+        has Str @.cluster-arns is shape-member('clusterArns');
     }
 
     class Resource does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
         has Int $.integer-value is shape-member('integerValue');
-        has Array[Str] $.string-set-value is shape-member('stringSetValue');
+        has Str @.string-set-value is shape-member('stringSetValue');
         has Str $.type is shape-member('type');
         has Numeric $.double-value is shape-member('doubleValue');
         has Int $.long-value is shape-member('longValue');
     }
 
     class StartTaskResponse does AWS::SDK::Shape {
-        has Array[Failure] $.failures is shape-member('failures');
-        has Array[Task] $.tasks is shape-member('tasks');
+        has Failure @.failures is shape-member('failures');
+        has Task @.tasks is shape-member('tasks');
     }
 
     class Ulimit does AWS::SDK::Shape {
@@ -591,10 +608,8 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         has Str $.cluster-name is shape-member('clusterName');
     }
 
-    subset PlacementStrategyType of Str where $_ ~~ any('random', 'spread', 'binpack');
-
     class DeleteAttributesResponse does AWS::SDK::Shape {
-        has Array[Attribute] $.attributes is shape-member('attributes');
+        has Attribute @.attributes is shape-member('attributes');
     }
 
     class UpdateContainerAgentResponse does AWS::SDK::Shape {
@@ -604,10 +619,10 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     class ContainerInstance does AWS::SDK::Shape {
         has DateTime $.registered-at is shape-member('registeredAt');
         has Str $.status is shape-member('status');
-        has Array[Resource] $.registered-resources is shape-member('registeredResources');
-        has Array[Resource] $.remaining-resources is shape-member('remainingResources');
+        has Resource @.registered-resources is shape-member('registeredResources');
+        has Resource @.remaining-resources is shape-member('remainingResources');
         has AgentUpdateStatus $.agent-update-status is shape-member('agentUpdateStatus');
-        has Array[Attribute] $.attributes is shape-member('attributes');
+        has Attribute @.attributes is shape-member('attributes');
         has Str $.ec2-instance-id is shape-member('ec2InstanceId');
         has Int $.pending-tasks-count is shape-member('pendingTasksCount');
         has Int $.running-tasks-count is shape-member('runningTasksCount');
@@ -617,34 +632,28 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         has Bool $.agent-connected is shape-member('agentConnected');
     }
 
-    subset AgentUpdateStatus of Str where $_ ~~ any('PENDING', 'STAGING', 'STAGED', 'UPDATING', 'UPDATED', 'FAILED');
-
     class HostVolumeProperties does AWS::SDK::Shape {
         has Str $.source-path is shape-member('sourcePath');
     }
 
-    subset LogDriver of Str where $_ ~~ any('json-file', 'syslog', 'journald', 'gelf', 'fluentd', 'awslogs', 'splunk');
-
     class RegisterContainerInstanceRequest does AWS::SDK::Shape {
         has Str $.cluster is shape-member('cluster');
-        has Array[Attribute] $.attributes is shape-member('attributes');
+        has Attribute @.attributes is shape-member('attributes');
         has Str $.instance-identity-document is shape-member('instanceIdentityDocument');
         has Str $.container-instance-arn is shape-member('containerInstanceArn');
         has VersionInfo $.version-info is shape-member('versionInfo');
-        has Array[Resource] $.total-resources is shape-member('totalResources');
+        has Resource @.total-resources is shape-member('totalResources');
         has Str $.instance-identity-document-signature is shape-member('instanceIdentityDocumentSignature');
     }
 
     class RegisterTaskDefinitionRequest does AWS::SDK::Shape {
-        has Array[Volume] $.volumes is shape-member('volumes');
-        has Array[TaskDefinitionPlacementConstraint] $.placement-constraints is shape-member('placementConstraints');
+        has Volume @.volumes is shape-member('volumes');
+        has TaskDefinitionPlacementConstraint @.placement-constraints is shape-member('placementConstraints');
         has NetworkMode $.network-mode is shape-member('networkMode');
         has Str $.task-role-arn is shape-member('taskRoleArn');
-        has Array[ContainerDefinition] $.container-definitions is required is shape-member('containerDefinitions');
+        has ContainerDefinition @.container-definitions is required is shape-member('containerDefinitions');
         has Str $.family is required is shape-member('family');
     }
-
-    subset TargetType of Str where $_ ~~ any('container-instance');
 
     class CreateServiceRequest does AWS::SDK::Shape {
         has DeploymentConfiguration $.deployment-configuration is shape-member('deploymentConfiguration');
@@ -654,31 +663,29 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         has Str $.role is shape-member('role');
         has Str $.service-name is required is shape-member('serviceName');
         has Str $.task-definition is required is shape-member('taskDefinition');
-        has Array[PlacementConstraint] $.placement-constraints is shape-member('placementConstraints');
-        has Array[LoadBalancer] $.load-balancers is shape-member('loadBalancers');
-        has Array[PlacementStrategy] $.placement-strategy is shape-member('placementStrategy');
+        has PlacementConstraint @.placement-constraints is shape-member('placementConstraints');
+        has LoadBalancer @.load-balancers is shape-member('loadBalancers');
+        has PlacementStrategy @.placement-strategy is shape-member('placementStrategy');
     }
 
     class Container does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
         has Str $.container-arn is shape-member('containerArn');
         has Str $.last-status is shape-member('lastStatus');
-        has Array[NetworkBinding] $.network-bindings is shape-member('networkBindings');
+        has NetworkBinding @.network-bindings is shape-member('networkBindings');
         has Int $.exit-code is shape-member('exitCode');
         has Str $.reason is shape-member('reason');
         has Str $.task-arn is shape-member('taskArn');
     }
 
     class ListTasksResponse does AWS::SDK::Shape {
-        has Array[Str] $.task-arns is shape-member('taskArns');
+        has Str @.task-arns is shape-member('taskArns');
         has Str $.next-token is shape-member('nextToken');
     }
 
     class RegisterContainerInstanceResponse does AWS::SDK::Shape {
         has ContainerInstance $.container-instance is shape-member('containerInstance');
     }
-
-    subset TaskDefinitionPlacementConstraintType of Str where $_ ~~ any('memberOf');
 
     class PlacementStrategy does AWS::SDK::Shape {
         has Str $.field is shape-member('field');
@@ -693,7 +700,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     class DescribeServicesRequest does AWS::SDK::Shape {
         has Str $.cluster is shape-member('cluster');
-        has Array[Str] $.services is required is shape-member('services');
+        has Str @.services is required is shape-member('services');
     }
 
     class DeregisterContainerInstanceResponse does AWS::SDK::Shape {
@@ -720,17 +727,17 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         has DeploymentConfiguration $.deployment-configuration is shape-member('deploymentConfiguration');
         has Int $.pending-count is shape-member('pendingCount');
         has Int $.desired-count is shape-member('desiredCount');
-        has Array[ServiceEvent] $.events is shape-member('events');
+        has ServiceEvent @.events is shape-member('events');
         has Str $.status is shape-member('status');
         has Int $.running-count is shape-member('runningCount');
         has Str $.cluster-arn is shape-member('clusterArn');
         has Str $.service-name is shape-member('serviceName');
         has Str $.task-definition is shape-member('taskDefinition');
-        has Array[PlacementConstraint] $.placement-constraints is shape-member('placementConstraints');
-        has Array[LoadBalancer] $.load-balancers is shape-member('loadBalancers');
-        has Array[PlacementStrategy] $.placement-strategy is shape-member('placementStrategy');
+        has PlacementConstraint @.placement-constraints is shape-member('placementConstraints');
+        has LoadBalancer @.load-balancers is shape-member('loadBalancers');
+        has PlacementStrategy @.placement-strategy is shape-member('placementStrategy');
         has Str $.role-arn is shape-member('roleArn');
-        has Array[Deployment] $.deployments is shape-member('deployments');
+        has Deployment @.deployments is shape-member('deployments');
         has Str $.service-arn is shape-member('serviceArn');
         has DateTime $.created-at is shape-member('createdAt');
     }
@@ -739,8 +746,8 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     class DescribeContainerInstancesResponse does AWS::SDK::Shape {
-        has Array[ContainerInstance] $.container-instances is shape-member('containerInstances');
-        has Array[Failure] $.failures is shape-member('failures');
+        has ContainerInstance @.container-instances is shape-member('containerInstances');
+        has Failure @.failures is shape-member('failures');
     }
 
     class DeregisterContainerInstanceRequest does AWS::SDK::Shape {
@@ -773,16 +780,10 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         has Str $.family is shape-member('family');
     }
 
-    subset UlimitName of Str where $_ ~~ any('core', 'cpu', 'data', 'fsize', 'locks', 'memlock', 'msgqueue', 'nice', 'nofile', 'nproc', 'rss', 'rtprio', 'rttime', 'sigpending', 'stack');
-
     class TaskOverride does AWS::SDK::Shape {
         has Str $.task-role-arn is shape-member('taskRoleArn');
-        has Array[ContainerOverride] $.container-overrides is shape-member('containerOverrides');
+        has ContainerOverride @.container-overrides is shape-member('containerOverrides');
     }
-
-    subset TaskDefinitionFamilyStatus of Str where $_ ~~ any('ACTIVE', 'INACTIVE', 'ALL');
-
-    subset TaskDefinitionStatus of Str where $_ ~~ any('ACTIVE', 'INACTIVE');
 
     class ListContainerInstancesRequest does AWS::SDK::Shape {
         has Str $.cluster is shape-member('cluster');
@@ -798,6 +799,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         has Int $.container-port is shape-member('containerPort');
         has Str $.target-group-arn is shape-member('targetGroupArn');
     }
+
 
     method submit-task-state-change(
         Str :$cluster,
@@ -837,11 +839,11 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     method put-attributes(
         Str :$cluster,
-        Array[Attribute] :$attributes!
+        Attribute :@attributes!
     ) returns PutAttributesResponse is service-operation('PutAttributes') {
         my $request-input = PutAttributesRequest.new(
             :$cluster,
-            :$attributes
+            :@attributes
         );
 
         self.perform-operation(
@@ -903,11 +905,11 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     method describe-services(
         Str :$cluster,
-        Array[Str] :$services!
+        Str :@services!
     ) returns DescribeServicesResponse is service-operation('DescribeServices') {
         my $request-input = DescribeServicesRequest.new(
             :$cluster,
-            :$services
+            :@services
         );
 
         self.perform-operation(
@@ -917,11 +919,11 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     method describe-container-instances(
-        Array[Str] :$container-instances!,
+        Str :@container-instances!,
         Str :$cluster
     ) returns DescribeContainerInstancesResponse is service-operation('DescribeContainerInstances') {
         my $request-input = DescribeContainerInstancesRequest.new(
-            :$container-instances,
+            :@container-instances,
             :$cluster
         );
 
@@ -947,7 +949,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     method start-task(
-        Array[Str] :$container-instances!,
+        Str :@container-instances!,
         Str :$cluster,
         Str :$task-definition!,
         Str :$group,
@@ -955,7 +957,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         TaskOverride :$overrides
     ) returns StartTaskResponse is service-operation('StartTask') {
         my $request-input = StartTaskRequest.new(
-            :$container-instances,
+            :@container-instances,
             :$cluster,
             :$task-definition,
             :$group,
@@ -971,20 +973,20 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     method register-container-instance(
         Str :$cluster,
-        Array[Attribute] :$attributes,
+        Attribute :@attributes,
         Str :$instance-identity-document,
         Str :$container-instance-arn,
         VersionInfo :$version-info,
-        Array[Resource] :$total-resources,
+        Resource :@total-resources,
         Str :$instance-identity-document-signature
     ) returns RegisterContainerInstanceResponse is service-operation('RegisterContainerInstance') {
         my $request-input = RegisterContainerInstanceRequest.new(
             :$cluster,
-            :$attributes,
+            :@attributes,
             :$instance-identity-document,
             :$container-instance-arn,
             :$version-info,
-            :$total-resources,
+            :@total-resources,
             :$instance-identity-document-signature
         );
 
@@ -1012,7 +1014,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         Str :$status,
         Str :$container-name,
         Str :$task,
-        Array[NetworkBinding] :$network-bindings,
+        NetworkBinding :@network-bindings,
         Int :$exit-code,
         Str :$reason
     ) returns SubmitContainerStateChangeResponse is service-operation('SubmitContainerStateChange') {
@@ -1021,7 +1023,7 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
             :$status,
             :$container-name,
             :$task,
-            :$network-bindings,
+            :@network-bindings,
             :$exit-code,
             :$reason
         );
@@ -1033,19 +1035,19 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     method register-task-definition(
-        Array[Volume] :$volumes,
-        Array[TaskDefinitionPlacementConstraint] :$placement-constraints,
+        Volume :@volumes,
+        TaskDefinitionPlacementConstraint :@placement-constraints,
         NetworkMode :$network-mode,
         Str :$task-role-arn,
-        Array[ContainerDefinition] :$container-definitions!,
+        ContainerDefinition :@container-definitions!,
         Str :$family!
     ) returns RegisterTaskDefinitionResponse is service-operation('RegisterTaskDefinition') {
         my $request-input = RegisterTaskDefinitionRequest.new(
-            :$volumes,
-            :$placement-constraints,
+            :@volumes,
+            :@placement-constraints,
             :$network-mode,
             :$task-role-arn,
-            :$container-definitions,
+            :@container-definitions,
             :$family
         );
 
@@ -1070,11 +1072,11 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     method delete-attributes(
         Str :$cluster,
-        Array[Attribute] :$attributes!
+        Attribute :@attributes!
     ) returns DeleteAttributesResponse is service-operation('DeleteAttributes') {
         my $request-input = DeleteAttributesRequest.new(
             :$cluster,
-            :$attributes
+            :@attributes
         );
 
         self.perform-operation(
@@ -1104,11 +1106,11 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
 
     method describe-tasks(
         Str :$cluster,
-        Array[Str] :$tasks!
+        Str :@tasks!
     ) returns DescribeTasksResponse is service-operation('DescribeTasks') {
         my $request-input = DescribeTasksRequest.new(
             :$cluster,
-            :$tasks
+            :@tasks
         );
 
         self.perform-operation(
@@ -1118,12 +1120,12 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     method update-container-instances-state(
-        Array[Str] :$container-instances!,
+        Str :@container-instances!,
         Str :$cluster,
         ContainerInstanceStatus :$status!
     ) returns UpdateContainerInstancesStateResponse is service-operation('UpdateContainerInstancesState') {
         my $request-input = UpdateContainerInstancesStateRequest.new(
-            :$container-instances,
+            :@container-instances,
             :$cluster,
             :$status
         );
@@ -1152,9 +1154,9 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     method run-task(
         Str :$cluster,
         Str :$task-definition!,
-        Array[PlacementConstraint] :$placement-constraints,
+        PlacementConstraint :@placement-constraints,
         Int :$count,
-        Array[PlacementStrategy] :$placement-strategy,
+        PlacementStrategy :@placement-strategy,
         Str :$group,
         Str :$started-by,
         TaskOverride :$overrides
@@ -1162,9 +1164,9 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         my $request-input = RunTaskRequest.new(
             :$cluster,
             :$task-definition,
-            :$placement-constraints,
+            :@placement-constraints,
             :$count,
-            :$placement-strategy,
+            :@placement-strategy,
             :$group,
             :$started-by,
             :$overrides
@@ -1316,10 +1318,10 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
     }
 
     method describe-clusters(
-        Array[Str] :$clusters
+        Str :@clusters
     ) returns DescribeClustersResponse is service-operation('DescribeClusters') {
         my $request-input = DescribeClustersRequest.new(
-            :$clusters
+            :@clusters
         );
 
         self.perform-operation(
@@ -1349,9 +1351,9 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
         Str :$role,
         Str :$service-name!,
         Str :$task-definition!,
-        Array[PlacementConstraint] :$placement-constraints,
-        Array[LoadBalancer] :$load-balancers,
-        Array[PlacementStrategy] :$placement-strategy
+        PlacementConstraint :@placement-constraints,
+        LoadBalancer :@load-balancers,
+        PlacementStrategy :@placement-strategy
     ) returns CreateServiceResponse is service-operation('CreateService') {
         my $request-input = CreateServiceRequest.new(
             :$deployment-configuration,
@@ -1361,9 +1363,9 @@ class AWS::SDK::Service::ECS does AWS::SDK::Service {
             :$role,
             :$service-name,
             :$task-definition,
-            :$placement-constraints,
-            :$load-balancers,
-            :$placement-strategy
+            :@placement-constraints,
+            :@load-balancers,
+            :@placement-strategy
         );
 
         self.perform-operation(

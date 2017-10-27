@@ -320,6 +320,7 @@ class ShapeReference does Data::Unmarshaller {
     has Str $.documentation;
     has Str $.location;
     has Str $.location-name is unmarshalled-from('locationName');
+    has Str $.query-name is unmarshalled-from('queryName');
     has Shape $.shape-ref;
     has Str $.result-wrapper is unmarshalled-from('resultWrapper');
 
@@ -352,6 +353,8 @@ class Error does Data::Unmarshaller {
     has Bool $.sender-fault is unmarshalled-from('senderFault');
 }
 
+enum Stage <ClassStub SubsetDef ClassDef>;
+
 class Shape does Data::Unmarshaller {
     has Str $.shape-key is not-unmarshalled;
     has Str $.type;
@@ -369,11 +372,8 @@ class Shape does Data::Unmarshaller {
     method sigil-type() { $.type-name }
     method sigil-type-suffix() { '' }
 
-    method has-pre-declaration() { False }
-    method pre-declaration() { '' }
-
-    method has-declaration() { False }
-    method declaration() { '' }
+    method has-declaration(Stage $) { False }
+    method declaration(Stage $) { '' }
 }
 
 # I want Shape::MinMax to be a parameterized role, but when I last tried it, I
@@ -424,10 +424,13 @@ role Shape::MinMaxInt[Str $what = '*'] does Shape::MinMax {
 }
 
 role Shape::SubsetType {
-    method has-declaration() { $.needs-custom-name }
-    method declaration() {
+    multi method has-declaration(SubsetDef) { $.needs-custom-name }
+    multi method declaration(SubsetDef) {
         qq/subset $.type-name of $.perl6-type$.where;\n/;
     }
+
+    multi method has-declaration($) { False }
+    multi method declaration($) { '' }
 }
 
 class Shape::Blob is Shape does Shape::SubsetType does Shape::MinMaxInt['*.bytes'] {
@@ -463,13 +466,16 @@ class Shape::List is Shape does Shape::SubsetType does Shape::MinMaxInt['*.elems
 
     method perl6-type() { "Array[$.member.shape-ref.type-name()]" }
 
-    method sigil() { $.needs-custom-type ?? '$' !! '@' }
-    method sigil-type() { $.member.shape-ref.type-name }
+    method sigil() { $.needs-custom-name ?? '$' !! '@' }
+    method sigil-type() {
+        $.needs-custom-name ?? $.type-name !! $.member.shape-ref.type-name
+    }
 }
 
 class Shape::Map is Shape does Shape::SubsetType does Shape::MinMaxInt['*.elems'] {
     has ShapeReference $.key;
     has ShapeReference $.value;
+    has Bool $.flattened;
     has Str $.location-name is unmarshalled-from('locationName');
 
     method resolve-refs(%shapes) {
@@ -478,9 +484,9 @@ class Shape::Map is Shape does Shape::SubsetType does Shape::MinMaxInt['*.elems'
 
     method perl6-type() { "Hash[$.value.shape-ref.type-name(), $.key.shape-ref.type-name()]" }
 
-    method sigil() { $.needs-custom-type ?? '$' !! '%' }
+    method sigil() { $.needs-custom-name ?? '$' !! '%' }
     method sigil-type { $.value.shape-ref.type-name() }
-    method sigil-type-suffix { "\{$.key.shape.type-name()}" }
+    method sigil-type-suffix { "\{$.key.shape-ref.type-name()}" }
 }
 
 class Shape::String is Shape does Shape::SubsetType does Shape::MinMaxInt['.chars'] {
@@ -502,7 +508,7 @@ class Shape::String is Shape does Shape::SubsetType does Shape::MinMaxInt['.char
         }
 
         if @.enum {
-            push @clauses, "\$_ ~~ any(@.enum.map({qq/'$_'/}).join(', '))";
+            push @clauses, "\$_ eq any(@.enum.map({qq/'$_'/}).join(', '))";
         }
 
         if @clauses {
@@ -550,13 +556,13 @@ class Shape::Structure is Shape {
     method needs-custom-name() { True }
     method perl6-type() { 'Any' }
 
-    method has-pre-declaration() { True }
-    method pre-declaration() {
+    multi method has-declaration(ClassStub) { True }
+    multi method declaration(ClassStub) {
         qq/class $.type-name \{ ... }/
     }
 
-    method has-declaration() { True }
-    method declaration() {
+    multi method has-declaration(ClassDef) { True }
+    multi method declaration(ClassDef) {
         my $class = qq/class $.type-name does AWS::SDK::Shape \{\n/;
 
         for %.members.kv -> $member-name, $member {
@@ -568,18 +574,23 @@ class Shape::Structure is Shape {
                 $required-bang = '!';
             }
 
-            my $perl6-type = $member.shape-ref.type-name;
+            my $perl6-sigil = $member.shape-ref.sigil;
+            my $perl6-sigil-type = $member.shape-ref.sigil-type;
+            my $perl6-sigil-type-suffix = $member.shape-ref.sigil-type-suffix;
 
-            $class ~= qq/has $perl6-type \$.$perl6-member-name$required is shape-member('$member-name');\n/.indent(4);
+            $class ~= qq/has $perl6-sigil-type $perl6-sigil.$perl6-member-name$perl6-sigil-type-suffix$required is shape-member('$member-name');\n/.indent(4);
 
-            push @!input-parameters, "$perl6-type :\$$perl6-member-name$required-bang";
-            push @!passthru-arguments, ":\$$perl6-member-name";
+            push @!input-parameters, "$perl6-sigil-type :$perl6-sigil$perl6-member-name$required-bang";
+            push @!passthru-arguments, ":$perl6-sigil$perl6-member-name";
         }
 
         $class ~= qq/}\n/;
 
         $class;
     }
+
+    multi method has-declaration($) { False }
+    multi method declaration($) { '' }
 
     method input-parameters() { @!input-parameters.join(",\n") }
     method passthru-arguments() { @!passthru-arguments.join(",\n") }

@@ -154,6 +154,55 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     class UpdateSizeConstraintSetResponse { ... }
     class SizeConstraintSet { ... }
 
+    subset RateLimit of Int where 2000 <= *;
+
+    subset PositionalConstraint of Str where $_ eq any('EXACTLY', 'STARTS_WITH', 'ENDS_WITH', 'CONTAINS', 'CONTAINS_WORD');
+
+    subset PredicateType of Str where $_ eq any('IPMatch', 'ByteMatch', 'SqlInjectionMatch', 'SizeConstraint', 'XssMatch');
+
+    subset Size of Int where 0 <= * <= 21474836480;
+
+    subset ChangeToken of Str where 1 <= .chars;
+
+    subset ParameterExceptionField of Str where $_ eq any('CHANGE_ACTION', 'WAF_ACTION', 'PREDICATE_TYPE', 'IPSET_TYPE', 'BYTE_MATCH_FIELD_TYPE', 'SQL_INJECTION_MATCH_FIELD_TYPE', 'BYTE_MATCH_TEXT_TRANSFORMATION', 'BYTE_MATCH_POSITIONAL_CONSTRAINT', 'SIZE_CONSTRAINT_COMPARISON_OPERATOR', 'RATE_KEY', 'RULE_TYPE', 'NEXT_MARKER');
+
+    subset MatchFieldType of Str where $_ eq any('URI', 'QUERY_STRING', 'HEADER', 'METHOD', 'BODY');
+
+    subset ResourceId of Str where 1 <= .chars <= 128;
+
+    subset ChangeTokenStatus of Str where $_ eq any('PROVISIONED', 'PENDING', 'INSYNC');
+
+    subset ComparisonOperator of Str where $_ eq any('EQ', 'NE', 'LE', 'LT', 'GE', 'GT');
+
+    subset ParameterExceptionReason of Str where $_ eq any('INVALID_OPTION', 'ILLEGAL_COMBINATION');
+
+    subset WafActionType of Str where $_ eq any('BLOCK', 'ALLOW', 'COUNT');
+
+    subset GetSampledRequestsMaxItems of Int where 1 <= * <= 500;
+
+    subset ResourceName of Str where 1 <= .chars <= 128;
+
+    subset ChangeAction of Str where $_ eq any('INSERT', 'DELETE');
+
+    subset TextTransformation of Str where $_ eq any('NONE', 'COMPRESS_WHITE_SPACE', 'HTML_ENTITY_DECODE', 'LOWERCASE', 'CMD_LINE', 'URL_DECODE');
+
+    subset WafRuleType of Str where $_ eq any('REGULAR', 'RATE_BASED');
+
+    subset RateKey of Str where $_ eq any('IP');
+
+    subset SampleWeight of Int where 0 <= *;
+
+    subset ParameterExceptionParameter of Str where 1 <= .chars;
+
+    subset NextMarker of Str where 1 <= .chars;
+
+    subset ResourceArn of Str where 1 <= .chars <= 1224;
+
+    subset PaginationLimit of Int where 0 <= * <= 100;
+
+    subset IPSetDescriptorType of Str where $_ eq any('IPV4', 'IPV6');
+
+
     class WAFInvalidAccountException does AWS::SDK::Shape {
     }
 
@@ -170,7 +219,7 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     class SqlInjectionMatchSet does AWS::SDK::Shape {
         has ResourceName $.name is shape-member('Name');
         has ResourceId $.sql-injection-match-set-id is required is shape-member('SqlInjectionMatchSetId');
-        has Array[SqlInjectionMatchTuple] $.sql-injection-match-tuples is required is shape-member('SqlInjectionMatchTuples');
+        has SqlInjectionMatchTuple @.sql-injection-match-tuples is required is shape-member('SqlInjectionMatchTuples');
     }
 
     class WebACLSummary does AWS::SDK::Shape {
@@ -207,17 +256,17 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     }
 
     class ListSizeConstraintSetsResponse does AWS::SDK::Shape {
-        has Array[SizeConstraintSetSummary] $.size-constraint-sets is shape-member('SizeConstraintSets');
+        has SizeConstraintSetSummary @.size-constraint-sets is shape-member('SizeConstraintSets');
         has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
     class ListWebACLsResponse does AWS::SDK::Shape {
-        has Array[WebACLSummary] $.web-acls is shape-member('WebACLs');
+        has WebACLSummary @.web-acls is shape-member('WebACLs');
         has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
     class UpdateSqlInjectionMatchSetRequest does AWS::SDK::Shape {
-        has Array[SqlInjectionMatchSetUpdate] $.updates is required is shape-member('Updates');
+        has SqlInjectionMatchSetUpdate @.updates is required is shape-member('Updates');
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
         has ResourceId $.sql-injection-match-set-id is required is shape-member('SqlInjectionMatchSetId');
     }
@@ -246,14 +295,12 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has Str $.metric-name is shape-member('MetricName');
         has ResourceName $.name is shape-member('Name');
         has RateLimit $.rate-limit is required is shape-member('RateLimit');
-        has Array[Predicate] $.match-predicates is required is shape-member('MatchPredicates');
+        has Predicate @.match-predicates is required is shape-member('MatchPredicates');
     }
 
     class GetByteMatchSetRequest does AWS::SDK::Shape {
         has ResourceId $.byte-match-set-id is required is shape-member('ByteMatchSetId');
     }
-
-    subset RateLimit of Int where 2000 <= *;
 
     class GetChangeTokenStatusRequest does AWS::SDK::Shape {
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
@@ -305,7 +352,7 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     }
 
     class XssMatchSet does AWS::SDK::Shape {
-        has Array[XssMatchTuple] $.xss-match-tuples is required is shape-member('XssMatchTuples');
+        has XssMatchTuple @.xss-match-tuples is required is shape-member('XssMatchTuples');
         has ResourceName $.name is shape-member('Name');
         has ResourceId $.xss-match-set-id is required is shape-member('XssMatchSetId');
     }
@@ -316,14 +363,14 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     }
 
     class UpdateIPSetRequest does AWS::SDK::Shape {
-        has Array[IPSetUpdate] $.updates is required is shape-member('Updates');
+        has IPSetUpdate @.updates is required is shape-member('Updates');
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
         has ResourceId $.ip-set-id is required is shape-member('IPSetId');
     }
 
     class ByteMatchSet does AWS::SDK::Shape {
         has ResourceName $.name is shape-member('Name');
-        has Array[ByteMatchTuple] $.byte-match-tuples is required is shape-member('ByteMatchTuples');
+        has ByteMatchTuple @.byte-match-tuples is required is shape-member('ByteMatchTuples');
         has ResourceId $.byte-match-set-id is required is shape-member('ByteMatchSetId');
     }
 
@@ -351,10 +398,8 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has Bool $.negated is required is shape-member('Negated');
     }
 
-    subset PositionalConstraint of Str where $_ ~~ any('EXACTLY', 'STARTS_WITH', 'ENDS_WITH', 'CONTAINS', 'CONTAINS_WORD');
-
     class ListSqlInjectionMatchSetsResponse does AWS::SDK::Shape {
-        has Array[SqlInjectionMatchSetSummary] $.sql-injection-match-sets is shape-member('SqlInjectionMatchSets');
+        has SqlInjectionMatchSetSummary @.sql-injection-match-sets is shape-member('SqlInjectionMatchSets');
         has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
@@ -372,8 +417,6 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has ByteMatchTuple $.byte-match-tuple is required is shape-member('ByteMatchTuple');
         has ChangeAction $.action is required is shape-member('Action');
     }
-
-    subset PredicateType of Str where $_ ~~ any('IPMatch', 'ByteMatch', 'SqlInjectionMatch', 'SizeConstraint', 'XssMatch');
 
     class WAFDisallowedNameException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -412,22 +455,16 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     }
 
     class ListRulesResponse does AWS::SDK::Shape {
-        has Array[RuleSummary] $.rules is shape-member('Rules');
+        has RuleSummary @.rules is shape-member('Rules');
         has NextMarker $.next-marker is shape-member('NextMarker');
     }
-
-    subset Size of Int where 0 <= * <= 21474836480;
 
     class GetWebACLRequest does AWS::SDK::Shape {
         has ResourceId $.web-acl-id is required is shape-member('WebACLId');
     }
 
-    subset ChangeToken of Str where 1 <= .chars;
-
-    subset ParameterExceptionField of Str where $_ ~~ any('CHANGE_ACTION', 'WAF_ACTION', 'PREDICATE_TYPE', 'IPSET_TYPE', 'BYTE_MATCH_FIELD_TYPE', 'SQL_INJECTION_MATCH_FIELD_TYPE', 'BYTE_MATCH_TEXT_TRANSFORMATION', 'BYTE_MATCH_POSITIONAL_CONSTRAINT', 'SIZE_CONSTRAINT_COMPARISON_OPERATOR', 'RATE_KEY', 'RULE_TYPE', 'NEXT_MARKER');
-
     class ListResourcesForWebACLResponse does AWS::SDK::Shape {
-        has Array[ResourceArn] $.resource-arns is shape-member('ResourceArns');
+        has ResourceArn @.resource-arns is shape-member('ResourceArns');
     }
 
     class SizeConstraintSetSummary does AWS::SDK::Shape {
@@ -442,8 +479,6 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     class DeleteRuleResponse does AWS::SDK::Shape {
         has ChangeToken $.change-token is shape-member('ChangeToken');
     }
-
-    subset MatchFieldType of Str where $_ ~~ any('URI', 'QUERY_STRING', 'HEADER', 'METHOD', 'BODY');
 
     class WAFLimitsExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -467,7 +502,7 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     }
 
     class GetRateBasedRuleManagedKeysResponse does AWS::SDK::Shape {
-        has Array[Str] $.managed-keys is shape-member('ManagedKeys');
+        has Str @.managed-keys is shape-member('ManagedKeys');
         has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
@@ -480,14 +515,10 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has ResourceId $.sql-injection-match-set-id is required is shape-member('SqlInjectionMatchSetId');
     }
 
-    subset ResourceId of Str where 1 <= .chars <= 128;
-
     class CreateXssMatchSetRequest does AWS::SDK::Shape {
         has ResourceName $.name is required is shape-member('Name');
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
-
-    subset ChangeTokenStatus of Str where $_ ~~ any('PROVISIONED', 'PENDING', 'INSYNC');
 
     class DeleteRateBasedRuleResponse does AWS::SDK::Shape {
         has ChangeToken $.change-token is shape-member('ChangeToken');
@@ -498,13 +529,11 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has SizeConstraintSet $.size-constraint-set is shape-member('SizeConstraintSet');
     }
 
-    subset ComparisonOperator of Str where $_ ~~ any('EQ', 'NE', 'LE', 'LT', 'GE', 'GT');
-
     class Rule does AWS::SDK::Shape {
         has ResourceId $.rule-id is required is shape-member('RuleId');
         has Str $.metric-name is shape-member('MetricName');
         has ResourceName $.name is shape-member('Name');
-        has Array[Predicate] $.predicates is required is shape-member('Predicates');
+        has Predicate @.predicates is required is shape-member('Predicates');
     }
 
     class UpdateXssMatchSetResponse does AWS::SDK::Shape {
@@ -544,8 +573,6 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has ResourceId $.xss-match-set-id is required is shape-member('XssMatchSetId');
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
-
-    subset ParameterExceptionReason of Str where $_ ~~ any('INVALID_OPTION', 'ILLEGAL_COMBINATION');
 
     class UpdateRateBasedRuleResponse does AWS::SDK::Shape {
         has ChangeToken $.change-token is shape-member('ChangeToken');
@@ -591,8 +618,6 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has WafActionType $.type is required is shape-member('Type');
     }
 
-    subset WafActionType of Str where $_ ~~ any('BLOCK', 'ALLOW', 'COUNT');
-
     class ListSizeConstraintSetsRequest does AWS::SDK::Shape {
         has PaginationLimit $.limit is shape-member('Limit');
         has NextMarker $.next-marker is shape-member('NextMarker');
@@ -611,16 +636,14 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has ResourceId $.web-acl-id is required is shape-member('WebACLId');
         has Str $.metric-name is shape-member('MetricName');
         has ResourceName $.name is shape-member('Name');
-        has Array[ActivatedRule] $.rules is required is shape-member('Rules');
+        has ActivatedRule @.rules is required is shape-member('Rules');
         has WafAction $.default-action is required is shape-member('DefaultAction');
     }
 
     class ListRateBasedRulesResponse does AWS::SDK::Shape {
-        has Array[RuleSummary] $.rules is shape-member('Rules');
+        has RuleSummary @.rules is shape-member('Rules');
         has NextMarker $.next-marker is shape-member('NextMarker');
     }
-
-    subset GetSampledRequestsMaxItems of Int where 1 <= * <= 500;
 
     class CreateRateBasedRuleRequest does AWS::SDK::Shape {
         has RateKey $.rate-key is required is shape-member('RateKey');
@@ -647,11 +670,9 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
 
     class UpdateByteMatchSetRequest does AWS::SDK::Shape {
         has ResourceId $.byte-match-set-id is required is shape-member('ByteMatchSetId');
-        has Array[ByteMatchSetUpdate] $.updates is required is shape-member('Updates');
+        has ByteMatchSetUpdate @.updates is required is shape-member('Updates');
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
-
-    subset ResourceName of Str where 1 <= .chars <= 128;
 
     class ListXssMatchSetsRequest does AWS::SDK::Shape {
         has PaginationLimit $.limit is shape-member('Limit');
@@ -664,7 +685,7 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
 
     class HTTPRequest does AWS::SDK::Shape {
         has Str $.method is shape-member('Method');
-        has Array[HTTPHeader] $.headers is shape-member('Headers');
+        has HTTPHeader @.headers is shape-member('Headers');
         has Str $.http-version is shape-member('HTTPVersion');
         has Str $.uri is shape-member('URI');
         has Str $.country is shape-member('Country');
@@ -675,8 +696,6 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has Str $.name is shape-member('Name');
         has Str $.value is shape-member('Value');
     }
-
-    subset ChangeAction of Str where $_ ~~ any('INSERT', 'DELETE');
 
     class SqlInjectionMatchTuple does AWS::SDK::Shape {
         has TextTransformation $.text-transformation is required is shape-member('TextTransformation');
@@ -689,12 +708,12 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     }
 
     class ListIPSetsResponse does AWS::SDK::Shape {
-        has Array[IPSetSummary] $.ip-sets is shape-member('IPSets');
+        has IPSetSummary @.ip-sets is shape-member('IPSets');
         has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
     class ListByteMatchSetsResponse does AWS::SDK::Shape {
-        has Array[ByteMatchSetSummary] $.byte-match-sets is shape-member('ByteMatchSets');
+        has ByteMatchSetSummary @.byte-match-sets is shape-member('ByteMatchSets');
         has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
@@ -704,10 +723,6 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     class DisassociateWebACLRequest does AWS::SDK::Shape {
         has ResourceArn $.resource-arn is required is shape-member('ResourceArn');
     }
-
-    subset TextTransformation of Str where $_ ~~ any('NONE', 'COMPRESS_WHITE_SPACE', 'HTML_ENTITY_DECODE', 'LOWERCASE', 'CMD_LINE', 'URL_DECODE');
-
-    subset WafRuleType of Str where $_ ~~ any('REGULAR', 'RATE_BASED');
 
     class CreateByteMatchSetResponse does AWS::SDK::Shape {
         has ByteMatchSet $.byte-match-set is shape-member('ByteMatchSet');
@@ -722,8 +737,6 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     class ListResourcesForWebACLRequest does AWS::SDK::Shape {
         has ResourceId $.web-acl-id is required is shape-member('WebACLId');
     }
-
-    subset RateKey of Str where $_ ~~ any('IP');
 
     class DeleteRuleRequest does AWS::SDK::Shape {
         has ResourceId $.rule-id is required is shape-member('RuleId');
@@ -743,12 +756,10 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    subset SampleWeight of Int where 0 <= *;
-
     class GetSampledRequestsResponse does AWS::SDK::Shape {
         has Int $.population-size is shape-member('PopulationSize');
         has TimeWindow $.time-window is shape-member('TimeWindow');
-        has Array[SampledHTTPRequest] $.sampled-requests is shape-member('SampledRequests');
+        has SampledHTTPRequest @.sampled-requests is shape-member('SampledRequests');
     }
 
     class IPSetSummary does AWS::SDK::Shape {
@@ -757,7 +768,7 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     }
 
     class ListXssMatchSetsResponse does AWS::SDK::Shape {
-        has Array[XssMatchSetSummary] $.xss-match-sets is shape-member('XssMatchSets');
+        has XssMatchSetSummary @.xss-match-sets is shape-member('XssMatchSets');
         has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
@@ -782,10 +793,6 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    subset ParameterExceptionParameter of Str where 1 <= .chars;
-
-    subset NextMarker of Str where 1 <= .chars;
-
     class GetWebACLResponse does AWS::SDK::Shape {
         has WebACL $.web-acl is shape-member('WebACL');
     }
@@ -802,19 +809,17 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has XssMatchTuple $.xss-match-tuple is required is shape-member('XssMatchTuple');
     }
 
-    subset ResourceArn of Str where 1 <= .chars <= 1224;
-
     class UpdateWebACLRequest does AWS::SDK::Shape {
         has ResourceId $.web-acl-id is required is shape-member('WebACLId');
         has WafAction $.default-action is shape-member('DefaultAction');
-        has Array[WebACLUpdate] $.updates is shape-member('Updates');
+        has WebACLUpdate @.updates is shape-member('Updates');
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
     class UpdateRateBasedRuleRequest does AWS::SDK::Shape {
         has ResourceId $.rule-id is required is shape-member('RuleId');
         has RateLimit $.rate-limit is required is shape-member('RateLimit');
-        has Array[RuleUpdate] $.updates is required is shape-member('Updates');
+        has RuleUpdate @.updates is required is shape-member('Updates');
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
@@ -823,11 +828,9 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has ResourceArn $.resource-arn is required is shape-member('ResourceArn');
     }
 
-    subset PaginationLimit of Int where 0 <= * <= 100;
-
     class UpdateRuleRequest does AWS::SDK::Shape {
         has ResourceId $.rule-id is required is shape-member('RuleId');
-        has Array[RuleUpdate] $.updates is required is shape-member('Updates');
+        has RuleUpdate @.updates is required is shape-member('Updates');
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
@@ -846,13 +849,13 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
 
     class IPSet does AWS::SDK::Shape {
         has ResourceName $.name is shape-member('Name');
-        has Array[IPSetDescriptor] $.ip-set-descriptors is required is shape-member('IPSetDescriptors');
+        has IPSetDescriptor @.ip-set-descriptors is required is shape-member('IPSetDescriptors');
         has ResourceId $.ip-set-id is required is shape-member('IPSetId');
     }
 
     class UpdateSizeConstraintSetRequest does AWS::SDK::Shape {
         has ResourceId $.size-constraint-set-id is required is shape-member('SizeConstraintSetId');
-        has Array[SizeConstraintSetUpdate] $.updates is required is shape-member('Updates');
+        has SizeConstraintSetUpdate @.updates is required is shape-member('Updates');
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
@@ -861,11 +864,9 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    subset IPSetDescriptorType of Str where $_ ~~ any('IPV4', 'IPV6');
-
     class UpdateXssMatchSetRequest does AWS::SDK::Shape {
         has ResourceId $.xss-match-set-id is required is shape-member('XssMatchSetId');
-        has Array[XssMatchSetUpdate] $.updates is required is shape-member('Updates');
+        has XssMatchSetUpdate @.updates is required is shape-member('Updates');
         has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
@@ -901,20 +902,21 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
 
     class SizeConstraintSet does AWS::SDK::Shape {
         has ResourceId $.size-constraint-set-id is required is shape-member('SizeConstraintSetId');
-        has Array[SizeConstraint] $.size-constraints is required is shape-member('SizeConstraints');
+        has SizeConstraint @.size-constraints is required is shape-member('SizeConstraints');
         has ResourceName $.name is shape-member('Name');
     }
+
 
     method update-web-acl(
         ResourceId :$web-acl-id!,
         WafAction :$default-action,
-        Array[WebACLUpdate] :$updates,
+        WebACLUpdate :@updates,
         ChangeToken :$change-token!
     ) returns UpdateWebACLResponse is service-operation('UpdateWebACL') {
         my $request-input = UpdateWebACLRequest.new(
             :$web-acl-id,
             :$default-action,
-            :$updates,
+            :@updates,
             :$change-token
         );
 
@@ -927,13 +929,13 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     method update-rate-based-rule(
         ResourceId :$rule-id!,
         RateLimit :$rate-limit!,
-        Array[RuleUpdate] :$updates!,
+        RuleUpdate :@updates!,
         ChangeToken :$change-token!
     ) returns UpdateRateBasedRuleResponse is service-operation('UpdateRateBasedRule') {
         my $request-input = UpdateRateBasedRuleRequest.new(
             :$rule-id,
             :$rate-limit,
-            :$updates,
+            :@updates,
             :$change-token
         );
 
@@ -944,12 +946,12 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     }
 
     method update-ip-set(
-        Array[IPSetUpdate] :$updates!,
+        IPSetUpdate :@updates!,
         ChangeToken :$change-token!,
         ResourceId :$ip-set-id!
     ) returns UpdateIPSetResponse is service-operation('UpdateIPSet') {
         my $request-input = UpdateIPSetRequest.new(
-            :$updates,
+            :@updates,
             :$change-token,
             :$ip-set-id
         );
@@ -1197,12 +1199,12 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
     }
 
     method update-sql-injection-match-set(
-        Array[SqlInjectionMatchSetUpdate] :$updates!,
+        SqlInjectionMatchSetUpdate :@updates!,
         ChangeToken :$change-token!,
         ResourceId :$sql-injection-match-set-id!
     ) returns UpdateSqlInjectionMatchSetResponse is service-operation('UpdateSqlInjectionMatchSet') {
         my $request-input = UpdateSqlInjectionMatchSetRequest.new(
-            :$updates,
+            :@updates,
             :$change-token,
             :$sql-injection-match-set-id
         );
@@ -1329,12 +1331,12 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
 
     method update-size-constraint-set(
         ResourceId :$size-constraint-set-id!,
-        Array[SizeConstraintSetUpdate] :$updates!,
+        SizeConstraintSetUpdate :@updates!,
         ChangeToken :$change-token!
     ) returns UpdateSizeConstraintSetResponse is service-operation('UpdateSizeConstraintSet') {
         my $request-input = UpdateSizeConstraintSetRequest.new(
             :$size-constraint-set-id,
-            :$updates,
+            :@updates,
             :$change-token
         );
 
@@ -1417,12 +1419,12 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
 
     method update-xss-match-set(
         ResourceId :$xss-match-set-id!,
-        Array[XssMatchSetUpdate] :$updates!,
+        XssMatchSetUpdate :@updates!,
         ChangeToken :$change-token!
     ) returns UpdateXssMatchSetResponse is service-operation('UpdateXssMatchSet') {
         my $request-input = UpdateXssMatchSetRequest.new(
             :$xss-match-set-id,
-            :$updates,
+            :@updates,
             :$change-token
         );
 
@@ -1434,12 +1436,12 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
 
     method update-rule(
         ResourceId :$rule-id!,
-        Array[RuleUpdate] :$updates!,
+        RuleUpdate :@updates!,
         ChangeToken :$change-token!
     ) returns UpdateRuleResponse is service-operation('UpdateRule') {
         my $request-input = UpdateRuleRequest.new(
             :$rule-id,
-            :$updates,
+            :@updates,
             :$change-token
         );
 
@@ -1526,12 +1528,12 @@ class AWS::SDK::Service::WAFRegional does AWS::SDK::Service {
 
     method update-byte-match-set(
         ResourceId :$byte-match-set-id!,
-        Array[ByteMatchSetUpdate] :$updates!,
+        ByteMatchSetUpdate :@updates!,
         ChangeToken :$change-token!
     ) returns UpdateByteMatchSetResponse is service-operation('UpdateByteMatchSet') {
         my $request-input = UpdateByteMatchSetRequest.new(
             :$byte-match-set-id,
-            :$updates,
+            :@updates,
             :$change-token
         );
 

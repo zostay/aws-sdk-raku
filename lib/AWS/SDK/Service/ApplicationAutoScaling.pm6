@@ -42,6 +42,33 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
     class PutScalingPolicyRequest { ... }
     class StepScalingPolicyConfiguration { ... }
 
+    subset MetricAggregationType of Str where $_ eq any('Average', 'Minimum', 'Maximum');
+
+    subset ScalingActivityStatusCode of Str where $_ eq any('Pending', 'InProgress', 'Successful', 'Overridden', 'Unfulfilled', 'Failed');
+
+    subset AdjustmentType of Str where $_ eq any('ChangeInCapacity', 'PercentChangeInCapacity', 'ExactCapacity');
+
+    subset PolicyName of Str where 1 <= .chars <= 256 && rx:P5/\p{Print}+/;
+
+    subset PolicyType of Str where $_ eq any('StepScaling', 'TargetTrackingScaling');
+
+    subset MetricType of Str where $_ eq any('DynamoDBReadCapacityUtilization', 'DynamoDBWriteCapacityUtilization');
+
+    subset ResourceLabel of Str where 1 <= .chars <= 1023;
+
+    subset ServiceNamespace of Str where $_ eq any('ecs', 'elasticmapreduce', 'ec2', 'appstream', 'dynamodb');
+
+    subset ResourceIdMaxLen1600 of Str where 1 <= .chars <= 1600 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset XmlString of Str where rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset ResourceId of Str where rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset ScalableDimension of Str where $_ eq any('ecs:service:DesiredCount', 'ec2:spot-fleet-request:TargetCapacity', 'elasticmapreduce:instancegroup:InstanceCount', 'appstream:fleet:DesiredCapacity', 'dynamodb:table:ReadCapacityUnits', 'dynamodb:table:WriteCapacityUnits', 'dynamodb:index:ReadCapacityUnits', 'dynamodb:index:WriteCapacityUnits');
+
+    subset MetricStatistic of Str where $_ eq any('Average', 'Minimum', 'Maximum', 'SampleCount', 'Sum');
+
+
     class ScalingActivity does AWS::SDK::Shape {
         has DateTime $.end-time is shape-member('EndTime');
         has ResourceId $.activity-id is required is shape-member('ActivityId');
@@ -66,7 +93,7 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
     }
 
     class PutScalingPolicyResponse does AWS::SDK::Shape {
-        has Array[Alarm] $.alarms is shape-member('Alarms');
+        has Alarm @.alarms is shape-member('Alarms');
         has ResourceIdMaxLen1600 $.policy-arn is required is shape-member('PolicyARN');
     }
 
@@ -76,7 +103,7 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
     }
 
     class DescribeScalingActivitiesResponse does AWS::SDK::Shape {
-        has Array[ScalingActivity] $.scaling-activities is shape-member('ScalingActivities');
+        has ScalingActivity @.scaling-activities is shape-member('ScalingActivities');
         has XmlString $.next-token is shape-member('NextToken');
     }
 
@@ -86,8 +113,6 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
     class InternalServiceException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset MetricAggregationType of Str where $_ ~~ any('Average', 'Minimum', 'Maximum');
 
     class ObjectNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -100,7 +125,7 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
     class DescribeScalingPoliciesRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
         has ServiceNamespace $.service-namespace is required is shape-member('ServiceNamespace');
-        has Array[ResourceIdMaxLen1600] $.policy-names is shape-member('PolicyNames');
+        has ResourceIdMaxLen1600 @.policy-names is shape-member('PolicyNames');
         has ResourceIdMaxLen1600 $.resource-id is shape-member('ResourceId');
         has XmlString $.next-token is shape-member('NextToken');
         has ScalableDimension $.scalable-dimension is shape-member('ScalableDimension');
@@ -111,8 +136,6 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
         has Str $.value is required is shape-member('Value');
     }
 
-    subset ScalingActivityStatusCode of Str where $_ ~~ any('Pending', 'InProgress', 'Successful', 'Overridden', 'Unfulfilled', 'Failed');
-
     class ConcurrentUpdateException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -121,14 +144,8 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset AdjustmentType of Str where $_ ~~ any('ChangeInCapacity', 'PercentChangeInCapacity', 'ExactCapacity');
-
     class DeleteScalingPolicyResponse does AWS::SDK::Shape {
     }
-
-    subset PolicyName of Str where 1 <= .chars <= 256 && rx:P5/\p{Print}+/;
-
-    subset PolicyType of Str where $_ ~~ any('StepScaling', 'TargetTrackingScaling');
 
     class DeleteScalingPolicyRequest does AWS::SDK::Shape {
         has ServiceNamespace $.service-namespace is required is shape-member('ServiceNamespace');
@@ -151,8 +168,6 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
         has Numeric $.metric-interval-upper-bound is shape-member('MetricIntervalUpperBound');
         has Numeric $.metric-interval-lower-bound is shape-member('MetricIntervalLowerBound');
     }
-
-    subset MetricType of Str where $_ ~~ any('DynamoDBReadCapacityUtilization', 'DynamoDBWriteCapacityUtilization');
 
     class ScalableTarget does AWS::SDK::Shape {
         has ResourceIdMaxLen1600 $.role-arn is required is shape-member('RoleARN');
@@ -181,12 +196,6 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
         has ScalableDimension $.scalable-dimension is required is shape-member('ScalableDimension');
     }
 
-    subset ResourceLabel of Str where 1 <= .chars <= 1023;
-
-    subset ServiceNamespace of Str where $_ ~~ any('ecs', 'elasticmapreduce', 'ec2', 'appstream', 'dynamodb');
-
-    subset ResourceIdMaxLen1600 of Str where 1 <= .chars <= 1600 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class TargetTrackingScalingPolicyConfiguration does AWS::SDK::Shape {
         has Numeric $.target-value is required is shape-member('TargetValue');
         has PredefinedMetricSpecification $.predefined-metric-specification is shape-member('PredefinedMetricSpecification');
@@ -197,7 +206,7 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
     }
 
     class ScalingPolicy does AWS::SDK::Shape {
-        has Array[Alarm] $.alarms is shape-member('Alarms');
+        has Alarm @.alarms is shape-member('Alarms');
         has ServiceNamespace $.service-namespace is required is shape-member('ServiceNamespace');
         has DateTime $.creation-time is required is shape-member('CreationTime');
         has TargetTrackingScalingPolicyConfiguration $.target-tracking-scaling-policy-configuration is shape-member('TargetTrackingScalingPolicyConfiguration');
@@ -213,12 +222,12 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
         has Str $.unit is shape-member('Unit');
         has MetricStatistic $.statistic is required is shape-member('Statistic');
         has Str $.metric-name is required is shape-member('MetricName');
-        has Array[MetricDimension] $.dimensions is shape-member('Dimensions');
+        has MetricDimension @.dimensions is shape-member('Dimensions');
         has Str $.namespace is required is shape-member('Namespace');
     }
 
     class DescribeScalingPoliciesResponse does AWS::SDK::Shape {
-        has Array[ScalingPolicy] $.scaling-policies is shape-member('ScalingPolicies');
+        has ScalingPolicy @.scaling-policies is shape-member('ScalingPolicies');
         has XmlString $.next-token is shape-member('NextToken');
     }
 
@@ -226,26 +235,18 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset XmlString of Str where rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
-    subset ResourceId of Str where rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class DescribeScalableTargetsRequest does AWS::SDK::Shape {
         has Int $.max-results is shape-member('MaxResults');
         has ServiceNamespace $.service-namespace is required is shape-member('ServiceNamespace');
         has XmlString $.next-token is shape-member('NextToken');
         has ScalableDimension $.scalable-dimension is shape-member('ScalableDimension');
-        has Array[ResourceIdMaxLen1600] $.resource-ids is shape-member('ResourceIds');
+        has ResourceIdMaxLen1600 @.resource-ids is shape-member('ResourceIds');
     }
 
     class DescribeScalableTargetsResponse does AWS::SDK::Shape {
-        has Array[ScalableTarget] $.scalable-targets is shape-member('ScalableTargets');
+        has ScalableTarget @.scalable-targets is shape-member('ScalableTargets');
         has XmlString $.next-token is shape-member('NextToken');
     }
-
-    subset ScalableDimension of Str where $_ ~~ any('ecs:service:DesiredCount', 'ec2:spot-fleet-request:TargetCapacity', 'elasticmapreduce:instancegroup:InstanceCount', 'appstream:fleet:DesiredCapacity', 'dynamodb:table:ReadCapacityUnits', 'dynamodb:table:WriteCapacityUnits', 'dynamodb:index:ReadCapacityUnits', 'dynamodb:index:WriteCapacityUnits');
-
-    subset MetricStatistic of Str where $_ ~~ any('Average', 'Minimum', 'Maximum', 'SampleCount', 'Sum');
 
     class PutScalingPolicyRequest does AWS::SDK::Shape {
         has ServiceNamespace $.service-namespace is required is shape-member('ServiceNamespace');
@@ -258,12 +259,13 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
     }
 
     class StepScalingPolicyConfiguration does AWS::SDK::Shape {
-        has Array[StepAdjustment] $.step-adjustments is shape-member('StepAdjustments');
+        has StepAdjustment @.step-adjustments is shape-member('StepAdjustments');
         has MetricAggregationType $.metric-aggregation-type is shape-member('MetricAggregationType');
         has Int $.min-adjustment-magnitude is shape-member('MinAdjustmentMagnitude');
         has AdjustmentType $.adjustment-type is shape-member('AdjustmentType');
         has Int $.cooldown is shape-member('Cooldown');
     }
+
 
     method register-scalable-target(
         ResourceIdMaxLen1600 :$role-arn,
@@ -373,7 +375,7 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
     method describe-scaling-policies(
         Int :$max-results,
         ServiceNamespace :$service-namespace!,
-        Array[ResourceIdMaxLen1600] :$policy-names,
+        ResourceIdMaxLen1600 :@policy-names,
         ResourceIdMaxLen1600 :$resource-id,
         XmlString :$next-token,
         ScalableDimension :$scalable-dimension
@@ -381,7 +383,7 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
         my $request-input = DescribeScalingPoliciesRequest.new(
             :$max-results,
             :$service-namespace,
-            :$policy-names,
+            :@policy-names,
             :$resource-id,
             :$next-token,
             :$scalable-dimension
@@ -398,14 +400,14 @@ class AWS::SDK::Service::ApplicationAutoScaling does AWS::SDK::Service {
         ServiceNamespace :$service-namespace!,
         XmlString :$next-token,
         ScalableDimension :$scalable-dimension,
-        Array[ResourceIdMaxLen1600] :$resource-ids
+        ResourceIdMaxLen1600 :@resource-ids
     ) returns DescribeScalableTargetsResponse is service-operation('DescribeScalableTargets') {
         my $request-input = DescribeScalableTargetsRequest.new(
             :$max-results,
             :$service-namespace,
             :$next-token,
             :$scalable-dimension,
-            :$resource-ids
+            :@resource-ids
         );
 
         self.perform-operation(

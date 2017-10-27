@@ -65,6 +65,23 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     class SubmitJobResponse { ... }
     class CancelJobResponse { ... }
 
+    subset JQState of Str where $_ eq any('ENABLED', 'DISABLED');
+
+    subset JQStatus of Str where $_ eq any('CREATING', 'UPDATING', 'DELETING', 'DELETED', 'VALID', 'INVALID');
+
+    subset CEState of Str where $_ eq any('ENABLED', 'DISABLED');
+
+    subset JobDefinitionType of Str where $_ eq any('container');
+
+    subset JobStatus of Str where $_ eq any('SUBMITTED', 'PENDING', 'RUNNABLE', 'STARTING', 'RUNNING', 'SUCCEEDED', 'FAILED');
+
+    subset CEType of Str where $_ eq any('MANAGED', 'UNMANAGED');
+
+    subset CRType of Str where $_ eq any('EC2', 'SPOT');
+
+    subset CEStatus of Str where $_ eq any('CREATING', 'UPDATING', 'DELETING', 'DELETED', 'VALID', 'INVALID');
+
+
     class RegisterJobDefinitionResponse does AWS::SDK::Shape {
         has Int $.revision is required is shape-member('revision');
         has Str $.job-definition-name is required is shape-member('jobDefinitionName');
@@ -75,7 +92,7 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
         has ContainerProperties $.container-properties is shape-member('containerProperties');
         has RetryStrategy $.retry-strategy is shape-member('retryStrategy');
         has JobDefinitionType $.type is required is shape-member('type');
-        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str %.parameters{Str} is shape-member('parameters');
         has Str $.job-definition-name is required is shape-member('jobDefinitionName');
     }
 
@@ -92,16 +109,16 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
         has Int $.desiredv-cpus is shape-member('desiredvCpus');
         has Int $.maxv-cpus is required is shape-member('maxvCpus');
         has Int $.bid-percentage is shape-member('bidPercentage');
-        has Hash[Str, Str] $.tags is shape-member('tags');
-        has Array[Str] $.security-group-ids is required is shape-member('securityGroupIds');
-        has Array[Str] $.instance-types is required is shape-member('instanceTypes');
+        has Str %.tags{Str} is shape-member('tags');
+        has Str @.security-group-ids is required is shape-member('securityGroupIds');
+        has Str @.instance-types is required is shape-member('instanceTypes');
         has CRType $.type is required is shape-member('type');
         has Str $.spot-iam-fleet-role is shape-member('spotIamFleetRole');
         has Str $.instance-role is required is shape-member('instanceRole');
         has Str $.image-id is shape-member('imageId');
         has Int $.minv-cpus is required is shape-member('minvCpus');
         has Str $.ec2-key-pair is shape-member('ec2KeyPair');
-        has Array[Str] $.subnets is required is shape-member('subnets');
+        has Str @.subnets is required is shape-member('subnets');
     }
 
     class DeleteComputeEnvironmentRequest does AWS::SDK::Shape {
@@ -123,10 +140,8 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     }
 
     class DescribeJobsRequest does AWS::SDK::Shape {
-        has Array[Str] $.jobs is required is shape-member('jobs');
+        has Str @.jobs is required is shape-member('jobs');
     }
-
-    subset JQState of Str where $_ ~~ any('ENABLED', 'DISABLED');
 
     class JobDetail does AWS::SDK::Shape {
         has JobStatus $.status is required is shape-member('status');
@@ -139,10 +154,10 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
         has RetryStrategy $.retry-strategy is shape-member('retryStrategy');
         has Str $.status-reason is shape-member('statusReason');
         has Str $.job-queue is required is shape-member('jobQueue');
-        has Hash[Str, Str] $.parameters is shape-member('parameters');
-        has Array[JobDependency] $.depends-on is shape-member('dependsOn');
+        has Str %.parameters{Str} is shape-member('parameters');
+        has JobDependency @.depends-on is shape-member('dependsOn');
         has Int $.created-at is shape-member('createdAt');
-        has Array[AttemptDetail] $.attempts is shape-member('attempts');
+        has AttemptDetail @.attempts is shape-member('attempts');
     }
 
     class AttemptContainerDetail does AWS::SDK::Shape {
@@ -171,12 +186,12 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     }
 
     class ContainerDetail does AWS::SDK::Shape {
-        has Array[KeyValuePair] $.environment is shape-member('environment');
+        has KeyValuePair @.environment is shape-member('environment');
         has Str $.job-role-arn is shape-member('jobRoleArn');
         has Int $.vcpus is shape-member('vcpus');
         has Str $.log-stream-name is shape-member('logStreamName');
-        has Array[Volume] $.volumes is shape-member('volumes');
-        has Array[Str] $.command is shape-member('command');
+        has Volume @.volumes is shape-member('volumes');
+        has Str @.command is shape-member('command');
         has Int $.memory is shape-member('memory');
         has Str $.image is shape-member('image');
         has Int $.exit-code is shape-member('exitCode');
@@ -184,10 +199,10 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
         has Str $.container-instance-arn is shape-member('containerInstanceArn');
         has Str $.reason is shape-member('reason');
         has Bool $.privileged is shape-member('privileged');
-        has Array[Ulimit] $.ulimits is shape-member('ulimits');
+        has Ulimit @.ulimits is shape-member('ulimits');
         has Bool $.readonly-root-filesystem is shape-member('readonlyRootFilesystem');
         has Str $.user is shape-member('user');
-        has Array[MountPoint] $.mount-points is shape-member('mountPoints');
+        has MountPoint @.mount-points is shape-member('mountPoints');
     }
 
     class DeregisterJobDefinitionResponse does AWS::SDK::Shape {
@@ -198,27 +213,25 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
         has Str $.job-name is required is shape-member('jobName');
         has RetryStrategy $.retry-strategy is shape-member('retryStrategy');
         has Str $.job-queue is required is shape-member('jobQueue');
-        has Hash[Str, Str] $.parameters is shape-member('parameters');
-        has Array[JobDependency] $.depends-on is shape-member('dependsOn');
+        has Str %.parameters{Str} is shape-member('parameters');
+        has JobDependency @.depends-on is shape-member('dependsOn');
         has ContainerOverrides $.container-overrides is shape-member('containerOverrides');
     }
 
     class ContainerProperties does AWS::SDK::Shape {
-        has Array[KeyValuePair] $.environment is shape-member('environment');
+        has KeyValuePair @.environment is shape-member('environment');
         has Str $.job-role-arn is shape-member('jobRoleArn');
         has Int $.vcpus is required is shape-member('vcpus');
-        has Array[Volume] $.volumes is shape-member('volumes');
-        has Array[Str] $.command is shape-member('command');
+        has Volume @.volumes is shape-member('volumes');
+        has Str @.command is shape-member('command');
         has Int $.memory is required is shape-member('memory');
         has Str $.image is required is shape-member('image');
-        has Array[Ulimit] $.ulimits is shape-member('ulimits');
+        has Ulimit @.ulimits is shape-member('ulimits');
         has Bool $.privileged is shape-member('privileged');
         has Bool $.readonly-root-filesystem is shape-member('readonlyRootFilesystem');
         has Str $.user is shape-member('user');
-        has Array[MountPoint] $.mount-points is shape-member('mountPoints');
+        has MountPoint @.mount-points is shape-member('mountPoints');
     }
-
-    subset JQStatus of Str where $_ ~~ any('CREATING', 'UPDATING', 'DELETING', 'DELETED', 'VALID', 'INVALID');
 
     class Ulimit does AWS::SDK::Shape {
         has Str $.name is required is shape-member('name');
@@ -239,7 +252,7 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     class JobQueueDetail does AWS::SDK::Shape {
         has JQStatus $.status is shape-member('status');
         has Str $.job-queue-name is required is shape-member('jobQueueName');
-        has Array[ComputeEnvironmentOrder] $.compute-environment-order is required is shape-member('computeEnvironmentOrder');
+        has ComputeEnvironmentOrder @.compute-environment-order is required is shape-member('computeEnvironmentOrder');
         has Int $.priority is required is shape-member('priority');
         has Str $.job-queue-arn is required is shape-member('jobQueueArn');
         has Str $.status-reason is shape-member('statusReason');
@@ -249,21 +262,19 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     class DescribeJobQueuesRequest does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
         has Int $.max-results is shape-member('maxResults');
-        has Array[Str] $.job-queues is shape-member('jobQueues');
+        has Str @.job-queues is shape-member('jobQueues');
     }
 
-    subset CEState of Str where $_ ~~ any('ENABLED', 'DISABLED');
-
     class ContainerOverrides does AWS::SDK::Shape {
-        has Array[KeyValuePair] $.environment is shape-member('environment');
+        has KeyValuePair @.environment is shape-member('environment');
         has Int $.vcpus is shape-member('vcpus');
-        has Array[Str] $.command is shape-member('command');
+        has Str @.command is shape-member('command');
         has Int $.memory is shape-member('memory');
     }
 
     class CreateJobQueueRequest does AWS::SDK::Shape {
         has Str $.job-queue-name is required is shape-member('jobQueueName');
-        has Array[ComputeEnvironmentOrder] $.compute-environment-order is required is shape-member('computeEnvironmentOrder');
+        has ComputeEnvironmentOrder @.compute-environment-order is required is shape-member('computeEnvironmentOrder');
         has Int $.priority is required is shape-member('priority');
         has JQState $.state is shape-member('state');
     }
@@ -279,10 +290,6 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
         has Str $.compute-environment-arn is shape-member('computeEnvironmentArn');
     }
 
-    subset JobDefinitionType of Str where $_ ~~ any('container');
-
-    subset JobStatus of Str where $_ ~~ any('SUBMITTED', 'PENDING', 'RUNNABLE', 'STARTING', 'RUNNING', 'SUCCEEDED', 'FAILED');
-
     class TerminateJobRequest does AWS::SDK::Shape {
         has Str $.job-id is required is shape-member('jobId');
         has Str $.reason is required is shape-member('reason');
@@ -291,10 +298,6 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     class JobDependency does AWS::SDK::Shape {
         has Str $.job-id is shape-member('jobId');
     }
-
-    subset CEType of Str where $_ ~~ any('MANAGED', 'UNMANAGED');
-
-    subset CRType of Str where $_ ~~ any('EC2', 'SPOT');
 
     class CreateComputeEnvironmentRequest does AWS::SDK::Shape {
         has Str $.compute-environment-name is required is shape-member('computeEnvironmentName');
@@ -309,7 +312,7 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     }
 
     class DescribeJobDefinitionsRequest does AWS::SDK::Shape {
-        has Array[Str] $.job-definitions is shape-member('jobDefinitions');
+        has Str @.job-definitions is shape-member('jobDefinitions');
         has Str $.status is shape-member('status');
         has Str $.next-token is shape-member('nextToken');
         has Int $.max-results is shape-member('maxResults');
@@ -332,13 +335,13 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     }
 
     class DescribeComputeEnvironmentsRequest does AWS::SDK::Shape {
-        has Array[Str] $.compute-environments is shape-member('computeEnvironments');
+        has Str @.compute-environments is shape-member('computeEnvironments');
         has Str $.next-token is shape-member('nextToken');
         has Int $.max-results is shape-member('maxResults');
     }
 
     class DescribeComputeEnvironmentsResponse does AWS::SDK::Shape {
-        has Array[ComputeEnvironmentDetail] $.compute-environments is shape-member('computeEnvironments');
+        has ComputeEnvironmentDetail @.compute-environments is shape-member('computeEnvironments');
         has Str $.next-token is shape-member('nextToken');
     }
 
@@ -348,35 +351,33 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
         has Int $.revision is required is shape-member('revision');
         has RetryStrategy $.retry-strategy is shape-member('retryStrategy');
         has Str $.type is required is shape-member('type');
-        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str %.parameters{Str} is shape-member('parameters');
         has Str $.job-definition-name is required is shape-member('jobDefinitionName');
         has Str $.job-definition-arn is required is shape-member('jobDefinitionArn');
     }
 
     class UpdateJobQueueRequest does AWS::SDK::Shape {
-        has Array[ComputeEnvironmentOrder] $.compute-environment-order is shape-member('computeEnvironmentOrder');
+        has ComputeEnvironmentOrder @.compute-environment-order is shape-member('computeEnvironmentOrder');
         has Int $.priority is shape-member('priority');
         has JQState $.state is shape-member('state');
         has Str $.job-queue is required is shape-member('jobQueue');
     }
 
-    subset CEStatus of Str where $_ ~~ any('CREATING', 'UPDATING', 'DELETING', 'DELETED', 'VALID', 'INVALID');
-
     class DeleteComputeEnvironmentResponse does AWS::SDK::Shape {
     }
 
     class DescribeJobDefinitionsResponse does AWS::SDK::Shape {
-        has Array[JobDefinition] $.job-definitions is shape-member('jobDefinitions');
+        has JobDefinition @.job-definitions is shape-member('jobDefinitions');
         has Str $.next-token is shape-member('nextToken');
     }
 
     class ListJobsResponse does AWS::SDK::Shape {
-        has Array[JobSummary] $.job-summary-list is required is shape-member('jobSummaryList');
+        has JobSummary @.job-summary-list is required is shape-member('jobSummaryList');
         has Str $.next-token is shape-member('nextToken');
     }
 
     class DescribeJobsResponse does AWS::SDK::Shape {
-        has Array[JobDetail] $.jobs is shape-member('jobs');
+        has JobDetail @.jobs is shape-member('jobs');
     }
 
     class UpdateComputeEnvironmentRequest does AWS::SDK::Shape {
@@ -421,7 +422,7 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
 
     class DescribeJobQueuesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[JobQueueDetail] $.job-queues is shape-member('jobQueues');
+        has JobQueueDetail @.job-queues is shape-member('jobQueues');
     }
 
     class SubmitJobResponse does AWS::SDK::Shape {
@@ -432,13 +433,14 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     class CancelJobResponse does AWS::SDK::Shape {
     }
 
+
     method submit-job(
         Str :$job-definition!,
         Str :$job-name!,
         RetryStrategy :$retry-strategy,
         Str :$job-queue!,
-        Hash[Str, Str] :$parameters,
-        Array[JobDependency] :$depends-on,
+        Str :%parameters,
+        JobDependency :@depends-on,
         ContainerOverrides :$container-overrides
     ) returns SubmitJobResponse is service-operation('SubmitJob') {
         my $request-input = SubmitJobRequest.new(
@@ -446,8 +448,8 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
             :$job-name,
             :$retry-strategy,
             :$job-queue,
-            :$parameters,
-            :$depends-on,
+            :%parameters,
+            :@depends-on,
             :$container-overrides
         );
 
@@ -460,12 +462,12 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     method describe-job-queues(
         Str :$next-token,
         Int :$max-results,
-        Array[Str] :$job-queues
+        Str :@job-queues
     ) returns DescribeJobQueuesResponse is service-operation('DescribeJobQueues') {
         my $request-input = DescribeJobQueuesRequest.new(
             :$next-token,
             :$max-results,
-            :$job-queues
+            :@job-queues
         );
 
         self.perform-operation(
@@ -475,10 +477,10 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     }
 
     method describe-jobs(
-        Array[Str] :$jobs!
+        Str :@jobs!
     ) returns DescribeJobsResponse is service-operation('DescribeJobs') {
         my $request-input = DescribeJobsRequest.new(
-            :$jobs
+            :@jobs
         );
 
         self.perform-operation(
@@ -521,13 +523,13 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
 
     method create-job-queue(
         Str :$job-queue-name!,
-        Array[ComputeEnvironmentOrder] :$compute-environment-order!,
+        ComputeEnvironmentOrder :@compute-environment-order!,
         Int :$priority!,
         JQState :$state
     ) returns CreateJobQueueResponse is service-operation('CreateJobQueue') {
         my $request-input = CreateJobQueueRequest.new(
             :$job-queue-name,
-            :$compute-environment-order,
+            :@compute-environment-order,
             :$priority,
             :$state
         );
@@ -539,12 +541,12 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     }
 
     method describe-compute-environments(
-        Array[Str] :$compute-environments,
+        Str :@compute-environments,
         Str :$next-token,
         Int :$max-results
     ) returns DescribeComputeEnvironmentsResponse is service-operation('DescribeComputeEnvironments') {
         my $request-input = DescribeComputeEnvironmentsRequest.new(
-            :$compute-environments,
+            :@compute-environments,
             :$next-token,
             :$max-results
         );
@@ -556,13 +558,13 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     }
 
     method update-job-queue(
-        Array[ComputeEnvironmentOrder] :$compute-environment-order,
+        ComputeEnvironmentOrder :@compute-environment-order,
         Int :$priority,
         JQState :$state,
         Str :$job-queue!
     ) returns UpdateJobQueueResponse is service-operation('UpdateJobQueue') {
         my $request-input = UpdateJobQueueRequest.new(
-            :$compute-environment-order,
+            :@compute-environment-order,
             :$priority,
             :$state,
             :$job-queue
@@ -619,14 +621,14 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
         ContainerProperties :$container-properties,
         RetryStrategy :$retry-strategy,
         JobDefinitionType :$type!,
-        Hash[Str, Str] :$parameters,
+        Str :%parameters,
         Str :$job-definition-name!
     ) returns RegisterJobDefinitionResponse is service-operation('RegisterJobDefinition') {
         my $request-input = RegisterJobDefinitionRequest.new(
             :$container-properties,
             :$retry-strategy,
             :$type,
-            :$parameters,
+            :%parameters,
             :$job-definition-name
         );
 
@@ -637,14 +639,14 @@ class AWS::SDK::Service::Batch does AWS::SDK::Service {
     }
 
     method describe-job-definitions(
-        Array[Str] :$job-definitions,
+        Str :@job-definitions,
         Str :$status,
         Str :$next-token,
         Int :$max-results,
         Str :$job-definition-name
     ) returns DescribeJobDefinitionsResponse is service-operation('DescribeJobDefinitions') {
         my $request-input = DescribeJobDefinitionsRequest.new(
-            :$job-definitions,
+            :@job-definitions,
             :$status,
             :$next-token,
             :$max-results,

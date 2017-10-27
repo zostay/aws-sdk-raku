@@ -152,7 +152,78 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     class GetDeviceResult { ... }
     class ListNetworkProfilesRequest { ... }
 
-    subset DevicePoolType of Str where $_ ~~ any('CURATED', 'PRIVATE');
+    subset DevicePoolType of Str where $_ eq any('CURATED', 'PRIVATE');
+
+    subset DeviceAttribute of Str where $_ eq any('ARN', 'PLATFORM', 'FORM_FACTOR', 'MANUFACTURER', 'REMOTE_ACCESS_ENABLED', 'REMOTE_DEBUG_ENABLED', 'APPIUM_VERSION');
+
+    subset UploadStatus of Str where $_ eq any('INITIALIZED', 'PROCESSING', 'SUCCEEDED', 'FAILED');
+
+    subset ExecutionResultCode of Str where $_ eq any('PARSING_FAILED');
+
+    subset ExecutionStatus of Str where $_ eq any('PENDING', 'PENDING_CONCURRENCY', 'PENDING_DEVICE', 'PROCESSING', 'SCHEDULING', 'PREPARING', 'RUNNING', 'COMPLETED', 'STOPPING');
+
+    subset ArtifactCategory of Str where $_ eq any('SCREENSHOT', 'FILE', 'LOG');
+
+    subset OfferingType of Str where $_ eq any('RECURRING');
+
+    subset AmazonResourceName of Str where 32 <= .chars;
+
+    subset DeviceFormFactor of Str where $_ eq any('PHONE', 'TABLET');
+
+    subset SshPublicKey of Str where 0 <= .chars <= 8192;
+
+    subset BillingMethod of Str where $_ eq any('METERED', 'UNMETERED');
+
+    subset CurrencyCode of Str where $_ eq any('USD');
+
+    subset DevicePlatform of Str where $_ eq any('ANDROID', 'IOS');
+
+    subset ContentType of Str where 0 <= .chars <= 64;
+
+    subset OfferingTransactionType of Str where $_ eq any('PURCHASE', 'RENEW', 'SYSTEM');
+
+    subset Filter of Str where 0 <= .chars <= 8192;
+
+    subset PaginationToken of Str where 4 <= .chars <= 1024;
+
+    subset NetworkProfileType of Str where $_ eq any('CURATED', 'PRIVATE');
+
+    subset OfferingIdentifier of Str where 32 <= .chars;
+
+    subset TransactionIdentifier of Str where 32 <= .chars;
+
+    subset HostAddress of Str where .chars <= 1024;
+
+    subset OfferingPromotionIdentifier of Str where 4 <= .chars;
+
+    subset AWSAccountNumber of Str where 2 <= .chars <= 16;
+
+    subset UploadType of Str where $_ eq any('ANDROID_APP', 'IOS_APP', 'WEB_APP', 'EXTERNAL_DATA', 'APPIUM_JAVA_JUNIT_TEST_PACKAGE', 'APPIUM_JAVA_TESTNG_TEST_PACKAGE', 'APPIUM_PYTHON_TEST_PACKAGE', 'APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE', 'APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE', 'APPIUM_WEB_PYTHON_TEST_PACKAGE', 'CALABASH_TEST_PACKAGE', 'INSTRUMENTATION_TEST_PACKAGE', 'UIAUTOMATION_TEST_PACKAGE', 'UIAUTOMATOR_TEST_PACKAGE', 'XCTEST_TEST_PACKAGE', 'XCTEST_UI_TEST_PACKAGE');
+
+    subset ExecutionResult of Str where $_ eq any('PENDING', 'PASSED', 'WARNED', 'FAILED', 'SKIPPED', 'ERRORED', 'STOPPED');
+
+    subset TestType of Str where $_ eq any('BUILTIN_FUZZ', 'BUILTIN_EXPLORER', 'APPIUM_JAVA_JUNIT', 'APPIUM_JAVA_TESTNG', 'APPIUM_PYTHON', 'APPIUM_WEB_JAVA_JUNIT', 'APPIUM_WEB_JAVA_TESTNG', 'APPIUM_WEB_PYTHON', 'CALABASH', 'INSTRUMENTATION', 'UIAUTOMATION', 'UIAUTOMATOR', 'XCTEST', 'XCTEST_UI');
+
+    subset ClientId of Str where 0 <= .chars <= 64;
+
+    subset ArtifactType of Str where $_ eq any('UNKNOWN', 'SCREENSHOT', 'DEVICE_LOG', 'MESSAGE_LOG', 'VIDEO_LOG', 'RESULT_LOG', 'SERVICE_LOG', 'WEBKIT_LOG', 'INSTRUMENTATION_OUTPUT', 'EXERCISER_MONKEY_OUTPUT', 'CALABASH_JSON_OUTPUT', 'CALABASH_PRETTY_OUTPUT', 'CALABASH_STANDARD_OUTPUT', 'CALABASH_JAVA_XML_OUTPUT', 'AUTOMATION_OUTPUT', 'APPIUM_SERVER_OUTPUT', 'APPIUM_JAVA_OUTPUT', 'APPIUM_JAVA_XML_OUTPUT', 'APPIUM_PYTHON_OUTPUT', 'APPIUM_PYTHON_XML_OUTPUT', 'EXPLORER_EVENT_LOG', 'EXPLORER_SUMMARY_LOG', 'APPLICATION_CRASH_REPORT', 'XCTEST_LOG', 'VIDEO', 'CUSTOMER_ARTIFACT', 'CUSTOMER_ARTIFACT_LOG');
+
+    subset Metadata of Str where 0 <= .chars <= 8192;
+
+    subset PercentInteger of Int where 0 <= * <= 100;
+
+    subset RuleOperator of Str where $_ eq any('EQUALS', 'LESS_THAN', 'GREATER_THAN', 'IN', 'NOT_IN', 'CONTAINS');
+
+    subset SampleType of Str where $_ eq any('CPU', 'MEMORY', 'THREADS', 'RX_RATE', 'TX_RATE', 'RX', 'TX', 'NATIVE_FRAMES', 'NATIVE_FPS', 'NATIVE_MIN_DRAWTIME', 'NATIVE_AVG_DRAWTIME', 'NATIVE_MAX_DRAWTIME', 'OPENGL_FRAMES', 'OPENGL_FPS', 'OPENGL_MIN_DRAWTIME', 'OPENGL_AVG_DRAWTIME', 'OPENGL_MAX_DRAWTIME');
+
+    subset URL of Str where 0 <= .chars <= 2048;
+
+    subset Name of Str where 0 <= .chars <= 256;
+
+    subset RecurringChargeFrequency of Str where $_ eq any('MONTHLY');
+
+    subset Message of Str where 0 <= .chars <= 16384;
+
 
     class CPU does AWS::SDK::Shape {
         has Str $.architecture is shape-member('architecture');
@@ -167,15 +238,11 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has DateTime $.effective-on is shape-member('effectiveOn');
     }
 
-    subset DeviceAttribute of Str where $_ ~~ any('ARN', 'PLATFORM', 'FORM_FACTOR', 'MANUFACTURER', 'REMOTE_ACCESS_ENABLED', 'REMOTE_DEBUG_ENABLED', 'APPIUM_VERSION');
-
     class ExecutionConfiguration does AWS::SDK::Shape {
         has Bool $.accounts-cleanup is shape-member('accountsCleanup');
         has Bool $.app-packages-cleanup is shape-member('appPackagesCleanup');
         has Int $.job-timeout-minutes is shape-member('jobTimeoutMinutes');
     }
-
-    subset UploadStatus of Str where $_ ~~ any('INITIALIZED', 'PROCESSING', 'SUCCEEDED', 'FAILED');
 
     class CreateRemoteAccessSessionRequest does AWS::SDK::Shape {
         has Name $.name is shape-member('name');
@@ -187,13 +254,9 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has AmazonResourceName $.device-arn is required is shape-member('deviceArn');
     }
 
-    subset ExecutionResultCode of Str where $_ ~~ any('PARSING_FAILED');
-
     class CreateNetworkProfileResult does AWS::SDK::Shape {
         has NetworkProfile $.network-profile is shape-member('networkProfile');
     }
-
-    subset ExecutionStatus of Str where $_ ~~ any('PENDING', 'PENDING_CONCURRENCY', 'PENDING_DEVICE', 'PROCESSING', 'SCHEDULING', 'PREPARING', 'RUNNING', 'COMPLETED', 'STOPPING');
 
     class GetDevicePoolRequest does AWS::SDK::Shape {
         has AmazonResourceName $.arn is required is shape-member('arn');
@@ -249,16 +312,12 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has NetworkProfile $.network-profile is shape-member('networkProfile');
     }
 
-    subset ArtifactCategory of Str where $_ ~~ any('SCREENSHOT', 'FILE', 'LOG');
-
     class CreateRemoteAccessSessionConfiguration does AWS::SDK::Shape {
         has BillingMethod $.billing-method is shape-member('billingMethod');
     }
 
-    subset OfferingType of Str where $_ ~~ any('RECURRING');
-
     class ListSamplesResult does AWS::SDK::Shape {
-        has Array[Sample] $.samples is shape-member('samples');
+        has Sample @.samples is shape-member('samples');
         has PaginationToken $.next-token is shape-member('nextToken');
     }
 
@@ -269,10 +328,10 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     class AccountSettings does AWS::SDK::Shape {
         has AWSAccountNumber $.aws-account-number is shape-member('awsAccountNumber');
         has Int $.default-job-timeout-minutes is shape-member('defaultJobTimeoutMinutes');
-        has Hash[Int, DevicePlatform] $.unmetered-remote-access-devices is shape-member('unmeteredRemoteAccessDevices');
-        has Hash[Int, DevicePlatform] $.unmetered-devices is shape-member('unmeteredDevices');
+        has Int %.unmetered-remote-access-devices{DevicePlatform} is shape-member('unmeteredRemoteAccessDevices');
+        has Int %.unmetered-devices{DevicePlatform} is shape-member('unmeteredDevices');
         has Int $.max-job-timeout-minutes is shape-member('maxJobTimeoutMinutes');
-        has Hash[Int, Str] $.max-slots is shape-member('maxSlots');
+        has Int %.max-slots{Str} is shape-member('maxSlots');
         has TrialMinutes $.trial-minutes is shape-member('trialMinutes');
     }
 
@@ -281,21 +340,17 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    subset AmazonResourceName of Str where 32 <= .chars;
-
     class DeleteRunResult does AWS::SDK::Shape {
     }
 
-    subset DeviceFormFactor of Str where $_ ~~ any('PHONE', 'TABLET');
-
     class ListJobsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[Job] $.jobs is shape-member('jobs');
+        has Job @.jobs is shape-member('jobs');
     }
 
     class ListProjectsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[Project] $.projects is shape-member('projects');
+        has Project @.projects is shape-member('projects');
     }
 
     class NetworkProfile does AWS::SDK::Shape {
@@ -339,8 +394,6 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has OfferingTransaction $.offering-transaction is shape-member('offeringTransaction');
     }
 
-    subset SshPublicKey of Str where 0 <= .chars <= 8192;
-
     class UpdateDevicePoolResult does AWS::SDK::Shape {
         has DevicePool $.device-pool is shape-member('devicePool');
     }
@@ -361,19 +414,13 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has AmazonResourceName $.arn is required is shape-member('arn');
     }
 
-    subset BillingMethod of Str where $_ ~~ any('METERED', 'UNMETERED');
-
-    subset CurrencyCode of Str where $_ ~~ any('USD');
-
-    subset DevicePlatform of Str where $_ ~~ any('ANDROID', 'IOS');
-
     class GetProjectResult does AWS::SDK::Shape {
         has Project $.project is shape-member('project');
     }
 
     class ListRemoteAccessSessionsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[RemoteAccessSession] $.remote-access-sessions is shape-member('remoteAccessSessions');
+        has RemoteAccessSession @.remote-access-sessions is shape-member('remoteAccessSessions');
     }
 
     class Radios does AWS::SDK::Shape {
@@ -393,8 +440,8 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     }
 
     class GetDevicePoolCompatibilityResult does AWS::SDK::Shape {
-        has Array[DevicePoolCompatibilityResult] $.incompatible-devices is shape-member('incompatibleDevices');
-        has Array[DevicePoolCompatibilityResult] $.compatible-devices is shape-member('compatibleDevices');
+        has DevicePoolCompatibilityResult @.incompatible-devices is shape-member('incompatibleDevices');
+        has DevicePoolCompatibilityResult @.compatible-devices is shape-member('compatibleDevices');
     }
 
     class IdempotencyException does AWS::SDK::Shape {
@@ -413,18 +460,16 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     class DevicePoolCompatibilityResult does AWS::SDK::Shape {
         has Bool $.compatible is shape-member('compatible');
         has Device $.device is shape-member('device');
-        has Array[IncompatibilityMessage] $.incompatibility-messages is shape-member('incompatibilityMessages');
+        has IncompatibilityMessage @.incompatibility-messages is shape-member('incompatibilityMessages');
     }
 
     class DeleteRunRequest does AWS::SDK::Shape {
         has AmazonResourceName $.arn is required is shape-member('arn');
     }
 
-    subset ContentType of Str where 0 <= .chars <= 64;
-
     class GetOfferingStatusResult does AWS::SDK::Shape {
-        has Hash[OfferingStatus, OfferingIdentifier] $.next-period is shape-member('nextPeriod');
-        has Hash[OfferingStatus, OfferingIdentifier] $.current is shape-member('current');
+        has OfferingStatus %.next-period{OfferingIdentifier} is shape-member('nextPeriod');
+        has OfferingStatus %.current{OfferingIdentifier} is shape-member('current');
         has PaginationToken $.next-token is shape-member('nextToken');
     }
 
@@ -458,7 +503,7 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
 
     class ListNetworkProfilesResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[NetworkProfile] $.network-profiles is shape-member('networkProfiles');
+        has NetworkProfile @.network-profiles is shape-member('networkProfiles');
     }
 
     class NotEligibleException does AWS::SDK::Shape {
@@ -499,14 +544,12 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     }
 
     class Offering does AWS::SDK::Shape {
-        has Array[RecurringCharge] $.recurring-charges is shape-member('recurringCharges');
+        has RecurringCharge @.recurring-charges is shape-member('recurringCharges');
         has OfferingIdentifier $.id is shape-member('id');
         has DevicePlatform $.platform is shape-member('platform');
         has OfferingType $.type is shape-member('type');
         has Message $.description is shape-member('description');
     }
-
-    subset OfferingTransactionType of Str where $_ ~~ any('PURCHASE', 'RENEW', 'SYSTEM');
 
     class GetOfferingStatusRequest does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
@@ -515,12 +558,10 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     class DevicePool does AWS::SDK::Shape {
         has Name $.name is shape-member('name');
         has AmazonResourceName $.arn is shape-member('arn');
-        has Array[Rule] $.rules is shape-member('rules');
+        has Rule @.rules is shape-member('rules');
         has DevicePoolType $.type is shape-member('type');
         has Message $.description is shape-member('description');
     }
-
-    subset Filter of Str where 0 <= .chars <= 8192;
 
     class CreateUploadRequest does AWS::SDK::Shape {
         has Name $.name is required is shape-member('name');
@@ -528,8 +569,6 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has UploadType $.type is required is shape-member('type');
         has ContentType $.content-type is shape-member('contentType');
     }
-
-    subset PaginationToken of Str where 4 <= .chars <= 1024;
 
     class ScheduleRunResult does AWS::SDK::Shape {
         has Run $.run is shape-member('run');
@@ -569,8 +608,6 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has Numeric $.latitude is required is shape-member('latitude');
     }
 
-    subset NetworkProfileType of Str where $_ ~~ any('CURATED', 'PRIVATE');
-
     class ProblemDetail does AWS::SDK::Shape {
         has Name $.name is shape-member('name');
         has AmazonResourceName $.arn is shape-member('arn');
@@ -585,24 +622,18 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    subset OfferingIdentifier of Str where 32 <= .chars;
-
     class Sample does AWS::SDK::Shape {
         has AmazonResourceName $.arn is shape-member('arn');
         has SampleType $.type is shape-member('type');
         has URL $.url is shape-member('url');
     }
 
-    subset TransactionIdentifier of Str where 32 <= .chars;
-
-    subset HostAddress of Str where .chars <= 1024;
-
     class DeleteRemoteAccessSessionResult does AWS::SDK::Shape {
     }
 
     class ListDevicePoolsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[DevicePool] $.device-pools is shape-member('devicePools');
+        has DevicePool @.device-pools is shape-member('devicePools');
     }
 
     class Rule does AWS::SDK::Shape {
@@ -669,15 +700,13 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has AmazonResourceName $.arn is required is shape-member('arn');
     }
 
-    subset OfferingPromotionIdentifier of Str where 4 <= .chars;
-
     class GetJobResult does AWS::SDK::Shape {
         has Job $.job is shape-member('job');
     }
 
     class ListOfferingTransactionsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[OfferingTransaction] $.offering-transactions is shape-member('offeringTransactions');
+        has OfferingTransaction @.offering-transactions is shape-member('offeringTransactions');
     }
 
     class Artifact does AWS::SDK::Shape {
@@ -700,7 +729,7 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has Filter $.filter is shape-member('filter');
         has AmazonResourceName $.test-package-arn is shape-member('testPackageArn');
         has TestType $.type is required is shape-member('type');
-        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str %.parameters{Str} is shape-member('parameters');
     }
 
     class Resolution does AWS::SDK::Shape {
@@ -721,17 +750,15 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
 
     class ListDevicesResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[Device] $.devices is shape-member('devices');
+        has Device @.devices is shape-member('devices');
     }
 
     class CreateDevicePoolRequest does AWS::SDK::Shape {
         has Name $.name is required is shape-member('name');
         has AmazonResourceName $.project-arn is required is shape-member('projectArn');
-        has Array[Rule] $.rules is required is shape-member('rules');
+        has Rule @.rules is required is shape-member('rules');
         has Message $.description is shape-member('description');
     }
-
-    subset AWSAccountNumber of Str where 2 <= .chars <= 16;
 
     class UpdateProjectResult does AWS::SDK::Shape {
         has Project $.project is shape-member('project');
@@ -761,7 +788,7 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
 
     class ListTestsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[Test] $.tests is shape-member('tests');
+        has Test @.tests is shape-member('tests');
     }
 
     class DeleteDevicePoolResult does AWS::SDK::Shape {
@@ -784,10 +811,6 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has AmazonResourceName $.arn is required is shape-member('arn');
     }
 
-    subset UploadType of Str where $_ ~~ any('ANDROID_APP', 'IOS_APP', 'WEB_APP', 'EXTERNAL_DATA', 'APPIUM_JAVA_JUNIT_TEST_PACKAGE', 'APPIUM_JAVA_TESTNG_TEST_PACKAGE', 'APPIUM_PYTHON_TEST_PACKAGE', 'APPIUM_WEB_JAVA_JUNIT_TEST_PACKAGE', 'APPIUM_WEB_JAVA_TESTNG_TEST_PACKAGE', 'APPIUM_WEB_PYTHON_TEST_PACKAGE', 'CALABASH_TEST_PACKAGE', 'INSTRUMENTATION_TEST_PACKAGE', 'UIAUTOMATION_TEST_PACKAGE', 'UIAUTOMATOR_TEST_PACKAGE', 'XCTEST_TEST_PACKAGE', 'XCTEST_UI_TEST_PACKAGE');
-
-    subset ExecutionResult of Str where $_ ~~ any('PENDING', 'PASSED', 'WARNED', 'FAILED', 'SKIPPED', 'ERRORED', 'STOPPED');
-
     class Suite does AWS::SDK::Shape {
         has Name $.name is shape-member('name');
         has AmazonResourceName $.arn is shape-member('arn');
@@ -809,7 +832,7 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
 
     class ListArtifactsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[Artifact] $.artifacts is shape-member('artifacts');
+        has Artifact @.artifacts is shape-member('artifacts');
     }
 
     class DeviceMinutes does AWS::SDK::Shape {
@@ -825,7 +848,7 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
 
     class ListRunsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[Run] $.runs is shape-member('runs');
+        has Run @.runs is shape-member('runs');
     }
 
     class CreateUploadResult does AWS::SDK::Shape {
@@ -839,7 +862,7 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     class UpdateDevicePoolRequest does AWS::SDK::Shape {
         has Name $.name is shape-member('name');
         has AmazonResourceName $.arn is required is shape-member('arn');
-        has Array[Rule] $.rules is shape-member('rules');
+        has Rule @.rules is shape-member('rules');
         has Message $.description is shape-member('description');
     }
 
@@ -849,9 +872,9 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     }
 
     class CustomerArtifactPaths does AWS::SDK::Shape {
-        has Array[Str] $.ios-paths is shape-member('iosPaths');
-        has Array[Str] $.device-host-paths is shape-member('deviceHostPaths');
-        has Array[Str] $.android-paths is shape-member('androidPaths');
+        has Str @.ios-paths is shape-member('iosPaths');
+        has Str @.device-host-paths is shape-member('deviceHostPaths');
+        has Str @.android-paths is shape-member('androidPaths');
     }
 
     class StopRunResult does AWS::SDK::Shape {
@@ -860,7 +883,7 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
 
     class ListUniqueProblemsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Hash[Array[UniqueProblem], ExecutionResult] $.unique-problems is shape-member('uniqueProblems');
+        has Array[UniqueProblem] %.unique-problems{ExecutionResult} is shape-member('uniqueProblems');
     }
 
     class ListRemoteAccessSessionsRequest does AWS::SDK::Shape {
@@ -881,17 +904,13 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
 
     class ListUploadsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[Upload] $.uploads is shape-member('uploads');
+        has Upload @.uploads is shape-member('uploads');
     }
-
-    subset TestType of Str where $_ ~~ any('BUILTIN_FUZZ', 'BUILTIN_EXPLORER', 'APPIUM_JAVA_JUNIT', 'APPIUM_JAVA_TESTNG', 'APPIUM_PYTHON', 'APPIUM_WEB_JAVA_JUNIT', 'APPIUM_WEB_JAVA_TESTNG', 'APPIUM_WEB_PYTHON', 'CALABASH', 'INSTRUMENTATION', 'UIAUTOMATION', 'UIAUTOMATOR', 'XCTEST', 'XCTEST_UI');
 
     class UniqueProblem does AWS::SDK::Shape {
-        has Array[Problem] $.problems is shape-member('problems');
+        has Problem @.problems is shape-member('problems');
         has Message $.message is shape-member('message');
     }
-
-    subset ClientId of Str where 0 <= .chars <= 64;
 
     class ListOfferingsRequest does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
@@ -901,14 +920,8 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has AmazonResourceName $.arn is required is shape-member('arn');
     }
 
-    subset ArtifactType of Str where $_ ~~ any('UNKNOWN', 'SCREENSHOT', 'DEVICE_LOG', 'MESSAGE_LOG', 'VIDEO_LOG', 'RESULT_LOG', 'SERVICE_LOG', 'WEBKIT_LOG', 'INSTRUMENTATION_OUTPUT', 'EXERCISER_MONKEY_OUTPUT', 'CALABASH_JSON_OUTPUT', 'CALABASH_PRETTY_OUTPUT', 'CALABASH_STANDARD_OUTPUT', 'CALABASH_JAVA_XML_OUTPUT', 'AUTOMATION_OUTPUT', 'APPIUM_SERVER_OUTPUT', 'APPIUM_JAVA_OUTPUT', 'APPIUM_JAVA_XML_OUTPUT', 'APPIUM_PYTHON_OUTPUT', 'APPIUM_PYTHON_XML_OUTPUT', 'EXPLORER_EVENT_LOG', 'EXPLORER_SUMMARY_LOG', 'APPLICATION_CRASH_REPORT', 'XCTEST_LOG', 'VIDEO', 'CUSTOMER_ARTIFACT', 'CUSTOMER_ARTIFACT_LOG');
-
-    subset Metadata of Str where 0 <= .chars <= 8192;
-
-    subset PercentInteger of Int where 0 <= * <= 100;
-
     class ScheduleRunConfiguration does AWS::SDK::Shape {
-        has Array[AmazonResourceName] $.auxiliary-apps is shape-member('auxiliaryApps');
+        has AmazonResourceName @.auxiliary-apps is shape-member('auxiliaryApps');
         has Radios $.radios is shape-member('radios');
         has BillingMethod $.billing-method is shape-member('billingMethod');
         has Location $.location is shape-member('location');
@@ -922,10 +935,6 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has Numeric $.amount is shape-member('amount');
         has CurrencyCode $.currency-code is shape-member('currencyCode');
     }
-
-    subset RuleOperator of Str where $_ ~~ any('EQUALS', 'LESS_THAN', 'GREATER_THAN', 'IN', 'NOT_IN', 'CONTAINS');
-
-    subset SampleType of Str where $_ ~~ any('CPU', 'MEMORY', 'THREADS', 'RX_RATE', 'TX_RATE', 'RX', 'TX', 'NATIVE_FRAMES', 'NATIVE_FPS', 'NATIVE_MIN_DRAWTIME', 'NATIVE_AVG_DRAWTIME', 'NATIVE_MAX_DRAWTIME', 'OPENGL_FRAMES', 'OPENGL_FPS', 'OPENGL_MIN_DRAWTIME', 'OPENGL_AVG_DRAWTIME', 'OPENGL_MAX_DRAWTIME');
 
     class ArgumentException does AWS::SDK::Shape {
         has Message $.message is shape-member('message');
@@ -973,23 +982,19 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
 
     class ListOfferingPromotionsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[OfferingPromotion] $.offering-promotions is shape-member('offeringPromotions');
+        has OfferingPromotion @.offering-promotions is shape-member('offeringPromotions');
     }
 
     class ListOfferingsResult does AWS::SDK::Shape {
-        has Array[Offering] $.offerings is shape-member('offerings');
+        has Offering @.offerings is shape-member('offerings');
         has PaginationToken $.next-token is shape-member('nextToken');
     }
-
-    subset URL of Str where 0 <= .chars <= 2048;
 
     class ListDevicePoolsRequest does AWS::SDK::Shape {
         has AmazonResourceName $.arn is required is shape-member('arn');
         has PaginationToken $.next-token is shape-member('nextToken');
         has DevicePoolType $.type is shape-member('type');
     }
-
-    subset Name of Str where 0 <= .chars <= 256;
 
     class Project does AWS::SDK::Shape {
         has Name $.name is shape-member('name');
@@ -1000,7 +1005,7 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
 
     class ListSuitesResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[Suite] $.suites is shape-member('suites');
+        has Suite @.suites is shape-member('suites');
     }
 
     class RemoteAccessSession does AWS::SDK::Shape {
@@ -1031,8 +1036,6 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has Int $.default-job-timeout-minutes is shape-member('defaultJobTimeoutMinutes');
     }
 
-    subset RecurringChargeFrequency of Str where $_ ~~ any('MONTHLY');
-
     class GetDeviceResult does AWS::SDK::Shape {
         has Device $.device is shape-member('device');
     }
@@ -1043,7 +1046,6 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
         has NetworkProfileType $.type is shape-member('type');
     }
 
-    subset Message of Str where 0 <= .chars <= 16384;
 
     method renew-offering(
         Int :$quantity,
@@ -1157,13 +1159,13 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     method create-device-pool(
         Name :$name!,
         AmazonResourceName :$project-arn!,
-        Array[Rule] :$rules!,
+        Rule :@rules!,
         Message :$description
     ) returns CreateDevicePoolResult is service-operation('CreateDevicePool') {
         my $request-input = CreateDevicePoolRequest.new(
             :$name,
             :$project-arn,
-            :$rules,
+            :@rules,
             :$description
         );
 
@@ -1361,13 +1363,13 @@ class AWS::SDK::Service::DeviceFarm does AWS::SDK::Service {
     method update-device-pool(
         Name :$name,
         AmazonResourceName :$arn!,
-        Array[Rule] :$rules,
+        Rule :@rules,
         Message :$description
     ) returns UpdateDevicePoolResult is service-operation('UpdateDevicePool') {
         my $request-input = UpdateDevicePoolRequest.new(
             :$name,
             :$arn,
-            :$rules,
+            :@rules,
             :$description
         );
 

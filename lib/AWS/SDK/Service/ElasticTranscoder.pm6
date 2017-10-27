@@ -83,16 +83,179 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
     class CancelJobResponse { ... }
     class ListPipelinesResponse { ... }
 
-    class TimeSpan does AWS::SDK::Shape {
-        has Time $.duration is shape-member('Duration');
-        has Time $.start-time is shape-member('StartTime');
-    }
-
     subset StorageClass of Str where rx:P5/(^ReducedRedundancy$)|(^Standard$)/;
 
     subset CaptionSources of Array[CaptionSource] where *.elems <= 20;
 
     subset CaptionMergePolicy of Str where rx:P5/(^MergeOverride$)|(^MergeRetain$)|(^Override$)/;
+
+    subset AudioBitDepth of Str where rx:P5/(^8$)|(^16$)|(^24$)|(^32$)/;
+
+    subset Opacity of Str where rx:P5/^\d{1,3}(\.\d{0,20})?$/;
+
+    subset PlaylistFormat of Str where rx:P5/(^HLSv3$)|(^HLSv4$)|(^Smooth$)|(^MPEG-DASH$)/;
+
+    subset Description of Str where 0 <= .chars <= 255;
+
+    subset AudioSampleRate of Str where rx:P5/(^auto$)|(^22050$)|(^32000$)|(^44100$)|(^48000$)|(^96000$)|(^192000$)/;
+
+    subset AccessControls of Array[AccessControl] where *.elems <= 30;
+
+    subset BucketName of Str where rx:P5/^(\w|\.|-){1,255}$/;
+
+    subset AudioBitRate of Str where rx:P5/^\d{1,3}$/;
+
+    subset AudioCodec of Str where rx:P5/(^AAC$)|(^vorbis$)|(^mp3$)|(^mp2$)|(^pcm$)|(^flac$)/;
+
+    subset ZeroTo512String of Str where 0 <= .chars <= 512;
+
+    subset CaptionFormats of Array[CaptionFormat] where *.elems <= 4;
+
+    subset KeyArn of Str where 0 <= .chars <= 255;
+
+    subset MergePolicy of Str where rx:P5/(^Replace$)|(^Prepend$)|(^Append$)|(^Fallback$)/;
+
+    subset Resolution of Str where rx:P5/(^auto$)|(^\d{1,5}x\d{1,5}$)/;
+
+    subset WatermarkKey of Str where 1 <= .chars <= 1024 && rx:P5/(^.{1,1020}.jpg$)|(^.{1,1019}.jpeg$)|(^.{1,1020}.png$)/;
+
+    subset SnsTopics of Array[SnsTopic] where *.elems <= 30;
+
+    subset DigitsOrAuto of Str where rx:P5/(^auto$)|(^\d{2,4}$)/;
+
+    subset CreateJobOutputs of Array[CreateJobOutput] where *.elems <= 30;
+
+    subset AudioSigned of Str where rx:P5/(^Unsigned$)|(^Signed$)/;
+
+    subset KeyframesMaxDist of Str where rx:P5/^\d{1,6}$/;
+
+    subset TimeOffset of Str where rx:P5/(^[+-]?\d{1,5}(\.\d{0,3})?$)|(^[+-]?([0-1]?[0-9]:|2[0-3]:)?([0-5]?[0-9]:)?[0-5]?[0-9](\.\d{0,3})?$)/;
+
+    subset Grantee of Str where 1 <= .chars <= 255;
+
+    subset Role of Str where rx:P5/^arn:aws:iam::\w{12}:role\/.+$/;
+
+    subset FloatString of Str where rx:P5/^\d{1,5}(\.\d{0,5})?$/;
+
+    subset SizingPolicy of Str where rx:P5/(^Fit$)|(^Fill$)|(^Stretch$)|(^Keep$)|(^ShrinkToFit$)|(^ShrinkToFill$)/;
+
+    subset PixelsOrPercent of Str where rx:P5/(^\d{1,3}(\.\d{0,5})?%$)|(^\d{1,4}?px$)/;
+
+    subset NonEmptyBase64EncodedString of Str where rx:P5/(^(?:[A-Za-z0-9\+\/]{4})*(?:[A-Za-z0-9\+\/]{2}==|[A-Za-z0-9\+\/]{3}=)?$)/;
+
+    subset AccessControl of Str where rx:P5/(^FullControl$)|(^Read$)|(^ReadAcp$)|(^WriteAcp$)/;
+
+    subset Key of Str where 1 <= .chars <= 255;
+
+    subset CaptionFormatFormat of Str where rx:P5/(^mov-text$)|(^srt$)|(^scc$)|(^webvtt$)|(^dfxp$)|(^cea-708$)/;
+
+    subset Ascending of Str where rx:P5/(^true$)|(^false$)/;
+
+    subset LongKey of Str where 1 <= .chars <= 1024;
+
+    subset WatermarkSizingPolicy of Str where rx:P5/(^Fit$)|(^Stretch$)|(^ShrinkToFit$)/;
+
+    subset PaddingPolicy of Str where rx:P5/(^Pad$)|(^NoPad$)/;
+
+    subset Digits of Str where rx:P5/^\d{1,5}$/;
+
+    subset Target of Str where rx:P5/(^Content$)|(^Frame$)/;
+
+    subset AspectRatio of Str where rx:P5/(^auto$)|(^1:1$)|(^4:3$)|(^3:2$)|(^16:9$)/;
+
+    subset ThumbnailPattern of Str where rx:P5/(^$)|(^.*\{count\}.*$)/;
+
+    subset SnsTopic of Str where rx:P5/(^$)|(^arn:aws:sns:.*:\w{12}:.+$)/;
+
+    subset AudioChannels of Str where rx:P5/(^auto$)|(^0$)|(^1$)|(^2$)/;
+
+    subset PresetContainer of Str where rx:P5/(^mp4$)|(^ts$)|(^webm$)|(^mp3$)|(^flac$)|(^oga$)|(^ogg$)|(^fmp4$)|(^mpg$)|(^flv$)|(^gif$)|(^mxf$)|(^wav$)/;
+
+    subset CodecOption of Str where 1 <= .chars <= 255;
+
+    subset HorizontalAlign of Str where rx:P5/(^Left$)|(^Right$)|(^Center$)/;
+
+    subset OneTo512String of Str where 1 <= .chars <= 512;
+
+    subset VideoBitRate of Str where rx:P5/(^\d{2,5}$)|(^auto$)/;
+
+    subset Time of Str where rx:P5/(^\d{1,5}(\.\d{0,3})?$)|(^([0-1]?[0-9]:|2[0-3]:)?([0-5]?[0-9]:)?[0-5]?[0-9](\.\d{0,3})?$)/;
+
+    subset MaxFrameRate of Str where rx:P5/(^10$)|(^15$)|(^23.97$)|(^24$)|(^25$)|(^29.97$)|(^30$)|(^50$)|(^60$)/;
+
+    subset Filename of Str where 1 <= .chars <= 255;
+
+    subset Id of Str where rx:P5/^\d{13}-\w{6}$/;
+
+    subset HlsContentProtectionMethod of Str where rx:P5/(^aes-128$)/;
+
+    subset JobContainer of Str where rx:P5/(^auto$)|(^3gp$)|(^asf$)|(^avi$)|(^divx$)|(^flv$)|(^mkv$)|(^mov$)|(^mp4$)|(^mpeg$)|(^mpeg-ps$)|(^mpeg-ts$)|(^mxf$)|(^ogg$)|(^ts$)|(^vob$)|(^wav$)|(^webm$)|(^mp3$)|(^m4a$)|(^aac$)/;
+
+    subset VideoCodec of Str where rx:P5/(^H\.264$)|(^vp8$)|(^vp9$)|(^mpeg2$)|(^gif$)/;
+
+    subset PresetType of Str where rx:P5/(^System$)|(^Custom$)/;
+
+    subset CreateJobPlaylists of Array[CreateJobPlaylist] where *.elems <= 30;
+
+    subset GranteeType of Str where rx:P5/(^Canonical$)|(^Email$)|(^Group$)/;
+
+    subset JobStatus of Str where rx:P5/(^Submitted$)|(^Progressing$)|(^Complete$)|(^Canceled$)|(^Error$)/;
+
+    subset ZeroTo255String of Str where 0 <= .chars <= 255;
+
+    subset Success of Str where rx:P5/(^true$)|(^false$)/;
+
+    subset AudioCodecProfile of Str where rx:P5/(^auto$)|(^AAC-LC$)|(^HE-AAC$)|(^HE-AACv2$)/;
+
+    subset Interlaced of Str where rx:P5/(^auto$)|(^true$)|(^false$)/;
+
+    subset KeyStoragePolicy of Str where rx:P5/(^NoStore$)|(^WithVariantPlaylists$)/;
+
+    subset Permissions of Array[Permission] where *.elems <= 30;
+
+    subset OutputKeys of Array[Key] where *.elems <= 30;
+
+    subset FixedGOP of Str where rx:P5/(^true$)|(^false$)/;
+
+    subset JobInputs of Array[JobInput] where *.elems <= 10000;
+
+    subset CaptionFormatPattern of Str where rx:P5/(^$)|(^.*\{language\}.*$)/;
+
+    subset Base64EncodedString of Str where rx:P5/^$|(^(?:[A-Za-z0-9\+\/]{4})*(?:[A-Za-z0-9\+\/]{2}==|[A-Za-z0-9\+\/]{3}=)?$)/;
+
+    subset AudioPackingMode of Str where rx:P5/(^SingleTrack$)|(^OneChannelPerTrack$)|(^OneChannelPerTrackWithMosTo8Tracks$)/;
+
+    subset FrameRate of Str where rx:P5/(^auto$)|(^10$)|(^15$)|(^23.97$)|(^24$)|(^25$)|(^29.97$)|(^30$)|(^50$)|(^60$)/;
+
+    subset JpgOrPng of Str where rx:P5/(^jpg$)|(^png$)/;
+
+    subset KeyIdGuid of Str where rx:P5/(^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$)|(^[0-9A-Fa-f]{32}$)/;
+
+    subset Name of Str where 1 <= .chars <= 40;
+
+    subset VerticalAlign of Str where rx:P5/(^Top$)|(^Bottom$)|(^Center$)/;
+
+    subset ThumbnailResolution of Str where rx:P5/^\d{1,5}x\d{1,5}$/;
+
+    subset Rotate of Str where rx:P5/(^auto$)|(^0$)|(^90$)|(^180$)|(^270$)/;
+
+    subset PresetWatermarkId of Str where 1 <= .chars <= 40;
+
+    subset PipelineStatus of Str where rx:P5/(^Active$)|(^Paused$)/;
+
+    subset CodecOptions of Hash[CodecOption, CodecOption] where *.elems <= 30;
+
+    subset PlayReadyDrmFormatString of Str where rx:P5/(^microsoft$)|(^discretix-3.0$)/;
+
+    subset EncryptionMode of Str where rx:P5/(^s3$)|(^s3-aws-kms$)|(^aes-cbc-pkcs7$)|(^aes-ctr$)|(^aes-gcm$)/;
+
+    subset AudioBitOrder of Str where rx:P5/(^LittleEndian$)/;
+
+
+    class TimeSpan does AWS::SDK::Shape {
+        has Time $.duration is shape-member('Duration');
+        has Time $.start-time is shape-member('StartTime');
+    }
 
     class AudioCodecOptions does AWS::SDK::Shape {
         has AudioCodecProfile $.profile is shape-member('Profile');
@@ -100,8 +263,6 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has AudioBitDepth $.bit-depth is shape-member('BitDepth');
         has AudioBitOrder $.bit-order is shape-member('BitOrder');
     }
-
-    subset AudioBitDepth of Str where rx:P5/(^8$)|(^16$)|(^24$)|(^32$)/;
 
     class Artwork does AWS::SDK::Shape {
         has Encryption $.encryption is shape-member('Encryption');
@@ -141,10 +302,8 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
 
     class ListPresetsResponse does AWS::SDK::Shape {
         has Id $.next-page-token is shape-member('NextPageToken');
-        has Array[Preset] $.presets is shape-member('Presets');
+        has Preset @.presets is shape-member('Presets');
     }
-
-    subset Opacity of Str where rx:P5/^\d{1,3}(\.\d{0,20})?$/;
 
     class UpdatePipelineRequest does AWS::SDK::Shape {
         has PipelineOutputConfig $.thumbnail-config is shape-member('ThumbnailConfig');
@@ -169,21 +328,9 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Thumbnails $.thumbnails is shape-member('Thumbnails');
     }
 
-    subset PlaylistFormat of Str where rx:P5/(^HLSv3$)|(^HLSv4$)|(^Smooth$)|(^MPEG-DASH$)/;
-
-    subset Description of Str where 0 <= .chars <= 255;
-
-    subset AudioSampleRate of Str where rx:P5/(^auto$)|(^22050$)|(^32000$)|(^44100$)|(^48000$)|(^96000$)|(^192000$)/;
-
-    subset AccessControls of Array[AccessControl] where *.elems <= 30;
-
     class Clip does AWS::SDK::Shape {
         has TimeSpan $.time-span is shape-member('TimeSpan');
     }
-
-    subset BucketName of Str where rx:P5/^(\w|\.|-){1,255}$/;
-
-    subset AudioBitRate of Str where rx:P5/^\d{1,3}$/;
 
     class InternalServiceException does AWS::SDK::Shape {
     }
@@ -194,10 +341,6 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has SnsTopics $.topics is required is shape-member('Topics');
         has BucketName $.input-bucket is required is shape-member('InputBucket');
     }
-
-    subset AudioCodec of Str where rx:P5/(^AAC$)|(^vorbis$)|(^mp3$)|(^mp2$)|(^pcm$)|(^flac$)/;
-
-    subset ZeroTo512String of Str where 0 <= .chars <= 512;
 
     class UpdatePipelineStatusResponse does AWS::SDK::Shape {
         has Pipeline $.pipeline is shape-member('Pipeline');
@@ -218,14 +361,6 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Id $.id is required is shape-member('Id');
     }
 
-    subset CaptionFormats of Array[CaptionFormat] where *.elems <= 4;
-
-    subset KeyArn of Str where 0 <= .chars <= 255;
-
-    subset MergePolicy of Str where rx:P5/(^Replace$)|(^Prepend$)|(^Append$)|(^Fallback$)/;
-
-    subset Resolution of Str where rx:P5/(^auto$)|(^\d{1,5}x\d{1,5}$)/;
-
     class CreatePresetRequest does AWS::SDK::Shape {
         has AudioParameters $.audio is shape-member('Audio');
         has PresetContainer $.container is required is shape-member('Container');
@@ -234,8 +369,6 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has VideoParameters $.video is shape-member('Video');
         has Thumbnails $.thumbnails is shape-member('Thumbnails');
     }
-
-    subset WatermarkKey of Str where 1 <= .chars <= 1024 && rx:P5/(^.{1,1020}.jpg$)|(^.{1,1019}.jpeg$)|(^.{1,1020}.png$)/;
 
     class Thumbnails does AWS::SDK::Shape {
         has SizingPolicy $.sizing-policy is shape-member('SizingPolicy');
@@ -248,16 +381,6 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has AspectRatio $.aspect-ratio is shape-member('AspectRatio');
     }
 
-    subset SnsTopics of Array[SnsTopic] where *.elems <= 30;
-
-    subset DigitsOrAuto of Str where rx:P5/(^auto$)|(^\d{2,4}$)/;
-
-    subset CreateJobOutputs of Array[CreateJobOutput] where *.elems <= 30;
-
-    subset AudioSigned of Str where rx:P5/(^Unsigned$)|(^Signed$)/;
-
-    subset KeyframesMaxDist of Str where rx:P5/^\d{1,6}$/;
-
     class UpdatePipelineNotificationsResponse does AWS::SDK::Shape {
         has Pipeline $.pipeline is shape-member('Pipeline');
     }
@@ -267,11 +390,9 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Notifications $.notifications is required is shape-member('Notifications');
     }
 
-    subset TimeOffset of Str where rx:P5/(^[+-]?\d{1,5}(\.\d{0,3})?$)|(^[+-]?([0-1]?[0-9]:|2[0-3]:)?([0-5]?[0-9]:)?[0-5]?[0-9](\.\d{0,3})?$)/;
-
     class TestRoleResponse does AWS::SDK::Shape {
         has Success $.success is shape-member('Success');
-        has Array[Str] $.messages is shape-member('Messages');
+        has Str @.messages is shape-member('Messages');
     }
 
     class PipelineOutputConfig does AWS::SDK::Shape {
@@ -280,14 +401,12 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Permissions $.permissions is shape-member('Permissions');
     }
 
-    subset Grantee of Str where 1 <= .chars <= 255;
-
     class JobOutput does AWS::SDK::Shape {
         has Int $.duration is shape-member('Duration');
         has ThumbnailPattern $.thumbnail-pattern is shape-member('ThumbnailPattern');
         has Encryption $.encryption is shape-member('Encryption');
         has Int $.width is shape-member('Width');
-        has Array[Clip] $.composition is shape-member('Composition');
+        has Clip @.composition is shape-member('Composition');
         has Str $.id is shape-member('Id');
         has Str $.applied-color-space-conversion is shape-member('AppliedColorSpaceConversion');
         has Int $.duration-millis is shape-member('DurationMillis');
@@ -300,13 +419,11 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Key $.key is shape-member('Key');
         has Captions $.captions is shape-member('Captions');
         has JobAlbumArt $.album-art is shape-member('AlbumArt');
-        has Array[JobWatermark] $.watermarks is shape-member('Watermarks');
+        has JobWatermark @.watermarks is shape-member('Watermarks');
         has Int $.file-size is shape-member('FileSize');
         has Id $.preset-id is shape-member('PresetId');
         has Encryption $.thumbnail-encryption is shape-member('ThumbnailEncryption');
     }
-
-    subset Role of Str where rx:P5/^arn:aws:iam::\w{12}:role\/.+$/;
 
     class Pipeline does AWS::SDK::Shape {
         has Str $.arn is shape-member('Arn');
@@ -333,8 +450,6 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Id $.id is required is shape-member('Id');
     }
 
-    subset FloatString of Str where rx:P5/^\d{1,5}(\.\d{0,5})?$/;
-
     class ListPresetsRequest does AWS::SDK::Shape {
         has Id $.page-token is shape-member('PageToken');
         has Ascending $.ascending is shape-member('Ascending');
@@ -349,18 +464,14 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has FrameRate $.frame-rate is shape-member('FrameRate');
         has VideoBitRate $.bit-rate is shape-member('BitRate');
         has DigitsOrAuto $.max-width is shape-member('MaxWidth');
-        has CodecOptions $.codec-options is shape-member('CodecOptions');
+        has CodecOption $.codec-options{CodecOption} is shape-member('CodecOptions');
         has PaddingPolicy $.padding-policy is shape-member('PaddingPolicy');
         has DigitsOrAuto $.max-height is shape-member('MaxHeight');
         has Resolution $.resolution is shape-member('Resolution');
-        has Array[PresetWatermark] $.watermarks is shape-member('Watermarks');
+        has PresetWatermark @.watermarks is shape-member('Watermarks');
         has AspectRatio $.aspect-ratio is shape-member('AspectRatio');
         has KeyframesMaxDist $.keyframes-max-dist is shape-member('KeyframesMaxDist');
     }
-
-    subset SizingPolicy of Str where rx:P5/(^Fit$)|(^Fill$)|(^Stretch$)|(^Keep$)|(^ShrinkToFit$)|(^ShrinkToFill$)/;
-
-    subset PixelsOrPercent of Str where rx:P5/(^\d{1,3}(\.\d{0,5})?%$)|(^\d{1,4}?px$)/;
 
     class Permission does AWS::SDK::Shape {
         has Grantee $.grantee is shape-member('Grantee');
@@ -377,10 +488,6 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has AudioSampleRate $.sample-rate is shape-member('SampleRate');
     }
 
-    subset NonEmptyBase64EncodedString of Str where rx:P5/(^(?:[A-Za-z0-9\+\/]{4})*(?:[A-Za-z0-9\+\/]{2}==|[A-Za-z0-9\+\/]{3}=)?$)/;
-
-    subset AccessControl of Str where rx:P5/(^FullControl$)|(^Read$)|(^ReadAcp$)|(^WriteAcp$)/;
-
     class PlayReadyDrm does AWS::SDK::Shape {
         has OneTo512String $.license-acquisition-url is shape-member('LicenseAcquisitionUrl');
         has KeyIdGuid $.key-id is shape-member('KeyId');
@@ -394,8 +501,6 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Job $.job is shape-member('Job');
     }
 
-    subset Key of Str where 1 <= .chars <= 255;
-
     class DetectedProperties does AWS::SDK::Shape {
         has Int $.width is shape-member('Width');
         has Int $.duration-millis is shape-member('DurationMillis');
@@ -404,17 +509,11 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Int $.file-size is shape-member('FileSize');
     }
 
-    subset CaptionFormatFormat of Str where rx:P5/(^mov-text$)|(^srt$)|(^scc$)|(^webvtt$)|(^dfxp$)|(^cea-708$)/;
-
-    subset Ascending of Str where rx:P5/(^true$)|(^false$)/;
-
     class ListJobsByStatusRequest does AWS::SDK::Shape {
         has JobStatus $.status is required is shape-member('Status');
         has Id $.page-token is shape-member('PageToken');
         has Ascending $.ascending is shape-member('Ascending');
     }
-
-    subset LongKey of Str where 1 <= .chars <= 1024;
 
     class Notifications does AWS::SDK::Shape {
         has SnsTopic $.warning is shape-member('Warning');
@@ -422,8 +521,6 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has SnsTopic $.error is shape-member('Error');
         has SnsTopic $.completed is shape-member('Completed');
     }
-
-    subset WatermarkSizingPolicy of Str where rx:P5/(^Fit$)|(^Stretch$)|(^ShrinkToFit$)/;
 
     class PresetWatermark does AWS::SDK::Shape {
         has PixelsOrPercent $.horizontal-offset is shape-member('HorizontalOffset');
@@ -438,16 +535,10 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Target $.target is shape-member('Target');
     }
 
-    subset PaddingPolicy of Str where rx:P5/(^Pad$)|(^NoPad$)/;
-
-    subset Digits of Str where rx:P5/^\d{1,5}$/;
-
     class UpdatePipelineStatusRequest does AWS::SDK::Shape {
         has Id $.id is required is shape-member('Id');
         has PipelineStatus $.status is required is shape-member('Status');
     }
-
-    subset Target of Str where rx:P5/(^Content$)|(^Frame$)/;
 
     class Captions does AWS::SDK::Shape {
         has CaptionSources $.caption-sources is shape-member('CaptionSources');
@@ -455,22 +546,14 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has CaptionMergePolicy $.merge-policy is shape-member('MergePolicy');
     }
 
-    subset AspectRatio of Str where rx:P5/(^auto$)|(^1:1$)|(^4:3$)|(^3:2$)|(^16:9$)/;
-
     class Warning does AWS::SDK::Shape {
         has Str $.code is shape-member('Code');
         has Str $.message is shape-member('Message');
     }
 
-    subset ThumbnailPattern of Str where rx:P5/(^$)|(^.*\{count\}.*$)/;
-
-    subset SnsTopic of Str where rx:P5/(^$)|(^arn:aws:sns:.*:\w{12}:.+$)/;
-
     class CancelJobRequest does AWS::SDK::Shape {
         has Id $.id is required is shape-member('Id');
     }
-
-    subset AudioChannels of Str where rx:P5/(^auto$)|(^0$)|(^1$)|(^2$)/;
 
     class HlsContentProtection does AWS::SDK::Shape {
         has ZeroTo512String $.license-acquisition-url is shape-member('LicenseAcquisitionUrl');
@@ -490,27 +573,15 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Preset $.preset is shape-member('Preset');
     }
 
-    subset PresetContainer of Str where rx:P5/(^mp4$)|(^ts$)|(^webm$)|(^mp3$)|(^flac$)|(^oga$)|(^ogg$)|(^fmp4$)|(^mpg$)|(^flv$)|(^gif$)|(^mxf$)|(^wav$)/;
-
-    subset CodecOption of Str where 1 <= .chars <= 255;
-
-    subset HorizontalAlign of Str where rx:P5/(^Left$)|(^Right$)|(^Center$)/;
-
     class LimitExceededException does AWS::SDK::Shape {
     }
-
-    subset OneTo512String of Str where 1 <= .chars <= 512;
-
-    subset VideoBitRate of Str where rx:P5/(^\d{2,5}$)|(^auto$)/;
-
-    subset Time of Str where rx:P5/(^\d{1,5}(\.\d{0,3})?$)|(^([0-1]?[0-9]:|2[0-3]:)?([0-5]?[0-9]:)?[0-5]?[0-9](\.\d{0,3})?$)/;
 
     class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
     class ReadPipelineResponse does AWS::SDK::Shape {
         has Pipeline $.pipeline is shape-member('Pipeline');
-        has Array[Warning] $.warnings is shape-member('Warnings');
+        has Warning @.warnings is shape-member('Warnings');
     }
 
     class DeletePresetResponse does AWS::SDK::Shape {
@@ -527,38 +598,30 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
     class AccessDeniedException does AWS::SDK::Shape {
     }
 
-    subset MaxFrameRate of Str where rx:P5/(^10$)|(^15$)|(^23.97$)|(^24$)|(^25$)|(^29.97$)|(^30$)|(^50$)|(^60$)/;
-
     class CreateJobRequest does AWS::SDK::Shape {
         has CreateJobPlaylists $.playlists is shape-member('Playlists');
         has JobInput $.input is shape-member('Input');
         has CreateJobOutput $.output is shape-member('Output');
         has Key $.output-key-prefix is shape-member('OutputKeyPrefix');
         has JobInputs $.inputs is shape-member('Inputs');
-        has Hash[Str, Str] $.user-metadata is shape-member('UserMetadata');
+        has Str %.user-metadata{Str} is shape-member('UserMetadata');
         has CreateJobOutputs $.outputs is shape-member('Outputs');
         has Id $.pipeline-id is required is shape-member('PipelineId');
     }
 
-    subset Filename of Str where 1 <= .chars <= 255;
-
-    subset Id of Str where rx:P5/^\d{13}-\w{6}$/;
-
     class JobAlbumArt does AWS::SDK::Shape {
-        has Array[Artwork] $.artwork is shape-member('Artwork');
+        has Artwork @.artwork is shape-member('Artwork');
         has MergePolicy $.merge-policy is shape-member('MergePolicy');
     }
 
     class ValidationException does AWS::SDK::Shape {
     }
 
-    subset HlsContentProtectionMethod of Str where rx:P5/(^aes-128$)/;
-
     class IncompatibleVersionException does AWS::SDK::Shape {
     }
 
     class Job does AWS::SDK::Shape {
-        has Array[Playlist] $.playlists is shape-member('Playlists');
+        has Playlist @.playlists is shape-member('Playlists');
         has Str $.arn is shape-member('Arn');
         has JobInput $.input is shape-member('Input');
         has JobOutput $.output is shape-member('Output');
@@ -567,8 +630,8 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Id $.id is shape-member('Id');
         has JobStatus $.status is shape-member('Status');
         has JobInputs $.inputs is shape-member('Inputs');
-        has Hash[Str, Str] $.user-metadata is shape-member('UserMetadata');
-        has Array[JobOutput] $.outputs is shape-member('Outputs');
+        has Str %.user-metadata{Str} is shape-member('UserMetadata');
+        has JobOutput @.outputs is shape-member('Outputs');
         has Id $.pipeline-id is shape-member('PipelineId');
     }
 
@@ -581,8 +644,6 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has PlayReadyDrm $.play-ready-drm is shape-member('PlayReadyDrm');
         has PlaylistFormat $.format is shape-member('Format');
     }
-
-    subset JobContainer of Str where rx:P5/(^auto$)|(^3gp$)|(^asf$)|(^avi$)|(^divx$)|(^flv$)|(^mkv$)|(^mov$)|(^mp4$)|(^mpeg$)|(^mpeg-ps$)|(^mpeg-ts$)|(^mxf$)|(^ogg$)|(^ts$)|(^vob$)|(^wav$)|(^webm$)|(^mp3$)|(^m4a$)|(^aac$)/;
 
     class JobWatermark does AWS::SDK::Shape {
         has Encryption $.encryption is shape-member('Encryption');
@@ -598,22 +659,16 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
 
     class ListJobsByStatusResponse does AWS::SDK::Shape {
         has Id $.next-page-token is shape-member('NextPageToken');
-        has Array[Job] $.jobs is shape-member('Jobs');
+        has Job @.jobs is shape-member('Jobs');
     }
-
-    subset VideoCodec of Str where rx:P5/(^H\.264$)|(^vp8$)|(^vp9$)|(^mpeg2$)|(^gif$)/;
 
     class ResourceInUseException does AWS::SDK::Shape {
     }
-
-    subset PresetType of Str where rx:P5/(^System$)|(^Custom$)/;
 
     class CreatePresetResponse does AWS::SDK::Shape {
         has Str $.warning is shape-member('Warning');
         has Preset $.preset is shape-member('Preset');
     }
-
-    subset CreateJobPlaylists of Array[CreateJobPlaylist] where *.elems <= 30;
 
     class JobInput does AWS::SDK::Shape {
         has TimeSpan $.time-span is shape-member('TimeSpan');
@@ -632,33 +687,19 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Job $.job is shape-member('Job');
     }
 
-    subset GranteeType of Str where rx:P5/(^Canonical$)|(^Email$)|(^Group$)/;
-
-    subset JobStatus of Str where rx:P5/(^Submitted$)|(^Progressing$)|(^Complete$)|(^Canceled$)|(^Error$)/;
-
-    subset ZeroTo255String of Str where 0 <= .chars <= 255;
-
     class CreateJobOutput does AWS::SDK::Shape {
         has ThumbnailPattern $.thumbnail-pattern is shape-member('ThumbnailPattern');
         has Encryption $.encryption is shape-member('Encryption');
-        has Array[Clip] $.composition is shape-member('Composition');
+        has Clip @.composition is shape-member('Composition');
         has FloatString $.segment-duration is shape-member('SegmentDuration');
         has Rotate $.rotate is shape-member('Rotate');
         has Key $.key is shape-member('Key');
         has Captions $.captions is shape-member('Captions');
         has JobAlbumArt $.album-art is shape-member('AlbumArt');
-        has Array[JobWatermark] $.watermarks is shape-member('Watermarks');
+        has JobWatermark @.watermarks is shape-member('Watermarks');
         has Id $.preset-id is shape-member('PresetId');
         has Encryption $.thumbnail-encryption is shape-member('ThumbnailEncryption');
     }
-
-    subset Success of Str where rx:P5/(^true$)|(^false$)/;
-
-    subset AudioCodecProfile of Str where rx:P5/(^auto$)|(^AAC-LC$)|(^HE-AAC$)|(^HE-AACv2$)/;
-
-    subset Interlaced of Str where rx:P5/(^auto$)|(^true$)|(^false$)/;
-
-    subset KeyStoragePolicy of Str where rx:P5/(^NoStore$)|(^WithVariantPlaylists$)/;
 
     class Timing does AWS::SDK::Shape {
         has Int $.finish-time-millis is shape-member('FinishTimeMillis');
@@ -666,58 +707,20 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has Int $.submit-time-millis is shape-member('SubmitTimeMillis');
     }
 
-    subset Permissions of Array[Permission] where *.elems <= 30;
-
-    subset OutputKeys of Array[Key] where *.elems <= 30;
-
     class CreatePipelineResponse does AWS::SDK::Shape {
         has Pipeline $.pipeline is shape-member('Pipeline');
-        has Array[Warning] $.warnings is shape-member('Warnings');
+        has Warning @.warnings is shape-member('Warnings');
     }
-
-    subset FixedGOP of Str where rx:P5/(^true$)|(^false$)/;
-
-    subset JobInputs of Array[JobInput] where *.elems <= 10000;
 
     class ListJobsByPipelineResponse does AWS::SDK::Shape {
         has Id $.next-page-token is shape-member('NextPageToken');
-        has Array[Job] $.jobs is shape-member('Jobs');
+        has Job @.jobs is shape-member('Jobs');
     }
-
-    subset CaptionFormatPattern of Str where rx:P5/(^$)|(^.*\{language\}.*$)/;
-
-    subset Base64EncodedString of Str where rx:P5/^$|(^(?:[A-Za-z0-9\+\/]{4})*(?:[A-Za-z0-9\+\/]{2}==|[A-Za-z0-9\+\/]{3}=)?$)/;
-
-    subset AudioPackingMode of Str where rx:P5/(^SingleTrack$)|(^OneChannelPerTrack$)|(^OneChannelPerTrackWithMosTo8Tracks$)/;
-
-    subset FrameRate of Str where rx:P5/(^auto$)|(^10$)|(^15$)|(^23.97$)|(^24$)|(^25$)|(^29.97$)|(^30$)|(^50$)|(^60$)/;
-
-    subset JpgOrPng of Str where rx:P5/(^jpg$)|(^png$)/;
-
-    subset KeyIdGuid of Str where rx:P5/(^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$)|(^[0-9A-Fa-f]{32}$)/;
-
-    subset Name of Str where 1 <= .chars <= 40;
-
-    subset VerticalAlign of Str where rx:P5/(^Top$)|(^Bottom$)|(^Center$)/;
-
-    subset ThumbnailResolution of Str where rx:P5/^\d{1,5}x\d{1,5}$/;
-
-    subset Rotate of Str where rx:P5/(^auto$)|(^0$)|(^90$)|(^180$)|(^270$)/;
-
-    subset PresetWatermarkId of Str where 1 <= .chars <= 40;
-
-    subset PipelineStatus of Str where rx:P5/(^Active$)|(^Paused$)/;
-
-    subset CodecOptions of Hash[CodecOption, CodecOption] where *.elems <= 30;
 
     class UpdatePipelineResponse does AWS::SDK::Shape {
         has Pipeline $.pipeline is shape-member('Pipeline');
-        has Array[Warning] $.warnings is shape-member('Warnings');
+        has Warning @.warnings is shape-member('Warnings');
     }
-
-    subset PlayReadyDrmFormatString of Str where rx:P5/(^microsoft$)|(^discretix-3.0$)/;
-
-    subset EncryptionMode of Str where rx:P5/(^s3$)|(^s3-aws-kms$)|(^aes-cbc-pkcs7$)|(^aes-ctr$)|(^aes-gcm$)/;
 
     class CaptionSource does AWS::SDK::Shape {
         has TimeOffset $.time-offset is shape-member('TimeOffset');
@@ -727,15 +730,14 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         has LongKey $.key is shape-member('Key');
     }
 
-    subset AudioBitOrder of Str where rx:P5/(^LittleEndian$)/;
-
     class CancelJobResponse does AWS::SDK::Shape {
     }
 
     class ListPipelinesResponse does AWS::SDK::Shape {
         has Id $.next-page-token is shape-member('NextPageToken');
-        has Array[Pipeline] $.pipelines is shape-member('Pipelines');
+        has Pipeline @.pipelines is shape-member('Pipelines');
     }
+
 
     method update-pipeline(
         PipelineOutputConfig :$thumbnail-config,
@@ -1011,7 +1013,7 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
         CreateJobOutput :$output,
         Key :$output-key-prefix,
         JobInputs :$inputs,
-        Hash[Str, Str] :$user-metadata,
+        Str :%user-metadata,
         CreateJobOutputs :$outputs,
         Id :$pipeline-id!
     ) returns CreateJobResponse is service-operation('CreateJob') {
@@ -1021,7 +1023,7 @@ class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
             :$output,
             :$output-key-prefix,
             :$inputs,
-            :$user-metadata,
+            :%user-metadata,
             :$outputs,
             :$pipeline-id
         );

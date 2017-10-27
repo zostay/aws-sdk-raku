@@ -93,7 +93,46 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     class DefineIndexFieldResponse { ... }
     class OptionStatus { ... }
 
-    subset SuggesterFuzzyMatching of Str where $_ ~~ any('none', 'low', 'high');
+    subset SuggesterFuzzyMatching of Str where $_ eq any('none', 'low', 'high');
+
+    subset InstanceCount of Int where 1 <= *;
+
+    subset MaximumPartitionCount of Int where 1 <= *;
+
+    subset UIntValue of Int where 0 <= *;
+
+    subset IndexFieldType of Str where $_ eq any('int', 'double', 'literal', 'text', 'date', 'latlon', 'int-array', 'double-array', 'literal-array', 'text-array', 'date-array');
+
+    subset MaximumReplicationCount of Int where 1 <= *;
+
+    subset FieldNameCommaList of Str where rx:P5/\s*[a-z*][a-z0-9_]*\*?\s*(,\s*[a-z*][a-z0-9_]*\*?\s*)*/;
+
+    subset StandardName of Str where 1 <= .chars <= 64 && rx:P5/[a-z][a-z0-9_]*/;
+
+    subset Word of Str where rx:P5/[\S]+/;
+
+    subset AnalysisSchemeLanguage of Str where $_ eq any('ar', 'bg', 'ca', 'cs', 'da', 'de', 'el', 'en', 'es', 'eu', 'fa', 'fi', 'fr', 'ga', 'gl', 'he', 'hi', 'hu', 'hy', 'id', 'it', 'ja', 'ko', 'lv', 'mul', 'nl', 'no', 'pt', 'ro', 'ru', 'sv', 'th', 'tr', 'zh-Hans', 'zh-Hant');
+
+    subset DomainId of Str where 1 <= .chars <= 64;
+
+    subset FieldName of Str where 1 <= .chars <= 64 && rx:P5/[a-z][a-z0-9_]*/;
+
+    subset AlgorithmicStemming of Str where $_ eq any('none', 'minimal', 'light', 'full');
+
+    subset DomainName of Str where 3 <= .chars <= 28 && rx:P5/[a-z][a-z0-9\-]+/;
+
+    subset FieldValue of Str where 0 <= .chars <= 1024;
+
+    subset PartitionCount of Int where 1 <= *;
+
+    subset DynamicFieldName of Str where 1 <= .chars <= 64 && rx:P5/([a-z][a-z0-9_]*\*?|\*[a-z0-9_]*)/;
+
+    subset ExpressionValue of Str where 1 <= .chars <= 10240;
+
+    subset OptionState of Str where $_ eq any('RequiresIndexDocuments', 'Processing', 'Active', 'FailedToValidate');
+
+    subset PartitionInstanceType of Str where $_ eq any('search.m1.small', 'search.m1.large', 'search.m2.xlarge', 'search.m2.2xlarge', 'search.m3.medium', 'search.m3.large', 'search.m3.xlarge', 'search.m3.2xlarge');
+
 
     class DescribeServiceAccessPoliciesRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
@@ -139,11 +178,11 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     class DescribeIndexFieldsRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
         has Bool $.deployed is shape-member('Deployed');
-        has Array[DynamicFieldName] $.field-names is shape-member('FieldNames');
+        has DynamicFieldName @.field-names is shape-member('FieldNames');
     }
 
     class DescribeDomainsRequest does AWS::SDK::Shape {
-        has Array[DomainName] $.domain-names is shape-member('DomainNames');
+        has DomainName @.domain-names is shape-member('DomainNames');
     }
 
     class DescribeServiceAccessPoliciesResponse does AWS::SDK::Shape {
@@ -182,8 +221,6 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
         has SuggesterStatus $.suggester is required is shape-member('Suggester');
     }
 
-    subset InstanceCount of Int where 1 <= *;
-
     class ScalingParameters does AWS::SDK::Shape {
         has UIntValue $.desired-replication-count is shape-member('DesiredReplicationCount');
         has PartitionInstanceType $.desired-instance-type is shape-member('DesiredInstanceType');
@@ -212,8 +249,6 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
         has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    subset MaximumPartitionCount of Int where 1 <= *;
-
     class SuggesterStatus does AWS::SDK::Shape {
         has Suggester $.options is required is shape-member('Options');
         has OptionStatus $.status is required is shape-member('Status');
@@ -224,21 +259,15 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
         has Bool $.deployed is shape-member('Deployed');
     }
 
-    subset UIntValue of Int where 0 <= *;
-
     class AvailabilityOptionsStatus does AWS::SDK::Shape {
         has Bool $.options is required is shape-member('Options');
         has OptionStatus $.status is required is shape-member('Status');
     }
 
-    subset IndexFieldType of Str where $_ ~~ any('int', 'double', 'literal', 'text', 'date', 'latlon', 'int-array', 'double-array', 'literal-array', 'text-array', 'date-array');
-
     class Limits does AWS::SDK::Shape {
         has MaximumPartitionCount $.maximum-partition-count is required is shape-member('MaximumPartitionCount');
         has MaximumReplicationCount $.maximum-replication-count is required is shape-member('MaximumReplicationCount');
     }
-
-    subset MaximumReplicationCount of Int where 1 <= *;
 
     class UpdateAvailabilityOptionsResponse does AWS::SDK::Shape {
         has AvailabilityOptionsStatus $.availability-options is shape-member('AvailabilityOptions');
@@ -253,20 +282,12 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
         has StandardName $.analysis-scheme-name is required is shape-member('AnalysisSchemeName');
     }
 
-    subset FieldNameCommaList of Str where rx:P5/\s*[a-z*][a-z0-9_]*\*?\s*(,\s*[a-z*][a-z0-9_]*\*?\s*)*/;
-
-    subset StandardName of Str where 1 <= .chars <= 64 && rx:P5/[a-z][a-z0-9_]*/;
-
-    subset Word of Str where rx:P5/[\S]+/;
-
     class UpdateServiceAccessPoliciesResponse does AWS::SDK::Shape {
         has AccessPoliciesStatus $.access-policies is required is shape-member('AccessPolicies');
     }
 
     class InvalidTypeException does AWS::SDK::Shape {
     }
-
-    subset AnalysisSchemeLanguage of Str where $_ ~~ any('ar', 'bg', 'ca', 'cs', 'da', 'de', 'el', 'en', 'es', 'eu', 'fa', 'fi', 'fr', 'ga', 'gl', 'he', 'hi', 'hu', 'hy', 'id', 'it', 'ja', 'ko', 'lv', 'mul', 'nl', 'no', 'pt', 'ro', 'ru', 'sv', 'th', 'tr', 'zh-Hans', 'zh-Hant');
 
     class TextOptions does AWS::SDK::Shape {
         has Bool $.highlight-enabled is shape-member('HighlightEnabled');
@@ -278,7 +299,7 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     }
 
     class DescribeExpressionsResponse does AWS::SDK::Shape {
-        has Array[ExpressionStatus] $.expressions is required is shape-member('Expressions');
+        has ExpressionStatus @.expressions is required is shape-member('Expressions');
     }
 
     class DefineAnalysisSchemeRequest does AWS::SDK::Shape {
@@ -289,14 +310,14 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     class DescribeExpressionsRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
         has Bool $.deployed is shape-member('Deployed');
-        has Array[StandardName] $.expression-names is shape-member('ExpressionNames');
+        has StandardName @.expression-names is shape-member('ExpressionNames');
     }
 
     class InternalException does AWS::SDK::Shape {
     }
 
     class IndexDocumentsResponse does AWS::SDK::Shape {
-        has Array[FieldName] $.field-names is shape-member('FieldNames');
+        has FieldName @.field-names is shape-member('FieldNames');
     }
 
     class IntArrayOptions does AWS::SDK::Shape {
@@ -328,12 +349,10 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
         has ScalingParametersStatus $.scaling-parameters is required is shape-member('ScalingParameters');
     }
 
-    subset DomainId of Str where 1 <= .chars <= 64;
-
     class DescribeAnalysisSchemesRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
         has Bool $.deployed is shape-member('Deployed');
-        has Array[StandardName] $.analysis-scheme-names is shape-member('AnalysisSchemeNames');
+        has StandardName @.analysis-scheme-names is shape-member('AnalysisSchemeNames');
     }
 
     class DeleteIndexFieldRequest does AWS::SDK::Shape {
@@ -379,20 +398,16 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     }
 
     class DescribeIndexFieldsResponse does AWS::SDK::Shape {
-        has Array[IndexFieldStatus] $.index-fields is required is shape-member('IndexFields');
+        has IndexFieldStatus @.index-fields is required is shape-member('IndexFields');
     }
 
     class DeleteExpressionResponse does AWS::SDK::Shape {
         has ExpressionStatus $.expression is required is shape-member('Expression');
     }
 
-    subset FieldName of Str where 1 <= .chars <= 64 && rx:P5/[a-z][a-z0-9_]*/;
-
     class DescribeDomainsResponse does AWS::SDK::Shape {
-        has Array[DomainStatus] $.domain-status-list is required is shape-member('DomainStatusList');
+        has DomainStatus @.domain-status-list is required is shape-member('DomainStatusList');
     }
-
-    subset AlgorithmicStemming of Str where $_ ~~ any('none', 'minimal', 'light', 'full');
 
     class DoubleOptions does AWS::SDK::Shape {
         has Bool $.facet-enabled is shape-member('FacetEnabled');
@@ -414,7 +429,7 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     class DescribeSuggestersRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
         has Bool $.deployed is shape-member('Deployed');
-        has Array[StandardName] $.suggester-names is shape-member('SuggesterNames');
+        has StandardName @.suggester-names is shape-member('SuggesterNames');
     }
 
     class DescribeScalingParametersResponse does AWS::SDK::Shape {
@@ -422,7 +437,7 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     }
 
     class DescribeSuggestersResponse does AWS::SDK::Shape {
-        has Array[SuggesterStatus] $.suggesters is required is shape-member('Suggesters');
+        has SuggesterStatus @.suggesters is required is shape-member('Suggesters');
     }
 
     class DeleteIndexFieldResponse does AWS::SDK::Shape {
@@ -439,15 +454,13 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     }
 
     class DescribeAnalysisSchemesResponse does AWS::SDK::Shape {
-        has Array[AnalysisSchemeStatus] $.analysis-schemes is required is shape-member('AnalysisSchemes');
+        has AnalysisSchemeStatus @.analysis-schemes is required is shape-member('AnalysisSchemes');
     }
 
     class DefineSuggesterRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
         has Suggester $.suggester is required is shape-member('Suggester');
     }
-
-    subset DomainName of Str where 3 <= .chars <= 28 && rx:P5/[a-z][a-z0-9\-]+/;
 
     class DefineAnalysisSchemeResponse does AWS::SDK::Shape {
         has AnalysisSchemeStatus $.analysis-scheme is required is shape-member('AnalysisScheme');
@@ -484,14 +497,10 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
         has StandardName $.expression-name is required is shape-member('ExpressionName');
     }
 
-    subset FieldValue of Str where 0 <= .chars <= 1024;
-
     class BaseException does AWS::SDK::Shape {
         has Str $.code is shape-member('Code');
         has Str $.message is shape-member('Message');
     }
-
-    subset PartitionCount of Int where 1 <= *;
 
     class IndexFieldStatus does AWS::SDK::Shape {
         has IndexField $.options is required is shape-member('Options');
@@ -506,10 +515,8 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
         has Str $.synonyms is shape-member('Synonyms');
     }
 
-    subset DynamicFieldName of Str where 1 <= .chars <= 64 && rx:P5/([a-z][a-z0-9_]*\*?|\*[a-z0-9_]*)/;
-
     class ListDomainNamesResponse does AWS::SDK::Shape {
-        has Hash[Str, DomainName] $.domain-names is shape-member('DomainNames');
+        has Str %.domain-names{DomainName} is shape-member('DomainNames');
     }
 
     class ScalingParametersStatus does AWS::SDK::Shape {
@@ -531,10 +538,6 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
         has AnalysisSchemeLanguage $.analysis-scheme-language is required is shape-member('AnalysisSchemeLanguage');
     }
 
-    subset ExpressionValue of Str where 1 <= .chars <= 10240;
-
-    subset OptionState of Str where $_ ~~ any('RequiresIndexDocuments', 'Processing', 'Active', 'FailedToValidate');
-
     class DateOptions does AWS::SDK::Shape {
         has Bool $.facet-enabled is shape-member('FacetEnabled');
         has FieldName $.source-field is shape-member('SourceField');
@@ -545,7 +548,7 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     }
 
     class BuildSuggestersResponse does AWS::SDK::Shape {
-        has Array[FieldName] $.field-names is shape-member('FieldNames');
+        has FieldName @.field-names is shape-member('FieldNames');
     }
 
     class Expression does AWS::SDK::Shape {
@@ -574,17 +577,16 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
         has Bool $.pending-deletion is shape-member('PendingDeletion');
     }
 
-    subset PartitionInstanceType of Str where $_ ~~ any('search.m1.small', 'search.m1.large', 'search.m2.xlarge', 'search.m2.2xlarge', 'search.m3.medium', 'search.m3.large', 'search.m3.xlarge', 'search.m3.2xlarge');
 
     method describe-index-fields(
         DomainName :$domain-name!,
         Bool :$deployed,
-        Array[DynamicFieldName] :$field-names
+        DynamicFieldName :@field-names
     ) returns DescribeIndexFieldsResponse is service-operation('DescribeIndexFields') {
         my $request-input = DescribeIndexFieldsRequest.new(
             :$domain-name,
             :$deployed,
-            :$field-names
+            :@field-names
         );
 
         self.perform-operation(
@@ -690,12 +692,12 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     method describe-analysis-schemes(
         DomainName :$domain-name!,
         Bool :$deployed,
-        Array[StandardName] :$analysis-scheme-names
+        StandardName :@analysis-scheme-names
     ) returns DescribeAnalysisSchemesResponse is service-operation('DescribeAnalysisSchemes') {
         my $request-input = DescribeAnalysisSchemesRequest.new(
             :$domain-name,
             :$deployed,
-            :$analysis-scheme-names
+            :@analysis-scheme-names
         );
 
         self.perform-operation(
@@ -735,10 +737,10 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     }
 
     method describe-domains(
-        Array[DomainName] :$domain-names
+        DomainName :@domain-names
     ) returns DescribeDomainsResponse is service-operation('DescribeDomains') {
         my $request-input = DescribeDomainsRequest.new(
-            :$domain-names
+            :@domain-names
         );
 
         self.perform-operation(
@@ -795,12 +797,12 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     method describe-suggesters(
         DomainName :$domain-name!,
         Bool :$deployed,
-        Array[StandardName] :$suggester-names
+        StandardName :@suggester-names
     ) returns DescribeSuggestersResponse is service-operation('DescribeSuggesters') {
         my $request-input = DescribeSuggestersRequest.new(
             :$domain-name,
             :$deployed,
-            :$suggester-names
+            :@suggester-names
         );
 
         self.perform-operation(
@@ -825,12 +827,12 @@ class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
     method describe-expressions(
         DomainName :$domain-name!,
         Bool :$deployed,
-        Array[StandardName] :$expression-names
+        StandardName :@expression-names
     ) returns DescribeExpressionsResponse is service-operation('DescribeExpressions') {
         my $request-input = DescribeExpressionsRequest.new(
             :$domain-name,
             :$deployed,
-            :$expression-names
+            :@expression-names
         );
 
         self.perform-operation(

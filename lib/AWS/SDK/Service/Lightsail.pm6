@@ -136,11 +136,50 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     class CreateKeyPairRequest { ... }
     class IsVpcPeeredRequest { ... }
 
-    class ReleaseStaticIpResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
-    }
+    subset PortState of Str where $_ eq any('open', 'closed');
 
-    subset PortState of Str where $_ ~~ any('open', 'closed');
+    subset MetricUnit of Str where $_ eq any('Seconds', 'Microseconds', 'Milliseconds', 'Bytes', 'Kilobytes', 'Megabytes', 'Gigabytes', 'Terabytes', 'Bits', 'Kilobits', 'Megabits', 'Gigabits', 'Terabits', 'Percent', 'Count', 'Bytes/Second', 'Kilobytes/Second', 'Megabytes/Second', 'Gigabytes/Second', 'Terabytes/Second', 'Bits/Second', 'Kilobits/Second', 'Megabits/Second', 'Gigabits/Second', 'Terabits/Second', 'Count/Second', 'None');
+
+    subset NonEmptyString of Str where rx:P5/.*\S.*/;
+
+    subset RegionName of Str where $_ eq any('us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'eu-west-1', 'eu-central-1', 'ap-south-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'ap-northeast-2');
+
+    subset OperationType of Str where $_ eq any('DeleteInstance', 'CreateInstance', 'StopInstance', 'StartInstance', 'RebootInstance', 'OpenInstancePublicPorts', 'PutInstancePublicPorts', 'CloseInstancePublicPorts', 'AllocateStaticIp', 'ReleaseStaticIp', 'AttachStaticIp', 'DetachStaticIp', 'UpdateDomainEntry', 'DeleteDomainEntry', 'CreateDomain', 'DeleteDomain', 'CreateInstanceSnapshot', 'DeleteInstanceSnapshot', 'CreateInstancesFromSnapshot');
+
+    subset OperationStatus of Str where $_ eq any('NotStarted', 'Started', 'Failed', 'Completed');
+
+    subset AccessDirection of Str where $_ eq any('inbound', 'outbound');
+
+    subset ResourceName of Str where rx:P5/\w[\w\-]*\w/;
+
+    subset BlueprintType of Str where $_ eq any('os', 'app');
+
+    subset IpAddress of Str where rx:P5/([0-9]{1,3}\.){3}[0-9]{1,3}/;
+
+    subset ResourceType of Str where $_ eq any('Instance', 'StaticIp', 'KeyPair', 'InstanceSnapshot', 'Domain', 'PeeredVpc');
+
+    subset MetricStatistic of Str where $_ eq any('Minimum', 'Maximum', 'Sum', 'Average', 'SampleCount');
+
+    subset NetworkProtocol of Str where $_ eq any('tcp', 'all', 'udp');
+
+    subset InstanceMetricName of Str where $_ eq any('CPUUtilization', 'NetworkIn', 'NetworkOut', 'StatusCheckFailed', 'StatusCheckFailed_Instance', 'StatusCheckFailed_System');
+
+    subset IpV6Address of Str where rx:P5/([A-F0-9]{1,4}:){7}[A-F0-9]{1,4}/;
+
+    subset InstanceAccessProtocol of Str where $_ eq any('ssh', 'rdp');
+
+    subset InstanceSnapshotState of Str where $_ eq any('pending', 'error', 'available');
+
+    subset PortAccessType of Str where $_ eq any('Public', 'Private');
+
+    subset MetricPeriod of Int where 60 <= * <= 86400;
+
+    subset Port of Int where 0 <= * <= 65535;
+
+
+    class ReleaseStaticIpResult does AWS::SDK::Shape {
+        has Operation @.operations is shape-member('operations');
+    }
 
     class OpenInstancePublicPortsResult does AWS::SDK::Shape {
         has Operation $.operation is shape-member('operation');
@@ -165,7 +204,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     class GetInstanceMetricDataRequest does AWS::SDK::Shape {
-        has Array[MetricStatistic] $.statistics is required is shape-member('statistics');
+        has MetricStatistic @.statistics is required is shape-member('statistics');
         has MetricUnit $.unit is required is shape-member('unit');
         has ResourceName $.instance-name is required is shape-member('instanceName');
         has DateTime $.end-time is required is shape-member('endTime');
@@ -177,11 +216,9 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     class PeerVpcRequest does AWS::SDK::Shape {
     }
 
-    subset MetricUnit of Str where $_ ~~ any('Seconds', 'Microseconds', 'Milliseconds', 'Bytes', 'Kilobytes', 'Megabytes', 'Gigabytes', 'Terabytes', 'Bits', 'Kilobits', 'Megabits', 'Gigabits', 'Terabits', 'Percent', 'Count', 'Bytes/Second', 'Kilobytes/Second', 'Megabytes/Second', 'Gigabytes/Second', 'Terabytes/Second', 'Bits/Second', 'Kilobits/Second', 'Megabits/Second', 'Gigabits/Second', 'Terabits/Second', 'Count/Second', 'None');
-
     class GetBlueprintsResult does AWS::SDK::Shape {
         has Str $.next-page-token is shape-member('nextPageToken');
-        has Array[Blueprint] $.blueprints is shape-member('blueprints');
+        has Blueprint @.blueprints is shape-member('blueprints');
     }
 
     class GetDomainsRequest does AWS::SDK::Shape {
@@ -192,10 +229,8 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         has ResourceName $.static-ip-name is required is shape-member('staticIpName');
     }
 
-    subset NonEmptyString of Str where rx:P5/.*\S.*/;
-
     class CreateInstancesFromSnapshotRequest does AWS::SDK::Shape {
-        has Array[Str] $.instance-names is required is shape-member('instanceNames');
+        has Str @.instance-names is required is shape-member('instanceNames');
         has ResourceName $.instance-snapshot-name is required is shape-member('instanceSnapshotName');
         has Str $.availability-zone is required is shape-member('availabilityZone');
         has NonEmptyString $.bundle-id is required is shape-member('bundleId');
@@ -213,8 +248,6 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         has RegionName $.region-name is shape-member('regionName');
     }
 
-    subset RegionName of Str where $_ ~~ any('us-east-1', 'us-east-2', 'us-west-1', 'us-west-2', 'eu-west-1', 'eu-central-1', 'ap-south-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'ap-northeast-2');
-
     class GetKeyPairsRequest does AWS::SDK::Shape {
         has Str $.page-token is shape-member('pageToken');
     }
@@ -223,12 +256,8 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         has ResourceName $.instance-name is required is shape-member('instanceName');
     }
 
-    subset OperationType of Str where $_ ~~ any('DeleteInstance', 'CreateInstance', 'StopInstance', 'StartInstance', 'RebootInstance', 'OpenInstancePublicPorts', 'PutInstancePublicPorts', 'CloseInstancePublicPorts', 'AllocateStaticIp', 'ReleaseStaticIp', 'AttachStaticIp', 'DetachStaticIp', 'UpdateDomainEntry', 'DeleteDomainEntry', 'CreateDomain', 'DeleteDomain', 'CreateInstanceSnapshot', 'DeleteInstanceSnapshot', 'CreateInstancesFromSnapshot');
-
-    subset OperationStatus of Str where $_ ~~ any('NotStarted', 'Started', 'Failed', 'Completed');
-
     class CreateInstancesFromSnapshotResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class Blueprint does AWS::SDK::Shape {
@@ -246,7 +275,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     class DeleteInstanceResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class CreateKeyPairResult does AWS::SDK::Shape {
@@ -256,11 +285,9 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         has KeyPair $.key-pair is shape-member('keyPair');
     }
 
-    subset AccessDirection of Str where $_ ~~ any('inbound', 'outbound');
-
     class GetBundlesResult does AWS::SDK::Shape {
         has Str $.next-page-token is shape-member('nextPageToken');
-        has Array[Bundle] $.bundles is shape-member('bundles');
+        has Bundle @.bundles is shape-member('bundles');
     }
 
     class GetKeyPairRequest does AWS::SDK::Shape {
@@ -302,7 +329,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         has NonEmptyString $.arn is shape-member('arn');
         has ResourceName $.name is shape-member('name');
         has ResourceType $.resource-type is shape-member('resourceType');
-        has Array[DomainEntry] $.domain-entries is shape-member('domainEntries');
+        has DomainEntry @.domain-entries is shape-member('domainEntries');
         has ResourceLocation $.location is shape-member('location');
         has DateTime $.created-at is shape-member('createdAt');
         has Str $.support-code is shape-member('supportCode');
@@ -336,7 +363,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
 
     class GetStaticIpsResult does AWS::SDK::Shape {
         has Str $.next-page-token is shape-member('nextPageToken');
-        has Array[StaticIp] $.static-ips is shape-member('staticIps');
+        has StaticIp @.static-ips is shape-member('staticIps');
     }
 
     class InstancePortInfo does AWS::SDK::Shape {
@@ -359,7 +386,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     class AllocateStaticIpResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class ServiceException does AWS::SDK::Shape {
@@ -369,20 +396,14 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset ResourceName of Str where rx:P5/\w[\w\-]*\w/;
-
     class DeleteInstanceSnapshotRequest does AWS::SDK::Shape {
         has ResourceName $.instance-snapshot-name is required is shape-member('instanceSnapshotName');
     }
 
-    subset BlueprintType of Str where $_ ~~ any('os', 'app');
-
     class GetInstanceMetricDataResult does AWS::SDK::Shape {
-        has Array[MetricDatapoint] $.metric-data is shape-member('metricData');
+        has MetricDatapoint @.metric-data is shape-member('metricData');
         has InstanceMetricName $.metric-name is shape-member('metricName');
     }
-
-    subset IpAddress of Str where rx:P5/([0-9]{1,3}\.){3}[0-9]{1,3}/;
 
     class DetachStaticIpRequest does AWS::SDK::Shape {
         has ResourceName $.static-ip-name is required is shape-member('staticIpName');
@@ -394,7 +415,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     class CreateInstanceSnapshotResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class GetInstanceSnapshotsRequest does AWS::SDK::Shape {
@@ -405,14 +426,12 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         has Str $.page-token is shape-member('pageToken');
     }
 
-    subset ResourceType of Str where $_ ~~ any('Instance', 'StaticIp', 'KeyPair', 'InstanceSnapshot', 'Domain', 'PeeredVpc');
-
     class DetachStaticIpResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class AttachStaticIpResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class GetDomainRequest does AWS::SDK::Shape {
@@ -424,13 +443,11 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     class GetRegionsResult does AWS::SDK::Shape {
-        has Array[Region] $.regions is shape-member('regions');
+        has Region @.regions is shape-member('regions');
     }
 
     class UnpeerVpcRequest does AWS::SDK::Shape {
     }
-
-    subset MetricStatistic of Str where $_ ~~ any('Minimum', 'Maximum', 'Sum', 'Average', 'SampleCount');
 
     class DeleteDomainResult does AWS::SDK::Shape {
         has Operation $.operation is shape-member('operation');
@@ -438,7 +455,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
 
     class GetInstancesResult does AWS::SDK::Shape {
         has Str $.next-page-token is shape-member('nextPageToken');
-        has Array[Instance] $.instances is shape-member('instances');
+        has Instance @.instances is shape-member('instances');
     }
 
     class GetStaticIpsRequest does AWS::SDK::Shape {
@@ -471,17 +488,15 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     class DeleteInstanceSnapshotResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class DeleteDomainEntryResult does AWS::SDK::Shape {
         has Operation $.operation is shape-member('operation');
     }
 
-    subset NetworkProtocol of Str where $_ ~~ any('tcp', 'all', 'udp');
-
     class CreateInstancesResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class GetOperationRequest does AWS::SDK::Shape {
@@ -505,11 +520,9 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
 
     class InstanceHardware does AWS::SDK::Shape {
         has Numeric $.ram-size-in-gb is shape-member('ramSizeInGb');
-        has Array[Disk] $.disks is shape-member('disks');
+        has Disk @.disks is shape-member('disks');
         has Int $.cpu-count is shape-member('cpuCount');
     }
-
-    subset InstanceMetricName of Str where $_ ~~ any('CPUUtilization', 'NetworkIn', 'NetworkOut', 'StatusCheckFailed', 'StatusCheckFailed_Instance', 'StatusCheckFailed_System');
 
     class InstanceSnapshot does AWS::SDK::Shape {
         has Str $.from-blueprint-id is shape-member('fromBlueprintId');
@@ -527,11 +540,9 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         has Str $.support-code is shape-member('supportCode');
     }
 
-    subset IpV6Address of Str where rx:P5/([A-F0-9]{1,4}:){7}[A-F0-9]{1,4}/;
-
     class DomainEntry does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
-        has Hash[Str, Str] $.options is shape-member('options');
+        has Str %.options{Str} is shape-member('options');
         has NonEmptyString $.id is shape-member('id');
         has Str $.type is shape-member('type');
         has Str $.target is shape-member('target');
@@ -562,10 +573,8 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
 
     class GetInstanceSnapshotsResult does AWS::SDK::Shape {
         has Str $.next-page-token is shape-member('nextPageToken');
-        has Array[InstanceSnapshot] $.instance-snapshots is shape-member('instanceSnapshots');
+        has InstanceSnapshot @.instance-snapshots is shape-member('instanceSnapshots');
     }
-
-    subset InstanceAccessProtocol of Str where $_ ~~ any('ssh', 'rdp');
 
     class GetInstanceSnapshotResult does AWS::SDK::Shape {
         has InstanceSnapshot $.instance-snapshot is shape-member('instanceSnapshot');
@@ -581,13 +590,11 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
 
     class GetActiveNamesResult does AWS::SDK::Shape {
         has Str $.next-page-token is shape-member('nextPageToken');
-        has Array[Str] $.active-names is shape-member('activeNames');
+        has Str @.active-names is shape-member('activeNames');
     }
 
-    subset InstanceSnapshotState of Str where $_ ~~ any('pending', 'error', 'available');
-
     class UpdateDomainEntryResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class Operation does AWS::SDK::Shape {
@@ -630,7 +637,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     class CreateInstancesRequest does AWS::SDK::Shape {
-        has Array[Str] $.instance-names is required is shape-member('instanceNames');
+        has Str @.instance-names is required is shape-member('instanceNames');
         has NonEmptyString $.blueprint-id is required is shape-member('blueprintId');
         has Str $.availability-zone is required is shape-member('availabilityZone');
         has NonEmptyString $.bundle-id is required is shape-member('bundleId');
@@ -647,12 +654,12 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     class StartInstanceResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class PutInstancePublicPortsRequest does AWS::SDK::Shape {
         has ResourceName $.instance-name is required is shape-member('instanceName');
-        has Array[PortInfo] $.port-infos is required is shape-member('portInfos');
+        has PortInfo @.port-infos is required is shape-member('portInfos');
     }
 
     class CloseInstancePublicPortsRequest does AWS::SDK::Shape {
@@ -669,12 +676,12 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     class GetInstancePortStatesResult does AWS::SDK::Shape {
-        has Array[InstancePortState] $.port-states is shape-member('portStates');
+        has InstancePortState @.port-states is shape-member('portStates');
     }
 
     class InstanceNetworking does AWS::SDK::Shape {
         has MonthlyTransfer $.monthly-transfer is shape-member('monthlyTransfer');
-        has Array[InstancePortInfo] $.ports is shape-member('ports');
+        has InstancePortInfo @.ports is shape-member('ports');
     }
 
     class IsVpcPeeredResult does AWS::SDK::Shape {
@@ -747,8 +754,6 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         has Str $.support-code is shape-member('supportCode');
     }
 
-    subset PortAccessType of Str where $_ ~~ any('Public', 'Private');
-
     class MonthlyTransfer does AWS::SDK::Shape {
         has Int $.gb-per-month-allocated is shape-member('gbPerMonthAllocated');
     }
@@ -771,7 +776,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     class Region does AWS::SDK::Shape {
         has RegionName $.name is shape-member('name');
         has Str $.display-name is shape-member('displayName');
-        has Array[AvailabilityZone] $.availability-zones is shape-member('availabilityZones');
+        has AvailabilityZone @.availability-zones is shape-member('availabilityZones');
         has Str $.continent-code is shape-member('continentCode');
         has Str $.description is shape-member('description');
     }
@@ -785,20 +790,18 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
 
     class GetKeyPairsResult does AWS::SDK::Shape {
         has Str $.next-page-token is shape-member('nextPageToken');
-        has Array[KeyPair] $.key-pairs is shape-member('keyPairs');
+        has KeyPair @.key-pairs is shape-member('keyPairs');
     }
 
     class GetOperationsForResourceResult does AWS::SDK::Shape {
         has Str $.next-page-token is shape-member('nextPageToken');
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
         has Str $.next-page-count is shape-member('nextPageCount');
     }
 
     class GetStaticIpRequest does AWS::SDK::Shape {
         has ResourceName $.static-ip-name is required is shape-member('staticIpName');
     }
-
-    subset MetricPeriod of Int where 60 <= * <= 86400;
 
     class CreateDomainEntryRequest does AWS::SDK::Shape {
         has Str $.domain-name is required is shape-member('domainName');
@@ -812,23 +815,21 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
 
     class GetDomainsResult does AWS::SDK::Shape {
         has Str $.next-page-token is shape-member('nextPageToken');
-        has Array[Domain] $.domains is shape-member('domains');
+        has Domain @.domains is shape-member('domains');
     }
 
     class GetOperationsResult does AWS::SDK::Shape {
         has Str $.next-page-token is shape-member('nextPageToken');
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class StopInstanceResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class StopInstanceRequest does AWS::SDK::Shape {
         has ResourceName $.instance-name is required is shape-member('instanceName');
     }
-
-    subset Port of Int where 0 <= * <= 65535;
 
     class MetricDatapoint does AWS::SDK::Shape {
         has MetricUnit $.unit is shape-member('unit');
@@ -859,7 +860,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     class RebootInstanceResult does AWS::SDK::Shape {
-        has Array[Operation] $.operations is shape-member('operations');
+        has Operation @.operations is shape-member('operations');
     }
 
     class CreateKeyPairRequest does AWS::SDK::Shape {
@@ -868,6 +869,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
 
     class IsVpcPeeredRequest does AWS::SDK::Shape {
     }
+
 
     method release-static-ip(
         ResourceName :$static-ip-name!
@@ -1032,7 +1034,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     method create-instances-from-snapshot(
-        Array[Str] :$instance-names!,
+        Str :@instance-names!,
         ResourceName :$instance-snapshot-name!,
         Str :$availability-zone!,
         NonEmptyString :$bundle-id!,
@@ -1040,7 +1042,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         Str :$user-data
     ) returns CreateInstancesFromSnapshotResult is service-operation('CreateInstancesFromSnapshot') {
         my $request-input = CreateInstancesFromSnapshotRequest.new(
-            :$instance-names,
+            :@instance-names,
             :$instance-snapshot-name,
             :$availability-zone,
             :$bundle-id,
@@ -1168,11 +1170,11 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
 
     method put-instance-public-ports(
         ResourceName :$instance-name!,
-        Array[PortInfo] :$port-infos!
+        PortInfo :@port-infos!
     ) returns PutInstancePublicPortsResult is service-operation('PutInstancePublicPorts') {
         my $request-input = PutInstancePublicPortsRequest.new(
             :$instance-name,
-            :$port-infos
+            :@port-infos
         );
 
         self.perform-operation(
@@ -1398,7 +1400,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     method get-instance-metric-data(
-        Array[MetricStatistic] :$statistics!,
+        MetricStatistic :@statistics!,
         MetricUnit :$unit!,
         ResourceName :$instance-name!,
         DateTime :$end-time!,
@@ -1407,7 +1409,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         InstanceMetricName :$metric-name!
     ) returns GetInstanceMetricDataResult is service-operation('GetInstanceMetricData') {
         my $request-input = GetInstanceMetricDataRequest.new(
-            :$statistics,
+            :@statistics,
             :$unit,
             :$instance-name,
             :$end-time,
@@ -1529,7 +1531,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
     }
 
     method create-instances(
-        Array[Str] :$instance-names!,
+        Str :@instance-names!,
         NonEmptyString :$blueprint-id!,
         Str :$availability-zone!,
         NonEmptyString :$bundle-id!,
@@ -1538,7 +1540,7 @@ class AWS::SDK::Service::Lightsail does AWS::SDK::Service {
         ResourceName :$custom-image-name
     ) returns CreateInstancesResult is service-operation('CreateInstances') {
         my $request-input = CreateInstancesRequest.new(
-            :$instance-names,
+            :@instance-names,
             :$blueprint-id,
             :$availability-zone,
             :$bundle-id,

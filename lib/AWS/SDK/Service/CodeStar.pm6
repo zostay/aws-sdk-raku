@@ -66,6 +66,39 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     subset ClientRequestToken of Str where 1 <= .chars <= 256 && rx:P5/^[\w:\/-]+$/;
 
+    subset Email of Str where 3 <= .chars <= 128 && rx:P5/^[\w-.+]+@[\w-.+]+$/;
+
+    subset ProjectId of Str where 2 <= .chars <= 15 && rx:P5/^[a-z][a-z0-9-]+$/;
+
+    subset ProjectDescription of Str where .chars <= 1024 && rx:P5/^$|^\S(.*\S)?$/;
+
+    subset ProjectName of Str where 1 <= .chars <= 100 && rx:P5/^\S(.*\S)?$/;
+
+    subset MaxResults of Int where 1 <= * <= 100;
+
+    subset ProjectArn of Str where rx:P5/^arn:aws[^:\s]*:codestar:[^:\s]+:[0-9]{12}:project\\/[a-z]([a-z0-9|-])+$/;
+
+    subset UserProfileDisplayName of Str where 1 <= .chars <= 64 && rx:P5/^\S(.*\S)?$/;
+
+    subset PaginationToken of Str where 1 <= .chars <= 512 && rx:P5/^[\w\/+=]+$/;
+
+    subset Role of Str where rx:P5/^(Owner|Viewer|Contributor)$/;
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset ProjectTemplateId of Str where 1 <= .chars && rx:P5/^arn:aws[^:\s]{0,5}:codestar:[^:\s]+::project-template\\/[a-z0-9-]+$/;
+
+    subset SshPublicKey of Str where .chars <= 16384 && rx:P5/^[\t\r\n\u0020-\u00FF]*$/;
+
+    subset TagValue of Str where .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    subset ResourceId of Str where 11 <= .chars && rx:P5/^arn\:aws\:\S.*\:.*/;
+
+    subset StackId of Str where rx:P5/^arn:aws[^:\s]*:cloudformation:[^:\s]+:[0-9]{12}:stack\\/[^:\s]+\\/[^:\s]+$/;
+
+    subset UserArn of Str where 32 <= .chars <= 95 && rx:P5/^arn:aws:iam::\d{12}:user(?:(\u002F)|(\u002F[\u0021-\u007E]+\u002F))[\w+=,.@-]+$/;
+
+
     class AssociateTeamMemberRequest does AWS::SDK::Shape {
         has UserArn $.user-arn is required is shape-member('userArn');
         has ProjectId $.project-id is required is shape-member('projectId');
@@ -98,7 +131,7 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
     }
 
     class ListTeamMembersResult does AWS::SDK::Shape {
-        has Array[TeamMember] $.team-members is required is shape-member('teamMembers');
+        has TeamMember @.team-members is required is shape-member('teamMembers');
         has PaginationToken $.next-token is shape-member('nextToken');
     }
 
@@ -113,10 +146,8 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     class UntagProjectRequest does AWS::SDK::Shape {
         has ProjectId $.id is required is shape-member('id');
-        has Array[TagKey] $.tags is required is shape-member('tags');
+        has TagKey @.tags is required is shape-member('tags');
     }
-
-    subset Email of Str where 3 <= .chars <= 128 && rx:P5/^[\w-.+]+@[\w-.+]+$/;
 
     class ListProjectsRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('maxResults');
@@ -129,11 +160,9 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
         has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    subset ProjectId of Str where 2 <= .chars <= 15 && rx:P5/^[a-z][a-z0-9-]+$/;
-
     class TagProjectRequest does AWS::SDK::Shape {
         has ProjectId $.id is required is shape-member('id');
-        has Hash[TagValue, TagKey] $.tags is required is shape-member('tags');
+        has TagValue %.tags{TagKey} is required is shape-member('tags');
     }
 
     class ValidationException does AWS::SDK::Shape {
@@ -146,12 +175,12 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
     }
 
     class ListUserProfilesResult does AWS::SDK::Shape {
-        has Array[UserProfileSummary] $.user-profiles is required is shape-member('userProfiles');
+        has UserProfileSummary @.user-profiles is required is shape-member('userProfiles');
         has PaginationToken $.next-token is shape-member('nextToken');
     }
 
     class TagProjectResult does AWS::SDK::Shape {
-        has Hash[TagValue, TagKey] $.tags is shape-member('tags');
+        has TagValue %.tags{TagKey} is shape-member('tags');
     }
 
     class UserProfileAlreadyExistsException does AWS::SDK::Shape {
@@ -174,10 +203,8 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     class ListResourcesResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[Resource] $.resources is shape-member('resources');
+        has Resource @.resources is shape-member('resources');
     }
-
-    subset ProjectDescription of Str where .chars <= 1024 && rx:P5/^$|^\S(.*\S)?$/;
 
     class ProjectSummary does AWS::SDK::Shape {
         has ProjectArn $.project-arn is shape-member('projectArn');
@@ -193,10 +220,8 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     class ListTagsForProjectResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Hash[TagValue, TagKey] $.tags is shape-member('tags');
+        has TagValue %.tags{TagKey} is shape-member('tags');
     }
-
-    subset ProjectName of Str where 1 <= .chars <= 100 && rx:P5/^\S(.*\S)?$/;
 
     class Resource does AWS::SDK::Shape {
         has ResourceId $.id is required is shape-member('id');
@@ -244,26 +269,14 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
         has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    subset MaxResults of Int where 1 <= * <= 100;
-
-    subset ProjectArn of Str where rx:P5/^arn:aws[^:\s]*:codestar:[^:\s]+:[0-9]{12}:project\\/[a-z]([a-z0-9|-])+$/;
-
     class ProjectConfigurationException does AWS::SDK::Shape {
     }
-
-    subset UserProfileDisplayName of Str where 1 <= .chars <= 64 && rx:P5/^\S(.*\S)?$/;
 
     class DeleteProjectRequest does AWS::SDK::Shape {
         has Bool $.delete-stack is shape-member('deleteStack');
         has ClientRequestToken $.client-request-token is shape-member('clientRequestToken');
         has ProjectId $.id is required is shape-member('id');
     }
-
-    subset PaginationToken of Str where 1 <= .chars <= 512 && rx:P5/^[\w\/+=]+$/;
-
-    subset Role of Str where rx:P5/^(Owner|Viewer|Contributor)$/;
-
-    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
     class UpdateProjectRequest does AWS::SDK::Shape {
         has ProjectName $.name is shape-member('name');
@@ -296,7 +309,7 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     class ListProjectsResult does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('nextToken');
-        has Array[ProjectSummary] $.projects is required is shape-member('projects');
+        has ProjectSummary @.projects is required is shape-member('projects');
     }
 
     class ProjectNotFoundException does AWS::SDK::Shape {
@@ -307,12 +320,6 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     class ProjectAlreadyExistsException does AWS::SDK::Shape {
     }
-
-    subset ProjectTemplateId of Str where 1 <= .chars && rx:P5/^arn:aws[^:\s]{0,5}:codestar:[^:\s]+::project-template\\/[a-z0-9-]+$/;
-
-    subset SshPublicKey of Str where .chars <= 16384 && rx:P5/^[\t\r\n\u0020-\u00FF]*$/;
-
-    subset TagValue of Str where .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
     class TeamMember does AWS::SDK::Shape {
         has UserArn $.user-arn is required is shape-member('userArn');
@@ -326,8 +333,6 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     class InvalidServiceRoleException does AWS::SDK::Shape {
     }
-
-    subset ResourceId of Str where 11 <= .chars && rx:P5/^arn\:aws\:\S.*\:.*/;
 
     class AssociateTeamMemberResult does AWS::SDK::Shape {
         has ClientRequestToken $.client-request-token is shape-member('clientRequestToken');
@@ -347,10 +352,6 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
         has ProjectDescription $.description is shape-member('description');
     }
 
-    subset StackId of Str where rx:P5/^arn:aws[^:\s]*:cloudformation:[^:\s]+:[0-9]{12}:stack\\/[^:\s]+\\/[^:\s]+$/;
-
-    subset UserArn of Str where 32 <= .chars <= 95 && rx:P5/^arn:aws:iam::\d{12}:user(?:(\u002F)|(\u002F[\u0021-\u007E]+\u002F))[\w+=,.@-]+$/;
-
     class DescribeProjectRequest does AWS::SDK::Shape {
         has ProjectId $.id is required is shape-member('id');
     }
@@ -363,6 +364,7 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     class ProjectCreationFailedException does AWS::SDK::Shape {
     }
+
 
     method update-team-member(
         UserArn :$user-arn!,
@@ -466,11 +468,11 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     method untag-project(
         ProjectId :$id!,
-        Array[TagKey] :$tags!
+        TagKey :@tags!
     ) returns UntagProjectResult is service-operation('UntagProject') {
         my $request-input = UntagProjectRequest.new(
             :$id,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -481,11 +483,11 @@ class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     method tag-project(
         ProjectId :$id!,
-        Hash[TagValue, TagKey] :$tags!
+        TagValue :%tags!
     ) returns TagProjectResult is service-operation('TagProject') {
         my $request-input = TagProjectRequest.new(
             :$id,
-            :$tags
+            :%tags
         );
 
         self.perform-operation(

@@ -248,10 +248,17 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class InvalidClusterSubnetStateFault { ... }
     class OrderableClusterOption { ... }
 
+    subset ParameterApplyType of Str where $_ eq any('static', 'dynamic');
+
+    subset TableRestoreStatusType of Str where $_ eq any('PENDING', 'IN_PROGRESS', 'SUCCEEDED', 'FAILED', 'CANCELED');
+
+    subset SourceType of Str where $_ eq any('cluster', 'cluster-parameter-group', 'cluster-security-group', 'cluster-snapshot');
+
+
     class RestoreFromClusterSnapshotMessage does AWS::SDK::Shape {
         has Str $.kms-key-id is shape-member('KmsKeyId');
-        has Array[Str] $.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
-        has Array[Str] $.iam-roles is shape-member('IamRoles');
+        has Str @.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
+        has Str @.iam-roles is shape-member('IamRoles');
         has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
         has Str $.additional-info is shape-member('AdditionalInfo');
         has Int $.automated-snapshot-retention-period is shape-member('AutomatedSnapshotRetentionPeriod');
@@ -269,7 +276,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Str $.hsm-client-certificate-identifier is shape-member('HsmClientCertificateIdentifier');
         has Int $.port is shape-member('Port');
         has Str $.node-type is shape-member('NodeType');
-        has Array[Str] $.cluster-security-groups is shape-member('ClusterSecurityGroups');
+        has Str @.cluster-security-groups is shape-member('ClusterSecurityGroups');
         has Str $.cluster-subnet-group-name is shape-member('ClusterSubnetGroupName');
     }
 
@@ -286,7 +293,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class HsmConfiguration does AWS::SDK::Shape {
         has Str $.description is shape-member('Description');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.hsm-partition-name is shape-member('HsmPartitionName');
         has Str $.hsm-configuration-identifier is shape-member('HsmConfigurationIdentifier');
         has Str $.hsm-ip-address is shape-member('HsmIpAddress');
@@ -296,7 +303,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class ReservedNodesMessage does AWS::SDK::Shape {
-        has Array[ReservedNode] $.reserved-nodes is shape-member('ReservedNodes');
+        has ReservedNode @.reserved-nodes is shape-member('ReservedNodes');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -316,8 +323,6 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class InProgressTableRestoreQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    subset ParameterApplyType of Str where $_ ~~ any('static', 'dynamic');
-
     class RevokeClusterSecurityGroupIngressResult does AWS::SDK::Shape {
         has ClusterSecurityGroup $.cluster-security-group is shape-member('ClusterSecurityGroup');
     }
@@ -329,17 +334,17 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class ClusterParameterGroup does AWS::SDK::Shape {
         has Str $.parameter-group-name is shape-member('ParameterGroupName');
         has Str $.description is shape-member('Description');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.parameter-group-family is shape-member('ParameterGroupFamily');
     }
 
     class ResizeProgressMessage does AWS::SDK::Shape {
         has Int $.elapsed-time-in-seconds is shape-member('ElapsedTimeInSeconds');
         has Int $.estimated-time-to-completion-in-seconds is shape-member('EstimatedTimeToCompletionInSeconds');
-        has Array[Str] $.import-tables-completed is shape-member('ImportTablesCompleted');
-        has Array[Str] $.import-tables-not-started is shape-member('ImportTablesNotStarted');
+        has Str @.import-tables-completed is shape-member('ImportTablesCompleted');
+        has Str @.import-tables-not-started is shape-member('ImportTablesNotStarted');
         has Numeric $.avg-resize-rate-in-mega-bytes-per-second is shape-member('AvgResizeRateInMegaBytesPerSecond');
-        has Array[Str] $.import-tables-in-progress is shape-member('ImportTablesInProgress');
+        has Str @.import-tables-in-progress is shape-member('ImportTablesInProgress');
         has Str $.target-cluster-type is shape-member('TargetClusterType');
         has Int $.progress-in-mega-bytes is shape-member('ProgressInMegaBytes');
         has Str $.target-node-type is shape-member('TargetNodeType');
@@ -350,8 +355,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class DescribeClusterParameterGroupsMessage does AWS::SDK::Shape {
         has Str $.parameter-group-name is shape-member('ParameterGroupName');
-        has Array[Str] $.tag-values is shape-member('TagValues');
-        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str @.tag-values is shape-member('TagValues');
+        has Str @.tag-keys is shape-member('TagKeys');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
@@ -359,7 +364,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class CreateClusterSnapshotMessage does AWS::SDK::Shape {
         has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
         has Str $.snapshot-identifier is required is shape-member('SnapshotIdentifier');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
     }
 
     class InsufficientClusterCapacityFault does AWS::SDK::Shape {
@@ -370,7 +375,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class ModifyClusterSubnetGroupMessage does AWS::SDK::Shape {
         has Str $.description is shape-member('Description');
-        has Array[Str] $.subnet-ids is required is shape-member('SubnetIds');
+        has Str @.subnet-ids is required is shape-member('SubnetIds');
         has Str $.cluster-subnet-group-name is required is shape-member('ClusterSubnetGroupName');
     }
 
@@ -379,8 +384,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class DescribeTagsMessage does AWS::SDK::Shape {
         has Str $.resource-name is shape-member('ResourceName');
-        has Array[Str] $.tag-values is shape-member('TagValues');
-        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str @.tag-values is shape-member('TagValues');
+        has Str @.tag-keys is shape-member('TagKeys');
         has Str $.resource-type is shape-member('ResourceType');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
@@ -390,7 +395,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class SnapshotCopyGrantMessage does AWS::SDK::Shape {
-        has Array[SnapshotCopyGrant] $.snapshot-copy-grants is shape-member('SnapshotCopyGrants');
+        has SnapshotCopyGrant @.snapshot-copy-grants is shape-member('SnapshotCopyGrants');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -403,15 +408,15 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class ClusterSubnetGroup does AWS::SDK::Shape {
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[Subnet] $.subnets is shape-member('Subnets');
+        has Subnet @.subnets is shape-member('Subnets');
         has Str $.description is shape-member('Description');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.subnet-group-status is shape-member('SubnetGroupStatus');
         has Str $.cluster-subnet-group-name is shape-member('ClusterSubnetGroupName');
     }
 
     class ClustersMessage does AWS::SDK::Shape {
-        has Array[Cluster] $.clusters is shape-member('Clusters');
+        has Cluster @.clusters is shape-member('Clusters');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -419,9 +424,9 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class ModifyClusterIamRolesMessage does AWS::SDK::Shape {
-        has Array[Str] $.remove-iam-roles is shape-member('RemoveIamRoles');
+        has Str @.remove-iam-roles is shape-member('RemoveIamRoles');
         has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
-        has Array[Str] $.add-iam-roles is shape-member('AddIamRoles');
+        has Str @.add-iam-roles is shape-member('AddIamRoles');
     }
 
     class TagLimitExceededFault does AWS::SDK::Shape {
@@ -444,16 +449,16 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Str $.cluster-version is shape-member('ClusterVersion');
         has Str $.master-username is shape-member('MasterUsername');
         has Str $.snapshot-identifier is shape-member('SnapshotIdentifier');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Numeric $.actual-incremental-backup-size-in-mega-bytes is shape-member('ActualIncrementalBackupSizeInMegaBytes');
         has Str $.owner-account is shape-member('OwnerAccount');
-        has Array[Str] $.restorable-node-types is shape-member('RestorableNodeTypes');
+        has Str @.restorable-node-types is shape-member('RestorableNodeTypes');
         has Str $.availability-zone is shape-member('AvailabilityZone');
         has Str $.status is shape-member('Status');
         has DateTime $.snapshot-create-time is shape-member('SnapshotCreateTime');
         has Bool $.enhanced-vpc-routing is shape-member('EnhancedVpcRouting');
         has Int $.port is shape-member('Port');
-        has Array[AccountWithRestoreAccess] $.accounts-with-restore-access is shape-member('AccountsWithRestoreAccess');
+        has AccountWithRestoreAccess @.accounts-with-restore-access is shape-member('AccountsWithRestoreAccess');
         has Bool $.encrypted-with-hsm is shape-member('EncryptedWithHSM');
         has Bool $.encrypted is shape-member('Encrypted');
         has Str $.node-type is shape-member('NodeType');
@@ -474,7 +479,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has DateTime $.date is shape-member('Date');
         has SourceType $.source-type is shape-member('SourceType');
         has Str $.source-identifier is shape-member('SourceIdentifier');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
         has Str $.message is shape-member('Message');
     }
 
@@ -483,11 +488,11 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class TaggedResourceListMessage does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[TaggedResource] $.tagged-resources is shape-member('TaggedResources');
+        has TaggedResource @.tagged-resources is shape-member('TaggedResources');
     }
 
     class SnapshotMessage does AWS::SDK::Shape {
-        has Array[Snapshot] $.snapshots is shape-member('Snapshots');
+        has Snapshot @.snapshots is shape-member('Snapshots');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -499,12 +504,12 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class CreateEventSubscriptionMessage does AWS::SDK::Shape {
         has Str $.severity is shape-member('Severity');
         has Str $.subscription-name is required is shape-member('SubscriptionName');
-        has Array[Str] $.source-ids is shape-member('SourceIds');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Str @.source-ids is shape-member('SourceIds');
+        has Tag @.tags is shape-member('Tags');
         has Bool $.enabled is shape-member('Enabled');
         has Str $.sns-topic-arn is required is shape-member('SnsTopicArn');
         has Str $.source-type is shape-member('SourceType');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
     class CreateClusterSecurityGroupResult does AWS::SDK::Shape {
@@ -519,7 +524,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class EventsMessage does AWS::SDK::Shape {
-        has Array[Event] $.events is shape-member('Events');
+        has Event @.events is shape-member('Events');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -556,14 +561,14 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class EventCategoriesMessage does AWS::SDK::Shape {
-        has Array[EventCategoriesMap] $.event-categories-map-list is shape-member('EventCategoriesMapList');
+        has EventCategoriesMap @.event-categories-map-list is shape-member('EventCategoriesMapList');
     }
 
     class EventInfoMap does AWS::SDK::Shape {
         has Str $.severity is shape-member('Severity');
         has Str $.event-description is shape-member('EventDescription');
         has Str $.event-id is shape-member('EventId');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
     class Tag does AWS::SDK::Shape {
@@ -572,14 +577,14 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class TableRestoreStatusMessage does AWS::SDK::Shape {
-        has Array[TableRestoreStatus] $.table-restore-status-details is shape-member('TableRestoreStatusDetails');
+        has TableRestoreStatus @.table-restore-status-details is shape-member('TableRestoreStatusDetails');
         has Str $.marker is shape-member('Marker');
     }
 
     class SnapshotCopyGrant does AWS::SDK::Shape {
         has Str $.kms-key-id is shape-member('KmsKeyId');
         has Str $.snapshot-copy-grant-name is shape-member('SnapshotCopyGrantName');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
     }
 
     class SNSInvalidTopicFault does AWS::SDK::Shape {
@@ -614,8 +619,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Str $.snapshot-type is shape-member('SnapshotType');
         has Str $.cluster-identifier is shape-member('ClusterIdentifier');
         has Str $.snapshot-identifier is shape-member('SnapshotIdentifier');
-        has Array[Str] $.tag-values is shape-member('TagValues');
-        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str @.tag-values is shape-member('TagValues');
+        has Str @.tag-keys is shape-member('TagKeys');
         has Str $.owner-account is shape-member('OwnerAccount');
         has DateTime $.start-time is shape-member('StartTime');
         has Str $.marker is shape-member('Marker');
@@ -625,7 +630,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class CreateHsmConfigurationMessage does AWS::SDK::Shape {
         has Str $.hsm-server-public-certificate is required is shape-member('HsmServerPublicCertificate');
         has Str $.description is required is shape-member('Description');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.hsm-partition-password is required is shape-member('HsmPartitionPassword');
         has Str $.hsm-partition-name is required is shape-member('HsmPartitionName');
         has Str $.hsm-configuration-identifier is required is shape-member('HsmConfigurationIdentifier');
@@ -641,7 +646,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Int $.duration-seconds is shape-member('DurationSeconds');
         has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
         has Str $.db-user is required is shape-member('DbUser');
-        has Array[Str] $.db-groups is shape-member('DbGroups');
+        has Str @.db-groups is shape-member('DbGroups');
     }
 
     class EnableSnapshotCopyMessage does AWS::SDK::Shape {
@@ -663,7 +668,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class ResetClusterParameterGroupMessage does AWS::SDK::Shape {
         has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Bool $.reset-all-parameters is shape-member('ResetAllParameters');
     }
 
@@ -687,7 +692,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class ModifyClusterMessage does AWS::SDK::Shape {
         has Str $.master-user-password is shape-member('MasterUserPassword');
-        has Array[Str] $.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
+        has Str @.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
         has Str $.new-cluster-identifier is shape-member('NewClusterIdentifier');
         has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
         has Str $.cluster-version is shape-member('ClusterVersion');
@@ -702,7 +707,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Str $.hsm-client-certificate-identifier is shape-member('HsmClientCertificateIdentifier');
         has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
         has Str $.cluster-type is shape-member('ClusterType');
-        has Array[Str] $.cluster-security-groups is shape-member('ClusterSecurityGroups');
+        has Str @.cluster-security-groups is shape-member('ClusterSecurityGroups');
         has Str $.node-type is shape-member('NodeType');
     }
 
@@ -734,11 +739,11 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class ModifyEventSubscriptionMessage does AWS::SDK::Shape {
         has Str $.severity is shape-member('Severity');
         has Str $.subscription-name is required is shape-member('SubscriptionName');
-        has Array[Str] $.source-ids is shape-member('SourceIds');
+        has Str @.source-ids is shape-member('SourceIds');
         has Bool $.enabled is shape-member('Enabled');
         has Str $.sns-topic-arn is shape-member('SnsTopicArn');
         has Str $.source-type is shape-member('SourceType');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
     class Parameter does AWS::SDK::Shape {
@@ -764,7 +769,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class ClusterParameterGroupDetails does AWS::SDK::Shape {
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -775,12 +780,12 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class ClusterSubnetGroupMessage does AWS::SDK::Shape {
-        has Array[ClusterSubnetGroup] $.cluster-subnet-groups is shape-member('ClusterSubnetGroups');
+        has ClusterSubnetGroup @.cluster-subnet-groups is shape-member('ClusterSubnetGroups');
         has Str $.marker is shape-member('Marker');
     }
 
     class EventCategoriesMap does AWS::SDK::Shape {
-        has Array[EventInfoMap] $.events is shape-member('Events');
+        has EventInfoMap @.events is shape-member('Events');
         has Str $.source-type is shape-member('SourceType');
     }
 
@@ -792,7 +797,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class ReservedNodeOfferingsMessage does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[ReservedNodeOffering] $.reserved-node-offerings is shape-member('ReservedNodeOfferings');
+        has ReservedNodeOffering @.reserved-node-offerings is shape-member('ReservedNodeOfferings');
     }
 
     class DeleteClusterSnapshotResult does AWS::SDK::Shape {
@@ -808,12 +813,12 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class DeleteTagsMessage does AWS::SDK::Shape {
         has Str $.resource-name is required is shape-member('ResourceName');
-        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.tag-keys is required is shape-member('TagKeys');
     }
 
     class CreateTagsMessage does AWS::SDK::Shape {
         has Str $.resource-name is required is shape-member('ResourceName');
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
     }
 
     class HsmConfigurationNotFoundFault does AWS::SDK::Shape {
@@ -837,14 +842,14 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class ClusterSecurityGroup does AWS::SDK::Shape {
         has Str $.description is shape-member('Description');
-        has Array[IPRange] $.ip-ranges is shape-member('IPRanges');
-        has Array[EC2SecurityGroup] $.ec2-security-groups is shape-member('EC2SecurityGroups');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has IPRange @.ip-ranges is shape-member('IPRanges');
+        has EC2SecurityGroup @.ec2-security-groups is shape-member('EC2SecurityGroups');
+        has Tag @.tags is shape-member('Tags');
         has Str $.cluster-security-group-name is shape-member('ClusterSecurityGroupName');
     }
 
     class IPRange does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.cidr-ip is shape-member('CIDRIP');
         has Str $.status is shape-member('Status');
     }
@@ -913,17 +918,17 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class CreateClusterParameterGroupMessage does AWS::SDK::Shape {
         has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
         has Str $.description is required is shape-member('Description');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.parameter-group-family is required is shape-member('ParameterGroupFamily');
     }
 
     class ClusterVersionsMessage does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[ClusterVersion] $.cluster-versions is shape-member('ClusterVersions');
+        has ClusterVersion @.cluster-versions is shape-member('ClusterVersions');
     }
 
     class HsmClientCertificate does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.hsm-client-certificate-public-key is shape-member('HsmClientCertificatePublicKey');
         has Str $.hsm-client-certificate-identifier is shape-member('HsmClientCertificateIdentifier');
     }
@@ -933,7 +938,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class OrderableClusterOptionsMessage does AWS::SDK::Shape {
-        has Array[OrderableClusterOption] $.orderable-cluster-options is shape-member('OrderableClusterOptions');
+        has OrderableClusterOption @.orderable-cluster-options is shape-member('OrderableClusterOptions');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -975,11 +980,9 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
     }
 
-    subset TableRestoreStatusType of Str where $_ ~~ any('PENDING', 'IN_PROGRESS', 'SUCCEEDED', 'FAILED', 'CANCELED');
-
     class DescribeHsmClientCertificatesMessage does AWS::SDK::Shape {
-        has Array[Str] $.tag-values is shape-member('TagValues');
-        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str @.tag-values is shape-member('TagValues');
+        has Str @.tag-keys is shape-member('TagKeys');
         has Str $.marker is shape-member('Marker');
         has Str $.hsm-client-certificate-identifier is shape-member('HsmClientCertificateIdentifier');
         has Int $.max-records is shape-member('MaxRecords');
@@ -987,17 +990,17 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class CreateClusterMessage does AWS::SDK::Shape {
         has Str $.kms-key-id is shape-member('KmsKeyId');
-        has Array[Str] $.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
+        has Str @.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
         has Str $.master-user-password is required is shape-member('MasterUserPassword');
         has Str $.db-name is shape-member('DBName');
-        has Array[Str] $.iam-roles is shape-member('IamRoles');
+        has Str @.iam-roles is shape-member('IamRoles');
         has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
         has Str $.additional-info is shape-member('AdditionalInfo');
         has Int $.number-of-nodes is shape-member('NumberOfNodes');
         has Str $.cluster-version is shape-member('ClusterVersion');
         has Int $.automated-snapshot-retention-period is shape-member('AutomatedSnapshotRetentionPeriod');
         has Str $.master-username is required is shape-member('MasterUsername');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
         has Bool $.allow-version-upgrade is shape-member('AllowVersionUpgrade');
         has Str $.cluster-parameter-group-name is shape-member('ClusterParameterGroupName');
@@ -1011,7 +1014,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Str $.cluster-type is shape-member('ClusterType');
         has Bool $.encrypted is shape-member('Encrypted');
         has Str $.cluster-subnet-group-name is shape-member('ClusterSubnetGroupName');
-        has Array[Str] $.cluster-security-groups is shape-member('ClusterSecurityGroups');
+        has Str @.cluster-security-groups is shape-member('ClusterSecurityGroups');
         has Str $.node-type is required is shape-member('NodeType');
     }
 
@@ -1052,7 +1055,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class ClusterSecurityGroupMessage does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[ClusterSecurityGroup] $.cluster-security-groups is shape-member('ClusterSecurityGroups');
+        has ClusterSecurityGroup @.cluster-security-groups is shape-member('ClusterSecurityGroups');
     }
 
     class EventSubscriptionQuotaExceededFault does AWS::SDK::Shape {
@@ -1068,12 +1071,12 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class EventSubscriptionsMessage does AWS::SDK::Shape {
-        has Array[EventSubscription] $.event-subscriptions-list is shape-member('EventSubscriptionsList');
+        has EventSubscription @.event-subscriptions-list is shape-member('EventSubscriptionsList');
         has Str $.marker is shape-member('Marker');
     }
 
     class HsmConfigurationMessage does AWS::SDK::Shape {
-        has Array[HsmConfiguration] $.hsm-configurations is shape-member('HsmConfigurations');
+        has HsmConfiguration @.hsm-configurations is shape-member('HsmConfigurations');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -1100,7 +1103,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class ReservedNode does AWS::SDK::Shape {
         has Str $.offering-type is shape-member('OfferingType');
         has Int $.duration is shape-member('Duration');
-        has Array[RecurringCharge] $.recurring-charges is shape-member('RecurringCharges');
+        has RecurringCharge @.recurring-charges is shape-member('RecurringCharges');
         has Numeric $.usage-price is shape-member('UsagePrice');
         has Str $.state is shape-member('State');
         has Numeric $.fixed-price is shape-member('FixedPrice');
@@ -1127,11 +1130,11 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class CreateSnapshotCopyGrantMessage does AWS::SDK::Shape {
         has Str $.kms-key-id is shape-member('KmsKeyId');
         has Str $.snapshot-copy-grant-name is required is shape-member('SnapshotCopyGrantName');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
     }
 
     class CreateHsmClientCertificateMessage does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.hsm-client-certificate-identifier is required is shape-member('HsmClientCertificateIdentifier');
     }
 
@@ -1142,7 +1145,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class DefaultClusterParameters does AWS::SDK::Shape {
-        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Parameter @.parameters is shape-member('Parameters');
         has Str $.parameter-group-family is shape-member('ParameterGroupFamily');
         has Str $.marker is shape-member('Marker');
     }
@@ -1164,7 +1167,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class ModifyClusterParameterGroupMessage does AWS::SDK::Shape {
         has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
-        has Array[Parameter] $.parameters is required is shape-member('Parameters');
+        has Parameter @.parameters is required is shape-member('Parameters');
     }
 
     class AccountWithRestoreAccess does AWS::SDK::Shape {
@@ -1173,7 +1176,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class HsmClientCertificateMessage does AWS::SDK::Shape {
-        has Array[HsmClientCertificate] $.hsm-client-certificates is shape-member('HsmClientCertificates');
+        has HsmClientCertificate @.hsm-client-certificates is shape-member('HsmClientCertificates');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -1191,8 +1194,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class CreateClusterSubnetGroupMessage does AWS::SDK::Shape {
         has Str $.description is required is shape-member('Description');
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[Str] $.subnet-ids is required is shape-member('SubnetIds');
+        has Tag @.tags is shape-member('Tags');
+        has Str @.subnet-ids is required is shape-member('SubnetIds');
         has Str $.cluster-subnet-group-name is required is shape-member('ClusterSubnetGroupName');
     }
 
@@ -1201,10 +1204,10 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Str $.db-name is shape-member('DBName');
         has Str $.cluster-status is shape-member('ClusterStatus');
         has Str $.vpc-id is shape-member('VpcId');
-        has Array[ClusterParameterGroupStatus] $.cluster-parameter-groups is shape-member('ClusterParameterGroups');
-        has Array[VpcSecurityGroupMembership] $.vpc-security-groups is shape-member('VpcSecurityGroups');
-        has Array[ClusterIamRole] $.iam-roles is shape-member('IamRoles');
-        has Array[ClusterNode] $.cluster-nodes is shape-member('ClusterNodes');
+        has ClusterParameterGroupStatus @.cluster-parameter-groups is shape-member('ClusterParameterGroups');
+        has VpcSecurityGroupMembership @.vpc-security-groups is shape-member('VpcSecurityGroups');
+        has ClusterIamRole @.iam-roles is shape-member('IamRoles');
+        has ClusterNode @.cluster-nodes is shape-member('ClusterNodes');
         has DateTime $.cluster-create-time is shape-member('ClusterCreateTime');
         has Str $.cluster-identifier is shape-member('ClusterIdentifier');
         has Int $.number-of-nodes is shape-member('NumberOfNodes');
@@ -1212,7 +1215,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Int $.automated-snapshot-retention-period is shape-member('AutomatedSnapshotRetentionPeriod');
         has Endpoint $.endpoint is shape-member('Endpoint');
         has Str $.master-username is shape-member('MasterUsername');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.cluster-public-key is shape-member('ClusterPublicKey');
         has ClusterSnapshotCopyStatus $.cluster-snapshot-copy-status is shape-member('ClusterSnapshotCopyStatus');
         has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
@@ -1228,20 +1231,20 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has HsmStatus $.hsm-status is shape-member('HsmStatus');
         has Bool $.encrypted is shape-member('Encrypted');
         has Str $.cluster-subnet-group-name is shape-member('ClusterSubnetGroupName');
-        has Array[ClusterSecurityGroupMembership] $.cluster-security-groups is shape-member('ClusterSecurityGroups');
+        has ClusterSecurityGroupMembership @.cluster-security-groups is shape-member('ClusterSecurityGroups');
         has Str $.node-type is shape-member('NodeType');
     }
 
     class ClusterParameterGroupStatus does AWS::SDK::Shape {
         has Str $.parameter-apply-status is shape-member('ParameterApplyStatus');
-        has Array[ClusterParameterStatus] $.cluster-parameter-status-list is shape-member('ClusterParameterStatusList');
+        has ClusterParameterStatus @.cluster-parameter-status-list is shape-member('ClusterParameterStatusList');
         has Str $.parameter-group-name is shape-member('ParameterGroupName');
     }
 
     class DescribeSnapshotCopyGrantsMessage does AWS::SDK::Shape {
         has Str $.snapshot-copy-grant-name is shape-member('SnapshotCopyGrantName');
-        has Array[Str] $.tag-values is shape-member('TagValues');
-        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str @.tag-values is shape-member('TagValues');
+        has Str @.tag-keys is shape-member('TagKeys');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
@@ -1257,8 +1260,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class DescribeClusterSecurityGroupsMessage does AWS::SDK::Shape {
-        has Array[Str] $.tag-values is shape-member('TagValues');
-        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str @.tag-values is shape-member('TagValues');
+        has Str @.tag-keys is shape-member('TagKeys');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
         has Str $.cluster-security-group-name is shape-member('ClusterSecurityGroupName');
@@ -1292,8 +1295,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class DescribeClusterSubnetGroupsMessage does AWS::SDK::Shape {
-        has Array[Str] $.tag-values is shape-member('TagValues');
-        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str @.tag-values is shape-member('TagValues');
+        has Str @.tag-keys is shape-member('TagKeys');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
         has Str $.cluster-subnet-group-name is shape-member('ClusterSubnetGroupName');
@@ -1307,7 +1310,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class CreateClusterSecurityGroupMessage does AWS::SDK::Shape {
         has Str $.description is required is shape-member('Description');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.cluster-security-group-name is required is shape-member('ClusterSecurityGroupName');
     }
 
@@ -1365,8 +1368,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class DescribeClustersMessage does AWS::SDK::Shape {
         has Str $.cluster-identifier is shape-member('ClusterIdentifier');
-        has Array[Str] $.tag-values is shape-member('TagValues');
-        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str @.tag-values is shape-member('TagValues');
+        has Str @.tag-keys is shape-member('TagKeys');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
@@ -1375,7 +1378,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class ClusterParameterGroupsMessage does AWS::SDK::Shape {
-        has Array[ClusterParameterGroup] $.parameter-groups is shape-member('ParameterGroups');
+        has ClusterParameterGroup @.parameter-groups is shape-member('ParameterGroups');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -1383,14 +1386,14 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Str $.severity is shape-member('Severity');
         has DateTime $.subscription-creation-time is shape-member('SubscriptionCreationTime');
         has Str $.customer-aws-id is shape-member('CustomerAwsId');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Bool $.enabled is shape-member('Enabled');
-        has Array[Str] $.source-ids-list is shape-member('SourceIdsList');
+        has Str @.source-ids-list is shape-member('SourceIdsList');
         has Str $.sns-topic-arn is shape-member('SnsTopicArn');
         has Str $.source-type is shape-member('SourceType');
         has Str $.status is shape-member('Status');
         has Str $.cust-subscription-id is shape-member('CustSubscriptionId');
-        has Array[Str] $.event-categories-list is shape-member('EventCategoriesList');
+        has Str @.event-categories-list is shape-member('EventCategoriesList');
     }
 
     class TableRestoreNotFoundFault does AWS::SDK::Shape {
@@ -1442,8 +1445,6 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         has Cluster $.cluster is shape-member('Cluster');
     }
 
-    subset SourceType of Str where $_ ~~ any('cluster', 'cluster-parameter-group', 'cluster-security-group', 'cluster-snapshot');
-
     class DeleteClusterSnapshotMessage does AWS::SDK::Shape {
         has Str $.snapshot-identifier is required is shape-member('SnapshotIdentifier');
         has Str $.snapshot-cluster-identifier is shape-member('SnapshotClusterIdentifier');
@@ -1455,7 +1456,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     class EC2SecurityGroup does AWS::SDK::Shape {
         has Str $.ec2-security-group-name is shape-member('EC2SecurityGroupName');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.ec2-security-group-owner-id is shape-member('EC2SecurityGroupOwnerId');
         has Str $.status is shape-member('Status');
     }
@@ -1479,7 +1480,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     class ReservedNodeOffering does AWS::SDK::Shape {
         has Str $.offering-type is shape-member('OfferingType');
         has Int $.duration is shape-member('Duration');
-        has Array[RecurringCharge] $.recurring-charges is shape-member('RecurringCharges');
+        has RecurringCharge @.recurring-charges is shape-member('RecurringCharges');
         has Numeric $.usage-price is shape-member('UsagePrice');
         has Numeric $.fixed-price is shape-member('FixedPrice');
         has Str $.reserved-node-offering-id is shape-member('ReservedNodeOfferingId');
@@ -1520,8 +1521,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class DescribeHsmConfigurationsMessage does AWS::SDK::Shape {
-        has Array[Str] $.tag-values is shape-member('TagValues');
-        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str @.tag-values is shape-member('TagValues');
+        has Str @.tag-keys is shape-member('TagKeys');
         has Str $.marker is shape-member('Marker');
         has Str $.hsm-configuration-identifier is shape-member('HsmConfigurationIdentifier');
         has Int $.max-records is shape-member('MaxRecords');
@@ -1541,21 +1542,22 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     class OrderableClusterOption does AWS::SDK::Shape {
-        has Array[AvailabilityZone] $.availability-zones is shape-member('AvailabilityZones');
+        has AvailabilityZone @.availability-zones is shape-member('AvailabilityZones');
         has Str $.cluster-version is shape-member('ClusterVersion');
         has Str $.cluster-type is shape-member('ClusterType');
         has Str $.node-type is shape-member('NodeType');
     }
 
+
     method create-snapshot-copy-grant(
         Str :$kms-key-id,
         Str :$snapshot-copy-grant-name!,
-        Array[Tag] :$tags
+        Tag :@tags
     ) returns CreateSnapshotCopyGrantResult is service-operation('CreateSnapshotCopyGrant') {
         my $request-input = CreateSnapshotCopyGrantMessage.new(
             :$kms-key-id,
             :$snapshot-copy-grant-name,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -1663,7 +1665,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method modify-cluster(
         Str :$master-user-password,
-        Array[Str] :$vpc-security-group-ids,
+        Str :@vpc-security-group-ids,
         Str :$new-cluster-identifier,
         Str :$cluster-identifier!,
         Str :$cluster-version,
@@ -1678,12 +1680,12 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         Str :$hsm-client-certificate-identifier,
         Str :$preferred-maintenance-window,
         Str :$cluster-type,
-        Array[Str] :$cluster-security-groups,
+        Str :@cluster-security-groups,
         Str :$node-type
     ) returns ModifyClusterResult is service-operation('ModifyCluster') {
         my $request-input = ModifyClusterMessage.new(
             :$master-user-password,
-            :$vpc-security-group-ids,
+            :@vpc-security-group-ids,
             :$new-cluster-identifier,
             :$cluster-identifier,
             :$cluster-version,
@@ -1698,7 +1700,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
             :$hsm-client-certificate-identifier,
             :$preferred-maintenance-window,
             :$cluster-type,
-            :$cluster-security-groups,
+            :@cluster-security-groups,
             :$node-type
         );
 
@@ -1709,14 +1711,14 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     method modify-cluster-iam-roles(
-        Array[Str] :$remove-iam-roles,
+        Str :@remove-iam-roles,
         Str :$cluster-identifier!,
-        Array[Str] :$add-iam-roles
+        Str :@add-iam-roles
     ) returns ModifyClusterIamRolesResult is service-operation('ModifyClusterIamRoles') {
         my $request-input = ModifyClusterIamRolesMessage.new(
-            :$remove-iam-roles,
+            :@remove-iam-roles,
             :$cluster-identifier,
-            :$add-iam-roles
+            :@add-iam-roles
         );
 
         self.perform-operation(
@@ -1789,15 +1791,15 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method describe-snapshot-copy-grants(
         Str :$snapshot-copy-grant-name,
-        Array[Str] :$tag-values,
-        Array[Str] :$tag-keys,
+        Str :@tag-values,
+        Str :@tag-keys,
         Str :$marker,
         Int :$max-records
     ) returns SnapshotCopyGrantMessage is service-operation('DescribeSnapshotCopyGrants') {
         my $request-input = DescribeSnapshotCopyGrantsMessage.new(
             :$snapshot-copy-grant-name,
-            :$tag-values,
-            :$tag-keys,
+            :@tag-values,
+            :@tag-keys,
             :$marker,
             :$max-records
         );
@@ -1836,12 +1838,12 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method modify-cluster-subnet-group(
         Str :$description,
-        Array[Str] :$subnet-ids!,
+        Str :@subnet-ids!,
         Str :$cluster-subnet-group-name!
     ) returns ModifyClusterSubnetGroupResult is service-operation('ModifyClusterSubnetGroup') {
         my $request-input = ModifyClusterSubnetGroupMessage.new(
             :$description,
-            :$subnet-ids,
+            :@subnet-ids,
             :$cluster-subnet-group-name
         );
 
@@ -1853,15 +1855,15 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method describe-cluster-parameter-groups(
         Str :$parameter-group-name,
-        Array[Str] :$tag-values,
-        Array[Str] :$tag-keys,
+        Str :@tag-values,
+        Str :@tag-keys,
         Str :$marker,
         Int :$max-records
     ) returns ClusterParameterGroupsMessage is service-operation('DescribeClusterParameterGroups') {
         my $request-input = DescribeClusterParameterGroupsMessage.new(
             :$parameter-group-name,
-            :$tag-values,
-            :$tag-keys,
+            :@tag-values,
+            :@tag-keys,
             :$marker,
             :$max-records
         );
@@ -1893,14 +1895,14 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method create-cluster-subnet-group(
         Str :$description!,
-        Array[Tag] :$tags,
-        Array[Str] :$subnet-ids!,
+        Tag :@tags,
+        Str :@subnet-ids!,
         Str :$cluster-subnet-group-name!
     ) returns CreateClusterSubnetGroupResult is service-operation('CreateClusterSubnetGroup') {
         my $request-input = CreateClusterSubnetGroupMessage.new(
             :$description,
-            :$tags,
-            :$subnet-ids,
+            :@tags,
+            :@subnet-ids,
             :$cluster-subnet-group-name
         );
 
@@ -1913,22 +1915,22 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     method create-event-subscription(
         Str :$severity,
         Str :$subscription-name!,
-        Array[Str] :$source-ids,
-        Array[Tag] :$tags,
+        Str :@source-ids,
+        Tag :@tags,
         Bool :$enabled,
         Str :$sns-topic-arn!,
         Str :$source-type,
-        Array[Str] :$event-categories
+        Str :@event-categories
     ) returns CreateEventSubscriptionResult is service-operation('CreateEventSubscription') {
         my $request-input = CreateEventSubscriptionMessage.new(
             :$severity,
             :$subscription-name,
-            :$source-ids,
-            :$tags,
+            :@source-ids,
+            :@tags,
             :$enabled,
             :$sns-topic-arn,
             :$source-type,
-            :$event-categories
+            :@event-categories
         );
 
         self.perform-operation(
@@ -1939,11 +1941,11 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method create-tags(
         Str :$resource-name!,
-        Array[Tag] :$tags!
+        Tag :@tags!
     ) is service-operation('CreateTags') {
         my $request-input = CreateTagsMessage.new(
             :$resource-name,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -2002,15 +2004,15 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     method describe-hsm-configurations(
-        Array[Str] :$tag-values,
-        Array[Str] :$tag-keys,
+        Str :@tag-values,
+        Str :@tag-keys,
         Str :$marker,
         Str :$hsm-configuration-identifier,
         Int :$max-records
     ) returns HsmConfigurationMessage is service-operation('DescribeHsmConfigurations') {
         my $request-input = DescribeHsmConfigurationsMessage.new(
-            :$tag-values,
-            :$tag-keys,
+            :@tag-values,
+            :@tag-keys,
             :$marker,
             :$hsm-configuration-identifier,
             :$max-records
@@ -2037,11 +2039,11 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method modify-cluster-parameter-group(
         Str :$parameter-group-name!,
-        Array[Parameter] :$parameters!
+        Parameter :@parameters!
     ) returns ClusterParameterGroupNameMessage is service-operation('ModifyClusterParameterGroup') {
         my $request-input = ModifyClusterParameterGroupMessage.new(
             :$parameter-group-name,
-            :$parameters
+            :@parameters
         );
 
         self.perform-operation(
@@ -2066,15 +2068,15 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     method describe-cluster-subnet-groups(
-        Array[Str] :$tag-values,
-        Array[Str] :$tag-keys,
+        Str :@tag-values,
+        Str :@tag-keys,
         Str :$marker,
         Int :$max-records,
         Str :$cluster-subnet-group-name
     ) returns ClusterSubnetGroupMessage is service-operation('DescribeClusterSubnetGroups') {
         my $request-input = DescribeClusterSubnetGroupsMessage.new(
-            :$tag-values,
-            :$tag-keys,
+            :@tag-values,
+            :@tag-keys,
             :$marker,
             :$max-records,
             :$cluster-subnet-group-name
@@ -2117,20 +2119,20 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     method modify-event-subscription(
         Str :$severity,
         Str :$subscription-name!,
-        Array[Str] :$source-ids,
+        Str :@source-ids,
         Bool :$enabled,
         Str :$sns-topic-arn,
         Str :$source-type,
-        Array[Str] :$event-categories
+        Str :@event-categories
     ) returns ModifyEventSubscriptionResult is service-operation('ModifyEventSubscription') {
         my $request-input = ModifyEventSubscriptionMessage.new(
             :$severity,
             :$subscription-name,
-            :$source-ids,
+            :@source-ids,
             :$enabled,
             :$sns-topic-arn,
             :$source-type,
-            :$event-categories
+            :@event-categories
         );
 
         self.perform-operation(
@@ -2140,11 +2142,11 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     method create-hsm-client-certificate(
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$hsm-client-certificate-identifier!
     ) returns CreateHsmClientCertificateResult is service-operation('CreateHsmClientCertificate') {
         my $request-input = CreateHsmClientCertificateMessage.new(
-            :$tags,
+            :@tags,
             :$hsm-client-certificate-identifier
         );
 
@@ -2168,15 +2170,15 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     method describe-cluster-security-groups(
-        Array[Str] :$tag-values,
-        Array[Str] :$tag-keys,
+        Str :@tag-values,
+        Str :@tag-keys,
         Str :$marker,
         Int :$max-records,
         Str :$cluster-security-group-name
     ) returns ClusterSecurityGroupMessage is service-operation('DescribeClusterSecurityGroups') {
         my $request-input = DescribeClusterSecurityGroupsMessage.new(
-            :$tag-values,
-            :$tag-keys,
+            :@tag-values,
+            :@tag-keys,
             :$marker,
             :$max-records,
             :$cluster-security-group-name
@@ -2239,17 +2241,17 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method create-cluster(
         Str :$kms-key-id,
-        Array[Str] :$vpc-security-group-ids,
+        Str :@vpc-security-group-ids,
         Str :$master-user-password!,
         Str :$db-name,
-        Array[Str] :$iam-roles,
+        Str :@iam-roles,
         Str :$cluster-identifier!,
         Str :$additional-info,
         Int :$number-of-nodes,
         Str :$cluster-version,
         Int :$automated-snapshot-retention-period,
         Str :$master-username!,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Bool :$publicly-accessible,
         Bool :$allow-version-upgrade,
         Str :$cluster-parameter-group-name,
@@ -2263,22 +2265,22 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         Str :$cluster-type,
         Bool :$encrypted,
         Str :$cluster-subnet-group-name,
-        Array[Str] :$cluster-security-groups,
+        Str :@cluster-security-groups,
         Str :$node-type!
     ) returns CreateClusterResult is service-operation('CreateCluster') {
         my $request-input = CreateClusterMessage.new(
             :$kms-key-id,
-            :$vpc-security-group-ids,
+            :@vpc-security-group-ids,
             :$master-user-password,
             :$db-name,
-            :$iam-roles,
+            :@iam-roles,
             :$cluster-identifier,
             :$additional-info,
             :$number-of-nodes,
             :$cluster-version,
             :$automated-snapshot-retention-period,
             :$master-username,
-            :$tags,
+            :@tags,
             :$publicly-accessible,
             :$allow-version-upgrade,
             :$cluster-parameter-group-name,
@@ -2292,7 +2294,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
             :$cluster-type,
             :$encrypted,
             :$cluster-subnet-group-name,
-            :$cluster-security-groups,
+            :@cluster-security-groups,
             :$node-type
         );
 
@@ -2305,12 +2307,12 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     method create-cluster-snapshot(
         Str :$cluster-identifier!,
         Str :$snapshot-identifier!,
-        Array[Tag] :$tags
+        Tag :@tags
     ) returns CreateClusterSnapshotResult is service-operation('CreateClusterSnapshot') {
         my $request-input = CreateClusterSnapshotMessage.new(
             :$cluster-identifier,
             :$snapshot-identifier,
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -2359,8 +2361,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method restore-from-cluster-snapshot(
         Str :$kms-key-id,
-        Array[Str] :$vpc-security-group-ids,
-        Array[Str] :$iam-roles,
+        Str :@vpc-security-group-ids,
+        Str :@iam-roles,
         Str :$cluster-identifier!,
         Str :$additional-info,
         Int :$automated-snapshot-retention-period,
@@ -2378,13 +2380,13 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         Str :$hsm-client-certificate-identifier,
         Int :$port,
         Str :$node-type,
-        Array[Str] :$cluster-security-groups,
+        Str :@cluster-security-groups,
         Str :$cluster-subnet-group-name
     ) returns RestoreFromClusterSnapshotResult is service-operation('RestoreFromClusterSnapshot') {
         my $request-input = RestoreFromClusterSnapshotMessage.new(
             :$kms-key-id,
-            :$vpc-security-group-ids,
-            :$iam-roles,
+            :@vpc-security-group-ids,
+            :@iam-roles,
             :$cluster-identifier,
             :$additional-info,
             :$automated-snapshot-retention-period,
@@ -2402,7 +2404,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
             :$hsm-client-certificate-identifier,
             :$port,
             :$node-type,
-            :$cluster-security-groups,
+            :@cluster-security-groups,
             :$cluster-subnet-group-name
         );
 
@@ -2432,13 +2434,13 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     method create-cluster-parameter-group(
         Str :$parameter-group-name!,
         Str :$description!,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$parameter-group-family!
     ) returns CreateClusterParameterGroupResult is service-operation('CreateClusterParameterGroup') {
         my $request-input = CreateClusterParameterGroupMessage.new(
             :$parameter-group-name,
             :$description,
-            :$tags,
+            :@tags,
             :$parameter-group-family
         );
 
@@ -2450,12 +2452,12 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method create-cluster-security-group(
         Str :$description!,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$cluster-security-group-name!
     ) returns CreateClusterSecurityGroupResult is service-operation('CreateClusterSecurityGroup') {
         my $request-input = CreateClusterSecurityGroupMessage.new(
             :$description,
-            :$tags,
+            :@tags,
             :$cluster-security-group-name
         );
 
@@ -2480,12 +2482,12 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method reset-cluster-parameter-group(
         Str :$parameter-group-name!,
-        Array[Parameter] :$parameters,
+        Parameter :@parameters,
         Bool :$reset-all-parameters
     ) returns ClusterParameterGroupNameMessage is service-operation('ResetClusterParameterGroup') {
         my $request-input = ResetClusterParameterGroupMessage.new(
             :$parameter-group-name,
-            :$parameters,
+            :@parameters,
             :$reset-all-parameters
         );
 
@@ -2513,8 +2515,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         Str :$snapshot-type,
         Str :$cluster-identifier,
         Str :$snapshot-identifier,
-        Array[Str] :$tag-values,
-        Array[Str] :$tag-keys,
+        Str :@tag-values,
+        Str :@tag-keys,
         Str :$owner-account,
         DateTime :$start-time,
         Str :$marker,
@@ -2525,8 +2527,8 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
             :$snapshot-type,
             :$cluster-identifier,
             :$snapshot-identifier,
-            :$tag-values,
-            :$tag-keys,
+            :@tag-values,
+            :@tag-keys,
             :$owner-account,
             :$start-time,
             :$marker,
@@ -2540,15 +2542,15 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     }
 
     method describe-hsm-client-certificates(
-        Array[Str] :$tag-values,
-        Array[Str] :$tag-keys,
+        Str :@tag-values,
+        Str :@tag-keys,
         Str :$marker,
         Str :$hsm-client-certificate-identifier,
         Int :$max-records
     ) returns HsmClientCertificateMessage is service-operation('DescribeHsmClientCertificates') {
         my $request-input = DescribeHsmClientCertificatesMessage.new(
-            :$tag-values,
-            :$tag-keys,
+            :@tag-values,
+            :@tag-keys,
             :$marker,
             :$hsm-client-certificate-identifier,
             :$max-records
@@ -2582,7 +2584,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
     method create-hsm-configuration(
         Str :$hsm-server-public-certificate!,
         Str :$description!,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$hsm-partition-password!,
         Str :$hsm-partition-name!,
         Str :$hsm-configuration-identifier!,
@@ -2591,7 +2593,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         my $request-input = CreateHsmConfigurationMessage.new(
             :$hsm-server-public-certificate,
             :$description,
-            :$tags,
+            :@tags,
             :$hsm-partition-password,
             :$hsm-partition-name,
             :$hsm-configuration-identifier,
@@ -2619,11 +2621,11 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method delete-tags(
         Str :$resource-name!,
-        Array[Str] :$tag-keys!
+        Str :@tag-keys!
     ) is service-operation('DeleteTags') {
         my $request-input = DeleteTagsMessage.new(
             :$resource-name,
-            :$tag-keys
+            :@tag-keys
         );
 
         self.perform-operation(
@@ -2653,16 +2655,16 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method describe-tags(
         Str :$resource-name,
-        Array[Str] :$tag-values,
-        Array[Str] :$tag-keys,
+        Str :@tag-values,
+        Str :@tag-keys,
         Str :$resource-type,
         Str :$marker,
         Int :$max-records
     ) returns TaggedResourceListMessage is service-operation('DescribeTags') {
         my $request-input = DescribeTagsMessage.new(
             :$resource-name,
-            :$tag-values,
-            :$tag-keys,
+            :@tag-values,
+            :@tag-keys,
             :$resource-type,
             :$marker,
             :$max-records
@@ -2725,15 +2727,15 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method describe-clusters(
         Str :$cluster-identifier,
-        Array[Str] :$tag-values,
-        Array[Str] :$tag-keys,
+        Str :@tag-values,
+        Str :@tag-keys,
         Str :$marker,
         Int :$max-records
     ) returns ClustersMessage is service-operation('DescribeClusters') {
         my $request-input = DescribeClustersMessage.new(
             :$cluster-identifier,
-            :$tag-values,
-            :$tag-keys,
+            :@tag-values,
+            :@tag-keys,
             :$marker,
             :$max-records
         );
@@ -2763,7 +2765,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
         Int :$duration-seconds,
         Str :$cluster-identifier!,
         Str :$db-user!,
-        Array[Str] :$db-groups
+        Str :@db-groups
     ) returns ClusterCredentials is service-operation('GetClusterCredentials') {
         my $request-input = GetClusterCredentialsMessage.new(
             :$auto-create,
@@ -2771,7 +2773,7 @@ class AWS::SDK::Service::Redshift does AWS::SDK::Service {
             :$duration-seconds,
             :$cluster-identifier,
             :$db-user,
-            :$db-groups
+            :@db-groups
         );
 
         self.perform-operation(

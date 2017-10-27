@@ -131,6 +131,27 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     class OrderableReplicationInstance { ... }
     class ModifyReplicationSubnetGroupResponse { ... }
 
+    subset AuthMechanismValue of Str where $_ eq any('default', 'mongodb_cr', 'scram_sha_1');
+
+    subset ReplicationEndpointTypeValue of Str where $_ eq any('source', 'target');
+
+    subset NestingLevelValue of Str where $_ eq any('none', 'one');
+
+    subset RefreshSchemasStatusTypeValue of Str where $_ eq any('successful', 'failed', 'refreshing');
+
+    subset MigrationTypeValue of Str where $_ eq any('full-load', 'cdc', 'full-load-and-cdc');
+
+    subset DmsSslModeValue of Str where $_ eq any('none', 'require', 'verify-ca', 'verify-full');
+
+    subset StartReplicationTaskTypeValue of Str where $_ eq any('start-replication', 'resume-processing', 'reload-target');
+
+    subset AuthTypeValue of Str where $_ eq any('no', 'password');
+
+    subset CompressionTypeValue of Str where $_ eq any('none', 'gzip');
+
+    subset SourceType of Str where $_ eq any('replication-instance');
+
+
     class StartReplicationTaskMessage does AWS::SDK::Shape {
         has Str $.replication-task-arn is required is shape-member('ReplicationTaskArn');
         has DateTime $.cdc-start-time is shape-member('CdcStartTime');
@@ -147,12 +168,12 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class DescribeEventSubscriptionsResponse does AWS::SDK::Shape {
-        has Array[EventSubscription] $.event-subscriptions-list is shape-member('EventSubscriptionsList');
+        has EventSubscription @.event-subscriptions-list is shape-member('EventSubscriptionsList');
         has Str $.marker is shape-member('Marker');
     }
 
     class DescribeReplicationInstancesMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
@@ -184,7 +205,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         has Str $.replication-task-settings is shape-member('ReplicationTaskSettings');
         has Str $.source-endpoint-arn is required is shape-member('SourceEndpointArn');
         has Str $.replication-task-identifier is required is shape-member('ReplicationTaskIdentifier');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.table-mappings is required is shape-member('TableMappings');
         has DateTime $.cdc-start-time is shape-member('CdcStartTime');
         has MigrationTypeValue $.migration-type is required is shape-member('MigrationType');
@@ -192,13 +213,13 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
 
     class DescribeEventSubscriptionsMessage does AWS::SDK::Shape {
         has Str $.subscription-name is shape-member('SubscriptionName');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
     class DescribeConnectionsResponse does AWS::SDK::Shape {
-        has Array[Connection] $.connections is shape-member('Connections');
+        has Connection @.connections is shape-member('Connections');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -214,10 +235,8 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         has Certificate $.certificate is shape-member('Certificate');
     }
 
-    subset AuthMechanismValue of Str where $_ ~~ any('default', 'mongodb_cr', 'scram_sha_1');
-
     class DescribeReplicationSubnetGroupsResponse does AWS::SDK::Shape {
-        has Array[ReplicationSubnetGroup] $.replication-subnet-groups is shape-member('ReplicationSubnetGroups');
+        has ReplicationSubnetGroup @.replication-subnet-groups is shape-member('ReplicationSubnetGroups');
         has Str $.marker is shape-member('Marker');
     }
 
@@ -230,11 +249,11 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class DescribeAccountAttributesResponse does AWS::SDK::Shape {
-        has Array[AccountQuota] $.account-quotas is shape-member('AccountQuotas');
+        has AccountQuota @.account-quotas is shape-member('AccountQuotas');
     }
 
     class DescribeEndpointTypesMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
@@ -242,7 +261,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     class ImportCertificateMessage does AWS::SDK::Shape {
         has Str $.certificate-identifier is required is shape-member('CertificateIdentifier');
         has Blob $.certificate-wallet is shape-member('CertificateWallet');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.certificate-pem is shape-member('CertificatePem');
     }
 
@@ -253,13 +272,13 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class DescribeConnectionsMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
     class ModifyReplicationInstanceMessage does AWS::SDK::Shape {
-        has Array[Str] $.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
+        has Str @.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
         has Str $.replication-instance-arn is required is shape-member('ReplicationInstanceArn');
         has Str $.replication-instance-identifier is shape-member('ReplicationInstanceIdentifier');
         has Int $.allocated-storage is shape-member('AllocatedStorage');
@@ -311,13 +330,9 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         has DateTime $.date is shape-member('Date');
         has SourceType $.source-type is shape-member('SourceType');
         has Str $.source-identifier is shape-member('SourceIdentifier');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
         has Str $.message is shape-member('Message');
     }
-
-    subset ReplicationEndpointTypeValue of Str where $_ ~~ any('source', 'target');
-
-    subset NestingLevelValue of Str where $_ ~~ any('none', 'one');
 
     class DescribeAccountAttributesMessage does AWS::SDK::Shape {
     }
@@ -340,12 +355,12 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
 
     class CreateEventSubscriptionMessage does AWS::SDK::Shape {
         has Str $.subscription-name is required is shape-member('SubscriptionName');
-        has Array[Str] $.source-ids is shape-member('SourceIds');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Str @.source-ids is shape-member('SourceIds');
+        has Tag @.tags is shape-member('Tags');
         has Bool $.enabled is shape-member('Enabled');
         has Str $.sns-topic-arn is required is shape-member('SnsTopicArn');
         has Str $.source-type is shape-member('SourceType');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
     class InvalidResourceStateFault does AWS::SDK::Shape {
@@ -358,8 +373,6 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         has Bool $.multi-az is shape-member('MultiAZ');
         has Str $.replication-instance-class is shape-member('ReplicationInstanceClass');
     }
-
-    subset RefreshSchemasStatusTypeValue of Str where $_ ~~ any('successful', 'failed', 'refreshing');
 
     class DeleteEventSubscriptionResponse does AWS::SDK::Shape {
         has EventSubscription $.event-subscription is shape-member('EventSubscription');
@@ -378,8 +391,6 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         has Str $.certificate-pem is shape-member('CertificatePem');
     }
 
-    subset MigrationTypeValue of Str where $_ ~~ any('full-load', 'cdc', 'full-load-and-cdc');
-
     class TestConnectionMessage does AWS::SDK::Shape {
         has Str $.replication-instance-arn is required is shape-member('ReplicationInstanceArn');
         has Str $.endpoint-arn is required is shape-member('EndpointArn');
@@ -394,13 +405,13 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class DescribeEndpointsMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
     class DescribeEventCategoriesMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.source-type is shape-member('SourceType');
     }
 
@@ -434,7 +445,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class DescribeEventCategoriesResponse does AWS::SDK::Shape {
-        has Array[EventCategoryGroup] $.event-category-group-list is shape-member('EventCategoryGroupList');
+        has EventCategoryGroup @.event-category-group-list is shape-member('EventCategoryGroupList');
     }
 
     class DescribeSchemasMessage does AWS::SDK::Shape {
@@ -457,22 +468,20 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class DescribeCertificatesResponse does AWS::SDK::Shape {
-        has Array[Certificate] $.certificates is shape-member('Certificates');
+        has Certificate @.certificates is shape-member('Certificates');
         has Str $.marker is shape-member('Marker');
     }
 
     class DescribeReplicationSubnetGroupsMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
     class DescribeSchemasResponse does AWS::SDK::Shape {
-        has Array[Str] $.schemas is shape-member('Schemas');
+        has Str @.schemas is shape-member('Schemas');
         has Str $.marker is shape-member('Marker');
     }
-
-    subset DmsSslModeValue of Str where $_ ~~ any('none', 'require', 'verify-ca', 'verify-full');
 
     class DynamoDbSettings does AWS::SDK::Shape {
         has Str $.service-access-role-arn is required is shape-member('ServiceAccessRoleArn');
@@ -527,7 +536,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         has Str $.database-name is shape-member('DatabaseName');
         has Str $.certificate-arn is shape-member('CertificateArn');
         has DmsSslModeValue $.ssl-mode is shape-member('SslMode');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.endpoint-identifier is required is shape-member('EndpointIdentifier');
         has S3Settings $.s3-settings is shape-member('S3Settings');
         has Str $.extra-connection-attributes is shape-member('ExtraConnectionAttributes');
@@ -538,7 +547,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class AddTagsToResourceMessage does AWS::SDK::Shape {
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
         has Str $.resource-arn is required is shape-member('ResourceArn');
     }
 
@@ -549,7 +558,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     class ModifyReplicationSubnetGroupMessage does AWS::SDK::Shape {
         has Str $.replication-subnet-group-identifier is required is shape-member('ReplicationSubnetGroupIdentifier');
         has Str $.replication-subnet-group-description is shape-member('ReplicationSubnetGroupDescription');
-        has Array[Str] $.subnet-ids is required is shape-member('SubnetIds');
+        has Str @.subnet-ids is required is shape-member('SubnetIds');
     }
 
     class DescribeOrderableReplicationInstancesMessage does AWS::SDK::Shape {
@@ -600,11 +609,11 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
 
     class CreateReplicationInstanceMessage does AWS::SDK::Shape {
         has Str $.kms-key-id is shape-member('KmsKeyId');
-        has Array[Str] $.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
+        has Str @.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
         has Str $.replication-subnet-group-identifier is shape-member('ReplicationSubnetGroupIdentifier');
         has Str $.replication-instance-identifier is required is shape-member('ReplicationInstanceIdentifier');
         has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Int $.allocated-storage is shape-member('AllocatedStorage');
         has Str $.availability-zone is shape-member('AvailabilityZone');
         has Bool $.auto-minor-version-upgrade is shape-member('AutoMinorVersionUpgrade');
@@ -619,7 +628,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class DescribeTableStatisticsResponse does AWS::SDK::Shape {
-        has Array[TableStatistics] $.table-statistics is shape-member('TableStatistics');
+        has TableStatistics @.table-statistics is shape-member('TableStatistics');
         has Str $.replication-task-arn is shape-member('ReplicationTaskArn');
         has Str $.marker is shape-member('Marker');
     }
@@ -633,24 +642,24 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class DescribeEventsResponse does AWS::SDK::Shape {
-        has Array[Event] $.events is shape-member('Events');
+        has Event @.events is shape-member('Events');
         has Str $.marker is shape-member('Marker');
     }
 
     class DescribeReplicationTasksMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
     class DescribeReplicationTasksResponse does AWS::SDK::Shape {
-        has Array[ReplicationTask] $.replication-tasks is shape-member('ReplicationTasks');
+        has ReplicationTask @.replication-tasks is shape-member('ReplicationTasks');
         has Str $.marker is shape-member('Marker');
     }
 
     class EventCategoryGroup does AWS::SDK::Shape {
         has Str $.source-type is shape-member('SourceType');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
     class S3Settings does AWS::SDK::Shape {
@@ -676,7 +685,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class ListTagsForResourceResponse does AWS::SDK::Shape {
-        has Array[Tag] $.tag-list is shape-member('TagList');
+        has Tag @.tag-list is shape-member('TagList');
     }
 
     class ModifyEventSubscriptionMessage does AWS::SDK::Shape {
@@ -684,38 +693,34 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         has Bool $.enabled is shape-member('Enabled');
         has Str $.sns-topic-arn is shape-member('SnsTopicArn');
         has Str $.source-type is shape-member('SourceType');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
-    subset StartReplicationTaskTypeValue of Str where $_ ~~ any('start-replication', 'resume-processing', 'reload-target');
-
     class RemoveTagsFromResourceMessage does AWS::SDK::Shape {
-        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.tag-keys is required is shape-member('TagKeys');
         has Str $.resource-arn is required is shape-member('ResourceArn');
     }
 
     class ReloadTablesMessage does AWS::SDK::Shape {
         has Str $.replication-task-arn is required is shape-member('ReplicationTaskArn');
-        has Array[TableToReload] $.tables-to-reload is required is shape-member('TablesToReload');
+        has TableToReload @.tables-to-reload is required is shape-member('TablesToReload');
     }
-
-    subset AuthTypeValue of Str where $_ ~~ any('no', 'password');
 
     class DescribeEventsMessage does AWS::SDK::Shape {
         has Int $.duration is shape-member('Duration');
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has DateTime $.end-time is shape-member('EndTime');
         has DateTime $.start-time is shape-member('StartTime');
         has SourceType $.source-type is shape-member('SourceType');
         has Str $.source-identifier is shape-member('SourceIdentifier');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
-        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str @.event-categories is shape-member('EventCategories');
     }
 
     class DescribeOrderableReplicationInstancesResponse does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[OrderableReplicationInstance] $.orderable-replication-instances is shape-member('OrderableReplicationInstances');
+        has OrderableReplicationInstance @.orderable-replication-instances is shape-member('OrderableReplicationInstances');
     }
 
     class DescribeRefreshSchemasStatusMessage does AWS::SDK::Shape {
@@ -750,23 +755,23 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
 
     class DescribeReplicationInstancesResponse does AWS::SDK::Shape {
         has Str $.marker is shape-member('Marker');
-        has Array[ReplicationInstance] $.replication-instances is shape-member('ReplicationInstances');
+        has ReplicationInstance @.replication-instances is shape-member('ReplicationInstances');
     }
 
     class EventSubscription does AWS::SDK::Shape {
         has Str $.subscription-creation-time is shape-member('SubscriptionCreationTime');
         has Str $.customer-aws-id is shape-member('CustomerAwsId');
         has Bool $.enabled is shape-member('Enabled');
-        has Array[Str] $.source-ids-list is shape-member('SourceIdsList');
+        has Str @.source-ids-list is shape-member('SourceIdsList');
         has Str $.sns-topic-arn is shape-member('SnsTopicArn');
         has Str $.source-type is shape-member('SourceType');
         has Str $.status is shape-member('Status');
         has Str $.cust-subscription-id is shape-member('CustSubscriptionId');
-        has Array[Str] $.event-categories-list is shape-member('EventCategoriesList');
+        has Str @.event-categories-list is shape-member('EventCategoriesList');
     }
 
     class Filter does AWS::SDK::Shape {
-        has Array[Str] $.values is required is shape-member('Values');
+        has Str @.values is required is shape-member('Values');
         has Str $.name is required is shape-member('Name');
     }
 
@@ -805,8 +810,8 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         has Str $.replication-instance-private-ip-address is shape-member('ReplicationInstancePrivateIpAddress');
         has Str $.replication-instance-arn is shape-member('ReplicationInstanceArn');
         has Str $.kms-key-id is shape-member('KmsKeyId');
-        has Array[Str] $.replication-instance-public-ip-addresses is shape-member('ReplicationInstancePublicIpAddresses');
-        has Array[VpcSecurityGroupMembership] $.vpc-security-groups is shape-member('VpcSecurityGroups');
+        has Str @.replication-instance-public-ip-addresses is shape-member('ReplicationInstancePublicIpAddresses');
+        has VpcSecurityGroupMembership @.vpc-security-groups is shape-member('VpcSecurityGroups');
         has DateTime $.instance-create-time is shape-member('InstanceCreateTime');
         has Str $.replication-instance-identifier is shape-member('ReplicationInstanceIdentifier');
         has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
@@ -821,11 +826,9 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         has ReplicationPendingModifiedValues $.pending-modified-values is shape-member('PendingModifiedValues');
         has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
         has Str $.replication-instance-class is shape-member('ReplicationInstanceClass');
-        has Array[Str] $.replication-instance-private-ip-addresses is shape-member('ReplicationInstancePrivateIpAddresses');
+        has Str @.replication-instance-private-ip-addresses is shape-member('ReplicationInstancePrivateIpAddresses');
         has Str $.replication-instance-public-ip-address is shape-member('ReplicationInstancePublicIpAddress');
     }
-
-    subset CompressionTypeValue of Str where $_ ~~ any('none', 'gzip');
 
     class InvalidSubnet does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -836,27 +839,25 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     class DescribeEndpointTypesResponse does AWS::SDK::Shape {
-        has Array[SupportedEndpointType] $.supported-endpoint-types is shape-member('SupportedEndpointTypes');
+        has SupportedEndpointType @.supported-endpoint-types is shape-member('SupportedEndpointTypes');
         has Str $.marker is shape-member('Marker');
     }
 
     class DescribeEndpointsResponse does AWS::SDK::Shape {
-        has Array[Endpoint] $.endpoints is shape-member('Endpoints');
+        has Endpoint @.endpoints is shape-member('Endpoints');
         has Str $.marker is shape-member('Marker');
     }
-
-    subset SourceType of Str where $_ ~~ any('replication-instance');
 
     class ReplicationSubnetGroup does AWS::SDK::Shape {
         has Str $.vpc-id is shape-member('VpcId');
         has Str $.replication-subnet-group-identifier is shape-member('ReplicationSubnetGroupIdentifier');
-        has Array[Subnet] $.subnets is shape-member('Subnets');
+        has Subnet @.subnets is shape-member('Subnets');
         has Str $.replication-subnet-group-description is shape-member('ReplicationSubnetGroupDescription');
         has Str $.subnet-group-status is shape-member('SubnetGroupStatus');
     }
 
     class DescribeCertificatesMessage does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has Str $.marker is shape-member('Marker');
         has Int $.max-records is shape-member('MaxRecords');
     }
@@ -868,8 +869,8 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     class CreateReplicationSubnetGroupMessage does AWS::SDK::Shape {
         has Str $.replication-subnet-group-identifier is required is shape-member('ReplicationSubnetGroupIdentifier');
         has Str $.replication-subnet-group-description is required is shape-member('ReplicationSubnetGroupDescription');
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[Str] $.subnet-ids is required is shape-member('SubnetIds');
+        has Tag @.tags is shape-member('Tags');
+        has Str @.subnet-ids is required is shape-member('SubnetIds');
     }
 
     class SNSNoAuthorizationFault does AWS::SDK::Shape {
@@ -894,8 +895,9 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         has ReplicationSubnetGroup $.replication-subnet-group is shape-member('ReplicationSubnetGroup');
     }
 
+
     method modify-replication-instance(
-        Array[Str] :$vpc-security-group-ids,
+        Str :@vpc-security-group-ids,
         Str :$replication-instance-arn!,
         Str :$replication-instance-identifier,
         Int :$allocated-storage,
@@ -908,7 +910,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         Bool :$apply-immediately
     ) returns ModifyReplicationInstanceResponse is service-operation('ModifyReplicationInstance') {
         my $request-input = ModifyReplicationInstanceMessage.new(
-            :$vpc-security-group-ids,
+            :@vpc-security-group-ids,
             :$replication-instance-arn,
             :$replication-instance-identifier,
             :$allocated-storage,
@@ -933,7 +935,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         Str :$replication-task-settings,
         Str :$source-endpoint-arn!,
         Str :$replication-task-identifier!,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$table-mappings!,
         DateTime :$cdc-start-time,
         MigrationTypeValue :$migration-type!
@@ -944,7 +946,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
             :$replication-task-settings,
             :$source-endpoint-arn,
             :$replication-task-identifier,
-            :$tags,
+            :@tags,
             :$table-mappings,
             :$cdc-start-time,
             :$migration-type
@@ -958,11 +960,11 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
 
     method create-replication-instance(
         Str :$kms-key-id,
-        Array[Str] :$vpc-security-group-ids,
+        Str :@vpc-security-group-ids,
         Str :$replication-subnet-group-identifier,
         Str :$replication-instance-identifier!,
         Bool :$publicly-accessible,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Int :$allocated-storage,
         Str :$availability-zone,
         Bool :$auto-minor-version-upgrade,
@@ -973,11 +975,11 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     ) returns CreateReplicationInstanceResponse is service-operation('CreateReplicationInstance') {
         my $request-input = CreateReplicationInstanceMessage.new(
             :$kms-key-id,
-            :$vpc-security-group-ids,
+            :@vpc-security-group-ids,
             :$replication-subnet-group-identifier,
             :$replication-instance-identifier,
             :$publicly-accessible,
-            :$tags,
+            :@tags,
             :$allocated-storage,
             :$availability-zone,
             :$auto-minor-version-upgrade,
@@ -1013,14 +1015,14 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         Bool :$enabled,
         Str :$sns-topic-arn,
         Str :$source-type,
-        Array[Str] :$event-categories
+        Str :@event-categories
     ) returns ModifyEventSubscriptionResponse is service-operation('ModifyEventSubscription') {
         my $request-input = ModifyEventSubscriptionMessage.new(
             :$subscription-name,
             :$enabled,
             :$sns-topic-arn,
             :$source-type,
-            :$event-categories
+            :@event-categories
         );
 
         self.perform-operation(
@@ -1047,12 +1049,12 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method describe-replication-instances(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns DescribeReplicationInstancesResponse is service-operation('DescribeReplicationInstances') {
         my $request-input = DescribeReplicationInstancesMessage.new(
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -1100,7 +1102,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
         Str :$database-name,
         Str :$certificate-arn,
         DmsSslModeValue :$ssl-mode,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$endpoint-identifier!,
         S3Settings :$s3-settings,
         Str :$extra-connection-attributes,
@@ -1118,7 +1120,7 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
             :$database-name,
             :$certificate-arn,
             :$ssl-mode,
-            :$tags,
+            :@tags,
             :$endpoint-identifier,
             :$s3-settings,
             :$extra-connection-attributes,
@@ -1135,11 +1137,11 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method add-tags-to-resource(
-        Array[Tag] :$tags!,
+        Tag :@tags!,
         Str :$resource-arn!
     ) returns AddTagsToResourceResponse is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceMessage.new(
-            :$tags,
+            :@tags,
             :$resource-arn
         );
 
@@ -1150,11 +1152,11 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method remove-tags-from-resource(
-        Array[Str] :$tag-keys!,
+        Str :@tag-keys!,
         Str :$resource-arn!
     ) returns RemoveTagsFromResourceResponse is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceMessage.new(
-            :$tag-keys,
+            :@tag-keys,
             :$resource-arn
         );
 
@@ -1166,25 +1168,25 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
 
     method describe-events(
         Int :$duration,
-        Array[Filter] :$filters,
+        Filter :@filters,
         DateTime :$end-time,
         DateTime :$start-time,
         SourceType :$source-type,
         Str :$source-identifier,
         Str :$marker,
         Int :$max-records,
-        Array[Str] :$event-categories
+        Str :@event-categories
     ) returns DescribeEventsResponse is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsMessage.new(
             :$duration,
-            :$filters,
+            :@filters,
             :$end-time,
             :$start-time,
             :$source-type,
             :$source-identifier,
             :$marker,
             :$max-records,
-            :$event-categories
+            :@event-categories
         );
 
         self.perform-operation(
@@ -1195,13 +1197,13 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
 
     method describe-event-subscriptions(
         Str :$subscription-name,
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns DescribeEventSubscriptionsResponse is service-operation('DescribeEventSubscriptions') {
         my $request-input = DescribeEventSubscriptionsMessage.new(
             :$subscription-name,
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -1213,12 +1215,12 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method describe-endpoint-types(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns DescribeEndpointTypesResponse is service-operation('DescribeEndpointTypes') {
         my $request-input = DescribeEndpointTypesMessage.new(
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -1245,12 +1247,12 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method describe-replication-subnet-groups(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns DescribeReplicationSubnetGroupsResponse is service-operation('DescribeReplicationSubnetGroups') {
         my $request-input = DescribeReplicationSubnetGroupsMessage.new(
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -1288,12 +1290,12 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method describe-endpoints(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns DescribeEndpointsResponse is service-operation('DescribeEndpoints') {
         my $request-input = DescribeEndpointsMessage.new(
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -1305,12 +1307,12 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method describe-connections(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns DescribeConnectionsResponse is service-operation('DescribeConnections') {
         my $request-input = DescribeConnectionsMessage.new(
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -1322,12 +1324,12 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method describe-certificates(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns DescribeCertificatesResponse is service-operation('DescribeCertificates') {
         my $request-input = DescribeCertificatesMessage.new(
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -1366,11 +1368,11 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
 
     method reload-tables(
         Str :$replication-task-arn!,
-        Array[TableToReload] :$tables-to-reload!
+        TableToReload :@tables-to-reload!
     ) returns ReloadTablesResponse is service-operation('ReloadTables') {
         my $request-input = ReloadTablesMessage.new(
             :$replication-task-arn,
-            :$tables-to-reload
+            :@tables-to-reload
         );
 
         self.perform-operation(
@@ -1408,14 +1410,14 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     method create-replication-subnet-group(
         Str :$replication-subnet-group-identifier!,
         Str :$replication-subnet-group-description!,
-        Array[Tag] :$tags,
-        Array[Str] :$subnet-ids!
+        Tag :@tags,
+        Str :@subnet-ids!
     ) returns CreateReplicationSubnetGroupResponse is service-operation('CreateReplicationSubnetGroup') {
         my $request-input = CreateReplicationSubnetGroupMessage.new(
             :$replication-subnet-group-identifier,
             :$replication-subnet-group-description,
-            :$tags,
-            :$subnet-ids
+            :@tags,
+            :@subnet-ids
         );
 
         self.perform-operation(
@@ -1505,21 +1507,21 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
 
     method create-event-subscription(
         Str :$subscription-name!,
-        Array[Str] :$source-ids,
-        Array[Tag] :$tags,
+        Str :@source-ids,
+        Tag :@tags,
         Bool :$enabled,
         Str :$sns-topic-arn!,
         Str :$source-type,
-        Array[Str] :$event-categories
+        Str :@event-categories
     ) returns CreateEventSubscriptionResponse is service-operation('CreateEventSubscription') {
         my $request-input = CreateEventSubscriptionMessage.new(
             :$subscription-name,
-            :$source-ids,
-            :$tags,
+            :@source-ids,
+            :@tags,
             :$enabled,
             :$sns-topic-arn,
             :$source-type,
-            :$event-categories
+            :@event-categories
         );
 
         self.perform-operation(
@@ -1531,12 +1533,12 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     method modify-replication-subnet-group(
         Str :$replication-subnet-group-identifier!,
         Str :$replication-subnet-group-description,
-        Array[Str] :$subnet-ids!
+        Str :@subnet-ids!
     ) returns ModifyReplicationSubnetGroupResponse is service-operation('ModifyReplicationSubnetGroup') {
         my $request-input = ModifyReplicationSubnetGroupMessage.new(
             :$replication-subnet-group-identifier,
             :$replication-subnet-group-description,
-            :$subnet-ids
+            :@subnet-ids
         );
 
         self.perform-operation(
@@ -1589,13 +1591,13 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     method import-certificate(
         Str :$certificate-identifier!,
         Blob :$certificate-wallet,
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$certificate-pem
     ) returns ImportCertificateResponse is service-operation('ImportCertificate') {
         my $request-input = ImportCertificateMessage.new(
             :$certificate-identifier,
             :$certificate-wallet,
-            :$tags,
+            :@tags,
             :$certificate-pem
         );
 
@@ -1623,12 +1625,12 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method describe-replication-tasks(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$marker,
         Int :$max-records
     ) returns DescribeReplicationTasksResponse is service-operation('DescribeReplicationTasks') {
         my $request-input = DescribeReplicationTasksMessage.new(
-            :$filters,
+            :@filters,
             :$marker,
             :$max-records
         );
@@ -1640,11 +1642,11 @@ class AWS::SDK::Service::DMS does AWS::SDK::Service {
     }
 
     method describe-event-categories(
-        Array[Filter] :$filters,
+        Filter :@filters,
         Str :$source-type
     ) returns DescribeEventCategoriesResponse is service-operation('DescribeEventCategories') {
         my $request-input = DescribeEventCategoriesMessage.new(
-            :$filters,
+            :@filters,
             :$source-type
         );
 

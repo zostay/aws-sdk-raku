@@ -22,15 +22,26 @@ class AWS::SDK::Service::CUR does AWS::SDK::Service {
     class DeleteReportDefinitionResponse { ... }
     class DeleteReportDefinitionRequest { ... }
 
-    subset TimeUnit of Str where $_ ~~ any('HOURLY', 'DAILY');
+    subset TimeUnit of Str where $_ eq any('HOURLY', 'DAILY');
 
-    subset SchemaElement of Str where $_ ~~ any('RESOURCES');
+    subset SchemaElement of Str where $_ eq any('RESOURCES');
 
     subset MaxResults of Int where 5 <= * <= 5;
 
-    subset AdditionalArtifact of Str where $_ ~~ any('REDSHIFT', 'QUICKSIGHT');
+    subset AdditionalArtifact of Str where $_ eq any('REDSHIFT', 'QUICKSIGHT');
 
     subset S3Prefix of Str where .chars <= 256 && rx:P5/[0-9A-Za-z!\-_.*\'()\/]*/;
+
+    subset ReportName of Str where .chars <= 256 && rx:P5/[0-9A-Za-z!\-_.*\'()]+/;
+
+    subset ReportFormat of Str where $_ eq any('textORcsv');
+
+    subset CompressionFormat of Str where $_ eq any('ZIP', 'GZIP');
+
+    subset S3Bucket of Str where .chars <= 256;
+
+    subset AWSRegion of Str where $_ eq any('us-east-1', 'us-west-1', 'us-west-2', 'eu-central-1', 'eu-west-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1');
+
 
     class ReportLimitReachedException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -40,8 +51,6 @@ class AWS::SDK::Service::CUR does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset ReportName of Str where .chars <= 256 && rx:P5/[0-9A-Za-z!\-_.*\'()]+/;
-
     class PutReportDefinitionResponse does AWS::SDK::Shape {
     }
 
@@ -49,9 +58,9 @@ class AWS::SDK::Service::CUR does AWS::SDK::Service {
         has AWSRegion $.s3-region is required is shape-member('S3Region');
         has TimeUnit $.time-unit is required is shape-member('TimeUnit');
         has S3Prefix $.s3-prefix is required is shape-member('S3Prefix');
-        has Array[SchemaElement] $.additional-schema-elements is required is shape-member('AdditionalSchemaElements');
+        has SchemaElement @.additional-schema-elements is required is shape-member('AdditionalSchemaElements');
         has ReportName $.report-name is required is shape-member('ReportName');
-        has Array[AdditionalArtifact] $.additional-artifacts is shape-member('AdditionalArtifacts');
+        has AdditionalArtifact @.additional-artifacts is shape-member('AdditionalArtifacts');
         has ReportFormat $.format is required is shape-member('Format');
         has S3Bucket $.s3-bucket is required is shape-member('S3Bucket');
         has CompressionFormat $.compression is required is shape-member('Compression');
@@ -61,16 +70,10 @@ class AWS::SDK::Service::CUR does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset ReportFormat of Str where $_ ~~ any('textORcsv');
-
     class DescribeReportDefinitionsRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset CompressionFormat of Str where $_ ~~ any('ZIP', 'GZIP');
-
-    subset S3Bucket of Str where .chars <= 256;
 
     class PutReportDefinitionRequest does AWS::SDK::Shape {
         has ReportDefinition $.report-definition is required is shape-member('ReportDefinition');
@@ -81,7 +84,7 @@ class AWS::SDK::Service::CUR does AWS::SDK::Service {
     }
 
     class DescribeReportDefinitionsResponse does AWS::SDK::Shape {
-        has Array[ReportDefinition] $.report-definitions is shape-member('ReportDefinitions');
+        has ReportDefinition @.report-definitions is shape-member('ReportDefinitions');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -93,7 +96,6 @@ class AWS::SDK::Service::CUR does AWS::SDK::Service {
         has ReportName $.report-name is shape-member('ReportName');
     }
 
-    subset AWSRegion of Str where $_ ~~ any('us-east-1', 'us-west-1', 'us-west-2', 'eu-central-1', 'eu-west-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1');
 
     method describe-report-definitions(
         MaxResults :$max-results,

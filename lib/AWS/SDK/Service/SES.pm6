@@ -166,8 +166,43 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     class Message { ... }
     class MessageTag { ... }
 
+    subset InvocationType of Str where $_ eq any('Event', 'RequestResponse');
+
+    subset PolicyName of Str where 1 <= .chars <= 64;
+
+    subset IdentityType of Str where $_ eq any('EmailAddress', 'Domain');
+
+    subset TlsPolicy of Str where $_ eq any('Require', 'Optional');
+
+    subset BounceType of Str where $_ eq any('DoesNotExist', 'MessageTooLarge', 'ExceededQuota', 'ContentRejected', 'Undefined', 'TemporaryFailure');
+
+    subset ReceiptFilterPolicy of Str where $_ eq any('Block', 'Allow');
+
+    subset DimensionValueSource of Str where $_ eq any('messageTag', 'emailHeader', 'linkTag');
+
+    subset NotificationType of Str where $_ eq any('Bounce', 'Complaint', 'Delivery');
+
+    subset Policy of Str where 1 <= .chars;
+
+    subset CustomMailFromStatus of Str where $_ eq any('Pending', 'Success', 'Failed', 'TemporaryFailure');
+
+    subset VerificationStatus of Str where $_ eq any('Pending', 'Success', 'Failed', 'TemporaryFailure', 'NotStarted');
+
+    subset DsnAction of Str where $_ eq any('failed', 'delayed', 'delivered', 'relayed', 'expanded');
+
+    subset EventType of Str where $_ eq any('send', 'reject', 'bounce', 'complaint', 'delivery', 'open', 'click');
+
+    subset ConfigurationSetAttribute of Str where $_ eq any('eventDestinations', 'trackingOptions');
+
+    subset StopScope of Str where $_ eq any('RuleSet');
+
+    subset SNSActionEncoding of Str where $_ eq any('UTF-8', 'Base64');
+
+    subset BehaviorOnMXFailure of Str where $_ eq any('UseDefaultValue', 'RejectMessage');
+
+
     class GetIdentityPoliciesRequest does AWS::SDK::Shape {
-        has Array[PolicyName] $.policy-names is required is shape-member('PolicyNames');
+        has PolicyName @.policy-names is required is shape-member('PolicyNames');
         has Str $.identity is required is shape-member('Identity');
     }
 
@@ -178,20 +213,18 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Str $.object-key-prefix is shape-member('ObjectKeyPrefix');
     }
 
-    subset InvocationType of Str where $_ ~~ any('Event', 'RequestResponse');
-
     class SetActiveReceiptRuleSetRequest does AWS::SDK::Shape {
         has Str $.rule-set-name is shape-member('RuleSetName');
     }
 
     class ListIdentitiesResponse does AWS::SDK::Shape {
-        has Array[Str] $.identities is required is shape-member('Identities');
+        has Str @.identities is required is shape-member('Identities');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class DescribeReceiptRuleSetResponse does AWS::SDK::Shape {
         has ReceiptRuleSetMetadata $.metadata is shape-member('Metadata');
-        has Array[ReceiptRule] $.rules is shape-member('Rules');
+        has ReceiptRule @.rules is shape-member('Rules');
     }
 
     class SNSDestination does AWS::SDK::Shape {
@@ -212,7 +245,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class GetIdentityMailFromDomainAttributesResponse does AWS::SDK::Shape {
-        has Hash[IdentityMailFromDomainAttributes, Str] $.mail-from-domain-attributes is required is shape-member('MailFromDomainAttributes');
+        has IdentityMailFromDomainAttributes %.mail-from-domain-attributes{Str} is required is shape-member('MailFromDomainAttributes');
     }
 
     class CannotDeleteException does AWS::SDK::Shape {
@@ -223,7 +256,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class ListVerifiedEmailAddressesResponse does AWS::SDK::Shape {
-        has Array[Str] $.verified-email-addresses is shape-member('VerifiedEmailAddresses');
+        has Str @.verified-email-addresses is shape-member('VerifiedEmailAddresses');
     }
 
     class LambdaAction does AWS::SDK::Shape {
@@ -231,8 +264,6 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Str $.topic-arn is shape-member('TopicArn');
         has Str $.function-arn is required is shape-member('FunctionArn');
     }
-
-    subset PolicyName of Str where 1 <= .chars <= 64;
 
     class BounceAction does AWS::SDK::Shape {
         has Str $.smtp-reply-code is required is shape-member('SmtpReplyCode');
@@ -265,11 +296,11 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Str $.return-path-arn is shape-member('ReturnPathArn');
         has Str $.source is shape-member('Source');
         has Str $.configuration-set-name is shape-member('ConfigurationSetName');
-        has Array[MessageTag] $.tags is shape-member('Tags');
+        has MessageTag @.tags is shape-member('Tags');
         has RawMessage $.raw-message is required is shape-member('RawMessage');
         has Str $.from-arn is shape-member('FromArn');
         has Str $.source-arn is shape-member('SourceArn');
-        has Array[Str] $.destinations is shape-member('Destinations');
+        has Str @.destinations is shape-member('Destinations');
     }
 
     class CreateReceiptRuleRequest does AWS::SDK::Shape {
@@ -317,7 +348,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class ListReceiptRuleSetsResponse does AWS::SDK::Shape {
-        has Array[ReceiptRuleSetMetadata] $.rule-sets is shape-member('RuleSets');
+        has ReceiptRuleSetMetadata @.rule-sets is shape-member('RuleSets');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -341,14 +372,12 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Str $.configuration-set-name is required is shape-member('ConfigurationSetName');
     }
 
-    subset IdentityType of Str where $_ ~~ any('EmailAddress', 'Domain');
-
     class ListIdentityPoliciesRequest does AWS::SDK::Shape {
         has Str $.identity is required is shape-member('Identity');
     }
 
     class GetIdentityMailFromDomainAttributesRequest does AWS::SDK::Shape {
-        has Array[Str] $.identities is required is shape-member('Identities');
+        has Str @.identities is required is shape-member('Identities');
     }
 
     class VerifyEmailAddressRequest does AWS::SDK::Shape {
@@ -385,13 +414,11 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class VerifyDomainDkimResponse does AWS::SDK::Shape {
-        has Array[Str] $.dkim-tokens is required is shape-member('DkimTokens');
+        has Str @.dkim-tokens is required is shape-member('DkimTokens');
     }
 
     class SetIdentityFeedbackForwardingEnabledResponse does AWS::SDK::Shape {
     }
-
-    subset TlsPolicy of Str where $_ ~~ any('Require', 'Optional');
 
     class AddHeaderAction does AWS::SDK::Shape {
         has Str $.header-name is required is shape-member('HeaderName');
@@ -405,20 +432,18 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     class CloneReceiptRuleSetResponse does AWS::SDK::Shape {
     }
 
-    subset BounceType of Str where $_ ~~ any('DoesNotExist', 'MessageTooLarge', 'ExceededQuota', 'ContentRejected', 'Undefined', 'TemporaryFailure');
-
     class IdentityDkimAttributes does AWS::SDK::Shape {
-        has Array[Str] $.dkim-tokens is shape-member('DkimTokens');
+        has Str @.dkim-tokens is shape-member('DkimTokens');
         has VerificationStatus $.dkim-verification-status is required is shape-member('DkimVerificationStatus');
         has Bool $.dkim-enabled is required is shape-member('DkimEnabled');
     }
 
     class ListReceiptFiltersResponse does AWS::SDK::Shape {
-        has Array[ReceiptFilter] $.filters is shape-member('Filters');
+        has ReceiptFilter @.filters is shape-member('Filters');
     }
 
     class ListIdentityPoliciesResponse does AWS::SDK::Shape {
-        has Array[PolicyName] $.policy-names is required is shape-member('PolicyNames');
+        has PolicyName @.policy-names is required is shape-member('PolicyNames');
     }
 
     class DescribeReceiptRuleResponse does AWS::SDK::Shape {
@@ -439,7 +464,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
 
     class MessageDsn does AWS::SDK::Shape {
         has Str $.reporting-mta is required is shape-member('ReportingMta');
-        has Array[ExtensionField] $.extension-fields is shape-member('ExtensionFields');
+        has ExtensionField @.extension-fields is shape-member('ExtensionFields');
         has DateTime $.arrival-date is shape-member('ArrivalDate');
     }
 
@@ -464,11 +489,11 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class GetIdentityVerificationAttributesResponse does AWS::SDK::Shape {
-        has Hash[IdentityVerificationAttributes, Str] $.verification-attributes is required is shape-member('VerificationAttributes');
+        has IdentityVerificationAttributes %.verification-attributes{Str} is required is shape-member('VerificationAttributes');
     }
 
     class CloudWatchDestination does AWS::SDK::Shape {
-        has Array[CloudWatchDimensionConfiguration] $.dimension-configurations is required is shape-member('DimensionConfigurations');
+        has CloudWatchDimensionConfiguration @.dimension-configurations is required is shape-member('DimensionConfigurations');
     }
 
     class MessageRejected does AWS::SDK::Shape {
@@ -489,7 +514,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class GetIdentityDkimAttributesResponse does AWS::SDK::Shape {
-        has Hash[IdentityDkimAttributes, Str] $.dkim-attributes is required is shape-member('DkimAttributes');
+        has IdentityDkimAttributes %.dkim-attributes{Str} is required is shape-member('DkimAttributes');
     }
 
     class DeleteConfigurationSetEventDestinationResponse does AWS::SDK::Shape {
@@ -501,7 +526,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Bool $.enabled is shape-member('Enabled');
         has Str $.name is required is shape-member('Name');
         has KinesisFirehoseDestination $.kinesis-firehose-destination is shape-member('KinesisFirehoseDestination');
-        has Array[EventType] $.matching-event-types is required is shape-member('MatchingEventTypes');
+        has EventType @.matching-event-types is required is shape-member('MatchingEventTypes');
     }
 
     class StopAction does AWS::SDK::Shape {
@@ -530,23 +555,19 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Str $.configuration-set-name is required is shape-member('ConfigurationSetName');
     }
 
-    subset ReceiptFilterPolicy of Str where $_ ~~ any('Block', 'Allow');
-
     class GetIdentityVerificationAttributesRequest does AWS::SDK::Shape {
-        has Array[Str] $.identities is required is shape-member('Identities');
+        has Str @.identities is required is shape-member('Identities');
     }
 
     class CreateConfigurationSetRequest does AWS::SDK::Shape {
         has ConfigurationSet $.configuration-set is required is shape-member('ConfigurationSet');
     }
 
-    subset DimensionValueSource of Str where $_ ~~ any('messageTag', 'emailHeader', 'linkTag');
-
     class SetIdentityDkimEnabledResponse does AWS::SDK::Shape {
     }
 
     class GetIdentityNotificationAttributesRequest does AWS::SDK::Shape {
-        has Array[Str] $.identities is required is shape-member('Identities');
+        has Str @.identities is required is shape-member('Identities');
     }
 
     class SendBounceResponse does AWS::SDK::Shape {
@@ -573,8 +594,6 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     class InvalidTrackingOptionsException does AWS::SDK::Shape {
     }
 
-    subset NotificationType of Str where $_ ~~ any('Bounce', 'Complaint', 'Delivery');
-
     class RuleDoesNotExistException does AWS::SDK::Shape {
         has Str $.name is shape-member('Name');
     }
@@ -589,8 +608,6 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Str $.rule-set-name is required is shape-member('RuleSetName');
         has Str $.rule-name is required is shape-member('RuleName');
     }
-
-    subset Policy of Str where 1 <= .chars;
 
     class IdentityMailFromDomainAttributes does AWS::SDK::Shape {
         has CustomMailFromStatus $.mail-from-domain-status is required is shape-member('MailFromDomainStatus');
@@ -627,7 +644,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has DsnAction $.action is required is shape-member('Action');
         has Str $.diagnostic-code is shape-member('DiagnosticCode');
         has Str $.status is required is shape-member('Status');
-        has Array[ExtensionField] $.extension-fields is shape-member('ExtensionFields');
+        has ExtensionField @.extension-fields is shape-member('ExtensionFields');
         has Str $.final-recipient is shape-member('FinalRecipient');
     }
 
@@ -640,12 +657,6 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     class VerifyEmailIdentityRequest does AWS::SDK::Shape {
         has Str $.email-address is required is shape-member('EmailAddress');
     }
-
-    subset CustomMailFromStatus of Str where $_ ~~ any('Pending', 'Success', 'Failed', 'TemporaryFailure');
-
-    subset VerificationStatus of Str where $_ ~~ any('Pending', 'Success', 'Failed', 'TemporaryFailure', 'NotStarted');
-
-    subset DsnAction of Str where $_ ~~ any('failed', 'delayed', 'delivered', 'relayed', 'expanded');
 
     class InvalidSNSDestinationException does AWS::SDK::Shape {
         has Str $.configuration-set-name is shape-member('ConfigurationSetName');
@@ -664,13 +675,11 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     class SetIdentityHeadersInNotificationsEnabledResponse does AWS::SDK::Shape {
     }
 
-    subset EventType of Str where $_ ~~ any('send', 'reject', 'bounce', 'complaint', 'delivery', 'open', 'click');
-
     class SetIdentityNotificationTopicResponse does AWS::SDK::Shape {
     }
 
     class GetSendStatisticsResponse does AWS::SDK::Shape {
-        has Array[SendDataPoint] $.send-data-points is shape-member('SendDataPoints');
+        has SendDataPoint @.send-data-points is shape-member('SendDataPoints');
     }
 
     class CreateReceiptRuleSetResponse does AWS::SDK::Shape {
@@ -701,7 +710,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class GetIdentityNotificationAttributesResponse does AWS::SDK::Shape {
-        has Hash[IdentityNotificationAttributes, Str] $.notification-attributes is required is shape-member('NotificationAttributes');
+        has IdentityNotificationAttributes %.notification-attributes{Str} is required is shape-member('NotificationAttributes');
     }
 
     class VerifyDomainIdentityResponse does AWS::SDK::Shape {
@@ -714,14 +723,14 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class DescribeConfigurationSetResponse does AWS::SDK::Shape {
-        has Array[EventDestination] $.event-destinations is shape-member('EventDestinations');
+        has EventDestination @.event-destinations is shape-member('EventDestinations');
         has TrackingOptions $.tracking-options is shape-member('TrackingOptions');
         has ConfigurationSet $.configuration-set is shape-member('ConfigurationSet');
     }
 
     class DescribeActiveReceiptRuleSetResponse does AWS::SDK::Shape {
         has ReceiptRuleSetMetadata $.metadata is shape-member('Metadata');
-        has Array[ReceiptRule] $.rules is shape-member('Rules');
+        has ReceiptRule @.rules is shape-member('Rules');
     }
 
     class DeleteConfigurationSetRequest does AWS::SDK::Shape {
@@ -733,9 +742,9 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class Destination does AWS::SDK::Shape {
-        has Array[Str] $.bcc-addresses is shape-member('BccAddresses');
-        has Array[Str] $.to-addresses is shape-member('ToAddresses');
-        has Array[Str] $.cc-addresses is shape-member('CcAddresses');
+        has Str @.bcc-addresses is shape-member('BccAddresses');
+        has Str @.to-addresses is shape-member('ToAddresses');
+        has Str @.cc-addresses is shape-member('CcAddresses');
     }
 
     class ConfigurationSet does AWS::SDK::Shape {
@@ -743,7 +752,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class SendBounceRequest does AWS::SDK::Shape {
-        has Array[BouncedRecipientInfo] $.bounced-recipient-info-list is required is shape-member('BouncedRecipientInfoList');
+        has BouncedRecipientInfo @.bounced-recipient-info-list is required is shape-member('BouncedRecipientInfoList');
         has Str $.original-message-id is required is shape-member('OriginalMessageId');
         has Str $.bounce-sender-arn is shape-member('BounceSenderArn');
         has MessageDsn $.message-dsn is shape-member('MessageDsn');
@@ -763,16 +772,12 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Str $.original-rule-set-name is required is shape-member('OriginalRuleSetName');
     }
 
-    subset ConfigurationSetAttribute of Str where $_ ~~ any('eventDestinations', 'trackingOptions');
-
     class InvalidLambdaFunctionException does AWS::SDK::Shape {
         has Str $.function-arn is shape-member('FunctionArn');
     }
 
     class PutIdentityPolicyResponse does AWS::SDK::Shape {
     }
-
-    subset StopScope of Str where $_ ~~ any('RuleSet');
 
     class UpdateConfigurationSetTrackingOptionsRequest does AWS::SDK::Shape {
         has TrackingOptions $.tracking-options is required is shape-member('TrackingOptions');
@@ -791,30 +796,28 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Str $.source is required is shape-member('Source');
         has Str $.configuration-set-name is shape-member('ConfigurationSetName');
         has Str $.return-path is shape-member('ReturnPath');
-        has Array[Str] $.reply-to-addresses is shape-member('ReplyToAddresses');
+        has Str @.reply-to-addresses is shape-member('ReplyToAddresses');
         has Destination $.destination is required is shape-member('Destination');
-        has Array[MessageTag] $.tags is shape-member('Tags');
+        has MessageTag @.tags is shape-member('Tags');
         has Str $.source-arn is shape-member('SourceArn');
         has Message $.message is required is shape-member('Message');
     }
 
     class GetIdentityDkimAttributesRequest does AWS::SDK::Shape {
-        has Array[Str] $.identities is required is shape-member('Identities');
+        has Str @.identities is required is shape-member('Identities');
     }
-
-    subset SNSActionEncoding of Str where $_ ~~ any('UTF-8', 'Base64');
 
     class ListReceiptRuleSetsRequest does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
     }
 
     class GetIdentityPoliciesResponse does AWS::SDK::Shape {
-        has Hash[Policy, PolicyName] $.policies is required is shape-member('Policies');
+        has Policy %.policies{PolicyName} is required is shape-member('Policies');
     }
 
     class DescribeConfigurationSetRequest does AWS::SDK::Shape {
         has Str $.configuration-set-name is required is shape-member('ConfigurationSetName');
-        has Array[ConfigurationSetAttribute] $.configuration-set-attribute-names is shape-member('ConfigurationSetAttributeNames');
+        has ConfigurationSetAttribute @.configuration-set-attribute-names is shape-member('ConfigurationSetAttributeNames');
     }
 
     class ConfigurationSetAlreadyExistsException does AWS::SDK::Shape {
@@ -825,7 +828,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class ListConfigurationSetsResponse does AWS::SDK::Shape {
-        has Array[ConfigurationSet] $.configuration-sets is shape-member('ConfigurationSets');
+        has ConfigurationSet @.configuration-sets is shape-member('ConfigurationSets');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -861,7 +864,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     class ReorderReceiptRuleSetRequest does AWS::SDK::Shape {
-        has Array[Str] $.rule-names is required is shape-member('RuleNames');
+        has Str @.rule-names is required is shape-member('RuleNames');
         has Str $.rule-set-name is required is shape-member('RuleSetName');
     }
 
@@ -879,8 +882,8 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
 
     class ReceiptRule does AWS::SDK::Shape {
         has Bool $.scan-enabled is shape-member('ScanEnabled');
-        has Array[ReceiptAction] $.actions is shape-member('Actions');
-        has Array[Str] $.recipients is shape-member('Recipients');
+        has ReceiptAction @.actions is shape-member('Actions');
+        has Str @.recipients is shape-member('Recipients');
         has TlsPolicy $.tls-policy is shape-member('TlsPolicy');
         has Bool $.enabled is shape-member('Enabled');
         has Str $.name is required is shape-member('Name');
@@ -904,8 +907,6 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Str $.topic-arn is required is shape-member('TopicArn');
     }
 
-    subset BehaviorOnMXFailure of Str where $_ ~~ any('UseDefaultValue', 'RejectMessage');
-
     class Message does AWS::SDK::Shape {
         has Body $.body is required is shape-member('Body');
         has Content $.subject is required is shape-member('Subject');
@@ -915,6 +916,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         has Str $.name is required is shape-member('Name');
         has Str $.value is required is shape-member('Value');
     }
+
 
     method create-configuration-set-event-destination(
         EventDestination :$event-destination!,
@@ -958,10 +960,10 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     method get-identity-verification-attributes(
-        Array[Str] :$identities!
+        Str :@identities!
     ) returns GetIdentityVerificationAttributesResponse is service-operation('GetIdentityVerificationAttributes') {
         my $request-input = GetIdentityVerificationAttributesRequest.new(
-            :$identities
+            :@identities
         );
 
         self.perform-operation(
@@ -1010,10 +1012,10 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     method get-identity-mail-from-domain-attributes(
-        Array[Str] :$identities!
+        Str :@identities!
     ) returns GetIdentityMailFromDomainAttributesResponse is service-operation('GetIdentityMailFromDomainAttributes') {
         my $request-input = GetIdentityMailFromDomainAttributesRequest.new(
-            :$identities
+            :@identities
         );
 
         self.perform-operation(
@@ -1079,21 +1081,21 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         Str :$return-path-arn,
         Str :$source,
         Str :$configuration-set-name,
-        Array[MessageTag] :$tags,
+        MessageTag :@tags,
         RawMessage :$raw-message!,
         Str :$from-arn,
         Str :$source-arn,
-        Array[Str] :$destinations
+        Str :@destinations
     ) returns SendRawEmailResponse is service-operation('SendRawEmail') {
         my $request-input = SendRawEmailRequest.new(
             :$return-path-arn,
             :$source,
             :$configuration-set-name,
-            :$tags,
+            :@tags,
             :$raw-message,
             :$from-arn,
             :$source-arn,
-            :$destinations
+            :@destinations
         );
 
         self.perform-operation(
@@ -1160,11 +1162,11 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     method reorder-receipt-rule-set(
-        Array[Str] :$rule-names!,
+        Str :@rule-names!,
         Str :$rule-set-name!
     ) returns ReorderReceiptRuleSetResponse is service-operation('ReorderReceiptRuleSet') {
         my $request-input = ReorderReceiptRuleSetRequest.new(
-            :$rule-names,
+            :@rule-names,
             :$rule-set-name
         );
 
@@ -1382,10 +1384,10 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     method get-identity-dkim-attributes(
-        Array[Str] :$identities!
+        Str :@identities!
     ) returns GetIdentityDkimAttributesResponse is service-operation('GetIdentityDkimAttributes') {
         my $request-input = GetIdentityDkimAttributesRequest.new(
-            :$identities
+            :@identities
         );
 
         self.perform-operation(
@@ -1399,9 +1401,9 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         Str :$source!,
         Str :$configuration-set-name,
         Str :$return-path,
-        Array[Str] :$reply-to-addresses,
+        Str :@reply-to-addresses,
         Destination :$destination!,
-        Array[MessageTag] :$tags,
+        MessageTag :@tags,
         Str :$source-arn,
         Message :$message!
     ) returns SendEmailResponse is service-operation('SendEmail') {
@@ -1410,9 +1412,9 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
             :$source,
             :$configuration-set-name,
             :$return-path,
-            :$reply-to-addresses,
+            :@reply-to-addresses,
             :$destination,
-            :$tags,
+            :@tags,
             :$source-arn,
             :$message
         );
@@ -1482,11 +1484,11 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     method get-identity-policies(
-        Array[PolicyName] :$policy-names!,
+        PolicyName :@policy-names!,
         Str :$identity!
     ) returns GetIdentityPoliciesResponse is service-operation('GetIdentityPolicies') {
         my $request-input = GetIdentityPoliciesRequest.new(
-            :$policy-names,
+            :@policy-names,
             :$identity
         );
 
@@ -1562,10 +1564,10 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     method get-identity-notification-attributes(
-        Array[Str] :$identities!
+        Str :@identities!
     ) returns GetIdentityNotificationAttributesResponse is service-operation('GetIdentityNotificationAttributes') {
         my $request-input = GetIdentityNotificationAttributesRequest.new(
-            :$identities
+            :@identities
         );
 
         self.perform-operation(
@@ -1575,7 +1577,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
     }
 
     method send-bounce(
-        Array[BouncedRecipientInfo] :$bounced-recipient-info-list!,
+        BouncedRecipientInfo :@bounced-recipient-info-list!,
         Str :$original-message-id!,
         Str :$bounce-sender-arn,
         MessageDsn :$message-dsn,
@@ -1583,7 +1585,7 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
         Str :$explanation
     ) returns SendBounceResponse is service-operation('SendBounce') {
         my $request-input = SendBounceRequest.new(
-            :$bounced-recipient-info-list,
+            :@bounced-recipient-info-list,
             :$original-message-id,
             :$bounce-sender-arn,
             :$message-dsn,
@@ -1670,11 +1672,11 @@ class AWS::SDK::Service::SES does AWS::SDK::Service {
 
     method describe-configuration-set(
         Str :$configuration-set-name!,
-        Array[ConfigurationSetAttribute] :$configuration-set-attribute-names
+        ConfigurationSetAttribute :@configuration-set-attribute-names
     ) returns DescribeConfigurationSetResponse is service-operation('DescribeConfigurationSet') {
         my $request-input = DescribeConfigurationSetRequest.new(
             :$configuration-set-name,
-            :$configuration-set-attribute-names
+            :@configuration-set-attribute-names
         );
 
         self.perform-operation(

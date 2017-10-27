@@ -123,10 +123,63 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     class DescribeLifecycleHooksAnswer { ... }
     class SetDesiredCapacityType { ... }
 
+    subset BlockDeviceEbsIops of Int where 100 <= * <= 20000;
+
+    subset XmlStringMaxLen2047 of Str where 1 <= .chars <= 2047 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset MetricStatistic of Str where $_ eq any('Average', 'Minimum', 'Maximum', 'SampleCount', 'Sum');
+
+    subset XmlStringMaxLen64 of Str where 1 <= .chars <= 64 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset LifecycleActionToken of Str where 36 <= .chars <= 36;
+
+    subset XmlStringMaxLen255 of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset SpotPrice of Str where 1 <= .chars <= 255;
+
+    subset XmlStringMaxLen1023 of Str where 1 <= .chars <= 1023 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset XmlStringMaxLen511 of Str where 1 <= .chars <= 511 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset XmlStringMaxLen19 of Str where 1 <= .chars <= 19 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset BlockDeviceEbsVolumeType of Str where 1 <= .chars <= 255;
+
+    subset XmlStringMaxLen1600 of Str where 1 <= .chars <= 1600 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset LifecycleHookNames of Array[AsciiStringMaxLen255] where *.elems <= 50;
+
+    subset AsciiStringMaxLen255 of Str where 1 <= .chars <= 255 && rx:P5/[A-Za-z0-9\-_\\/]+/;
+
+    subset LifecycleState of Str where $_ eq any('Pending', 'Pending:Wait', 'Pending:Proceed', 'Quarantined', 'InService', 'Terminating', 'Terminating:Wait', 'Terminating:Proceed', 'Terminated', 'Detaching', 'Detached', 'EnteringStandby', 'Standby');
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset XmlStringMaxLen32 of Str where 1 <= .chars <= 32 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset AvailabilityZones of Array[XmlStringMaxLen255] where 1 <= *.elems;
+
+    subset BlockDeviceEbsVolumeSize of Int where 1 <= * <= 16384;
+
+    subset ResourceName of Str where 1 <= .chars <= 1600 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset XmlString of Str where rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset XmlStringUserData of Str where .chars <= 21847 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+    subset ScalingActivityStatusCode of Str where $_ eq any('PendingSpotBidPlacement', 'WaitingForSpotInstanceRequestId', 'WaitingForSpotInstanceId', 'WaitingForInstanceId', 'PreInService', 'InProgress', 'WaitingForELBConnectionDraining', 'MidLifecycleAction', 'WaitingForInstanceWarmup', 'Successful', 'Failed', 'Cancelled');
+
+    subset MetricType of Str where $_ eq any('ASGAverageCPUUtilization', 'ASGAverageNetworkIn', 'ASGAverageNetworkOut', 'ALBRequestCountPerTarget');
+
+    subset NotificationTargetResourceName of Str where 0 <= .chars <= 1600 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
+
+
     class DescribeScalingActivitiesType does AWS::SDK::Shape {
         has XmlString $.next-token is shape-member('NextToken');
         has ResourceName $.auto-scaling-group-name is shape-member('AutoScalingGroupName');
-        has Array[XmlString] $.activity-ids is shape-member('ActivityIds');
+        has XmlString @.activity-ids is shape-member('ActivityIds');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
@@ -138,17 +191,17 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     class EnableMetricsCollectionQuery does AWS::SDK::Shape {
         has XmlStringMaxLen255 $.granularity is required is shape-member('Granularity');
-        has Array[XmlStringMaxLen255] $.metrics is shape-member('Metrics');
+        has XmlStringMaxLen255 @.metrics is shape-member('Metrics');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
     }
 
     class LaunchConfigurationsType does AWS::SDK::Shape {
         has XmlString $.next-token is shape-member('NextToken');
-        has Array[LaunchConfiguration] $.launch-configurations is required is shape-member('LaunchConfigurations');
+        has LaunchConfiguration @.launch-configurations is required is shape-member('LaunchConfigurations');
     }
 
     class CreateOrUpdateTagsType does AWS::SDK::Shape {
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
     }
 
     class ProcessType does AWS::SDK::Shape {
@@ -177,7 +230,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     class DescribeScheduledActionsType does AWS::SDK::Shape {
         has DateTime $.end-time is shape-member('EndTime');
-        has Array[ResourceName] $.scheduled-action-names is shape-member('ScheduledActionNames');
+        has ResourceName @.scheduled-action-names is shape-member('ScheduledActionNames');
         has DateTime $.start-time is shape-member('StartTime');
         has XmlString $.next-token is shape-member('NextToken');
         has ResourceName $.auto-scaling-group-name is shape-member('AutoScalingGroupName');
@@ -251,11 +304,9 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
         has Str $.unit is shape-member('Unit');
         has MetricStatistic $.statistic is required is shape-member('Statistic');
         has Str $.metric-name is required is shape-member('MetricName');
-        has Array[MetricDimension] $.dimensions is shape-member('Dimensions');
+        has MetricDimension @.dimensions is shape-member('Dimensions');
         has Str $.namespace is required is shape-member('Namespace');
     }
-
-    subset BlockDeviceEbsIops of Int where 100 <= * <= 20000;
 
     class ResourceInUseFault does AWS::SDK::Shape {
         has XmlStringMaxLen255 $.message is shape-member('message');
@@ -268,8 +319,6 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     class SetInstanceProtectionAnswer does AWS::SDK::Shape {
     }
-
-    subset XmlStringMaxLen2047 of Str where 1 <= .chars <= 2047 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class Instance does AWS::SDK::Shape {
         has XmlStringMaxLen32 $.health-status is required is shape-member('HealthStatus');
@@ -292,8 +341,6 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
         has XmlStringMaxLen255 $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
         has XmlString $.details is shape-member('Details');
     }
-
-    subset MetricStatistic of Str where $_ ~~ any('Average', 'Minimum', 'Maximum', 'SampleCount', 'Sum');
 
     class Tag does AWS::SDK::Shape {
         has XmlString $.resource-id is shape-member('ResourceId');
@@ -320,23 +367,17 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
         has XmlStringMaxLen255 $.message is shape-member('message');
     }
 
-    subset XmlStringMaxLen64 of Str where 1 <= .chars <= 64 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
-    subset LifecycleActionToken of Str where 36 <= .chars <= 36;
-
     class PutNotificationConfigurationType does AWS::SDK::Shape {
         has ResourceName $.topic-arn is required is shape-member('TopicARN');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
-        has Array[XmlStringMaxLen255] $.notification-types is required is shape-member('NotificationTypes');
+        has XmlStringMaxLen255 @.notification-types is required is shape-member('NotificationTypes');
     }
-
-    subset XmlStringMaxLen255 of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class DetachLoadBalancerTargetGroupsResultType does AWS::SDK::Shape {
     }
 
     class DescribeAdjustmentTypesAnswer does AWS::SDK::Shape {
-        has Array[AdjustmentType] $.adjustment-types is shape-member('AdjustmentTypes');
+        has AdjustmentType @.adjustment-types is shape-member('AdjustmentTypes');
     }
 
     class MetricDimension does AWS::SDK::Shape {
@@ -360,17 +401,15 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     class SetInstanceProtectionQuery does AWS::SDK::Shape {
         has Bool $.protected-from-scale-in is required is shape-member('ProtectedFromScaleIn');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
-        has Array[XmlStringMaxLen19] $.instance-ids is required is shape-member('InstanceIds');
+        has XmlStringMaxLen19 @.instance-ids is required is shape-member('InstanceIds');
     }
 
-    subset SpotPrice of Str where 1 <= .chars <= 255;
-
     class CreateLaunchConfigurationType does AWS::SDK::Shape {
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has XmlStringMaxLen255 $.ramdisk-id is shape-member('RamdiskId');
         has XmlStringUserData $.user-data is shape-member('UserData');
-        has Array[XmlStringMaxLen255] $.classic-link-vpc-security-groups is shape-member('ClassicLinkVPCSecurityGroups');
-        has Array[XmlString] $.security-groups is shape-member('SecurityGroups');
+        has XmlStringMaxLen255 @.classic-link-vpc-security-groups is shape-member('ClassicLinkVPCSecurityGroups');
+        has XmlString @.security-groups is shape-member('SecurityGroups');
         has XmlStringMaxLen255 $.image-id is shape-member('ImageId');
         has Bool $.associate-public-ip-address is shape-member('AssociatePublicIpAddress');
         has InstanceMonitoring $.instance-monitoring is shape-member('InstanceMonitoring');
@@ -413,20 +452,16 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
         has XmlStringMaxLen255 $.metric is shape-member('Metric');
     }
 
-    subset XmlStringMaxLen1023 of Str where 1 <= .chars <= 1023 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class ExitStandbyQuery does AWS::SDK::Shape {
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
-        has Array[XmlStringMaxLen19] $.instance-ids is shape-member('InstanceIds');
+        has XmlStringMaxLen19 @.instance-ids is shape-member('InstanceIds');
     }
-
-    subset XmlStringMaxLen511 of Str where 1 <= .chars <= 511 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class UpdateAutoScalingGroupType does AWS::SDK::Shape {
         has Int $.health-check-grace-period is shape-member('HealthCheckGracePeriod');
         has Int $.default-cooldown is shape-member('DefaultCooldown');
         has Int $.max-size is shape-member('MaxSize');
-        has Array[XmlStringMaxLen1600] $.termination-policies is shape-member('TerminationPolicies');
+        has XmlStringMaxLen1600 @.termination-policies is shape-member('TerminationPolicies');
         has XmlStringMaxLen255 $.placement-group is shape-member('PlacementGroup');
         has Bool $.new-instances-protected-from-scale-in is shape-member('NewInstancesProtectedFromScaleIn');
         has XmlStringMaxLen32 $.health-check-type is shape-member('HealthCheckType');
@@ -439,7 +474,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class LaunchConfigurationNamesType does AWS::SDK::Shape {
-        has Array[ResourceName] $.launch-configuration-names is shape-member('LaunchConfigurationNames');
+        has ResourceName @.launch-configuration-names is shape-member('LaunchConfigurationNames');
         has XmlString $.next-token is shape-member('NextToken');
         has Int $.max-records is shape-member('MaxRecords');
     }
@@ -449,7 +484,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class Filter does AWS::SDK::Shape {
-        has Array[XmlString] $.values is shape-member('Values');
+        has XmlString @.values is shape-member('Values');
         has XmlString $.name is shape-member('Name');
     }
 
@@ -467,22 +502,20 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
         has XmlStringMaxLen32 $.lifecycle-state is required is shape-member('LifecycleState');
     }
 
-    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class DeletePolicyType does AWS::SDK::Shape {
         has ResourceName $.auto-scaling-group-name is shape-member('AutoScalingGroupName');
         has ResourceName $.policy-name is required is shape-member('PolicyName');
     }
 
     class DescribeNotificationConfigurationsType does AWS::SDK::Shape {
-        has Array[ResourceName] $.auto-scaling-group-names is shape-member('AutoScalingGroupNames');
+        has ResourceName @.auto-scaling-group-names is shape-member('AutoScalingGroupNames');
         has XmlString $.next-token is shape-member('NextToken');
         has Int $.max-records is shape-member('MaxRecords');
     }
 
     class ActivitiesType does AWS::SDK::Shape {
         has XmlString $.next-token is shape-member('NextToken');
-        has Array[Activity] $.activities is required is shape-member('Activities');
+        has Activity @.activities is required is shape-member('Activities');
     }
 
     class AlreadyExistsFault does AWS::SDK::Shape {
@@ -492,10 +525,8 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     class DeleteLifecycleHookAnswer does AWS::SDK::Shape {
     }
 
-    subset XmlStringMaxLen19 of Str where 1 <= .chars <= 19 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class DescribeAutoScalingNotificationTypesAnswer does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen255] $.auto-scaling-notification-types is shape-member('AutoScalingNotificationTypes');
+        has XmlStringMaxLen255 @.auto-scaling-notification-types is shape-member('AutoScalingNotificationTypes');
     }
 
     class DescribeAccountLimitsAnswer does AWS::SDK::Shape {
@@ -508,7 +539,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     class DetachInstancesQuery does AWS::SDK::Shape {
         has Bool $.should-decrement-desired-capacity is required is shape-member('ShouldDecrementDesiredCapacity');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
-        has Array[XmlStringMaxLen19] $.instance-ids is shape-member('InstanceIds');
+        has XmlStringMaxLen19 @.instance-ids is shape-member('InstanceIds');
     }
 
     class DescribeLifecycleHooksType does AWS::SDK::Shape {
@@ -519,38 +550,30 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     class DescribeAutoScalingInstancesType does AWS::SDK::Shape {
         has XmlString $.next-token is shape-member('NextToken');
         has Int $.max-records is shape-member('MaxRecords');
-        has Array[XmlStringMaxLen19] $.instance-ids is shape-member('InstanceIds');
+        has XmlStringMaxLen19 @.instance-ids is shape-member('InstanceIds');
     }
 
-    subset BlockDeviceEbsVolumeType of Str where 1 <= .chars <= 255;
-
     class DescribeLoadBalancersResponse does AWS::SDK::Shape {
-        has Array[LoadBalancerState] $.load-balancers is shape-member('LoadBalancers');
+        has LoadBalancerState @.load-balancers is shape-member('LoadBalancers');
         has XmlString $.next-token is shape-member('NextToken');
     }
 
     class AttachInstancesQuery does AWS::SDK::Shape {
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
-        has Array[XmlStringMaxLen19] $.instance-ids is shape-member('InstanceIds');
+        has XmlStringMaxLen19 @.instance-ids is shape-member('InstanceIds');
     }
 
     class ScalingProcessQuery does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen255] $.scaling-processes is shape-member('ScalingProcesses');
+        has XmlStringMaxLen255 @.scaling-processes is shape-member('ScalingProcesses');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
     }
-
-    subset XmlStringMaxLen1600 of Str where 1 <= .chars <= 1600 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
-    subset LifecycleHookNames of Array[AsciiStringMaxLen255] where *.elems <= 50;
 
     class InvalidNextToken does AWS::SDK::Shape {
         has XmlStringMaxLen255 $.message is shape-member('message');
     }
 
-    subset AsciiStringMaxLen255 of Str where 1 <= .chars <= 255 && rx:P5/[A-Za-z0-9\-_\\/]+/;
-
     class AttachLoadBalancerTargetGroupsType does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen511] $.target-group-arns is required is shape-member('TargetGroupARNs');
+        has XmlStringMaxLen511 @.target-group-arns is required is shape-member('TargetGroupARNs');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
     }
 
@@ -589,20 +612,20 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     class AutoScalingGroup does AWS::SDK::Shape {
         has Int $.health-check-grace-period is shape-member('HealthCheckGracePeriod');
-        has Array[XmlStringMaxLen511] $.target-group-arns is shape-member('TargetGroupARNs');
+        has XmlStringMaxLen511 @.target-group-arns is shape-member('TargetGroupARNs');
         has Int $.default-cooldown is required is shape-member('DefaultCooldown');
         has Int $.max-size is required is shape-member('MaxSize');
-        has Array[XmlStringMaxLen1600] $.termination-policies is shape-member('TerminationPolicies');
+        has XmlStringMaxLen1600 @.termination-policies is shape-member('TerminationPolicies');
         has XmlStringMaxLen255 $.placement-group is shape-member('PlacementGroup');
         has Bool $.new-instances-protected-from-scale-in is shape-member('NewInstancesProtectedFromScaleIn');
-        has Array[Instance] $.instances is shape-member('Instances');
+        has Instance @.instances is shape-member('Instances');
         has XmlStringMaxLen32 $.health-check-type is required is shape-member('HealthCheckType');
         has AvailabilityZones $.availability-zones is required is shape-member('AvailabilityZones');
         has XmlStringMaxLen255 $.launch-configuration-name is shape-member('LaunchConfigurationName');
-        has Array[TagDescription] $.tags is shape-member('Tags');
-        has Array[EnabledMetric] $.enabled-metrics is shape-member('EnabledMetrics');
-        has Array[SuspendedProcess] $.suspended-processes is shape-member('SuspendedProcesses');
-        has Array[XmlStringMaxLen255] $.load-balancer-names is shape-member('LoadBalancerNames');
+        has TagDescription @.tags is shape-member('Tags');
+        has EnabledMetric @.enabled-metrics is shape-member('EnabledMetrics');
+        has SuspendedProcess @.suspended-processes is shape-member('SuspendedProcesses');
+        has XmlStringMaxLen255 @.load-balancer-names is shape-member('LoadBalancerNames');
         has XmlStringMaxLen255 $.status is shape-member('Status');
         has XmlStringMaxLen2047 $.vpc-zone-identifier is shape-member('VPCZoneIdentifier');
         has Int $.min-size is required is shape-member('MinSize');
@@ -612,14 +635,10 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
         has Int $.desired-capacity is required is shape-member('DesiredCapacity');
     }
 
-    subset LifecycleState of Str where $_ ~~ any('Pending', 'Pending:Wait', 'Pending:Proceed', 'Quarantined', 'InService', 'Terminating', 'Terminating:Wait', 'Terminating:Proceed', 'Terminated', 'Detaching', 'Detached', 'EnteringStandby', 'Standby');
-
     class DescribeMetricCollectionTypesAnswer does AWS::SDK::Shape {
-        has Array[MetricGranularityType] $.granularities is shape-member('Granularities');
-        has Array[MetricCollectionType] $.metrics is shape-member('Metrics');
+        has MetricGranularityType @.granularities is shape-member('Granularities');
+        has MetricCollectionType @.metrics is shape-member('Metrics');
     }
-
-    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class SuspendedProcess does AWS::SDK::Shape {
         has XmlStringMaxLen255 $.suspension-reason is shape-member('SuspensionReason');
@@ -627,29 +646,21 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class DescribeTagsType does AWS::SDK::Shape {
-        has Array[Filter] $.filters is shape-member('Filters');
+        has Filter @.filters is shape-member('Filters');
         has XmlString $.next-token is shape-member('NextToken');
         has Int $.max-records is shape-member('MaxRecords');
     }
-
-    subset XmlStringMaxLen32 of Str where 1 <= .chars <= 32 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class AutoScalingGroupNamesType does AWS::SDK::Shape {
-        has Array[ResourceName] $.auto-scaling-group-names is shape-member('AutoScalingGroupNames');
+        has ResourceName @.auto-scaling-group-names is shape-member('AutoScalingGroupNames');
         has XmlString $.next-token is shape-member('NextToken');
         has Int $.max-records is shape-member('MaxRecords');
     }
-
-    subset AvailabilityZones of Array[XmlStringMaxLen255] where 1 <= *.elems;
-
-    subset BlockDeviceEbsVolumeSize of Int where 1 <= * <= 16384;
-
-    subset ResourceName of Str where 1 <= .chars <= 1600 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class ScalingPolicy does AWS::SDK::Shape {
         has Int $.scaling-adjustment is shape-member('ScalingAdjustment');
-        has Array[Alarm] $.alarms is shape-member('Alarms');
-        has Array[StepAdjustment] $.step-adjustments is shape-member('StepAdjustments');
+        has Alarm @.alarms is shape-member('Alarms');
+        has StepAdjustment @.step-adjustments is shape-member('StepAdjustments');
         has XmlStringMaxLen32 $.metric-aggregation-type is shape-member('MetricAggregationType');
         has Int $.min-adjustment-magnitude is shape-member('MinAdjustmentMagnitude');
         has Int $.estimated-instance-warmup is shape-member('EstimatedInstanceWarmup');
@@ -663,11 +674,9 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
         has Int $.min-adjustment-step is shape-member('MinAdjustmentStep');
     }
 
-    subset XmlString of Str where rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
-
     class DescribeNotificationConfigurationsAnswer does AWS::SDK::Shape {
         has XmlString $.next-token is shape-member('NextToken');
-        has Array[NotificationConfiguration] $.notification-configurations is required is shape-member('NotificationConfigurations');
+        has NotificationConfiguration @.notification-configurations is required is shape-member('NotificationConfigurations');
     }
 
     class ExecutePolicyType does AWS::SDK::Shape {
@@ -679,14 +688,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class EnterStandbyAnswer does AWS::SDK::Shape {
-        has Array[Activity] $.activities is shape-member('Activities');
+        has Activity @.activities is shape-member('Activities');
     }
 
     class ProcessesType does AWS::SDK::Shape {
-        has Array[ProcessType] $.processes is shape-member('Processes');
+        has ProcessType @.processes is shape-member('Processes');
     }
-
-    subset XmlStringUserData of Str where .chars <= 21847 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class TargetTrackingConfiguration does AWS::SDK::Shape {
         has Numeric $.target-value is required is shape-member('TargetValue');
@@ -698,15 +705,15 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     class EnterStandbyQuery does AWS::SDK::Shape {
         has Bool $.should-decrement-desired-capacity is required is shape-member('ShouldDecrementDesiredCapacity');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
-        has Array[XmlStringMaxLen19] $.instance-ids is shape-member('InstanceIds');
+        has XmlStringMaxLen19 @.instance-ids is shape-member('InstanceIds');
     }
 
     class DetachInstancesAnswer does AWS::SDK::Shape {
-        has Array[Activity] $.activities is shape-member('Activities');
+        has Activity @.activities is shape-member('Activities');
     }
 
     class AutoScalingGroupsType does AWS::SDK::Shape {
-        has Array[AutoScalingGroup] $.auto-scaling-groups is required is shape-member('AutoScalingGroups');
+        has AutoScalingGroup @.auto-scaling-groups is required is shape-member('AutoScalingGroups');
         has XmlString $.next-token is shape-member('NextToken');
     }
 
@@ -715,7 +722,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class PolicyARNType does AWS::SDK::Shape {
-        has Array[Alarm] $.alarms is shape-member('Alarms');
+        has Alarm @.alarms is shape-member('Alarms');
         has ResourceName $.policy-arn is shape-member('PolicyARN');
     }
 
@@ -725,20 +732,20 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class TagsType does AWS::SDK::Shape {
-        has Array[TagDescription] $.tags is shape-member('Tags');
+        has TagDescription @.tags is shape-member('Tags');
         has XmlString $.next-token is shape-member('NextToken');
     }
 
     class DescribeLifecycleHookTypesAnswer does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen255] $.lifecycle-hook-types is shape-member('LifecycleHookTypes');
+        has XmlStringMaxLen255 @.lifecycle-hook-types is shape-member('LifecycleHookTypes');
     }
 
     class DeleteTagsType does AWS::SDK::Shape {
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
     }
 
     class DescribeTerminationPolicyTypesAnswer does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen1600] $.termination-policy-types is shape-member('TerminationPolicyTypes');
+        has XmlStringMaxLen1600 @.termination-policy-types is shape-member('TerminationPolicyTypes');
     }
 
     class Alarm does AWS::SDK::Shape {
@@ -747,7 +754,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class DetachLoadBalancersType does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen255] $.load-balancer-names is required is shape-member('LoadBalancerNames');
+        has XmlStringMaxLen255 @.load-balancer-names is required is shape-member('LoadBalancerNames');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
     }
 
@@ -755,18 +762,16 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class ExitStandbyAnswer does AWS::SDK::Shape {
-        has Array[Activity] $.activities is shape-member('Activities');
+        has Activity @.activities is shape-member('Activities');
     }
 
-    subset ScalingActivityStatusCode of Str where $_ ~~ any('PendingSpotBidPlacement', 'WaitingForSpotInstanceRequestId', 'WaitingForSpotInstanceId', 'WaitingForInstanceId', 'PreInService', 'InProgress', 'WaitingForELBConnectionDraining', 'MidLifecycleAction', 'WaitingForInstanceWarmup', 'Successful', 'Failed', 'Cancelled');
-
     class AttachLoadBalancersType does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen255] $.load-balancer-names is required is shape-member('LoadBalancerNames');
+        has XmlStringMaxLen255 @.load-balancer-names is required is shape-member('LoadBalancerNames');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
     }
 
     class PoliciesType does AWS::SDK::Shape {
-        has Array[ScalingPolicy] $.scaling-policies is shape-member('ScalingPolicies');
+        has ScalingPolicy @.scaling-policies is shape-member('ScalingPolicies');
         has XmlString $.next-token is shape-member('NextToken');
     }
 
@@ -782,29 +787,27 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class AutoScalingInstancesType does AWS::SDK::Shape {
-        has Array[AutoScalingInstanceDetails] $.auto-scaling-instances is shape-member('AutoScalingInstances');
+        has AutoScalingInstanceDetails @.auto-scaling-instances is shape-member('AutoScalingInstances');
         has XmlString $.next-token is shape-member('NextToken');
     }
 
-    subset MetricType of Str where $_ ~~ any('ASGAverageCPUUtilization', 'ASGAverageNetworkIn', 'ASGAverageNetworkOut', 'ALBRequestCountPerTarget');
-
     class ScheduledActionsType does AWS::SDK::Shape {
-        has Array[ScheduledUpdateGroupAction] $.scheduled-update-group-actions is shape-member('ScheduledUpdateGroupActions');
+        has ScheduledUpdateGroupAction @.scheduled-update-group-actions is shape-member('ScheduledUpdateGroupActions');
         has XmlString $.next-token is shape-member('NextToken');
     }
 
     class DetachLoadBalancerTargetGroupsType does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen511] $.target-group-arns is required is shape-member('TargetGroupARNs');
+        has XmlStringMaxLen511 @.target-group-arns is required is shape-member('TargetGroupARNs');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
     }
 
     class DescribeLoadBalancerTargetGroupsResponse does AWS::SDK::Shape {
         has XmlString $.next-token is shape-member('NextToken');
-        has Array[LoadBalancerTargetGroupState] $.load-balancer-target-groups is shape-member('LoadBalancerTargetGroups');
+        has LoadBalancerTargetGroupState @.load-balancer-target-groups is shape-member('LoadBalancerTargetGroups');
     }
 
     class DisableMetricsCollectionQuery does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen255] $.metrics is shape-member('Metrics');
+        has XmlStringMaxLen255 @.metrics is shape-member('Metrics');
         has ResourceName $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
     }
 
@@ -813,7 +816,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     class PutScalingPolicyType does AWS::SDK::Shape {
         has Int $.scaling-adjustment is shape-member('ScalingAdjustment');
-        has Array[StepAdjustment] $.step-adjustments is shape-member('StepAdjustments');
+        has StepAdjustment @.step-adjustments is shape-member('StepAdjustments');
         has XmlStringMaxLen32 $.metric-aggregation-type is shape-member('MetricAggregationType');
         has Int $.min-adjustment-magnitude is shape-member('MinAdjustmentMagnitude');
         has Int $.estimated-instance-warmup is shape-member('EstimatedInstanceWarmup');
@@ -835,11 +838,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class LaunchConfiguration does AWS::SDK::Shape {
-        has Array[BlockDeviceMapping] $.block-device-mappings is shape-member('BlockDeviceMappings');
+        has BlockDeviceMapping @.block-device-mappings is shape-member('BlockDeviceMappings');
         has XmlStringMaxLen255 $.ramdisk-id is shape-member('RamdiskId');
         has XmlStringUserData $.user-data is shape-member('UserData');
-        has Array[XmlStringMaxLen255] $.classic-link-vpc-security-groups is shape-member('ClassicLinkVPCSecurityGroups');
-        has Array[XmlString] $.security-groups is shape-member('SecurityGroups');
+        has XmlStringMaxLen255 @.classic-link-vpc-security-groups is shape-member('ClassicLinkVPCSecurityGroups');
+        has XmlString @.security-groups is shape-member('SecurityGroups');
         has XmlStringMaxLen255 $.image-id is required is shape-member('ImageId');
         has ResourceName $.launch-configuration-arn is shape-member('LaunchConfigurationARN');
         has Bool $.associate-public-ip-address is shape-member('AssociatePublicIpAddress');
@@ -857,8 +860,8 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class DescribePoliciesType does AWS::SDK::Shape {
-        has Array[XmlStringMaxLen64] $.policy-types is shape-member('PolicyTypes');
-        has Array[ResourceName] $.policy-names is shape-member('PolicyNames');
+        has XmlStringMaxLen64 @.policy-types is shape-member('PolicyTypes');
+        has ResourceName @.policy-names is shape-member('PolicyNames');
         has XmlString $.next-token is shape-member('NextToken');
         has ResourceName $.auto-scaling-group-name is shape-member('AutoScalingGroupName');
         has Int $.max-records is shape-member('MaxRecords');
@@ -866,18 +869,18 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     class CreateAutoScalingGroupType does AWS::SDK::Shape {
         has Int $.health-check-grace-period is shape-member('HealthCheckGracePeriod');
-        has Array[XmlStringMaxLen511] $.target-group-arns is shape-member('TargetGroupARNs');
+        has XmlStringMaxLen511 @.target-group-arns is shape-member('TargetGroupARNs');
         has Int $.default-cooldown is shape-member('DefaultCooldown');
         has Int $.max-size is required is shape-member('MaxSize');
-        has Array[XmlStringMaxLen1600] $.termination-policies is shape-member('TerminationPolicies');
+        has XmlStringMaxLen1600 @.termination-policies is shape-member('TerminationPolicies');
         has XmlStringMaxLen255 $.placement-group is shape-member('PlacementGroup');
-        has Array[LifecycleHookSpecification] $.lifecycle-hook-specification-list is shape-member('LifecycleHookSpecificationList');
+        has LifecycleHookSpecification @.lifecycle-hook-specification-list is shape-member('LifecycleHookSpecificationList');
         has Bool $.new-instances-protected-from-scale-in is shape-member('NewInstancesProtectedFromScaleIn');
         has XmlStringMaxLen32 $.health-check-type is shape-member('HealthCheckType');
         has AvailabilityZones $.availability-zones is shape-member('AvailabilityZones');
         has ResourceName $.launch-configuration-name is shape-member('LaunchConfigurationName');
-        has Array[Tag] $.tags is shape-member('Tags');
-        has Array[XmlStringMaxLen255] $.load-balancer-names is shape-member('LoadBalancerNames');
+        has Tag @.tags is shape-member('Tags');
+        has XmlStringMaxLen255 @.load-balancer-names is shape-member('LoadBalancerNames');
         has XmlStringMaxLen2047 $.vpc-zone-identifier is shape-member('VPCZoneIdentifier');
         has Int $.min-size is required is shape-member('MinSize');
         has XmlStringMaxLen255 $.auto-scaling-group-name is required is shape-member('AutoScalingGroupName');
@@ -886,10 +889,8 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     class DescribeLifecycleHooksAnswer does AWS::SDK::Shape {
-        has Array[LifecycleHook] $.lifecycle-hooks is shape-member('LifecycleHooks');
+        has LifecycleHook @.lifecycle-hooks is shape-member('LifecycleHooks');
     }
-
-    subset NotificationTargetResourceName of Str where 0 <= .chars <= 1600 && rx:P5/[\u0020-\uD7FF\uE000-\uFFFD\uD800\uDC00-\uDBFF\uDFFF\r\n\t]*/;
 
     class SetDesiredCapacityType does AWS::SDK::Shape {
         has Bool $.honor-cooldown is shape-member('HonorCooldown');
@@ -897,13 +898,14 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
         has Int $.desired-capacity is required is shape-member('DesiredCapacity');
     }
 
+
     method attach-instances(
         ResourceName :$auto-scaling-group-name!,
-        Array[XmlStringMaxLen19] :$instance-ids
+        XmlStringMaxLen19 :@instance-ids
     ) is service-operation('AttachInstances') {
         my $request-input = AttachInstancesQuery.new(
             :$auto-scaling-group-name,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -913,11 +915,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method attach-load-balancers(
-        Array[XmlStringMaxLen255] :$load-balancer-names!,
+        XmlStringMaxLen255 :@load-balancer-names!,
         ResourceName :$auto-scaling-group-name!
     ) returns AttachLoadBalancersResultType is service-operation('AttachLoadBalancers') {
         my $request-input = AttachLoadBalancersType.new(
-            :$load-balancer-names,
+            :@load-balancer-names,
             :$auto-scaling-group-name
         );
 
@@ -928,10 +930,10 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method create-or-update-tags(
-        Array[Tag] :$tags!
+        Tag :@tags!
     ) is service-operation('CreateOrUpdateTags') {
         my $request-input = CreateOrUpdateTagsType.new(
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -941,12 +943,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method describe-auto-scaling-groups(
-        Array[ResourceName] :$auto-scaling-group-names,
+        ResourceName :@auto-scaling-group-names,
         XmlString :$next-token,
         Int :$max-records
     ) returns AutoScalingGroupsType is service-operation('DescribeAutoScalingGroups') {
         my $request-input = AutoScalingGroupNamesType.new(
-            :$auto-scaling-group-names,
+            :@auto-scaling-group-names,
             :$next-token,
             :$max-records
         );
@@ -997,12 +999,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method enter-standby(
         Bool :$should-decrement-desired-capacity!,
         ResourceName :$auto-scaling-group-name!,
-        Array[XmlStringMaxLen19] :$instance-ids
+        XmlStringMaxLen19 :@instance-ids
     ) returns EnterStandbyAnswer is service-operation('EnterStandby') {
         my $request-input = EnterStandbyQuery.new(
             :$should-decrement-desired-capacity,
             :$auto-scaling-group-name,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -1043,13 +1045,13 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method describe-scaling-activities(
         XmlString :$next-token,
         ResourceName :$auto-scaling-group-name,
-        Array[XmlString] :$activity-ids,
+        XmlString :@activity-ids,
         Int :$max-records
     ) returns ActivitiesType is service-operation('DescribeScalingActivities') {
         my $request-input = DescribeScalingActivitiesType.new(
             :$next-token,
             :$auto-scaling-group-name,
-            :$activity-ids,
+            :@activity-ids,
             :$max-records
         );
 
@@ -1061,11 +1063,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     method exit-standby(
         ResourceName :$auto-scaling-group-name!,
-        Array[XmlStringMaxLen19] :$instance-ids
+        XmlStringMaxLen19 :@instance-ids
     ) returns ExitStandbyAnswer is service-operation('ExitStandby') {
         my $request-input = ExitStandbyQuery.new(
             :$auto-scaling-group-name,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -1075,11 +1077,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method resume-processes(
-        Array[XmlStringMaxLen255] :$scaling-processes,
+        XmlStringMaxLen255 :@scaling-processes,
         ResourceName :$auto-scaling-group-name!
     ) is service-operation('ResumeProcesses') {
         my $request-input = ScalingProcessQuery.new(
-            :$scaling-processes,
+            :@scaling-processes,
             :$auto-scaling-group-name
         );
 
@@ -1090,11 +1092,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method attach-load-balancer-target-groups(
-        Array[XmlStringMaxLen511] :$target-group-arns!,
+        XmlStringMaxLen511 :@target-group-arns!,
         ResourceName :$auto-scaling-group-name!
     ) returns AttachLoadBalancerTargetGroupsResultType is service-operation('AttachLoadBalancerTargetGroups') {
         my $request-input = AttachLoadBalancerTargetGroupsType.new(
-            :$target-group-arns,
+            :@target-group-arns,
             :$auto-scaling-group-name
         );
 
@@ -1105,11 +1107,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method create-launch-configuration(
-        Array[BlockDeviceMapping] :$block-device-mappings,
+        BlockDeviceMapping :@block-device-mappings,
         XmlStringMaxLen255 :$ramdisk-id,
         XmlStringUserData :$user-data,
-        Array[XmlStringMaxLen255] :$classic-link-vpc-security-groups,
-        Array[XmlString] :$security-groups,
+        XmlStringMaxLen255 :@classic-link-vpc-security-groups,
+        XmlString :@security-groups,
         XmlStringMaxLen255 :$image-id,
         Bool :$associate-public-ip-address,
         InstanceMonitoring :$instance-monitoring,
@@ -1125,11 +1127,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
         XmlStringMaxLen255 :$key-name
     ) is service-operation('CreateLaunchConfiguration') {
         my $request-input = CreateLaunchConfigurationType.new(
-            :$block-device-mappings,
+            :@block-device-mappings,
             :$ramdisk-id,
             :$user-data,
-            :$classic-link-vpc-security-groups,
-            :$security-groups,
+            :@classic-link-vpc-security-groups,
+            :@security-groups,
             :$image-id,
             :$associate-public-ip-address,
             :$instance-monitoring,
@@ -1181,12 +1183,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method describe-auto-scaling-instances(
         XmlString :$next-token,
         Int :$max-records,
-        Array[XmlStringMaxLen19] :$instance-ids
+        XmlStringMaxLen19 :@instance-ids
     ) returns AutoScalingInstancesType is service-operation('DescribeAutoScalingInstances') {
         my $request-input = DescribeAutoScalingInstancesType.new(
             :$next-token,
             :$max-records,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -1216,11 +1218,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method detach-load-balancer-target-groups(
-        Array[XmlStringMaxLen511] :$target-group-arns!,
+        XmlStringMaxLen511 :@target-group-arns!,
         ResourceName :$auto-scaling-group-name!
     ) returns DetachLoadBalancerTargetGroupsResultType is service-operation('DetachLoadBalancerTargetGroups') {
         my $request-input = DetachLoadBalancerTargetGroupsType.new(
-            :$target-group-arns,
+            :@target-group-arns,
             :$auto-scaling-group-name
         );
 
@@ -1232,7 +1234,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     method put-scaling-policy(
         Int :$scaling-adjustment,
-        Array[StepAdjustment] :$step-adjustments,
+        StepAdjustment :@step-adjustments,
         XmlStringMaxLen32 :$metric-aggregation-type,
         Int :$min-adjustment-magnitude,
         Int :$estimated-instance-warmup,
@@ -1246,7 +1248,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     ) returns PolicyARNType is service-operation('PutScalingPolicy') {
         my $request-input = PutScalingPolicyType.new(
             :$scaling-adjustment,
-            :$step-adjustments,
+            :@step-adjustments,
             :$metric-aggregation-type,
             :$min-adjustment-magnitude,
             :$estimated-instance-warmup,
@@ -1295,12 +1297,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method describe-notification-configurations(
-        Array[ResourceName] :$auto-scaling-group-names,
+        ResourceName :@auto-scaling-group-names,
         XmlString :$next-token,
         Int :$max-records
     ) returns DescribeNotificationConfigurationsAnswer is service-operation('DescribeNotificationConfigurations') {
         my $request-input = DescribeNotificationConfigurationsType.new(
-            :$auto-scaling-group-names,
+            :@auto-scaling-group-names,
             :$next-token,
             :$max-records
         );
@@ -1312,11 +1314,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method disable-metrics-collection(
-        Array[XmlStringMaxLen255] :$metrics,
+        XmlStringMaxLen255 :@metrics,
         ResourceName :$auto-scaling-group-name!
     ) is service-operation('DisableMetricsCollection') {
         my $request-input = DisableMetricsCollectionQuery.new(
-            :$metrics,
+            :@metrics,
             :$auto-scaling-group-name
         );
 
@@ -1366,7 +1368,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
         Int :$health-check-grace-period,
         Int :$default-cooldown,
         Int :$max-size,
-        Array[XmlStringMaxLen1600] :$termination-policies,
+        XmlStringMaxLen1600 :@termination-policies,
         XmlStringMaxLen255 :$placement-group,
         Bool :$new-instances-protected-from-scale-in,
         XmlStringMaxLen32 :$health-check-type,
@@ -1381,7 +1383,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
             :$health-check-grace-period,
             :$default-cooldown,
             :$max-size,
-            :$termination-policies,
+            :@termination-policies,
             :$placement-group,
             :$new-instances-protected-from-scale-in,
             :$health-check-type,
@@ -1402,12 +1404,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method detach-instances(
         Bool :$should-decrement-desired-capacity!,
         ResourceName :$auto-scaling-group-name!,
-        Array[XmlStringMaxLen19] :$instance-ids
+        XmlStringMaxLen19 :@instance-ids
     ) returns DetachInstancesAnswer is service-operation('DetachInstances') {
         my $request-input = DetachInstancesQuery.new(
             :$should-decrement-desired-capacity,
             :$auto-scaling-group-name,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -1457,12 +1459,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method set-instance-protection(
         Bool :$protected-from-scale-in!,
         ResourceName :$auto-scaling-group-name!,
-        Array[XmlStringMaxLen19] :$instance-ids!
+        XmlStringMaxLen19 :@instance-ids!
     ) returns SetInstanceProtectionAnswer is service-operation('SetInstanceProtection') {
         my $request-input = SetInstanceProtectionQuery.new(
             :$protected-from-scale-in,
             :$auto-scaling-group-name,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(
@@ -1512,11 +1514,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method detach-load-balancers(
-        Array[XmlStringMaxLen255] :$load-balancer-names!,
+        XmlStringMaxLen255 :@load-balancer-names!,
         ResourceName :$auto-scaling-group-name!
     ) returns DetachLoadBalancersResultType is service-operation('DetachLoadBalancers') {
         my $request-input = DetachLoadBalancersType.new(
-            :$load-balancer-names,
+            :@load-balancer-names,
             :$auto-scaling-group-name
         );
 
@@ -1528,12 +1530,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     method enable-metrics-collection(
         XmlStringMaxLen255 :$granularity!,
-        Array[XmlStringMaxLen255] :$metrics,
+        XmlStringMaxLen255 :@metrics,
         ResourceName :$auto-scaling-group-name!
     ) is service-operation('EnableMetricsCollection') {
         my $request-input = EnableMetricsCollectionQuery.new(
             :$granularity,
-            :$metrics,
+            :@metrics,
             :$auto-scaling-group-name
         );
 
@@ -1545,18 +1547,18 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     method create-auto-scaling-group(
         Int :$health-check-grace-period,
-        Array[XmlStringMaxLen511] :$target-group-arns,
+        XmlStringMaxLen511 :@target-group-arns,
         Int :$default-cooldown,
         Int :$max-size!,
-        Array[XmlStringMaxLen1600] :$termination-policies,
+        XmlStringMaxLen1600 :@termination-policies,
         XmlStringMaxLen255 :$placement-group,
-        Array[LifecycleHookSpecification] :$lifecycle-hook-specification-list,
+        LifecycleHookSpecification :@lifecycle-hook-specification-list,
         Bool :$new-instances-protected-from-scale-in,
         XmlStringMaxLen32 :$health-check-type,
         AvailabilityZones :$availability-zones,
         ResourceName :$launch-configuration-name,
-        Array[Tag] :$tags,
-        Array[XmlStringMaxLen255] :$load-balancer-names,
+        Tag :@tags,
+        XmlStringMaxLen255 :@load-balancer-names,
         XmlStringMaxLen2047 :$vpc-zone-identifier,
         Int :$min-size!,
         XmlStringMaxLen255 :$auto-scaling-group-name!,
@@ -1565,18 +1567,18 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     ) is service-operation('CreateAutoScalingGroup') {
         my $request-input = CreateAutoScalingGroupType.new(
             :$health-check-grace-period,
-            :$target-group-arns,
+            :@target-group-arns,
             :$default-cooldown,
             :$max-size,
-            :$termination-policies,
+            :@termination-policies,
             :$placement-group,
-            :$lifecycle-hook-specification-list,
+            :@lifecycle-hook-specification-list,
             :$new-instances-protected-from-scale-in,
             :$health-check-type,
             :$availability-zones,
             :$launch-configuration-name,
-            :$tags,
-            :$load-balancer-names,
+            :@tags,
+            :@load-balancer-names,
             :$vpc-zone-identifier,
             :$min-size,
             :$auto-scaling-group-name,
@@ -1618,12 +1620,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     method put-notification-configuration(
         ResourceName :$topic-arn!,
         ResourceName :$auto-scaling-group-name!,
-        Array[XmlStringMaxLen255] :$notification-types!
+        XmlStringMaxLen255 :@notification-types!
     ) is service-operation('PutNotificationConfiguration') {
         my $request-input = PutNotificationConfigurationType.new(
             :$topic-arn,
             :$auto-scaling-group-name,
-            :$notification-types
+            :@notification-types
         );
 
         self.perform-operation(
@@ -1650,12 +1652,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method describe-launch-configurations(
-        Array[ResourceName] :$launch-configuration-names,
+        ResourceName :@launch-configuration-names,
         XmlString :$next-token,
         Int :$max-records
     ) returns LaunchConfigurationsType is service-operation('DescribeLaunchConfigurations') {
         my $request-input = LaunchConfigurationNamesType.new(
-            :$launch-configuration-names,
+            :@launch-configuration-names,
             :$next-token,
             :$max-records
         );
@@ -1685,7 +1687,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
 
     method describe-scheduled-actions(
         DateTime :$end-time,
-        Array[ResourceName] :$scheduled-action-names,
+        ResourceName :@scheduled-action-names,
         DateTime :$start-time,
         XmlString :$next-token,
         ResourceName :$auto-scaling-group-name,
@@ -1693,7 +1695,7 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     ) returns ScheduledActionsType is service-operation('DescribeScheduledActions') {
         my $request-input = DescribeScheduledActionsType.new(
             :$end-time,
-            :$scheduled-action-names,
+            :@scheduled-action-names,
             :$start-time,
             :$next-token,
             :$auto-scaling-group-name,
@@ -1720,10 +1722,10 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method delete-tags(
-        Array[Tag] :$tags!
+        Tag :@tags!
     ) is service-operation('DeleteTags') {
         my $request-input = DeleteTagsType.new(
-            :$tags
+            :@tags
         );
 
         self.perform-operation(
@@ -1748,12 +1750,12 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method describe-tags(
-        Array[Filter] :$filters,
+        Filter :@filters,
         XmlString :$next-token,
         Int :$max-records
     ) returns TagsType is service-operation('DescribeTags') {
         my $request-input = DescribeTagsType.new(
-            :$filters,
+            :@filters,
             :$next-token,
             :$max-records
         );
@@ -1795,11 +1797,11 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method suspend-processes(
-        Array[XmlStringMaxLen255] :$scaling-processes,
+        XmlStringMaxLen255 :@scaling-processes,
         ResourceName :$auto-scaling-group-name!
     ) is service-operation('SuspendProcesses') {
         my $request-input = ScalingProcessQuery.new(
-            :$scaling-processes,
+            :@scaling-processes,
             :$auto-scaling-group-name
         );
 
@@ -1810,15 +1812,15 @@ class AWS::SDK::Service::AutoScaling does AWS::SDK::Service {
     }
 
     method describe-policies(
-        Array[XmlStringMaxLen64] :$policy-types,
-        Array[ResourceName] :$policy-names,
+        XmlStringMaxLen64 :@policy-types,
+        ResourceName :@policy-names,
         XmlString :$next-token,
         ResourceName :$auto-scaling-group-name,
         Int :$max-records
     ) returns PoliciesType is service-operation('DescribePolicies') {
         my $request-input = DescribePoliciesType.new(
-            :$policy-types,
-            :$policy-names,
+            :@policy-types,
+            :@policy-names,
             :$next-token,
             :$auto-scaling-group-name,
             :$max-records

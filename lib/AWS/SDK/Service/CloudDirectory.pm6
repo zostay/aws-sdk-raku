@@ -246,6 +246,47 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     class CreateSchemaResponse { ... }
     class InvalidRuleException { ... }
 
+    subset AttributeName of Str where 1 <= .chars <= 64 && rx:P5/^[a-zA-Z0-9._-]*$/;
+
+    subset RangeMode of Str where $_ eq any('FIRST', 'LAST', 'LAST_BEFORE_MISSING_VALUES', 'INCLUSIVE', 'EXCLUSIVE');
+
+    subset BatchWriteExceptionType of Str where $_ eq any('InternalServiceException', 'ValidationException', 'InvalidArnException', 'LinkNameAlreadyInUseException', 'StillContainsLinksException', 'FacetValidationException', 'ObjectNotDetachedException', 'ResourceNotFoundException', 'AccessDeniedException', 'InvalidAttachmentException', 'NotIndexException', 'IndexedAttributeMissingException', 'ObjectAlreadyDetachedException', 'NotPolicyException', 'DirectoryNotEnabledException', 'LimitExceededException', 'UnsupportedIndexTypeException');
+
+    subset DirectoryName of Str where 1 <= .chars <= 64 && rx:P5/^[a-zA-Z0-9._-]*$/;
+
+    subset Version of Str where 1 <= .chars <= 10 && rx:P5/^[a-zA-Z0-9._-]*$/;
+
+    subset FacetAttributeType of Str where $_ eq any('STRING', 'BINARY', 'BOOLEAN', 'NUMBER', 'DATETIME');
+
+    subset RuleType of Str where $_ eq any('BINARY_LENGTH', 'NUMBER_COMPARISON', 'STRING_FROM_SET', 'STRING_LENGTH');
+
+    subset RuleKey of Str where 1 <= .chars <= 64 && rx:P5/^[a-zA-Z0-9._-]*$/;
+
+    subset UpdateActionType of Str where $_ eq any('CREATE_OR_UPDATE', 'DELETE');
+
+    subset ObjectType of Str where $_ eq any('NODE', 'LEAF_NODE', 'POLICY', 'INDEX');
+
+    subset TypedLinkName of Str where rx:P5/^[a-zA-Z0-9._-]*$/;
+
+    subset NumberResults of Int where 1 <= *;
+
+    subset BatchReadExceptionType of Str where $_ eq any('ValidationException', 'InvalidArnException', 'ResourceNotFoundException', 'InvalidNextTokenException', 'AccessDeniedException', 'NotNodeException', 'FacetValidationException', 'CannotListParentOfRootException', 'NotIndexException', 'NotPolicyException', 'DirectoryNotEnabledException', 'LimitExceededException', 'InternalServiceException');
+
+    subset FacetName of Str where 1 <= .chars <= 64 && rx:P5/^[a-zA-Z0-9._-]*$/;
+
+    subset TagsNumberResults of Int where 50 <= *;
+
+    subset DirectoryState of Str where $_ eq any('ENABLED', 'DISABLED', 'DELETED');
+
+    subset ConsistencyLevel of Str where $_ eq any('SERIALIZABLE', 'EVENTUAL');
+
+    subset RequiredAttributeBehavior of Str where $_ eq any('REQUIRED_ALWAYS', 'NOT_REQUIRED');
+
+    subset SchemaName of Str where 1 <= .chars <= 32 && rx:P5/^[a-zA-Z0-9._-]*$/;
+
+    subset LinkName of Str where 1 <= .chars <= 64 && rx:P5/[^\\/\[\]\(\):\{\}#@!?\s\\;]+/;
+
+
     class PublishSchemaRequest does AWS::SDK::Shape {
         has Str $.development-schema-arn is required is shape-member('DevelopmentSchemaArn');
         has SchemaName $.name is shape-member('Name');
@@ -256,22 +297,18 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has Str $.selector is shape-member('Selector');
     }
 
-    subset AttributeName of Str where 1 <= .chars <= 64 && rx:P5/^[a-zA-Z0-9._-]*$/;
-
     class BatchAddFacetToObject does AWS::SDK::Shape {
         has ObjectReference $.object-reference is required is shape-member('ObjectReference');
-        has Array[AttributeKeyAndValue] $.object-attribute-list is required is shape-member('ObjectAttributeList');
+        has AttributeKeyAndValue @.object-attribute-list is required is shape-member('ObjectAttributeList');
         has SchemaFacet $.schema-facet is required is shape-member('SchemaFacet');
     }
 
     class TagResourceResponse does AWS::SDK::Shape {
     }
 
-    subset RangeMode of Str where $_ ~~ any('FIRST', 'LAST', 'LAST_BEFORE_MISSING_VALUES', 'INCLUSIVE', 'EXCLUSIVE');
-
     class ListOutgoingTypedLinksRequest does AWS::SDK::Shape {
         has NumberResults $.max-results is shape-member('MaxResults');
-        has Array[TypedLinkAttributeRange] $.filter-attribute-ranges is shape-member('FilterAttributeRanges');
+        has TypedLinkAttributeRange @.filter-attribute-ranges is shape-member('FilterAttributeRanges');
         has ObjectReference $.object-reference is required is shape-member('ObjectReference');
         has Str $.next-token is shape-member('NextToken');
         has Str $.directory-arn is required is shape-member('DirectoryArn');
@@ -283,7 +320,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class BatchWriteResponse does AWS::SDK::Shape {
-        has Array[BatchWriteOperationResponse] $.responses is shape-member('Responses');
+        has BatchWriteOperationResponse @.responses is shape-member('Responses');
     }
 
     class BatchAttachTypedLinkResponse does AWS::SDK::Shape {
@@ -299,7 +336,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class BatchListOutgoingTypedLinks does AWS::SDK::Shape {
         has NumberResults $.max-results is shape-member('MaxResults');
-        has Array[TypedLinkAttributeRange] $.filter-attribute-ranges is shape-member('FilterAttributeRanges');
+        has TypedLinkAttributeRange @.filter-attribute-ranges is shape-member('FilterAttributeRanges');
         has ObjectReference $.object-reference is required is shape-member('ObjectReference');
         has Str $.next-token is shape-member('NextToken');
         has TypedLinkSchemaAndFacetName $.filter-typed-link is shape-member('FilterTypedLink');
@@ -316,7 +353,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class FacetAttributeDefinition does AWS::SDK::Shape {
         has Bool $.is-immutable is shape-member('IsImmutable');
-        has Hash[Rule, RuleKey] $.rules is shape-member('Rules');
+        has Rule %.rules{RuleKey} is shape-member('Rules');
         has FacetAttributeType $.type is required is shape-member('Type');
         has TypedAttributeValue $.default-value is shape-member('DefaultValue');
     }
@@ -327,7 +364,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class BatchUpdateObjectAttributes does AWS::SDK::Shape {
         has ObjectReference $.object-reference is required is shape-member('ObjectReference');
-        has Array[ObjectAttributeUpdate] $.attribute-updates is required is shape-member('AttributeUpdates');
+        has ObjectAttributeUpdate @.attribute-updates is required is shape-member('AttributeUpdates');
     }
 
     class DetachFromIndexRequest does AWS::SDK::Shape {
@@ -349,24 +386,24 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class BatchReadResponse does AWS::SDK::Shape {
-        has Array[BatchReadOperationResponse] $.responses is shape-member('Responses');
+        has BatchReadOperationResponse @.responses is shape-member('Responses');
     }
 
     class UpdateTypedLinkFacetRequest does AWS::SDK::Shape {
         has Str $.schema-arn is required is shape-member('SchemaArn');
         has TypedLinkName $.name is required is shape-member('Name');
-        has Array[AttributeName] $.identity-attribute-order is required is shape-member('IdentityAttributeOrder');
-        has Array[TypedLinkFacetAttributeUpdate] $.attribute-updates is required is shape-member('AttributeUpdates');
+        has AttributeName @.identity-attribute-order is required is shape-member('IdentityAttributeOrder');
+        has TypedLinkFacetAttributeUpdate @.attribute-updates is required is shape-member('AttributeUpdates');
     }
 
     class BatchGetObjectInformationResponse does AWS::SDK::Shape {
-        has Array[SchemaFacet] $.schema-facets is shape-member('SchemaFacets');
+        has SchemaFacet @.schema-facets is shape-member('SchemaFacets');
         has Str $.object-identifier is shape-member('ObjectIdentifier');
     }
 
     class BatchListAttachedIndicesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[IndexAttachment] $.index-attachments is shape-member('IndexAttachments');
+        has IndexAttachment @.index-attachments is shape-member('IndexAttachments');
     }
 
     class DirectoryAlreadyExistsException does AWS::SDK::Shape {
@@ -378,7 +415,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class BatchWriteRequest does AWS::SDK::Shape {
-        has Array[BatchWriteOperation] $.operations is required is shape-member('Operations');
+        has BatchWriteOperation @.operations is required is shape-member('Operations');
         has Str $.directory-arn is required is shape-member('DirectoryArn');
     }
 
@@ -409,10 +446,8 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class PolicyToPath does AWS::SDK::Shape {
         has Str $.path is shape-member('Path');
-        has Array[PolicyAttachment] $.policies is shape-member('Policies');
+        has PolicyAttachment @.policies is shape-member('Policies');
     }
-
-    subset BatchWriteExceptionType of Str where $_ ~~ any('InternalServiceException', 'ValidationException', 'InvalidArnException', 'LinkNameAlreadyInUseException', 'StillContainsLinksException', 'FacetValidationException', 'ObjectNotDetachedException', 'ResourceNotFoundException', 'AccessDeniedException', 'InvalidAttachmentException', 'NotIndexException', 'IndexedAttributeMissingException', 'ObjectAlreadyDetachedException', 'NotPolicyException', 'DirectoryNotEnabledException', 'LimitExceededException', 'UnsupportedIndexTypeException');
 
     class BatchAttachPolicy does AWS::SDK::Shape {
         has ObjectReference $.object-reference is required is shape-member('ObjectReference');
@@ -432,13 +467,11 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class PathToObjectIdentifiers does AWS::SDK::Shape {
         has Str $.path is shape-member('Path');
-        has Array[Str] $.object-identifiers is shape-member('ObjectIdentifiers');
+        has Str @.object-identifiers is shape-member('ObjectIdentifiers');
     }
 
     class BatchAttachPolicyResponse does AWS::SDK::Shape {
     }
-
-    subset DirectoryName of Str where 1 <= .chars <= 64 && rx:P5/^[a-zA-Z0-9._-]*$/;
 
     class PutSchemaFromJsonResponse does AWS::SDK::Shape {
         has Str $.arn is shape-member('Arn');
@@ -453,8 +486,6 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has FacetName $.name is required is shape-member('Name');
     }
 
-    subset Version of Str where 1 <= .chars <= 10 && rx:P5/^[a-zA-Z0-9._-]*$/;
-
     class UntagResourceResponse does AWS::SDK::Shape {
     }
 
@@ -464,13 +495,13 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class UpdateObjectAttributesRequest does AWS::SDK::Shape {
         has ObjectReference $.object-reference is required is shape-member('ObjectReference');
-        has Array[ObjectAttributeUpdate] $.attribute-updates is required is shape-member('AttributeUpdates');
+        has ObjectAttributeUpdate @.attribute-updates is required is shape-member('AttributeUpdates');
         has Str $.directory-arn is required is shape-member('DirectoryArn');
     }
 
     class BatchListObjectAttributesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[AttributeKeyAndValue] $.attributes is shape-member('Attributes');
+        has AttributeKeyAndValue @.attributes is shape-member('Attributes');
     }
 
     class DetachPolicyResponse does AWS::SDK::Shape {
@@ -488,16 +519,14 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has FacetName $.target-facet-name is required is shape-member('TargetFacetName');
     }
 
-    subset FacetAttributeType of Str where $_ ~~ any('STRING', 'BINARY', 'BOOLEAN', 'NUMBER', 'DATETIME');
-
     class GetObjectInformationResponse does AWS::SDK::Shape {
-        has Array[SchemaFacet] $.schema-facets is shape-member('SchemaFacets');
+        has SchemaFacet @.schema-facets is shape-member('SchemaFacets');
         has Str $.object-identifier is shape-member('ObjectIdentifier');
     }
 
     class ListDevelopmentSchemaArnsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.schema-arns is shape-member('SchemaArns');
+        has Str @.schema-arns is shape-member('SchemaArns');
     }
 
     class AttachPolicyRequest does AWS::SDK::Shape {
@@ -526,7 +555,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class BatchAttachTypedLink does AWS::SDK::Shape {
         has TypedLinkSchemaAndFacetName $.typed-link-facet is required is shape-member('TypedLinkFacet');
-        has Array[AttributeNameAndValue] $.attributes is required is shape-member('Attributes');
+        has AttributeNameAndValue @.attributes is required is shape-member('Attributes');
         has ObjectReference $.source-object-reference is required is shape-member('SourceObjectReference');
         has ObjectReference $.target-object-reference is required is shape-member('TargetObjectReference');
     }
@@ -539,8 +568,6 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has Str $.schema-arn is required is shape-member('SchemaArn');
     }
 
-    subset RuleType of Str where $_ ~~ any('BINARY_LENGTH', 'NUMBER_COMPARISON', 'STRING_FROM_SET', 'STRING_LENGTH');
-
     class ListPublishedSchemaArnsRequest does AWS::SDK::Shape {
         has NumberResults $.max-results is shape-member('MaxResults');
         has Str $.next-token is shape-member('NextToken');
@@ -552,14 +579,14 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class TypedLinkFacet does AWS::SDK::Shape {
         has TypedLinkName $.name is required is shape-member('Name');
-        has Array[AttributeName] $.identity-attribute-order is required is shape-member('IdentityAttributeOrder');
-        has Array[TypedLinkAttributeDefinition] $.attributes is required is shape-member('Attributes');
+        has AttributeName @.identity-attribute-order is required is shape-member('IdentityAttributeOrder');
+        has TypedLinkAttributeDefinition @.attributes is required is shape-member('Attributes');
     }
 
     class CreateIndexRequest does AWS::SDK::Shape {
         has Bool $.is-unique is required is shape-member('IsUnique');
         has ObjectReference $.parent-reference is shape-member('ParentReference');
-        has Array[AttributeKey] $.ordered-indexed-attribute-list is required is shape-member('OrderedIndexedAttributeList');
+        has AttributeKey @.ordered-indexed-attribute-list is required is shape-member('OrderedIndexedAttributeList');
         has Str $.directory-arn is required is shape-member('DirectoryArn');
         has LinkName $.link-name is shape-member('LinkName');
     }
@@ -603,7 +630,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class BatchListIncomingTypedLinksResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[TypedLinkSpecifier] $.link-specifiers is shape-member('LinkSpecifiers');
+        has TypedLinkSpecifier @.link-specifiers is shape-member('LinkSpecifiers');
     }
 
     class EnableDirectoryResponse does AWS::SDK::Shape {
@@ -616,7 +643,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class GetTypedLinkFacetInformationResponse does AWS::SDK::Shape {
-        has Array[AttributeName] $.identity-attribute-order is shape-member('IdentityAttributeOrder');
+        has AttributeName @.identity-attribute-order is shape-member('IdentityAttributeOrder');
     }
 
     class ListFacetNamesRequest does AWS::SDK::Shape {
@@ -625,16 +652,14 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset RuleKey of Str where 1 <= .chars <= 64 && rx:P5/^[a-zA-Z0-9._-]*$/;
-
     class ListPublishedSchemaArnsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.schema-arns is shape-member('SchemaArns');
+        has Str @.schema-arns is shape-member('SchemaArns');
     }
 
     class BatchListIndexResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[IndexAttachment] $.index-attachments is shape-member('IndexAttachments');
+        has IndexAttachment @.index-attachments is shape-member('IndexAttachments');
     }
 
     class BatchAttachToIndexResponse does AWS::SDK::Shape {
@@ -665,7 +690,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class ListOutgoingTypedLinksResponse does AWS::SDK::Shape {
-        has Array[TypedLinkSpecifier] $.typed-link-specifiers is shape-member('TypedLinkSpecifiers');
+        has TypedLinkSpecifier @.typed-link-specifiers is shape-member('TypedLinkSpecifiers');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -705,7 +730,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class AddFacetToObjectRequest does AWS::SDK::Shape {
         has ObjectReference $.object-reference is required is shape-member('ObjectReference');
-        has Array[AttributeKeyAndValue] $.object-attribute-list is shape-member('ObjectAttributeList');
+        has AttributeKeyAndValue @.object-attribute-list is shape-member('ObjectAttributeList');
         has SchemaFacet $.schema-facet is required is shape-member('SchemaFacet');
         has Str $.directory-arn is required is shape-member('DirectoryArn');
     }
@@ -717,7 +742,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     class ListIndexRequest does AWS::SDK::Shape {
         has NumberResults $.max-results is shape-member('MaxResults');
         has ObjectReference $.index-reference is required is shape-member('IndexReference');
-        has Array[ObjectAttributeRange] $.ranges-on-indexed-values is shape-member('RangesOnIndexedValues');
+        has ObjectAttributeRange @.ranges-on-indexed-values is shape-member('RangesOnIndexedValues');
         has Str $.next-token is shape-member('NextToken');
         has Str $.directory-arn is required is shape-member('DirectoryArn');
         has ConsistencyLevel $.consistency-level is shape-member('ConsistencyLevel');
@@ -736,7 +761,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     class TypedLinkAttributeDefinition does AWS::SDK::Shape {
         has Bool $.is-immutable is shape-member('IsImmutable');
         has AttributeName $.name is required is shape-member('Name');
-        has Hash[Rule, RuleKey] $.rules is shape-member('Rules');
+        has Rule %.rules{RuleKey} is shape-member('Rules');
         has FacetAttributeType $.type is required is shape-member('Type');
         has RequiredAttributeBehavior $.required-behavior is required is shape-member('RequiredBehavior');
         has TypedAttributeValue $.default-value is shape-member('DefaultValue');
@@ -746,15 +771,13 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has Str $.schema-arn is required is shape-member('SchemaArn');
         has ObjectType $.object-type is required is shape-member('ObjectType');
         has FacetName $.name is required is shape-member('Name');
-        has Array[FacetAttribute] $.attributes is shape-member('Attributes');
+        has FacetAttribute @.attributes is shape-member('Attributes');
     }
 
     class BatchListObjectChildrenResponse does AWS::SDK::Shape {
-        has Hash[Str, LinkName] $.children is shape-member('Children');
+        has Str %.children{LinkName} is shape-member('Children');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset UpdateActionType of Str where $_ ~~ any('CREATE_OR_UPDATE', 'DELETE');
 
     class BatchListAttachedIndices does AWS::SDK::Shape {
         has NumberResults $.max-results is shape-member('MaxResults');
@@ -785,15 +808,13 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class TagResourceRequest does AWS::SDK::Shape {
-        has Array[Tag] $.tags is required is shape-member('Tags');
+        has Tag @.tags is required is shape-member('Tags');
         has Str $.resource-arn is required is shape-member('ResourceArn');
     }
 
     class RetryableConflictException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset ObjectType of Str where $_ ~~ any('NODE', 'LEAF_NODE', 'POLICY', 'INDEX');
 
     class PublishSchemaResponse does AWS::SDK::Shape {
         has Str $.published-schema-arn is shape-member('PublishedSchemaArn');
@@ -806,7 +827,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListFacetAttributesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[FacetAttribute] $.attributes is shape-member('Attributes');
+        has FacetAttribute @.attributes is shape-member('Attributes');
     }
 
     class BatchWriteOperationResponse does AWS::SDK::Shape {
@@ -835,7 +856,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListObjectParentPathsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[PathToObjectIdentifiers] $.path-to-object-identifiers-list is shape-member('PathToObjectIdentifiersList');
+        has PathToObjectIdentifiers @.path-to-object-identifiers-list is shape-member('PathToObjectIdentifiersList');
     }
 
     class TypedLinkSchemaAndFacetName does AWS::SDK::Shape {
@@ -843,16 +864,14 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has TypedLinkName $.typed-link-name is required is shape-member('TypedLinkName');
     }
 
-    subset TypedLinkName of Str where rx:P5/^[a-zA-Z0-9._-]*$/;
-
     class Rule does AWS::SDK::Shape {
-        has Hash[Str, Str] $.parameters is shape-member('Parameters');
+        has Str %.parameters{Str} is shape-member('Parameters');
         has RuleType $.type is shape-member('Type');
     }
 
     class ListObjectPoliciesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.attached-policy-ids is shape-member('AttachedPolicyIds');
+        has Str @.attached-policy-ids is shape-member('AttachedPolicyIds');
     }
 
     class CreateObjectResponse does AWS::SDK::Shape {
@@ -868,7 +887,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class AttachTypedLinkRequest does AWS::SDK::Shape {
         has TypedLinkSchemaAndFacetName $.typed-link-facet is required is shape-member('TypedLinkFacet');
-        has Array[AttributeNameAndValue] $.attributes is required is shape-member('Attributes');
+        has AttributeNameAndValue @.attributes is required is shape-member('Attributes');
         has ObjectReference $.source-object-reference is required is shape-member('SourceObjectReference');
         has Str $.directory-arn is required is shape-member('DirectoryArn');
         has ObjectReference $.target-object-reference is required is shape-member('TargetObjectReference');
@@ -882,8 +901,6 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class UpdateFacetResponse does AWS::SDK::Shape {
     }
-
-    subset NumberResults of Int where 1 <= *;
 
     class BatchDetachPolicyResponse does AWS::SDK::Shape {
     }
@@ -909,10 +926,8 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListObjectParentsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Hash[LinkName, Str] $.parents is shape-member('Parents');
+        has LinkName %.parents{Str} is shape-member('Parents');
     }
-
-    subset BatchReadExceptionType of Str where $_ ~~ any('ValidationException', 'InvalidArnException', 'ResourceNotFoundException', 'InvalidNextTokenException', 'AccessDeniedException', 'NotNodeException', 'FacetValidationException', 'CannotListParentOfRootException', 'NotIndexException', 'NotPolicyException', 'DirectoryNotEnabledException', 'LimitExceededException', 'InternalServiceException');
 
     class BatchReadException does AWS::SDK::Shape {
         has BatchReadExceptionType $.type is shape-member('Type');
@@ -922,8 +937,6 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     class BatchGetObjectInformation does AWS::SDK::Shape {
         has ObjectReference $.object-reference is required is shape-member('ObjectReference');
     }
-
-    subset FacetName of Str where 1 <= .chars <= 64 && rx:P5/^[a-zA-Z0-9._-]*$/;
 
     class ListObjectAttributesRequest does AWS::SDK::Shape {
         has NumberResults $.max-results is shape-member('MaxResults');
@@ -940,7 +953,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class BatchListObjectParentPathsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[PathToObjectIdentifiers] $.path-to-object-identifiers-list is shape-member('PathToObjectIdentifiersList');
+        has PathToObjectIdentifiers @.path-to-object-identifiers-list is shape-member('PathToObjectIdentifiersList');
     }
 
     class GetObjectInformationRequest does AWS::SDK::Shape {
@@ -984,12 +997,12 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class BatchListObjectPoliciesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.attached-policy-ids is shape-member('AttachedPolicyIds');
+        has Str @.attached-policy-ids is shape-member('AttachedPolicyIds');
     }
 
     class BatchCreateObject does AWS::SDK::Shape {
-        has Array[AttributeKeyAndValue] $.object-attribute-list is required is shape-member('ObjectAttributeList');
-        has Array[SchemaFacet] $.schema-facet is required is shape-member('SchemaFacet');
+        has AttributeKeyAndValue @.object-attribute-list is required is shape-member('ObjectAttributeList');
+        has SchemaFacet @.schema-facet is required is shape-member('SchemaFacet');
         has ObjectReference $.parent-reference is required is shape-member('ParentReference');
         has Str $.batch-reference-name is required is shape-member('BatchReferenceName');
         has LinkName $.link-name is required is shape-member('LinkName');
@@ -1009,7 +1022,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListIncomingTypedLinksResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[TypedLinkSpecifier] $.link-specifiers is shape-member('LinkSpecifiers');
+        has TypedLinkSpecifier @.link-specifiers is shape-member('LinkSpecifiers');
     }
 
     class UpdateSchemaResponse does AWS::SDK::Shape {
@@ -1021,7 +1034,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class LookupPolicyResponse does AWS::SDK::Shape {
-        has Array[PolicyToPath] $.policy-to-path-list is shape-member('PolicyToPathList');
+        has PolicyToPath @.policy-to-path-list is shape-member('PolicyToPathList');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1034,7 +1047,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class BatchListIncomingTypedLinks does AWS::SDK::Shape {
         has NumberResults $.max-results is shape-member('MaxResults');
-        has Array[TypedLinkAttributeRange] $.filter-attribute-ranges is shape-member('FilterAttributeRanges');
+        has TypedLinkAttributeRange @.filter-attribute-ranges is shape-member('FilterAttributeRanges');
         has ObjectReference $.object-reference is required is shape-member('ObjectReference');
         has Str $.next-token is shape-member('NextToken');
         has TypedLinkSchemaAndFacetName $.filter-typed-link is shape-member('FilterTypedLink');
@@ -1045,15 +1058,15 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListIndexResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[IndexAttachment] $.index-attachments is shape-member('IndexAttachments');
+        has IndexAttachment @.index-attachments is shape-member('IndexAttachments');
     }
 
     class RemoveFacetFromObjectResponse does AWS::SDK::Shape {
     }
 
     class CreateObjectRequest does AWS::SDK::Shape {
-        has Array[AttributeKeyAndValue] $.object-attribute-list is shape-member('ObjectAttributeList');
-        has Array[SchemaFacet] $.schema-facets is required is shape-member('SchemaFacets');
+        has AttributeKeyAndValue @.object-attribute-list is shape-member('ObjectAttributeList');
+        has SchemaFacet @.schema-facets is required is shape-member('SchemaFacets');
         has ObjectReference $.parent-reference is shape-member('ParentReference');
         has Str $.directory-arn is required is shape-member('DirectoryArn');
         has LinkName $.link-name is shape-member('LinkName');
@@ -1066,7 +1079,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListFacetNamesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[FacetName] $.facet-names is shape-member('FacetNames');
+        has FacetName @.facet-names is shape-member('FacetNames');
     }
 
     class ListPolicyAttachmentsRequest does AWS::SDK::Shape {
@@ -1087,7 +1100,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class TypedLinkSpecifier does AWS::SDK::Shape {
         has TypedLinkSchemaAndFacetName $.typed-link-facet is required is shape-member('TypedLinkFacet');
-        has Array[AttributeNameAndValue] $.identity-attribute-values is required is shape-member('IdentityAttributeValues');
+        has AttributeNameAndValue @.identity-attribute-values is required is shape-member('IdentityAttributeValues');
         has ObjectReference $.source-object-reference is required is shape-member('SourceObjectReference');
         has ObjectReference $.target-object-reference is required is shape-member('TargetObjectReference');
     }
@@ -1102,12 +1115,12 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class ListDirectoriesResponse does AWS::SDK::Shape {
-        has Array[Directory] $.directories is required is shape-member('Directories');
+        has Directory @.directories is required is shape-member('Directories');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class IndexAttachment does AWS::SDK::Shape {
-        has Array[AttributeKeyAndValue] $.indexed-attributes is shape-member('IndexedAttributes');
+        has AttributeKeyAndValue @.indexed-attributes is shape-member('IndexedAttributes');
         has Str $.object-identifier is shape-member('ObjectIdentifier');
     }
 
@@ -1173,8 +1186,6 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has Bool $.boolean-value is shape-member('BooleanValue');
     }
 
-    subset TagsNumberResults of Int where 50 <= *;
-
     class BatchRemoveFacetFromObjectResponse does AWS::SDK::Shape {
     }
 
@@ -1191,10 +1202,8 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has LinkName $.link-name is required is shape-member('LinkName');
     }
 
-    subset DirectoryState of Str where $_ ~~ any('ENABLED', 'DISABLED', 'DELETED');
-
     class UntagResourceRequest does AWS::SDK::Shape {
-        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.tag-keys is required is shape-member('TagKeys');
         has Str $.resource-arn is required is shape-member('ResourceArn');
     }
 
@@ -1213,11 +1222,11 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListTypedLinkFacetAttributesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[TypedLinkAttributeDefinition] $.attributes is shape-member('Attributes');
+        has TypedLinkAttributeDefinition @.attributes is shape-member('Attributes');
     }
 
     class ListPolicyAttachmentsResponse does AWS::SDK::Shape {
-        has Array[Str] $.object-identifiers is shape-member('ObjectIdentifiers');
+        has Str @.object-identifiers is shape-member('ObjectIdentifiers');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1243,7 +1252,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     class BatchListIndex does AWS::SDK::Shape {
         has NumberResults $.max-results is shape-member('MaxResults');
         has ObjectReference $.index-reference is required is shape-member('IndexReference');
-        has Array[ObjectAttributeRange] $.ranges-on-indexed-values is shape-member('RangesOnIndexedValues');
+        has ObjectAttributeRange @.ranges-on-indexed-values is shape-member('RangesOnIndexedValues');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1294,7 +1303,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class BatchLookupPolicyResponse does AWS::SDK::Shape {
-        has Array[PolicyToPath] $.policy-to-path-list is shape-member('PolicyToPathList');
+        has PolicyToPath @.policy-to-path-list is shape-member('PolicyToPathList');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1305,11 +1314,11 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListAttachedIndicesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[IndexAttachment] $.index-attachments is shape-member('IndexAttachments');
+        has IndexAttachment @.index-attachments is shape-member('IndexAttachments');
     }
 
     class ListObjectChildrenResponse does AWS::SDK::Shape {
-        has Hash[Str, LinkName] $.children is shape-member('Children');
+        has Str %.children{LinkName} is shape-member('Children');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1320,15 +1329,13 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class ListTagsForResourceResponse does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class CreateSchemaRequest does AWS::SDK::Shape {
         has SchemaName $.name is required is shape-member('Name');
     }
-
-    subset ConsistencyLevel of Str where $_ ~~ any('SERIALIZABLE', 'EVENTUAL');
 
     class BatchAddFacetToObjectResponse does AWS::SDK::Shape {
     }
@@ -1339,7 +1346,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListAppliedSchemaArnsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.schema-arns is shape-member('SchemaArns');
+        has Str @.schema-arns is shape-member('SchemaArns');
     }
 
     class StillContainsLinksException does AWS::SDK::Shape {
@@ -1356,7 +1363,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     class BatchCreateIndex does AWS::SDK::Shape {
         has Bool $.is-unique is required is shape-member('IsUnique');
         has ObjectReference $.parent-reference is shape-member('ParentReference');
-        has Array[AttributeKey] $.ordered-indexed-attribute-list is required is shape-member('OrderedIndexedAttributeList');
+        has AttributeKey @.ordered-indexed-attribute-list is required is shape-member('OrderedIndexedAttributeList');
         has Str $.batch-reference-name is shape-member('BatchReferenceName');
         has LinkName $.link-name is shape-member('LinkName');
     }
@@ -1378,7 +1385,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has Str $.schema-arn is required is shape-member('SchemaArn');
         has ObjectType $.object-type is shape-member('ObjectType');
         has FacetName $.name is required is shape-member('Name');
-        has Array[FacetAttributeUpdate] $.attribute-updates is shape-member('AttributeUpdates');
+        has FacetAttributeUpdate @.attribute-updates is shape-member('AttributeUpdates');
     }
 
     class ObjectAttributeRange does AWS::SDK::Shape {
@@ -1387,7 +1394,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     class BatchListOutgoingTypedLinksResponse does AWS::SDK::Shape {
-        has Array[TypedLinkSpecifier] $.typed-link-specifiers is shape-member('TypedLinkSpecifiers');
+        has TypedLinkSpecifier @.typed-link-specifiers is shape-member('TypedLinkSpecifiers');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1402,17 +1409,17 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListTypedLinkFacetNamesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[TypedLinkName] $.facet-names is shape-member('FacetNames');
+        has TypedLinkName @.facet-names is shape-member('FacetNames');
     }
 
     class BatchReadRequest does AWS::SDK::Shape {
-        has Array[BatchReadOperation] $.operations is required is shape-member('Operations');
+        has BatchReadOperation @.operations is required is shape-member('Operations');
         has Str $.directory-arn is required is shape-member('DirectoryArn');
         has ConsistencyLevel $.consistency-level is shape-member('ConsistencyLevel');
     }
 
     class BatchListPolicyAttachmentsResponse does AWS::SDK::Shape {
-        has Array[Str] $.object-identifiers is shape-member('ObjectIdentifiers');
+        has Str @.object-identifiers is shape-member('ObjectIdentifiers');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -1424,8 +1431,6 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     class DisableDirectoryResponse does AWS::SDK::Shape {
         has Str $.directory-arn is required is shape-member('DirectoryArn');
     }
-
-    subset RequiredAttributeBehavior of Str where $_ ~~ any('REQUIRED_ALWAYS', 'NOT_REQUIRED');
 
     class ObjectNotDetachedException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
@@ -1442,15 +1447,13 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListIncomingTypedLinksRequest does AWS::SDK::Shape {
         has NumberResults $.max-results is shape-member('MaxResults');
-        has Array[TypedLinkAttributeRange] $.filter-attribute-ranges is shape-member('FilterAttributeRanges');
+        has TypedLinkAttributeRange @.filter-attribute-ranges is shape-member('FilterAttributeRanges');
         has ObjectReference $.object-reference is required is shape-member('ObjectReference');
         has Str $.next-token is shape-member('NextToken');
         has Str $.directory-arn is required is shape-member('DirectoryArn');
         has ConsistencyLevel $.consistency-level is shape-member('ConsistencyLevel');
         has TypedLinkSchemaAndFacetName $.filter-typed-link is shape-member('FilterTypedLink');
     }
-
-    subset SchemaName of Str where 1 <= .chars <= 32 && rx:P5/^[a-zA-Z0-9._-]*$/;
 
     class BatchWriteOperation does AWS::SDK::Shape {
         has BatchDetachTypedLink $.detach-typed-link is shape-member('DetachTypedLink');
@@ -1477,7 +1480,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     class ListObjectAttributesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[AttributeKeyAndValue] $.attributes is shape-member('Attributes');
+        has AttributeKeyAndValue @.attributes is shape-member('Attributes');
     }
 
     class BatchDeleteObject does AWS::SDK::Shape {
@@ -1515,7 +1518,6 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset LinkName of Str where 1 <= .chars <= 64 && rx:P5/[^\\/\[\]\(\):\{\}#@!?\s\\;]+/;
 
     method list-typed-link-facet-attributes(
         NumberResults :$max-results,
@@ -1571,14 +1573,14 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     method create-index(
         Bool :$is-unique!,
         ObjectReference :$parent-reference,
-        Array[AttributeKey] :$ordered-indexed-attribute-list!,
+        AttributeKey :@ordered-indexed-attribute-list!,
         Str :$directory-arn!,
         LinkName :$link-name
     ) returns CreateIndexResponse is service-operation('CreateIndex') {
         my $request-input = CreateIndexRequest.new(
             :$is-unique,
             :$parent-reference,
-            :$ordered-indexed-attribute-list,
+            :@ordered-indexed-attribute-list,
             :$directory-arn,
             :$link-name
         );
@@ -1692,11 +1694,11 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     method batch-write(
-        Array[BatchWriteOperation] :$operations!,
+        BatchWriteOperation :@operations!,
         Str :$directory-arn!
     ) returns BatchWriteResponse is service-operation('BatchWrite') {
         my $request-input = BatchWriteRequest.new(
-            :$operations,
+            :@operations,
             :$directory-arn
         );
 
@@ -1737,11 +1739,11 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     method untag-resource(
-        Array[Str] :$tag-keys!,
+        Str :@tag-keys!,
         Str :$resource-arn!
     ) returns UntagResourceResponse is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-            :$tag-keys,
+            :@tag-keys,
             :$resource-arn
         );
 
@@ -1771,12 +1773,12 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     method batch-read(
-        Array[BatchReadOperation] :$operations!,
+        BatchReadOperation :@operations!,
         Str :$directory-arn!,
         ConsistencyLevel :$consistency-level
     ) returns BatchReadResponse is service-operation('BatchRead') {
         my $request-input = BatchReadRequest.new(
-            :$operations,
+            :@operations,
             :$directory-arn,
             :$consistency-level
         );
@@ -1965,15 +1967,15 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     method create-object(
-        Array[AttributeKeyAndValue] :$object-attribute-list,
-        Array[SchemaFacet] :$schema-facets!,
+        AttributeKeyAndValue :@object-attribute-list,
+        SchemaFacet :@schema-facets!,
         ObjectReference :$parent-reference,
         Str :$directory-arn!,
         LinkName :$link-name
     ) returns CreateObjectResponse is service-operation('CreateObject') {
         my $request-input = CreateObjectRequest.new(
-            :$object-attribute-list,
-            :$schema-facets,
+            :@object-attribute-list,
+            :@schema-facets,
             :$parent-reference,
             :$directory-arn,
             :$link-name
@@ -2030,7 +2032,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     method list-outgoing-typed-links(
         NumberResults :$max-results,
-        Array[TypedLinkAttributeRange] :$filter-attribute-ranges,
+        TypedLinkAttributeRange :@filter-attribute-ranges,
         ObjectReference :$object-reference!,
         Str :$next-token,
         Str :$directory-arn!,
@@ -2039,7 +2041,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     ) returns ListOutgoingTypedLinksResponse is service-operation('ListOutgoingTypedLinks') {
         my $request-input = ListOutgoingTypedLinksRequest.new(
             :$max-results,
-            :$filter-attribute-ranges,
+            :@filter-attribute-ranges,
             :$object-reference,
             :$next-token,
             :$directory-arn,
@@ -2126,11 +2128,11 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     }
 
     method tag-resource(
-        Array[Tag] :$tags!,
+        Tag :@tags!,
         Str :$resource-arn!
     ) returns TagResourceResponse is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-            :$tags,
+            :@tags,
             :$resource-arn
         );
 
@@ -2143,14 +2145,14 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     method update-typed-link-facet(
         Str :$schema-arn!,
         TypedLinkName :$name!,
-        Array[AttributeName] :$identity-attribute-order!,
-        Array[TypedLinkFacetAttributeUpdate] :$attribute-updates!
+        AttributeName :@identity-attribute-order!,
+        TypedLinkFacetAttributeUpdate :@attribute-updates!
     ) returns UpdateTypedLinkFacetResponse is service-operation('UpdateTypedLinkFacet') {
         my $request-input = UpdateTypedLinkFacetRequest.new(
             :$schema-arn,
             :$name,
-            :$identity-attribute-order,
-            :$attribute-updates
+            :@identity-attribute-order,
+            :@attribute-updates
         );
 
         self.perform-operation(
@@ -2178,13 +2180,13 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     method add-facet-to-object(
         ObjectReference :$object-reference!,
-        Array[AttributeKeyAndValue] :$object-attribute-list,
+        AttributeKeyAndValue :@object-attribute-list,
         SchemaFacet :$schema-facet!,
         Str :$directory-arn!
     ) returns AddFacetToObjectResponse is service-operation('AddFacetToObject') {
         my $request-input = AddFacetToObjectRequest.new(
             :$object-reference,
-            :$object-attribute-list,
+            :@object-attribute-list,
             :$schema-facet,
             :$directory-arn
         );
@@ -2198,7 +2200,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     method list-index(
         NumberResults :$max-results,
         ObjectReference :$index-reference!,
-        Array[ObjectAttributeRange] :$ranges-on-indexed-values,
+        ObjectAttributeRange :@ranges-on-indexed-values,
         Str :$next-token,
         Str :$directory-arn!,
         ConsistencyLevel :$consistency-level
@@ -2206,7 +2208,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         my $request-input = ListIndexRequest.new(
             :$max-results,
             :$index-reference,
-            :$ranges-on-indexed-values,
+            :@ranges-on-indexed-values,
             :$next-token,
             :$directory-arn,
             :$consistency-level
@@ -2292,13 +2294,13 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         ObjectType :$object-type,
         FacetName :$name!,
-        Array[FacetAttributeUpdate] :$attribute-updates
+        FacetAttributeUpdate :@attribute-updates
     ) returns UpdateFacetResponse is service-operation('UpdateFacet') {
         my $request-input = UpdateFacetRequest.new(
             :$schema-arn,
             :$object-type,
             :$name,
-            :$attribute-updates
+            :@attribute-updates
         );
 
         self.perform-operation(
@@ -2343,14 +2345,14 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     method attach-typed-link(
         TypedLinkSchemaAndFacetName :$typed-link-facet!,
-        Array[AttributeNameAndValue] :$attributes!,
+        AttributeNameAndValue :@attributes!,
         ObjectReference :$source-object-reference!,
         Str :$directory-arn!,
         ObjectReference :$target-object-reference!
     ) returns AttachTypedLinkResponse is service-operation('AttachTypedLink') {
         my $request-input = AttachTypedLinkRequest.new(
             :$typed-link-facet,
-            :$attributes,
+            :@attributes,
             :$source-object-reference,
             :$directory-arn,
             :$target-object-reference
@@ -2364,7 +2366,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     method list-incoming-typed-links(
         NumberResults :$max-results,
-        Array[TypedLinkAttributeRange] :$filter-attribute-ranges,
+        TypedLinkAttributeRange :@filter-attribute-ranges,
         ObjectReference :$object-reference!,
         Str :$next-token,
         Str :$directory-arn!,
@@ -2373,7 +2375,7 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
     ) returns ListIncomingTypedLinksResponse is service-operation('ListIncomingTypedLinks') {
         my $request-input = ListIncomingTypedLinksRequest.new(
             :$max-results,
-            :$filter-attribute-ranges,
+            :@filter-attribute-ranges,
             :$object-reference,
             :$next-token,
             :$directory-arn,
@@ -2389,12 +2391,12 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
 
     method update-object-attributes(
         ObjectReference :$object-reference!,
-        Array[ObjectAttributeUpdate] :$attribute-updates!,
+        ObjectAttributeUpdate :@attribute-updates!,
         Str :$directory-arn!
     ) returns UpdateObjectAttributesResponse is service-operation('UpdateObjectAttributes') {
         my $request-input = UpdateObjectAttributesRequest.new(
             :$object-reference,
-            :$attribute-updates,
+            :@attribute-updates,
             :$directory-arn
         );
 
@@ -2425,13 +2427,13 @@ class AWS::SDK::Service::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         ObjectType :$object-type!,
         FacetName :$name!,
-        Array[FacetAttribute] :$attributes
+        FacetAttribute :@attributes
     ) returns CreateFacetResponse is service-operation('CreateFacet') {
         my $request-input = CreateFacetRequest.new(
             :$schema-arn,
             :$object-type,
             :$name,
-            :$attributes
+            :@attributes
         );
 
         self.perform-operation(

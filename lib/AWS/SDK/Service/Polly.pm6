@@ -41,6 +41,25 @@ class AWS::SDK::Service::Polly does AWS::SDK::Service {
     class MaxLexemeLengthExceededException { ... }
     class Lexicon { ... }
 
+    subset LexiconName of Str where rx:P5/[0-9A-Za-z]{1,20}/;
+
+    subset SpeechMarkType of Str where $_ eq any('sentence', 'ssml', 'viseme', 'word');
+
+    subset LanguageCode of Str where $_ eq any('cy-GB', 'da-DK', 'de-DE', 'en-AU', 'en-GB', 'en-GB-WLS', 'en-IN', 'en-US', 'es-ES', 'es-US', 'fr-CA', 'fr-FR', 'is-IS', 'it-IT', 'ja-JP', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sv-SE', 'tr-TR');
+
+    subset OutputFormat of Str where $_ eq any('json', 'mp3', 'ogg_vorbis', 'pcm');
+
+    subset LexiconNameList of Array[LexiconName] where *.elems <= 5;
+
+    subset Gender of Str where $_ eq any('Female', 'Male');
+
+    subset VoiceId of Str where $_ eq any('Geraint', 'Gwyneth', 'Mads', 'Naja', 'Hans', 'Marlene', 'Nicole', 'Russell', 'Amy', 'Brian', 'Emma', 'Raveena', 'Ivy', 'Joanna', 'Joey', 'Justin', 'Kendra', 'Kimberly', 'Salli', 'Conchita', 'Enrique', 'Miguel', 'Penelope', 'Chantal', 'Celine', 'Mathieu', 'Dora', 'Karl', 'Carla', 'Giorgio', 'Mizuki', 'Liv', 'Lotte', 'Ruben', 'Ewa', 'Jacek', 'Jan', 'Maja', 'Ricardo', 'Vitoria', 'Cristiano', 'Ines', 'Carmen', 'Maxim', 'Tatyana', 'Astrid', 'Filiz', 'Vicki');
+
+    subset TextType of Str where $_ eq any('ssml', 'text');
+
+    subset SpeechMarkTypeList of Array[SpeechMarkType] where *.elems <= 4;
+
+
     class DeleteLexiconInput does AWS::SDK::Shape {
         has LexiconName $.name is required is shape-member('Name');
     }
@@ -49,8 +68,6 @@ class AWS::SDK::Service::Polly does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
         has LanguageCode $.language-code is shape-member('LanguageCode');
     }
-
-    subset LexiconName of Str where rx:P5/[0-9A-Za-z]{1,20}/;
 
     class ListLexiconsInput does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
@@ -75,8 +92,6 @@ class AWS::SDK::Service::Polly does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset SpeechMarkType of Str where $_ ~~ any('sentence', 'ssml', 'viseme', 'word');
-
     class GetLexiconOutput does AWS::SDK::Shape {
         has LexiconAttributes $.lexicon-attributes is shape-member('LexiconAttributes');
         has Lexicon $.lexicon is shape-member('Lexicon');
@@ -98,14 +113,12 @@ class AWS::SDK::Service::Polly does AWS::SDK::Service {
 
     class ListLexiconsOutput does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[LexiconDescription] $.lexicons is shape-member('Lexicons');
+        has LexiconDescription @.lexicons is shape-member('Lexicons');
     }
 
     class MarksNotSupportedForFormatException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset LanguageCode of Str where $_ ~~ any('cy-GB', 'da-DK', 'de-DE', 'en-AU', 'en-GB', 'en-GB-WLS', 'en-IN', 'en-US', 'es-ES', 'es-US', 'fr-CA', 'fr-FR', 'is-IS', 'it-IT', 'ja-JP', 'nb-NO', 'nl-NL', 'pl-PL', 'pt-BR', 'pt-PT', 'ro-RO', 'ru-RU', 'sv-SE', 'tr-TR');
 
     class LexiconSizeExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -119,8 +132,6 @@ class AWS::SDK::Service::Polly does AWS::SDK::Service {
         has Str $.content is required is shape-member('Content');
         has LexiconName $.name is required is shape-member('Name');
     }
-
-    subset OutputFormat of Str where $_ ~~ any('json', 'mp3', 'ogg_vorbis', 'pcm');
 
     class SynthesizeSpeechInput does AWS::SDK::Shape {
         has SpeechMarkTypeList $.speech-mark-types is shape-member('SpeechMarkTypes');
@@ -136,22 +147,18 @@ class AWS::SDK::Service::Polly does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset LexiconNameList of Array[LexiconName] where *.elems <= 5;
-
     class LexiconNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
 
     class DescribeVoicesOutput does AWS::SDK::Shape {
-        has Array[Voice] $.voices is shape-member('Voices');
+        has Voice @.voices is shape-member('Voices');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class ServiceFailureException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset Gender of Str where $_ ~~ any('Female', 'Male');
 
     class InvalidSampleRateException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
@@ -177,8 +184,6 @@ class AWS::SDK::Service::Polly does AWS::SDK::Service {
     class PutLexiconOutput does AWS::SDK::Shape {
     }
 
-    subset VoiceId of Str where $_ ~~ any('Geraint', 'Gwyneth', 'Mads', 'Naja', 'Hans', 'Marlene', 'Nicole', 'Russell', 'Amy', 'Brian', 'Emma', 'Raveena', 'Ivy', 'Joanna', 'Joey', 'Justin', 'Kendra', 'Kimberly', 'Salli', 'Conchita', 'Enrique', 'Miguel', 'Penelope', 'Chantal', 'Celine', 'Mathieu', 'Dora', 'Karl', 'Carla', 'Giorgio', 'Mizuki', 'Liv', 'Lotte', 'Ruben', 'Ewa', 'Jacek', 'Jan', 'Maja', 'Ricardo', 'Vitoria', 'Cristiano', 'Ines', 'Carmen', 'Maxim', 'Tatyana', 'Astrid', 'Filiz', 'Vicki');
-
     class GetLexiconInput does AWS::SDK::Shape {
         has LexiconName $.name is required is shape-member('Name');
     }
@@ -188,18 +193,15 @@ class AWS::SDK::Service::Polly does AWS::SDK::Service {
         has LexiconAttributes $.attributes is shape-member('Attributes');
     }
 
-    subset TextType of Str where $_ ~~ any('ssml', 'text');
-
     class MaxLexemeLengthExceededException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset SpeechMarkTypeList of Array[SpeechMarkType] where *.elems <= 4;
 
     class Lexicon does AWS::SDK::Shape {
         has Str $.content is shape-member('Content');
         has LexiconName $.name is shape-member('Name');
     }
+
 
     method put-lexicon(
         Str :$content!,

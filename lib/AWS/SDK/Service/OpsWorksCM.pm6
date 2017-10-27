@@ -52,18 +52,45 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
     class DisassociateNodeResponse { ... }
     class CreateBackupResponse { ... }
 
+    subset AttributeName of Str where 1 <= .chars <= 64 && rx:P5/[A-Z][A-Z0-9_]*/;
+
+    subset ServiceRoleArn of Str where rx:P5/arn:aws:iam::[0-9]{12}:role\/.*/;
+
+    subset NodeAssociationStatus of Str where $_ eq any('SUCCESS', 'FAILED', 'IN_PROGRESS');
+
+    subset MaintenanceStatus of Str where $_ eq any('SUCCESS', 'FAILED');
+
+    subset BackupType of Str where $_ eq any('AUTOMATED', 'MANUAL');
+
+    subset BackupId of Str where .chars <= 79;
+
+    subset BackupRetentionCountDefinition of Int where 1 <= *;
+
+    subset ServerName of Str where 1 <= .chars <= 40 && rx:P5/[a-zA-Z][a-zA-Z0-9\-]*/;
+
+    subset MaxResults of Int where 1 <= *;
+
+    subset BackupStatus of Str where $_ eq any('IN_PROGRESS', 'OK', 'FAILED', 'DELETING');
+
+    subset ServerStatus of Str where $_ eq any('BACKING_UP', 'CONNECTION_LOST', 'CREATING', 'DELETING', 'MODIFYING', 'FAILED', 'HEALTHY', 'RUNNING', 'RESTORING', 'SETUP', 'UNDER_MAINTENANCE', 'UNHEALTHY', 'TERMINATED');
+
+    subset TimeWindowDefinition of Str where rx:P5/^((Mon|Tue|Wed|Thu|Fri|Sat|Sun):)?([0-1][0-9]|2[0-3]):[0-5][0-9]$/;
+
+    subset InstanceProfileArn of Str where rx:P5/arn:aws:iam::[0-9]{12}:instance-profile\/.*/;
+
+    subset NodeName of Str where rx:P5/^[\-\p{Alnum}_:.]+$/;
+
+
     class UpdateServerEngineAttributesResponse does AWS::SDK::Shape {
         has Server $.server is shape-member('Server');
     }
-
-    subset AttributeName of Str where 1 <= .chars <= 64 && rx:P5/[A-Z][A-Z0-9_]*/;
 
     class DescribeAccountAttributesRequest does AWS::SDK::Shape {
     }
 
     class AssociateNodeRequest does AWS::SDK::Shape {
         has ServerName $.server-name is required is shape-member('ServerName');
-        has Array[EngineAttribute] $.engine-attributes is required is shape-member('EngineAttributes');
+        has EngineAttribute @.engine-attributes is required is shape-member('EngineAttributes');
         has NodeName $.node-name is required is shape-member('NodeName');
     }
 
@@ -72,7 +99,7 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
     }
 
     class DescribeBackupsResponse does AWS::SDK::Shape {
-        has Array[Backup] $.backups is shape-member('Backups');
+        has Backup @.backups is shape-member('Backups');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -87,8 +114,6 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset ServiceRoleArn of Str where rx:P5/arn:aws:iam::[0-9]{12}:role\/.*/;
-
     class CreateServerResponse does AWS::SDK::Shape {
         has Server $.server is shape-member('Server');
     }
@@ -98,8 +123,6 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         has Str $.node-association-status-token is required is shape-member('NodeAssociationStatusToken');
     }
 
-    subset NodeAssociationStatus of Str where $_ ~~ any('SUCCESS', 'FAILED', 'IN_PROGRESS');
-
     class ResourceNotFoundException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
@@ -107,7 +130,7 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
     class Server does AWS::SDK::Shape {
         has Str $.server-arn is shape-member('ServerArn');
         has Str $.status-reason is shape-member('StatusReason');
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.key-pair is shape-member('KeyPair');
         has Str $.engine-model is shape-member('EngineModel');
         has Str $.server-name is shape-member('ServerName');
@@ -115,7 +138,7 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         has MaintenanceStatus $.maintenance-status is shape-member('MaintenanceStatus');
         has Str $.endpoint is shape-member('Endpoint');
         has Bool $.associate-public-ip-address is shape-member('AssociatePublicIpAddress');
-        has Array[EngineAttribute] $.engine-attributes is shape-member('EngineAttributes');
+        has EngineAttribute @.engine-attributes is shape-member('EngineAttributes');
         has Str $.engine is shape-member('Engine');
         has Bool $.disable-automated-backup is shape-member('DisableAutomatedBackup');
         has DateTime $.created-at is shape-member('CreatedAt');
@@ -123,7 +146,7 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         has TimeWindowDefinition $.preferred-backup-window is shape-member('PreferredBackupWindow');
         has Str $.instance-type is shape-member('InstanceType');
         has Int $.backup-retention-count is shape-member('BackupRetentionCount');
-        has Array[Str] $.subnet-ids is shape-member('SubnetIds');
+        has Str @.subnet-ids is shape-member('SubnetIds');
         has TimeWindowDefinition $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
         has Str $.instance-profile-arn is shape-member('InstanceProfileArn');
         has Str $.engine-version is shape-member('EngineVersion');
@@ -131,26 +154,24 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
     }
 
     class CreateServerRequest does AWS::SDK::Shape {
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.key-pair is shape-member('KeyPair');
         has ServerName $.server-name is required is shape-member('ServerName');
         has Str $.engine-model is shape-member('EngineModel');
         has ServiceRoleArn $.service-role-arn is required is shape-member('ServiceRoleArn');
         has Bool $.associate-public-ip-address is shape-member('AssociatePublicIpAddress');
-        has Array[EngineAttribute] $.engine-attributes is shape-member('EngineAttributes');
+        has EngineAttribute @.engine-attributes is shape-member('EngineAttributes');
         has Str $.engine is shape-member('Engine');
         has Bool $.disable-automated-backup is shape-member('DisableAutomatedBackup');
         has BackupId $.backup-id is shape-member('BackupId');
         has TimeWindowDefinition $.preferred-backup-window is shape-member('PreferredBackupWindow');
         has Str $.instance-type is required is shape-member('InstanceType');
         has BackupRetentionCountDefinition $.backup-retention-count is shape-member('BackupRetentionCount');
-        has Array[Str] $.subnet-ids is shape-member('SubnetIds');
+        has Str @.subnet-ids is shape-member('SubnetIds');
         has TimeWindowDefinition $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
         has InstanceProfileArn $.instance-profile-arn is required is shape-member('InstanceProfileArn');
         has Str $.engine-version is shape-member('EngineVersion');
     }
-
-    subset MaintenanceStatus of Str where $_ ~~ any('SUCCESS', 'FAILED');
 
     class RestoreServerResponse does AWS::SDK::Shape {
     }
@@ -159,10 +180,8 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset BackupType of Str where $_ ~~ any('AUTOMATED', 'MANUAL');
-
     class DescribeAccountAttributesResponse does AWS::SDK::Shape {
-        has Array[AccountAttribute] $.attributes is shape-member('Attributes');
+        has AccountAttribute @.attributes is shape-member('Attributes');
     }
 
     class DescribeServersRequest does AWS::SDK::Shape {
@@ -173,7 +192,7 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
 
     class DisassociateNodeRequest does AWS::SDK::Shape {
         has ServerName $.server-name is required is shape-member('ServerName');
-        has Array[EngineAttribute] $.engine-attributes is shape-member('EngineAttributes');
+        has EngineAttribute @.engine-attributes is shape-member('EngineAttributes');
         has NodeName $.node-name is required is shape-member('NodeName');
     }
 
@@ -187,10 +206,6 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         has Str $.attribute-value is shape-member('AttributeValue');
     }
 
-    subset BackupId of Str where .chars <= 79;
-
-    subset BackupRetentionCountDefinition of Int where 1 <= *;
-
     class DescribeBackupsRequest does AWS::SDK::Shape {
         has MaxResults $.max-results is shape-member('MaxResults');
         has ServerName $.server-name is shape-member('ServerName');
@@ -199,7 +214,7 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
     }
 
     class DescribeEventsResponse does AWS::SDK::Shape {
-        has Array[ServerEvent] $.server-events is shape-member('ServerEvents');
+        has ServerEvent @.server-events is shape-member('ServerEvents');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -213,7 +228,7 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
 
     class Backup does AWS::SDK::Shape {
         has ServerName $.server-name is shape-member('ServerName');
-        has Array[Str] $.security-group-ids is shape-member('SecurityGroupIds');
+        has Str @.security-group-ids is shape-member('SecurityGroupIds');
         has Str $.key-pair is shape-member('KeyPair');
         has Str $.engine-model is shape-member('EngineModel');
         has Str $.tools-version is shape-member('ToolsVersion');
@@ -230,7 +245,7 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         has TimeWindowDefinition $.preferred-backup-window is shape-member('PreferredBackupWindow');
         has Str $.instance-type is shape-member('InstanceType');
         has BackupId $.backup-id is shape-member('BackupId');
-        has Array[Str] $.subnet-ids is shape-member('SubnetIds');
+        has Str @.subnet-ids is shape-member('SubnetIds');
         has TimeWindowDefinition $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
         has Str $.instance-profile-arn is shape-member('InstanceProfileArn');
         has Str $.engine-version is shape-member('EngineVersion');
@@ -251,18 +266,14 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
     }
 
     class DescribeServersResponse does AWS::SDK::Shape {
-        has Array[Server] $.servers is shape-member('Servers');
+        has Server @.servers is shape-member('Servers');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset ServerName of Str where 1 <= .chars <= 40 && rx:P5/[a-zA-Z][a-zA-Z0-9\-]*/;
 
     class CreateBackupRequest does AWS::SDK::Shape {
         has ServerName $.server-name is required is shape-member('ServerName');
         has Str $.description is shape-member('Description');
     }
-
-    subset MaxResults of Int where 1 <= *;
 
     class RestoreServerRequest does AWS::SDK::Shape {
         has Str $.key-pair is shape-member('KeyPair');
@@ -293,8 +304,6 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         has Str $.node-association-status-token is shape-member('NodeAssociationStatusToken');
     }
 
-    subset BackupStatus of Str where $_ ~~ any('IN_PROGRESS', 'OK', 'FAILED', 'DELETING');
-
     class EngineAttribute does AWS::SDK::Shape {
         has Str $.name is shape-member('Name');
         has Str $.value is shape-member('Value');
@@ -304,8 +313,6 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset ServerStatus of Str where $_ ~~ any('BACKING_UP', 'CONNECTION_LOST', 'CREATING', 'DELETING', 'MODIFYING', 'FAILED', 'HEALTHY', 'RUNNING', 'RESTORING', 'SETUP', 'UNDER_MAINTENANCE', 'UNHEALTHY', 'TERMINATED');
-
     class StartMaintenanceResponse does AWS::SDK::Shape {
         has Server $.server is shape-member('Server');
     }
@@ -313,8 +320,6 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
     class ResourceAlreadyExistsException does AWS::SDK::Shape {
         has Str $.message is shape-member('Message');
     }
-
-    subset TimeWindowDefinition of Str where rx:P5/^((Mon|Tue|Wed|Thu|Fri|Sat|Sun):)?([0-1][0-9]|2[0-3]):[0-5][0-9]$/;
 
     class DescribeNodeAssociationStatusResponse does AWS::SDK::Shape {
         has NodeAssociationStatus $.node-association-status is shape-member('NodeAssociationStatus');
@@ -324,13 +329,10 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
         has Str $.node-association-status-token is shape-member('NodeAssociationStatusToken');
     }
 
-    subset InstanceProfileArn of Str where rx:P5/arn:aws:iam::[0-9]{12}:instance-profile\/.*/;
-
     class CreateBackupResponse does AWS::SDK::Shape {
         has Backup $.backup is shape-member('Backup');
     }
 
-    subset NodeName of Str where rx:P5/^[\-\p{Alnum}_:.]+$/;
 
     method describe-backups(
         MaxResults :$max-results,
@@ -479,12 +481,12 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
 
     method disassociate-node(
         ServerName :$server-name!,
-        Array[EngineAttribute] :$engine-attributes,
+        EngineAttribute :@engine-attributes,
         NodeName :$node-name!
     ) returns DisassociateNodeResponse is service-operation('DisassociateNode') {
         my $request-input = DisassociateNodeRequest.new(
             :$server-name,
-            :$engine-attributes,
+            :@engine-attributes,
             :$node-name
         );
 
@@ -508,39 +510,39 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
     }
 
     method create-server(
-        Array[Str] :$security-group-ids,
+        Str :@security-group-ids,
         Str :$key-pair,
         ServerName :$server-name!,
         Str :$engine-model,
         ServiceRoleArn :$service-role-arn!,
         Bool :$associate-public-ip-address,
-        Array[EngineAttribute] :$engine-attributes,
+        EngineAttribute :@engine-attributes,
         Str :$engine,
         Bool :$disable-automated-backup,
         BackupId :$backup-id,
         TimeWindowDefinition :$preferred-backup-window,
         Str :$instance-type!,
         BackupRetentionCountDefinition :$backup-retention-count,
-        Array[Str] :$subnet-ids,
+        Str :@subnet-ids,
         TimeWindowDefinition :$preferred-maintenance-window,
         InstanceProfileArn :$instance-profile-arn!,
         Str :$engine-version
     ) returns CreateServerResponse is service-operation('CreateServer') {
         my $request-input = CreateServerRequest.new(
-            :$security-group-ids,
+            :@security-group-ids,
             :$key-pair,
             :$server-name,
             :$engine-model,
             :$service-role-arn,
             :$associate-public-ip-address,
-            :$engine-attributes,
+            :@engine-attributes,
             :$engine,
             :$disable-automated-backup,
             :$backup-id,
             :$preferred-backup-window,
             :$instance-type,
             :$backup-retention-count,
-            :$subnet-ids,
+            :@subnet-ids,
             :$preferred-maintenance-window,
             :$instance-profile-arn,
             :$engine-version
@@ -554,12 +556,12 @@ class AWS::SDK::Service::OpsWorksCM does AWS::SDK::Service {
 
     method associate-node(
         ServerName :$server-name!,
-        Array[EngineAttribute] :$engine-attributes!,
+        EngineAttribute :@engine-attributes!,
         NodeName :$node-name!
     ) returns AssociateNodeResponse is service-operation('AssociateNode') {
         my $request-input = AssociateNodeRequest.new(
             :$server-name,
-            :$engine-attributes,
+            :@engine-attributes,
             :$node-name
         );
 

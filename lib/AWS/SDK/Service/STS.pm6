@@ -38,6 +38,41 @@ class AWS::SDK::Service::STS does AWS::SDK::Service {
 
     subset roleDurationSecondsType of Int where 900 <= * <= 3600;
 
+    subset urlType of Str where 4 <= .chars <= 2048;
+
+    subset serialNumberType of Str where 9 <= .chars <= 256 && rx:P5/[\w+=\/:,.@-]*/;
+
+    subset userNameType of Str where 2 <= .chars <= 32 && rx:P5/[\w+=,.@-]*/;
+
+    subset durationSecondsType of Int where 900 <= * <= 129600;
+
+    subset accessKeyIdType of Str where 16 <= .chars <= 128 && rx:P5/[\w]*/;
+
+    subset arnType of Str where 20 <= .chars <= 2048 && rx:P5/[\u0009\u000A\u000D\u0020-\u007E\u0085\u00A0-\uD7FF\uE000-\uFFFD\u10000-\u10FFFF]+/;
+
+    subset clientTokenType of Str where 4 <= .chars <= 2048;
+
+    subset webIdentitySubjectType of Str where 6 <= .chars <= 255;
+
+    subset roleSessionNameType of Str where 2 <= .chars <= 64 && rx:P5/[\w+=,.@-]*/;
+
+    subset nonNegativeIntegerType of Int where 0 <= *;
+
+    subset federatedIdType of Str where 2 <= .chars <= 193 && rx:P5/[\w+=,.@\:-]*/;
+
+    subset tokenCodeType of Str where 6 <= .chars <= 6 && rx:P5/[\d]*/;
+
+    subset sessionPolicyDocumentType of Str where 1 <= .chars <= 2048 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
+
+    subset SAMLAssertionType of Str where 4 <= .chars <= 50000;
+
+    subset assumedRoleIdType of Str where 2 <= .chars <= 193 && rx:P5/[\w+=,.@:-]*/;
+
+    subset externalIdType of Str where 2 <= .chars <= 1224 && rx:P5/[\w+=,.@:\\/-]*/;
+
+    subset encodedMessageType of Str where 1 <= .chars <= 10240;
+
+
     class AssumeRoleWithWebIdentityRequest does AWS::SDK::Shape {
         has roleSessionNameType $.role-session-name is required is shape-member('RoleSessionName');
         has roleDurationSecondsType $.duration-seconds is shape-member('DurationSeconds');
@@ -51,15 +86,9 @@ class AWS::SDK::Service::STS does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset urlType of Str where 4 <= .chars <= 2048;
-
-    subset serialNumberType of Str where 9 <= .chars <= 256 && rx:P5/[\w+=\/:,.@-]*/;
-
     class ExpiredTokenException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset userNameType of Str where 2 <= .chars <= 32 && rx:P5/[\w+=,.@-]*/;
 
     class GetSessionTokenResponse does AWS::SDK::Shape {
         has Credentials $.credentials is shape-member('Credentials');
@@ -93,8 +122,6 @@ class AWS::SDK::Service::STS does AWS::SDK::Service {
         has Str $.message is shape-member('message');
     }
 
-    subset durationSecondsType of Int where 900 <= * <= 129600;
-
     class AssumeRoleResponse does AWS::SDK::Shape {
         has Credentials $.credentials is shape-member('Credentials');
         has nonNegativeIntegerType $.packed-policy-size is shape-member('PackedPolicySize');
@@ -109,12 +136,6 @@ class AWS::SDK::Service::STS does AWS::SDK::Service {
         has nonNegativeIntegerType $.packed-policy-size is shape-member('PackedPolicySize');
         has AssumedRoleUser $.assumed-role-user is shape-member('AssumedRoleUser');
     }
-
-    subset accessKeyIdType of Str where 16 <= .chars <= 128 && rx:P5/[\w]*/;
-
-    subset arnType of Str where 20 <= .chars <= 2048 && rx:P5/[\u0009\u000A\u000D\u0020-\u007E\u0085\u00A0-\uD7FF\uE000-\uFFFD\u10000-\u10FFFF]+/;
-
-    subset clientTokenType of Str where 4 <= .chars <= 2048;
 
     class AssumeRoleWithSAMLResponse does AWS::SDK::Shape {
         has Str $.audience is shape-member('Audience');
@@ -133,17 +154,9 @@ class AWS::SDK::Service::STS does AWS::SDK::Service {
         has serialNumberType $.serial-number is shape-member('SerialNumber');
     }
 
-    subset webIdentitySubjectType of Str where 6 <= .chars <= 255;
-
-    subset roleSessionNameType of Str where 2 <= .chars <= 64 && rx:P5/[\w+=,.@-]*/;
-
-    subset nonNegativeIntegerType of Int where 0 <= *;
-
     class PackedPolicyTooLargeException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset federatedIdType of Str where 2 <= .chars <= 193 && rx:P5/[\w+=,.@\:-]*/;
 
     class AssumeRoleWithSAMLRequest does AWS::SDK::Shape {
         has SAMLAssertionType $.saml-assertion is required is shape-member('SAMLAssertion');
@@ -169,15 +182,9 @@ class AWS::SDK::Service::STS does AWS::SDK::Service {
         has sessionPolicyDocumentType $.policy is shape-member('Policy');
     }
 
-    subset tokenCodeType of Str where 6 <= .chars <= 6 && rx:P5/[\d]*/;
-
-    subset sessionPolicyDocumentType of Str where 1 <= .chars <= 2048 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
-
     class DecodeAuthorizationMessageRequest does AWS::SDK::Shape {
         has encodedMessageType $.encoded-message is required is shape-member('EncodedMessage');
     }
-
-    subset SAMLAssertionType of Str where 4 <= .chars <= 50000;
 
     class FederatedUser does AWS::SDK::Shape {
         has arnType $.arn is required is shape-member('Arn');
@@ -187,12 +194,6 @@ class AWS::SDK::Service::STS does AWS::SDK::Service {
     class IDPCommunicationErrorException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
-
-    subset assumedRoleIdType of Str where 2 <= .chars <= 193 && rx:P5/[\w+=,.@:-]*/;
-
-    subset externalIdType of Str where 2 <= .chars <= 1224 && rx:P5/[\w+=,.@:\\/-]*/;
-
-    subset encodedMessageType of Str where 1 <= .chars <= 10240;
 
     class AssumedRoleUser does AWS::SDK::Shape {
         has arnType $.arn is required is shape-member('Arn');
@@ -212,6 +213,7 @@ class AWS::SDK::Service::STS does AWS::SDK::Service {
     class IDPRejectedClaimException does AWS::SDK::Shape {
         has Str $.message is shape-member('message');
     }
+
 
     method assume-role-with-web-identity(
         roleSessionNameType :$role-session-name!,

@@ -110,6 +110,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     class LocalizeTextRequest { ... }
     class MessageTypeTelemetry { ... }
 
+
     class DetachAssessmentAndRulesPackageRequest does AWS::SDK::Shape {
         has Str $.assessment-arn is required is shape-member('assessmentArn');
         has Str $.rules-package-arn is required is shape-member('rulesPackageArn');
@@ -129,7 +130,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
 
     class ListAssessmentsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.assessment-arn-list is shape-member('assessmentArnList');
+        has Str @.assessment-arn-list is shape-member('assessmentArnList');
     }
 
     class LocalizedTextKey does AWS::SDK::Shape {
@@ -138,7 +139,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     class ApplicationsFilter does AWS::SDK::Shape {
-        has Array[Str] $.application-name-patterns is shape-member('applicationNamePatterns');
+        has Str @.application-name-patterns is shape-member('applicationNamePatterns');
     }
 
     class UpdateAssessmentRequest does AWS::SDK::Shape {
@@ -149,16 +150,16 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
 
     class ListAttachedAssessmentsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.assessment-arn-list is shape-member('assessmentArnList');
+        has Str @.assessment-arn-list is shape-member('assessmentArnList');
     }
 
     class LocalizedText does AWS::SDK::Shape {
         has LocalizedTextKey $.key is shape-member('key');
-        has Array[Parameter] $.parameters is shape-member('parameters');
+        has Parameter @.parameters is shape-member('parameters');
     }
 
     class LocalizeTextResponse does AWS::SDK::Shape {
-        has Array[Str] $.results is shape-member('results');
+        has Str @.results is shape-member('results');
         has Str $.message is shape-member('message');
     }
 
@@ -188,7 +189,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
         has FindingsFilter $.filter is shape-member('filter');
         has Int $.max-results is shape-member('maxResults');
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.run-arns is shape-member('runArns');
+        has Str @.run-arns is shape-member('runArns');
     }
 
     class RunAssessmentResponse does AWS::SDK::Shape {
@@ -196,8 +197,8 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     class RemoveAttributesFromFindingsRequest does AWS::SDK::Shape {
-        has Array[Str] $.finding-arns is required is shape-member('findingArns');
-        has Array[Str] $.attribute-keys is required is shape-member('attributeKeys');
+        has Str @.finding-arns is required is shape-member('findingArns');
+        has Str @.attribute-keys is required is shape-member('attributeKeys');
     }
 
     class DescribeAssessmentRequest does AWS::SDK::Shape {
@@ -211,7 +212,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     class CreateAssessmentRequest does AWS::SDK::Shape {
         has Str $.assessment-name is required is shape-member('assessmentName');
         has Str $.application-arn is required is shape-member('applicationArn');
-        has Array[Attribute] $.user-attributes-for-findings is shape-member('userAttributesForFindings');
+        has Attribute @.user-attributes-for-findings is shape-member('userAttributesForFindings');
         has Int $.duration-in-seconds is required is shape-member('durationInSeconds');
     }
 
@@ -226,7 +227,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
 
     class Run does AWS::SDK::Shape {
         has Str $.assessment-arn is shape-member('assessmentArn');
-        has Array[Str] $.rules-packages is shape-member('rulesPackages');
+        has Str @.rules-packages is shape-member('rulesPackages');
         has DateTime $.completion-time is shape-member('completionTime');
         has Str $.run-state is shape-member('runState');
         has Str $.run-name is shape-member('runName');
@@ -235,11 +236,11 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     class FindingsFilter does AWS::SDK::Shape {
-        has Array[Str] $.severities is shape-member('severities');
-        has Array[Attribute] $.user-attributes is shape-member('userAttributes');
-        has Array[Attribute] $.attributes is shape-member('attributes');
-        has Array[Str] $.rules-package-arns is shape-member('rulesPackageArns');
-        has Array[Str] $.rule-names is shape-member('ruleNames');
+        has Str @.severities is shape-member('severities');
+        has Attribute @.user-attributes is shape-member('userAttributes');
+        has Attribute @.attributes is shape-member('attributes');
+        has Str @.rules-package-arns is shape-member('rulesPackageArns');
+        has Str @.rule-names is shape-member('ruleNames');
     }
 
     class CreateApplicationRequest does AWS::SDK::Shape {
@@ -267,8 +268,8 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
         has LocalizedText $.recommendation is shape-member('recommendation');
         has Str $.finding-arn is shape-member('findingArn');
         has Str $.rule-name is shape-member('ruleName');
-        has Array[Attribute] $.user-attributes is shape-member('userAttributes');
-        has Array[Attribute] $.attributes is shape-member('attributes');
+        has Attribute @.user-attributes is shape-member('userAttributes');
+        has Attribute @.attributes is shape-member('attributes');
         has Str $.severity is shape-member('severity');
         has Str $.auto-scaling-group is shape-member('autoScalingGroup');
         has Str $.agent-id is shape-member('agentId');
@@ -284,7 +285,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
 
     class Telemetry does AWS::SDK::Shape {
         has Str $.status is shape-member('status');
-        has Array[MessageTypeTelemetry] $.message-type-telemetries is shape-member('messageTypeTelemetries');
+        has MessageTypeTelemetry @.message-type-telemetries is shape-member('messageTypeTelemetries');
     }
 
     class NoSuchEntityException does AWS::SDK::Shape {
@@ -315,7 +316,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
 
     class ListFindingsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.finding-arn-list is shape-member('findingArnList');
+        has Str @.finding-arn-list is shape-member('findingArnList');
     }
 
     class DescribeResourceGroupRequest does AWS::SDK::Shape {
@@ -353,7 +354,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
         has Str $.assessment-arn is shape-member('assessmentArn');
         has Str $.application-arn is shape-member('applicationArn');
         has Str $.assessment-name is shape-member('assessmentName');
-        has Array[Attribute] $.user-attributes-for-findings is shape-member('userAttributesForFindings');
+        has Attribute @.user-attributes-for-findings is shape-member('userAttributesForFindings');
         has Int $.duration-in-seconds is shape-member('durationInSeconds');
         has Bool $.data-collected is shape-member('dataCollected');
         has DateTime $.end-time is shape-member('endTime');
@@ -369,12 +370,12 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
         has RunsFilter $.filter is shape-member('filter');
         has Int $.max-results is shape-member('maxResults');
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.assessment-arns is shape-member('assessmentArns');
+        has Str @.assessment-arns is shape-member('assessmentArns');
     }
 
     class ListRulesPackagesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.rules-package-arn-list is shape-member('rulesPackageArnList');
+        has Str @.rules-package-arn-list is shape-member('rulesPackageArnList');
     }
 
     class CreateResourceGroupResponse does AWS::SDK::Shape {
@@ -383,7 +384,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
 
     class ListAttachedRulesPackagesResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.rules-package-arn-list is shape-member('rulesPackageArnList');
+        has Str @.rules-package-arn-list is shape-member('rulesPackageArnList');
     }
 
     class Application does AWS::SDK::Shape {
@@ -395,9 +396,9 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     class AssessmentsFilter does AWS::SDK::Shape {
         has TimestampRange $.end-time-range is shape-member('endTimeRange');
         has DurationRange $.duration-range is shape-member('durationRange');
-        has Array[Str] $.assessment-name-patterns is shape-member('assessmentNamePatterns');
+        has Str @.assessment-name-patterns is shape-member('assessmentNamePatterns');
         has TimestampRange $.start-time-range is shape-member('startTimeRange');
-        has Array[Str] $.assessment-states is shape-member('assessmentStates');
+        has Str @.assessment-states is shape-member('assessmentStates');
         has Bool $.data-collected is shape-member('dataCollected');
     }
 
@@ -447,7 +448,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
         has Str $.agent-health is shape-member('agentHealth');
         has Str $.auto-scaling-group is shape-member('autoScalingGroup');
         has Str $.agent-id is shape-member('agentId');
-        has Array[Telemetry] $.telemetry is shape-member('telemetry');
+        has Telemetry @.telemetry is shape-member('telemetry');
     }
 
     class ListAssessmentAgentsRequest does AWS::SDK::Shape {
@@ -459,7 +460,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
 
     class ListAssessmentAgentsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Agent] $.agent-list is shape-member('agentList');
+        has Agent @.agent-list is shape-member('agentList');
     }
 
     class DescribeResourceGroupResponse does AWS::SDK::Shape {
@@ -482,7 +483,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     class ListTagsForResourceResponse does AWS::SDK::Shape {
-        has Array[Tag] $.tag-list is shape-member('tagList');
+        has Tag @.tag-list is shape-member('tagList');
     }
 
     class ListApplicationsRequest does AWS::SDK::Shape {
@@ -518,19 +519,19 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     class AgentsFilter does AWS::SDK::Shape {
-        has Array[Str] $.agent-health-list is shape-member('agentHealthList');
+        has Str @.agent-health-list is shape-member('agentHealthList');
     }
 
     class ListRunsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.run-arn-list is shape-member('runArnList');
+        has Str @.run-arn-list is shape-member('runArnList');
     }
 
     class ListAssessmentsRequest does AWS::SDK::Shape {
         has AssessmentsFilter $.filter is shape-member('filter');
         has Int $.max-results is shape-member('maxResults');
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.application-arns is shape-member('applicationArns');
+        has Str @.application-arns is shape-member('applicationArns');
     }
 
     class DeleteAssessmentRequest does AWS::SDK::Shape {
@@ -542,7 +543,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     class SetTagsForResourceRequest does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('tags');
+        has Tag @.tags is shape-member('tags');
         has Str $.resource-arn is required is shape-member('resourceArn');
     }
 
@@ -563,8 +564,8 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     class AddAttributesToFindingsRequest does AWS::SDK::Shape {
-        has Array[Attribute] $.attributes is required is shape-member('attributes');
-        has Array[Str] $.finding-arns is required is shape-member('findingArns');
+        has Attribute @.attributes is required is shape-member('attributes');
+        has Str @.finding-arns is required is shape-member('findingArns');
     }
 
     class StopDataCollectionRequest does AWS::SDK::Shape {
@@ -580,29 +581,29 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     class GetAssessmentTelemetryResponse does AWS::SDK::Shape {
-        has Array[Telemetry] $.telemetry is shape-member('telemetry');
+        has Telemetry @.telemetry is shape-member('telemetry');
     }
 
     class PreviewAgentsForResourceGroupResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[AgentPreview] $.agent-preview-list is shape-member('agentPreviewList');
+        has AgentPreview @.agent-preview-list is shape-member('agentPreviewList');
     }
 
     class ListApplicationsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.application-arn-list is shape-member('applicationArnList');
+        has Str @.application-arn-list is shape-member('applicationArnList');
     }
 
     class RunsFilter does AWS::SDK::Shape {
-        has Array[Str] $.rules-packages is shape-member('rulesPackages');
+        has Str @.rules-packages is shape-member('rulesPackages');
         has TimestampRange $.completion-time is shape-member('completionTime');
-        has Array[Str] $.run-name-patterns is shape-member('runNamePatterns');
-        has Array[Str] $.run-states is shape-member('runStates');
+        has Str @.run-name-patterns is shape-member('runNamePatterns');
+        has Str @.run-states is shape-member('runStates');
         has TimestampRange $.creation-time is shape-member('creationTime');
     }
 
     class LocalizeTextRequest does AWS::SDK::Shape {
-        has Array[LocalizedText] $.localized-texts is required is shape-member('localizedTexts');
+        has LocalizedText @.localized-texts is required is shape-member('localizedTexts');
         has Str $.locale is required is shape-member('locale');
     }
 
@@ -611,6 +612,7 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
         has Int $.count is shape-member('count');
         has Str $.message-type is shape-member('messageType');
     }
+
 
     method update-assessment(
         Str :$assessment-arn!,
@@ -746,11 +748,11 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     method set-tags-for-resource(
-        Array[Tag] :$tags,
+        Tag :@tags,
         Str :$resource-arn!
     ) returns SetTagsForResourceResponse is service-operation('SetTagsForResource') {
         my $request-input = SetTagsForResourceRequest.new(
-            :$tags,
+            :@tags,
             :$resource-arn
         );
 
@@ -828,13 +830,13 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
         AssessmentsFilter :$filter,
         Int :$max-results,
         Str :$next-token,
-        Array[Str] :$application-arns
+        Str :@application-arns
     ) returns ListAssessmentsResponse is service-operation('ListAssessments') {
         my $request-input = ListAssessmentsRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
-            :$application-arns
+            :@application-arns
         );
 
         self.perform-operation(
@@ -934,12 +936,12 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     method add-attributes-to-findings(
-        Array[Attribute] :$attributes!,
-        Array[Str] :$finding-arns!
+        Attribute :@attributes!,
+        Str :@finding-arns!
     ) returns AddAttributesToFindingsResponse is service-operation('AddAttributesToFindings') {
         my $request-input = AddAttributesToFindingsRequest.new(
-            :$attributes,
-            :$finding-arns
+            :@attributes,
+            :@finding-arns
         );
 
         self.perform-operation(
@@ -965,13 +967,13 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
         FindingsFilter :$filter,
         Int :$max-results,
         Str :$next-token,
-        Array[Str] :$run-arns
+        Str :@run-arns
     ) returns ListFindingsResponse is service-operation('ListFindings') {
         my $request-input = ListFindingsRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
-            :$run-arns
+            :@run-arns
         );
 
         self.perform-operation(
@@ -983,13 +985,13 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     method create-assessment(
         Str :$assessment-name!,
         Str :$application-arn!,
-        Array[Attribute] :$user-attributes-for-findings,
+        Attribute :@user-attributes-for-findings,
         Int :$duration-in-seconds!
     ) returns CreateAssessmentResponse is service-operation('CreateAssessment') {
         my $request-input = CreateAssessmentRequest.new(
             :$assessment-name,
             :$application-arn,
-            :$user-attributes-for-findings,
+            :@user-attributes-for-findings,
             :$duration-in-seconds
         );
 
@@ -1013,12 +1015,12 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     method remove-attributes-from-findings(
-        Array[Str] :$finding-arns!,
-        Array[Str] :$attribute-keys!
+        Str :@finding-arns!,
+        Str :@attribute-keys!
     ) returns RemoveAttributesFromFindingsResponse is service-operation('RemoveAttributesFromFindings') {
         my $request-input = RemoveAttributesFromFindingsRequest.new(
-            :$finding-arns,
-            :$attribute-keys
+            :@finding-arns,
+            :@attribute-keys
         );
 
         self.perform-operation(
@@ -1028,11 +1030,11 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
     }
 
     method localize-text(
-        Array[LocalizedText] :$localized-texts!,
+        LocalizedText :@localized-texts!,
         Str :$locale!
     ) returns LocalizeTextResponse is service-operation('LocalizeText') {
         my $request-input = LocalizeTextRequest.new(
-            :$localized-texts,
+            :@localized-texts,
             :$locale
         );
 
@@ -1046,13 +1048,13 @@ class AWS::SDK::Service::Inspector20150818 does AWS::SDK::Service {
         RunsFilter :$filter,
         Int :$max-results,
         Str :$next-token,
-        Array[Str] :$assessment-arns
+        Str :@assessment-arns
     ) returns ListRunsResponse is service-operation('ListRuns') {
         my $request-input = ListRunsRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
-            :$assessment-arns
+            :@assessment-arns
         );
 
         self.perform-operation(

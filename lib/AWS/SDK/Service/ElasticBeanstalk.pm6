@@ -140,6 +140,91 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     class CheckDNSAvailabilityResultMessage { ... }
     class EnvironmentResourceDescription { ... }
 
+    subset Description of Str where .chars <= 200;
+
+    subset EnvironmentInfoType of Str where $_ eq any('tail', 'bundle');
+
+    subset NonEmptyString of Str where rx:P5/.*\S.*/;
+
+    subset EnvironmentHealth of Str where $_ eq any('Green', 'Yellow', 'Red', 'Grey');
+
+    subset NextToken of Str where 1 <= .chars <= 100;
+
+    subset ConfigurationOptionValueType of Str where $_ eq any('Scalar', 'List');
+
+    subset ConfigurationDeploymentStatus of Str where $_ eq any('deployed', 'pending', 'failed');
+
+    subset ValidationSeverity of Str where $_ eq any('error', 'warning');
+
+    subset ActionStatus of Str where $_ eq any('Scheduled', 'Pending', 'Running', 'Unknown');
+
+    subset SourceLocation of Str where 3 <= .chars <= 255 && rx:P5/.+\/.+/;
+
+    subset ConfigurationTemplateName of Str where 1 <= .chars <= 100;
+
+    subset SourceRepository of Str where $_ eq any('CodeCommit', 'S3');
+
+    subset EnvironmentName of Str where 4 <= .chars <= 40;
+
+    subset ManagedActions of Array[ManagedAction] where 1 <= *.elems <= 100;
+
+    subset FileTypeExtension of Str where 1 <= .chars <= 100;
+
+    subset ManagedActionHistoryItems of Array[ManagedActionHistoryItem] where 1 <= *.elems <= 100;
+
+    subset TagValue of Str where 1 <= .chars <= 256;
+
+    subset ActionType of Str where $_ eq any('InstanceRefresh', 'PlatformUpdate', 'Unknown');
+
+    subset DNSCname of Str where 1 <= .chars <= 255;
+
+    subset GroupName of Str where 1 <= .chars <= 19;
+
+    subset InstanceId of Str where 1 <= .chars <= 255;
+
+    subset PlatformMaxRecords of Int where 1 <= *;
+
+    subset FailureType of Str where $_ eq any('UpdateCancelled', 'CancellationFailed', 'RollbackFailed', 'RollbackSuccessful', 'InternalFailure', 'InvalidEnvironmentState', 'PermissionsError');
+
+    subset Cause of Str where 1 <= .chars <= 255;
+
+    subset EnvironmentHealthStatus of Str where $_ eq any('NoData', 'Unknown', 'Pending', 'Ok', 'Info', 'Warning', 'Degraded', 'Severe');
+
+    subset TagKey of Str where 1 <= .chars <= 128;
+
+    subset ResourceName of Str where 1 <= .chars <= 256;
+
+    subset S3Key of Str where .chars <= 1024;
+
+    subset S3Bucket of Str where .chars <= 255;
+
+    subset ComputeType of Str where $_ eq any('BUILD_GENERAL1_SMALL', 'BUILD_GENERAL1_MEDIUM', 'BUILD_GENERAL1_LARGE');
+
+    subset ApplicationName of Str where 1 <= .chars <= 100;
+
+    subset MaxRecords of Int where 1 <= * <= 1000;
+
+    subset PlatformStatus of Str where $_ eq any('Creating', 'Failed', 'Ready', 'Deleting', 'Deleted');
+
+    subset DNSCnamePrefix of Str where 4 <= .chars <= 63;
+
+    subset ApplicationVersionStatus of Str where $_ eq any('Processed', 'Unprocessed', 'Failed', 'Processing', 'Building');
+
+    subset EventSeverity of Str where $_ eq any('TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL');
+
+    subset VersionLabel of Str where 1 <= .chars <= 100;
+
+    subset EnvironmentStatus of Str where $_ eq any('Launching', 'Updating', 'Ready', 'Terminating', 'Terminated');
+
+    subset EnvironmentHealthAttribute of Str where $_ eq any('Status', 'Color', 'Causes', 'ApplicationMetrics', 'InstancesHealth', 'All', 'HealthStatus', 'RefreshedAt');
+
+    subset InstancesHealthAttribute of Str where $_ eq any('HealthStatus', 'Color', 'Causes', 'ApplicationMetrics', 'RefreshedAt', 'LaunchedAt', 'System', 'Deployment', 'AvailabilityZone', 'InstanceType', 'All');
+
+    subset SourceType of Str where $_ eq any('Git', 'Zip');
+
+    subset ActionHistoryStatus of Str where $_ eq any('Completed', 'Failed', 'Unknown');
+
+
     class RequestEnvironmentInfoMessage does AWS::SDK::Shape {
         has EnvironmentInfoType $.info-type is required is shape-member('InfoType');
         has Str $.environment-id is shape-member('EnvironmentId');
@@ -156,7 +241,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     class ListPlatformVersionsRequest does AWS::SDK::Shape {
-        has Array[PlatformFilter] $.filters is shape-member('Filters');
+        has PlatformFilter @.filters is shape-member('Filters');
         has Str $.next-token is shape-member('NextToken');
         has PlatformMaxRecords $.max-records is shape-member('MaxRecords');
     }
@@ -180,7 +265,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Description $.description is shape-member('Description');
         has VersionLabel $.version-label is shape-member('VersionLabel');
         has ApplicationName $.application-name is shape-member('ApplicationName');
-        has Array[EnvironmentLink] $.environment-links is shape-member('EnvironmentLinks');
+        has EnvironmentLink @.environment-links is shape-member('EnvironmentLinks');
         has EnvironmentTier $.tier is shape-member('Tier');
         has DateTime $.date-updated is shape-member('DateUpdated');
         has EnvironmentStatus $.status is shape-member('Status');
@@ -198,20 +283,14 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has EnvironmentName $.environment-name is shape-member('EnvironmentName');
     }
 
-    subset Description of Str where .chars <= 200;
-
-    subset EnvironmentInfoType of Str where $_ ~~ any('tail', 'bundle');
-
-    subset NonEmptyString of Str where rx:P5/.*\S.*/;
-
     class DescribeEnvironmentHealthRequest does AWS::SDK::Shape {
         has Str $.environment-id is shape-member('EnvironmentId');
-        has Array[EnvironmentHealthAttribute] $.attribute-names is shape-member('AttributeNames');
+        has EnvironmentHealthAttribute @.attribute-names is shape-member('AttributeNames');
         has EnvironmentName $.environment-name is shape-member('EnvironmentName');
     }
 
     class ApplicationDescriptionsMessage does AWS::SDK::Shape {
-        has Array[ApplicationDescription] $.applications is shape-member('Applications');
+        has ApplicationDescription @.applications is shape-member('Applications');
     }
 
     class ManagedActionInvalidStateException does AWS::SDK::Shape {
@@ -221,32 +300,26 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has ApplicationVersionDescription $.application-version is shape-member('ApplicationVersion');
     }
 
-    subset EnvironmentHealth of Str where $_ ~~ any('Green', 'Yellow', 'Red', 'Grey');
-
-    subset NextToken of Str where 1 <= .chars <= 100;
-
     class ApplicationDescription does AWS::SDK::Shape {
         has DateTime $.date-created is shape-member('DateCreated');
         has Description $.description is shape-member('Description');
         has ApplicationName $.application-name is shape-member('ApplicationName');
         has DateTime $.date-updated is shape-member('DateUpdated');
         has ApplicationResourceLifecycleConfig $.resource-lifecycle-config is shape-member('ResourceLifecycleConfig');
-        has Array[ConfigurationTemplateName] $.configuration-templates is shape-member('ConfigurationTemplates');
-        has Array[VersionLabel] $.versions is shape-member('Versions');
+        has ConfigurationTemplateName @.configuration-templates is shape-member('ConfigurationTemplates');
+        has VersionLabel @.versions is shape-member('Versions');
     }
 
     class DescribeEnvironmentHealthResult does AWS::SDK::Shape {
         has ApplicationMetrics $.application-metrics is shape-member('ApplicationMetrics');
         has Str $.health-status is shape-member('HealthStatus');
         has InstanceHealthSummary $.instances-health is shape-member('InstancesHealth');
-        has Array[Cause] $.causes is shape-member('Causes');
+        has Cause @.causes is shape-member('Causes');
         has DateTime $.refreshed-at is shape-member('RefreshedAt');
         has EnvironmentHealth $.status is shape-member('Status');
         has Str $.color is shape-member('Color');
         has EnvironmentName $.environment-name is shape-member('EnvironmentName');
     }
-
-    subset ConfigurationOptionValueType of Str where $_ ~~ any('Scalar', 'List');
 
     class OptionRestrictionRegex does AWS::SDK::Shape {
         has Str $.label is shape-member('Label');
@@ -254,7 +327,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     class DescribeApplicationsMessage does AWS::SDK::Shape {
-        has Array[ApplicationName] $.application-names is shape-member('ApplicationNames');
+        has ApplicationName @.application-names is shape-member('ApplicationNames');
     }
 
     class DescribePlatformVersionRequest does AWS::SDK::Shape {
@@ -279,7 +352,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has OptionRestrictionRegex $.regex is shape-member('Regex');
         has Str $.name is shape-member('Name');
         has Int $.max-length is shape-member('MaxLength');
-        has Array[Str] $.value-options is shape-member('ValueOptions');
+        has Str @.value-options is shape-member('ValueOptions');
         has Int $.max-value is shape-member('MaxValue');
         has Int $.min-value is shape-member('MinValue');
         has Str $.change-severity is shape-member('ChangeSeverity');
@@ -291,7 +364,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has ApplicationMetrics $.application-metrics is shape-member('ApplicationMetrics');
         has Str $.health-status is shape-member('HealthStatus');
         has DateTime $.launched-at is shape-member('LaunchedAt');
-        has Array[Cause] $.causes is shape-member('Causes');
+        has Cause @.causes is shape-member('Causes');
         has Deployment $.deployment is shape-member('Deployment');
         has SystemStatus $.system is shape-member('System');
         has Str $.instance-type is shape-member('InstanceType');
@@ -302,8 +375,6 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     class S3SubscriptionRequiredException does AWS::SDK::Shape {
     }
-
-    subset ConfigurationDeploymentStatus of Str where $_ ~~ any('deployed', 'pending', 'failed');
 
     class InstanceHealthSummary does AWS::SDK::Shape {
         has Int $.warning is shape-member('Warning');
@@ -341,13 +412,13 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     class ConfigurationOptionsDescription does AWS::SDK::Shape {
-        has Array[ConfigurationOptionDescription] $.options is shape-member('Options');
+        has ConfigurationOptionDescription @.options is shape-member('Options');
         has Str $.platform-arn is shape-member('PlatformArn');
         has Str $.solution-stack-name is shape-member('SolutionStackName');
     }
 
     class DescribeInstancesHealthResult does AWS::SDK::Shape {
-        has Array[SingleInstanceHealth] $.instance-health-list is shape-member('InstanceHealthList');
+        has SingleInstanceHealth @.instance-health-list is shape-member('InstanceHealthList');
         has NextToken $.next-token is shape-member('NextToken');
         has DateTime $.refreshed-at is shape-member('RefreshedAt');
     }
@@ -384,30 +455,26 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset ValidationSeverity of Str where $_ ~~ any('error', 'warning');
-
     class DeleteApplicationVersionMessage does AWS::SDK::Shape {
         has VersionLabel $.version-label is required is shape-member('VersionLabel');
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
         has Bool $.delete-source-bundle is shape-member('DeleteSourceBundle');
     }
 
-    subset ActionStatus of Str where $_ ~~ any('Scheduled', 'Pending', 'Running', 'Unknown');
-
     class PlatformDescription does AWS::SDK::Shape {
-        has Array[CustomAmi] $.custom-ami-list is shape-member('CustomAmiList');
+        has CustomAmi @.custom-ami-list is shape-member('CustomAmiList');
         has Str $.platform-category is shape-member('PlatformCategory');
         has PlatformStatus $.platform-status is shape-member('PlatformStatus');
         has Str $.platform-name is shape-member('PlatformName');
-        has Array[PlatformFramework] $.frameworks is shape-member('Frameworks');
-        has Array[PlatformProgrammingLanguage] $.programming-languages is shape-member('ProgrammingLanguages');
+        has PlatformFramework @.frameworks is shape-member('Frameworks');
+        has PlatformProgrammingLanguage @.programming-languages is shape-member('ProgrammingLanguages');
         has Description $.description is shape-member('Description');
         has DateTime $.date-created is shape-member('DateCreated');
-        has Array[Str] $.supported-addon-list is shape-member('SupportedAddonList');
+        has Str @.supported-addon-list is shape-member('SupportedAddonList');
         has Str $.operating-system-version is shape-member('OperatingSystemVersion');
         has Str $.operating-system-name is shape-member('OperatingSystemName');
         has DateTime $.date-updated is shape-member('DateUpdated');
-        has Array[Str] $.supported-tier-list is shape-member('SupportedTierList');
+        has Str @.supported-tier-list is shape-member('SupportedTierList');
         has Str $.platform-version is shape-member('PlatformVersion');
         has Str $.maintainer is shape-member('Maintainer');
         has Str $.solution-stack-name is shape-member('SolutionStackName');
@@ -422,13 +489,13 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     class CreateEnvironmentMessage does AWS::SDK::Shape {
-        has Array[ConfigurationOptionSetting] $.option-settings is shape-member('OptionSettings');
+        has ConfigurationOptionSetting @.option-settings is shape-member('OptionSettings');
         has VersionLabel $.version-label is shape-member('VersionLabel');
         has Description $.description is shape-member('Description');
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
-        has Array[OptionSpecification] $.options-to-remove is shape-member('OptionsToRemove');
+        has OptionSpecification @.options-to-remove is shape-member('OptionsToRemove');
         has EnvironmentTier $.tier is shape-member('Tier');
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has ConfigurationTemplateName $.template-name is shape-member('TemplateName');
         has GroupName $.group-name is shape-member('GroupName');
         has Str $.platform-arn is shape-member('PlatformArn');
@@ -443,22 +510,18 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     class TooManyConfigurationTemplatesException does AWS::SDK::Shape {
     }
 
-    subset SourceLocation of Str where 3 <= .chars <= 255 && rx:P5/.+\/.+/;
-
     class RestartAppServerMessage does AWS::SDK::Shape {
         has Str $.environment-id is shape-member('EnvironmentId');
         has EnvironmentName $.environment-name is shape-member('EnvironmentName');
     }
 
-    subset ConfigurationTemplateName of Str where 1 <= .chars <= 100;
-
     class PlatformSummary does AWS::SDK::Shape {
         has Str $.platform-category is shape-member('PlatformCategory');
         has PlatformStatus $.platform-status is shape-member('PlatformStatus');
-        has Array[Str] $.supported-addon-list is shape-member('SupportedAddonList');
+        has Str @.supported-addon-list is shape-member('SupportedAddonList');
         has Str $.operating-system-version is shape-member('OperatingSystemVersion');
         has Str $.operating-system-name is shape-member('OperatingSystemName');
-        has Array[Str] $.supported-tier-list is shape-member('SupportedTierList');
+        has Str @.supported-tier-list is shape-member('SupportedTierList');
         has Str $.platform-owner is shape-member('PlatformOwner');
         has Str $.platform-arn is shape-member('PlatformArn');
     }
@@ -470,23 +533,19 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     class LoadBalancerDescription does AWS::SDK::Shape {
         has Str $.domain is shape-member('Domain');
-        has Array[Listener] $.listeners is shape-member('Listeners');
+        has Listener @.listeners is shape-member('Listeners');
         has Str $.load-balancer-name is shape-member('LoadBalancerName');
     }
 
     class EnvironmentDescriptionsMessage does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[EnvironmentDescription] $.environments is shape-member('Environments');
+        has EnvironmentDescription @.environments is shape-member('Environments');
     }
-
-    subset SourceRepository of Str where $_ ~~ any('CodeCommit', 'S3');
 
     class DeleteConfigurationTemplateMessage does AWS::SDK::Shape {
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
         has ConfigurationTemplateName $.template-name is required is shape-member('TemplateName');
     }
-
-    subset EnvironmentName of Str where 4 <= .chars <= 40;
 
     class UpdateApplicationVersionMessage does AWS::SDK::Shape {
         has Description $.description is shape-member('Description');
@@ -517,8 +576,6 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     class InsufficientPrivilegesException does AWS::SDK::Shape {
     }
 
-    subset ManagedActions of Array[ManagedAction] where 1 <= *.elems <= 100;
-
     class InvalidRequestException does AWS::SDK::Shape {
     }
 
@@ -530,17 +587,11 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Str $.link-name is shape-member('LinkName');
     }
 
-    subset FileTypeExtension of Str where 1 <= .chars <= 100;
-
-    subset ManagedActionHistoryItems of Array[ManagedActionHistoryItem] where 1 <= *.elems <= 100;
-
     class PlatformFilter does AWS::SDK::Shape {
-        has Array[Str] $.values is shape-member('Values');
+        has Str @.values is shape-member('Values');
         has Str $.type is shape-member('Type');
         has Str $.operator is shape-member('Operator');
     }
-
-    subset TagValue of Str where 1 <= .chars <= 256;
 
     class DescribeEnvironmentManagedActionsRequest does AWS::SDK::Shape {
         has ActionStatus $.status is shape-member('Status');
@@ -558,34 +609,24 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     class EventDescriptionsMessage does AWS::SDK::Shape {
-        has Array[EventDescription] $.events is shape-member('Events');
+        has EventDescription @.events is shape-member('Events');
         has Str $.next-token is shape-member('NextToken');
     }
 
-    subset ActionType of Str where $_ ~~ any('InstanceRefresh', 'PlatformUpdate', 'Unknown');
-
     class ListPlatformVersionsResult does AWS::SDK::Shape {
-        has Array[PlatformSummary] $.platform-summary-list is shape-member('PlatformSummaryList');
+        has PlatformSummary @.platform-summary-list is shape-member('PlatformSummaryList');
         has Str $.next-token is shape-member('NextToken');
     }
 
     class SourceBundleDeletionException does AWS::SDK::Shape {
     }
 
-    subset DNSCname of Str where 1 <= .chars <= 255;
-
-    subset GroupName of Str where 1 <= .chars <= 19;
-
-    subset InstanceId of Str where 1 <= .chars <= 255;
-
     class ValidateConfigurationSettingsMessage does AWS::SDK::Shape {
-        has Array[ConfigurationOptionSetting] $.option-settings is required is shape-member('OptionSettings');
+        has ConfigurationOptionSetting @.option-settings is required is shape-member('OptionSettings');
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
         has ConfigurationTemplateName $.template-name is shape-member('TemplateName');
         has EnvironmentName $.environment-name is shape-member('EnvironmentName');
     }
-
-    subset PlatformMaxRecords of Int where 1 <= *;
 
     class DescribeEnvironmentManagedActionHistoryRequest does AWS::SDK::Shape {
         has Int $.max-items is shape-member('MaxItems');
@@ -604,7 +645,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     class ConfigurationSettingsDescriptions does AWS::SDK::Shape {
-        has Array[ConfigurationSettingsDescription] $.configuration-settings is shape-member('ConfigurationSettings');
+        has ConfigurationSettingsDescription @.configuration-settings is shape-member('ConfigurationSettings');
     }
 
     class ApplicationVersionDescription does AWS::SDK::Shape {
@@ -633,12 +674,12 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     class SystemStatus does AWS::SDK::Shape {
         has CPUUtilization $.cpu-utilization is shape-member('CPUUtilization');
-        has Array[Numeric] $.load-average is shape-member('LoadAverage');
+        has Numeric @.load-average is shape-member('LoadAverage');
     }
 
     class CreateConfigurationTemplateMessage does AWS::SDK::Shape {
         has SourceConfiguration $.source-configuration is shape-member('SourceConfiguration');
-        has Array[ConfigurationOptionSetting] $.option-settings is shape-member('OptionSettings');
+        has ConfigurationOptionSetting @.option-settings is shape-member('OptionSettings');
         has Description $.description is shape-member('Description');
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
         has Str $.environment-id is shape-member('EnvironmentId');
@@ -660,16 +701,14 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset FailureType of Str where $_ ~~ any('UpdateCancelled', 'CancellationFailed', 'RollbackFailed', 'RollbackSuccessful', 'InternalFailure', 'InvalidEnvironmentState', 'PermissionsError');
-
     class OperationInProgressException does AWS::SDK::Shape {
     }
 
     class UpdateConfigurationTemplateMessage does AWS::SDK::Shape {
-        has Array[ConfigurationOptionSetting] $.option-settings is shape-member('OptionSettings');
+        has ConfigurationOptionSetting @.option-settings is shape-member('OptionSettings');
         has Description $.description is shape-member('Description');
         has ApplicationName $.application-name is required is shape-member('ApplicationName');
-        has Array[OptionSpecification] $.options-to-remove is shape-member('OptionsToRemove');
+        has OptionSpecification @.options-to-remove is shape-member('OptionsToRemove');
         has ConfigurationTemplateName $.template-name is required is shape-member('TemplateName');
     }
 
@@ -679,8 +718,6 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Str $.destination-environment-id is shape-member('DestinationEnvironmentId');
         has EnvironmentName $.destination-environment-name is shape-member('DestinationEnvironmentName');
     }
-
-    subset Cause of Str where 1 <= .chars <= 255;
 
     class Trigger does AWS::SDK::Shape {
         has Str $.name is shape-member('Name');
@@ -693,10 +730,6 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     class AutoScalingGroup does AWS::SDK::Shape {
         has Str $.name is shape-member('Name');
     }
-
-    subset EnvironmentHealthStatus of Str where $_ ~~ any('NoData', 'Unknown', 'Pending', 'Ok', 'Info', 'Warning', 'Degraded', 'Severe');
-
-    subset TagKey of Str where 1 <= .chars <= 128;
 
     class S3LocationNotInServiceRegionException does AWS::SDK::Shape {
     }
@@ -713,7 +746,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     class DescribeConfigurationOptionsMessage does AWS::SDK::Shape {
         has ApplicationName $.application-name is shape-member('ApplicationName');
-        has Array[OptionSpecification] $.options is shape-member('Options');
+        has OptionSpecification @.options is shape-member('Options');
         has ConfigurationTemplateName $.template-name is shape-member('TemplateName');
         has Str $.platform-arn is shape-member('PlatformArn');
         has Str $.solution-stack-name is shape-member('SolutionStackName');
@@ -726,7 +759,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     class ConfigurationSettingsDescription does AWS::SDK::Shape {
         has ConfigurationDeploymentStatus $.deployment-status is shape-member('DeploymentStatus');
-        has Array[ConfigurationOptionSetting] $.option-settings is shape-member('OptionSettings');
+        has ConfigurationOptionSetting @.option-settings is shape-member('OptionSettings');
         has DateTime $.date-created is shape-member('DateCreated');
         has Description $.description is shape-member('Description');
         has ApplicationName $.application-name is shape-member('ApplicationName');
@@ -737,12 +770,10 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Str $.solution-stack-name is shape-member('SolutionStackName');
     }
 
-    subset ResourceName of Str where 1 <= .chars <= 256;
-
     class DescribeEnvironmentsMessage does AWS::SDK::Shape {
         has DateTime $.included-deleted-back-to is shape-member('IncludedDeletedBackTo');
-        has Array[EnvironmentName] $.environment-names is shape-member('EnvironmentNames');
-        has Array[Str] $.environment-ids is shape-member('EnvironmentIds');
+        has EnvironmentName @.environment-names is shape-member('EnvironmentNames');
+        has Str @.environment-ids is shape-member('EnvironmentIds');
         has VersionLabel $.version-label is shape-member('VersionLabel');
         has ApplicationName $.application-name is shape-member('ApplicationName');
         has Str $.next-token is shape-member('NextToken');
@@ -750,11 +781,9 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has MaxRecords $.max-records is shape-member('MaxRecords');
     }
 
-    subset S3Key of Str where .chars <= 1024;
-
     class DescribeApplicationVersionsMessage does AWS::SDK::Shape {
         has ApplicationName $.application-name is shape-member('ApplicationName');
-        has Array[VersionLabel] $.version-labels is shape-member('VersionLabels');
+        has VersionLabel @.version-labels is shape-member('VersionLabels');
         has Str $.next-token is shape-member('NextToken');
         has MaxRecords $.max-records is shape-member('MaxRecords');
     }
@@ -776,14 +805,14 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     class SolutionStackDescription does AWS::SDK::Shape {
-        has Array[FileTypeExtension] $.permitted-file-types is shape-member('PermittedFileTypes');
+        has FileTypeExtension @.permitted-file-types is shape-member('PermittedFileTypes');
         has Str $.solution-stack-name is shape-member('SolutionStackName');
     }
 
     class DescribeInstancesHealthRequest does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('NextToken');
         has Str $.environment-id is shape-member('EnvironmentId');
-        has Array[InstancesHealthAttribute] $.attribute-names is shape-member('AttributeNames');
+        has InstancesHealthAttribute @.attribute-names is shape-member('AttributeNames');
         has EnvironmentName $.environment-name is shape-member('EnvironmentName');
     }
 
@@ -813,10 +842,8 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has ApplicationResourceLifecycleConfig $.resource-lifecycle-config is required is shape-member('ResourceLifecycleConfig');
     }
 
-    subset S3Bucket of Str where .chars <= 255;
-
     class RetrieveEnvironmentInfoResultMessage does AWS::SDK::Shape {
-        has Array[EnvironmentInfoDescription] $.environment-info is shape-member('EnvironmentInfo');
+        has EnvironmentInfoDescription @.environment-info is shape-member('EnvironmentInfo');
     }
 
     class MaxAgeRule does AWS::SDK::Shape {
@@ -831,13 +858,9 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     class ApplicationVersionDescriptionsMessage does AWS::SDK::Shape {
-        has Array[ApplicationVersionDescription] $.application-versions is shape-member('ApplicationVersions');
+        has ApplicationVersionDescription @.application-versions is shape-member('ApplicationVersions');
         has Str $.next-token is shape-member('NextToken');
     }
-
-    subset ComputeType of Str where $_ ~~ any('BUILD_GENERAL1_SMALL', 'BUILD_GENERAL1_MEDIUM', 'BUILD_GENERAL1_LARGE');
-
-    subset ApplicationName of Str where 1 <= .chars <= 100;
 
     class CheckDNSAvailabilityMessage does AWS::SDK::Shape {
         has DNSCnamePrefix $.cname-prefix is required is shape-member('CNAMEPrefix');
@@ -865,7 +888,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     class ComposeEnvironmentsMessage does AWS::SDK::Shape {
         has ApplicationName $.application-name is shape-member('ApplicationName');
-        has Array[VersionLabel] $.version-labels is shape-member('VersionLabels');
+        has VersionLabel @.version-labels is shape-member('VersionLabels');
         has GroupName $.group-name is shape-member('GroupName');
     }
 
@@ -874,7 +897,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     class CreatePlatformVersionRequest does AWS::SDK::Shape {
         has Str $.platform-name is required is shape-member('PlatformName');
-        has Array[ConfigurationOptionSetting] $.option-settings is shape-member('OptionSettings');
+        has ConfigurationOptionSetting @.option-settings is shape-member('OptionSettings');
         has Str $.platform-version is required is shape-member('PlatformVersion');
         has S3Location $.platform-definition-bundle is required is shape-member('PlatformDefinitionBundle');
         has EnvironmentName $.environment-name is shape-member('EnvironmentName');
@@ -887,20 +910,14 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     class ListAvailableSolutionStacksResultMessage does AWS::SDK::Shape {
-        has Array[SolutionStackDescription] $.solution-stack-details is shape-member('SolutionStackDetails');
-        has Array[Str] $.solution-stacks is shape-member('SolutionStacks');
+        has SolutionStackDescription @.solution-stack-details is shape-member('SolutionStackDetails');
+        has Str @.solution-stacks is shape-member('SolutionStacks');
     }
-
-    subset MaxRecords of Int where 1 <= * <= 1000;
 
     class Queue does AWS::SDK::Shape {
         has Str $.url is shape-member('URL');
         has Str $.name is shape-member('Name');
     }
-
-    subset PlatformStatus of Str where $_ ~~ any('Creating', 'Failed', 'Ready', 'Deleting', 'Deleted');
-
-    subset DNSCnamePrefix of Str where 4 <= .chars <= 63;
 
     class ConfigurationOptionSetting does AWS::SDK::Shape {
         has ResourceName $.resource-name is shape-member('ResourceName');
@@ -920,8 +937,6 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Latency $.latency is shape-member('Latency');
     }
 
-    subset ApplicationVersionStatus of Str where $_ ~~ any('Processed', 'Unprocessed', 'Failed', 'Processing', 'Building');
-
     class CreateApplicationVersionMessage does AWS::SDK::Shape {
         has S3Location $.source-bundle is shape-member('SourceBundle');
         has Description $.description is shape-member('Description');
@@ -933,16 +948,12 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Bool $.auto-create-application is shape-member('AutoCreateApplication');
     }
 
-    subset EventSeverity of Str where $_ ~~ any('TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL');
-
-    subset VersionLabel of Str where 1 <= .chars <= 100;
-
     class UpdateEnvironmentMessage does AWS::SDK::Shape {
-        has Array[ConfigurationOptionSetting] $.option-settings is shape-member('OptionSettings');
+        has ConfigurationOptionSetting @.option-settings is shape-member('OptionSettings');
         has VersionLabel $.version-label is shape-member('VersionLabel');
         has Description $.description is shape-member('Description');
         has ApplicationName $.application-name is shape-member('ApplicationName');
-        has Array[OptionSpecification] $.options-to-remove is shape-member('OptionsToRemove');
+        has OptionSpecification @.options-to-remove is shape-member('OptionsToRemove');
         has EnvironmentTier $.tier is shape-member('Tier');
         has ConfigurationTemplateName $.template-name is shape-member('TemplateName');
         has GroupName $.group-name is shape-member('GroupName');
@@ -972,13 +983,9 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Str $.message is shape-member('Message');
     }
 
-    subset EnvironmentStatus of Str where $_ ~~ any('Launching', 'Updating', 'Ready', 'Terminating', 'Terminated');
-
     class DeletePlatformVersionRequest does AWS::SDK::Shape {
         has Str $.platform-arn is shape-member('PlatformArn');
     }
-
-    subset EnvironmentHealthAttribute of Str where $_ ~~ any('Status', 'Color', 'Causes', 'ApplicationMetrics', 'InstancesHealth', 'All', 'HealthStatus', 'RefreshedAt');
 
     class TooManyApplicationVersionsException does AWS::SDK::Shape {
     }
@@ -995,12 +1002,8 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Int $.deployment-id is shape-member('DeploymentId');
     }
 
-    subset InstancesHealthAttribute of Str where $_ ~~ any('HealthStatus', 'Color', 'Causes', 'ApplicationMetrics', 'RefreshedAt', 'LaunchedAt', 'System', 'Deployment', 'AvailabilityZone', 'InstanceType', 'All');
-
-    subset SourceType of Str where $_ ~~ any('Git', 'Zip');
-
     class ConfigurationSettingsValidationMessages does AWS::SDK::Shape {
-        has Array[ValidationMessage] $.messages is shape-member('Messages');
+        has ValidationMessage @.messages is shape-member('Messages');
     }
 
     class MaxCountRule does AWS::SDK::Shape {
@@ -1023,8 +1026,6 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         has Str $.name is shape-member('Name');
     }
 
-    subset ActionHistoryStatus of Str where $_ ~~ any('Completed', 'Failed', 'Unknown');
-
     class ApplicationResourceLifecycleConfig does AWS::SDK::Shape {
         has ApplicationVersionLifecycleConfig $.version-lifecycle-config is shape-member('VersionLifecycleConfig');
         has Str $.service-role is shape-member('ServiceRole');
@@ -1036,23 +1037,24 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     class EnvironmentResourceDescription does AWS::SDK::Shape {
-        has Array[Queue] $.queues is shape-member('Queues');
-        has Array[Trigger] $.triggers is shape-member('Triggers');
-        has Array[LoadBalancer] $.load-balancers is shape-member('LoadBalancers');
-        has Array[Instance] $.instances is shape-member('Instances');
-        has Array[AutoScalingGroup] $.auto-scaling-groups is shape-member('AutoScalingGroups');
-        has Array[LaunchConfiguration] $.launch-configurations is shape-member('LaunchConfigurations');
+        has Queue @.queues is shape-member('Queues');
+        has Trigger @.triggers is shape-member('Triggers');
+        has LoadBalancer @.load-balancers is shape-member('LoadBalancers');
+        has Instance @.instances is shape-member('Instances');
+        has AutoScalingGroup @.auto-scaling-groups is shape-member('AutoScalingGroups');
+        has LaunchConfiguration @.launch-configurations is shape-member('LaunchConfigurations');
         has EnvironmentName $.environment-name is shape-member('EnvironmentName');
     }
 
+
     method describe-environment-health(
         Str :$environment-id,
-        Array[EnvironmentHealthAttribute] :$attribute-names,
+        EnvironmentHealthAttribute :@attribute-names,
         EnvironmentName :$environment-name
     ) returns DescribeEnvironmentHealthResult is service-operation('DescribeEnvironmentHealth') {
         my $request-input = DescribeEnvironmentHealthRequest.new(
             :$environment-id,
-            :$attribute-names,
+            :@attribute-names,
             :$environment-name
         );
 
@@ -1081,8 +1083,8 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     method describe-environments(
         DateTime :$included-deleted-back-to,
-        Array[EnvironmentName] :$environment-names,
-        Array[Str] :$environment-ids,
+        EnvironmentName :@environment-names,
+        Str :@environment-ids,
         VersionLabel :$version-label,
         ApplicationName :$application-name,
         Str :$next-token,
@@ -1091,8 +1093,8 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     ) returns EnvironmentDescriptionsMessage is service-operation('DescribeEnvironments') {
         my $request-input = DescribeEnvironmentsMessage.new(
             :$included-deleted-back-to,
-            :$environment-names,
-            :$environment-ids,
+            :@environment-names,
+            :@environment-ids,
             :$version-label,
             :$application-name,
             :$next-token,
@@ -1123,12 +1125,12 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     method compose-environments(
         ApplicationName :$application-name,
-        Array[VersionLabel] :$version-labels,
+        VersionLabel :@version-labels,
         GroupName :$group-name
     ) returns EnvironmentDescriptionsMessage is service-operation('ComposeEnvironments') {
         my $request-input = ComposeEnvironmentsMessage.new(
             :$application-name,
-            :$version-labels,
+            :@version-labels,
             :$group-name
         );
 
@@ -1167,7 +1169,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     method describe-configuration-options(
         ApplicationName :$application-name,
-        Array[OptionSpecification] :$options,
+        OptionSpecification :@options,
         ConfigurationTemplateName :$template-name,
         Str :$platform-arn,
         Str :$solution-stack-name,
@@ -1175,7 +1177,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     ) returns ConfigurationOptionsDescription is service-operation('DescribeConfigurationOptions') {
         my $request-input = DescribeConfigurationOptionsMessage.new(
             :$application-name,
-            :$options,
+            :@options,
             :$template-name,
             :$platform-arn,
             :$solution-stack-name,
@@ -1204,13 +1206,13 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     method validate-configuration-settings(
-        Array[ConfigurationOptionSetting] :$option-settings!,
+        ConfigurationOptionSetting :@option-settings!,
         ApplicationName :$application-name!,
         ConfigurationTemplateName :$template-name,
         EnvironmentName :$environment-name
     ) returns ConfigurationSettingsValidationMessages is service-operation('ValidateConfigurationSettings') {
         my $request-input = ValidateConfigurationSettingsMessage.new(
-            :$option-settings,
+            :@option-settings,
             :$application-name,
             :$template-name,
             :$environment-name
@@ -1239,7 +1241,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     method create-configuration-template(
         SourceConfiguration :$source-configuration,
-        Array[ConfigurationOptionSetting] :$option-settings,
+        ConfigurationOptionSetting :@option-settings,
         Description :$description,
         ApplicationName :$application-name!,
         Str :$environment-id,
@@ -1249,7 +1251,7 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     ) returns ConfigurationSettingsDescription is service-operation('CreateConfigurationTemplate') {
         my $request-input = CreateConfigurationTemplateMessage.new(
             :$source-configuration,
-            :$option-settings,
+            :@option-settings,
             :$description,
             :$application-name,
             :$environment-id,
@@ -1265,12 +1267,12 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     method list-platform-versions(
-        Array[PlatformFilter] :$filters,
+        PlatformFilter :@filters,
         Str :$next-token,
         PlatformMaxRecords :$max-records
     ) returns ListPlatformVersionsResult is service-operation('ListPlatformVersions') {
         my $request-input = ListPlatformVersionsRequest.new(
-            :$filters,
+            :@filters,
             :$next-token,
             :$max-records
         );
@@ -1282,17 +1284,17 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     method update-configuration-template(
-        Array[ConfigurationOptionSetting] :$option-settings,
+        ConfigurationOptionSetting :@option-settings,
         Description :$description,
         ApplicationName :$application-name!,
-        Array[OptionSpecification] :$options-to-remove,
+        OptionSpecification :@options-to-remove,
         ConfigurationTemplateName :$template-name!
     ) returns ConfigurationSettingsDescription is service-operation('UpdateConfigurationTemplate') {
         my $request-input = UpdateConfigurationTemplateMessage.new(
-            :$option-settings,
+            :@option-settings,
             :$description,
             :$application-name,
-            :$options-to-remove,
+            :@options-to-remove,
             :$template-name
         );
 
@@ -1317,13 +1319,13 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     method describe-application-versions(
         ApplicationName :$application-name,
-        Array[VersionLabel] :$version-labels,
+        VersionLabel :@version-labels,
         Str :$next-token,
         MaxRecords :$max-records
     ) returns ApplicationVersionDescriptionsMessage is service-operation('DescribeApplicationVersions') {
         my $request-input = DescribeApplicationVersionsMessage.new(
             :$application-name,
-            :$version-labels,
+            :@version-labels,
             :$next-token,
             :$max-records
         );
@@ -1500,11 +1502,11 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     method update-environment(
-        Array[ConfigurationOptionSetting] :$option-settings,
+        ConfigurationOptionSetting :@option-settings,
         VersionLabel :$version-label,
         Description :$description,
         ApplicationName :$application-name,
-        Array[OptionSpecification] :$options-to-remove,
+        OptionSpecification :@options-to-remove,
         EnvironmentTier :$tier,
         ConfigurationTemplateName :$template-name,
         GroupName :$group-name,
@@ -1514,11 +1516,11 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         EnvironmentName :$environment-name
     ) returns EnvironmentDescription is service-operation('UpdateEnvironment') {
         my $request-input = UpdateEnvironmentMessage.new(
-            :$option-settings,
+            :@option-settings,
             :$version-label,
             :$description,
             :$application-name,
-            :$options-to-remove,
+            :@options-to-remove,
             :$tier,
             :$template-name,
             :$group-name,
@@ -1564,14 +1566,14 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
 
     method create-platform-version(
         Str :$platform-name!,
-        Array[ConfigurationOptionSetting] :$option-settings,
+        ConfigurationOptionSetting :@option-settings,
         Str :$platform-version!,
         S3Location :$platform-definition-bundle!,
         EnvironmentName :$environment-name
     ) returns CreatePlatformVersionResult is service-operation('CreatePlatformVersion') {
         my $request-input = CreatePlatformVersionRequest.new(
             :$platform-name,
-            :$option-settings,
+            :@option-settings,
             :$platform-version,
             :$platform-definition-bundle,
             :$environment-name
@@ -1647,10 +1649,10 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     method describe-applications(
-        Array[ApplicationName] :$application-names
+        ApplicationName :@application-names
     ) returns ApplicationDescriptionsMessage is service-operation('DescribeApplications') {
         my $request-input = DescribeApplicationsMessage.new(
-            :$application-names
+            :@application-names
         );
 
         self.perform-operation(
@@ -1677,13 +1679,13 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     method describe-instances-health(
         NextToken :$next-token,
         Str :$environment-id,
-        Array[InstancesHealthAttribute] :$attribute-names,
+        InstancesHealthAttribute :@attribute-names,
         EnvironmentName :$environment-name
     ) returns DescribeInstancesHealthResult is service-operation('DescribeInstancesHealth') {
         my $request-input = DescribeInstancesHealthRequest.new(
             :$next-token,
             :$environment-id,
-            :$attribute-names,
+            :@attribute-names,
             :$environment-name
         );
 
@@ -1723,13 +1725,13 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
     }
 
     method create-environment(
-        Array[ConfigurationOptionSetting] :$option-settings,
+        ConfigurationOptionSetting :@option-settings,
         VersionLabel :$version-label,
         Description :$description,
         ApplicationName :$application-name!,
-        Array[OptionSpecification] :$options-to-remove,
+        OptionSpecification :@options-to-remove,
         EnvironmentTier :$tier,
-        Array[Tag] :$tags,
+        Tag :@tags,
         ConfigurationTemplateName :$template-name,
         GroupName :$group-name,
         Str :$platform-arn,
@@ -1738,13 +1740,13 @@ class AWS::SDK::Service::ElasticBeanstalk does AWS::SDK::Service {
         EnvironmentName :$environment-name
     ) returns EnvironmentDescription is service-operation('CreateEnvironment') {
         my $request-input = CreateEnvironmentMessage.new(
-            :$option-settings,
+            :@option-settings,
             :$version-label,
             :$description,
             :$application-name,
-            :$options-to-remove,
+            :@options-to-remove,
             :$tier,
-            :$tags,
+            :@tags,
             :$template-name,
             :$group-name,
             :$platform-arn,

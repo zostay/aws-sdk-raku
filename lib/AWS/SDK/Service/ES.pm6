@@ -62,6 +62,25 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
     class InternalException { ... }
     class ListElasticsearchInstanceTypesRequest { ... }
 
+    subset DomainId of Str where 1 <= .chars <= 64;
+
+    subset VolumeType of Str where $_ eq any('standard', 'gp2', 'io1');
+
+    subset ESPartitionInstanceType of Str where $_ eq any('m3.medium.elasticsearch', 'm3.large.elasticsearch', 'm3.xlarge.elasticsearch', 'm3.2xlarge.elasticsearch', 'm4.large.elasticsearch', 'm4.xlarge.elasticsearch', 'm4.2xlarge.elasticsearch', 'm4.4xlarge.elasticsearch', 'm4.10xlarge.elasticsearch', 't2.micro.elasticsearch', 't2.small.elasticsearch', 't2.medium.elasticsearch', 'r3.large.elasticsearch', 'r3.xlarge.elasticsearch', 'r3.2xlarge.elasticsearch', 'r3.4xlarge.elasticsearch', 'r3.8xlarge.elasticsearch', 'i2.xlarge.elasticsearch', 'i2.2xlarge.elasticsearch', 'd2.xlarge.elasticsearch', 'd2.2xlarge.elasticsearch', 'd2.4xlarge.elasticsearch', 'd2.8xlarge.elasticsearch', 'c4.large.elasticsearch', 'c4.xlarge.elasticsearch', 'c4.2xlarge.elasticsearch', 'c4.4xlarge.elasticsearch', 'c4.8xlarge.elasticsearch', 'r4.large.elasticsearch', 'r4.xlarge.elasticsearch', 'r4.2xlarge.elasticsearch', 'r4.4xlarge.elasticsearch', 'r4.8xlarge.elasticsearch', 'r4.16xlarge.elasticsearch');
+
+    subset DomainName of Str where 3 <= .chars <= 28 && rx:P5/[a-z][a-z0-9\-]+/;
+
+    subset MaxResults of Int where * <= 100;
+
+    subset TagKey of Str where 1 <= .chars <= 128;
+
+    subset UIntValue of Int where 0 <= *;
+
+    subset TagValue of Str where 0 <= .chars <= 256;
+
+    subset OptionState of Str where $_ eq any('RequiresIndexDocuments', 'Processing', 'Active');
+
+
     class DeleteElasticsearchDomainRequest does AWS::SDK::Shape {
         has DomainName $.domain-name is required is shape-member('DomainName');
     }
@@ -77,7 +96,7 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
     }
 
     class DescribeElasticsearchInstanceTypeLimitsResponse does AWS::SDK::Shape {
-        has Hash[Limits, Str] $.limits-by-role is shape-member('LimitsByRole');
+        has Limits %.limits-by-role{Str} is shape-member('LimitsByRole');
     }
 
     class ElasticsearchVersionStatus does AWS::SDK::Shape {
@@ -86,7 +105,7 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
     }
 
     class ListElasticsearchInstanceTypesResponse does AWS::SDK::Shape {
-        has Array[ESPartitionInstanceType] $.elasticsearch-instance-types is shape-member('ElasticsearchInstanceTypes');
+        has ESPartitionInstanceType @.elasticsearch-instance-types is shape-member('ElasticsearchInstanceTypes');
         has Str $.next-token is shape-member('NextToken');
     }
 
@@ -102,7 +121,7 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
     }
 
     class AdvancedOptionsStatus does AWS::SDK::Shape {
-        has Hash[Str, Str] $.options is required is shape-member('Options');
+        has Str %.options{Str} is required is shape-member('Options');
         has OptionStatus $.status is required is shape-member('Status');
     }
 
@@ -110,10 +129,8 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
         has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    subset DomainId of Str where 1 <= .chars <= 64;
-
     class DescribeElasticsearchDomainsRequest does AWS::SDK::Shape {
-        has Array[DomainName] $.domain-names is required is shape-member('DomainNames');
+        has DomainName @.domain-names is required is shape-member('DomainNames');
     }
 
     class DomainInfo does AWS::SDK::Shape {
@@ -121,24 +138,20 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
     }
 
     class ListTagsResponse does AWS::SDK::Shape {
-        has Array[Tag] $.tag-list is shape-member('TagList');
+        has Tag @.tag-list is shape-member('TagList');
     }
-
-    subset VolumeType of Str where $_ ~~ any('standard', 'gp2', 'io1');
 
     class ValidationException does AWS::SDK::Shape {
     }
 
     class StorageType does AWS::SDK::Shape {
         has Str $.storage-sub-type-name is shape-member('StorageSubTypeName');
-        has Array[StorageTypeLimit] $.storage-type-limits is shape-member('StorageTypeLimits');
+        has StorageTypeLimit @.storage-type-limits is shape-member('StorageTypeLimits');
         has Str $.storage-type-name is shape-member('StorageTypeName');
     }
 
-    subset ESPartitionInstanceType of Str where $_ ~~ any('m3.medium.elasticsearch', 'm3.large.elasticsearch', 'm3.xlarge.elasticsearch', 'm3.2xlarge.elasticsearch', 'm4.large.elasticsearch', 'm4.xlarge.elasticsearch', 'm4.2xlarge.elasticsearch', 'm4.4xlarge.elasticsearch', 'm4.10xlarge.elasticsearch', 't2.micro.elasticsearch', 't2.small.elasticsearch', 't2.medium.elasticsearch', 'r3.large.elasticsearch', 'r3.xlarge.elasticsearch', 'r3.2xlarge.elasticsearch', 'r3.4xlarge.elasticsearch', 'r3.8xlarge.elasticsearch', 'i2.xlarge.elasticsearch', 'i2.2xlarge.elasticsearch', 'd2.xlarge.elasticsearch', 'd2.2xlarge.elasticsearch', 'd2.4xlarge.elasticsearch', 'd2.8xlarge.elasticsearch', 'c4.large.elasticsearch', 'c4.xlarge.elasticsearch', 'c4.2xlarge.elasticsearch', 'c4.4xlarge.elasticsearch', 'c4.8xlarge.elasticsearch', 'r4.large.elasticsearch', 'r4.xlarge.elasticsearch', 'r4.2xlarge.elasticsearch', 'r4.4xlarge.elasticsearch', 'r4.8xlarge.elasticsearch', 'r4.16xlarge.elasticsearch');
-
     class StorageTypeLimit does AWS::SDK::Shape {
-        has Array[Str] $.limit-values is shape-member('LimitValues');
+        has Str @.limit-values is shape-member('LimitValues');
         has Str $.limit-name is shape-member('LimitName');
     }
 
@@ -149,7 +162,7 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
 
     class AddTagsRequest does AWS::SDK::Shape {
         has Str $.arn is required is shape-member('ARN');
-        has Array[Tag] $.tag-list is required is shape-member('TagList');
+        has Tag @.tag-list is required is shape-member('TagList');
     }
 
     class DisabledOperationException does AWS::SDK::Shape {
@@ -165,7 +178,7 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
         has Str $.endpoint is shape-member('Endpoint');
         has ElasticsearchClusterConfig $.elasticsearch-cluster-config is required is shape-member('ElasticsearchClusterConfig');
         has Bool $.created is shape-member('Created');
-        has Hash[Str, Str] $.advanced-options is shape-member('AdvancedOptions');
+        has Str %.advanced-options{Str} is shape-member('AdvancedOptions');
         has Str $.access-policies is shape-member('AccessPolicies');
         has Bool $.deleted is shape-member('Deleted');
         has EBSOptions $.ebs-options is shape-member('EBSOptions');
@@ -189,13 +202,13 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
     }
 
     class AdditionalLimit does AWS::SDK::Shape {
-        has Array[Str] $.limit-values is shape-member('LimitValues');
+        has Str @.limit-values is shape-member('LimitValues');
         has Str $.limit-name is shape-member('LimitName');
     }
 
     class ListElasticsearchVersionsResponse does AWS::SDK::Shape {
         has Str $.next-token is shape-member('NextToken');
-        has Array[Str] $.elasticsearch-versions is shape-member('ElasticsearchVersions');
+        has Str @.elasticsearch-versions is shape-member('ElasticsearchVersions');
     }
 
     class SnapshotOptions does AWS::SDK::Shape {
@@ -207,52 +220,42 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
         has OptionStatus $.status is required is shape-member('Status');
     }
 
-    subset DomainName of Str where 3 <= .chars <= 28 && rx:P5/[a-z][a-z0-9\-]+/;
-
-    subset MaxResults of Int where * <= 100;
-
     class UpdateElasticsearchDomainConfigRequest does AWS::SDK::Shape {
         has SnapshotOptions $.snapshot-options is shape-member('SnapshotOptions');
         has DomainName $.domain-name is required is shape-member('DomainName');
         has ElasticsearchClusterConfig $.elasticsearch-cluster-config is shape-member('ElasticsearchClusterConfig');
         has Str $.access-policies is shape-member('AccessPolicies');
-        has Hash[Str, Str] $.advanced-options is shape-member('AdvancedOptions');
+        has Str %.advanced-options{Str} is shape-member('AdvancedOptions');
         has EBSOptions $.ebs-options is shape-member('EBSOptions');
     }
-
-    subset TagKey of Str where 1 <= .chars <= 128;
 
     class DescribeElasticsearchDomainConfigResponse does AWS::SDK::Shape {
         has ElasticsearchDomainConfig $.domain-config is required is shape-member('DomainConfig');
     }
-
-    subset UIntValue of Int where 0 <= *;
 
     class CreateElasticsearchDomainRequest does AWS::SDK::Shape {
         has SnapshotOptions $.snapshot-options is shape-member('SnapshotOptions');
         has DomainName $.domain-name is required is shape-member('DomainName');
         has Str $.elasticsearch-version is shape-member('ElasticsearchVersion');
         has ElasticsearchClusterConfig $.elasticsearch-cluster-config is shape-member('ElasticsearchClusterConfig');
-        has Hash[Str, Str] $.advanced-options is shape-member('AdvancedOptions');
+        has Str %.advanced-options{Str} is shape-member('AdvancedOptions');
         has Str $.access-policies is shape-member('AccessPolicies');
         has EBSOptions $.ebs-options is shape-member('EBSOptions');
     }
 
     class DescribeElasticsearchDomainsResponse does AWS::SDK::Shape {
-        has Array[ElasticsearchDomainStatus] $.domain-status-list is required is shape-member('DomainStatusList');
+        has ElasticsearchDomainStatus @.domain-status-list is required is shape-member('DomainStatusList');
     }
 
     class Limits does AWS::SDK::Shape {
-        has Array[StorageType] $.storage-types is shape-member('StorageTypes');
-        has Array[AdditionalLimit] $.additional-limits is shape-member('AdditionalLimits');
+        has StorageType @.storage-types is shape-member('StorageTypes');
+        has AdditionalLimit @.additional-limits is shape-member('AdditionalLimits');
         has InstanceLimits $.instance-limits is shape-member('InstanceLimits');
     }
 
-    subset TagValue of Str where 0 <= .chars <= 256;
-
     class RemoveTagsRequest does AWS::SDK::Shape {
         has Str $.arn is required is shape-member('ARN');
-        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
+        has Str @.tag-keys is required is shape-member('TagKeys');
     }
 
     class BaseException does AWS::SDK::Shape {
@@ -282,13 +285,11 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
     }
 
     class ListDomainNamesResponse does AWS::SDK::Shape {
-        has Array[DomainInfo] $.domain-names is shape-member('DomainNames');
+        has DomainInfo @.domain-names is shape-member('DomainNames');
     }
 
     class ResourceAlreadyExistsException does AWS::SDK::Shape {
     }
-
-    subset OptionState of Str where $_ ~~ any('RequiresIndexDocuments', 'Processing', 'Active');
 
     class DescribeElasticsearchDomainResponse does AWS::SDK::Shape {
         has ElasticsearchDomainStatus $.domain-status is required is shape-member('DomainStatus');
@@ -341,6 +342,7 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
         has Str $.next-token is shape-member('NextToken');
     }
 
+
     method list-tags(
         Str :$arn!
     ) returns ListTagsResponse is service-operation('ListTags') {
@@ -383,11 +385,11 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
 
     method add-tags(
         Str :$arn!,
-        Array[Tag] :$tag-list!
+        Tag :@tag-list!
     ) is service-operation('AddTags') {
         my $request-input = AddTagsRequest.new(
             :$arn,
-            :$tag-list
+            :@tag-list
         );
 
         self.perform-operation(
@@ -397,10 +399,10 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
     }
 
     method describe-elasticsearch-domains(
-        Array[DomainName] :$domain-names!
+        DomainName :@domain-names!
     ) returns DescribeElasticsearchDomainsResponse is service-operation('DescribeElasticsearchDomains') {
         my $request-input = DescribeElasticsearchDomainsRequest.new(
-            :$domain-names
+            :@domain-names
         );
 
         self.perform-operation(
@@ -427,7 +429,7 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
         DomainName :$domain-name!,
         Str :$elasticsearch-version,
         ElasticsearchClusterConfig :$elasticsearch-cluster-config,
-        Hash[Str, Str] :$advanced-options,
+        Str :%advanced-options,
         Str :$access-policies,
         EBSOptions :$ebs-options
     ) returns CreateElasticsearchDomainResponse is service-operation('CreateElasticsearchDomain') {
@@ -436,7 +438,7 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
             :$domain-name,
             :$elasticsearch-version,
             :$elasticsearch-cluster-config,
-            :$advanced-options,
+            :%advanced-options,
             :$access-policies,
             :$ebs-options
         );
@@ -477,11 +479,11 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
 
     method remove-tags(
         Str :$arn!,
-        Array[Str] :$tag-keys!
+        Str :@tag-keys!
     ) is service-operation('RemoveTags') {
         my $request-input = RemoveTagsRequest.new(
             :$arn,
-            :$tag-keys
+            :@tag-keys
         );
 
         self.perform-operation(
@@ -514,7 +516,7 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
         DomainName :$domain-name!,
         ElasticsearchClusterConfig :$elasticsearch-cluster-config,
         Str :$access-policies,
-        Hash[Str, Str] :$advanced-options,
+        Str :%advanced-options,
         EBSOptions :$ebs-options
     ) returns UpdateElasticsearchDomainConfigResponse is service-operation('UpdateElasticsearchDomainConfig') {
         my $request-input = UpdateElasticsearchDomainConfigRequest.new(
@@ -522,7 +524,7 @@ class AWS::SDK::Service::ES does AWS::SDK::Service {
             :$domain-name,
             :$elasticsearch-cluster-config,
             :$access-policies,
-            :$advanced-options,
+            :%advanced-options,
             :$ebs-options
         );
 

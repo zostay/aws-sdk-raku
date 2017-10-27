@@ -197,9 +197,66 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class MultipleIamArnsProvidedException { ... }
     class ApplicationNameRequiredException { ... }
 
+    subset TriggerEventType of Str where $_ eq any('DeploymentStart', 'DeploymentSuccess', 'DeploymentFailure', 'DeploymentStop', 'DeploymentRollback', 'DeploymentReady', 'InstanceStart', 'InstanceSuccess', 'InstanceFailure', 'InstanceReady');
+
+    subset ListStateFilterAction of Str where $_ eq any('include', 'exclude', 'ignore');
+
+    subset LifecycleErrorCode of Str where $_ eq any('Success', 'ScriptMissing', 'ScriptNotExecutable', 'ScriptTimedOut', 'ScriptFailed', 'UnknownError');
+
+    subset RegistrationStatus of Str where $_ eq any('Registered', 'Deregistered');
+
+    subset DeploymentOption of Str where $_ eq any('WITH_TRAFFIC_CONTROL', 'WITHOUT_TRAFFIC_CONTROL');
+
+    subset DeploymentStatus of Str where $_ eq any('Created', 'Queued', 'InProgress', 'Succeeded', 'Failed', 'Stopped', 'Ready');
+
+    subset InstanceAction of Str where $_ eq any('TERMINATE', 'KEEP_ALIVE');
+
+    subset GreenFleetProvisioningAction of Str where $_ eq any('DISCOVER_EXISTING', 'COPY_AUTO_SCALING_GROUP');
+
+    subset ApplicationRevisionSortBy of Str where $_ eq any('registerTime', 'firstUsedTime', 'lastUsedTime');
+
+    subset DeploymentCreator of Str where $_ eq any('user', 'autoscaling', 'codeDeployRollback');
+
+    subset RevisionLocationType of Str where $_ eq any('S3', 'GitHub');
+
+    subset InstanceType of Str where $_ eq any('Blue', 'Green');
+
+    subset ErrorCode of Str where $_ eq any('DEPLOYMENT_GROUP_MISSING', 'APPLICATION_MISSING', 'REVISION_MISSING', 'IAM_ROLE_MISSING', 'IAM_ROLE_PERMISSIONS', 'NO_EC2_SUBSCRIPTION', 'OVER_MAX_INSTANCES', 'NO_INSTANCES', 'TIMEOUT', 'HEALTH_CONSTRAINTS_INVALID', 'HEALTH_CONSTRAINTS', 'INTERNAL_ERROR', 'THROTTLED', 'ALARM_ACTIVE', 'AGENT_ISSUE', 'AUTO_SCALING_IAM_ROLE_PERMISSIONS', 'AUTO_SCALING_CONFIGURATION', 'MANUAL_STOP');
+
+    subset DeploymentReadyAction of Str where $_ eq any('CONTINUE_DEPLOYMENT', 'STOP_DEPLOYMENT');
+
+    subset EC2TagFilterType of Str where $_ eq any('KEY_ONLY', 'VALUE_ONLY', 'KEY_AND_VALUE');
+
+    subset SortOrder of Str where $_ eq any('ascending', 'descending');
+
+    subset LifecycleEventStatus of Str where $_ eq any('Pending', 'InProgress', 'Succeeded', 'Failed', 'Skipped', 'Unknown');
+
+    subset BundleType of Str where $_ eq any('tar', 'tgz', 'zip');
+
+    subset AutoRollbackEvent of Str where $_ eq any('DEPLOYMENT_FAILURE', 'DEPLOYMENT_STOP_ON_ALARM', 'DEPLOYMENT_STOP_ON_REQUEST');
+
+    subset DeploymentGroupName of Str where 1 <= .chars <= 100;
+
+    subset InstanceStatus of Str where $_ eq any('Pending', 'InProgress', 'Succeeded', 'Failed', 'Skipped', 'Unknown', 'Ready');
+
+    subset FileExistsBehavior of Str where $_ eq any('DISALLOW', 'OVERWRITE', 'RETAIN');
+
+    subset ApplicationName of Str where 1 <= .chars <= 100;
+
+    subset DeploymentConfigName of Str where 1 <= .chars <= 100;
+
+    subset MinimumHealthyHostsType of Str where $_ eq any('HOST_COUNT', 'FLEET_PERCENT');
+
+    subset TagFilterType of Str where $_ eq any('KEY_ONLY', 'VALUE_ONLY', 'KEY_AND_VALUE');
+
+    subset StopStatus of Str where $_ eq any('Pending', 'Succeeded');
+
+    subset DeploymentType of Str where $_ eq any('IN_PLACE', 'BLUE_GREEN');
+
+
     class ListDeploymentInstancesOutput does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.instances-list is shape-member('instancesList');
+        has Str @.instances-list is shape-member('instancesList');
     }
 
     class GetApplicationOutput does AWS::SDK::Shape {
@@ -216,7 +273,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has DateTime $.register-time is shape-member('registerTime');
         has Str $.iam-session-arn is shape-member('iamSessionArn');
         has Str $.instance-arn is shape-member('instanceArn');
-        has Array[Tag] $.tags is shape-member('tags');
+        has Tag @.tags is shape-member('tags');
         has Str $.instance-name is shape-member('instanceName');
     }
 
@@ -226,14 +283,12 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class InvalidTagFilterException does AWS::SDK::Shape {
     }
 
-    subset TriggerEventType of Str where $_ ~~ any('DeploymentStart', 'DeploymentSuccess', 'DeploymentFailure', 'DeploymentStop', 'DeploymentRollback', 'DeploymentReady', 'InstanceStart', 'InstanceSuccess', 'InstanceFailure', 'InstanceReady');
-
     class DeploymentGroupInfo does AWS::SDK::Shape {
         has LoadBalancerInfo $.load-balancer-info is shape-member('loadBalancerInfo');
         has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration is shape-member('blueGreenDeploymentConfiguration');
         has Str $.service-role-arn is shape-member('serviceRoleArn');
-        has Array[AutoScalingGroup] $.auto-scaling-groups is shape-member('autoScalingGroups');
-        has Array[TagFilter] $.on-premises-instance-tag-filters is shape-member('onPremisesInstanceTagFilters');
+        has AutoScalingGroup @.auto-scaling-groups is shape-member('autoScalingGroups');
+        has TagFilter @.on-premises-instance-tag-filters is shape-member('onPremisesInstanceTagFilters');
         has ApplicationName $.application-name is shape-member('applicationName');
         has EC2TagSet $.ec2-tag-set is shape-member('ec2TagSet');
         has LastDeploymentInfo $.last-attempted-deployment is shape-member('lastAttemptedDeployment');
@@ -243,8 +298,8 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has LastDeploymentInfo $.last-successful-deployment is shape-member('lastSuccessfulDeployment');
         has AutoRollbackConfiguration $.auto-rollback-configuration is shape-member('autoRollbackConfiguration');
         has AlarmConfiguration $.alarm-configuration is shape-member('alarmConfiguration');
-        has Array[TriggerConfig] $.trigger-configurations is shape-member('triggerConfigurations');
-        has Array[EC2TagFilter] $.ec2-tag-filters is shape-member('ec2TagFilters');
+        has TriggerConfig @.trigger-configurations is shape-member('triggerConfigurations');
+        has EC2TagFilter @.ec2-tag-filters is shape-member('ec2TagFilters');
         has DeploymentGroupName $.deployment-group-name is shape-member('deploymentGroupName');
         has Str $.deployment-group-id is shape-member('deploymentGroupId');
         has DeploymentConfigName $.deployment-config-name is shape-member('deploymentConfigName');
@@ -265,7 +320,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     class ListGitHubAccountTokenNamesOutput does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.token-name-list is shape-member('tokenNameList');
+        has Str @.token-name-list is shape-member('tokenNameList');
     }
 
     class CreateDeploymentGroupOutput does AWS::SDK::Shape {
@@ -273,11 +328,11 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     class BatchGetApplicationsInput does AWS::SDK::Shape {
-        has Array[ApplicationName] $.application-names is shape-member('applicationNames');
+        has ApplicationName @.application-names is shape-member('applicationNames');
     }
 
     class BatchGetDeploymentsOutput does AWS::SDK::Shape {
-        has Array[DeploymentInfo] $.deployments-info is shape-member('deploymentsInfo');
+        has DeploymentInfo @.deployments-info is shape-member('deploymentsInfo');
     }
 
     class GitHubAccountTokenDoesNotExistException does AWS::SDK::Shape {
@@ -293,12 +348,8 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has Str $.name is shape-member('name');
     }
 
-    subset ListStateFilterAction of Str where $_ ~~ any('include', 'exclude', 'ignore');
-
-    subset LifecycleErrorCode of Str where $_ ~~ any('Success', 'ScriptMissing', 'ScriptNotExecutable', 'ScriptTimedOut', 'ScriptFailed', 'UnknownError');
-
     class BatchGetApplicationRevisionsOutput does AWS::SDK::Shape {
-        has Array[RevisionInfo] $.revisions is shape-member('revisions');
+        has RevisionInfo @.revisions is shape-member('revisions');
         has Str $.error-message is shape-member('errorMessage');
         has ApplicationName $.application-name is shape-member('applicationName');
     }
@@ -309,7 +360,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     class BatchGetDeploymentsInput does AWS::SDK::Shape {
-        has Array[Str] $.deployment-ids is shape-member('deploymentIds');
+        has Str @.deployment-ids is shape-member('deploymentIds');
     }
 
     class GetDeploymentInput does AWS::SDK::Shape {
@@ -320,7 +371,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     class ListOnPremisesInstancesOutput does AWS::SDK::Shape {
-        has Array[Str] $.instance-names is shape-member('instanceNames');
+        has Str @.instance-names is shape-member('instanceNames');
         has Str $.next-token is shape-member('nextToken');
     }
 
@@ -330,7 +381,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     class BatchGetOnPremisesInstancesOutput does AWS::SDK::Shape {
-        has Array[InstanceInfo] $.instance-infos is shape-member('instanceInfos');
+        has InstanceInfo @.instance-infos is shape-member('instanceInfos');
     }
 
     class GetDeploymentGroupInput does AWS::SDK::Shape {
@@ -344,22 +395,22 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has Str $.deployment-id is shape-member('deploymentId');
         has InstanceStatus $.status is shape-member('status');
         has DateTime $.last-updated-at is shape-member('lastUpdatedAt');
-        has Array[LifecycleEvent] $.lifecycle-events is shape-member('lifecycleEvents');
+        has LifecycleEvent @.lifecycle-events is shape-member('lifecycleEvents');
     }
 
     class InvalidBlueGreenDeploymentConfigurationException does AWS::SDK::Shape {
     }
 
     class EC2TagSet does AWS::SDK::Shape {
-        has Array[Array[EC2TagFilter]] $.ec2-tag-set-list is shape-member('ec2TagSetList');
+        has Array[EC2TagFilter] @.ec2-tag-set-list is shape-member('ec2TagSetList');
     }
 
     class DeploymentConfigAlreadyExistsException does AWS::SDK::Shape {
     }
 
     class AddTagsToOnPremisesInstancesInput does AWS::SDK::Shape {
-        has Array[Str] $.instance-names is required is shape-member('instanceNames');
-        has Array[Tag] $.tags is required is shape-member('tags');
+        has Str @.instance-names is required is shape-member('instanceNames');
+        has Tag @.tags is required is shape-member('tags');
     }
 
     class AlarmsLimitExceededException does AWS::SDK::Shape {
@@ -369,8 +420,6 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has Int $.wait-time-in-minutes is shape-member('waitTimeInMinutes');
         has DeploymentReadyAction $.action-on-timeout is shape-member('actionOnTimeout');
     }
-
-    subset RegistrationStatus of Str where $_ ~~ any('Registered', 'Deregistered');
 
     class DescriptionTooLongException does AWS::SDK::Shape {
     }
@@ -384,7 +433,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class ListDeploymentGroupsOutput does AWS::SDK::Shape {
         has ApplicationName $.application-name is shape-member('applicationName');
         has Str $.next-token is shape-member('nextToken');
-        has Array[DeploymentGroupName] $.deployment-groups is shape-member('deploymentGroups');
+        has DeploymentGroupName @.deployment-groups is shape-member('deploymentGroups');
     }
 
     class GetApplicationInput does AWS::SDK::Shape {
@@ -392,9 +441,9 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     class TargetInstances does AWS::SDK::Shape {
-        has Array[Str] $.auto-scaling-groups is shape-member('autoScalingGroups');
+        has Str @.auto-scaling-groups is shape-member('autoScalingGroups');
         has EC2TagSet $.ec2-tag-set is shape-member('ec2TagSet');
-        has Array[EC2TagFilter] $.tag-filters is shape-member('tagFilters');
+        has EC2TagFilter @.tag-filters is shape-member('tagFilters');
     }
 
     class ListGitHubAccountTokenNamesInput does AWS::SDK::Shape {
@@ -405,7 +454,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     class AutoRollbackConfiguration does AWS::SDK::Shape {
-        has Array[AutoRollbackEvent] $.events is shape-member('events');
+        has AutoRollbackEvent @.events is shape-member('events');
         has Bool $.enabled is shape-member('enabled');
     }
 
@@ -421,7 +470,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     class BatchGetDeploymentInstancesInput does AWS::SDK::Shape {
         has Str $.deployment-id is required is shape-member('deploymentId');
-        has Array[Str] $.instance-ids is required is shape-member('instanceIds');
+        has Str @.instance-ids is required is shape-member('instanceIds');
     }
 
     class RevisionRequiredException does AWS::SDK::Shape {
@@ -429,15 +478,15 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     class ListDeploymentInstancesInput does AWS::SDK::Shape {
         has Str $.deployment-id is required is shape-member('deploymentId');
-        has Array[InstanceType] $.instance-type-filter is shape-member('instanceTypeFilter');
-        has Array[InstanceStatus] $.instance-status-filter is shape-member('instanceStatusFilter');
+        has InstanceType @.instance-type-filter is shape-member('instanceTypeFilter');
+        has InstanceStatus @.instance-status-filter is shape-member('instanceStatusFilter');
         has Str $.next-token is shape-member('nextToken');
     }
 
     class GenericRevisionInfo does AWS::SDK::Shape {
         has DateTime $.register-time is shape-member('registerTime');
         has DateTime $.first-used-time is shape-member('firstUsedTime');
-        has Array[DeploymentGroupName] $.deployment-groups is shape-member('deploymentGroups');
+        has DeploymentGroupName @.deployment-groups is shape-member('deploymentGroups');
         has DateTime $.last-used-time is shape-member('lastUsedTime');
         has Str $.description is shape-member('description');
     }
@@ -455,13 +504,9 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has Str $.key is shape-member('Key');
     }
 
-    subset DeploymentOption of Str where $_ ~~ any('WITH_TRAFFIC_CONTROL', 'WITHOUT_TRAFFIC_CONTROL');
-
     class CreateApplicationOutput does AWS::SDK::Shape {
         has Str $.application-id is shape-member('applicationId');
     }
-
-    subset DeploymentStatus of Str where $_ ~~ any('Created', 'Queued', 'InProgress', 'Succeeded', 'Failed', 'Stopped', 'Ready');
 
     class InvalidOnPremisesTagCombinationException does AWS::SDK::Shape {
     }
@@ -470,12 +515,10 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     class ListOnPremisesInstancesInput does AWS::SDK::Shape {
-        has Array[TagFilter] $.tag-filters is shape-member('tagFilters');
+        has TagFilter @.tag-filters is shape-member('tagFilters');
         has Str $.next-token is shape-member('nextToken');
         has RegistrationStatus $.registration-status is shape-member('registrationStatus');
     }
-
-    subset InstanceAction of Str where $_ ~~ any('TERMINATE', 'KEEP_ALIVE');
 
     class InvalidRoleException does AWS::SDK::Shape {
     }
@@ -503,18 +546,16 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     class BatchGetDeploymentInstancesOutput does AWS::SDK::Shape {
         has Str $.error-message is shape-member('errorMessage');
-        has Array[InstanceSummary] $.instances-summary is shape-member('instancesSummary');
+        has InstanceSummary @.instances-summary is shape-member('instancesSummary');
     }
 
     class BatchGetOnPremisesInstancesInput does AWS::SDK::Shape {
-        has Array[Str] $.instance-names is shape-member('instanceNames');
+        has Str @.instance-names is shape-member('instanceNames');
     }
 
     class GetDeploymentOutput does AWS::SDK::Shape {
         has DeploymentInfo $.deployment-info is shape-member('deploymentInfo');
     }
-
-    subset GreenFleetProvisioningAction of Str where $_ ~~ any('DISCOVER_EXISTING', 'COPY_AUTO_SCALING_GROUP');
 
     class RevisionLocation does AWS::SDK::Shape {
         has RevisionLocationType $.revision-type is shape-member('revisionType');
@@ -523,8 +564,8 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     class LoadBalancerInfo does AWS::SDK::Shape {
-        has Array[ELBInfo] $.elb-info-list is shape-member('elbInfoList');
-        has Array[TargetGroupInfo] $.target-group-info-list is shape-member('targetGroupInfoList');
+        has ELBInfo @.elb-info-list is shape-member('elbInfoList');
+        has TargetGroupInfo @.target-group-info-list is shape-member('targetGroupInfoList');
     }
 
     class GetDeploymentGroupOutput does AWS::SDK::Shape {
@@ -543,18 +584,16 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     class UpdateDeploymentGroupOutput does AWS::SDK::Shape {
-        has Array[AutoScalingGroup] $.hooks-not-cleaned-up is shape-member('hooksNotCleanedUp');
+        has AutoScalingGroup @.hooks-not-cleaned-up is shape-member('hooksNotCleanedUp');
     }
-
-    subset ApplicationRevisionSortBy of Str where $_ ~~ any('registerTime', 'firstUsedTime', 'lastUsedTime');
 
     class ListApplicationsOutput does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[ApplicationName] $.applications is shape-member('applications');
+        has ApplicationName @.applications is shape-member('applications');
     }
 
     class ListApplicationRevisionsOutput does AWS::SDK::Shape {
-        has Array[RevisionLocation] $.revisions is shape-member('revisions');
+        has RevisionLocation @.revisions is shape-member('revisions');
         has Str $.next-token is shape-member('nextToken');
     }
 
@@ -574,20 +613,16 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class ApplicationLimitExceededException does AWS::SDK::Shape {
     }
 
-    subset DeploymentCreator of Str where $_ ~~ any('user', 'autoscaling', 'codeDeployRollback');
-
     class IamSessionArnAlreadyRegisteredException does AWS::SDK::Shape {
     }
 
-    subset RevisionLocationType of Str where $_ ~~ any('S3', 'GitHub');
-
     class BatchGetApplicationRevisionsInput does AWS::SDK::Shape {
-        has Array[RevisionLocation] $.revisions is required is shape-member('revisions');
+        has RevisionLocation @.revisions is required is shape-member('revisions');
         has ApplicationName $.application-name is required is shape-member('applicationName');
     }
 
     class BatchGetApplicationsOutput does AWS::SDK::Shape {
-        has Array[ApplicationInfo] $.applications-info is shape-member('applicationsInfo');
+        has ApplicationInfo @.applications-info is shape-member('applicationsInfo');
     }
 
     class ApplicationAlreadyExistsException does AWS::SDK::Shape {
@@ -641,8 +676,6 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has DateTime $.start-time is shape-member('startTime');
     }
 
-    subset InstanceType of Str where $_ ~~ any('Blue', 'Green');
-
     class LastDeploymentInfo does AWS::SDK::Shape {
         has Str $.deployment-id is shape-member('deploymentId');
         has DeploymentStatus $.status is shape-member('status');
@@ -658,7 +691,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     class AlarmConfiguration does AWS::SDK::Shape {
         has Bool $.ignore-poll-alarm-failure is shape-member('ignorePollAlarmFailure');
-        has Array[Alarm] $.alarms is shape-member('alarms');
+        has Alarm @.alarms is shape-member('alarms');
         has Bool $.enabled is shape-member('enabled');
     }
 
@@ -668,14 +701,10 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class LifecycleHookLimitExceededException does AWS::SDK::Shape {
     }
 
-    subset ErrorCode of Str where $_ ~~ any('DEPLOYMENT_GROUP_MISSING', 'APPLICATION_MISSING', 'REVISION_MISSING', 'IAM_ROLE_MISSING', 'IAM_ROLE_PERMISSIONS', 'NO_EC2_SUBSCRIPTION', 'OVER_MAX_INSTANCES', 'NO_INSTANCES', 'TIMEOUT', 'HEALTH_CONSTRAINTS_INVALID', 'HEALTH_CONSTRAINTS', 'INTERNAL_ERROR', 'THROTTLED', 'ALARM_ACTIVE', 'AGENT_ISSUE', 'AUTO_SCALING_IAM_ROLE_PERMISSIONS', 'AUTO_SCALING_CONFIGURATION', 'MANUAL_STOP');
-
     class DeploymentStyle does AWS::SDK::Shape {
         has DeploymentType $.deployment-type is shape-member('deploymentType');
         has DeploymentOption $.deployment-option is shape-member('deploymentOption');
     }
-
-    subset DeploymentReadyAction of Str where $_ ~~ any('CONTINUE_DEPLOYMENT', 'STOP_DEPLOYMENT');
 
     class InvalidAutoScalingGroupException does AWS::SDK::Shape {
     }
@@ -685,7 +714,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     class ListDeploymentConfigsOutput does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[DeploymentConfigName] $.deployment-configs-list is shape-member('deploymentConfigsList');
+        has DeploymentConfigName @.deployment-configs-list is shape-member('deploymentConfigsList');
     }
 
     class ListApplicationRevisionsInput does AWS::SDK::Shape {
@@ -697,8 +726,6 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has Str $.s3-key-prefix is shape-member('s3KeyPrefix');
         has ApplicationRevisionSortBy $.sort-by is shape-member('sortBy');
     }
-
-    subset EC2TagFilterType of Str where $_ ~~ any('KEY_ONLY', 'VALUE_ONLY', 'KEY_AND_VALUE');
 
     class InvalidAutoRollbackConfigException does AWS::SDK::Shape {
     }
@@ -719,16 +746,16 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has LoadBalancerInfo $.load-balancer-info is shape-member('loadBalancerInfo');
         has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration is shape-member('blueGreenDeploymentConfiguration');
         has Str $.service-role-arn is required is shape-member('serviceRoleArn');
-        has Array[Str] $.auto-scaling-groups is shape-member('autoScalingGroups');
-        has Array[TagFilter] $.on-premises-instance-tag-filters is shape-member('onPremisesInstanceTagFilters');
+        has Str @.auto-scaling-groups is shape-member('autoScalingGroups');
+        has TagFilter @.on-premises-instance-tag-filters is shape-member('onPremisesInstanceTagFilters');
         has ApplicationName $.application-name is required is shape-member('applicationName');
         has EC2TagSet $.ec2-tag-set is shape-member('ec2TagSet');
         has DeploymentStyle $.deployment-style is shape-member('deploymentStyle');
         has OnPremisesTagSet $.on-premises-tag-set is shape-member('onPremisesTagSet');
         has AutoRollbackConfiguration $.auto-rollback-configuration is shape-member('autoRollbackConfiguration');
         has AlarmConfiguration $.alarm-configuration is shape-member('alarmConfiguration');
-        has Array[TriggerConfig] $.trigger-configurations is shape-member('triggerConfigurations');
-        has Array[EC2TagFilter] $.ec2-tag-filters is shape-member('ec2TagFilters');
+        has TriggerConfig @.trigger-configurations is shape-member('triggerConfigurations');
+        has EC2TagFilter @.ec2-tag-filters is shape-member('ec2TagFilters');
         has DeploymentGroupName $.deployment-group-name is required is shape-member('deploymentGroupName');
         has DeploymentConfigName $.deployment-config-name is shape-member('deploymentConfigName');
     }
@@ -776,8 +803,8 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has LoadBalancerInfo $.load-balancer-info is shape-member('loadBalancerInfo');
         has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration is shape-member('blueGreenDeploymentConfiguration');
         has Str $.service-role-arn is shape-member('serviceRoleArn');
-        has Array[Str] $.auto-scaling-groups is shape-member('autoScalingGroups');
-        has Array[TagFilter] $.on-premises-instance-tag-filters is shape-member('onPremisesInstanceTagFilters');
+        has Str @.auto-scaling-groups is shape-member('autoScalingGroups');
+        has TagFilter @.on-premises-instance-tag-filters is shape-member('onPremisesInstanceTagFilters');
         has ApplicationName $.application-name is required is shape-member('applicationName');
         has EC2TagSet $.ec2-tag-set is shape-member('ec2TagSet');
         has DeploymentGroupName $.new-deployment-group-name is shape-member('newDeploymentGroupName');
@@ -785,8 +812,8 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has OnPremisesTagSet $.on-premises-tag-set is shape-member('onPremisesTagSet');
         has AutoRollbackConfiguration $.auto-rollback-configuration is shape-member('autoRollbackConfiguration');
         has AlarmConfiguration $.alarm-configuration is shape-member('alarmConfiguration');
-        has Array[TriggerConfig] $.trigger-configurations is shape-member('triggerConfigurations');
-        has Array[EC2TagFilter] $.ec2-tag-filters is shape-member('ec2TagFilters');
+        has TriggerConfig @.trigger-configurations is shape-member('triggerConfigurations');
+        has EC2TagFilter @.ec2-tag-filters is shape-member('ec2TagFilters');
         has DeploymentGroupName $.current-deployment-group-name is required is shape-member('currentDeploymentGroupName');
         has DeploymentConfigName $.deployment-config-name is shape-member('deploymentConfigName');
     }
@@ -797,13 +824,9 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class InvalidInstanceStatusException does AWS::SDK::Shape {
     }
 
-    subset SortOrder of Str where $_ ~~ any('ascending', 'descending');
-
     class OnPremisesTagSet does AWS::SDK::Shape {
-        has Array[Array[TagFilter]] $.on-premises-tag-set-list is shape-member('onPremisesTagSetList');
+        has Array[TagFilter] @.on-premises-tag-set-list is shape-member('onPremisesTagSetList');
     }
-
-    subset LifecycleEventStatus of Str where $_ ~~ any('Pending', 'InProgress', 'Succeeded', 'Failed', 'Skipped', 'Unknown');
 
     class AutoScalingGroup does AWS::SDK::Shape {
         has Str $.name is shape-member('name');
@@ -812,8 +835,6 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     class BucketNameFilterRequiredException does AWS::SDK::Shape {
     }
-
-    subset BundleType of Str where $_ ~~ any('tar', 'tgz', 'zip');
 
     class MinimumHealthyHosts does AWS::SDK::Shape {
         has Int $.value is shape-member('value');
@@ -841,8 +862,6 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has DeploymentConfigName $.deployment-config-name is shape-member('deploymentConfigName');
     }
 
-    subset AutoRollbackEvent of Str where $_ ~~ any('DEPLOYMENT_FAILURE', 'DEPLOYMENT_STOP_ON_ALARM', 'DEPLOYMENT_STOP_ON_REQUEST');
-
     class InvalidRegistrationStatusException does AWS::SDK::Shape {
     }
 
@@ -853,8 +872,6 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has Str $.e-tag is shape-member('eTag');
         has Str $.version is shape-member('version');
     }
-
-    subset DeploymentGroupName of Str where 1 <= .chars <= 100;
 
     class TagLimitExceededException does AWS::SDK::Shape {
     }
@@ -889,12 +906,8 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has DeploymentConfigName $.deployment-config-name is required is shape-member('deploymentConfigName');
     }
 
-    subset InstanceStatus of Str where $_ ~~ any('Pending', 'InProgress', 'Succeeded', 'Failed', 'Skipped', 'Unknown', 'Ready');
-
     class InvalidInstanceTypeException does AWS::SDK::Shape {
     }
-
-    subset FileExistsBehavior of Str where $_ ~~ any('DISALLOW', 'OVERWRITE', 'RETAIN');
 
     class DeploymentLimitExceededException does AWS::SDK::Shape {
     }
@@ -902,7 +915,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class TriggerConfig does AWS::SDK::Shape {
         has Str $.trigger-target-arn is shape-member('triggerTargetArn');
         has Str $.trigger-name is shape-member('triggerName');
-        has Array[TriggerEventType] $.trigger-events is shape-member('triggerEvents');
+        has TriggerEventType @.trigger-events is shape-member('triggerEvents');
     }
 
     class StopDeploymentOutput does AWS::SDK::Shape {
@@ -912,7 +925,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     class ListDeploymentsOutput does AWS::SDK::Shape {
         has Str $.next-token is shape-member('nextToken');
-        has Array[Str] $.deployments is shape-member('deployments');
+        has Str @.deployments is shape-member('deployments');
     }
 
     class ListApplicationsInput does AWS::SDK::Shape {
@@ -944,7 +957,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     class DeleteDeploymentGroupOutput does AWS::SDK::Shape {
-        has Array[AutoScalingGroup] $.hooks-not-cleaned-up is shape-member('hooksNotCleanedUp');
+        has AutoScalingGroup @.hooks-not-cleaned-up is shape-member('hooksNotCleanedUp');
     }
 
     class CreateDeploymentConfigInput does AWS::SDK::Shape {
@@ -989,8 +1002,6 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has Str $.name is shape-member('name');
     }
 
-    subset ApplicationName of Str where 1 <= .chars <= 100;
-
     class InvalidTagException does AWS::SDK::Shape {
     }
 
@@ -1009,8 +1020,6 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class InstanceNameRequiredException does AWS::SDK::Shape {
     }
 
-    subset DeploymentConfigName of Str where 1 <= .chars <= 100;
-
     class CreateApplicationInput does AWS::SDK::Shape {
         has ApplicationName $.application-name is required is shape-member('applicationName');
     }
@@ -1026,16 +1035,14 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         has Str $.instance-name is required is shape-member('instanceName');
     }
 
-    subset MinimumHealthyHostsType of Str where $_ ~~ any('HOST_COUNT', 'FLEET_PERCENT');
-
     class GetApplicationRevisionInput does AWS::SDK::Shape {
         has ApplicationName $.application-name is required is shape-member('applicationName');
         has RevisionLocation $.revision is required is shape-member('revision');
     }
 
     class RemoveTagsFromOnPremisesInstancesInput does AWS::SDK::Shape {
-        has Array[Str] $.instance-names is required is shape-member('instanceNames');
-        has Array[Tag] $.tags is required is shape-member('tags');
+        has Str @.instance-names is required is shape-member('instanceNames');
+        has Tag @.tags is required is shape-member('tags');
     }
 
     class InvalidDeploymentStyleException does AWS::SDK::Shape {
@@ -1044,14 +1051,12 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class InvalidIamUserArnException does AWS::SDK::Shape {
     }
 
-    subset TagFilterType of Str where $_ ~~ any('KEY_ONLY', 'VALUE_ONLY', 'KEY_AND_VALUE');
-
     class InvalidDeployedStateFilterException does AWS::SDK::Shape {
     }
 
     class BatchGetDeploymentGroupsInput does AWS::SDK::Shape {
         has ApplicationName $.application-name is required is shape-member('applicationName');
-        has Array[DeploymentGroupName] $.deployment-group-names is required is shape-member('deploymentGroupNames');
+        has DeploymentGroupName @.deployment-group-names is required is shape-member('deploymentGroupNames');
     }
 
     class InstanceIdRequiredException does AWS::SDK::Shape {
@@ -1060,7 +1065,7 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class ListDeploymentsInput does AWS::SDK::Shape {
         has ApplicationName $.application-name is shape-member('applicationName');
         has Str $.next-token is shape-member('nextToken');
-        has Array[DeploymentStatus] $.include-only-statuses is shape-member('includeOnlyStatuses');
+        has DeploymentStatus @.include-only-statuses is shape-member('includeOnlyStatuses');
         has TimeRange $.create-time-range is shape-member('createTimeRange');
         has DeploymentGroupName $.deployment-group-name is shape-member('deploymentGroupName');
     }
@@ -1092,13 +1097,9 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class InvalidDeploymentStatusException does AWS::SDK::Shape {
     }
 
-    subset StopStatus of Str where $_ ~~ any('Pending', 'Succeeded');
-
-    subset DeploymentType of Str where $_ ~~ any('IN_PLACE', 'BLUE_GREEN');
-
     class BatchGetDeploymentGroupsOutput does AWS::SDK::Shape {
         has Str $.error-message is shape-member('errorMessage');
-        has Array[DeploymentGroupInfo] $.deployment-groups-info is shape-member('deploymentGroupsInfo');
+        has DeploymentGroupInfo @.deployment-groups-info is shape-member('deploymentGroupsInfo');
     }
 
     class TimeRange does AWS::SDK::Shape {
@@ -1112,17 +1113,18 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     class ApplicationNameRequiredException does AWS::SDK::Shape {
     }
 
+
     method list-deployments(
         ApplicationName :$application-name,
         Str :$next-token,
-        Array[DeploymentStatus] :$include-only-statuses,
+        DeploymentStatus :@include-only-statuses,
         TimeRange :$create-time-range,
         DeploymentGroupName :$deployment-group-name
     ) returns ListDeploymentsOutput is service-operation('ListDeployments') {
         my $request-input = ListDeploymentsInput.new(
             :$application-name,
             :$next-token,
-            :$include-only-statuses,
+            :@include-only-statuses,
             :$create-time-range,
             :$deployment-group-name
         );
@@ -1191,11 +1193,11 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     method batch-get-deployment-groups(
         ApplicationName :$application-name!,
-        Array[DeploymentGroupName] :$deployment-group-names!
+        DeploymentGroupName :@deployment-group-names!
     ) returns BatchGetDeploymentGroupsOutput is service-operation('BatchGetDeploymentGroups') {
         my $request-input = BatchGetDeploymentGroupsInput.new(
             :$application-name,
-            :$deployment-group-names
+            :@deployment-group-names
         );
 
         self.perform-operation(
@@ -1238,14 +1240,14 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     method list-deployment-instances(
         Str :$deployment-id!,
-        Array[InstanceType] :$instance-type-filter,
-        Array[InstanceStatus] :$instance-status-filter,
+        InstanceType :@instance-type-filter,
+        InstanceStatus :@instance-status-filter,
         Str :$next-token
     ) returns ListDeploymentInstancesOutput is service-operation('ListDeploymentInstances') {
         my $request-input = ListDeploymentInstancesInput.new(
             :$deployment-id,
-            :$instance-type-filter,
-            :$instance-status-filter,
+            :@instance-type-filter,
+            :@instance-status-filter,
             :$next-token
         );
 
@@ -1295,11 +1297,11 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     method batch-get-application-revisions(
-        Array[RevisionLocation] :$revisions!,
+        RevisionLocation :@revisions!,
         ApplicationName :$application-name!
     ) returns BatchGetApplicationRevisionsOutput is service-operation('BatchGetApplicationRevisions') {
         my $request-input = BatchGetApplicationRevisionsInput.new(
-            :$revisions,
+            :@revisions,
             :$application-name
         );
 
@@ -1313,8 +1315,8 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         LoadBalancerInfo :$load-balancer-info,
         BlueGreenDeploymentConfiguration :$blue-green-deployment-configuration,
         Str :$service-role-arn,
-        Array[Str] :$auto-scaling-groups,
-        Array[TagFilter] :$on-premises-instance-tag-filters,
+        Str :@auto-scaling-groups,
+        TagFilter :@on-premises-instance-tag-filters,
         ApplicationName :$application-name!,
         EC2TagSet :$ec2-tag-set,
         DeploymentGroupName :$new-deployment-group-name,
@@ -1322,8 +1324,8 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         OnPremisesTagSet :$on-premises-tag-set,
         AutoRollbackConfiguration :$auto-rollback-configuration,
         AlarmConfiguration :$alarm-configuration,
-        Array[TriggerConfig] :$trigger-configurations,
-        Array[EC2TagFilter] :$ec2-tag-filters,
+        TriggerConfig :@trigger-configurations,
+        EC2TagFilter :@ec2-tag-filters,
         DeploymentGroupName :$current-deployment-group-name!,
         DeploymentConfigName :$deployment-config-name
     ) returns UpdateDeploymentGroupOutput is service-operation('UpdateDeploymentGroup') {
@@ -1331,8 +1333,8 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
             :$load-balancer-info,
             :$blue-green-deployment-configuration,
             :$service-role-arn,
-            :$auto-scaling-groups,
-            :$on-premises-instance-tag-filters,
+            :@auto-scaling-groups,
+            :@on-premises-instance-tag-filters,
             :$application-name,
             :$ec2-tag-set,
             :$new-deployment-group-name,
@@ -1340,8 +1342,8 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
             :$on-premises-tag-set,
             :$auto-rollback-configuration,
             :$alarm-configuration,
-            :$trigger-configurations,
-            :$ec2-tag-filters,
+            :@trigger-configurations,
+            :@ec2-tag-filters,
             :$current-deployment-group-name,
             :$deployment-config-name
         );
@@ -1366,12 +1368,12 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     method remove-tags-from-on-premises-instances(
-        Array[Str] :$instance-names!,
-        Array[Tag] :$tags!
+        Str :@instance-names!,
+        Tag :@tags!
     ) is service-operation('RemoveTagsFromOnPremisesInstances') {
         my $request-input = RemoveTagsFromOnPremisesInstancesInput.new(
-            :$instance-names,
-            :$tags
+            :@instance-names,
+            :@tags
         );
 
         self.perform-operation(
@@ -1478,12 +1480,12 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     method add-tags-to-on-premises-instances(
-        Array[Str] :$instance-names!,
-        Array[Tag] :$tags!
+        Str :@instance-names!,
+        Tag :@tags!
     ) is service-operation('AddTagsToOnPremisesInstances') {
         my $request-input = AddTagsToOnPremisesInstancesInput.new(
-            :$instance-names,
-            :$tags
+            :@instance-names,
+            :@tags
         );
 
         self.perform-operation(
@@ -1534,10 +1536,10 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     method batch-get-on-premises-instances(
-        Array[Str] :$instance-names
+        Str :@instance-names
     ) returns BatchGetOnPremisesInstancesOutput is service-operation('BatchGetOnPremisesInstances') {
         my $request-input = BatchGetOnPremisesInstancesInput.new(
-            :$instance-names
+            :@instance-names
         );
 
         self.perform-operation(
@@ -1547,12 +1549,12 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     method list-on-premises-instances(
-        Array[TagFilter] :$tag-filters,
+        TagFilter :@tag-filters,
         Str :$next-token,
         RegistrationStatus :$registration-status
     ) returns ListOnPremisesInstancesOutput is service-operation('ListOnPremisesInstances') {
         my $request-input = ListOnPremisesInstancesInput.new(
-            :$tag-filters,
+            :@tag-filters,
             :$next-token,
             :$registration-status
         );
@@ -1623,16 +1625,16 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
         LoadBalancerInfo :$load-balancer-info,
         BlueGreenDeploymentConfiguration :$blue-green-deployment-configuration,
         Str :$service-role-arn!,
-        Array[Str] :$auto-scaling-groups,
-        Array[TagFilter] :$on-premises-instance-tag-filters,
+        Str :@auto-scaling-groups,
+        TagFilter :@on-premises-instance-tag-filters,
         ApplicationName :$application-name!,
         EC2TagSet :$ec2-tag-set,
         DeploymentStyle :$deployment-style,
         OnPremisesTagSet :$on-premises-tag-set,
         AutoRollbackConfiguration :$auto-rollback-configuration,
         AlarmConfiguration :$alarm-configuration,
-        Array[TriggerConfig] :$trigger-configurations,
-        Array[EC2TagFilter] :$ec2-tag-filters,
+        TriggerConfig :@trigger-configurations,
+        EC2TagFilter :@ec2-tag-filters,
         DeploymentGroupName :$deployment-group-name!,
         DeploymentConfigName :$deployment-config-name
     ) returns CreateDeploymentGroupOutput is service-operation('CreateDeploymentGroup') {
@@ -1640,16 +1642,16 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
             :$load-balancer-info,
             :$blue-green-deployment-configuration,
             :$service-role-arn,
-            :$auto-scaling-groups,
-            :$on-premises-instance-tag-filters,
+            :@auto-scaling-groups,
+            :@on-premises-instance-tag-filters,
             :$application-name,
             :$ec2-tag-set,
             :$deployment-style,
             :$on-premises-tag-set,
             :$auto-rollback-configuration,
             :$alarm-configuration,
-            :$trigger-configurations,
-            :$ec2-tag-filters,
+            :@trigger-configurations,
+            :@ec2-tag-filters,
             :$deployment-group-name,
             :$deployment-config-name
         );
@@ -1676,10 +1678,10 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     method batch-get-applications(
-        Array[ApplicationName] :$application-names
+        ApplicationName :@application-names
     ) returns BatchGetApplicationsOutput is service-operation('BatchGetApplications') {
         my $request-input = BatchGetApplicationsInput.new(
-            :$application-names
+            :@application-names
         );
 
         self.perform-operation(
@@ -1719,10 +1721,10 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
     }
 
     method batch-get-deployments(
-        Array[Str] :$deployment-ids
+        Str :@deployment-ids
     ) returns BatchGetDeploymentsOutput is service-operation('BatchGetDeployments') {
         my $request-input = BatchGetDeploymentsInput.new(
-            :$deployment-ids
+            :@deployment-ids
         );
 
         self.perform-operation(
@@ -1733,11 +1735,11 @@ class AWS::SDK::Service::CodeDeploy does AWS::SDK::Service {
 
     method batch-get-deployment-instances(
         Str :$deployment-id!,
-        Array[Str] :$instance-ids!
+        Str :@instance-ids!
     ) returns BatchGetDeploymentInstancesOutput is service-operation('BatchGetDeploymentInstances') {
         my $request-input = BatchGetDeploymentInstancesInput.new(
             :$deployment-id,
-            :$instance-ids
+            :@instance-ids
         );
 
         self.perform-operation(

@@ -123,7 +123,116 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     class CreateCustomActionTypeOutput { ... }
     class ActionRevision { ... }
 
-    subset ArtifactLocationType of Str where $_ ~~ any('S3');
+    subset ArtifactLocationType of Str where $_ eq any('S3');
+
+    subset RevisionChangeIdentifier of Str where 1 <= .chars <= 100;
+
+    subset Description of Str where 1 <= .chars <= 2048;
+
+    subset ActionConfigurationPropertyType of Str where $_ eq any('String', 'Number', 'Boolean');
+
+    subset ActionRunOrder of Int where 1 <= * <= 999;
+
+    subset StageRetryMode of Str where $_ eq any('FAILED_ACTIONS');
+
+    subset EncryptionKeyType of Str where $_ eq any('KMS');
+
+    subset ApprovalSummary of Str where 0 <= .chars <= 512;
+
+    subset StageTransitionType of Str where $_ eq any('Inbound', 'Outbound');
+
+    subset NextToken of Str where 1 <= .chars <= 2048;
+
+    subset ArtifactStoreLocation of Str where 3 <= .chars <= 63 && rx:P5/[a-zA-Z0-9\-\.]+/;
+
+    subset MaxBatchSize of Int where 1 <= *;
+
+    subset ExecutionId of Str where 1 <= .chars <= 1500;
+
+    subset PipelineName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9.@\-_]+/;
+
+    subset ActionCategory of Str where $_ eq any('Source', 'Build', 'Deploy', 'Test', 'Invoke', 'Approval');
+
+    subset PipelineExecutionId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    subset Version of Str where 1 <= .chars <= 9 && rx:P5/[0-9A-Za-z_-]+/;
+
+    subset AccountId of Str where rx:P5/[0-9]{12}/;
+
+    subset EncryptionKeyId of Str where 1 <= .chars <= 100;
+
+    subset ApprovalToken of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    subset BlockerType of Str where $_ eq any('Schedule');
+
+    subset RevisionSummary of Str where 1 <= .chars <= 2048;
+
+    subset UrlTemplate of Str where 1 <= .chars <= 2048;
+
+    subset ActionConfigurationQueryableValue of Str where 1 <= .chars <= 50 && rx:P5/[a-zA-Z0-9_-]+/;
+
+    subset ArtifactStoreType of Str where $_ eq any('S3');
+
+    subset Revision of Str where 1 <= .chars <= 1500;
+
+    subset ActionConfigurationKey of Str where 1 <= .chars <= 50;
+
+    subset BlockerName of Str where 1 <= .chars <= 100;
+
+    subset StageName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9.@\-_]+/;
+
+    subset ActionOwner of Str where $_ eq any('AWS', 'ThirdParty', 'Custom');
+
+    subset MaximumArtifactCount of Int where 0 <= * <= 5;
+
+    subset ActionProvider of Str where 1 <= .chars <= 25 && rx:P5/[0-9A-Za-z_-]+/;
+
+    subset RoleArn of Str where .chars <= 1024 && rx:P5/arn:aws(-[\w]+)*:iam::[0-9]{12}:role\/.*/;
+
+    subset FailureType of Str where $_ eq any('JobFailed', 'ConfigurationError', 'PermissionError', 'RevisionOutOfSync', 'RevisionUnavailable', 'SystemUnavailable');
+
+    subset Url of Str where 1 <= .chars <= 2048;
+
+    subset ActionName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9.@\-_]+/;
+
+    subset ClientToken of Str where 1 <= .chars <= 256;
+
+    subset ApprovalStatus of Str where $_ eq any('Approved', 'Rejected');
+
+    subset DisabledReason of Str where 1 <= .chars <= 300 && rx:P5/[a-zA-Z0-9!@ \(\)\.\*\?\-]+/;
+
+    subset PipelineArn of Str where rx:P5/arn:aws(-[\w]+)*:codepipeline:.+:[0-9]{12}:.+/;
+
+    subset ClientId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    subset ArtifactName of Str where 1 <= .chars <= 100 && rx:P5/[a-zA-Z0-9_\-]+/;
+
+    subset MinimumArtifactCount of Int where 0 <= * <= 5;
+
+    subset MaxResults of Int where 1 <= * <= 100;
+
+    subset JobStatus of Str where $_ eq any('Created', 'Queued', 'Dispatched', 'InProgress', 'TimedOut', 'Succeeded', 'Failed');
+
+    subset ActionConfigurationPropertyList of Array[ActionConfigurationProperty] where *.elems <= 10;
+
+    subset PipelineExecutionStatus of Str where $_ eq any('InProgress', 'Succeeded', 'Superseded', 'Failed');
+
+    subset ThirdPartyJobId of Str where 1 <= .chars <= 512;
+
+    subset JobId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    subset ActionExecutionStatus of Str where $_ eq any('InProgress', 'Succeeded', 'Failed');
+
+    subset ActionConfigurationValue of Str where 1 <= .chars <= 1000;
+
+    subset QueryParamMap of Hash[ActionConfigurationQueryableValue, ActionConfigurationKey] where 0 <= *.elems <= 1;
+
+    subset PipelineVersion of Int where 1 <= *;
+
+    subset StageExecutionStatus of Str where $_ eq any('InProgress', 'Failed', 'Succeeded');
+
+    subset Percentage of Int where 0 <= * <= 100;
+
 
     class PipelineExecutionSummary does AWS::SDK::Shape {
         has PipelineExecutionStatus $.status is shape-member('status');
@@ -138,7 +247,7 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     }
 
     class GetPipelineStateOutput does AWS::SDK::Shape {
-        has Array[StageState] $.stage-states is shape-member('stageStates');
+        has StageState @.stage-states is shape-member('stageStates');
         has DateTime $.updated is shape-member('updated');
         has PipelineVersion $.pipeline-version is shape-member('pipelineVersion');
         has DateTime $.created is shape-member('created');
@@ -151,20 +260,10 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has PipelineName $.pipeline-name is required is shape-member('pipelineName');
     }
 
-    subset RevisionChangeIdentifier of Str where 1 <= .chars <= 100;
-
     class ListActionTypesOutput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('nextToken');
-        has Array[ActionType] $.action-types is required is shape-member('actionTypes');
+        has ActionType @.action-types is required is shape-member('actionTypes');
     }
-
-    subset Description of Str where 1 <= .chars <= 2048;
-
-    subset ActionConfigurationPropertyType of Str where $_ ~~ any('String', 'Number', 'Boolean');
-
-    subset ActionRunOrder of Int where 1 <= * <= 999;
-
-    subset StageRetryMode of Str where $_ ~~ any('FAILED_ACTIONS');
 
     class ActionConfigurationProperty does AWS::SDK::Shape {
         has Bool $.secret is required is shape-member('secret');
@@ -179,26 +278,18 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     class ThirdPartyJobData does AWS::SDK::Shape {
         has PipelineContext $.pipeline-context is shape-member('pipelineContext');
         has ActionTypeId $.action-type-id is shape-member('actionTypeId');
-        has Array[Artifact] $.output-artifacts is shape-member('outputArtifacts');
+        has Artifact @.output-artifacts is shape-member('outputArtifacts');
         has Str $.continuation-token is shape-member('continuationToken');
-        has Array[Artifact] $.input-artifacts is shape-member('inputArtifacts');
+        has Artifact @.input-artifacts is shape-member('inputArtifacts');
         has ActionConfiguration $.action-configuration is shape-member('actionConfiguration');
         has AWSSessionCredentials $.artifact-credentials is shape-member('artifactCredentials');
         has EncryptionKey $.encryption-key is shape-member('encryptionKey');
     }
 
-    subset EncryptionKeyType of Str where $_ ~~ any('KMS');
-
     class AcknowledgeJobInput does AWS::SDK::Shape {
         has JobId $.job-id is required is shape-member('jobId');
         has Str $.nonce is required is shape-member('nonce');
     }
-
-    subset ApprovalSummary of Str where 0 <= .chars <= 512;
-
-    subset StageTransitionType of Str where $_ ~~ any('Inbound', 'Outbound');
-
-    subset NextToken of Str where 1 <= .chars <= 2048;
 
     class GetJobDetailsOutput does AWS::SDK::Shape {
         has JobDetails $.job-details is shape-member('jobDetails');
@@ -210,22 +301,12 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has Str $.access-key-id is required is shape-member('accessKeyId');
     }
 
-    subset ArtifactStoreLocation of Str where 3 <= .chars <= 63 && rx:P5/[a-zA-Z0-9\-\.]+/;
-
-    subset MaxBatchSize of Int where 1 <= *;
-
     class PipelineVersionNotFoundException does AWS::SDK::Shape {
     }
-
-    subset ExecutionId of Str where 1 <= .chars <= 1500;
-
-    subset PipelineName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9.@\-_]+/;
 
     class GetPipelineExecutionOutput does AWS::SDK::Shape {
         has PipelineExecution $.pipeline-execution is shape-member('pipelineExecution');
     }
-
-    subset ActionCategory of Str where $_ ~~ any('Source', 'Build', 'Deploy', 'Test', 'Invoke', 'Approval');
 
     class S3ArtifactLocation does AWS::SDK::Shape {
         has Str $.bucket-name is required is shape-member('bucketName');
@@ -234,7 +315,7 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
 
     class ListPipelineExecutionsOutput does AWS::SDK::Shape {
         has NextToken $.next-token is shape-member('nextToken');
-        has Array[PipelineExecutionSummary] $.pipeline-execution-summaries is shape-member('pipelineExecutionSummaries');
+        has PipelineExecutionSummary @.pipeline-execution-summaries is shape-member('pipelineExecutionSummaries');
     }
 
     class GetJobDetailsInput does AWS::SDK::Shape {
@@ -248,8 +329,6 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     class InvalidBlockerDeclarationException does AWS::SDK::Shape {
     }
 
-    subset PipelineExecutionId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
-
     class EncryptionKey does AWS::SDK::Shape {
         has EncryptionKeyId $.id is required is shape-member('id');
         has EncryptionKeyType $.type is required is shape-member('type');
@@ -262,8 +341,6 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     class StartPipelineExecutionOutput does AWS::SDK::Shape {
         has PipelineExecutionId $.pipeline-execution-id is shape-member('pipelineExecutionId');
     }
-
-    subset Version of Str where 1 <= .chars <= 9 && rx:P5/[0-9A-Za-z_-]+/;
 
     class PipelineSummary does AWS::SDK::Shape {
         has PipelineName $.name is shape-member('name');
@@ -280,12 +357,6 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has ThirdPartyJobId $.job-id is required is shape-member('jobId');
     }
 
-    subset AccountId of Str where rx:P5/[0-9]{12}/;
-
-    subset EncryptionKeyId of Str where 1 <= .chars <= 100;
-
-    subset ApprovalToken of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
-
     class PipelineMetadata does AWS::SDK::Shape {
         has DateTime $.updated is shape-member('updated');
         has PipelineArn $.pipeline-arn is shape-member('pipelineArn');
@@ -299,18 +370,12 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     class InvalidStageDeclarationException does AWS::SDK::Shape {
     }
 
-    subset BlockerType of Str where $_ ~~ any('Schedule');
-
-    subset RevisionSummary of Str where 1 <= .chars <= 2048;
-
     class PutJobSuccessResultInput does AWS::SDK::Shape {
         has ExecutionDetails $.execution-details is shape-member('executionDetails');
         has Str $.continuation-token is shape-member('continuationToken');
         has CurrentRevision $.current-revision is shape-member('currentRevision');
         has JobId $.job-id is required is shape-member('jobId');
     }
-
-    subset UrlTemplate of Str where 1 <= .chars <= 2048;
 
     class PutThirdPartyJobFailureResultInput does AWS::SDK::Shape {
         has ClientToken $.client-token is required is shape-member('clientToken');
@@ -330,8 +395,6 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
 
     class LimitExceededException does AWS::SDK::Shape {
     }
-
-    subset ActionConfigurationQueryableValue of Str where 1 <= .chars <= 50 && rx:P5/[a-zA-Z0-9_-]+/;
 
     class JobDetails does AWS::SDK::Shape {
         has AccountId $.account-id is shape-member('accountId');
@@ -414,8 +477,6 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has PipelineDeclaration $.pipeline is required is shape-member('pipeline');
     }
 
-    subset ArtifactStoreType of Str where $_ ~~ any('S3');
-
     class StageNotRetryableException does AWS::SDK::Shape {
     }
 
@@ -441,11 +502,9 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
 
     class PollForJobsInput does AWS::SDK::Shape {
         has ActionTypeId $.action-type-id is required is shape-member('actionTypeId');
-        has QueryParamMap $.query-param is shape-member('queryParam');
+        has ActionConfigurationQueryableValue $.query-param{ActionConfigurationKey} is shape-member('queryParam');
         has MaxBatchSize $.max-batch-size is shape-member('maxBatchSize');
     }
-
-    subset Revision of Str where 1 <= .chars <= 1500;
 
     class InvalidNextTokenException does AWS::SDK::Shape {
     }
@@ -453,8 +512,6 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     class GetThirdPartyJobDetailsOutput does AWS::SDK::Shape {
         has ThirdPartyJobDetails $.job-details is shape-member('jobDetails');
     }
-
-    subset ActionConfigurationKey of Str where 1 <= .chars <= 50;
 
     class ActionType does AWS::SDK::Shape {
         has ActionTypeSettings $.settings is shape-member('settings');
@@ -472,13 +529,9 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has PipelineDeclaration $.pipeline is shape-member('pipeline');
     }
 
-    subset BlockerName of Str where 1 <= .chars <= 100;
-
     class PollForThirdPartyJobsOutput does AWS::SDK::Shape {
-        has Array[ThirdPartyJob] $.jobs is shape-member('jobs');
+        has ThirdPartyJob @.jobs is shape-member('jobs');
     }
-
-    subset StageName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9.@\-_]+/;
 
     class ErrorDetails does AWS::SDK::Shape {
         has Str $.code is shape-member('code');
@@ -495,17 +548,13 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has Version $.version is required is shape-member('version');
     }
 
-    subset ActionOwner of Str where $_ ~~ any('AWS', 'ThirdParty', 'Custom');
-
     class PipelineDeclaration does AWS::SDK::Shape {
         has PipelineName $.name is required is shape-member('name');
         has ArtifactStore $.artifact-store is required is shape-member('artifactStore');
         has RoleArn $.role-arn is required is shape-member('roleArn');
         has PipelineVersion $.version is shape-member('version');
-        has Array[StageDeclaration] $.stages is required is shape-member('stages');
+        has StageDeclaration @.stages is required is shape-member('stages');
     }
-
-    subset MaximumArtifactCount of Int where 0 <= * <= 5;
 
     class PipelineContext does AWS::SDK::Shape {
         has StageContext $.stage is shape-member('stage');
@@ -513,14 +562,8 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has PipelineName $.pipeline-name is shape-member('pipelineName');
     }
 
-    subset ActionProvider of Str where 1 <= .chars <= 25 && rx:P5/[0-9A-Za-z_-]+/;
-
-    subset RoleArn of Str where .chars <= 1024 && rx:P5/arn:aws(-[\w]+)*:iam::[0-9]{12}:role\/.*/;
-
     class InvalidApprovalTokenException does AWS::SDK::Shape {
     }
-
-    subset FailureType of Str where $_ ~~ any('JobFailed', 'ConfigurationError', 'PermissionError', 'RevisionOutOfSync', 'RevisionUnavailable', 'SystemUnavailable');
 
     class AcknowledgeThirdPartyJobInput does AWS::SDK::Shape {
         has ClientToken $.client-token is required is shape-member('clientToken');
@@ -529,15 +572,15 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     }
 
     class ActionConfiguration does AWS::SDK::Shape {
-        has Hash[ActionConfigurationValue, ActionConfigurationKey] $.configuration is shape-member('configuration');
+        has ActionConfigurationValue %.configuration{ActionConfigurationKey} is shape-member('configuration');
     }
 
     class ActionDeclaration does AWS::SDK::Shape {
         has ActionTypeId $.action-type-id is required is shape-member('actionTypeId');
         has ActionName $.name is required is shape-member('name');
-        has Array[OutputArtifact] $.output-artifacts is shape-member('outputArtifacts');
-        has Array[InputArtifact] $.input-artifacts is shape-member('inputArtifacts');
-        has Hash[ActionConfigurationValue, ActionConfigurationKey] $.configuration is shape-member('configuration');
+        has OutputArtifact @.output-artifacts is shape-member('outputArtifacts');
+        has InputArtifact @.input-artifacts is shape-member('inputArtifacts');
+        has ActionConfigurationValue %.configuration{ActionConfigurationKey} is shape-member('configuration');
         has RoleArn $.role-arn is shape-member('roleArn');
         has ActionRunOrder $.run-order is shape-member('runOrder');
     }
@@ -582,17 +625,15 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     class PipelineExecution does AWS::SDK::Shape {
         has PipelineExecutionStatus $.status is shape-member('status');
         has PipelineVersion $.pipeline-version is shape-member('pipelineVersion');
-        has Array[ArtifactRevision] $.artifact-revisions is shape-member('artifactRevisions');
+        has ArtifactRevision @.artifact-revisions is shape-member('artifactRevisions');
         has PipelineExecutionId $.pipeline-execution-id is shape-member('pipelineExecutionId');
         has PipelineName $.pipeline-name is shape-member('pipelineName');
     }
 
     class ListPipelinesOutput does AWS::SDK::Shape {
-        has Array[PipelineSummary] $.pipelines is shape-member('pipelines');
+        has PipelineSummary @.pipelines is shape-member('pipelines');
         has NextToken $.next-token is shape-member('nextToken');
     }
-
-    subset Url of Str where 1 <= .chars <= 2048;
 
     class InvalidJobException does AWS::SDK::Shape {
     }
@@ -601,8 +642,6 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has PipelineName $.name is required is shape-member('name');
         has PipelineVersion $.version is shape-member('version');
     }
-
-    subset ActionName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9.@\-_]+/;
 
     class PutActionRevisionOutput does AWS::SDK::Shape {
         has Bool $.new-revision is shape-member('newRevision');
@@ -614,8 +653,6 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
 
     class PipelineExecutionNotFoundException does AWS::SDK::Shape {
     }
-
-    subset ClientToken of Str where 1 <= .chars <= 256;
 
     class InvalidStructureException does AWS::SDK::Shape {
     }
@@ -651,16 +688,12 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     class ApprovalAlreadyCompletedException does AWS::SDK::Shape {
     }
 
-    subset ApprovalStatus of Str where $_ ~~ any('Approved', 'Rejected');
-
     class PipelineNotFoundException does AWS::SDK::Shape {
     }
 
     class PollForJobsOutput does AWS::SDK::Shape {
-        has Array[Job] $.jobs is shape-member('jobs');
+        has Job @.jobs is shape-member('jobs');
     }
-
-    subset DisabledReason of Str where 1 <= .chars <= 300 && rx:P5/[a-zA-Z0-9!@ \(\)\.\*\?\-]+/;
 
     class ActionExecution does AWS::SDK::Shape {
         has ActionExecutionStatus $.status is shape-member('status');
@@ -674,25 +707,19 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has Str $.summary is shape-member('summary');
     }
 
-    subset PipelineArn of Str where rx:P5/arn:aws(-[\w]+)*:codepipeline:.+:[0-9]{12}:.+/;
-
     class ArtifactStore does AWS::SDK::Shape {
         has ArtifactStoreLocation $.location is required is shape-member('location');
         has ArtifactStoreType $.type is required is shape-member('type');
         has EncryptionKey $.encryption-key is shape-member('encryptionKey');
     }
 
-    subset ClientId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
-
     class ValidationException does AWS::SDK::Shape {
     }
 
-    subset ArtifactName of Str where 1 <= .chars <= 100 && rx:P5/[a-zA-Z0-9_\-]+/;
-
     class StageDeclaration does AWS::SDK::Shape {
-        has Array[BlockerDeclaration] $.blockers is shape-member('blockers');
+        has BlockerDeclaration @.blockers is shape-member('blockers');
         has StageName $.name is required is shape-member('name');
-        has Array[ActionDeclaration] $.actions is required is shape-member('actions');
+        has ActionDeclaration @.actions is required is shape-member('actions');
     }
 
     class ListActionTypesInput does AWS::SDK::Shape {
@@ -720,20 +747,12 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has DateTime $.created is shape-member('created');
     }
 
-    subset MinimumArtifactCount of Int where 0 <= * <= 5;
-
-    subset MaxResults of Int where 1 <= * <= 100;
-
-    subset JobStatus of Str where $_ ~~ any('Created', 'Queued', 'Dispatched', 'InProgress', 'TimedOut', 'Succeeded', 'Failed');
-
     class InvalidJobStateException does AWS::SDK::Shape {
     }
 
     class DeletePipelineInput does AWS::SDK::Shape {
         has PipelineName $.name is required is shape-member('name');
     }
-
-    subset ActionConfigurationPropertyList of Array[ActionConfigurationProperty] where *.elems <= 10;
 
     class ActionTypeId does AWS::SDK::Shape {
         has ActionProvider $.provider is required is shape-member('provider');
@@ -746,7 +765,7 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
     }
 
     class StageState does AWS::SDK::Shape {
-        has Array[ActionState] $.action-states is shape-member('actionStates');
+        has ActionState @.action-states is shape-member('actionStates');
         has TransitionState $.inbound-transition-state is shape-member('inboundTransitionState');
         has StageExecution $.latest-execution is shape-member('latestExecution');
         has StageName $.stage-name is shape-member('stageName');
@@ -763,26 +782,16 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has UrlTemplate $.revision-url-template is shape-member('revisionUrlTemplate');
     }
 
-    subset PipelineExecutionStatus of Str where $_ ~~ any('InProgress', 'Succeeded', 'Superseded', 'Failed');
-
-    subset ThirdPartyJobId of Str where 1 <= .chars <= 512;
-
-    subset JobId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
-
-    subset ActionExecutionStatus of Str where $_ ~~ any('InProgress', 'Succeeded', 'Failed');
-
     class JobData does AWS::SDK::Shape {
         has PipelineContext $.pipeline-context is shape-member('pipelineContext');
         has ActionTypeId $.action-type-id is shape-member('actionTypeId');
-        has Array[Artifact] $.output-artifacts is shape-member('outputArtifacts');
+        has Artifact @.output-artifacts is shape-member('outputArtifacts');
         has Str $.continuation-token is shape-member('continuationToken');
-        has Array[Artifact] $.input-artifacts is shape-member('inputArtifacts');
+        has Artifact @.input-artifacts is shape-member('inputArtifacts');
         has ActionConfiguration $.action-configuration is shape-member('actionConfiguration');
         has AWSSessionCredentials $.artifact-credentials is shape-member('artifactCredentials');
         has EncryptionKey $.encryption-key is shape-member('encryptionKey');
     }
-
-    subset ActionConfigurationValue of Str where 1 <= .chars <= 1000;
 
     class PutApprovalResultInput does AWS::SDK::Shape {
         has ActionName $.action-name is required is shape-member('actionName');
@@ -792,8 +801,6 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has PipelineName $.pipeline-name is required is shape-member('pipelineName');
     }
 
-    subset QueryParamMap of Hash[ActionConfigurationQueryableValue, ActionConfigurationKey] where 0 <= *.elems <= 1;
-
     class ThirdPartyJob does AWS::SDK::Shape {
         has ClientId $.client-id is shape-member('clientId');
         has JobId $.job-id is shape-member('jobId');
@@ -801,12 +808,6 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
 
     class PipelineNameInUseException does AWS::SDK::Shape {
     }
-
-    subset PipelineVersion of Int where 1 <= *;
-
-    subset StageExecutionStatus of Str where $_ ~~ any('InProgress', 'Failed', 'Succeeded');
-
-    subset Percentage of Int where 0 <= * <= 100;
 
     class OutputArtifact does AWS::SDK::Shape {
         has ArtifactName $.name is required is shape-member('name');
@@ -821,6 +822,7 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
         has Revision $.revision-id is required is shape-member('revisionId');
         has DateTime $.created is required is shape-member('created');
     }
+
 
     method update-pipeline(
         PipelineDeclaration :$pipeline!
@@ -924,7 +926,7 @@ class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
 
     method poll-for-jobs(
         ActionTypeId :$action-type-id!,
-        QueryParamMap :$query-param,
+        ActionConfigurationQueryableValue :$query-param,
         MaxBatchSize :$max-batch-size
     ) returns PollForJobsOutput is service-operation('PollForJobs') {
         my $request-input = PollForJobsInput.new(

@@ -55,6 +55,63 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
     class ListHsmsResponse { ... }
     class ListLunaClientsRequest { ... }
 
+    subset IamRoleArn of Str where rx:P5/arn:aws(-iso)?:iam::[0-9]{12}:role\/[a-zA-Z0-9_\+=,\.\-@]{1,64}/;
+
+    subset PartitionSerial of Str where rx:P5/\d{6,12}/;
+
+    subset PartitionArn of Str where rx:P5/arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\-]*:[0-9]{12}:hsm-[0-9a-f]{8}\/partition-[0-9]{6,12}/;
+
+    subset EniId of Str where rx:P5/eni-[0-9a-f]{8}/;
+
+    subset ClientLabel of Str where rx:P5/[a-zA-Z0-9_.-]{2,64}/;
+
+    subset Timestamp of Str where rx:P5/\d*/;
+
+    subset ClientArn of Str where rx:P5/arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\-]*:[0-9]{12}:client-[0-9a-f]{8}/;
+
+    subset Label of Str where rx:P5/[a-zA-Z0-9_.-]{1,64}/;
+
+    subset AZ of Str where rx:P5/[a-zA-Z0-9\-]*/;
+
+    subset CertificateFingerprint of Str where rx:P5/([0-9a-fA-F][0-9a-fA-F]:){15}[0-9a-fA-F][0-9a-fA-F]/;
+
+    subset HsmStatus of Str where $_ eq any('PENDING', 'RUNNING', 'UPDATING', 'SUSPENDED', 'TERMINATING', 'TERMINATED', 'DEGRADED');
+
+    subset PaginationToken of Str where rx:P5/[a-zA-Z0-9+\/]*/;
+
+    subset SubnetId of Str where rx:P5/subnet-[0-9a-f]{8}/;
+
+    subset TagKey of Str where 1 <= .chars <= 128;
+
+    subset VpcId of Str where rx:P5/vpc-[0-9a-f]{8}/;
+
+    subset HsmSerialNumber of Str where rx:P5/\d{1,16}/;
+
+    subset ExternalId of Str where rx:P5/[\w :+=.\/-]*/;
+
+    subset ClientToken of Str where rx:P5/[a-zA-Z0-9]{1,64}/;
+
+    subset CloudHsmObjectState of Str where $_ eq any('READY', 'UPDATING', 'DEGRADED');
+
+    subset TagValue of Str where 0 <= .chars <= 256;
+
+    subset SubscriptionType of Str where $_ eq any('PRODUCTION');
+
+    subset SshKey of Str where rx:P5/[a-zA-Z0-9+\/= ._:\\@-]*/;
+
+    subset IpAddress of Str where rx:P5/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
+
+    subset String of Str where rx:P5/[\w :+=.\/\\-]*/;
+
+    subset Certificate of Str where 600 <= .chars <= 2400 && rx:P5/[\w :+=.\/\n-]*/;
+
+    subset HsmArn of Str where rx:P5/arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\-]*:[0-9]{12}:hsm-[0-9a-f]{8}/;
+
+    subset HapgArn of Str where rx:P5/arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\-]*:[0-9]{12}:hapg-[0-9a-f]{8}/;
+
+    subset ClientVersion of Str where $_ eq any('5.1', '5.3');
+
+
     class RemoveTagsFromResourceResponse does AWS::SDK::Shape {
         has String $.status is required is shape-member('Status');
     }
@@ -63,14 +120,10 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
         has HsmArn $.hsm-arn is shape-member('HsmArn');
     }
 
-    subset IamRoleArn of Str where rx:P5/arn:aws(-iso)?:iam::[0-9]{12}:role\/[a-zA-Z0-9_\+=,\.\-@]{1,64}/;
-
     class ListLunaClientsResponse does AWS::SDK::Shape {
-        has Array[ClientArn] $.client-list is required is shape-member('ClientList');
+        has ClientArn @.client-list is required is shape-member('ClientList');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
-
-    subset PartitionSerial of Str where rx:P5/\d{6,12}/;
 
     class CreateLunaClientRequest does AWS::SDK::Shape {
         has Certificate $.certificate is required is shape-member('Certificate');
@@ -79,7 +132,7 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
 
     class GetConfigRequest does AWS::SDK::Shape {
         has ClientArn $.client-arn is required is shape-member('ClientArn');
-        has Array[HapgArn] $.hapg-list is required is shape-member('HapgList');
+        has HapgArn @.hapg-list is required is shape-member('HapgList');
         has ClientVersion $.client-version is required is shape-member('ClientVersion');
     }
 
@@ -88,8 +141,6 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
         has String $.config-type is shape-member('ConfigType');
         has String $.config-file is shape-member('ConfigFile');
     }
-
-    subset PartitionArn of Str where rx:P5/arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\-]*:[0-9]{12}:hsm-[0-9a-f]{8}\/partition-[0-9]{6,12}/;
 
     class ModifyHsmRequest does AWS::SDK::Shape {
         has IamRoleArn $.iam-role-arn is shape-member('IamRoleArn');
@@ -105,13 +156,9 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
         has String $.message is shape-member('message');
     }
 
-    subset EniId of Str where rx:P5/eni-[0-9a-f]{8}/;
-
     class ListHapgsRequest does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('NextToken');
     }
-
-    subset ClientLabel of Str where rx:P5/[a-zA-Z0-9_.-]{2,64}/;
 
     class DeleteHapgResponse does AWS::SDK::Shape {
         has String $.status is required is shape-member('Status');
@@ -122,25 +169,15 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
         has CertificateFingerprint $.certificate-fingerprint is shape-member('CertificateFingerprint');
     }
 
-    subset Timestamp of Str where rx:P5/\d*/;
-
-    subset ClientArn of Str where rx:P5/arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\-]*:[0-9]{12}:client-[0-9a-f]{8}/;
-
-    subset Label of Str where rx:P5/[a-zA-Z0-9_.-]{1,64}/;
-
     class ModifyHapgRequest does AWS::SDK::Shape {
         has Label $.label is shape-member('Label');
-        has Array[PartitionSerial] $.partition-serial-list is shape-member('PartitionSerialList');
+        has PartitionSerial @.partition-serial-list is shape-member('PartitionSerialList');
         has HapgArn $.hapg-arn is required is shape-member('HapgArn');
     }
-
-    subset AZ of Str where rx:P5/[a-zA-Z0-9\-]*/;
 
     class CreateLunaClientResponse does AWS::SDK::Shape {
         has ClientArn $.client-arn is shape-member('ClientArn');
     }
-
-    subset CertificateFingerprint of Str where rx:P5/([0-9a-fA-F][0-9a-fA-F]:){15}[0-9a-fA-F][0-9a-fA-F]/;
 
     class CreateHapgRequest does AWS::SDK::Shape {
         has Label $.label is required is shape-member('Label');
@@ -162,10 +199,8 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
     }
 
     class ListTagsForResourceResponse does AWS::SDK::Shape {
-        has Array[Tag] $.tag-list is required is shape-member('TagList');
+        has Tag @.tag-list is required is shape-member('TagList');
     }
-
-    subset HsmStatus of Str where $_ ~~ any('PENDING', 'RUNNING', 'UPDATING', 'SUSPENDED', 'TERMINATING', 'TERMINATED', 'DEGRADED');
 
     class ModifyLunaClientResponse does AWS::SDK::Shape {
         has ClientArn $.client-arn is shape-member('ClientArn');
@@ -182,33 +217,17 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
         has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    subset PaginationToken of Str where rx:P5/[a-zA-Z0-9+\/]*/;
-
-    subset SubnetId of Str where rx:P5/subnet-[0-9a-f]{8}/;
-
-    subset TagKey of Str where 1 <= .chars <= 128;
-
-    subset VpcId of Str where rx:P5/vpc-[0-9a-f]{8}/;
-
     class InvalidRequestException does AWS::SDK::Shape {
     }
 
-    subset HsmSerialNumber of Str where rx:P5/\d{1,16}/;
-
-    subset ExternalId of Str where rx:P5/[\w :+=.\/-]*/;
-
     class AddTagsToResourceRequest does AWS::SDK::Shape {
-        has Array[Tag] $.tag-list is required is shape-member('TagList');
+        has Tag @.tag-list is required is shape-member('TagList');
         has String $.resource-arn is required is shape-member('ResourceArn');
     }
 
     class AddTagsToResourceResponse does AWS::SDK::Shape {
         has String $.status is required is shape-member('Status');
     }
-
-    subset ClientToken of Str where rx:P5/[a-zA-Z0-9]{1,64}/;
-
-    subset CloudHsmObjectState of Str where $_ ~~ any('READY', 'UPDATING', 'DEGRADED');
 
     class DeleteLunaClientResponse does AWS::SDK::Shape {
         has String $.status is required is shape-member('Status');
@@ -218,12 +237,6 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
         has HapgArn $.hapg-arn is required is shape-member('HapgArn');
     }
 
-    subset TagValue of Str where 0 <= .chars <= 256;
-
-    subset SubscriptionType of Str where $_ ~~ any('PRODUCTION');
-
-    subset SshKey of Str where rx:P5/[a-zA-Z0-9+\/= ._:\\@-]*/;
-
     class DeleteHsmRequest does AWS::SDK::Shape {
         has HsmArn $.hsm-arn is required is shape-member('HsmArn');
     }
@@ -232,11 +245,11 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
         has Timestamp $.last-modified-timestamp is shape-member('LastModifiedTimestamp');
         has CloudHsmObjectState $.state is shape-member('State');
         has Label $.label is shape-member('Label');
-        has Array[PartitionSerial] $.partition-serial-list is shape-member('PartitionSerialList');
-        has Array[HsmArn] $.hsms-pending-deletion is shape-member('HsmsPendingDeletion');
+        has PartitionSerial @.partition-serial-list is shape-member('PartitionSerialList');
+        has HsmArn @.hsms-pending-deletion is shape-member('HsmsPendingDeletion');
         has HapgArn $.hapg-arn is shape-member('HapgArn');
-        has Array[HsmArn] $.hsms-pending-registration is shape-member('HsmsPendingRegistration');
-        has Array[HsmArn] $.hsms-last-action-failed is shape-member('HsmsLastActionFailed');
+        has HsmArn @.hsms-pending-registration is shape-member('HsmsPendingRegistration');
+        has HsmArn @.hsms-last-action-failed is shape-member('HsmsLastActionFailed');
         has String $.hapg-serial is shape-member('HapgSerial');
     }
 
@@ -245,26 +258,18 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
         has HsmArn $.hsm-arn is shape-member('HsmArn');
     }
 
-    subset IpAddress of Str where rx:P5/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
-
-    subset String of Str where rx:P5/[\w :+=.\/\\-]*/;
-
     class RemoveTagsFromResourceRequest does AWS::SDK::Shape {
-        has Array[TagKey] $.tag-key-list is required is shape-member('TagKeyList');
+        has TagKey @.tag-key-list is required is shape-member('TagKeyList');
         has String $.resource-arn is required is shape-member('ResourceArn');
     }
-
-    subset Certificate of Str where 600 <= .chars <= 2400 && rx:P5/[\w :+=.\/\n-]*/;
 
     class CreateHapgResponse does AWS::SDK::Shape {
         has HapgArn $.hapg-arn is shape-member('HapgArn');
     }
 
-    subset HsmArn of Str where rx:P5/arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\-]*:[0-9]{12}:hsm-[0-9a-f]{8}/;
-
     class ListHapgsResponse does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('NextToken');
-        has Array[HapgArn] $.hapg-list is required is shape-member('HapgList');
+        has HapgArn @.hapg-list is required is shape-member('HapgList');
     }
 
     class DeleteHapgRequest does AWS::SDK::Shape {
@@ -279,8 +284,6 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
         has ClientArn $.client-arn is required is shape-member('ClientArn');
     }
 
-    subset HapgArn of Str where rx:P5/arn:aws(-iso)?:cloudhsm:[a-zA-Z0-9\-]*:[0-9]{12}:hapg-[0-9a-f]{8}/;
-
     class ModifyLunaClientRequest does AWS::SDK::Shape {
         has Certificate $.certificate is required is shape-member('Certificate');
         has ClientArn $.client-arn is required is shape-member('ClientArn');
@@ -289,8 +292,6 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
     class ModifyHsmResponse does AWS::SDK::Shape {
         has HsmArn $.hsm-arn is shape-member('HsmArn');
     }
-
-    subset ClientVersion of Str where $_ ~~ any('5.1', '5.3');
 
     class CreateHsmRequest does AWS::SDK::Shape {
         has IamRoleArn $.iam-role-arn is required is shape-member('IamRoleArn');
@@ -324,11 +325,11 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
         has HsmArn $.hsm-arn is shape-member('HsmArn');
         has AZ $.availability-zone is shape-member('AvailabilityZone');
         has HsmStatus $.status is shape-member('Status');
-        has Array[PartitionArn] $.partitions is shape-member('Partitions');
+        has PartitionArn @.partitions is shape-member('Partitions');
     }
 
     class ListAvailableZonesResponse does AWS::SDK::Shape {
-        has Array[AZ] $.az-list is shape-member('AZList');
+        has AZ @.az-list is shape-member('AZList');
     }
 
     class Tag does AWS::SDK::Shape {
@@ -337,13 +338,14 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
     }
 
     class ListHsmsResponse does AWS::SDK::Shape {
-        has Array[HsmArn] $.hsm-list is shape-member('HsmList');
+        has HsmArn @.hsm-list is shape-member('HsmList');
         has PaginationToken $.next-token is shape-member('NextToken');
     }
 
     class ListLunaClientsRequest does AWS::SDK::Shape {
         has PaginationToken $.next-token is shape-member('NextToken');
     }
+
 
     method list-luna-clients(
         PaginationToken :$next-token
@@ -389,11 +391,11 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
     }
 
     method add-tags-to-resource(
-        Array[Tag] :$tag-list!,
+        Tag :@tag-list!,
         String :$resource-arn!
     ) returns AddTagsToResourceResponse is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceRequest.new(
-            :$tag-list,
+            :@tag-list,
             :$resource-arn
         );
 
@@ -404,11 +406,11 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
     }
 
     method remove-tags-from-resource(
-        Array[TagKey] :$tag-key-list!,
+        TagKey :@tag-key-list!,
         String :$resource-arn!
     ) returns RemoveTagsFromResourceResponse is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceRequest.new(
-            :$tag-key-list,
+            :@tag-key-list,
             :$resource-arn
         );
 
@@ -474,12 +476,12 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
 
     method get-config(
         ClientArn :$client-arn!,
-        Array[HapgArn] :$hapg-list!,
+        HapgArn :@hapg-list!,
         ClientVersion :$client-version!
     ) returns GetConfigResponse is service-operation('GetConfig') {
         my $request-input = GetConfigRequest.new(
             :$client-arn,
-            :$hapg-list,
+            :@hapg-list,
             :$client-version
         );
 
@@ -546,12 +548,12 @@ class AWS::SDK::Service::CloudHSM does AWS::SDK::Service {
 
     method modify-hapg(
         Label :$label,
-        Array[PartitionSerial] :$partition-serial-list,
+        PartitionSerial :@partition-serial-list,
         HapgArn :$hapg-arn!
     ) returns ModifyHapgResponse is service-operation('ModifyHapg') {
         my $request-input = ModifyHapgRequest.new(
             :$label,
-            :$partition-serial-list,
+            :@partition-serial-list,
             :$hapg-arn
         );
 

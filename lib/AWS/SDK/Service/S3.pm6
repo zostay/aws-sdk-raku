@@ -214,14 +214,83 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     class StorageClassAnalysisDataExport { ... }
     class GetBucketLocationOutput { ... }
 
+    subset TransitionStorageClass of Str where $_ eq any('GLACIER', 'STANDARD_IA');
+
+    subset StorageClass of Str where $_ eq any('STANDARD', 'REDUCED_REDUNDANCY', 'STANDARD_IA');
+
+    subset Tier of Str where $_ eq any('Standard', 'Bulk', 'Expedited');
+
+    subset ObjectKey of Str where 1 <= .chars;
+
+    subset MFADelete of Str where $_ eq any('Enabled', 'Disabled');
+
+    subset MetadataDirective of Str where $_ eq any('COPY', 'REPLACE');
+
+    subset ObjectStorageClass of Str where $_ eq any('STANDARD', 'REDUCED_REDUNDANCY', 'GLACIER');
+
+    subset ObjectVersionStorageClass of Str where $_ eq any('STANDARD');
+
+    subset ExpirationStatus of Str where $_ eq any('Enabled', 'Disabled');
+
+    subset Type of Str where $_ eq any('CanonicalUser', 'AmazonCustomerByEmail', 'Group');
+
+    subset BucketCannedACL of Str where $_ eq any('private', 'public-read', 'public-read-write', 'authenticated-read');
+
+    subset ReplicationRuleStatus of Str where $_ eq any('Enabled', 'Disabled');
+
+    subset Payer of Str where $_ eq any('Requester', 'BucketOwner');
+
+    subset ReplicationStatus of Str where $_ eq any('COMPLETE', 'PENDING', 'FAILED', 'REPLICA');
+
+    subset BucketLocationConstraint of Str where $_ eq any('EU', 'eu-west-1', 'us-west-1', 'us-west-2', 'ap-south-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'sa-east-1', 'cn-north-1', 'eu-central-1');
+
+    subset TaggingDirective of Str where $_ eq any('COPY', 'REPLACE');
+
+    subset EncodingType of Str where $_ eq any('url');
+
+    subset InventoryOptionalField of Str where $_ eq any('Size', 'LastModifiedDate', 'StorageClass', 'ETag', 'IsMultipartUploaded', 'ReplicationStatus');
+
+    subset MFADeleteStatus of Str where $_ eq any('Enabled', 'Disabled');
+
+    subset Event of Str where $_ eq any('s3:ReducedRedundancyLostObject', 's3:ObjectCreated:*', 's3:ObjectCreated:Put', 's3:ObjectCreated:Post', 's3:ObjectCreated:Copy', 's3:ObjectCreated:CompleteMultipartUpload', 's3:ObjectRemoved:*', 's3:ObjectRemoved:Delete', 's3:ObjectRemoved:DeleteMarkerCreated');
+
+    subset InventoryFrequency of Str where $_ eq any('Daily', 'Weekly');
+
+    subset AnalyticsS3ExportFileFormat of Str where $_ eq any('CSV');
+
+    subset FilterRuleName of Str where $_ eq any('prefix', 'suffix');
+
+    subset RequestPayer of Str where $_ eq any('requester');
+
+    subset InventoryIncludedObjectVersions of Str where $_ eq any('All', 'Current');
+
+    subset ServerSideEncryption of Str where $_ eq any('AES256', 'aws:kms');
+
+    subset Protocol of Str where $_ eq any('http', 'https');
+
+    subset BucketAccelerateStatus of Str where $_ eq any('Enabled', 'Suspended');
+
+    subset Permission of Str where $_ eq any('FULL_CONTROL', 'WRITE', 'WRITE_ACP', 'READ', 'READ_ACP');
+
+    subset ObjectCannedACL of Str where $_ eq any('private', 'public-read', 'public-read-write', 'authenticated-read', 'aws-exec-read', 'bucket-owner-read', 'bucket-owner-full-control');
+
+    subset InventoryFormat of Str where $_ eq any('CSV');
+
+    subset BucketVersioningStatus of Str where $_ eq any('Enabled', 'Suspended');
+
+    subset StorageClassAnalysisSchemaVersion of Str where $_ eq any('V_1');
+
+    subset BucketLogsPermission of Str where $_ eq any('FULL_CONTROL', 'READ', 'WRITE');
+
+    subset RequestCharged of Str where $_ eq any('requester');
+
+    subset CopySource of Str where rx:P5/\\/.+\\/.+/;
+
+
     class Bucket does AWS::SDK::Shape {
         has DateTime $.creation-date is shape-member('CreationDate');
         has Str $.name is shape-member('Name');
     }
-
-    subset TransitionStorageClass of Str where $_ ~~ any('GLACIER', 'STANDARD_IA');
-
-    subset StorageClass of Str where $_ ~~ any('STANDARD', 'REDUCED_REDUNDANCY', 'STANDARD_IA');
 
     class CreateBucketOutput does AWS::SDK::Shape {
         has Str $.location is shape-member('Location');
@@ -241,7 +310,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
 
     class ListBucketsOutput does AWS::SDK::Shape {
         has Owner $.owner is shape-member('Owner');
-        has Array[Bucket] $.buckets is shape-member('Buckets');
+        has Bucket @.buckets is shape-member('Buckets');
     }
 
     class NoncurrentVersionExpiration does AWS::SDK::Shape {
@@ -249,9 +318,9 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class NotificationConfiguration does AWS::SDK::Shape {
-        has Array[TopicConfiguration] $.topic-configurations is shape-member('TopicConfigurations');
-        has Array[LambdaFunctionConfiguration] $.lambda-function-configurations is shape-member('LambdaFunctionConfigurations');
-        has Array[QueueConfiguration] $.queue-configurations is shape-member('QueueConfigurations');
+        has TopicConfiguration @.topic-configurations is shape-member('TopicConfigurations');
+        has LambdaFunctionConfiguration @.lambda-function-configurations is shape-member('LambdaFunctionConfigurations');
+        has QueueConfiguration @.queue-configurations is shape-member('QueueConfigurations');
     }
 
     class CompleteMultipartUploadRequest does AWS::SDK::Shape {
@@ -281,7 +350,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
 
     class ListMultipartUploadsOutput does AWS::SDK::Shape {
         has EncodingType $.encoding-type is shape-member('EncodingType');
-        has Array[CommonPrefix] $.common-prefixes is shape-member('CommonPrefixes');
+        has CommonPrefix @.common-prefixes is shape-member('CommonPrefixes');
         has Str $.next-key-marker is shape-member('NextKeyMarker');
         has Str $.key-marker is shape-member('KeyMarker');
         has Str $.bucket is shape-member('Bucket');
@@ -290,7 +359,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.prefix is shape-member('Prefix');
         has Str $.delimiter is shape-member('Delimiter');
         has Bool $.is-truncated is shape-member('IsTruncated');
-        has Array[MultipartUpload] $.uploads is shape-member('Uploads');
+        has MultipartUpload @.uploads is shape-member('Uploads');
         has Str $.next-upload-id-marker is shape-member('NextUploadIdMarker');
     }
 
@@ -310,8 +379,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has AnalyticsS3BucketDestination $.s3-bucket-destination is required is shape-member('S3BucketDestination');
     }
 
-    subset Tier of Str where $_ ~~ any('Standard', 'Bulk', 'Expedited');
-
     class GetBucketMetricsConfigurationRequest does AWS::SDK::Shape {
         has Str $.bucket is required is shape-member('Bucket');
         has Str $.id is required is shape-member('Id');
@@ -322,7 +389,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class BucketLifecycleConfiguration does AWS::SDK::Shape {
-        has Array[LifecycleRule] $.rules is required is shape-member('Rules');
+        has LifecycleRule @.rules is required is shape-member('Rules');
     }
 
     class GetObjectOutput does AWS::SDK::Shape {
@@ -342,7 +409,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Bool $.delete-marker is shape-member('DeleteMarker');
         has Str $.sse-kms-key-id is shape-member('SSEKMSKeyId');
         has Str $.sse-customer-key-md5 is shape-member('SSECustomerKeyMD5');
-        has Hash[Str, Str] $.metadata is shape-member('Metadata');
+        has Str %.metadata{Str} is shape-member('Metadata');
         has Str $.website-redirect-location is shape-member('WebsiteRedirectLocation');
         has DateTime $.expires is shape-member('Expires');
         has Str $.content-disposition is shape-member('ContentDisposition');
@@ -357,7 +424,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class S3KeyFilter does AWS::SDK::Shape {
-        has Array[FilterRule] $.filter-rules is shape-member('FilterRules');
+        has FilterRule @.filter-rules is shape-member('FilterRules');
     }
 
     class GetBucketLocationRequest does AWS::SDK::Shape {
@@ -367,8 +434,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     class StorageClassAnalysis does AWS::SDK::Shape {
         has StorageClassAnalysisDataExport $.data-export is shape-member('DataExport');
     }
-
-    subset ObjectKey of Str where 1 <= .chars;
 
     class ListObjectsV2Request does AWS::SDK::Shape {
         has Str $.start-after is shape-member('StartAfter');
@@ -393,8 +458,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     class GetBucketAclRequest does AWS::SDK::Shape {
         has Str $.bucket is required is shape-member('Bucket');
     }
-
-    subset MFADelete of Str where $_ ~~ any('Enabled', 'Disabled');
 
     class RoutingRule does AWS::SDK::Shape {
         has Condition $.condition is shape-member('Condition');
@@ -430,7 +493,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Bool $.delete-marker is shape-member('DeleteMarker');
         has Str $.sse-kms-key-id is shape-member('SSEKMSKeyId');
         has Str $.sse-customer-key-md5 is shape-member('SSECustomerKeyMD5');
-        has Hash[Str, Str] $.metadata is shape-member('Metadata');
+        has Str %.metadata{Str} is shape-member('Metadata');
         has Str $.website-redirect-location is shape-member('WebsiteRedirectLocation');
         has DateTime $.expires is shape-member('Expires');
         has Str $.content-disposition is shape-member('ContentDisposition');
@@ -446,8 +509,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.bucket is required is shape-member('Bucket');
         has Str $.id is required is shape-member('Id');
     }
-
-    subset MetadataDirective of Str where $_ ~~ any('COPY', 'REPLACE');
 
     class GetObjectTaggingRequest does AWS::SDK::Shape {
         has Str $.bucket is required is shape-member('Bucket');
@@ -480,7 +541,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
 
     class GetBucketAclOutput does AWS::SDK::Shape {
         has Owner $.owner is shape-member('Owner');
-        has Array[Grant] $.grants is shape-member('Grants');
+        has Grant @.grants is shape-member('Grants');
     }
 
     class Redirect does AWS::SDK::Shape {
@@ -506,12 +567,10 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.grant-write is shape-member('GrantWrite');
     }
 
-    subset ObjectStorageClass of Str where $_ ~~ any('STANDARD', 'REDUCED_REDUNDANCY', 'GLACIER');
-
     class GetObjectAclOutput does AWS::SDK::Shape {
         has Owner $.owner is shape-member('Owner');
         has RequestCharged $.request-charged is shape-member('RequestCharged');
-        has Array[Grant] $.grants is shape-member('Grants');
+        has Grant @.grants is shape-member('Grants');
     }
 
     class GetObjectTorrentRequest does AWS::SDK::Shape {
@@ -544,7 +603,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
 
     class WebsiteConfiguration does AWS::SDK::Shape {
         has ErrorDocument $.error-document is shape-member('ErrorDocument');
-        has Array[RoutingRule] $.routing-rules is shape-member('RoutingRules');
+        has RoutingRule @.routing-rules is shape-member('RoutingRules');
         has IndexDocument $.index-document is shape-member('IndexDocument');
         has RedirectAllRequestsTo $.redirect-all-requests-to is shape-member('RedirectAllRequestsTo');
     }
@@ -579,7 +638,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
 
     class Delete does AWS::SDK::Shape {
         has Bool $.quiet is shape-member('Quiet');
-        has Array[ObjectIdentifier] $.objects is required is shape-member('Objects');
+        has ObjectIdentifier @.objects is required is shape-member('Objects');
     }
 
     class GetBucketAccelerateConfigurationOutput does AWS::SDK::Shape {
@@ -587,7 +646,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class TopicConfigurationDeprecated does AWS::SDK::Shape {
-        has Array[Event] $.events is shape-member('Events');
+        has Event @.events is shape-member('Events');
         has Event $.event is shape-member('Event');
         has Str $.id is shape-member('Id');
         has Str $.topic is shape-member('Topic');
@@ -603,7 +662,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class CloudFunctionConfiguration does AWS::SDK::Shape {
-        has Array[Event] $.events is shape-member('Events');
+        has Event @.events is shape-member('Events');
         has Event $.event is shape-member('Event');
         has Str $.id is shape-member('Id');
         has Str $.invocation-role is shape-member('InvocationRole');
@@ -645,7 +704,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class ListBucketAnalyticsConfigurationsOutput does AWS::SDK::Shape {
-        has Array[AnalyticsConfiguration] $.analytics-configuration-list is shape-member('AnalyticsConfigurationList');
+        has AnalyticsConfiguration @.analytics-configuration-list is shape-member('AnalyticsConfigurationList');
         has Str $.next-continuation-token is shape-member('NextContinuationToken');
         has Bool $.is-truncated is shape-member('IsTruncated');
         has Str $.continuation-token is shape-member('ContinuationToken');
@@ -657,13 +716,9 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has CORSConfiguration $.cors-configuration is required is shape-member('CORSConfiguration');
     }
 
-    subset ObjectVersionStorageClass of Str where $_ ~~ any('STANDARD');
-
     class GetBucketLoggingOutput does AWS::SDK::Shape {
         has LoggingEnabled $.logging-enabled is shape-member('LoggingEnabled');
     }
-
-    subset ExpirationStatus of Str where $_ ~~ any('Enabled', 'Disabled');
 
     class PutObjectRequest does AWS::SDK::Shape {
         has StorageClass $.storage-class is shape-member('StorageClass');
@@ -683,7 +738,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.sse-kms-key-id is shape-member('SSEKMSKeyId');
         has Str $.sse-customer-key-md5 is shape-member('SSECustomerKeyMD5');
         has Str $.website-redirect-location is shape-member('WebsiteRedirectLocation');
-        has Hash[Str, Str] $.metadata is shape-member('Metadata');
+        has Str %.metadata{Str} is shape-member('Metadata');
         has Str $.grant-read is shape-member('GrantRead');
         has DateTime $.expires is shape-member('Expires');
         has Str $.content-disposition is shape-member('ContentDisposition');
@@ -712,22 +767,22 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class CORSRule does AWS::SDK::Shape {
-        has Array[Str] $.allowed-origins is required is shape-member('AllowedOrigins');
-        has Array[Str] $.allowed-methods is required is shape-member('AllowedMethods');
-        has Array[Str] $.allowed-headers is shape-member('AllowedHeaders');
+        has Str @.allowed-origins is required is shape-member('AllowedOrigins');
+        has Str @.allowed-methods is required is shape-member('AllowedMethods');
+        has Str @.allowed-headers is shape-member('AllowedHeaders');
         has Int $.max-age-seconds is shape-member('MaxAgeSeconds');
-        has Array[Str] $.expose-headers is shape-member('ExposeHeaders');
+        has Str @.expose-headers is shape-member('ExposeHeaders');
     }
 
     class LifecycleRule does AWS::SDK::Shape {
-        has Array[Transition] $.transitions is shape-member('Transitions');
+        has Transition @.transitions is shape-member('Transitions');
         has LifecycleRuleFilter $.filter is shape-member('Filter');
         has NoncurrentVersionExpiration $.noncurrent-version-expiration is shape-member('NoncurrentVersionExpiration');
         has Str $.id is shape-member('ID');
         has LifecycleExpiration $.expiration is shape-member('Expiration');
         has Str $.prefix is shape-member('Prefix');
         has AbortIncompleteMultipartUpload $.abort-incomplete-multipart-upload is shape-member('AbortIncompleteMultipartUpload');
-        has Array[NoncurrentVersionTransition] $.noncurrent-version-transitions is shape-member('NoncurrentVersionTransitions');
+        has NoncurrentVersionTransition @.noncurrent-version-transitions is shape-member('NoncurrentVersionTransitions');
         has ExpirationStatus $.status is required is shape-member('Status');
     }
 
@@ -740,17 +795,9 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has InventoryConfiguration $.inventory-configuration is shape-member('InventoryConfiguration');
     }
 
-    subset Type of Str where $_ ~~ any('CanonicalUser', 'AmazonCustomerByEmail', 'Group');
-
-    subset BucketCannedACL of Str where $_ ~~ any('private', 'public-read', 'public-read-write', 'authenticated-read');
-
     class CompletedMultipartUpload does AWS::SDK::Shape {
-        has Array[CompletedPart] $.parts is shape-member('Parts');
+        has CompletedPart @.parts is shape-member('Parts');
     }
-
-    subset ReplicationRuleStatus of Str where $_ ~~ any('Enabled', 'Disabled');
-
-    subset Payer of Str where $_ ~~ any('Requester', 'BucketOwner');
 
     class ListObjectsRequest does AWS::SDK::Shape {
         has EncodingType $.encoding-type is shape-member('EncodingType');
@@ -767,17 +814,15 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class GetBucketLifecycleConfigurationOutput does AWS::SDK::Shape {
-        has Array[LifecycleRule] $.rules is shape-member('Rules');
+        has LifecycleRule @.rules is shape-member('Rules');
     }
 
     class GetBucketWebsiteOutput does AWS::SDK::Shape {
         has ErrorDocument $.error-document is shape-member('ErrorDocument');
-        has Array[RoutingRule] $.routing-rules is shape-member('RoutingRules');
+        has RoutingRule @.routing-rules is shape-member('RoutingRules');
         has IndexDocument $.index-document is shape-member('IndexDocument');
         has RedirectAllRequestsTo $.redirect-all-requests-to is shape-member('RedirectAllRequestsTo');
     }
-
-    subset ReplicationStatus of Str where $_ ~~ any('COMPLETE', 'PENDING', 'FAILED', 'REPLICA');
 
     class ObjectNotInActiveTierError does AWS::SDK::Shape {
     }
@@ -785,8 +830,8 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     class ListObjectsV2Output does AWS::SDK::Shape {
         has Str $.start-after is shape-member('StartAfter');
         has EncodingType $.encoding-type is shape-member('EncodingType');
-        has Array[CommonPrefix] $.common-prefixes is shape-member('CommonPrefixes');
-        has Array[Object] $.contents is shape-member('Contents');
+        has CommonPrefix @.common-prefixes is shape-member('CommonPrefixes');
+        has Object @.contents is shape-member('Contents');
         has Int $.key-count is shape-member('KeyCount');
         has Str $.next-continuation-token is shape-member('NextContinuationToken');
         has Str $.prefix is shape-member('Prefix');
@@ -796,10 +841,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.continuation-token is shape-member('ContinuationToken');
         has Int $.max-keys is shape-member('MaxKeys');
     }
-
-    subset BucketLocationConstraint of Str where $_ ~~ any('EU', 'eu-west-1', 'us-west-1', 'us-west-2', 'ap-south-1', 'ap-southeast-1', 'ap-southeast-2', 'ap-northeast-1', 'sa-east-1', 'cn-north-1', 'eu-central-1');
-
-    subset TaggingDirective of Str where $_ ~~ any('COPY', 'REPLACE');
 
     class PutObjectAclOutput does AWS::SDK::Shape {
         has RequestCharged $.request-charged is shape-member('RequestCharged');
@@ -837,19 +878,19 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
 
     class ListBucketInventoryConfigurationsOutput does AWS::SDK::Shape {
         has Str $.next-continuation-token is shape-member('NextContinuationToken');
-        has Array[InventoryConfiguration] $.inventory-configuration-list is shape-member('InventoryConfigurationList');
+        has InventoryConfiguration @.inventory-configuration-list is shape-member('InventoryConfigurationList');
         has Bool $.is-truncated is shape-member('IsTruncated');
         has Str $.continuation-token is shape-member('ContinuationToken');
     }
 
     class LifecycleRuleAndOperator does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.prefix is shape-member('Prefix');
     }
 
     class InventoryConfiguration does AWS::SDK::Shape {
         has InventorySchedule $.schedule is required is shape-member('Schedule');
-        has Array[InventoryOptionalField] $.optional-fields is shape-member('OptionalFields');
+        has InventoryOptionalField @.optional-fields is shape-member('OptionalFields');
         has InventoryFilter $.filter is shape-member('Filter');
         has Str $.id is required is shape-member('Id');
         has InventoryDestination $.destination is required is shape-member('Destination');
@@ -862,7 +903,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class CORSConfiguration does AWS::SDK::Shape {
-        has Array[CORSRule] $.cors-rules is required is shape-member('CORSRules');
+        has CORSRule @.cors-rules is required is shape-member('CORSRules');
     }
 
     class PutBucketLifecycleRequest does AWS::SDK::Shape {
@@ -895,7 +936,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
 
     class ReplicationConfiguration does AWS::SDK::Shape {
         has Str $.role is required is shape-member('Role');
-        has Array[ReplicationRule] $.rules is required is shape-member('Rules');
+        has ReplicationRule @.rules is required is shape-member('Rules');
     }
 
     class RestoreRequest does AWS::SDK::Shape {
@@ -906,15 +947,13 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     class LoggingEnabled does AWS::SDK::Shape {
         has Str $.target-prefix is shape-member('TargetPrefix');
         has Str $.target-bucket is shape-member('TargetBucket');
-        has Array[TargetGrant] $.target-grants is shape-member('TargetGrants');
+        has TargetGrant @.target-grants is shape-member('TargetGrants');
     }
 
     class AccessControlPolicy does AWS::SDK::Shape {
         has Owner $.owner is shape-member('Owner');
-        has Array[Grant] $.grants is shape-member('Grants');
+        has Grant @.grants is shape-member('Grants');
     }
-
-    subset EncodingType of Str where $_ ~~ any('url');
 
     class NotificationConfigurationDeprecated does AWS::SDK::Shape {
         has CloudFunctionConfiguration $.cloud-function-configuration is shape-member('CloudFunctionConfiguration');
@@ -936,16 +975,12 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has BucketLoggingStatus $.bucket-logging-status is required is shape-member('BucketLoggingStatus');
     }
 
-    subset InventoryOptionalField of Str where $_ ~~ any('Size', 'LastModifiedDate', 'StorageClass', 'ETag', 'IsMultipartUploaded', 'ReplicationStatus');
-
     class AnalyticsS3BucketDestination does AWS::SDK::Shape {
         has Str $.bucket is required is shape-member('Bucket');
         has Str $.bucket-account-id is shape-member('BucketAccountId');
         has Str $.prefix is shape-member('Prefix');
         has AnalyticsS3ExportFileFormat $.format is required is shape-member('Format');
     }
-
-    subset MFADeleteStatus of Str where $_ ~~ any('Enabled', 'Disabled');
 
     class DeleteObjectRequest does AWS::SDK::Shape {
         has Str $.bucket is required is shape-member('Bucket');
@@ -959,11 +994,11 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class Tagging does AWS::SDK::Shape {
-        has Array[Tag] $.tag-set is required is shape-member('TagSet');
+        has Tag @.tag-set is required is shape-member('TagSet');
     }
 
     class GetBucketCorsOutput does AWS::SDK::Shape {
-        has Array[CORSRule] $.cors-rules is shape-member('CORSRules');
+        has CORSRule @.cors-rules is shape-member('CORSRules');
     }
 
     class GetBucketPolicyRequest does AWS::SDK::Shape {
@@ -999,16 +1034,12 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     class NoSuchUpload does AWS::SDK::Shape {
     }
 
-    subset Event of Str where $_ ~~ any('s3:ReducedRedundancyLostObject', 's3:ObjectCreated:*', 's3:ObjectCreated:Put', 's3:ObjectCreated:Post', 's3:ObjectCreated:Copy', 's3:ObjectCreated:CompleteMultipartUpload', 's3:ObjectRemoved:*', 's3:ObjectRemoved:Delete', 's3:ObjectRemoved:DeleteMarkerCreated');
-
     class PutBucketVersioningRequest does AWS::SDK::Shape {
         has Str $.content-md5 is shape-member('ContentMD5');
         has Str $.bucket is required is shape-member('Bucket');
         has VersioningConfiguration $.versioning-configuration is required is shape-member('VersioningConfiguration');
         has Str $.mfa is shape-member('MFA');
     }
-
-    subset InventoryFrequency of Str where $_ ~~ any('Daily', 'Weekly');
 
     class Error does AWS::SDK::Shape {
         has Str $.code is shape-member('Code');
@@ -1023,7 +1054,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
 
     class QueueConfigurationDeprecated does AWS::SDK::Shape {
         has Str $.queue is shape-member('Queue');
-        has Array[Event] $.events is shape-member('Events');
+        has Event @.events is shape-member('Events');
         has Event $.event is shape-member('Event');
         has Str $.id is shape-member('Id');
     }
@@ -1054,7 +1085,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has RequestCharged $.request-charged is shape-member('RequestCharged');
         has Int $.max-parts is shape-member('MaxParts');
         has Initiator $.initiator is shape-member('Initiator');
-        has Array[Part] $.parts is shape-member('Parts');
+        has Part @.parts is shape-member('Parts');
         has Str $.abort-rule-id is shape-member('AbortRuleId');
         has DateTime $.abort-date is shape-member('AbortDate');
         has ObjectKey $.key is shape-member('Key');
@@ -1094,8 +1125,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.continuation-token is shape-member('ContinuationToken');
     }
 
-    subset AnalyticsS3ExportFileFormat of Str where $_ ~~ any('CSV');
-
     class Owner does AWS::SDK::Shape {
         has Str $.display-name is shape-member('DisplayName');
         has Str $.id is shape-member('ID');
@@ -1133,7 +1162,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     class ListBucketMetricsConfigurationsOutput does AWS::SDK::Shape {
         has Str $.next-continuation-token is shape-member('NextContinuationToken');
         has Bool $.is-truncated is shape-member('IsTruncated');
-        has Array[MetricsConfiguration] $.metrics-configuration-list is shape-member('MetricsConfigurationList');
+        has MetricsConfiguration @.metrics-configuration-list is shape-member('MetricsConfigurationList');
         has Str $.continuation-token is shape-member('ContinuationToken');
     }
 
@@ -1165,11 +1194,9 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.bucket is required is shape-member('Bucket');
     }
 
-    subset FilterRuleName of Str where $_ ~~ any('prefix', 'suffix');
-
     class GetObjectTaggingOutput does AWS::SDK::Shape {
         has Str $.version-id is shape-member('VersionId');
-        has Array[Tag] $.tag-set is required is shape-member('TagSet');
+        has Tag @.tag-set is required is shape-member('TagSet');
     }
 
     class Grant does AWS::SDK::Shape {
@@ -1181,8 +1208,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.bucket is required is shape-member('Bucket');
         has Str $.id is required is shape-member('Id');
     }
-
-    subset RequestPayer of Str where $_ ~~ any('requester');
 
     class MetricsFilter does AWS::SDK::Shape {
         has MetricsAndOperator $.and is shape-member('And');
@@ -1197,8 +1222,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     class NotificationConfigurationFilter does AWS::SDK::Shape {
         has S3KeyFilter $.key is shape-member('Key');
     }
-
-    subset InventoryIncludedObjectVersions of Str where $_ ~~ any('All', 'Current');
 
     class PutBucketNotificationRequest does AWS::SDK::Shape {
         has Str $.content-md5 is shape-member('ContentMD5');
@@ -1253,7 +1276,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class QueueConfiguration does AWS::SDK::Shape {
-        has Array[Event] $.events is required is shape-member('Events');
+        has Event @.events is required is shape-member('Events');
         has NotificationConfigurationFilter $.filter is shape-member('Filter');
         has Str $.id is shape-member('Id');
         has Str $.queue-arn is required is shape-member('QueueArn');
@@ -1271,7 +1294,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class GetBucketTaggingOutput does AWS::SDK::Shape {
-        has Array[Tag] $.tag-set is required is shape-member('TagSet');
+        has Tag @.tag-set is required is shape-member('TagSet');
     }
 
     class PutBucketMetricsConfigurationRequest does AWS::SDK::Shape {
@@ -1279,8 +1302,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.id is required is shape-member('Id');
         has MetricsConfiguration $.metrics-configuration is required is shape-member('MetricsConfiguration');
     }
-
-    subset ServerSideEncryption of Str where $_ ~~ any('AES256', 'aws:kms');
 
     class UploadPartCopyOutput does AWS::SDK::Shape {
         has ServerSideEncryption $.server-side-encryption is shape-member('ServerSideEncryption');
@@ -1303,12 +1324,8 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Int $.part-number is shape-member('PartNumber');
     }
 
-    subset Protocol of Str where $_ ~~ any('http', 'https');
-
-    subset BucketAccelerateStatus of Str where $_ ~~ any('Enabled', 'Suspended');
-
     class TopicConfiguration does AWS::SDK::Shape {
-        has Array[Event] $.events is required is shape-member('Events');
+        has Event @.events is required is shape-member('Events');
         has NotificationConfigurationFilter $.filter is shape-member('Filter');
         has Str $.topic-arn is required is shape-member('TopicArn');
         has Str $.id is shape-member('Id');
@@ -1339,7 +1356,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.content-disposition is shape-member('ContentDisposition');
         has Str $.copy-source-if-match is shape-member('CopySourceIfMatch');
         has Str $.grant-read is shape-member('GrantRead');
-        has Hash[Str, Str] $.metadata is shape-member('Metadata');
+        has Str %.metadata{Str} is shape-member('Metadata');
         has MetadataDirective $.metadata-directive is shape-member('MetadataDirective');
         has Str $.sse-customer-algorithm is shape-member('SSECustomerAlgorithm');
         has Str $.tagging is shape-member('Tagging');
@@ -1372,8 +1389,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.bucket is required is shape-member('Bucket');
     }
 
-    subset Permission of Str where $_ ~~ any('FULL_CONTROL', 'WRITE', 'WRITE_ACP', 'READ', 'READ_ACP');
-
     class GetBucketLifecycleConfigurationRequest does AWS::SDK::Shape {
         has Str $.bucket is required is shape-member('Bucket');
     }
@@ -1392,24 +1407,24 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class MetricsAndOperator does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.prefix is shape-member('Prefix');
     }
 
     class ListObjectVersionsOutput does AWS::SDK::Shape {
         has EncodingType $.encoding-type is shape-member('EncodingType');
-        has Array[CommonPrefix] $.common-prefixes is shape-member('CommonPrefixes');
+        has CommonPrefix @.common-prefixes is shape-member('CommonPrefixes');
         has Str $.next-key-marker is shape-member('NextKeyMarker');
         has Str $.key-marker is shape-member('KeyMarker');
         has Str $.version-id-marker is shape-member('VersionIdMarker');
-        has Array[DeleteMarkerEntry] $.delete-markers is shape-member('DeleteMarkers');
+        has DeleteMarkerEntry @.delete-markers is shape-member('DeleteMarkers');
         has Str $.prefix is shape-member('Prefix');
         has Str $.name is shape-member('Name');
         has Str $.delimiter is shape-member('Delimiter');
         has Str $.next-version-id-marker is shape-member('NextVersionIdMarker');
         has Bool $.is-truncated is shape-member('IsTruncated');
         has Int $.max-keys is shape-member('MaxKeys');
-        has Array[ObjectVersion] $.versions is shape-member('Versions');
+        has ObjectVersion @.versions is shape-member('Versions');
     }
 
     class CopyPartResult does AWS::SDK::Shape {
@@ -1434,8 +1449,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.bucket is required is shape-member('Bucket');
     }
 
-    subset ObjectCannedACL of Str where $_ ~~ any('private', 'public-read', 'public-read-write', 'authenticated-read', 'aws-exec-read', 'bucket-owner-read', 'bucket-owner-full-control');
-
     class BucketAlreadyOwnedByYou does AWS::SDK::Shape {
     }
 
@@ -1444,10 +1457,8 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class LifecycleConfiguration does AWS::SDK::Shape {
-        has Array[Rule] $.rules is required is shape-member('Rules');
+        has Rule @.rules is required is shape-member('Rules');
     }
-
-    subset InventoryFormat of Str where $_ ~~ any('CSV');
 
     class AbortMultipartUploadRequest does AWS::SDK::Shape {
         has Str $.upload-id is required is shape-member('UploadId');
@@ -1455,10 +1466,6 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has RequestPayer $.request-payer is shape-member('RequestPayer');
         has ObjectKey $.key is required is shape-member('Key');
     }
-
-    subset BucketVersioningStatus of Str where $_ ~~ any('Enabled', 'Suspended');
-
-    subset StorageClassAnalysisSchemaVersion of Str where $_ ~~ any('V_1');
 
     class LifecycleExpiration does AWS::SDK::Shape {
         has Bool $.expired-object-delete-marker is shape-member('ExpiredObjectDeleteMarker');
@@ -1507,8 +1514,8 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
 
     class ListObjectsOutput does AWS::SDK::Shape {
         has EncodingType $.encoding-type is shape-member('EncodingType');
-        has Array[CommonPrefix] $.common-prefixes is shape-member('CommonPrefixes');
-        has Array[Object] $.contents is shape-member('Contents');
+        has CommonPrefix @.common-prefixes is shape-member('CommonPrefixes');
+        has Object @.contents is shape-member('Contents');
         has Str $.prefix is shape-member('Prefix');
         has Str $.name is shape-member('Name');
         has Str $.delimiter is shape-member('Delimiter');
@@ -1519,21 +1526,17 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class AnalyticsAndOperator does AWS::SDK::Shape {
-        has Array[Tag] $.tags is shape-member('Tags');
+        has Tag @.tags is shape-member('Tags');
         has Str $.prefix is shape-member('Prefix');
     }
-
-    subset BucketLogsPermission of Str where $_ ~~ any('FULL_CONTROL', 'READ', 'WRITE');
 
     class VersioningConfiguration does AWS::SDK::Shape {
         has MFADelete $.mfa-delete is shape-member('MFADelete');
         has BucketVersioningStatus $.status is shape-member('Status');
     }
 
-    subset RequestCharged of Str where $_ ~~ any('requester');
-
     class LambdaFunctionConfiguration does AWS::SDK::Shape {
-        has Array[Event] $.events is required is shape-member('Events');
+        has Event @.events is required is shape-member('Events');
         has NotificationConfigurationFilter $.filter is shape-member('Filter');
         has Str $.id is shape-member('Id');
         has Str $.lambda-function-arn is required is shape-member('LambdaFunctionArn');
@@ -1569,7 +1572,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
     }
 
     class GetBucketLifecycleOutput does AWS::SDK::Shape {
-        has Array[Rule] $.rules is shape-member('Rules');
+        has Rule @.rules is shape-member('Rules');
     }
 
     class GetBucketVersioningOutput does AWS::SDK::Shape {
@@ -1611,8 +1614,8 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
 
     class DeleteObjectsOutput does AWS::SDK::Shape {
         has RequestCharged $.request-charged is shape-member('RequestCharged');
-        has Array[DeletedObject] $.deleted is shape-member('Deleted');
-        has Array[Error] $.errors is shape-member('Errors');
+        has DeletedObject @.deleted is shape-member('Deleted');
+        has Error @.errors is shape-member('Errors');
     }
 
     class CreateMultipartUploadRequest does AWS::SDK::Shape {
@@ -1631,7 +1634,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has Str $.sse-kms-key-id is shape-member('SSEKMSKeyId');
         has Str $.sse-customer-key-md5 is shape-member('SSECustomerKeyMD5');
         has Str $.website-redirect-location is shape-member('WebsiteRedirectLocation');
-        has Hash[Str, Str] $.metadata is shape-member('Metadata');
+        has Str %.metadata{Str} is shape-member('Metadata');
         has Str $.grant-read is shape-member('GrantRead');
         has DateTime $.expires is shape-member('Expires');
         has Str $.content-disposition is shape-member('ContentDisposition');
@@ -1658,11 +1661,10 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         has StorageClassAnalysisSchemaVersion $.output-schema-version is required is shape-member('OutputSchemaVersion');
     }
 
-    subset CopySource of Str where rx:P5/\\/.+\\/.+/;
-
     class GetBucketLocationOutput does AWS::SDK::Shape {
         has BucketLocationConstraint $.location-constraint is shape-member('LocationConstraint');
     }
+
 
     method list-parts(
         Str :$upload-id!,
@@ -2484,7 +2486,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         Str :$sse-kms-key-id,
         Str :$sse-customer-key-md5,
         Str :$website-redirect-location,
-        Hash[Str, Str] :$metadata,
+        Str :%metadata,
         Str :$grant-read,
         DateTime :$expires,
         Str :$content-disposition,
@@ -2509,7 +2511,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
             :$sse-kms-key-id,
             :$sse-customer-key-md5,
             :$website-redirect-location,
-            :$metadata,
+            :%metadata,
             :$grant-read,
             :$expires,
             :$content-disposition,
@@ -2942,7 +2944,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         Str :$content-disposition,
         Str :$copy-source-if-match,
         Str :$grant-read,
-        Hash[Str, Str] :$metadata,
+        Str :%metadata,
         MetadataDirective :$metadata-directive,
         Str :$sse-customer-algorithm,
         Str :$tagging,
@@ -2977,7 +2979,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
             :$content-disposition,
             :$copy-source-if-match,
             :$grant-read,
-            :$metadata,
+            :%metadata,
             :$metadata-directive,
             :$sse-customer-algorithm,
             :$tagging,
@@ -3026,7 +3028,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
         Str :$sse-kms-key-id,
         Str :$sse-customer-key-md5,
         Str :$website-redirect-location,
-        Hash[Str, Str] :$metadata,
+        Str :%metadata,
         Str :$grant-read,
         DateTime :$expires,
         Str :$content-disposition,
@@ -3054,7 +3056,7 @@ class AWS::SDK::Service::S3 does AWS::SDK::Service {
             :$sse-kms-key-id,
             :$sse-customer-key-md5,
             :$website-redirect-location,
-            :$metadata,
+            :%metadata,
             :$grant-read,
             :$expires,
             :$content-disposition,
