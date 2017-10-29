@@ -1,6 +1,8 @@
 #!/usr/bin/env perl6
 use v6;
 
+use META6;
+
 use AWS::SDK::Meta;
 
 # bump this when code generation modifies the exposed API
@@ -9,6 +11,8 @@ constant $m = 0;
 constant $namespace = "AWS::SDK";
 constant $lib-root = "lib/AWS/SDK".IO;
 constant $botocore-root = "resources".IO;
+constant $meta6-tmpl = "META6.tmpl.json";
+constant $meta6-json = "META6.json";
 
 constant $THE_ORIGINAL      = "detareneg-otua".flip.uc;
 constant $FEEL_FREE_TO_EDIT = "tide ton od".flip.uc;
@@ -30,6 +34,8 @@ sub generate-str-array-args(%conf, %keys, :$indent = 4) {
     $s;
 }
 
+my %class-info;
+
 sub generate-service($service, :$past) {
     my $service-class = $service.perl6-name;
     my $service-version = $service.metadata.api-version;
@@ -37,6 +43,8 @@ sub generate-service($service, :$past) {
     my $past-s = $past ?? $service-version.subst(/\W/, '', :g) !! '';
 
     my $service-file = $lib-root.add("Service/$service-class$past-s.pm6");
+
+    %class-info{ "{$namespace}::Service::{$service-class}$past-s" } = "$service-file";
 
     print "Writing {$namespace}::Service::{$service-class}$past-s to $service-file ... ";
 
@@ -66,9 +74,14 @@ sub generate-service($service, :$past) {
     # 3. Provide class definitions (which refer to subsets and classes).
     #
     for AWS::SDK::Meta::Stage::.values.sort -> $stage {
-        for $service.shapes.kv -> $shape-name, $shape {
+        for $service.shapes.sort».kv -> ($shape-name, $shape) {
             next unless $shape.has-declaration($stage);
-            $pm6.put: $shape.declaration($stage).indent(4);
+            with $shape.declaration($stage) -> $_ is copy {
+                if .starts-with('subset') and /'<'/ {
+                    s/\n/ #>> # rectify vim-perl6 lt smudging\n/;
+                }
+                $pm6.put: .indent(4);
+            }
         }
 
         $pm6.put: '';
@@ -127,11 +140,25 @@ sub generate-service($service, :$past) {
     say "done.";
 }
 
+sub generate-meta-json {
+    print "Writing META information to $meta6-json ... ";
+    my $meta6 = META6.new(:file($meta6-tmpl));
+
+    for %class-info.kv -> $package, $file {
+        $meta6<provides>{ $package } = $file;
+    }
+
+    spurt($meta6-json, $meta6.to-json);
+    say "done.";
+}
+
 sub MAIN() {
     SERVICE: for $botocore-root.dir -> $service-root {
         next unless $service-root.d;
 
         my $service = $service-root.basename;
+
+        next unless $service eq 'ec2';
 
         my $past = False;
         for $service-root.dir.sort(*.basename Rcmp *.basename) -> $rev-root {
@@ -144,6 +171,11 @@ sub MAIN() {
             generate-service($decl, :$past);
 
             $past++;
+
+            # no past modules for now
+            next SERVICE;
         }
     }
+
+    generate-meta-json;
 }

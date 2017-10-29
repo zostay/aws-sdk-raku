@@ -663,7 +663,7 @@ class Partition does Data::Unmarshaller {
 
 class Endpoint does Data::Unmarshaller {
     has Version $.version is unmarshalled-by(&build-version);
-    has Partition @.paritions;
+    has Partition @.partitions;
 
     method combine(Configuration @c) {
         Configuration.new(

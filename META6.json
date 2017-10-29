@@ -1,0 +1,70 @@
+{
+  "name": "AWS::SDK",
+  "source-url": "git://github.com/zostay/AWS-SDK.git",
+  "support": {
+    "source": "git://github.com/zostay/AWS-SDK.git"
+  },
+  "perl": "6.c",
+  "resources": [
+    
+  ],
+  "build-depends": [
+    
+  ],
+  "auth": "github:zostay",
+  "depends": [
+    
+  ],
+  "tags": [
+    
+  ],
+  "license": "Artistic-2.0",
+  "test-depends": [
+    "Test",
+    "Test::META"
+  ],
+  "provides": {
+    "AWS::SDK::Meta::Configuration": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::HTTPEndpoint": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::List": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::Map": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::Structure": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Operation": "lib/AWS/SDK/Operation.pm6",
+    "AWS::SDK::Meta::Error": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::ServiceEndpoint": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::Timestamp": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::CredentialScope": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Operation": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::Boolean": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::XMLNamespace": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::QuerySerializer": "lib/AWS/SDK/Service.pm6",
+    "AWS::SDK::Serializer": "lib/AWS/SDK/Service.pm6",
+    "AWS::SDK::Service": "lib/AWS/SDK/Service.pm6",
+    "AWS::SDK::Meta::Shape::Blob": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Service::EC2": "lib/AWS/SDK/Service/EC2.pm6",
+    "AWS::SDK::Meta::Metadata": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Region": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Service": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Partition": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::MinMaxInt": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::String": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::SubsetType": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Stage": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Shape::Member": "lib/AWS/SDK/Shape.pm6",
+    "AWS::SDK::Meta": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Endpoint": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::Int": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::MinMax": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::MinMaxNumeric": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::Shape::Numeric": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Meta::ShapeReference": "lib/AWS/SDK/Meta.pm6",
+    "AWS::SDK::Shape": "lib/AWS/SDK/Shape.pm6"
+  },
+  "version": "0.1",
+  "authors": [
+    "Sterling Hanenkamp <hanenkamp@cpan.org>"
+  ],
+  "description": "AWSK SDK for Perl 6",
+  "meta6": "0"
+}
