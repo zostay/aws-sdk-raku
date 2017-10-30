@@ -3,6 +3,8 @@ use v6;
 
 use JSON::Fast;
 
+constant DEFAULT_PARTITION = 'aws';
+
 my %service-class =
     acm => 'ACM',
     apigateway => 'APIGateway',
@@ -316,16 +318,23 @@ class HTTPEndpoint does Data::Unmarshaller {
 class Shape { ... }
 
 class ShapeReference does Data::Unmarshaller {
-    has Str $.shape;
+    has Bool $.box;
+    has Bool $.deprecated;
     has Str $.documentation;
+    has Bool $.flattened;
+    has Bool $.idempotency-token is unmarshalled-from('idempotencyToken');
     has Str $.location;
     has Str $.location-name is unmarshalled-from('locationName');
     has Str $.query-name is unmarshalled-from('queryName');
-    has Shape $.shape-ref;
-    has Str $.result-wrapper is unmarshalled-from('resultWrapper');
+    has Str $.shape-ref is unmarshalled-from('shape');
+    has Bool $.streaming;
+    has Bool $.xml-attribute is unmarshalled-from('xmlAttribute');
+    has XMLNamespace $.xml-namespace is unmarshalled-from('xmlNamespace');
+
+    has Shape $.shape is not-unmarshalled;
 
     method resolve-ref(%shapes) {
-        $!shape-ref = %shapes{ $!shape }
+        $!shape = %shapes{ $!shape-ref }
     }
 }
 
@@ -357,6 +366,10 @@ enum Stage <ClassStub SubsetDef ClassDef>;
 
 class Shape does Data::Unmarshaller {
     has Str $.shape-key is not-unmarshalled;
+
+    has Bool $.deprecated;
+    has Str $.documentation;
+    has Bool $.sensitive;
     has Str $.type;
 
     method resolve-refs(%) { }
@@ -440,6 +453,8 @@ class Shape::Blob is Shape does Shape::SubsetType does Shape::MinMaxInt['*.bytes
 }
 
 class Shape::Boolean is Shape {
+    has Bool $.box;
+
     method perl6-type() { 'Bool' }
 }
 
@@ -458,17 +473,16 @@ class Shape::Int is Shape does Shape::SubsetType does Shape::MinMaxInt {
 class Shape::List is Shape does Shape::SubsetType does Shape::MinMaxInt['*.elems'] {
     has ShapeReference $.member;
     has Bool $.flattened;
-    has Str $.location-name is unmarshalled-from('locationName');
 
     method resolve-refs(%shapes) {
         $!member.resolve-ref(%shapes);
     }
 
-    method perl6-type() { "Array[$.member.shape-ref.type-name()]" }
+    method perl6-type() { "Array[$.member.shape.type-name()]" }
 
     method sigil() { $.needs-custom-name ?? '$' !! '@' }
     method sigil-type() {
-        $.needs-custom-name ?? $.type-name !! $.member.shape-ref.type-name
+        $.needs-custom-name ?? $.type-name !! $.member.shape.type-name
     }
 }
 
@@ -482,16 +496,15 @@ class Shape::Map is Shape does Shape::SubsetType does Shape::MinMaxInt['*.elems'
         .resolve-ref(%shapes) for $!key, $!value;
     }
 
-    method perl6-type() { "Hash[$.value.shape-ref.type-name(), $.key.shape-ref.type-name()]" }
+    method perl6-type() { "Hash[$.value.shape.type-name(), $.key.shape.type-name()]" }
 
     method sigil() { $.needs-custom-name ?? '$' !! '%' }
-    method sigil-type { $.value.shape-ref.type-name() }
-    method sigil-type-suffix { "\{$.key.shape-ref.type-name()}" }
+    method sigil-type { $.value.shape.type-name() }
+    method sigil-type-suffix { "\{$.key.shape.type-name()}" }
 }
 
 class Shape::String is Shape does Shape::SubsetType does Shape::MinMaxInt['.chars'] {
     has Str @.enum;
-    has Bool $.sensitive;
     has Str $.pattern;
 
     method needs-custom-name() { ?@!enum || $!pattern.defined || $.min.defined || $.max.defined }
@@ -536,6 +549,7 @@ class Shape::Structure is Shape {
     has ShapeReference %.members;
     has Error $.error;
     has Bool $.exception;
+    has Bool $.fault;
     has Str $.payload;
     has Bool $.wrapper;
     has Str $.location-name is unmarshalled-from('locationName');
@@ -574,9 +588,9 @@ class Shape::Structure is Shape {
                 $required-bang = '!';
             }
 
-            my $perl6-sigil = $member.shape-ref.sigil;
-            my $perl6-sigil-type = $member.shape-ref.sigil-type;
-            my $perl6-sigil-type-suffix = $member.shape-ref.sigil-type-suffix;
+            my $perl6-sigil = $member.shape.sigil;
+            my $perl6-sigil-type = $member.shape.sigil-type;
+            my $perl6-sigil-type-suffix = $member.shape.sigil-type-suffix;
 
             $class ~= qq/has $perl6-sigil-type $perl6-sigil.$perl6-member-name$perl6-sigil-type-suffix$required is shape-member('$member-name');\n/.indent(4);
 
@@ -625,13 +639,14 @@ class Configuration does Data::Unmarshaller {
 
     method resolve(:$service!, :$region!, :$dns-suffix!) {
         for $!hostname, $!ssl-common-name -> $name is rw {
+            next without $name;
             $name .= subst('{service}', $service, :g);
             $name .= subst('{region}', $region, :g);
             $name .= subst('{dnsSuffix}', $dns-suffix, :g);
         }
     }
 
-    method host-uri($preferred-scheme) {
+    method host-uri($preferred-scheme = 'https') {
         my $scheme = @.protocols.first($preferred-scheme)
                     // @.protocols[0];
 
@@ -647,7 +662,7 @@ class Region does Data::Unmarshaller {
 class ServiceEndpoint does Data::Unmarshaller {
     has Configuration $.defaults;
     has Configuration %.endpoints;
-    has Bool $.is-regionalized is unmarshalled-from('isRegionalized');
+    has Bool $.is-regionalized is default(True) is unmarshalled-from('isRegionalized');
     has Str $.partition-endpoint is unmarshalled-from('partitionEndpoint');
 }
 
@@ -665,57 +680,108 @@ class Endpoint does Data::Unmarshaller {
     has Version $.version is unmarshalled-by(&build-version);
     has Partition @.partitions;
 
-    method combine(Configuration @c) {
+    method combine(*@c) {
         Configuration.new(
-            credentialScope   => @c.first(*.credential-scope.defined),
-            hostname          => @c.first(*.hostname.defined),
-            protocols         => @c.first(*.protocols.elems > 0),
-            sslCommonName     => @c.first(*.ssl-common-name.defined),
-            signatureVersions => @c.first(*.signature-versions.elems > 0),
+            credential-scope    => @c.first(*.credential-scope.defined).credential-scope,
+            hostname            => @c.first(*.hostname.defined).hostname,
+            protocols           => @c.first(*.protocols.elems > 0).protocols,
+            ssl-common-name     => @c.first(*.ssl-common-name.defined).ssl-common-name,
+            signature-versions  => @c.first(*.signature-versions.elems > 0).signature-versions,
         );
     }
 
+    method pick-region(
+        Partition :$partition!,
+        Str :$service!,
+        Str :$region,
+    ) returns Str:D {
+        my $s = $partition.services{ $service }
+            orelse die "No service $service in AWS partition $partition.partition().";
+
+        if $s.is-regionalized {
+            if !$region.defined {
+                die "Must provide a region for regionalized services.";
+            }
+            elsif $partition.regions{ $region } :!exists {
+                die "Partition $partition does not have region $region.";
+            }
+            else {
+                $region;
+            }
+        }
+
+        else {
+            my $non-regional-region = $s.partition-endpoint
+                orelse die "Non-regionalized region does not define a partitionEndpoint."; #shouldn't
+
+            if $region.defined && $non-regional-region ne $region {
+                die "Region given does not match partitionEndpoint.";
+            }
+
+            $non-regional-region;
+        }
+    }
+
     method configuration(
-        Str :$partition = 'aws',
+        Str :$partition = DEFAULT_PARTITION,
         Str :$service!,
         Str :$region is copy,
     ) returns Configuration {
-        my $p = @.partitions.first: { .parition eq $partition };
+        my $p = @.partitions.first: { .partition eq $partition };
         my $pdef = $p.defaults;
 
         my $s = $p.services{ $service };
         my $sdef = $s.defaults;
 
-        if $s.is-regionalized && !$region.defined {
-            die "Must provide a region for regionalized services.";
-        }
-        elsif !$s.is-regionalized {
-            $region = $s.partition-endpoint;
-        }
+        $region = self.pick-region(
+            :partition($p),
+            :$service,
+            :$region,
+        );
 
-        my $r = $s.endpoints{ $region } // die "Service $service is not available in region $region";
+        my $r = $s.endpoints{ $region }
+            // die "Service $service is not available in region $region";
 
         my $c = self.combine($r, $sdef, $pdef);
         $c.resolve(:$region, :$service, :dns-suffix($p.dns-suffix));
 
-        return $c;
+        $c;
     }
 
-    method lookup-configuration(
+    multi method lookup-configuration(
+        Partition:D :$partition!,
         Str :$service!,
         Str :$region,
     ) returns Configuration {
-        for @.partitions -> $partition {
-            if $region ~~ $partition.region-regex {
-                return self.configuration(
-                    :$service,
-                    :$region,
-                    :partition($partition.partition),
-                );
-            }
-        }
+        self.configuration(
+            :$service,
+            :$region,
+            :partition($partition.partition),
+        );
+    }
 
-        Nil;
+    multi method lookup-configuration(
+        Str :$partition!,
+        Str :$service!,
+        Str :$region,
+    ) returns Configuration {
+        my $p = @!partitions.first({ .partition eq $partition })
+            orelse die "Unable to locate parittion $partition";
+
+        self.lookup-configuration(:partition($p), :$service, :$region);
+    }
+
+    multi method lookup-configuration(
+        Str :$service!,
+        Str :$region,
+    ) returns Configuration {
+        my $partition = do with $region {
+            @!partitions.first(-> $p { $region ~~ $p.region-regex });
+        } orelse @!partitions.first({
+            .partition eq DEFAULT_PARTITION
+        });
+
+        self.lookup-configuration(:$partition, :$service, :$region);
     }
 }
 

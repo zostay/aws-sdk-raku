@@ -75,6 +75,7 @@ sub generate-service($service, :$past) {
     #
     for AWS::SDK::Meta::Stage::.values.sort -> $stage {
         for $service.shapes.sort».kv -> ($shape-name, $shape) {
+            next unless $shape-name eq 'DescribeRegionsResult' | 'DescribeRegionsRequest' | 'Filter' | 'Region';
             next unless $shape.has-declaration($stage);
             with $shape.declaration($stage) -> $_ is copy {
                 if .starts-with('subset') and /'<'/ {
@@ -88,23 +89,23 @@ sub generate-service($service, :$past) {
     }
 
     for $service.operations.kv -> $op-name, $op {
+        next unless $op-name eq 'DescribeRegions';
+
         my $perl6-op-name = $op.perl6-name;
 
         my $perl6-return-type = 'Nil';
         my $returns = '';
-        my $wrapper-name = 'Nil';
         with $op.output {
-            $perl6-return-type = .shape-ref.type-name;
+            $perl6-return-type = .shape.type-name;
             $returns = " returns $perl6-return-type";
-            $wrapper-name = .result-wrapper ?? "'{.result-wrapper()}'" !! 'Nil';
         }
 
         my $perl6-request-type;
         my ($input, $passthru) = '', '';
         with $op.input {
-            $perl6-request-type = .shape-ref.type-name;
-            $input    = .shape-ref.input-parameters.indent(8);
-            $passthru = .shape-ref.passthru-arguments.indent(12);
+            $perl6-request-type = .shape.type-name;
+            $input    = .shape.input-parameters.indent(8);
+            $passthru = .shape.passthru-arguments.indent(12);
         }
 
         my $construct-request-input =
