@@ -19,6 +19,14 @@ my sub service($service, $api-version) {
         //= load-service($service, $api-version);
 }
 
+class AWS::SDK::Request {
+    has Str $.method = 'POST';
+    has %.headers;
+    has Str $.query-string = '';
+    has Str $.url-path = '/';
+    has %.body;
+}
+
 role AWS::SDK::Service {
 
     has Str $.region;
@@ -29,6 +37,13 @@ role AWS::SDK::Service {
     has $.caller;
 
     has Str $.preferred-scheme = 'https';
+
+    method serializer() {
+        $!serializer //= build-serializer(
+            $.metadata.protocol,
+            $.model,
+        );
+    }
 
     method service() { ... }
     method api-version() { ... }
@@ -60,12 +75,19 @@ role AWS::SDK::Service {
 
         # Starting with EC2 protocol
         my $request-uri = "$.endpoint/";
-        my $request = POST "$.endpoint/", {
-            Action => $api-call,
-            Version => $.api-version,
-            |$!serializer.serialize($request-input);
-        };
+        my $request = AWS::SDK::Request.new
+            url-path => "$.endpoint/",
+            body     => {
+                Action => $api-call,
+                Version => $.api-version,
+                |$.serializer.serialize($request-input);
+            },
+        );
 
-        dd $request;
+        self.sign($.metadata.signature-version, $request);
+    }
+
+    multi method sign('v4', $request) {
+        ...
     }
 }

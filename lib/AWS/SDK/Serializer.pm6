@@ -27,6 +27,7 @@ my multi format-timestamp('rfc822', $value) {
 }
 
 class AWS::SDK::Serializer {
+    has AWS::SDK::Meta::Service $.model;
     method serialize(AWS::SDK::Shape $o) returns Hash { ... }
 }
 
@@ -38,33 +39,35 @@ class AWS::SDK::QuerySerializer is AWS::SDK::Serializer {
     }
 
     method serialize(AWS::SDK::Shape $o) returns Hash {
-        my $shape = $.model.shapes{ $o.^name };
+        my $short-name = $o.^name.split('::')[*-1];
+        my $shape = $.model.shapes{ $short-name };
         % = flat self.serialize-value($shape, $o);
     }
 
     multi method serialize-value(
         AWS::SDK::Meta::Shape::Structure $s,
         $object,
-        Str :$prefix = '',
-    ) {
-        for $object.shape-members -> $attr {
+        Str:D :$prefix = '',
+    ) returns Hash {
+        $object.shape-members.map(-> $attr {
             my $key           = $attr.shape-member;
             my $getter        = $attr.name.substr(2);
             my $value         = $object."$getter"();
-            my $member-shape  = $s.member{ $attr.shape-member }.shape;
-            my $member-prefix = self.get-serialized-name($member-shape, $key);
+            my $member        = $s.members{ $attr.shape-member };
+            my $member-prefix = self.get-serialized-name($member, $key);
             $member-prefix = join('.', $prefix, $member-prefix) if $prefix;
-            self.serialize-value($member-shape.shape, $value,
+
+            self.serialize-value($member.shape, $value,
                 prefix => $member-prefix,
             );
-        }
+        }).Hash
     }
 
     multi method serialize-value(
         AWS::SDK::Meta::Shape::List $s,
         $object,
-        Str :$prefix = '',
-    ) {
+        Str:D :$prefix = '',
+    ) returns Hash {
         return ($prefix => '',) without $object;
 
         my $list-prefix;
@@ -78,24 +81,24 @@ class AWS::SDK::QuerySerializer is AWS::SDK::Serializer {
             }
         }
         else {
-            my $list-name = self.get-serialized-name($s.member, 'member');
+            my $list-name = self.get-serialized-name($s.members, 'member');
             $list-prefix = join('.', $prefix, $list-name);
         }
 
-        for $object.kv -> $i, $value {
+        $object.kv.map(-> $i, $value {
             my $element-prefix = join('.', $list-prefix, $i);
-            my $element-shape  = $s.member.shape;
+            my $element-shape  = $s.members.shape;
             self.serialize-value($element-shape, $value,
                 prefix => $element-prefix,
             );
-        }
+        }).Hash
     }
 
     multi method serialize-value(
         AWS::SDK::Meta::Shape::Map $s,
         $object,
-        Str :$prefix = '',
-    ) {
+        Str:D :$prefix = '',
+    ) returns Hash {
         my $full-prefix;
         if $s.flattened {
             $full-prefix = $prefix;
@@ -110,7 +113,7 @@ class AWS::SDK::QuerySerializer is AWS::SDK::Serializer {
         my $key-suffix   = self.get-serialized-name($key-ref, 'key');
         my $value-suffix = self.get-serialized-name($value-ref, 'value');
 
-        for $object.pairs.kv -> $i, $pair {
+        $object.pairs.kv.map(-> $i, $pair {
             my $key-prefix   = "$full-prefix.$i.$key-suffix";
             my $value-prefix = "$full-prefix.$i.$value-suffix";
 
@@ -122,40 +125,40 @@ class AWS::SDK::QuerySerializer is AWS::SDK::Serializer {
                     prefix => $value-prefix,
                 ),
             );
-        }
+        }).Hash;
     }
 
     multi method serialize-value(
         AWS::SDK::Meta::Shape::Blob $s,
         $object,
-        Str :$prefix = '',
-    ) {
+        Str:D :$prefix = '',
+    ) returns Hash {
         use MIME::Base64;
-        ($prefix => MIME::Base64.encode($object),)
+        %($prefix => MIME::Base64.encode($object),)
     }
 
     multi method serialize-value(
         AWS::SDK::Meta::Shape::Timestamp $s,
         $object,
-        Str :$prefix = '',
-    ) {
-        ($prefix => format-timestamp($.TIMESTAMP-FORMAT, $object),)
+        Str:D :$prefix = '',
+    ) returns Hash {
+        %($prefix => format-timestamp($.TIMESTAMP-FORMAT, $object),)
     }
 
     multi method serialize-value(
         AWS::SDK::Meta::Shape::Boolean $s,
         $object,
-        Str :$prefix = '',
-    ) {
-        ($prefix => $object ?? 'true' !! 'false',)
+        Str:D :$prefix = '',
+    ) returns Hash {
+        %($prefix => $object ?? 'true' !! 'false',)
     }
 
     multi method serialize-value(
         AWS::SDK::Meta::Shape $s,
         $object,
-        Str :$prefix = '',
-    ) {
-        ($prefix => "$object",)
+        Str:D :$prefix = '',
+    ) returns Hash {
+        $object.defined ?? %($prefix => "$object",) !! %()
     }
 }
 
@@ -169,14 +172,23 @@ class AWS::SDK::EC2Serializer is AWS::SDK::QuerySerializer {
     multi method serialize-value(
         AWS::SDK::Meta::Shape::List $s,
         $object,
-        Str :$prefix = '',
+        Str:D :$prefix = '',
     ) {
-        for $object.kv -> $i, $value {
+        $object.kv.map(-> $i, $value {
             my $element-prefix = join('.', $prefix, $i);
-            my $element-shape  = $s.member.shape;
+            my $element-shape  = $s.members.shape;
             self.serialize-value($element-shape, $value,
                 prefix => $element-prefix,
             );
-        }
+        }).Hash;
     }
+}
+
+my %protocol-serializer =
+    query => AWS::SDK::QuerySerializer,
+    ec2   => AWS::SDK::EC2Serializer,
+    ;
+
+sub build-serializer(Str $protocol, AWS::SDK::Meta::Service $model) returns AWS::SDK::Serializer is export {
+    %protocol-serializer{ $protocol }.new(:$model);
 }
