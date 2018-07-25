@@ -75,7 +75,7 @@ role AWS::SDK::Service {
 
         # Starting with EC2 protocol
         my $request-uri = "$.endpoint/";
-        my $request = AWS::SDK::Request.new
+        my $request = AWS::SDK::Request.new(
             url-path => "$.endpoint/",
             body     => {
                 Action => $api-call,
