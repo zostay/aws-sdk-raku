@@ -327,14 +327,18 @@ class ShapeReference does Data::Unmarshaller {
     has Str $.location-name is unmarshalled-from('locationName');
     has Str $.query-name is unmarshalled-from('queryName');
     has Str $.shape-ref is unmarshalled-from('shape');
+    has Str $.result-wrapper-ref is unmarshalled-from('resultWrapper');
     has Bool $.streaming;
     has Bool $.xml-attribute is unmarshalled-from('xmlAttribute');
     has XMLNamespace $.xml-namespace is unmarshalled-from('xmlNamespace');
 
     has Shape $.shape is not-unmarshalled;
+    has Shape $.result-wrapper is not-unmarshalled;
 
     method resolve-ref(%shapes) {
-        $!shape = %shapes{ $!shape-ref }
+        $!shape          = %shapes{ $!shape-ref };
+        $!result-wrapper = %shapes{ $!result-wrapper-ref }
+            with $!result-wrapper-ref;
     }
 }
 
