@@ -62,9 +62,9 @@
     "AWS::SDK::Shape": "lib/AWS/SDK/Shape.pm6"
   },
   "version": "0.1",
+  "meta-version": "0",
   "authors": [
     "Sterling Hanenkamp <hanenkamp@cpan.org>"
   ],
-  "description": "AWSK SDK for Perl 6",
-  "meta6": "0"
+  "description": "AWS SDK for Perl 6"
 }

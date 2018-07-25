@@ -57,5 +57,5 @@
    ],
    "version" : "0.1",
    "license" : "Artistic-2.0",
-   "description" : "AWSK SDK for Perl 6"
+   "description" : "AWS SDK for Perl 6"
 }
