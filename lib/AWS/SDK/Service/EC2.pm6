@@ -41,7 +41,8 @@ class AWS::SDK::Service::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Filter :@filters,
         Str :@region-names
-    ) returns DescribeRegionsResult is service-operation('DescribeRegions') {
+        --> DescribeRegionsResult
+    ) is service-operation('DescribeRegions') {
         my $request-input = DescribeRegionsRequest.new(
             :$dry-run,
             :@filters,

@@ -97,7 +97,8 @@ sub generate-service($service, :$past) {
         my $returns = '';
         with $op.output {
             $perl6-return-type = .shape.type-name;
-            $returns = " returns $perl6-return-type";
+            $returns = "--> $perl6-return-type".indent(8);
+            $returns = "\n$returns";
         }
 
         my $perl6-request-type;
@@ -122,8 +123,8 @@ sub generate-service($service, :$past) {
 
         $pm6.put: qq:to/END_OF_OPERATION/;
             method $perl6-op-name\(
-        $input
-            )$returns is service-operation('$op-name') \{
+        $input$returns
+            ) is service-operation('$op-name') \{
                 my \$request-input = $construct-request-input
                 self.perform-operation(
                     :api-call<$op-name>,
